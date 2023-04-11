@@ -534,5 +534,5 @@ class RedBlackTreeMultiset(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'RedBlackTreeMultiset([' + ', '.join(map(str, self.tolist())) + '])'
+    return 'RedBlackTreeMultiset(' + str(self.tolist()) + ')'
 

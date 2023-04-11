@@ -1,6 +1,6 @@
 from typing import Generic, Iterable, TypeVar, Callable, Union, List, Generator
 from types import GeneratorType
-T = TypeVar("T")
+T = TypeVar('T')
 
 class HLD(Generic[T]):
 

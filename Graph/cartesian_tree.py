@@ -1,3 +1,4 @@
+from __pypy__ import newlist_hint
 from typing import List, Tuple
 
 '''Get cartesian_tree. / O(N)'''
@@ -6,7 +7,7 @@ def cartesian_tree(a: List[int]) -> Tuple[List[int], List[int], List[int]]:
   par = [-1] * n
   left = [-1] * n
   right = [-1] * n
-  path = []
+  path = newlist_hint(n)
   for i, aa in enumerate(a):
     pre = -1
     while path and aa < a[path[-1]]:
@@ -24,5 +25,4 @@ def cartesian_tree(a: List[int]) -> Tuple[List[int], List[int], List[int]]:
     else:
       right[p] = i
   return par, left, right
-
 

@@ -2,32 +2,33 @@ import math
 from typing import List, TypeVar, Generic, Iterable, Tuple, Optional
 T = TypeVar('T')
 
-class Node:
-
-  def __init__(self, key):
-    self.key = key
-    self.left = None
-    self.right = None
-    self.size = 1
-
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.size}\n'
-    return f'key:{self.key, self.size},\n left:{self.left},\n right:{self.right}\n'
-
 class ScapegoatTreeSet(Generic[T]):
 
   alpha = 0.75
   beta = math.log2(1 / alpha)
 
-  def __init__(self, a: Iterable[T]=[]) -> None:
+  class Node:
+
+    def __init__(self, key: T):
+      self.key = key
+      self.left = None
+      self.right = None
+      self.size = 1
+
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.size}\n'
+      return f'key:{self.key, self.size},\n left:{self.left},\n right:{self.right}\n'
+
+  def __init__(self, a: Iterable[T]=[]):
     self.node = None
-    a = list(a)
+    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+      a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: Iterable[T]) -> None:
-    def sort(l: int, r: int) -> Node:
+  def _build(self, a: List[T]) -> None:
+    def sort(l: int, r: int) -> 'Node':
       mid = (l + r) >> 1
       node = Node(a[mid])
       if l != mid:
@@ -39,16 +40,17 @@ class ScapegoatTreeSet(Generic[T]):
       return node
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(set(a))
+    Node = ScapegoatTreeSet.Node
     self.node = sort(0, len(a))
 
   def _rebuild(self, node: Node) -> Node:
-    def get(node: Node) -> None:
+    def get(node: 'ScapegoatTreeSet.Node') -> None:
       if node.left is not None:
         get(node.left)
       a.append(node)
       if node.right is not None:
         get(node.right)
-    def sort(l: int, r: int) -> Tuple[Node, int]:
+    def sort(l: int, r: int) -> Tuple['ScapegoatTreeSet.Node', int]:
       mid = (l + r) >> 1
       node = a[mid]
       node.size = 1
@@ -68,6 +70,7 @@ class ScapegoatTreeSet(Generic[T]):
     return sort(0, len(a))
 
   def add(self, key: T) -> bool:
+    Node = ScapegoatTreeSet.Node
     node = self.node
     if node is None:
       self.node = Node(key)
@@ -143,7 +146,6 @@ class ScapegoatTreeSet(Generic[T]):
       p.size -= 1
     return True
 
-  '''Find the largest element <= key, or None if it doesn't exist. / O(logN)'''
   def le(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -158,7 +160,6 @@ class ScapegoatTreeSet(Generic[T]):
         node = node.right
     return res
 
-  '''Find the largest element < key, or None if it doesn't exist. / O(logN)'''
   def lt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -170,7 +171,6 @@ class ScapegoatTreeSet(Generic[T]):
         node = node.right
     return res
 
-  '''Find the smallest element >= key, or None if it doesn't exist. / O(logN)'''
   def ge(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -185,7 +185,6 @@ class ScapegoatTreeSet(Generic[T]):
         node = node.right
     return res
 
-  '''Find the smallest element > key, or None if it doesn't exist. / O(logN)'''
   def gt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -197,7 +196,6 @@ class ScapegoatTreeSet(Generic[T]):
         node = node.right
     return res
 
-  '''Count the number of elements < key. / O(logN)'''
   def index(self, key: T) -> int:
     k = 0
     node = self.node
@@ -213,7 +211,6 @@ class ScapegoatTreeSet(Generic[T]):
         node = node.right
     return k
 
-  '''Count the number of elements <= key. / O(logN)'''
   def index_right(self, key: T) -> int:
     k = 0
     node = self.node
@@ -337,5 +334,4 @@ class ScapegoatTreeSet(Generic[T]):
 
   def __repr__(self):
     return 'ScapegoatTreeSet(' + str(self) + ')'
-
 

@@ -501,5 +501,5 @@ class RedBlackTreeSet(Generic[T]):
     return '{' + str(self.tolist()) + '}'
 
   def __repr__(self):
-    return f'RedBlackTreeSet({self})'
+    return f'RedBlackTreeSet(' + str(self.tolist()) + ')'
 

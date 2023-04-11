@@ -1,12 +1,12 @@
 import math
 from __pypy__ import newlist_hint
-from typing import List, TypeVar, Generic, Iterable, Tuple, Optional
+from typing import List, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
 T = TypeVar('T')
 
 class ScapegoatTreeMultiset(Generic[T]):
 
   ALPHA = 0.75
-  BETA = math.log2(1/ALPHA)
+  BETA = math.log2(1 / ALPHA)
 
   class Node():
 
@@ -22,7 +22,6 @@ class ScapegoatTreeMultiset(Generic[T]):
       if self.left is None and self.right is None:
         return f'key:{self.key, self.val, self.size, self.valsize}\n'
       return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
-
 
   def __init__(self, a: Iterable[T]=[]) -> None:
     self.node = None
@@ -120,6 +119,7 @@ class ScapegoatTreeMultiset(Generic[T]):
         k -= t + 1
 
   def add(self, key: T, val: int=1) -> None:
+    if val <= 0: return
     Node = ScapegoatTreeMultiset.Node
     if not self.node:
       self.node = Node(key, val)
@@ -207,6 +207,7 @@ class ScapegoatTreeMultiset(Generic[T]):
     return True
 
   def discard(self, key, val=1) -> bool:
+    assert val >= 0
     path = newlist_hint(self.len_elm().bit_length())
     node = self.node
     while node:
@@ -362,15 +363,15 @@ class ScapegoatTreeMultiset(Generic[T]):
   def pop_min(self) -> T:
     return self.pop(0)
 
-  def items(self):
+  def items(self) -> Iterator[Tuple[T, int]]:
     for i in range(self.len_elm()):
       yield self._kth_elm_tree(i)
 
-  def keys(self):
+  def keys(self) -> Iterator[T]:
     for i in range(self.len_elm()):
       yield self._kth_elm_tree(i)[0]
 
-  def values(self):
+  def values(self) -> Iterator[int]:
     for i in range(self.len_elm()):
       yield self._kth_elm_tree(i)[1]
 
@@ -378,6 +379,8 @@ class ScapegoatTreeMultiset(Generic[T]):
     print('{' + ', '.join(map(lambda x: f'{x[0]}: {x[1]}', self.tolist_items())) + '}')
 
   def get_elm(self, k: int) -> T:
+    assert -self.len_elm() <= k < self.len_elm(), \
+        f'IndexError: ScapegoatTreeMultiset.get_elm({k}), len_elm=({self.len_elm()})'
     return self._kth_elm_tree(k)[0]
 
   def len_elm(self) -> int:
@@ -410,6 +413,9 @@ class ScapegoatTreeMultiset(Generic[T]):
     rec(self.node)
     return a
 
+  def clear(self) -> None:
+    self.node = None
+
   def __contains__(self, key: T):
     node = self.node
     while node:
@@ -422,6 +428,8 @@ class ScapegoatTreeMultiset(Generic[T]):
     return False
 
   def __getitem__(self, k: int) -> T:
+    assert -len(self) <= k < len(self), \
+        f'IndexError: ScapegoatTreeMultiset.__getitem__({k}), len={len(self)}'
     return self._kth_elm(k)[0]
 
   def __iter__(self):

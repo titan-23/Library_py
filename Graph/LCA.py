@@ -36,13 +36,13 @@ class LCA():
     self._msk = msk
     self._st = SparseTableRmQ((d<<bit)+i for i, d in enumerate(depth))
 
-  def lca(self, x: int, y: int):
+  def lca(self, x: int, y: int) -> int:
     l, r = self._nodeid[x], self._nodeid[y]
     if l > r:
       l, r = r, l
     return self._path[self._st.prod(l, r+1)&self._msk]
 
-  def lca_mul(self, a: list):
+  def lca_mul(self, a: List[int]) -> int:
     l = self._n
     r = -l
     for e in a:

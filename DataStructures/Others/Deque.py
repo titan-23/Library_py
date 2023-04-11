@@ -1,6 +1,6 @@
 from typing import Iterable, List, Any
 
-class Deque:
+class Deque():
 
   # コンセプト: ランダムアクセスO(1)でできるDeque
   # 
@@ -63,7 +63,7 @@ class Deque:
     return (v in self.front) or (v in self.back)
 
   def __str__(self):
-    return '[' + ', '.join(map(str, self.tolist())) + ']'
+    return str(self.tolist())
 
   def __repr__(self):
     return f'Deque({self})'
