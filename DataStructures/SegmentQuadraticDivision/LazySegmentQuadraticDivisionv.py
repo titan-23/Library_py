@@ -1,10 +1,9 @@
 from typing import Union, Callable, TypeVar, Generic, Iterable
 from functools import reduce
-T = TypeVar("T")
-F = TypeVar("F")
+T = TypeVar('T')
+F = TypeVar('F')
 
-
-class LazyQuadraticDivision(Generic[T, F]):
+class SegmentLazyQuadraticDivision(Generic[T, F]):
 
   def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], mapping: Callable[[F, T], T], composition: Callable[[F, F], F], e: T=None):
     if isinstance(n_or_a, int):
@@ -115,7 +114,7 @@ class LazyQuadraticDivision(Generic[T, F]):
     return '[' + ', '.join(map(str, [self.__getitem__(i) for i in range(self.n)])) + ']'
 
   def __repr__(self):
-    return 'LazyQuadraticDivision' + str(self)
+    return 'SegmentLazyQuadraticDivision' + str(self)
  
  
 def op(s, t):

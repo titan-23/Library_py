@@ -1,9 +1,8 @@
 from typing import Union, Callable, TypeVar, Generic, Iterable
 from functools import reduce
-T = TypeVar("T")
+T = TypeVar('T')
 
-
-class QuadraticDivision(Generic[T]):
+class SegmentQuadraticDivision(Generic[T]):
 
   def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T=None):
     if isinstance(n_or_a, int):
@@ -53,7 +52,7 @@ class QuadraticDivision(Generic[T]):
     return '[' + ', '.join(map(str, [self.__getitem__(i) for i in range(self.n)])) + ']'
 
   def __repr__(self):
-    return 'QuadraticDivision' + str(self)
+    return 'SegmentQuadraticDivision' + str(self)
 
 
 def op(s, t):

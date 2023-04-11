@@ -1,9 +1,13 @@
+import random
+# random.seed(0)
+
 # _MOD = 2**61-1  # MODはglobalにとる
 _MOD = 998244353
 class HashString:
 
   def __init__(self, s: str):
     self.b = 37
+    self.b = random.randint(37, 10000)
     self.n = len(s)
     self.data = [0] * (self.n+1)
     self.powb = [1] * (self.n+1)
