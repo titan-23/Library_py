@@ -5,19 +5,19 @@ T = TypeVar('T')
 class AVLTreeSet(Generic[T]):
 
   key = [0]
-  size = array('I', [0])
-  left = array('I', [0])
-  right = array('I', [0])
-  balance = array('i', [0])
+  size = array('I', bytes(4))
+  left = array('I', bytes(4))
+  right = array('I', bytes(4))
+  balance = array('i', bytes(4))
   end = 1
 
   @classmethod
   def reserve(cls, n: int) -> None:
     cls.key += [0] * n
     cls.size += array('I', [1] * n)
-    cls.left += array('I', [0] * n)
-    cls.right += array('I', [0] * n)
-    cls.balance += array('i', [0] * n)
+    cls.left += array('I', bytes(4 * n))
+    cls.right += array('I', bytes(4 * n))
+    cls.balance += array('i', bytes(4 * n))
 
   def __init__(self, a: Iterable[T]=[]) -> None:
     self.node = 0

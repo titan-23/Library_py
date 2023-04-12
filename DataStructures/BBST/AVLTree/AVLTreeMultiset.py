@@ -1,5 +1,5 @@
 from typing import Generic, Iterable, Tuple, TypeVar, Union, List, Optional
-T = TypeVar("T")
+T = TypeVar('T')
 
 class Node:
 

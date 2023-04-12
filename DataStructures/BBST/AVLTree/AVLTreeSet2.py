@@ -1,5 +1,5 @@
 from typing import Generic, Iterable, Tuple, TypeVar, Union, List
-T = TypeVar("T")
+T = TypeVar('T')
 
 class Node:
   
@@ -13,7 +13,6 @@ class Node:
     if self.left is None and self.right is None:
       return f'key:{self.key}\n'
     return f'key:{self.key},\n left:{self.left},\n right:{self.right}\n'
-
 
 class AVLTreeSet2(Generic[T]):
 
