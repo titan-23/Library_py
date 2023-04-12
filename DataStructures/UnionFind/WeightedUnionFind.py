@@ -1,7 +1,7 @@
 from typing import List, Set, Union, Optional
 from collections import defaultdict
 
-class WeightedUnionFind:
+class WeightedUnionFind():
 
   def __init__(self, n: int) -> None:
     self._n = n
@@ -10,8 +10,8 @@ class WeightedUnionFind:
     self._weight = [0]
     self._G = [[] for _ in range(n)]
 
-  '''Return root of x, compressing path. / O(α(N))'''
   def root(self, x: int) -> int:
+    '''Return root of x, compressing path. / O(α(N))'''
     path = [x]
     while self._parents[x] >= 0:
       x = self._parents[x]
@@ -23,8 +23,8 @@ class WeightedUnionFind:
       self._parents[x] = a
     return a
 
-  '''Untie x and y, weight[y] = weight[x] + w. / O(α(N))'''
   def unite(self, x: int, y: int, w: int) -> int:
+    '''Untie x and y, weight[y] = weight[x] + w. / O(α(N))'''
     rx = self.root(x)
     ry = self.root(y)
     w += self._weight[x] - self._weight[y]
@@ -41,16 +41,16 @@ class WeightedUnionFind:
     self._weight[ry] = w
     return rx
 
-  '''Return xが属する集合の要素数. / O(α(N))'''
   def size(self, x: int) -> int:
+    '''Return xが属する集合の要素数. / O(α(N))'''
     return -self._parents[self.root(x)]
 
-  '''Return True if 'same' else False. / O(α(N))'''
   def same(self, x: int, y: int) -> bool:
+    '''Return True if 'same' else False. / O(α(N))'''
     return self.root(x) == self.root(y)
 
-  '''Return set(the members of x). / O(size(x))'''
   def members(self, x: int) -> Set[int]:
+    '''Return set(the members of x). / O(size(x))'''
     seen = set([x])
     todo = [x]
     while todo:
@@ -62,23 +62,23 @@ class WeightedUnionFind:
         seen.add(vv)
     return seen
 
-  '''Return all roots. / O(N)'''
   def all_roots(self) -> List[int]:
+    '''Return all roots. / O(N)'''
     return [i for i, x in enumerate(self._parents) if x < 0]
 
-  '''Return the number of groups. / O(1)'''
   def group_count(self) -> int:
+    '''Return the number of groups. / O(1)'''
     return self._group_numbers
 
-  '''Return all_group_members. / O(Nα(N))'''
   def all_group_members(self) -> defaultdict:
+    '''Return all_group_members. / O(Nα(N))'''
     group_members = defaultdict(list)
     for member in range(self._n):
       group_members[self.root(member)].append(member)
     return group_members
 
-  '''Clear. / O(N)'''
   def clear(self) -> None:
+    '''Clear. / O(N)'''
     self._group_numbers = self._n
     for i in range(self._n):
       self._parents[i] = -1

@@ -1,6 +1,6 @@
 from typing import Union, Tuple, List, Iterable, Optional
 
-class FenwickTreeSetFast:
+class FenwickTreeSetFast():
 
   class InternalFenwickTree:
 

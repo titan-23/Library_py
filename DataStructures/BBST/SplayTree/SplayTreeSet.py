@@ -345,7 +345,7 @@ class SplayTreeSet(Generic[T]):
     self._set_search_splay(key)
     return self.keys[self.node] == key
 
-  def __getitem__(self, k) -> T:
+  def __getitem__(self, k: int) -> T:
     self._set_kth_elm_splay(k)
     return self.keys[self.node]
 

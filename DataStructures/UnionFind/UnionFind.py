@@ -1,7 +1,7 @@
 from typing import Set, List
 from collections import defaultdict
 
-class UnionFind:
+class UnionFind():
 
   def __init__(self, n: int) -> None:
     '''Build a new UnionFind. / O(N)'''

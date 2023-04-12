@@ -1,5 +1,5 @@
 from typing import Iterable, Set, TypeVar, Generic, Tuple, Optional
-T = TypeVar("T")
+T = TypeVar('T')
 
 class DynamicFenwickTreeSet(Generic[T]):
 

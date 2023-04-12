@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Tuple, List
+from typing import Generic, Iterable, TypeVar, Tuple, List, Optional
 T = TypeVar('T')
 
 class Random:
@@ -198,7 +198,6 @@ class TreapMultiset:
         node = node.right
     return 0
 
-  '''Find the largest element <= key, or None if it doesn't exist. / O(logN)'''
   def le(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -213,7 +212,6 @@ class TreapMultiset:
         node = node.right
     return res
 
-  '''Find the largest element < key, or None if it doesn't exist. / O(logN)'''
   def lt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -225,7 +223,6 @@ class TreapMultiset:
         node = node.right
     return res
 
-  '''Find the smallest element >= key, or None if it doesn't exist. / O(logN)'''
   def ge(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -240,7 +237,6 @@ class TreapMultiset:
         node = node.right
     return res
 
-  '''Find the smallest element > key, or None if it doesn't exist. / O(logN)'''
   def gt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -359,5 +355,5 @@ class TreapMultiset:
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'TreapMultiset([' + ', '.join(map(str, self.tolist())) + '])'
+    return f'TreapMultiset({self.tolist()})'
 
