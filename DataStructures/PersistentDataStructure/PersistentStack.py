@@ -11,7 +11,7 @@ class PersistentStack():
       return PersistentStack(x)
 
     def pop(self) -> None:
-      assert False, 'pop from empty PersistentStack'
+      assert False, 'pop() from empty PersistentStack'
 
     def __str__(self):
       return '[]'

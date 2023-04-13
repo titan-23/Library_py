@@ -4,7 +4,7 @@ from typing import List, Iterator, Tuple, Any, Hashable
 class HashDict():
 
   '''
-  load factor: 20%(え?)
+  load factorの基準: 25%(え?)
   ↑pypyのdictのメモリ消費量がヤバいのでこれくらいでもギリ許されそう
   
   一応uintを想定しているので、eはint型の-1を設定している
@@ -26,13 +26,13 @@ class HashDict():
     self._xor: int = random.getrandbits(1)
 
   def reserve(self, n: int) -> None:
-    self._keys += [self._e] * (5*n)
-    self._vals += [self._default] * (5*n)
+    self._keys += [self._e] * (4*n)
+    self._vals += [self._default] * (4*n)
     self._xor = random.getrandbits(len(self._keys).bit_length())
 
   def _rebuild(self) -> None:
     old_keys, old_vals, _e = self._keys, self._vals, self._e
-    self._keys = [_e] * (5*(len(old_keys)+3))
+    self._keys = [_e] * (4*(len(old_keys)+3))
     self._vals = [self._default] * len(self._keys)
     self._len = 0
     self._xor = random.getrandbits(len(self._keys).bit_length())
@@ -84,7 +84,7 @@ class HashDict():
         _keys[h] = key
         self._vals[h] = val
         self._len += 1
-        if 5*self._len > len(self._keys):
+        if 4*self._len > len(self._keys):
           self._rebuild()
         return
       if x == key:

@@ -19,6 +19,9 @@ class Stack:
       self.data.append(val)
     self.back += 1
 
+  def top(self):
+    return self.data[self.back-1]
+
   def count(self, key):
     return self.data.count(key)
 
