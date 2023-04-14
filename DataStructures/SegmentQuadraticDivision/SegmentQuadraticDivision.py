@@ -1,5 +1,6 @@
 from typing import Union, Callable, TypeVar, Generic, Iterable
 from functools import reduce
+from itertools import chain
 T = TypeVar('T')
 
 class SegmentQuadraticDivision(Generic[T]):
@@ -18,8 +19,8 @@ class SegmentQuadraticDivision(Generic[T]):
     self.data = [a[k*self.size:(k+1)*self.size] for k in range(self.bucket_cnt)]
     self.bucket_data = [reduce(self.op, v) for v in self.data]
 
-  '''Return op([l, r)). / 0 <= l <= r <= n / O(√N)'''
   def prod(self, l: int, r: int) -> T:
+    '''Return op([l, r)). / 0 <= l <= r <= n / O(√N)'''
     assert 0 <= l <= r <= self.n
     if l == r: return self.e
     k1 = l // self.size
@@ -35,8 +36,8 @@ class SegmentQuadraticDivision(Generic[T]):
       if k2 < self.bucket_cnt and r > 0: s = reduce(self.op, self.data[k2][:r]) if s is None else reduce(self.op, self.data[k2][:r], s)
     return s
 
-  '''Return op([0, n)). / O(√N)'''
   def all_prod(self):
+    '''Return op([0, n)). / O(√N)'''
     return reduce(self.op, self.bucket_data)
 
   def __getitem__(self, indx):
@@ -49,14 +50,13 @@ class SegmentQuadraticDivision(Generic[T]):
     self.bucket_data[k] = reduce(self.op, self.data[k])
 
   def __str__(self):
-    return '[' + ', '.join(map(str, [self.__getitem__(i) for i in range(self.n)])) + ']'
+    return str(list(chain(*self.data)))
 
   def __repr__(self):
-    return 'SegmentQuadraticDivision' + str(self)
-
+    return f'SegmentQuadraticDivision({self})'
 
 def op(s, t):
   return
 
-e = None
+e = 0
 

@@ -26,7 +26,7 @@ class SparseTableRmQ(Generic[T]):
     return self.data[0][k]
 
   def __str__(self):
-    return '[' +  ', '.join(map(str, self.data[0])) + ']'
+    return str(self.data[0])
 
   def __repr__(self):
     return f'SparseTableRmQ({self})'
