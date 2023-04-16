@@ -19,7 +19,6 @@ class Node:
       return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev}\n'
     return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev},\n left:{self.left},\n right:{self.right}\n'
 
-
 class LazyAVLTree(Generic[T, F]):
 
   def __init__(self, a: Iterable[T]=[], op: Callable[[T, T], T]=lambda x,y:None, mapping: Callable[[F, T], T]=None, composition: Callable[[F, F], F]=None, e: T=None, node: Node=None) -> None:
