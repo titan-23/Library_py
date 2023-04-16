@@ -6,8 +6,6 @@ from math import sqrt, ceil
 class Mo():
 
   def __init__(self, n: int, q: int):
-    # n:= 平方分割する列全体の大きさ
-    # q:= クエリの数
     self.n = n
     self.q = q
     self.bucket_size = ceil(sqrt(3)*n/sqrt(2*q))

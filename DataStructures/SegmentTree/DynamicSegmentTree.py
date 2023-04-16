@@ -1,18 +1,16 @@
-from typing import Generic, Iterable, TypeVar, Callable, Union, List, Dict
+from typing import Generic, TypeVar, Callable, List, Dict, Optional
 T = TypeVar('T')
 
 class DynamicSegmentTree(Generic[T]):
 
-  def __init__(self, u: int, a: Iterable[T]=[], _op: Callable[[T, T], T]=None, _e: T=None) -> None:
+  def __init__(self, u: int, op: Callable[[T, T], T], e: T):
     '''Build a new DynamicSegmentTree. / O(1)'''
-    self._op = _op
-    self._e = _e
+    self._op = op
+    self._e = e
     self._u = u
     self._log  = (self._u-1).bit_length()
     self._size = 1 << self._log
     self._data: Dict[int, T] = {}
-    for i, e in enumerate(a):
-      self.set(i, e)
 
   def set(self, k: int, val: T) -> None:
     '''Update a[k] <- x. / O(logU)'''
@@ -31,7 +29,7 @@ class DynamicSegmentTree(Generic[T]):
     assert -self._u <= k < self._u, \
         f'IndexError: DynamicSegmentTree.get({k}: int), n={self._u}'
     if k < 0: k += self._u
-    return self._data.get(k+self._size, self.e)
+    return self._data.get(k+self._size, self._e)
 
   def prod(self, l: int, r: int) -> T:
     '''Return op([l, r)). / O(logU)'''
@@ -125,7 +123,7 @@ class DynamicSegmentTree(Generic[T]):
     self.set(k, val)
 
   def __str__(self) -> str:
-    return '[' + ', '.join(map(str, self.tolist())) + ']'
+    return str(self.tolist())
 
   def __repr__(self) -> str:
     return f'DynamicSegmentTree({self})'

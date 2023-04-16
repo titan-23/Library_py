@@ -136,3 +136,4 @@ class SegmentTreeRSQ(Generic[T]):
 
   def __repr__(self):
     return f'SegmentTreeRSQ({self})'
+
