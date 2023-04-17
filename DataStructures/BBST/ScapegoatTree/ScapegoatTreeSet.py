@@ -284,6 +284,15 @@ class ScapegoatTreeSet(Generic[T]):
     rec(self.node)
     return a
 
+  def get_max(self) -> T:
+    return self.__getitem__(-1)
+
+  def get_min(self) -> T:
+    return self.__getitem__(0)
+
+  def pop_max(self) -> T:
+    return self.pop()
+
   def __contains__(self, key: T):
     node = self.node
     while node is not None:

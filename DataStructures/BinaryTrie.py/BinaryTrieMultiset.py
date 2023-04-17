@@ -125,6 +125,9 @@ class BinaryTrieMultiset():
     assert self, f'IndexError: BinaryTrieMultiset.pop_min(), len={len(self)}'
     return self.pop(0)
 
+  def pop_max(self) -> int:
+    return self.pop()
+
   def find(self, key: int) -> Optional[int]:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.find({key}), lim={self.lim}'

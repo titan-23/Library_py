@@ -1,21 +1,21 @@
 from typing import Generic, Iterable, Tuple, TypeVar, List, Optional
 T = TypeVar('T')
 
-class Node:
-  
-  def __init__(self, key):
-    self.key = key
-    self.size = 1
-    self.left = None
-    self.right = None
-    self.balance = 0
-
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.size}\n'
-    return f'key:{self.key, self.size},\n left:{self.left},\n right:{self.right}\n'
-
 class AVLTreeSet(Generic[T]):
+
+  class Node:
+
+    def __init__(self, key):
+      self.key = key
+      self.size = 1
+      self.left = None
+      self.right = None
+      self.balance = 0
+
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.size}\n'
+      return f'key:{self.key, self.size},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]) -> None:  
     self.node = None
@@ -24,6 +24,7 @@ class AVLTreeSet(Generic[T]):
       self._build(a)
 
   def _build(self, a: Iterable[T]) -> None:
+    Node = AVLTreeSet.Node
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(a[mid])
@@ -133,7 +134,7 @@ class AVLTreeSet(Generic[T]):
 
   def add(self, key: T) -> bool:
     if self.node is None:
-      self.node = Node(key)
+      self.node = AVLTreeSet.Node(key)
       return True
     pnode = self.node
     path = []
@@ -151,9 +152,9 @@ class AVLTreeSet(Generic[T]):
         di <<= 1
         pnode = pnode.right
     if di & 1:
-      path[-1].left = Node(key)
+      path[-1].left = AVLTreeSet.Node(key)
     else:
-      path[-1].right = Node(key)
+      path[-1].right = AVLTreeSet.Node(key)
     new_node = None
     while path:
       pnode = path.pop()
@@ -334,8 +335,17 @@ class AVLTreeSet(Generic[T]):
     self.discard(x)
     return x
 
+  def pop_max(self) -> T:
+    return self.pop()
+
   def pop_min(self) -> T:
     return self.pop(0)
+
+  def get_max(self) -> T:
+    return self._kth_elm(-1)
+
+  def get_min(self) -> T:
+    return self._kth_elm(0)
 
   def clear(self) -> None:
     self.node = None
