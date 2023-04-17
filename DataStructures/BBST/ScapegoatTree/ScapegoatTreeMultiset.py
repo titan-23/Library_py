@@ -416,6 +416,15 @@ class ScapegoatTreeMultiset(Generic[T]):
   def clear(self) -> None:
     self.node = None
 
+  def get_max(self) -> T:
+    return self._kth_elm_tree(-1)[0]
+
+  def get_min(self) -> T:
+    return self._kth_elm_tree(0)[0]
+
+  def pop_max(self) -> T:
+    return self.pop()
+
   def __contains__(self, key: T):
     node = self.node
     while node:

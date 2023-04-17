@@ -1,21 +1,21 @@
 from typing import Generic, Iterable, Optional, Tuple, TypeVar, List
 T = TypeVar('T')
 
-class Node:
-
-  def __init__(self, key, val: int):
-    self.key = key
-    self.val = val
-    self.left = None
-    self.right = None
-    self.balance = 0
-
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.val}\n'
-    return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
-
 class AVLTreeMultiset2(Generic[T]):
+
+  class Node():
+
+    def __init__(self, key, val: int):
+      self.key = key
+      self.val = val
+      self.left = None
+      self.right = None
+      self.balance = 0
+
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.val}\n'
+      return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):  
     self.node = None
@@ -24,7 +24,7 @@ class AVLTreeMultiset2(Generic[T]):
     if a:
       self._build(a)
 
-  def _rle(self, L: List[T]) -> List[Tuple[T, int]]:
+  def _rle(self, L: List[T]) -> Tuple[List[T], List[int]]:
     x, y = [L[0]], [1]
     for i, a in enumerate(L):
       if i == 0:
@@ -37,6 +37,7 @@ class AVLTreeMultiset2(Generic[T]):
     return x, y
  
   def _build(self, a: Iterable[T]) -> None:
+    Node = AVLTreeMultiset2.Node
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
@@ -167,7 +168,7 @@ class AVLTreeMultiset2(Generic[T]):
       if new_node is not None:
         if not path:
           self.node = new_node
-          return    
+          return True
         if di & 1:
           path[-1].left = new_node
         else:
@@ -211,7 +212,7 @@ class AVLTreeMultiset2(Generic[T]):
     self._len += val
     if self.node is None:
       self._len_elm += 1
-      self.node = Node(key, val)
+      self.node = AVLTreeMultiset2.Node(key, val)
       return
     pnode = self.node
     di = 0
@@ -231,9 +232,9 @@ class AVLTreeMultiset2(Generic[T]):
         pnode = pnode.right
     self._len_elm += 1
     if di & 1 == 1:
-      path[-1].left = Node(key, val)
+      path[-1].left = AVLTreeMultiset2.Node(key, val)
     else:
-      path[-1].right = Node(key, val)
+      path[-1].right = AVLTreeMultiset2.Node(key, val)
     new_node = None
     for _ in range(len(path)):
       pnode = path.pop()
@@ -268,7 +269,6 @@ class AVLTreeMultiset2(Generic[T]):
         node = node.right
     return 0
 
-  '''Find the largest element <= key, or None if it doesn't exist. / O(logN)'''
   def le(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -283,7 +283,6 @@ class AVLTreeMultiset2(Generic[T]):
         node = node.right
     return res
 
-  '''Find the largest element < key, or None if it doesn't exist. / O(logN)'''
   def lt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -295,7 +294,6 @@ class AVLTreeMultiset2(Generic[T]):
         node = node.right
     return res
 
-  '''Find the smallest element >= key, or None if it doesn't exist. / O(logN)'''
   def ge(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -310,7 +308,6 @@ class AVLTreeMultiset2(Generic[T]):
         node = node.right
     return res
 
-  '''Find the smallest element > key, or None if it doesn't exist. / O(logN)'''
   def gt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
@@ -447,7 +444,7 @@ class AVLTreeMultiset2(Generic[T]):
         node = node.right
     return False
 
-  def __getitem__(self, k: int):  # 先頭と末尾しか対応していない
+  def __getitem__(self, k: int):
     if k == -1 or k == self._len-1:
       return self.get_max()
     elif k == 0:

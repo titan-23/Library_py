@@ -213,6 +213,9 @@ class BinaryTrieSet():
           node = left[node]
     return ans ^ self.xor
 
+  def pop_max(self) -> int:
+    return self.pop()
+
   def index(self, key: int) -> int:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.index({key}), lim={self.lim}'

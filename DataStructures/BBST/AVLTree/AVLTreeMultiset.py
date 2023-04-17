@@ -1,30 +1,30 @@
-from typing import Generic, Iterable, Tuple, TypeVar, Union, List, Optional
+from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
 T = TypeVar('T')
-
-class Node:
-
-  def __init__(self, key, val: int):
-    self.key = key
-    self.val = val
-    self.valsize = val
-    self.size = 1
-    self.left = None
-    self.right = None
-    self.balance = 0
-
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.val, self.size, self.valsize}\n'
-    return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
 class AVLTreeMultiset(Generic[T]):
 
-  def __init__(self, a: Iterable[T]=[]) -> None:  
+  class Node():
+
+    def __init__(self, key, val: int):
+      self.key = key
+      self.val = val
+      self.valsize = val
+      self.size = 1
+      self.left = None
+      self.right = None
+      self.balance = 0
+
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.val, self.size, self.valsize}\n'
+      return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
+
+  def __init__(self, a: Iterable[T]=[]):  
     self.node = None
     if a:
       self._build(a)
 
-  def _rle(self, L: List[T]) -> List[Tuple[T, int]]:
+  def _rle(self, L: List[T]) -> Tuple[List[T], List[int]]:
     x, y = [L[0]], [1]
     for i, a in enumerate(L):
       if i == 0:
@@ -35,8 +35,9 @@ class AVLTreeMultiset(Generic[T]):
       x.append(a)
       y.append(1)
     return x, y
- 
+
   def _build(self, a: Iterable[T]) -> None:
+    Node = AVLTreeMultiset.Node
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
@@ -279,7 +280,7 @@ class AVLTreeMultiset(Generic[T]):
 
   def add(self, key: T, val: int=1) -> None:
     if self.node is None:
-      self.node = Node(key, val)
+      self.node = AVLTreeMultiset.Node(key, val)
       return
     pnode = self.node
     di = 0
@@ -301,9 +302,9 @@ class AVLTreeMultiset(Generic[T]):
         di <<= 1
         pnode = pnode.right
     if di & 1:
-      path[-1].left = Node(key, val)
+      path[-1].left = AVLTreeMultiset.Node(key, val)
     else:
-      path[-1].right = Node(key, val)
+      path[-1].right = AVLTreeMultiset.Node(key, val)
     new_node = None
     while path:
       pnode = path.pop()
@@ -508,15 +509,15 @@ class AVLTreeMultiset(Generic[T]):
         p.valsize -= 1
     return x
 
-  def items(self):
+  def items(self) -> Iterator[Tuple[T, int]]:
     for i in range(self.len_elm()):
       yield self._kth_elm_tree(i)
 
-  def keys(self):
+  def keys(self) -> Iterator[T]:
     for i in range(self.len_elm()):
       yield self._kth_elm_tree(i)[0]
 
-  def values(self):
+  def values(self) -> Iterator[int]:
     for i in range(self.len_elm()):
       yield self._kth_elm_tree(i)[1]
 
@@ -594,5 +595,5 @@ class AVLTreeMultiset(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'AVLTreeMultiset([' + ', '.join(map(str, self.tolist())) + '])'
+    return f'AVLTreeMultiset({self.tolist()})'
 
