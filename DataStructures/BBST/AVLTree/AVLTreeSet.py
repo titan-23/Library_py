@@ -1,11 +1,11 @@
-from typing import Generic, Iterable, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
 T = TypeVar('T')
 
 class AVLTreeSet(Generic[T]):
 
   class Node:
 
-    def __init__(self, key):
+    def __init__(self, key: T):
       self.key = key
       self.size = 1
       self.left = None
@@ -19,11 +19,12 @@ class AVLTreeSet(Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]) -> None:  
     self.node = None
-    a = list(a)
+    if not isinstance(a, Sequence):
+      a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: Iterable[T]) -> None:
+  def _build(self, a: Sequence[T]) -> None:
     Node = AVLTreeSet.Node
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
@@ -120,7 +121,6 @@ class AVLTreeSet(Generic[T]):
 
   def _kth_elm(self, k: int) -> T:
     if k < 0: k += self.node.size
-    assert 0 <= k and k < self.node.size, 'IndexError'
     node = self.node
     while True:
       t = 0 if node.left is None else node.left.size
@@ -183,10 +183,10 @@ class AVLTreeSet(Generic[T]):
       p.size += 1
     return True
 
-  def remove(self, key: T) -> bool:
+  def remove(self, key: T) -> None:
     if self.discard(key):
-      return True
-    raise KeyError
+      return
+    raise KeyError(key)
 
   def discard(self, key: T) -> bool:
     di = 0
@@ -331,20 +331,25 @@ class AVLTreeSet(Generic[T]):
     return k
 
   def pop(self, k: int=-1) -> T:
+    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop({k}), pop({k}) from Empty {self.__class__.__name__}'
     x = self._kth_elm(k)
     self.discard(x)
     return x
 
   def pop_max(self) -> T:
+    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop_max(), pop_max from Empty {self.__class__.__name__}'
     return self.pop()
 
   def pop_min(self) -> T:
+    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop_min(), pop_min from Empty {self.__class__.__name__}'
     return self.pop(0)
 
-  def get_max(self) -> T:
+  def get_max(self) -> Optional[T]:
+    if self.node is None: return
     return self._kth_elm(-1)
 
-  def get_min(self) -> T:
+  def get_min(self) -> Optional[T]:
+    if self.node is None: return
     return self._kth_elm(0)
 
   def clear(self) -> None:
@@ -375,6 +380,8 @@ class AVLTreeSet(Generic[T]):
     return False
 
   def __getitem__(self, k: int) -> T:
+    assert -len(self) <= k < len(self), \
+        f'IndexError: {self.__class__.__name__}.__getitem__({k}), len={len(self)}'
     return self._kth_elm(k)
 
   def __iter__(self):
@@ -402,5 +409,5 @@ class AVLTreeSet(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'AVLTreeSet(' + str(self) + ')'
+    return f'AVLTreeSet({str(self)})'
 

@@ -1,11 +1,9 @@
-最終更新：2023/02/25  
+最終更新：2023/04/18  
 ・いろいろ更新しました。
-
-※計算量を明示していないものはすべて最悪O(logN)の計算量です。
 
 _____
 # Node
-Nodeです。
+Nodeです。双方向に勧められます。計算量は平均O(1)、最悪O(logN)です。
 
 ### node += 1 / node -= 1
 nodeを次/前のnodeにします。存在しないときはNoneを返します。
@@ -38,17 +36,17 @@ keyが存在するなら1を、存在しないなら0を返します。
 ### ```key in rbtree / key not in rbtree```
 存在判定です。keyが存在すればTrueを、そうでなければFalseを返します。
 
-### ```rbtree.get_max() -> T```
-最大値を返します。空のrbtreeに使ってはいけません。
+### ```rbtree.get_max() -> Optional[T]```
+最大値を返します。空であればNoneを返します。
 
-### ```rbtree.get_min() -> T```
-最小値を返します。空のrbtreeに使ってはいけません。
+### ```rbtree.get_min() -> Optional[T]```
+最小値を返します。空であればNoneを返します。
 
 ### ```rbtree.get_max_iter() -> Optional[Node]```
-最大値を指すNodeを返します。
+最大値を指すNodeを返します。空であればNoneを返します。
 
 ### ```rbtree.get_min_iter() -> Optional[Node]```
-最小値を指すNodeを返します。
+最小値を指すNodeを返します。空であればNoneを返します。
 
 ### ```rbtree.le(key) / .lt(key) / .ge(key) / gt(key)```
 key(以下の/より小さい/以上の/より大きい)値で(最大/最大/最小/最小)の値を返します。存在しなければNoneを返します。

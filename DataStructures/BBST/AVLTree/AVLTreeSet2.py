@@ -1,29 +1,31 @@
-from typing import Generic, Iterable, Tuple, TypeVar, Union, List
+from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
 T = TypeVar('T')
-
-class Node:
-  
-  def __init__(self, key):
-    self.key = key
-    self.left = None
-    self.right = None
-    self.balance = 0
-
-  def __str__(self) -> str:
-    if self.left is None and self.right is None:
-      return f'key:{self.key}\n'
-    return f'key:{self.key},\n left:{self.left},\n right:{self.right}\n'
 
 class AVLTreeSet2(Generic[T]):
 
+  class Node:
+    
+    def __init__(self, key: T):
+      self.key = key
+      self.left = None
+      self.right = None
+      self.balance = 0
+
+    def __str__(self) -> str:
+      if self.left is None and self.right is None:
+        return f'key:{self.key}\n'
+      return f'key:{self.key},\n left:{self.left},\n right:{self.right}\n'
+
   def __init__(self, a: Iterable[T]=[]):  
     self.node = None
-    self.len = 0
-    a = sorted(set(a))
+    self._len = 0
+    if not isinstance(a, Sequence):
+      a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: List[T]) -> None:
+  def _build(self, a: Sequence[T]) -> None:
+    Node = AVLTreeSet2.Node
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(a[mid])
@@ -38,7 +40,9 @@ class AVLTreeSet2(Generic[T]):
         if h < hr:
           h = hr
       return node, h+1
-    self.len = len(a)
+    if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
+      a = sorted(set(a))
+    self._len = len(a)
     self.node = sort(0, len(a))[0]
 
   def _rotate_L(self, node: Node) -> Node:
@@ -99,8 +103,8 @@ class AVLTreeSet2(Generic[T]):
 
   def add(self, key: T) -> bool:
     if self.node is None:
-      self.node = Node(key)
-      self.len += 1
+      self.node = AVLTreeSet2.Node(key)
+      self._len += 1
       return True
     pnode = self.node
     path = []
@@ -118,9 +122,9 @@ class AVLTreeSet2(Generic[T]):
         di <<= 1
         pnode = pnode.right
     if di & 1:
-      path[-1].left = Node(key)
+      path[-1].left = AVLTreeSet2.Node(key)
     else:
-      path[-1].right = Node(key)
+      path[-1].right = AVLTreeSet2.Node(key)
     new_node = None
     while path:
       pnode = path.pop()
@@ -142,13 +146,12 @@ class AVLTreeSet2(Generic[T]):
           path[-1].right = new_node
       else:
         self.node = new_node
-    self.len += 1
+    self._len += 1
     return True
 
-  def remove(self, key: T) -> bool:
-    if self.discard(key):
-      return True
-    raise KeyError
+  def remove(self, key: T) -> None:
+    if self.discard(key): return
+    raise KeyError(key)
 
   def discard(self, key: T) -> bool:
     di = 0
@@ -168,7 +171,7 @@ class AVLTreeSet2(Generic[T]):
         node = node.right
     else:
       return False
-    self.len -= 1
+    self._len -= 1
     if node.left is not None and node.right is not None:
       path.append(node)
       di <<= 1
@@ -213,8 +216,7 @@ class AVLTreeSet2(Generic[T]):
           break
     return True
 
-  '''Find the largest element <= key, or None if it doesn't exist. / O(logN)'''
-  def le(self, key: T) -> Union[T, None]:
+  def le(self, key: T) -> Optional[T]:
     res = None
     node = self.node
     while node is not None:
@@ -228,8 +230,7 @@ class AVLTreeSet2(Generic[T]):
         node = node.right
     return res
 
-  '''Find the largest element < key, or None if it doesn't exist. / O(logN)'''
-  def lt(self, key: T) -> Union[T, None]:
+  def lt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
     while node is not None:
@@ -240,8 +241,7 @@ class AVLTreeSet2(Generic[T]):
         node = node.right
     return res
 
-  '''Find the smallest element >= key, or None if it doesn't exist. / O(logN)'''
-  def ge(self, key: T) -> Union[T, None]:
+  def ge(self, key: T) -> Optional[T]:
     res = None
     node = self.node
     while node is not None:
@@ -255,8 +255,7 @@ class AVLTreeSet2(Generic[T]):
         node = node.right
     return res
 
-  '''Find the smallest element > key, or None if it doesn't exist. / O(logN)'''
-  def gt(self, key: T) -> Union[T, None]:
+  def gt(self, key: T) -> Optional[T]:
     res = None
     node = self.node
     while node is not None:
@@ -268,13 +267,14 @@ class AVLTreeSet2(Generic[T]):
     return res
 
   def pop(self) -> T:
+    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop({k}), pop({k}) from Empty {self.__class__.__name__}'
     path = []
     node = self.node
     while node.right is not None:
       path.append(node)
       node = node.right
     res = node.key
-    self.len -= 1
+    self._len -= 1
     cnode = node.right if node.left is None else node.left
     if path:
       path[-1].right = cnode
@@ -300,14 +300,19 @@ class AVLTreeSet2(Generic[T]):
           break
     return res
 
+  def pop_max(self) -> T:
+    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop_max(), pop_max from Empty {self.__class__.__name__}'
+    return self.pop()
+
   def pop_min(self) -> T:
+    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop_min(), pop_min from Empty {self.__class__.__name__}'
     path = []
     node = self.node
     while node.left is not None:
       path.append(node)
       node = node.left
     res = node.key
-    self.len -= 1
+    self._len -= 1
     cnode = node.right if node.left is None else node.left
     if path:
       path[-1].left = cnode
@@ -333,13 +338,15 @@ class AVLTreeSet2(Generic[T]):
           break
     return res
 
-  def get_min(self) -> T:
+  def get_min(self) -> Optional[T]:
+    if self.node is None: return
     node = self.node
     while node.left is not None:
       node = node.left
     return node.key
 
-  def get_max(self) -> T:
+  def get_max(self) -> Optional[T]:
+    if self.node is None: return
     node = self.node
     while node.right is not None:
       node = node.right
@@ -361,14 +368,14 @@ class AVLTreeSet2(Generic[T]):
     rec(self.node)
     return a
 
-  def __getitem__(self, k):  # 先頭と末尾しか対応していない
-    if k == -1 or k == self.len-1:
+  def __getitem__(self, k: int):  # 先頭と末尾しか対応していない
+    if k == -1 or k == self._len-1:
       return self.get_max()
     elif k == 0:
       return self.get_min()
     raise IndexError
 
-  def __contains__(self, key: T) -> bool:
+  def __contains__(self, key: T):
     node = self.node
     while node is not None:
       if key == node.key:
@@ -380,7 +387,7 @@ class AVLTreeSet2(Generic[T]):
     return False
 
   def __len__(self):
-    return self.len
+    return self._len
 
   def __bool__(self):
     return self.node is not None
@@ -389,6 +396,5 @@ class AVLTreeSet2(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'AVLTreeSet2(' + str(self) + ')'
-
+    return f'AVLTreeSet2({self})'
 

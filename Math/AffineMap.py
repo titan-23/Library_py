@@ -20,7 +20,7 @@ class AffineMap():
     return res
 
   @classmethod
-  def new(cls) -> List[float]:
+  def new(cls) -> List[List[float]]:
     return cls.NEW[:]
 
   @classmethod
