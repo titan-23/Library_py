@@ -1,5 +1,7 @@
 from array import array
-from typing import Generic, List, TypeVar, Tuple, Callable, Iterable, Optional, Union
+from typing import Generic, List, TypeVar, Tuple, Callable, Iterable, Optional, Union, Sequence
+
+from sympy import sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 F = TypeVar('F')
@@ -41,7 +43,7 @@ class LazySplayTree(Generic[T, F]):
       return
     if isinstance(n_or_a, int):
       a = [monoiddata.e for _ in range(n_or_a)]
-    elif not hasattr(n_or_a, '__len__'):
+    elif not isinstance(n_or_a, Sequence):
       a = list(n_or_a)
     else:
       a = n_or_a

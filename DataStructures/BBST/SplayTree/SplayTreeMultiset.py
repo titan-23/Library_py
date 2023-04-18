@@ -1,54 +1,58 @@
 import sys
-from typing import Optional, Generic, Iterable, List, TypeVar, Tuple
+from __pypy__ import newlist_hint
+from typing import Iterator, Optional, Generic, Iterable, List, TypeVar, Tuple
 T = TypeVar('T')
-
-class Node:
-
-  def __init__(self, key, val) -> None:
-    self.key = key
-    self.size = 1
-    self.val = val
-    self.valsize = val
-    self.left = None
-    self.right = None
-
-  def __str__(self) -> str:
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.size, self.val, self.valsize}\n'
-    return f'key:{self.key, self.size, self.val, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
 class SplayTreeMultiset(Generic[T]):
 
+  class Node:
+
+    def __init__(self, key, val: int) -> None:
+      self.key = key
+      self.size = 1
+      self.val = val
+      self.valsize = val
+      self.left = None
+      self.right = None
+
+    def __str__(self) -> str:
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.size, self.val, self.valsize}\n'
+      return f'key:{self.key, self.size, self.val, self.valsize},\n left:{self.left},\n right:{self.right}\n'
+
   def __init__(self, a: Iterable[T]=[]) -> None:
     self.node = None
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
-      a = list(a)
     if a:
       self._build(a)
 
   def _build(self, a: Iterable[T]) -> None:
-    def sort(l: int, r: int):
+    Node = SplayTreeMultiset.Node
+    def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid][0], a[mid][1])
+      node = Node(key[mid], val[mid])
       if l != mid:
         node.left = sort(l, mid)
       if mid+1 != r:
         node.right = sort(mid+1, r)
       self._update(node)
       return node
-    a = self._rle(sorted(a))
-    self.node = sort(0, len(a))
+    key, val = self._rle(sorted(a))
+    self.node = sort(0, len(key))
 
-  def _rle(self, a: list) -> list:
-    now = a[0]
-    ret = [[now, 1]]
-    for i in a[1:]:
-      if i == now:
-        ret[-1][1] += 1
+  def _rle(self, a: List[T]) -> Tuple[List[T], List[int]]:
+    x = newlist_hint(len(a))
+    y = newlist_hint(len(a))
+    x.append(a[0])
+    y.append(1)
+    for i, e in enumerate(a):
+      if i == 0:
         continue
-      ret.append([i, 1])
-      now = i
-    return ret
+      if e == x[-1]:
+        y[-1] += 1
+        continue
+      x.append(e)
+      y.append(1)
+    return x, y
 
   def _update(self, node: Node) -> None:
     if node.left is None:
@@ -167,8 +171,7 @@ class SplayTreeMultiset(Generic[T]):
         k -= t
 
   def _set_kth_elm_tree_splay(self, k: int) -> None:
-    if k < 0:
-      k += self.len_elm()
+    if k < 0: k += self.len_elm()
     assert 0 <= k < self.len_elm()
     d = 0
     node = self.node
@@ -210,14 +213,14 @@ class SplayTreeMultiset(Generic[T]):
 
   def add(self, key: T, val: int=1) -> None:
     if self.node is None:
-      self.node = Node(key, val)
+      self.node = SplayTreeMultiset.Node(key, val)
       return
     self._set_search_splay(key)
     if self.node.key == key:
       self.node.val += val
       self._update(self.node)
       return
-    node = Node(key, val)
+    node = SplayTreeMultiset.Node(key, val)
     if key < self.node.key:
       node.left = self.node.left
       node.right = self.node
@@ -401,6 +404,9 @@ class SplayTreeMultiset(Generic[T]):
     self.discard(res)
     return res
 
+  def pop_max(self) -> T:
+    return self.pop()
+
   def pop_min(self) -> T:
     return self.pop(0)
 
@@ -413,7 +419,8 @@ class SplayTreeMultiset(Generic[T]):
     def rec(node):
       if node.left is not None:
         rec(node.left)
-      a.extend([node.key]*node.val)
+      for _ in range(node.val):
+        a.append(node.key)
       if node.right is not None:
         rec(node.right)
     rec(self.node)
@@ -435,20 +442,21 @@ class SplayTreeMultiset(Generic[T]):
     return a
 
   def get_elm(self, k: int) -> T:
+    assert -self.len_elm() <= k < self.len_elm()
     self._set_kth_elm_tree_splay(k)
     return self.node.key
 
-  def items(self):
+  def items(self) -> Iterator[Tuple[T, int]]:
     for i in range(self.len_elm()):
       self._set_kth_elm_tree_splay(i)
       yield self.node.key, self.node.val
 
-  def keys(self):
+  def keys(self) -> Iterator[T]:
     for i in range(self.len_elm()):
       self._set_kth_elm_tree_splay(i)
       yield self.node.key
 
-  def values(self):
+  def values(self) -> Iterator[int]:
     for i in range(self.len_elm()):
       self._set_kth_elm_tree_splay(i)
       yield self.node.val
@@ -481,8 +489,8 @@ class SplayTreeMultiset(Generic[T]):
     self._set_search_splay(key)
     return self.node is not None and self.node.key == key
 
-  def __getitem__(self, p) -> T:
-    self._set_kth_elm_splay(p)
+  def __getitem__(self, k: int) -> T:
+    self._set_kth_elm_splay(k)
     return self.node.key
 
   def __len__(self):
@@ -496,5 +504,3 @@ class SplayTreeMultiset(Generic[T]):
 
   def __repr__(self):
     return 'SplayTreeMultiset(' + str(self) + ')'
-
-

@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, TypeVar, Generic, List, Tuple
+from typing import Iterable, Optional, Sequence, TypeVar, Generic, List, Tuple
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 
@@ -109,12 +109,12 @@ class RedBlackTreeMultiset(Generic[T]):
     self.size = 0
     self.min_node = None
     self.max_node = None
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     if a:
       self._build(a)
 
-  def _rle(self, a: List[T]) -> Tuple[List[T], List[int]]:
+  def _rle(self, a: Sequence[T]) -> Tuple[List[T], List[int]]:
     x = newlist_hint(len(a))
     y = newlist_hint(len(a))
     x.append(a[0])
@@ -129,7 +129,7 @@ class RedBlackTreeMultiset(Generic[T]):
       y.append(1)
     return x, y
 
-  def _build(self, a: List[T]) -> None:
+  def _build(self, a: Sequence[T]) -> None:
     def sort(l: int, r: int, d: int):
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])

@@ -1,4 +1,4 @@
-from typing import Optional, List, Iterable
+from typing import Optional, List, Iterable, Sequence
 from array import array
 from __pypy__ import newlist_hint
 
@@ -14,14 +14,14 @@ class BinaryTrieSet():
     self.bit = (u - 1).bit_length()
     self.lim = 1 << self.bit
     self.xor = 0
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: List[int]) -> None:
+  def _build(self, a: Sequence[int]) -> None:
     left, right, par, size = self.left, self.right, self.par, self.size
-    def rec(node: int, d: int, l: int, r: int) -> int:
+    def rec(node: int, d: int, l: int, r: int) -> None:
       k, ng = r, l-1
       while k - ng > 1:
         mid = (k + ng) >> 1

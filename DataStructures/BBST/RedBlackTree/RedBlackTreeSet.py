@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, TypeVar, Generic, List
+from typing import Iterable, Optional, TypeVar, Generic, List, Sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 
@@ -108,12 +108,12 @@ class RedBlackTreeSet(Generic[T]):
     self.size = 0
     self.min_node = None
     self.max_node = None
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: List[T]) -> None:
+  def _build(self, a: Sequence[T]) -> None:
     def sort(l: int, r: int, d: int):
       mid = (l + r) >> 1
       node = Node(a[mid])
