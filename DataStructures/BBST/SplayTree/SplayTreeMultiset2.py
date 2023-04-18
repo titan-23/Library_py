@@ -1,23 +1,24 @@
 import sys
+from __pypy__ import newlist_hint
 from typing import Generic, Iterable, List, TypeVar, Tuple, Optional
 T = TypeVar('T')
 
-class Node:
-
-  def __init__(self, key, val):
-    self.key = key
-    self.val = val
-    self.left = None
-    self.right = None
-
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.val}\n'
-    return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
-
 class SplayTreeMultiset2(Generic[T]):
 
-  def __init__(self, a: Iterable[T]=[]) -> None:
+  class Node():
+
+    def __init__(self, key: T, val: int):
+      self.key = key
+      self.val = val
+      self.left = None
+      self.right = None
+
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.val}\n'
+      return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
+
+  def __init__(self, a: Iterable[T]=[]):
     self.node = None
     self._len = 0
     self._len_elm = 0
@@ -27,9 +28,10 @@ class SplayTreeMultiset2(Generic[T]):
       self._build(a)
 
   def _build(self, a: Iterable[T]) -> None:
-    def sort(l: int, r: int):
+    Node = SplayTreeMultiset2.Node
+    def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid][0], a[mid][1])
+      node = Node(key[mid], val[mid])
       if l != mid:
         node.left = sort(l, mid)
       if mid+1 != r:
@@ -37,20 +39,24 @@ class SplayTreeMultiset2(Generic[T]):
       return node
     a = sorted(a)
     self._len = len(a)
-    a = self._rle(a)
-    self._len_elm = len(a)
-    self.node = sort(0, len(a))
+    key, val = self._rle(sorted(a))
+    self._len_elm = len(key)
+    self.node = sort(0, len(key))
 
-  def _rle(self, a: list) -> list:
-    now = a[0]
-    ret = [[now, 1]]
-    for i in a[1:]:
-      if i == now:
-        ret[-1][1] += 1
+  def _rle(self, a: List[T]) -> Tuple[List[T], List[int]]:
+    x = newlist_hint(len(a))
+    y = newlist_hint(len(a))
+    x.append(a[0])
+    y.append(1)
+    for i, e in enumerate(a):
+      if i == 0:
         continue
-      ret.append([i, 1])
-      now = i
-    return ret
+      if e == x[-1]:
+        y[-1] += 1
+        continue
+      x.append(e)
+      y.append(1)
+    return x, y
 
   def _splay(self, path: List[Node], di: int) -> Node:
     for _ in range(len(path)>>1):
@@ -312,11 +318,13 @@ class SplayTreeMultiset2(Generic[T]):
     self.discard(res)
     return res
 
-  def get_min(self) -> T:
+  def get_min(self) -> Optional[T]:
+    if self.node is None: return
     self.node = self._get_min_splay(self.node)
     return self.node.key
  
-  def get_max(self) -> T:
+  def get_max(self) -> Optional[T]:
+    if self.node is None: return
     self.node = self._get_max_splay(self.node)
     return self.node.key
 
@@ -324,8 +332,8 @@ class SplayTreeMultiset2(Generic[T]):
     a = []
     if self.node is None:
       return a
-    if sys.getrecursionlimit() < self._len_elm():
-      sys.setrecursionlimit(self._len_elm()+1)
+    if sys.getrecursionlimit() < self.len_elm():
+      sys.setrecursionlimit(self.len_elm()+1)
     def rec(node):
       if node.left is not None:
         rec(node.left)
@@ -377,5 +385,5 @@ class SplayTreeMultiset2(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'SplayTreeMultiset2(' + str(self.tolist) + ')'
+    return f'SplayTreeMultiset2({self.tolist})'
 
