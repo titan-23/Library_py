@@ -371,12 +371,12 @@ class RedBlackTreeMultiset(Generic[T]):
     node = self.find(key)
     return node.cnt if node else 0
 
-  def get_max(self) -> T:
-    assert self.node, 'IndexError: get_max() from empty RedBlackTreeMultiset'
+  def get_max(self) -> Optional[T]:
+    if self.max_node is None: return
     return self.max_node.key
 
-  def get_min(self) -> T:
-    assert self.node, 'IndexError: get_min() from empty RedBlackTreeMultiset'
+  def get_min(self) -> Optional[T]:
+    if self.min_node is None: return
     return self.min_node.key
 
   def get_max_iter(self) -> Optional[Node]:
