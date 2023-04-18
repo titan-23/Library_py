@@ -1,10 +1,10 @@
-from typing import Generic, TypeVar, Iterable, Callable
+from typing import Generic, TypeVar, Iterable, Callable, Sequence
 T = TypeVar('T')
 
 class SparseTable(Generic[T]):
 
   def __init__(self, a: Iterable[T], op: Callable[[T, T], T], e: T=None):
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     self.size = len(a)
     log = self.size.bit_length()-1

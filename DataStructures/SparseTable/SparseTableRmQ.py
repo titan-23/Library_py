@@ -1,10 +1,10 @@
-from typing import Generic, TypeVar, Iterable, Callable
+from typing import Generic, TypeVar, Iterable, Sequence
 T = TypeVar('T')
 
 class SparseTableRmQ(Generic[T]):
 
   def __init__(self, a: Iterable[T], e: T=float('inf')):
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     self.size = len(a)
     log = self.size.bit_length()-1
@@ -29,5 +29,5 @@ class SparseTableRmQ(Generic[T]):
     return str(self.data[0])
 
   def __repr__(self):
-    return f'SparseTableRmQ({self})'
+    return f'SparseTableRmQ({self.data[0]}, {self.e})'
 
