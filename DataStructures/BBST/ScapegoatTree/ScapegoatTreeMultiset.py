@@ -23,7 +23,7 @@ class ScapegoatTreeMultiset(Generic[T]):
         return f'key:{self.key, self.val, self.size, self.valsize}\n'
       return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
-  def __init__(self, a: Iterable[T]=[]) -> None:
+  def __init__(self, a: Iterable[T]=[]):
     self.node = None
     if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
       a = list(a)
@@ -466,5 +466,5 @@ class ScapegoatTreeMultiset(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'ScapegoatTreeMultiset(' + str(self.tolist) + ')'
+    return f'ScapegoatTreeMultiset({self.tolist})'
 

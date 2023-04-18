@@ -1,6 +1,8 @@
+from typing import List
+
 class Namori():
 
-  def __init__(self, G):
+  def __init__(self, G: List[List[int]]):
     n = len(G)
     deg = [0] * n
     for v in range(n):

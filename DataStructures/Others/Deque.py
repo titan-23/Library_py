@@ -3,16 +3,11 @@ from typing import Iterable, List, Any
 class Deque():
 
   # コンセプト: ランダムアクセスO(1)でできるDeque
-  # 
   # pop/popleft: O(1)
   # append/appendleft: O(1)
   # tolist: O(N)
   # getitem/setitem: O(1)
   # contains: O(N)
-  # 
-  # その他
-  # rotate(実装予定なし)
-  # 
 
   def __init__(self, a: Iterable[Any]=[]):
     self.front = []

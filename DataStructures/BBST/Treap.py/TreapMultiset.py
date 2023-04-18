@@ -1,46 +1,46 @@
 from typing import Generic, Iterable, TypeVar, Tuple, List, Optional
 T = TypeVar('T')
 
-class Random:
+class TreapMultiset(Generic[T]):
 
-  _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
+  class Random():
 
-  @classmethod
-  def random(cls) -> int:
-    t = cls._x ^ (cls._x << 11) & 0xFFFFFFFF
-    cls._x, cls._y, cls._z = cls._y, cls._z, cls._w
-    cls._w = (cls._w ^ (cls._w >> 19)) ^ (t ^ (t >> 8)) & 0xFFFFFFFF
-    return cls._w
+    _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
 
-class Node:
+    @classmethod
+    def random(cls) -> int:
+      t = cls._x ^ (cls._x << 11) & 0xFFFFFFFF
+      cls._x, cls._y, cls._z = cls._y, cls._z, cls._w
+      cls._w = (cls._w ^ (cls._w >> 19)) ^ (t ^ (t >> 8)) & 0xFFFFFFFF
+      return cls._w
 
-  def __init__(self, key, val: int=1, priority: int=-1):
-    self.key = key
-    self.val = val
-    self.left = None
-    self.right = None
-    self.priority = Random.random() if priority == -1 else priority
+  class Node():
 
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.priority}\n'
-    return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
+    def __init__(self, key, val: int=1, priority: int=-1):
+      self.key = key
+      self.val = val
+      self.left = None
+      self.right = None
+      self.priority = TreapMultiset.Random.random() if priority == -1 else priority
 
-class TreapMultiset:
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.priority}\n'
+      return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
     self.node = None
-    self.len = 0
-    self.len_elm = 0
+    self._len = 0
+    self._len_elm = 0
     a = sorted(a)
     if a:
-      self.len = len(a)
+      self._len = len(a)
       self._build(a)
 
-  def _rle(self, li: List[T]) -> List[Tuple[T, int]]:
-    now = li[0]
+  def _rle(self, a: List[T]) -> List[Tuple[T, int]]:
+    now = a[0]
     ret = [[now, 1]]
-    for i in li[1:]:
+    for i in a[1:]:
       if i == now:
         ret[-1][1] += 1
         continue
@@ -49,6 +49,7 @@ class TreapMultiset:
     return ret
 
   def _build(self, a: Iterable[T]) -> None:
+    Node = TreapMultiset.Node
     def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
       node = Node(a[mid][0], a[mid][1], rand[mid])
@@ -61,7 +62,7 @@ class TreapMultiset:
     self._len = len(a)
     a = self._rle(a)
     self._len_elm = len(a)
-    rand = sorted(Random.random() for _ in range(self.len))
+    rand = sorted(TreapMultiset.Random.random() for _ in range(self._len))
     self.node = sort(0, len(a))
 
   def _rotate_L(self, node: Node) -> Node:
@@ -77,11 +78,10 @@ class TreapMultiset:
     return u
 
   def add(self, key: T, val: int=1) -> None:
-    self.len += val
+    self._len += val
     if self.node is None:
-      self.node = Node(key)
-      self.len += 1
-      self.len_elm += 1
+      self.node = TreapMultiset.Node(key, val)
+      self._len_elm += 1
       return
     node = self.node
     path = []
@@ -99,11 +99,11 @@ class TreapMultiset:
         path.append(node)
         di <<= 1
         node = node.right
-    self.len_elm += 1
+    self._len_elm += 1
     if di & 1:
-      path[-1].left = Node(key, val)
+      path[-1].left = TreapMultiset.Node(key, val)
     else:
-      path[-1].right = Node(key, val)
+      path[-1].right = TreapMultiset.Node(key, val)
     while path:
       new_node = None
       node = path.pop()
@@ -122,8 +122,7 @@ class TreapMultiset:
             path[-1].right = new_node
         else:
           self.node = new_node
-    self.len += 1
-    return True
+    self._len += 1
 
   def discard(self, key: T, val: int=1) -> bool:
     node = self.node
@@ -139,11 +138,11 @@ class TreapMultiset:
         node = node.right
     else:
       return False
-    self.len -= val
+    self._len -= min(val, node.val)
     if node.val > val:
       node.val -= val
       return True
-    self.len_elm -= 1
+    self._len_elm -= 1
     while node.left is not None and node.right is not None:
       if node.left.priority < node.right.priority:
         if pnode is None:
@@ -249,7 +248,7 @@ class TreapMultiset:
     return res
 
   def len_elm(self) -> int:
-    return self.len_elm
+    return self._len_elm
 
   def show(self) -> None:
     print('{' + ', '.join(map(lambda x: f'{x[0]}: {x[1]}', self.tolist_items())) + '}')
@@ -280,20 +279,24 @@ class TreapMultiset:
     rec(self.node)
     return a
 
-  def get_min(self) -> T:
+  def get_min(self) -> Optional[T]:
+    if self.node is None:
+      return
     node = self.node
     while node.left is not None:
       node = node.left
     return node.key
 
-  def get_max(self) -> T:
+  def get_max(self) -> Optional[T]:
+    if self.node is None:
+      return
     node = self.node
     while node.right is not None:
       node = node.right
     return node.key
 
   def pop_min(self) -> T:
-    self.len -= 1
+    self._len -= 1
     node = self.node
     pnode = None
     while node.left is not None:
@@ -302,7 +305,7 @@ class TreapMultiset:
     if node.val > 1:
       node.val -= 1
       return node.key
-    self.len_elm -= 1
+    self._len_elm -= 1
     res = node.key
     if pnode is None:
       self.node = self.node.right
@@ -311,7 +314,7 @@ class TreapMultiset:
     return res
 
   def pop_max(self) -> T:
-    self.len -= 1
+    self._len -= 1
     node = self.node
     pnode = None
     while node.right is not None:
@@ -319,7 +322,7 @@ class TreapMultiset:
       node = node.right
     if node.val > 1:
       return node.key
-    self.len_elm -= 1
+    self._len_elm -= 1
     res = node.key
     if pnode is None:
       self.node = self.node.left
@@ -328,7 +331,7 @@ class TreapMultiset:
     return res
 
   def __getitem__(self, k: int) -> T:
-    if k == -1 or k == self.len-1:
+    if k == -1 or k == self._len-1:
       return self.get_max()
     elif k == 0:
       return self.get_min()
@@ -349,7 +352,7 @@ class TreapMultiset:
     return self.node is not None
 
   def __len__(self):
-    return self.len
+    return self._len
 
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
@@ -357,3 +360,8 @@ class TreapMultiset:
   def __repr__(self):
     return f'TreapMultiset({self.tolist()})'
 
+a = TreapMultiset(range(4))
+print(a)
+for i in range(5):
+  a.add(i)
+print(a)

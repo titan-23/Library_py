@@ -1,8 +1,9 @@
-from typing import List, Union
+from ast import Tuple
+from typing import List, Optional, Union, Tuple
 inf = float('inf')
 
 '''Return dist from s. / O(|V||E|)'''
-def bellman_ford(G: List[List[int]], s: int) -> Union[List[int], None]:
+def bellman_ford(G: List[List[Tuple[int, int]]], s: int) -> Optional[List[Union[int, float]]]:
   n = len(G)
   dist = [inf] * n
   dist[s] = 0

@@ -1,31 +1,31 @@
-from typing import Generic, Iterable, TypeVar, Optional, Tuple, List
+from typing import Generic, Iterable, TypeVar, Optional, List
 T = TypeVar('T')
 
-class Random:
+class TreapSet(Generic[T]):
 
-  _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
+  class Random():
 
-  @classmethod
-  def random(cls) -> int:
-    t = cls._x ^ (cls._x << 11) & 0xFFFFFFFF
-    cls._x, cls._y, cls._z = cls._y, cls._z, cls._w
-    cls._w = (cls._w ^ (cls._w >> 19)) ^ (t ^ (t >> 8)) & 0xFFFFFFFF
-    return cls._w
+    _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
 
-class Node:
+    @classmethod
+    def random(cls) -> int:
+      t = cls._x ^ (cls._x << 11) & 0xFFFFFFFF
+      cls._x, cls._y, cls._z = cls._y, cls._z, cls._w
+      cls._w = (cls._w ^ (cls._w >> 19)) ^ (t ^ (t >> 8)) & 0xFFFFFFFF
+      return cls._w
 
-  def __init__(self, key, priority: int=-1):
-    self.key = key
-    self.left = None
-    self.right = None
-    self.priority = Random.random() if priority == -1 else priority
+  class Node():
 
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.priority}\n'
-    return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
+    def __init__(self, key, priority: int=-1):
+      self.key = key
+      self.left = None
+      self.right = None
+      self.priority = TreapSet.Random.random() if priority == -1 else priority
 
-class TreapSet:
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.priority}\n'
+      return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
     self.node = None
@@ -35,7 +35,8 @@ class TreapSet:
       self.len = len(a)
       self._build(a)
 
-  def _build(self, a: Iterable[T]) -> None:
+  def _build(self, a: List[T]) -> None:
+    Node = TreapSet.Node
     def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
       node = Node(a[mid], rand[mid])
@@ -46,7 +47,7 @@ class TreapSet:
       return node
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(set(a))
-    rand = sorted(Random.random() for _ in range(self.len))
+    rand = sorted(TreapSet.Random.random() for _ in range(self.len))
     self.node = sort(0, self.len)
 
   def _rotate_L(self, node: Node) -> Node:
@@ -63,7 +64,7 @@ class TreapSet:
 
   def add(self, key: T) -> None:
     if not self.node:
-      self.node = Node(key)
+      self.node = TreapSet.Node(key)
       self.len += 1
       return
     node = self.node
@@ -82,9 +83,9 @@ class TreapSet:
         di <<= 1
         node = node.right
     if di & 1:
-      path[-1].left = Node(key)
+      path[-1].left = TreapSet.Node(key)
     else:
-      path[-1].right = Node(key)
+      path[-1].right = TreapSet.Node(key)
     while path:
       new_node = None
       node = path.pop()
@@ -237,6 +238,7 @@ class TreapSet:
     return node.key
 
   def pop_min(self) -> T:
+    assert self.node is not None
     node = self.node
     pnode = None
     while node.left:
@@ -251,6 +253,7 @@ class TreapSet:
     return res
 
   def pop_max(self) -> T:
+    assert self.node is not None
     node = self.node
     pnode = None
     while node.right:
@@ -269,7 +272,7 @@ class TreapSet:
       return self.get_max()
     elif k == 0:
       return self.get_min()
-    raise IndexError
+    assert False, f'IndexError'
 
   def __contains__(self, key: T):
     node = self.node
@@ -289,5 +292,5 @@ class TreapSet:
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'TreapSet({self})'
+    return f'TreapSet({self.tolist()})'
 

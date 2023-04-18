@@ -1,32 +1,30 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 from collections import deque
 inf = float('inf')
 
-def bfs(G: List[List[int]], s: int) -> List[int]:
+def bfs(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
   dist = [inf] * len(G)
   dist[s] = 0
   todo = deque([s])
   while todo:
     v = todo.popleft()
-    nd = dist[v] + 1
-    for x in G[v]:
+    for x, c in G[v]:
       if dist[x] == inf:
-        dist[x] = nd
+        dist[x] = dist[v] + c
         todo.append(x)
   return dist
 
-'''Return (Path: from s to t, Dist: from s)'''
-def bfs_path(G: List[List[int]], s: int, t: int) -> Tuple[List[int], List[int]]:
+'''Return Tuple[Path: from s to t, Dist: from s]'''
+def bfs_path(G: List[List[Tuple[int, int]]], s: int, t: int) -> Tuple[List[int], List[Union[int, float]]]:
   prev = [-1] * len(G)
   dist = [inf] * len(G)
   dist[s] = 0
   todo = deque([s])
   while todo:
     v = todo.popleft()
-    nd = dist[v] + 1
-    for x in G[v]:
+    for x, c in G[v]:
       if dist[x] == inf:
-        dist[x] = nd
+        dist[x] = dist[v] + c
         prev[x] = v
         todo.append(x)
   if dist[t] == inf:

@@ -6,7 +6,7 @@ class FastO():
   sb = StringBuilder()
 
   @classmethod
-  def write(cls, *args, sep=' ', end='\n', flush=False):
+  def write(cls, *args, sep: str=' ', end: str='\n', flush: bool=False) -> None:
     append = cls.sb.append
     for i in range(len(args)-1):
       append(str(args[i]))
@@ -18,7 +18,7 @@ class FastO():
       cls.flush()
 
   @classmethod
-  def flush(cls):
+  def flush(cls) -> None:
     os.write(1, cls.sb.build().encode())
     cls.sb = StringBuilder()
 

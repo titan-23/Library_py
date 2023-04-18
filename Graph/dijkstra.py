@@ -1,8 +1,8 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 from heapq import heappush, heappop
 inf = float('inf')
 
-def dijkstra(G: List[List[List[Tuple[int, int]]]], s: int) -> List[int]:
+def dijkstra(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
   dist = [inf] * len(G)
   dist[s] = 0
   hq = [(0, s)]
@@ -16,7 +16,7 @@ def dijkstra(G: List[List[List[Tuple[int, int]]]], s: int) -> List[int]:
   return dist
 
 '''Return (Path: from s to t, Dist: from s)'''
-def dijkstra_path(G: List[List[List[Tuple[int, int]]]], s: int, t: int) -> Tuple[List[int], List[int]]:
+def dijkstra_path(G: List[List[Tuple[int, int]]], s: int, t: int) -> Tuple[List[int], List[Union[int, float]]]:
   prev = [-1] * len(G)
   dist = [inf] * len(G)
   dist[s] = 0
