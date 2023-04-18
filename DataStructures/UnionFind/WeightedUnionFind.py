@@ -1,4 +1,4 @@
-from typing import List, Set, Union, Optional
+from typing import List, Set, Optional
 from collections import defaultdict
 
 class WeightedUnionFind():

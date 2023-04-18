@@ -1,5 +1,4 @@
-from typing import List, Set
-from collections import defaultdict
+from typing import List
 
 class UnionFindMembers():
 
@@ -11,15 +10,15 @@ class UnionFindMembers():
 
   def unite(self, x: int, y: int) -> bool:
     '''Untie x and y. / O(logN)'''
-    x = self._group[x]
-    y = self._group[y]
-    if x is y: return False
+    u = self._group[x]
+    v = self._group[y]
+    if u is v: return False
     self._group_count -= 1
-    if len(x) > len(y):
-      x, y = y, x
-    for i in x:
-      y.append(i)
-      self._group[i] = y
+    if len(u) > len(v):
+      u, v = v, u
+    for i in u:
+      v.append(i)
+      self._group[i] = v
     return True
 
   def size(self, x: int) -> int:

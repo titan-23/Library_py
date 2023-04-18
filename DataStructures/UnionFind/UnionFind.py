@@ -18,7 +18,7 @@ class UnionFind():
     a = x
     while self._parents[a] >= 0:
       a = self._parents[a]
-    # return a
+    # return a  # not compressing path.
     while self._parents[x] >= 0:
       y = x
       x = self._parents[x]
