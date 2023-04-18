@@ -1,6 +1,8 @@
-class RootedTree:
+from typing import List, Tuple
 
-  def __init__(self, _G: list, _root: int, lp=False, lca=False):
+class RootedTree():
+
+  def __init__(self, _G: List[List[Tuple[int, int]]], _root: int, lp: bool=False, lca: bool=False):
     self._n = len(_G)
     self._G = _G
     self._root = _root
@@ -27,11 +29,7 @@ class RootedTree:
     if lca:
       self._calc_doubling()
 
-  '''Return the number of vertex of self. / O(1)'''
-  def __len__(self) -> int:
-    return self._n
-
-  def __str__(self) -> str:
+  def __str__(self):
     self._calc_leaf_parents()
     ret = ["<RootedTree> ["]
     ret.extend(
@@ -49,7 +47,6 @@ class RootedTree:
     self._dist[self._root] = 0
     self._rank[self._root] = 0
     self._toposo = [self._root]
-
     while todo:
       v = todo.pop()
       d = self._dist[v]
@@ -61,16 +58,13 @@ class RootedTree:
         self._rank[x] = r + 1
         todo.append(x)
         self._toposo.append(x)
-    return
 
   def _calc_leaf_parents(self) -> None:
     '''Calc child and parents. / O(N)'''
-    if self._leaf and self._leaf_num and self._parents:
-      return
+    if self._leaf and self._leaf_num and self._parents: return
     self._leaf_num = [0] * self._n
     self._leaf = [[] for _ in range(self._n)]
     self._parents = [-1] * self._n
-
     for v in self._toposo[::-1]:
       for x,_ in self._G[v]:
         if self._rank[x] < self._rank[v]:
@@ -78,14 +72,13 @@ class RootedTree:
           continue
         self._leaf[v].append(x)
         self._leaf_num[v] += 1
-    return
 
-  '''Return dist. / O(N)'''
-  def get_dists(self) -> list:
+  '''Return dist from root. / O(N)'''
+  def get_dists(self) -> List[int]:
     return self._dist
 
   '''Return toposo. / O(N)'''
-  def get_toposo(self) -> list:
+  def get_toposo(self) -> List[int]:
     return self._toposo
 
   '''Return height. / O(N)'''
@@ -96,44 +89,42 @@ class RootedTree:
     return self._height
 
   '''Return descendant_num. / O(N)'''
-  def get_descendant_num(self) -> list:
+  def get_descendant_num(self) -> List[int]:
     if self._descendant_num:
       return self._descendant_num
     self._descendant_num = [1] * self._n
-
     for v in self._toposo[::-1]:
       for x,c in self._G[v]:
         if self._dist[x] < self._dist[v]:
           continue
         self._descendant_num[v] += self._descendant_num[x]
-
     for i in range(self._n):
       self._descendant_num[i] -= 1
     return self._descendant_num
 
   '''Return child / O(N)'''
-  def get_leaf(self) -> list:
+  def get_leaf(self) -> List[List[int]]:
     if self._leaf:
       return self._leaf
     self._calc_leaf_parents()
     return self._leaf
 
   '''Return child_num. / O(N)'''
-  def get_leaf_num(self) -> list:
+  def get_leaf_num(self) -> List[int]:
     if self._leaf_num:
       return self._leaf_num
     self._calc_leaf_parents()
     return self._leaf_num
 
   '''Return parents. / O(N)'''
-  def get_parents(self) -> list:
+  def get_parents(self) -> List[int]:
     if self._parents:
       return self._parents
     self._calc_leaf_parents()
     return self._parents
 
   '''Return diameter of tree. / O(N)'''
-  def get_diameter(self) -> int:
+  def get_diameter(self) -> List[int]:
     if self._diameter[0] > -1:
       return self._diameter
     s = self._dist.index(self.get_height())
@@ -154,7 +145,7 @@ class RootedTree:
     return self._diameter
 
   '''Return [1 if root else 0]. / O(N)'''
-  def get_bipartite_graph(self) -> list:
+  def get_bipartite_graph(self) -> List[int]:
     if self._bipartite_graph:
       return self._bipartite_graph
     self._bipartite_graph = [-1] * self._n
@@ -213,11 +204,11 @@ class RootedTree:
     return self.get_dist(u, a) + self.get_dist(a, v) == self.get_dist(u, v)  # rank??
 
   '''Return path (u -> v).'''
-  def get_path(self, u, v) -> list:
+  def get_path(self, u: int, v: int) -> List[int]:
     assert self._lca, f'RootedTree, `lca` must be True'
     if u == v: return [u]
     self.get_parents()
-    def get_path_lca(u, v):
+    def get_path_lca(u: int, v: int) -> List[int]:
       path = []
       while u != v:
         u = self._parents[u]
@@ -225,7 +216,6 @@ class RootedTree:
           break
         path.append(u)
       return path
-
     lca = self.get_lca(u, v)
     path = [u]
     path.extend(get_path_lca(u, lca))
@@ -235,7 +225,7 @@ class RootedTree:
     path.append(v)
     return path
 
-  def dfs_in_out(self) -> list:
+  def dfs_in_out(self) -> Tuple[List[int], List[int]]:
     curtime = -1
     todo = [~self._root, self._root]
     intime = [-1] * self._n

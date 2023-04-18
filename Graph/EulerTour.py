@@ -8,9 +8,8 @@ class EulerTour():
 
   def __init__(self, G: List[List[List[int]]], root: int, vertexcost: List[int]=[]) -> None:
     n = len(G)
-
     if not vertexcost:
-      vertexcost = [0]*n
+      vertexcost = [0] * n
 
     path = newlist_hint(2*n)
     pathdepth = newlist_hint(2*n)
@@ -96,7 +95,7 @@ class EulerTour():
     return self._path[ind]
 
   def lca_mul(self, a: List[int]) -> int:
-    l, r = self.n+1, -self.n-1
+    l, r = self._n+1, -self._n-1
     for e in a:
       l = min(l, self._nodein[e])
       r = max(r, self._nodeout[e])
