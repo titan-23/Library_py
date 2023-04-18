@@ -8,7 +8,9 @@ class Mo():
   def __init__(self, n: int, q: int):
     self.n = n
     self.q = q
-    self.bucket_size = ceil(sqrt(3)*n/sqrt(2*q))
+    self.bucket_size = ceil(sqrt(3)*n/sqrt(2*q)) if q > 0 else n
+    if self.bucket_size == 0:
+      self.bucket_size = 1
     # self.bucket_size = 866
     self.bit = max(n, q).bit_length()
     self.msk = (1 << self.bit) - 1
