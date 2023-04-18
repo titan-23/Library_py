@@ -1,8 +1,8 @@
-from typing import Iterable, Hashable
+from typing import List, Hashable
 
 class HashedMultiset():
 
-  def __init__(self, a: Iterable[Hashable]=[]) -> None:
+  def __init__(self, a: List[Hashable]=[]) -> None:
     d = {}
     for e in a:
       if e in d:

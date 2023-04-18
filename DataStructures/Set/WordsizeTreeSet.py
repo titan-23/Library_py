@@ -112,13 +112,13 @@ class WordsizeTreeSet:
     return self.le(self.u - 1)
 
   def pop_min(self) -> int:
-    assert self, 'IndexError: pop_min from empty WordsizeTreeSet.'
+    assert self, 'IndexError: pop_min() from empty WordsizeTreeSet.'
     v = self.get_min()
     self.discard(v)
     return v
 
   def pop_max(self) -> int:
-    assert self, 'IndexError: pop_max from empty WordsizeTreeSet.'
+    assert self, 'IndexError: pop_max() from empty WordsizeTreeSet.'
     v = self.get_max()
     self.discard(v)
     return v

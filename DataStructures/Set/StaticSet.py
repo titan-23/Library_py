@@ -1,13 +1,13 @@
-from typing import Iterable, TypeVar, Generic, Optional
+from typing import Iterable, TypeVar, Generic, Optional, Set, List
 from bisect import bisect_right, bisect_left
 T = TypeVar('T')
 
 class StaticSet(Generic[T]):
 
   def __init__(self, a: Iterable=[T]):
-    self.s = set(a)
-    self.l = sorted(self.s)
-    self.n = len(self.l)
+    self.s: Set[T] = set(a)
+    self.l: List[T] = sorted(self.s)
+    self.n: int = len(self.l)
 
   def ge(self, x: T) -> Optional[T]:
     i = bisect_left(self.l, x)
@@ -34,7 +34,7 @@ class StaticSet(Generic[T]):
   def __getitem__(self, k: int) -> T:
     return self.l[k]
 
-  def __contains__(self, x):
+  def __contains__(self, x: T):
     return x in self.s
 
   def __len__(self):

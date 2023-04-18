@@ -1,4 +1,4 @@
-from typing import Iterable, Set, TypeVar, Generic, Union, Tuple, Optional
+from typing import Iterable, TypeVar, Generic, Union, Tuple, Optional
 T = TypeVar('T')
 
 class FenwickTreeSet(Generic[T]):

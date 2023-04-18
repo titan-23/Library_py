@@ -1,11 +1,11 @@
-from typing import Iterable, Set, TypeVar, Generic, Tuple, Optional
-T = TypeVar('T')
+from typing import Iterable, Tuple, Optional
 
-class DynamicFenwickTreeSet(Generic[T]):
+class DynamicFenwickTreeSet():
 
-  # Build a new FenwickTreeSet. / O(1)
   # 整数[0, u)を、空間O(qlogu)/時間O(qlogu)
-  def __init__(self, u: int, a: Iterable[T]=[], _multi=False):
+  
+  def __init__(self, u: int, a: Iterable[int]=[]):
+    # Build a new FenwickTreeSet. / O(1)
     self._size = u
     self._len = 0
     self._cnt = {}
@@ -13,7 +13,7 @@ class DynamicFenwickTreeSet(Generic[T]):
     for _a in a:
       self.add(_a)
 
-  def add(self, key: T) -> bool:
+  def add(self, key: int) -> bool:
     if key in self._cnt:
       return False
     self._len += 1
@@ -21,11 +21,11 @@ class DynamicFenwickTreeSet(Generic[T]):
     self._fw.add(key, 1)
     return True
 
-  def remove(self, key: T) -> None:
+  def remove(self, key: int) -> None:
     if self.discard(key): return
     raise KeyError(key)
 
-  def discard(self, key: T) -> bool:
+  def discard(self, key: int) -> bool:
     if key in self._cnt:
       self._len -= 1
       del self._cnt[key]
@@ -33,31 +33,31 @@ class DynamicFenwickTreeSet(Generic[T]):
       return True
     return False
 
-  def le(self, key: T) -> Optional[T]:
+  def le(self, key: int) -> Optional[int]:
     if key in self._cnt: return key
     pref = self._fw.pref(key) - 1
     return None if pref < 0 else self._fw.bisect_right(pref)
 
-  def lt(self, key: T) -> Optional[T]:
+  def lt(self, key: int) -> Optional[int]:
     pref = self._fw.pref(key) - 1
     return None if pref < 0 else self._fw.bisect_right(pref)
 
-  def ge(self, key: T) -> Optional[T]:
+  def ge(self, key: int) -> Optional[int]:
     if key in self._cnt: return key
     pref = self._fw.pref(key + 1)
     return None if pref >= self._len else self._fw.bisect_right(pref)
 
-  def gt(self, key: T) -> Optional[T]:
+  def gt(self, key: int) -> Optional[int]:
     pref = self._fw.pref(key + 1)
     return None if pref >= self._len else self._fw.bisect_right(pref)
 
-  def index(self, key: T) -> int:
+  def index(self, key: int) -> int:
     return self._fw.pref(key)
 
-  def index_right(self, key: T) -> int:
+  def index_right(self, key: int) -> int:
     return self._fw.pref(key + 1)
 
-  def __getitem__(self, k):
+  def __getitem__(self, k: int):
     if k < 0: k += self._len
     return self._fw.bisect_right(k)
 
@@ -85,7 +85,7 @@ class DynamicFenwickTreeSet(Generic[T]):
   def __len__(self):
     return self._len
 
-  def __contains__(self, key: T):
+  def __contains__(self, key: int):
     return key in self._cnt
 
   def __bool__(self):
@@ -101,13 +101,12 @@ class DynamicFenwickTreeSet(Generic[T]):
     self.discard(x)
     return x
 
+class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet):
 
-class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet, Generic[T]):
+  def __init__(self, n: int, a: Iterable[int]=[]) -> None:
+    super().__init__(n, a)
 
-  def __init__(self, n: int, a: Iterable[T]=[]) -> None:
-    super().__init__(n, a, _multi=True)
-
-  def add(self, key: T, val: int=1) -> None:
+  def add(self, key: int, val: int=1) -> None:
     self._len += val
     if key in self._cnt:
       self._cnt[key] += val
@@ -115,7 +114,7 @@ class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet, Generic[T]):
       self._cnt[key] = val
     self._fw.add(key, val)
 
-  def discard(self, key: T, val: int=1) -> bool:
+  def discard(self, key: int, val: int=1) -> bool:
     if key not in self._cnt:
       return False
     cnt = self._cnt[key]
@@ -129,13 +128,13 @@ class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet, Generic[T]):
       self._fw.add(key, -val)
     return True
 
-  def discard_all(self, key: T) -> bool:
+  def discard_all(self, key: int) -> bool:
     return self.discard(key, val=self.count(key))
 
-  def count(self, key: T) -> int:
+  def count(self, key: int) -> int:
     return self._cnt[key]
 
-  def items(self) -> Iterable[Tuple[T, int]]:
+  def items(self) -> Iterable[Tuple[int, int]]:
     _iter = 0
     while _iter < self._len:
       res = self.__getitem__(_iter)

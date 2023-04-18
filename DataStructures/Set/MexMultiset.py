@@ -1,6 +1,6 @@
 from typing import Iterable
 
-class MexMultiset:
+class MexMultiset():
 
   # MEX差分計算クラス
   # - add(x: int) xを追加する / O(logN)

@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, TypeVar, Generic
+from typing import Iterable, Optional, TypeVar, Generic, List
 from bisect import bisect_right, bisect_left
 from collections import Counter
 T = TypeVar('T')
@@ -6,9 +6,9 @@ T = TypeVar('T')
 class StaticMultiset(Generic[T]):
 
   def __init__(self, a: Iterable=[T]):
-    self.l = sorted(a)
-    self.s = Counter(self.l)
-    self.n = len(self.l)
+    self.l: List[T] = sorted(a)
+    self.s: Counter[T] = Counter(self.l)
+    self.n: int = len(self.l)
 
   def ge(self, x: T) -> Optional[T]:
     i = bisect_left(self.l, x)
@@ -41,7 +41,7 @@ class StaticMultiset(Generic[T]):
   def __getitem__(self, k: int) -> T:
     return self.l[k]
 
-  def __contains__(self, x):
+  def __contains__(self, x: T):
     return x in self.s
 
   def __len__(self):

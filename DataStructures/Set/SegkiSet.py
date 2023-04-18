@@ -113,7 +113,7 @@ class SegkiSet:
   def __contains__(self, k: int):
     return self.data[k + self.size] == 1
 
-  def __getitem__(self, k):   # kは先頭か末尾にすることを推奨
+  def __getitem__(self, k: int):   # kは先頭か末尾にすることを推奨
     if k < 0: k += self.len
     if k == 0:
       return self.get_min()

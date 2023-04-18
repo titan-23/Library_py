@@ -1,8 +1,8 @@
-from typing import Union, Tuple, List, Iterable, Optional
+from typing import Union, List, Iterable, Optional
 
 class FenwickTreeSetFast():
 
-  class InternalFenwickTree:
+  class InternalFenwickTree():
 
     def __init__(self, _n_or_a: Union[int, List[int]]):
       if isinstance(_n_or_a, int):
@@ -29,7 +29,7 @@ class FenwickTreeSetFast():
         self._tree[k] += x
         k += k & -k
 
-    def bisect_left(self, w: int) -> int:
+    def bisect_left(self, w: int) -> Optional[int]:
       i, s = 0, self._s
       while s:
         if i + s <= self._size and self._tree[i + s] < w:
@@ -51,7 +51,8 @@ class FenwickTreeSetFast():
     # Build a new FenwickTreeSetFast. / O(len(A) log(len(A)))
     self._len = 0
     self._size = _u
-    self._cnt = bytearray(_u)
+    self._cnt = [0] * _u
+    a_ = []
     if a:
       a_ = [0] * _u
       for v in a:
@@ -61,7 +62,7 @@ class FenwickTreeSetFast():
           self._len += 1
           self._cnt[v] = 1
           a_[v] = 1
-    self._fw = self.InternalFenwickTree(a_) if a else self.InternalFenwickTree(_u)
+    self._fw = self.InternalFenwickTree(a_ if a else _u)
 
   def add(self, key: int) -> bool:
     if self._cnt[key]:
@@ -121,11 +122,14 @@ class FenwickTreeSetFast():
       s >>= 1
     self._cnt[i] = 0
     return i
+  
+  def pop_max(self) -> int:
+    return self.pop()
 
   def pop_min(self) -> int:
     return self.pop(0)
 
-  def __getitem__(self, k):
+  def __getitem__(self, k: int) -> int:
     if k < 0: k += self._len
     return self._fw.bisect_right(k)
 
