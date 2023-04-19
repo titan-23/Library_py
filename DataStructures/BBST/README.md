@@ -1,36 +1,33 @@
-最終更新: 2023/01/01  
-・TreapMultiSetを作りました    
+最終更新: 2023/04/19  
+- なんかいろいろ更新    
 
 計算量は償却だったり最悪だったりします。詳しくは各READMEを読んでください。  
 以下の木があります。  
-- [AVLTree](https://github.com/titanium-22/Library/tree/main/DataStructures/BST/AVLTree)
-- [ScapegoatTree](https://github.com/titanium-22/Library/tree/main/DataStructures/BST/ScapegoatTree)
-- [SplayTree](https://github.com/titanium-22/Library/tree/main/DataStructures/BST/SplayTree)
-- [Treap](https://github.com/titanium-22/Library/tree/main/DataStructures/BST/Treap)
-  
-肌感覚：  
-- 挿入/削除に強いのはTreap？
-- 検索が速いのはAVL、遅いのはTreap？
-- Splayは分からん キャッシュは効く 遅いときはとても遅い 列を持つときは速いイメージ
-- Scapegoatも分からん 遅くはないが特段使う理由もない？挿入が無いときは速いかも
+- [AVLTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/AVLTree)
+- [ScapegoatTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/ScapegoatTree)
+- [SplayTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/SplayTree)
+- [Treap](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/Treap)
+- [RedBlackTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/RedBlackTree)
 
 _____
 # 列を扱うBinaryTree #
+
+列を扱えます。
 
 ### ```bt.merge(other)```
 btにotherをマージします。mergeした後にotherを使うとマズイです。O(logN)です。
 
 ### ```bt.split(k)```
-btをkでsplitします。O(logN)です。
+btをkで `split` します。`O(logN)`です。
 
 ### ```bt.prod(l, r)```
-区間[l, r)の総積を取得します。l >= rのとき単位元を返します。O(logN)です。
+区間`[l, r)`の総積を取得します。 `l >= r` のとき単位元を返します。 `O(logN)` です。
 
 ### ```bt.all_prod()```
-区間[0, n)の総積を取得します。O(1)です。
+区間 `[0, n)` の総積を取得します。 `O(1)` です。
 
 ### ```bt.insert(k, key)```
-k番目にkeyを挿入します。O(logN)です。
+`k` 番目に `key` を挿入します。 `O(logN)` です。
 
 ### ```bt.append(key) / appendleft(key)```
 先頭/末尾にkeyを追加します。O(logN)です。
