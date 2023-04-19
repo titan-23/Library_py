@@ -62,11 +62,11 @@ class TreapSet(Generic[T]):
     u.left = node
     return u
 
-  def add(self, key: T) -> None:
+  def add(self, key: T) -> bool:
     if not self.node:
       self.node = TreapSet.Node(key)
       self.len += 1
-      return
+      return True
     node = self.node
     path = []
     di = 0
