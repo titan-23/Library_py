@@ -2,7 +2,7 @@ from typing import Iterable, TypeVar, Callable, List
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 
-def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda x, y: x < y):
+def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t):
   def _sort(a: List[T]) -> List[T]:
     n = len(a)
     if n <= 1:
