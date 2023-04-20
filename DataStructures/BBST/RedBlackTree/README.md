@@ -12,6 +12,12 @@ _____
 ### ```node + 1 / node - 1```
 次/前の `node` を返します。存在しないときは `None` を返します。
 
+### ```node.key```
+`node` が保持している `key` です。変更はしないでください。できない仕様にしろ、それはそう
+
+### ```node.count```
+`node` が保持している `key` の個数です。
+
 _____
 # [RedBlackTreeSet](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeSet.py)
 集合としての赤黒木です。以下の操作ができます:  
