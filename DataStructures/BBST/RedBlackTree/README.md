@@ -1,4 +1,4 @@
-最終更新：2023/04/19
+最終更新：2023/04/20
 - いろいろ更新しました。
 
 赤黒木です。どうも。
@@ -15,8 +15,8 @@ _____
 _____
 # [RedBlackTreeSet](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeSet.py)
 集合としての赤黒木です。以下の操作ができます:  
-`Add` / `Delete` / `Find` / `Predecessor` / `Successor` /  
-詳しくは下記です。
+`Add` / `Delete` / `Find` / `Predecessor` / `Successor` / など  
+詳しくは以下です。
 
 ### ```rbtree = RedBlackTreeSet(a: Iterable[T]=[])```
 `a` から `RedBlackTreeSet` を構築します。重複無くソート済みなら `O(N)` 、そうでないなら `O(NlogN)` です。
@@ -71,7 +71,7 @@ keyを昇順に並べたリストを返します。 `O(N)` です。
 
 _____
 # [RedBlackTreeMultiset](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeMultiset.py)
-多重集合としての赤黒木です。
+多重集合としての赤黒木です。 `RedBlackTreeSet` に加え、以下の操作ができます。
 
 ### ```rbtree.add(key: T, cnt: int=1) -> None```
 `key` を `cnt` 個追加ます。 `O(logN)` です。
