@@ -33,14 +33,11 @@ _____
 ### ```rbtree.couont(key: T) -> int```
 `key` が存在するなら `1` を、存在しないなら `0` を返します。 `O(logN)` です。
 
-### ```key in rbtree / key not in rbtree```
+### ```key: T in rbtree```
 存在判定です。 `key` が存在すれば `True` を、そうでなければ `False` を返します。 `O(logN)` です。
 
-### ```rbtree.get_max() -> Optional[T]```
-最大値を返します。空であれば `None` を返します。 `O(1)` です。
-
-### ```rbtree.get_min() -> Optional[T]```
-最小値を返します。空であれば `None` を返します。 `O(1)` です。
+### ```rbtree.get_max() / .get_min() -> Optional[T]```
+最大値/最小値 を返します。空であれば `None` を返します。 `O(1)` です。
 
 ### ```rbtree.get_max_iter() -> Optional[Node]```
 最大値を指す `Node` を返します。空であれば `None` を返します。 `O(1)` です。
@@ -48,10 +45,10 @@ _____
 ### ```rbtree.get_min_iter() -> Optional[Node]```
 最小値を指す `Node` を返します。空であれば `None` を返します。 `O(1)` です。
 
-### ```rbtree.le(key) / .lt(key) / .ge(key) / gt(key)```
+### ```rbtree.le(key) / .lt(key) / .ge(key) / gt(key) -> Optional[T]```
 `key` (以下の/より小さい/以上の/より大きい)値で(最大/最大/最小/最小)の値を返します。存在しなければ `None` を返します。 `O(logN)` です。
 
-### ```rbtree.le_iter(key) / .lt_iter(key) / .ge_iter(key) / gt_iter(key)```
+### ```rbtree.le_iter(key) / .lt_iter(key) / .ge_iter(key) / gt_iter(key) -> Optional[Node]```
 `key` (以下の/より小さい/以上の/より大きい)値で(最大/最大/最小/最小)の `Node` を返します。存在しなければ `None` を返します。 `O(logN)` です。
 
 ### ```rbtree.find(key) -> Optional[Node]```
@@ -60,14 +57,11 @@ _____
 ### ```rbtree.tolist() -> List[T]```
 keyを昇順に並べたリストを返します。 `O(N)` です。
 
-### ```rbtree.pop_max() -> T```
-最大値を削除し、その値を返します。 `O(logN)` です。空の `rbtree` に使ってはいけません。
-
-### ```rbtree.pop_min() -> T```
-最小値を削除し、その値を返します。 `O(logN)` です。空の `rbtree` に使ってはいけません。
+### ```rbtree.pop_max() / .pop_min() -> T```
+最大値/最小値 を削除し、その値を返します。 `O(logN)` です。空の `rbtree` に使ってはいけません。
 
 ### ```rbtree.clear() -> None```
-clearします。 `O(1)` です。
+要素をすべて削除します。 `O(1)` です。
 
 ### ```str(rbtree) / repr(rbtree)```
 
@@ -80,8 +74,11 @@ _____
 多重集合としての赤黒木です。
 
 ### ```rbtree.add(key: T, cnt: int=1) -> None```
-`key` を `cnt` 個追加ます。
+`key` を `cnt` 個追加ます。 `O(logN)` です。
 
 ### ```rbtree.discard(key: T, cnt: int=1) -> bool```
-`key` を `min(cnt, rbtree.count(key))` 個削除します。
+`key` を `min(cnt, rbtree.count(key))` 個削除します。 `O(logN)` です。
+
+### ```rbtree.discard_all(key: T) -> bool```
+`key` が存在すればすべて削除し `True` を返します。そうでなければ何もせず `False` を返します。 `O(logN)` です。
 

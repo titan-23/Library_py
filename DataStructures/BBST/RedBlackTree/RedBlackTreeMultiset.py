@@ -367,6 +367,13 @@ class RedBlackTreeMultiset(Generic[T]):
     self.discard_iter(node)
     return True
 
+  def discard_all(self, key: T) -> bool:
+    node = self.find(key)
+    if not node:
+      return False
+    self.discard_iter(node)
+    return True
+
   def count(self, key: T) -> int:
     node = self.find(key)
     return node.cnt if node else 0
