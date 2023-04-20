@@ -4,7 +4,7 @@
 赤黒木です。どうも。
 _____
 # Node
-`Node` です。双方向に進められます。計算量は平均 `O(1)` 、最悪 `O(logN)` です。
+`Node` です。双方向に進められます。 `1` だけ進める場合、計算量は平均 `O(1)` 、最悪 `O(logN)` です。 `k` だけ進める場合、だいたい `k` 倍になります。
 
 ### ```node += 1 / node -= 1```
 `node` を次/前の `node` にします。存在しないときは `None` になります。
@@ -71,7 +71,10 @@ keyを昇順に並べたリストを返します。 `O(N)` です。
 
 _____
 # [RedBlackTreeMultiset](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeMultiset.py)
-多重集合としての赤黒木です。 `RedBlackTreeSet` に加え、以下の操作ができます。
+多重集合としての赤黒木です。 主に `RedBlackTreeSet` と同等の操作ができます。差分は以下です。
+
+### ```rbtree = RedBlackTreeMultiset(a: Iterable[T]=[])```
+`a` から `RedBlackTreeMultiset` を構築します。ソート済みなら `O(N)` 、そうでないなら `O(NlogN)` です。
 
 ### ```rbtree.add(key: T, cnt: int=1) -> None```
 `key` を `cnt` 個追加ます。 `O(logN)` です。
