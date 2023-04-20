@@ -7,11 +7,16 @@
 splay操作をする木です。強いです。  
 計算量を明示していないものは、償却計算量O(logN)です。
 _____
-# [SplayTree](https://github.com/titanium-22/Library/blob/main/BST/SplayTree/SplayTree.py)
-列を扱えるSplayTreeです。
+# [LazySplayTree](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree/LazySplayTree.py)
+遅延伝播反転可能平衡二分木です。アホの定数倍をしています(定数倍が大きい方向にアホです)。
 
-### ```st = SplayTree(a: Iterable[T], op: Callable[[T, T], T], e: T) -> None```
-列aからSplayTreeを構築します。単位元eは、prodでl >= rのときのみ使用されるため、そのようなl, rを要求しないのであれば必要ありません。  
+## MonoidData
+モノイドのデータや作用、左右の子などを保持するクラスです。 `LazySplayTree` をインスタンス化する際に渡してください。
+
+## LazySplayTree
+
+### ```splay = LazySplayTree(monoiddata: MonoidData, n_or_a: Union[int, Iterable[T]]=0)```
+列 `a` 、 データ `monoiddata` から `LazySplayTree` を構築します。単位元eは、prodでl >= rのときのみ使用されるため、そのようなl, rを要求しないのであれば必要ありません。  
 また、opも二項演算を必要としない場合は省略可能です。  
 O(N)です。
 
@@ -45,12 +50,6 @@ copyできます。O(N)です。
 ### ```st.to_l() -> List[T]```
 リストに変換します。内部でsys.setrecursionlimit(len(self))をしているので安心です。O(N)です。
 
-_____
-# [LazySplayTree](https://github.com/titanium-22/Library/blob/main/BST/SplayTree/LazySplayTree.py)
-遅延伝播反転可能平衡二分木です。アホの定数倍をしています(定数倍が大きい方向にアホです)。[SplayTree](https://github.com/titanium-22/Library/blob/main/BST/SplayTree/SplayTree.py)でできる操作に加えて以下の操作がができます。  
-※恒等写像はいりません(内部で恒等写像をNoneとして場合分けしています)。
-
-### ```st = LazySplayTree(a: Iterable[T], op: Callable[[T, T], T], mapping: Callable[[F, T], T], composition: Callable[[F, F], F], e: T)```
 列aからLazySplayTreeを構築します。その他引数は遅延セグ木のアレです。時間計算量O(N)です。
 
 ### ```st.reverse(l: int, r: int) -> None```
