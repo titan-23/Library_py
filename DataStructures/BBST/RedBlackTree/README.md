@@ -1,7 +1,7 @@
 最終更新：2023/04/20
 - いろいろ更新しました。
 
-赤黒木です。どうも。
+赤黒木です。よしなに。
 _____
 # Node
 `Node` です。双方向に進められます。 `1` だけ進める場合、計算量は平均 `O(1)` 、最悪 `O(logN)` です。 `k` だけ進める場合、だいたい `k` 倍になります。
@@ -37,18 +37,15 @@ _____
 存在判定です。 `key` が存在すれば `True` を、そうでなければ `False` を返します。 `O(logN)` です。
 
 ### ```rbtree.get_max() / .get_min() -> Optional[T]```
-最大値/最小値 を返します。空であれば `None` を返します。 `O(1)` です。
+最大値/最小値を返します。空であれば `None` を返します。 `O(1)` です。
 
-### ```rbtree.get_max_iter() -> Optional[Node]```
-最大値を指す `Node` を返します。空であれば `None` を返します。 `O(1)` です。
+### ```rbtree.get_max_iter() / .get_min_iter() -> Optional[Node]```
+最大値/最小値を指す `Node` を返します。空であれば `None` を返します。 `O(1)` です。
 
-### ```rbtree.get_min_iter() -> Optional[Node]```
-最小値を指す `Node` を返します。空であれば `None` を返します。 `O(1)` です。
-
-### ```rbtree.le(key) / .lt(key) / .ge(key) / gt(key) -> Optional[T]```
+### ```rbtree.le(key: T) / .lt(key) / .ge(key) / gt(key) -> Optional[T]```
 `key` (以下の/より小さい/以上の/より大きい)値で(最大/最大/最小/最小)の値を返します。存在しなければ `None` を返します。 `O(logN)` です。
 
-### ```rbtree.le_iter(key) / .lt_iter(key) / .ge_iter(key) / gt_iter(key) -> Optional[Node]```
+### ```rbtree.le_iter(key: T) / .lt_iter(key) / .ge_iter(key) / gt_iter(key) -> Optional[Node]```
 `key` (以下の/より小さい/以上の/より大きい)値で(最大/最大/最小/最小)の `Node` を返します。存在しなければ `None` を返します。 `O(logN)` です。
 
 ### ```rbtree.find(key) -> Optional[Node]```
@@ -58,7 +55,7 @@ _____
 keyを昇順に並べたリストを返します。 `O(N)` です。
 
 ### ```rbtree.pop_max() / .pop_min() -> T```
-最大値/最小値 を削除し、その値を返します。 `O(logN)` です。空の `rbtree` に使ってはいけません。
+最大値/最小値を削除し、その値を返します。 `O(logN)` です。空の `rbtree` に使ってはいけません。
 
 ### ```rbtree.clear() -> None```
 要素をすべて削除します。 `O(1)` です。
