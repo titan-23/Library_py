@@ -3,33 +3,33 @@ T = TypeVar('T')
 
 class SegmentTree(Generic[T]):
 
-  def __init__(self, _n_or_a: Union[int, Iterable[T]], _op: Callable[[T, T], T], _e: T) -> None:
+  def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T) -> None:
     '''Build a new SegmentTree. / O(N)'''
-    self._op = _op
-    self._e = _e
-    if isinstance(_n_or_a, int):
-      self._n = _n_or_a
+    self._op = op
+    self._e = e
+    if isinstance(n_or_a, int):
+      self._n = n_or_a
       self._log  = (self._n - 1).bit_length()
       self._size = 1 << self._log
-      self._data = [_e] * (self._size << 1)
+      self._data = [e] * (self._size << 1)
     else:
-      _n_or_a = list(_n_or_a)
-      self._n = len(_n_or_a)
+      n_or_a = list(n_or_a)
+      self._n = len(n_or_a)
       self._log  = (self._n - 1).bit_length()
       self._size = 1 << self._log
-      _data = [_e] * (self._size << 1)
-      _data[self._size:self._size+self._n] = _n_or_a
+      _data = [e] * (self._size << 1)
+      _data[self._size:self._size+self._n] = n_or_a
       for i in range(self._size-1, 0, -1):
-        _data[i] = _op(_data[i<<1], _data[i<<1|1])
+        _data[i] = op(_data[i<<1], _data[i<<1|1])
       self._data = _data
 
-  def set(self, k: int, val: T) -> None:
+  def set(self, k: int, v: T) -> None:
     '''Update a[k] <- x. / O(logN)'''
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.set({k}: int, {val}: T), n={self._n}'
+        f'IndexError: SegmentTree.set({k}: int, {v}: T), n={self._n}'
     if k < 0: k += self._n
     k += self._size
-    self._data[k] = val
+    self._data[k] = v
     for _ in range(self._log):
       k >>= 1
       self._data[k] = self._op(self._data[k<<1], self._data[k<<1|1])
@@ -116,7 +116,7 @@ class SegmentTree(Generic[T]):
     return 0
 
   def tolist(self) -> List[T]:
-    '''Return List[self]. / O(NlogN)'''
+    '''Return List[self]. / O(N)'''
     return [self.get(i) for i in range(self._n)]
 
   def show(self) -> None:
@@ -128,17 +128,16 @@ class SegmentTree(Generic[T]):
         f'IndexError: SegmentTree.__getitem__({k}: int), n={self._n}'
     return self.get(k)
 
-  def __setitem__(self, k: int, val: T) -> None:
+  def __setitem__(self, k: int, v: T) -> None:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.__setitem__{k}: int, {val}: T), n={self._n}'
-    self.set(k, val)
+        f'IndexError: SegmentTree.__setitem__{k}: int, {v}: T), n={self._n}'
+    self.set(k, v)
 
   def __str__(self) -> str:
-    return '[' + ', '.join(map(str, (self.get(i) for i in range(self._n)))) + ']'
+    return str(self.tolist())
 
   def __repr__(self) -> str:
     return f'SegmentTree({self})'
-
 
 def op(s, t):
   return

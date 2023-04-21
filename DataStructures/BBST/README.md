@@ -4,7 +4,7 @@
 計算量は償却だったり最悪だったりします。詳しくは各READMEを読んでください。  
 以下の木があります。  
 - [AVLTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/AVLTree)
-- [ScapegoatTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/ScapegoatTree)
+- [ScapegoatTree](https://github.kcom/titanium-22/Library_py/tree/main/DataStructures/BBST/ScapegoatTree)
 - [SplayTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/SplayTree)
 - [Treap](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/Treap)
 - [RedBlackTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/RedBlackTree)
