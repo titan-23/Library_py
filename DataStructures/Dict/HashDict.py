@@ -1,5 +1,5 @@
 import random
-from typing import List, Iterator, Tuple, Any, Hashable
+from typing import List, Iterator, Tuple, Any
 
 class HashDict():
 
@@ -15,12 +15,12 @@ class HashDict():
   存  在  意  義
   '''
 
-  def __init__(self, e: Hashable=-1, default: Any=0):
+  def __init__(self, e: int=-1, default: Any=0):
     # e: keyとして使わない値
     # default: valのdefault値
-    self._keys: List[Hashable] = [e]
+    self._keys: List[int] = [e]
     self._vals: List[Any] = [default]
-    self._e: Hashable = e
+    self._e: int = e
     self._default: Any = default
     self._len: int = 0
     self._xor: int = random.getrandbits(1)
@@ -40,10 +40,10 @@ class HashDict():
       if old_keys[i] != _e:
         self.set(old_keys[i], old_vals[i])
 
-  def _hash(self, key: Hashable) -> int:
+  def _hash(self, key: int) -> int:
     return (key ^ self._xor) % len(self._keys)
 
-  def get(self, key: Hashable, default: Any=None) -> Any:
+  def get(self, key: int, default: Any=None) -> Any:
     assert key != self._e, \
         f'ValueError: HashDict.get({key}, {default}), {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
@@ -58,7 +58,7 @@ class HashDict():
       if h == l:
         h = 0
 
-  def __contains__(self, key: Hashable):
+  def __contains__(self, key: int):
     assert key != self._e, \
         f'ValueError: {key} in HashDict, {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
@@ -73,7 +73,7 @@ class HashDict():
       if h == l:
         h = 0
 
-  def set(self, key: Hashable, val: Any) -> None:
+  def set(self, key: int, val: Any) -> None:
     assert key != self._e, \
         f'ValueError: HashDict.set({key}, {val}), {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
@@ -97,7 +97,7 @@ class HashDict():
   __setitem__ = set
   __getitem__ = get
 
-  def keys(self) -> Iterator[Hashable]:
+  def keys(self) -> Iterator[int]:
     _keys, _e = self._keys, self._e
     for i in range(len(_keys)):
       if _keys[i] != _e:
@@ -109,7 +109,7 @@ class HashDict():
       if _keys[i] != _e:
         yield _vals[i]
 
-  def items(self) -> Iterator[Tuple[Hashable, Any]]:
+  def items(self) -> Iterator[Tuple[int, Any]]:
     _keys, _vals, _e = self._keys, self._vals, self._e
     for i in range(len(_keys)):
       if _keys[i] != _e:

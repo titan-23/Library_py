@@ -91,7 +91,7 @@ class BinaryTrieSet():
 
   def _discard(self, node: int) -> None:
     left, right, par, size = self.left, self.right, self.par, self.size
-    for i in range(self.bit):
+    for _ in range(self.bit):
       size[node] -= 1
       if left[par[node]] == node:
         node = par[node]
@@ -108,7 +108,6 @@ class BinaryTrieSet():
   def discard(self, key: int) -> bool:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.discard({key}), lim={self.lim}'
-    left, right, par, size = self.left, self.right, self.par, self.size
     node = self.find(key)
     if not node: return False
     self._discard(node)
@@ -220,7 +219,7 @@ class BinaryTrieSet():
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.index({key}), lim={self.lim}'
     left, right, size = self.left, self.right, self.size
-    k, now = 0, 0
+    k = 0
     node = self.root
     key ^= self.xor
     for i in range(self.bit-1, -1, -1):
@@ -236,7 +235,7 @@ class BinaryTrieSet():
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.index_right({key}), lim={self.lim}'
     left, right, size = self.left, self.right, self.size
-    k, now = 0, 0
+    k = 0
     node = self.root
     key ^= self.xor
     for i in range(self.bit-1, -1, -1):

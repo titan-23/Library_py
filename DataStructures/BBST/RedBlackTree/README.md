@@ -1,4 +1,4 @@
-最終更新：2023/04/20
+最終更新：2023/04/27
 - いろいろ更新しました。
 
 赤黒木です。よしなに。
@@ -20,8 +20,9 @@ _____
 
 _____
 # [RedBlackTreeSet](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeSet.py)
+
 集合としての赤黒木です。以下の操作ができます:  
-`Add` / `Delete` / `Find` / `Predecessor` / `Successor` / など  
+`Add` / `Delete` / `Member` / `Predecessor` / `Successor` / など  
 詳しくは以下です。
 
 ### ```rbtree = RedBlackTreeSet(a: Iterable[T]=[])```
@@ -36,14 +37,14 @@ _____
 ### ```rbtree.discard(key: T) -> bool```
 `key` が存在するなら `key` を削除し `True` を返します。 `key` が存在しないなら何もせず、 `False` を返します。 `O(logN)` です。
 
-### ```rbtree.couont(key: T) -> int```
+### ```rbtree.count(key: T) -> int```
 `key` が存在するなら `1` を、存在しないなら `0` を返します。 `O(logN)` です。
 
 ### ```key: T in rbtree```
 存在判定です。 `key` が存在すれば `True` を、そうでなければ `False` を返します。 `O(logN)` です。
 
 ### ```rbtree.get_max() / .get_min() -> Optional[T]```
-最大値/最小値を返します。空であれば `None` を返します。 `O(1)` です。
+最大値/最小値を返します。存在しなければ `None` を返します。 `O(1)` です。
 
 ### ```rbtree.get_max_iter() / .get_min_iter() -> Optional[Node]```
 最大値/最小値を指す `Node` を返します。空であれば `None` を返します。 `O(1)` です。

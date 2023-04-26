@@ -57,7 +57,7 @@ class BinaryTrieMultiset():
   def _discard(self, node: int) -> None:
     left, right, par, size = self.left, self.right, self.par, self.size
     cnt = size[node]
-    for i in range(self.bit):
+    for _ in range(self.bit):
       size[node] -= cnt
       if left[par[node]] == node:
         node = par[node]
@@ -74,7 +74,7 @@ class BinaryTrieMultiset():
   def discard(self, key: int, cnt: int=1) -> bool:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.discard({key}), lim={self.lim}'
-    left, right, par, size = self.left, self.right, self.par, self.size
+    par, size = self.par, self.size
     node = self.find(key)
     if node is None: return False
     if size[node] <= cnt:
@@ -196,7 +196,7 @@ class BinaryTrieMultiset():
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.index({key}), lim={self.lim}'
     left, right, size = self.left, self.right, self.size
-    k, now = 0, 0
+    k = 0
     node = self.root
     key ^= self.xor
     for i in range(self.bit-1, -1, -1):
@@ -212,7 +212,7 @@ class BinaryTrieMultiset():
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.index_right({key}), lim={self.lim}'
     left, right, size = self.left, self.right, self.size
-    k, now = 0, 0
+    k = 0
     node = self.root
     key ^= self.xor
     for i in range(self.bit-1, -1, -1):
