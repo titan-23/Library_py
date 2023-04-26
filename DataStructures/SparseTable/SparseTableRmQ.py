@@ -8,7 +8,7 @@ class SparseTableRmQ(Generic[T]):
       a = list(a)
     self.size = len(a)
     log = self.size.bit_length()-1
-    self.data = [a] + [None] * log
+    self.data = [a] + [[]] * log
     for i in range(log):
       pre = self.data[i]
       l = 1 << i
