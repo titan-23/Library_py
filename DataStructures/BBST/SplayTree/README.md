@@ -1,74 +1,75 @@
-最終更新：2022/12/01
-
-・色々修正しました。
+最終更新：2023/4/27
+- 色々修正しました。
 
 
 # SplayTree
 splay操作をする木です。強いです。  
-計算量を明示していないものは、償却計算量O(logN)です。
+
 _____
-# [LazySplayTree](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree/LazySplayTree.py)
+
+# [`LazySplayTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree/LazySplayTree.py)
 遅延伝播反転可能平衡二分木です。アホの定数倍をしています(定数倍が大きい方向にアホです)。
 
 ## MonoidData
-モノイドのデータや作用、左右の子などを保持するクラスです。 `LazySplayTree` をインスタンス化する際に渡してください。
+モノイドのデータや作用、左右の子などを保持するクラスです。 `LazySplayTree` をインスタンス化する際に渡してください。  
+`merge/split` する場合はそれらが同一の `MonoidData` を持つようにする必要があります。
 
 ## LazySplayTree
 
-### ```splay = LazySplayTree(monoiddata: MonoidData, n_or_a: Union[int, Iterable[T]]=0)```
-列 `a` 、 データ `monoiddata` から `LazySplayTree` を構築します。単位元eは、prodでl >= rのときのみ使用されるため、そのようなl, rを要求しないのであれば必要ありません。  
-また、opも二項演算を必要としない場合は省略可能です。  
-O(N)です。
+### `lazy_splay_tree = LazySplayTree(monoiddata: MonoidData, n_or_a: Union[int, Iterable[T]]=0)`
+`monoiddata` から `LazySplayTree` を構築します。 `O(N)` です。
+`n_or_a` が `int` のとき、`monoiddata` の `e` から長さ `n` の `lazy_splay_tree` が作られます。  
+`n_or_a` が `Iterable` のとき、`a` から `lazy_splay_tree` が作られます。  
+以降、 `st = lazy_splay_tree` と書きます。
 
-### ```st.merge(other: SplayTree) -> None```
-stにotherをmergeできます。
+### ```st.merge(other: LazySplayTree) -> None```
+`st` に `other` を `merge` できます。 `list` における `st.extend(other)` と似たような処理です。
 
-### ```st.split(k: int) -> Tuple[SplayTree, SplayTree]```
-x, y = st.split(k)で、k番目で左右に分けたSplayTreeを返します。(xの長さがk。)
+### ```st.split(k: int) -> Tuple[LazySplayTree, LazySplayTree]```
+2つの `LazySplayTree` を要素に持つタプルを返します。  
+1要素目は `st` の `0` 番目から `k-1` 番目までを、2要素目は `k` 番目以降を要素に持ちます。
 
 ### ```st.insert(k: int, key: T) -> None```
-kにkeyをinsesrtできます。
+位置 `k` に `key` を挿入します。償却 `O(logN)` です。
 
 ### ```st.append(key: T) / .appendleft(key: T) -> None```
-末尾/先頭にkeyを追加します。
+末尾/先頭 に `key` を追加します。償却 `O(logN)` です。
 
 ### ```st.pop(k: int=-1) / .popleft() -> T```
-k番目/先頭を削除しその値を返します。
+`k` 番目/先頭/末尾 を削除しその値を返します。償却 `O(logN)` です。
 
-### ```st[k: int] -> T```
-k番目を取得できます。
+### ```st[k] -> T```
+`k` 番目を返します。償却 `O(logN)` です。
 
-### ```st[k: int] = key```
-setitemできます。
+### ```st[k] = key: T```
+`k` 番目を `key` に更新します。償却 `O(logN)` です。
 
-### ```st.copy() -> SplayTree```
-copyできます。O(N)です。
+### ```st.copy() -> LazySplayTree```
+`copy` できます。 `O(N)` です。
 
 ### ```st.prod(l: int, r: int) -> T```
-区間[l, r)にopを適用した結果を返します。l >= rのとき、単位元eを返します。
-
-### ```st.to_l() -> List[T]```
-リストに変換します。内部でsys.setrecursionlimit(len(self))をしているので安心です。O(N)です。
-
-列aからLazySplayTreeを構築します。その他引数は遅延セグ木のアレです。時間計算量O(N)です。
+区間 `[l, r)` に `op` を適用した結果を返します。償却 `O(logN)` です。
 
 ### ```st.reverse(l: int, r: int) -> None```
-区間[l, r)を反転します。reverse()メソッドを一度でも使用するならopには可換性が求められます(可換性がない場合、嘘の動作をします)。
+区間 `[l, r)` を反転します。償却 `O(logN)` です。 `reverse()` メソッドを一度でも使用するなら `op` には可換性が求められます(可換性がない場合、嘘の動作をします)。
 
 ### ```st.apply(l: int, r: int, f: F) -> None```
-区間[l, r)にfを適用します。
+区間 `[l, r)` に `f` を適用します。償却 `O(logN)` です。
 
 ### ```st.all_apply(f: F) -> None```
-区間[0, N)にfを適用します。時間計算量O(1)です。
+区間 `[0, N)` に `f` を適用します。 `O(1)` です。
 
+### ```st.tolist() -> List[T]```
+`List` に変換します。非再帰です。`O(N)` です。
 
 _____
+
 # [SplayTreeSet](https://github.com/titanium-22/Library/blob/main/BST/SplayTree/SplayTreeSet.py)
 集合としてのSplayTreeです。任意の他要素と比較可能な要素が載ります。  
 全機能をverifyしたわけではないのでコンテスト中の利用は控えると吉です。
 
 ### ```st = SplayTreeSet(a: Iterable[T]])```
-aからSplayTreeSetを作ります。O(NlogN)時間です。ソート済みを仮定して内部をいじるとO(N)時間です。
+`a` から `SplayTreeSet` を作ります。 `O(NlogN)` 時間です。ソート済みを仮定して内部をいじると `O(N)` 時間です。
 
 ### ```len(st)```
 要素の個数を返します。O(1)時間です。

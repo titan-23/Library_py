@@ -18,8 +18,8 @@ class TreapSet(Generic[T]):
 
     def __init__(self, key, priority: int=-1):
       self.key = key
-      self.left = None
-      self.right = None
+      self.left: Optional['TreapSet.Node'] = None
+      self.right: Optional['TreapSet.Node'] = None
       self.priority = TreapSet.Random.random() if priority == -1 else priority
 
     def __str__(self):
@@ -225,14 +225,18 @@ class TreapSet(Generic[T]):
     rec(self.node)
     return a
 
-  def get_min(self) -> T:
+  def get_min(self) -> Optional[T]:
     node = self.node
+    if not node:
+      return None
     while node.left:
       node = node.left
     return node.key
 
-  def get_max(self) -> T:
+  def get_max(self) -> Optional[T]:
     node = self.node
+    if not node:
+      return None
     while node.right:
       node = node.right
     return node.key
@@ -268,6 +272,7 @@ class TreapSet(Generic[T]):
     return res
 
   def __getitem__(self, k: int) -> T:
+    assert self.len > 0
     if k == -1 or k == self.len-1:
       return self.get_max()
     elif k == 0:
