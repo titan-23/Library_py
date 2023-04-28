@@ -254,6 +254,7 @@ class RedBlackTreeSet(Generic[T]):
     return True
 
   def discard_iter(self, node: Node) -> None:
+    assert isinstance(node, RedBlackTreeSet.Node)
     self.size -= 1
     if node.key == self.min_node.key:
       self.min_node = node._next()

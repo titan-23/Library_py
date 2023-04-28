@@ -1,7 +1,5 @@
 from array import array
 from typing import Generic, List, TypeVar, Tuple, Callable, Iterable, Optional, Union, Sequence
-
-from sympy import sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 F = TypeVar('F')

@@ -66,14 +66,12 @@ class RedBlackTreeMultiset(Generic[T]):
     def __add__(self, other: int):
       res = self
       for _ in range(other):
-        assert res is not None
         res = res._next()
       return res
 
     def __sub__(self, other: int):
       res = self
       for _ in range(other):
-        assert res is not None
         res = res._prev()
       return res
 
@@ -271,6 +269,7 @@ class RedBlackTreeMultiset(Generic[T]):
     self.node.col = 0
 
   def discard_iter(self, node: Node) -> None:
+    assert isinstance(node, RedBlackTreeMultiset.Node)
     self.size -= node.cnt
     if node.key == self.min_node.key:
       self.min_node = node._next()
