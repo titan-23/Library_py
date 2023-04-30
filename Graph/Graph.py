@@ -38,27 +38,6 @@ while todo:
       todo.append(x)
 
 #################
-"トポロジカルソートの数え上げ"
-
-  for i in range(16):
-    b[i] = 0
-  n, m = map(int, input().split())
-  for _ in range(m):
-    x, y = map(int, input().split())
-    x -= 1
-    y -= 1
-    b[x] |= (1 << y)
-
-  for i in range(1 << 16):
-    dp[i] = 0
-  dp[0] = 1
-  for i in range(1 << n):
-    for j in range(n):
-      if (i & (1 << j)) == 0 and (i & b[j]) == 0:
-        dp[i | 1<<j] += dp[i]
-  return dp[(1<<n)-1]
-
-#################
 
 sys.setrecursionlimit(10**6)
 def get_articulation_points(G: list, s: int=0) -> list:
