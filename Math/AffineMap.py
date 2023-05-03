@@ -6,12 +6,10 @@ class AffineMap():
   # 平面のアフィン変換クラス
   # 
   # 使い方:
-  # - matrix = AffineMap.new()
+  # - mat = AffineMap.new()
   # 
 
-  NEW = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-
-  def _matmul3(a: List[float], b: List[float]) -> List[float]:
+  def _matmul3(a: List[List[float]], b: List[List[float]]) -> List[List[float]]:
     res = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i in range(3):
       for k in range(3):
@@ -21,7 +19,7 @@ class AffineMap():
 
   @classmethod
   def new(cls) -> List[List[float]]:
-    return cls.NEW[:]
+    return [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
   @classmethod
   def shift(cls, a: List[float], shift_x: float=0, shift_y: float=0) -> List[float]:
@@ -34,7 +32,7 @@ class AffineMap():
     return cls._matmul3(b, a)
 
   @classmethod
-  def rotate(cls, a: List[float], theta: float=0) -> List[float]:
+  def rotate(cls, a: List[List[float]], theta: float=0) -> List[List[float]]:
     if theta == 90:
      b = [[0, -1, 0], [1, 0, 0], [0, 0, 1]]
     elif theta == -90:
@@ -45,18 +43,18 @@ class AffineMap():
     return cls._matmul3(b, a)
 
   @classmethod
-  def x_symmetrical_move(cls, a: List[float], p: float) -> List[float]:
+  def x_symmetrical_move(cls, a: List[List[float]], p: float) -> List[List[float]]:
     b = [[-1, 0, 2*p], [0, 1, 0], [0, 0, 1]]
     return cls._matmul3(b, a)
 
   @classmethod
-  def y_symmetrical_move(cls, a: List[float], p: float) -> List[float]:
+  def y_symmetrical_move(cls, a: List[List[float]], p: float) -> List[List[float]]:
     b = [[1, 0, 0], [0, -1, 2*p], [0, 0, 1]]
     return cls._matmul3(b, a)
 
   @staticmethod
   def get(a: List[float], x: float, y: float) -> Tuple[float, float]:
-    a0, a1, a2 = a
+    a0, a1, _ = a
     x, y = a0[0]*x + a0[1]*y + a0[2], a1[0]*x + a1[1]*y + a1[2]
     return x, y
 

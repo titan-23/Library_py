@@ -34,7 +34,7 @@ class HashedMultiset():
     del self._data[key]
 
   def count(self, key: Hashable) -> int:
-    return self._data[key] if key in self._data else 0
+    return self._data.get(key, 0)
 
   def len_elm(self) -> int:
     return len(self._data)

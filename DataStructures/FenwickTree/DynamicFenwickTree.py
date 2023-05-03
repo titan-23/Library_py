@@ -26,8 +26,7 @@ class DynamicFenwickTree():
         f'IndexError: DynamicFenwickTree.pref({r}), u={self._u}'
     ret = 0
     while r > 0:
-      if r in self._tree:
-        ret += self._tree[r]
+      ret += self._tree.get(r, 0)
       r -= r & -r
     return ret
 
@@ -38,12 +37,10 @@ class DynamicFenwickTree():
     _tree = self._tree
     res = 0
     while r > l:
-      if r in _tree:
-        res += _tree[r]
+      res += _tree.get(r, 0)
       r -= r & -r
     while l > r:
-      if l in _tree:
-        res -= _tree[l]
+      res -= _tree.get(l, 0)
       l -= l & -l
     return res
 

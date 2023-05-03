@@ -26,7 +26,7 @@ class kthMutiset():
     last = -self.lower[0]
     while self.lower_del[last]:
       self.lower_del[last] -= 1
-      heappop(self.lower_del)
+      heappop(self.lower)
       last = -self.lower[0]
     if key > last:
       heappush(self.upper, key)
@@ -59,7 +59,7 @@ class kthMutiset():
     last = -self.lower[0]
     while self.lower_del[last]:
       self.lower_del[last] -= 1
-      heappop(self.lower_del)
+      heappop(self.lower)
       last = -self.lower[0]
     return last
 

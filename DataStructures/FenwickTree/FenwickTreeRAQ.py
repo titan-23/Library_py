@@ -2,20 +2,20 @@ from typing import List, Iterable, Union
 
 class FenwickTreeRAQ():
 
-  def __init__(self, _n_or_a: Union[Iterable[int], int]):
-    if isinstance(_n_or_a, int):
-      self.n = _n_or_a
-      self.bit0 = [0] * (_n_or_a + 2)
-      self.bit1 = [0] * (_n_or_a + 2)
+  def __init__(self, n_or_a: Union[Iterable[int], int]):
+    if isinstance(n_or_a, int):
+      self.n = n_or_a
+      self.bit0 = [0] * (n_or_a + 2)
+      self.bit1 = [0] * (n_or_a + 2)
       self.bit_size = self.n + 1
     else:
-      if not hasattr(_n_or_a, '__len__'):
-        _n_or_a = list(_n_or_a)
-      self.n = len(_n_or_a)
+      if not hasattr(n_or_a, '__len__'):
+        n_or_a = list(n_or_a)
+      self.n = len(n_or_a)
       self.bit0 = [0] * (self.n + 2)
       self.bit1 = [0] * (self.n + 2)
       self.bit_size = self.n + 1
-      for i, e in enumerate(_n_or_a):
+      for i, e in enumerate(n_or_a):
         self.add_range(i, i+1, e)
 
   def __add(self, bit: List[int], k: int, x: int) -> None:

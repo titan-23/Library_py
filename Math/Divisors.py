@@ -215,7 +215,7 @@ def get_primelist_sqrt(MAX):
 
 primes = get_primelist()
 
-def factorization(n: int) -> set:
+def factorization(n: int) -> list:
   res = []
   for p in primes:
     # if is_prime64(n): break

@@ -1,8 +1,8 @@
-from typing import List
+from typing import List, Tuple
 inf = float('inf')
 
 '''Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)'''
-def warshall_floyd(G: List[List[int]]) -> List[List[int]]:
+def warshall_floyd(G: List[List[Tuple[int, int]]]) -> List[List[int]]:
   n = len(G)
   # dist = [dijkstra(G, s) for s in range(n)]
   dist = [[inf]*n for _ in range(n)]

@@ -26,7 +26,7 @@ class SegmentTree(Generic[T]):
   def set(self, k: int, v: T) -> None:
     '''Update a[k] <- x. / O(logN)'''
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.set({k}: int, {v}: T), n={self._n}'
+        f'IndexError: SegmentTree.set({k}, {v}), n={self._n}'
     if k < 0: k += self._n
     k += self._size
     self._data[k] = v
@@ -37,14 +37,14 @@ class SegmentTree(Generic[T]):
   def get(self, k: int) -> T:
     '''Return a[k]. / O(1)'''
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.get({k}: int), n={self._n}'
+        f'IndexError: SegmentTree.get({k}), n={self._n}'
     if k < 0: k += self._n
     return self._data[k+self._size]
 
   def prod(self, l: int, r: int) -> T:
     '''Return op([l, r)). / O(logN)'''
     assert 0 <= l <= r <= self._n, \
-        f'IndexError: SegmentTree.prod({l}: int, {r}: int)'
+        f'IndexError: SegmentTree.prod({l}, {r})'
     l += self._size
     r += self._size
     lres = self._e
@@ -125,12 +125,12 @@ class SegmentTree(Generic[T]):
 
   def __getitem__(self, k: int) -> T:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.__getitem__({k}: int), n={self._n}'
+        f'IndexError: SegmentTree.__getitem__({k}), n={self._n}'
     return self.get(k)
 
   def __setitem__(self, k: int, v: T) -> None:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.__setitem__{k}: int, {v}: T), n={self._n}'
+        f'IndexError: SegmentTree.__setitem__{k}, {v}), n={self._n}'
     self.set(k, v)
 
   def __str__(self) -> str:

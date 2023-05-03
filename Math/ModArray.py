@@ -47,7 +47,7 @@ class ModArray998244353():
   def div(self, k: int, v: int) -> None:
     self.a[k] = (self.a[k] * self._inv(v)) % 998244353
 
-  def mod(self) -> int:
+  def get_mod(self) -> int:
     return 998244353
 
   def __iter__(self):
@@ -60,7 +60,7 @@ class ModArray998244353():
     self._iter += 1
     return self.a[self._iter-1]
 
-  def __getitem__(self, k: Union[int, slice]) -> int:
+  def __getitem__(self, k: Union[int, slice]) -> Union[int, 'ModArray998244353']:
     return ModArray998244353(self.a[k]) if isinstance(k, slice) else self.a[k]
 
   def __setitem__(self, k: int, v: int) -> None:
@@ -126,7 +126,7 @@ class ModArray1000000007():
   def div(self, k: int, v: int) -> None:
     self.a[k] = (self.a[k] * self._inv(v)) % 1000000007
 
-  def mod(self) -> int:
+  def get_mod(self) -> int:
     return 1000000007
 
   def __iter__(self):
@@ -139,7 +139,7 @@ class ModArray1000000007():
     self._iter += 1
     return self.a[self._iter-1]
 
-  def __getitem__(self, k: Union[int, slice]) -> int:
+  def __getitem__(self, k: Union[int, slice]) -> Union[int, 'ModArray1000000007']:
     return ModArray1000000007(self.a[k]) if isinstance(k, slice) else self.a[k]
 
   def __setitem__(self, k: int, v: int) -> None:
@@ -172,8 +172,8 @@ class ModArray():
       b >>= 1
     return res
 
-  def __init__(self, mod: int, n_or_a: Union[int, Iterable[int]], e: int=0):
-    self.mod = mod
+  def __init__(self, mod: int, n_or_a: Union[int, Iterable[int]]=[], e: int=0):
+    self.mod: int = mod
     e %= mod
     self.a: List[int] = [e] * n_or_a if isinstance(n_or_a, int) else [e % mod for e in n_or_a]
 
@@ -205,7 +205,7 @@ class ModArray():
   def div(self, k: int, v: int) -> None:
     self.a[k] = (self.a[k] * self._inv(v)) % self.mod
 
-  def mod(self) -> int:
+  def get_mod(self) -> int:
     return self.mod
 
   def __iter__(self):
@@ -218,8 +218,8 @@ class ModArray():
     self._iter += 1
     return self.a[self._iter-1]
 
-  def __getitem__(self, k: Union[int, slice]) -> int:
-    return ModArray(self.a[k]) if isinstance(k, slice) else self.a[k]
+  def __getitem__(self, k: Union[int, slice]) -> Union[int, 'ModArray']:
+    return ModArray(self.mod, self.a[k]) if isinstance(k, slice) else self.a[k]
 
   def __setitem__(self, k: int, v: int) -> None:
     assert isinstance(v, int)
