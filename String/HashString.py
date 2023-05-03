@@ -6,7 +6,6 @@ _MOD = 998244353
 class HashString:
 
   def __init__(self, s: str):
-    self.b = 37
     self.b = random.randint(37, 10000)
     self.n = len(s)
     self.data = [0] * (self.n+1)
@@ -30,7 +29,7 @@ class HashString:
         stop = self.n
       return self.get(start, stop)
 
-  def update(self, h: int, c1: str, c2: str, k: int) -> None:
+  def update(self, h: int, c1: str, c2: str, k: int) -> int:
     '''
     h1: int  元のハッシュ
     c1: char 元の文字
@@ -39,7 +38,7 @@ class HashString:
     '''
     return (h + (ord(c2) - ord(c1))*self.powb[self.n-k-1]) % _MOD
 
-  def unite(self, h1: int, h2: int, k: int) -> None:
+  def unite(self, h1: int, h2: int, k: int) -> int:
     return (h1 * self.powb[k] + h2) % _MOD
 
   def popleftappend(self, h: int, c1: str, c2: str) -> int:
@@ -48,5 +47,4 @@ class HashString:
     c1は元の文字, c2は新たな文字
     '''
     return ((h - ord(c1)*self.powb[self.n-1]) * self.b + ord(c2)) % _MOD
-
 
