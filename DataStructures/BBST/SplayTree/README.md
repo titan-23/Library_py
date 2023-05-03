@@ -1,4 +1,4 @@
-最終更新：2023/4/27
+最終更新：2023/5/3
 - READMEを修正しました。
 
 
@@ -10,21 +10,21 @@ _____
 # [`LazySplayTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree/LazySplayTree.py)
 遅延伝播反転可能平衡二分木です。アホの定数倍をしています(定数倍が大きい方向にアホです)。
 
-## `MonoidData`
+## `LazySplayTreeData`
 モノイドのデータや作用、左右の子などを保持するクラスです。 `LazySplayTree` をインスタンス化する際に渡してください。  
-`merge/split` する場合はそれらが同一の `MonoidData` を持つ必要があります。
+`merge/split` する場合はそれらが同一の `LazySplayTreeData` を持つ必要があります。
 
 ## `LazySplayTree`
 親へのポインタ持たせて～～
 
-### `lazy_splay_tree = LazySplayTree(monoiddata: MonoidData, n_or_a: Union[int, Iterable[T]]=0)`
-`monoiddata` から `LazySplayTree` を構築します。 `O(N)` です。
-`n_or_a` が `int` のとき、`monoiddata` の `e` から長さ `n` の `lazy_splay_tree` が作られます。  
+### `lazy_splay_tree = LazySplayTree(data: LazySplayTreeData, n_or_a: Union[int, Iterable[T]]=0)`
+`data` から `LazySplayTree` を構築します。 `O(N)` です。
+`n_or_a` が `int` のとき、`data` の `e` から長さ `n` の `lazy_splay_tree` が作られます。  
 `n_or_a` が `Iterable` のとき、`a` から `lazy_splay_tree` が作られます。  
 以降、 `st = lazy_splay_tree` と書きます。
 
 ### `st.merge(other: LazySplayTree) -> None`
-`st` に `other` を `merge` できます。 `list` における `st.extend(other)` と似たような処理です。
+`st` に `other` を `merge` します。 `list` における `.extend(other)` と似たような処理です。
 
 ### `st.split(k: int) -> Tuple[LazySplayTree, LazySplayTree]`
 2つの `LazySplayTree` を要素に持つタプルを返します。  
@@ -37,7 +37,7 @@ _____
 末尾/先頭 に `key` を追加します。償却 `O(logN)` です。
 
 ### `st.pop(k: int=-1) / .popleft() -> T`
-`k` 番目/先頭/末尾 を削除しその値を返します。償却 `O(logN)` です。
+`k` 番目/末尾/先頭 を削除しその値を返します。償却 `O(logN)` です。
 
 ### `st[k] -> T`
 `k` 番目を返します。償却 `O(logN)` です。

@@ -2,20 +2,20 @@ import sys
 from typing import Union, Generic, List, TypeVar, Any, Tuple, Callable
 T = TypeVar('T')
 
-class Node:
-
-  def __init__(self, key, val) -> None:
-    self.key = key
-    self.val = val
-    self.left = None
-    self.right = None
-
-  def __str__(self) -> str:
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.val}\n'
-    return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
-
 class SplayTreeSetDict(Generic[T]):
+
+  class Node:
+
+    def __init__(self, key, val) -> None:
+      self.key = key
+      self.val = val
+      self.left = None
+      self.right = None
+
+    def __str__(self) -> str:
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.val}\n'
+      return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
 
   NIL = Node(None, None)
 
@@ -83,14 +83,14 @@ class SplayTreeSetDict(Generic[T]):
 
   def __setitem__(self, key: T, val: Any):
     if self.node is None:
-      self.node = Node(key, val)
+      self.node = SplayTreeSetDict.Node(key, val)
       self.len += 1
       return
     self._set_search_splay(key)
     if self.node.key == key:
       self.node.val = val
       return
-    node = Node(key, val)
+    node = SplayTreeSetDict.Node(key, val)
     if key < self.node.key:
       node.left = self.node.left
       node.right = self.node
