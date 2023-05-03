@@ -91,6 +91,7 @@ class ModInt998244353:
     return f'{self}'
 mint = ModInt998244353
 
+# ---------------------- #
 
 from typing import Union
 from functools import lru_cache
@@ -185,6 +186,7 @@ class ModInt1000000007:
     return f'{self}'
 mint = ModInt1000000007
 
+# ---------------------- #
 
 from typing import Union
 from functools import lru_cache
@@ -285,3 +287,4 @@ class ModInt:
     return f'{self}'
 mint = ModInt
 
+# ---------------------- #
