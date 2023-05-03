@@ -283,7 +283,7 @@ class RedBlackTreeSet(Generic[T]):
       y.left.par = y
       y.col = node.col
     if y_col:
-      return True
+      return
     while x is not self.node and not x.col:
       if x is x.par.left:
         y = x.par

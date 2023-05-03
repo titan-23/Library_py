@@ -202,7 +202,8 @@ class RedBlackTreeMultiset(Generic[T]):
     return node
 
   def add(self, key: T, cnt: int=1) -> None:
-    assert cnt > 0
+    if cnt <= 0:
+      return
     self.size += cnt
     if not self.node:
       node = RedBlackTreeMultiset.Node(key, cnt)
@@ -298,7 +299,7 @@ class RedBlackTreeMultiset(Generic[T]):
       y.left.par = y
       y.col = node.col
     if y_col == 1:
-      return True
+      return
     while x is not self.node and x.col == 0:
       if x is x.par.left:
         y = x.par
