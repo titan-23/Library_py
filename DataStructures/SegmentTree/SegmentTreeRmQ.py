@@ -19,7 +19,7 @@ class SegmentTreeRmQ(Generic[T]):
       _data = [self._e] * (self._size << 1)
       _data[self._size:self._size+self._n] = _n_or_a
       for i in range(self._size-1, 0, -1):
-        _data[i] = _data[i<<1] if _data[i<<1] < self._data[i<<1|1] else self._data[i<<1|1]
+        _data[i] = _data[i<<1] if _data[i<<1] < _data[i<<1|1] else _data[i<<1|1]
       self._data = _data
 
   def set(self, k: int, val: T) -> None:
