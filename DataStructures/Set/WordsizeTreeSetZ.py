@@ -1,4 +1,4 @@
-from typing import TypeVar, Iterable, Union, Optional, Generic
+from typing import TypeVar, Iterable, Optional, Generic
 T = TypeVar('T')
 
 class WordsizeTreeSetZ(Generic[T]):
@@ -75,7 +75,6 @@ class WordsizeTreeSetZ(Generic[T]):
   def __repr__(self):
     return 'WordsizeTreeSetZ(' + str(self) + ')'
 
-
 class WordsizeTreeMultisetZ(Generic[T]):
 
   def __init__(self, _used: Iterable[T], a: Iterable[T]=[]):
@@ -146,7 +145,7 @@ class WordsizeTreeMultisetZ(Generic[T]):
       return
     v = self.get_min()
     while v is not None:
-      yield (v, self.cnt[v])
+      yield (v, self.data.cnt[v])
       v = self.gt(v)
 
   def clear(self) -> None:

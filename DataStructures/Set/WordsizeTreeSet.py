@@ -17,7 +17,7 @@
 # データの個数はHashテーブルを用いて空間O(n)で管理している
 
 from array import array
-from typing import Iterable, TypeVar, Optional
+from typing import Iterable, Optional
 
 class WordsizeTreeSet:
 
@@ -112,14 +112,14 @@ class WordsizeTreeSet:
     return self.le(self.u - 1)
 
   def pop_min(self) -> int:
-    assert self, 'IndexError: pop_min() from empty WordsizeTreeSet.'
     v = self.get_min()
+    assert v is not None, 'IndexError: pop_min() from empty WordsizeTreeSet.'
     self.discard(v)
     return v
 
   def pop_max(self) -> int:
-    assert self, 'IndexError: pop_max() from empty WordsizeTreeSet.'
     v = self.get_max()
+    assert v is not None, 'IndexError: pop_max() from empty WordsizeTreeSet.'
     self.discard(v)
     return v
 

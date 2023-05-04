@@ -57,15 +57,19 @@ class DynamicFenwickTreeSet():
   def index_right(self, key: int) -> int:
     return self._fw.pref(key + 1)
 
+  def pop(self, k: int=-1):
+    x = self.__getitem__(k)
+    self.discard(x)
+    return x
+
+  def pop_min(self):
+    x = self.__getitem__(0)
+    self.discard(x)
+    return x
+
   def __getitem__(self, k: int):
     if k < 0: k += self._len
     return self._fw.bisect_right(k)
-
-  def __repr__(self):
-    return f'DynamicFenwickTreeSet({self})'
-
-  def __str__(self):
-    return '{' + ', '.join(map(str, self)) + '}'
 
   def __iter__(self):
     self._iter = 0
@@ -91,15 +95,11 @@ class DynamicFenwickTreeSet():
   def __bool__(self):
     return self._len > 0
 
-  def pop(self, k: int=-1):
-    x = self.__getitem__(k)
-    self.discard(x)
-    return x
+  def __str__(self):
+    return '{' + ', '.join(map(str, self)) + '}'
 
-  def pop_min(self):
-    x = self.__getitem__(0)
-    self.discard(x)
-    return x
+  def __repr__(self):
+    return f'DynamicFenwickTreeSet({self})'
 
 class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet):
 

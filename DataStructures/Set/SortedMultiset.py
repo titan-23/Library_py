@@ -41,7 +41,7 @@ class SortedMultiset(Generic[T]):
     return "{" + s[1 : len(s) - 1] + "}"
 
   def __bool__(self) -> bool:
-    return self._size > 0
+    return self.size > 0
 
   def _find_bucket(self, x: T) -> List[T]:
     for a in self.a:
