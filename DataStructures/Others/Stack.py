@@ -6,7 +6,7 @@ class Stack:
 
   def __init__(self, a: Iterable=[]):
     self.data = list(a)
-    self.back = len(a)
+    self.back = len(self.data)
 
   def pop(self):
     self.back -= 1
@@ -37,7 +37,8 @@ class Stack:
     return self
 
   def __next__(self):
-    if self.__iter+1 >= self.back: raise StopIteration
+    if self.__iter+1 >= self.back:
+      raise StopIteration
     self.__iter += 1
     return self.data[self.__iter]
 
@@ -49,3 +50,4 @@ class Stack:
 
   def __repr__(self):
     return f'Stack({self})'
+
