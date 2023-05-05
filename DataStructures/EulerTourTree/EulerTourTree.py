@@ -88,9 +88,9 @@ class EulerTourTree(Generic[T, F]):
     self._update(u)
 
   def _splay(self, node: Optional[Node]) -> None:
-    self._propagate(node)
     if node is None:
       return
+    self._propagate(node)
     while node.par is not None and node.par.par is not None:
       pnode = node.par
       gnode = pnode.par
@@ -156,14 +156,12 @@ class EulerTourTree(Generic[T, F]):
       self._update(pnode)
       self._update(node)
       if node.par is None:
-        self._propagate(node)
         return
       if node.par.left is gnode:
         node.par.left = node
       else:
         node.par.right = node
     if node.par is None:
-      self._propagate(node)
       return
     pnode = node.par
     assert pnode.par is None
