@@ -75,7 +75,7 @@ class ModInt998244353:
     return self.val != int(other)
 
   def __neg__(self):
-    return ModInt998244353(998244353 - self.val)
+    return ModInt998244353(-self.val)
 
   def __pos__(self):
     return ModInt998244353(self.val)
@@ -170,7 +170,7 @@ class ModInt1000000007:
     return self.val != int(other)
 
   def __neg__(self):
-    return ModInt1000000007(1000000007 - self.val)
+    return ModInt1000000007(-self.val)
 
   def __pos__(self):
     return ModInt1000000007(self.val)
@@ -271,7 +271,7 @@ class ModInt:
     return self.val != int(other)
 
   def __neg__(self):
-    return ModInt(ModInt.mod - self.val)
+    return ModInt(self.val)
 
   def __pos__(self):
     return ModInt(self.val)
