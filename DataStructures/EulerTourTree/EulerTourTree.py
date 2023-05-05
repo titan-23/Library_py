@@ -9,8 +9,8 @@ class EulerTourTree(Generic[T, F]):
     def __init__(self, index: Tuple[int, int], key: T, lazy: F):
       self.index = index
       self.key = key
-      self.lazy = lazy
       self.data = key
+      self.lazy = lazy
       self.par = None
       self.left = None
       self.right = None
