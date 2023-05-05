@@ -13,7 +13,7 @@ class Fraction():
       else:
         p, q = map(int, p.split('.'))
     else:
-      raise TypeError
+      raise TypeError(f'{p=}, {q=}')
     g = gcd(p, q)
     self.n: int = p // g
     self.d: int = q // g
@@ -23,11 +23,13 @@ class Fraction():
     return a // gcd(a, b) * b
 
   def __add__(self, other):
-    if not isinstance(other, Fraction): other = Fraction(other)
+    if not isinstance(other, Fraction): 
+      other = Fraction(other)
     return Fraction(self.n*other.d+self.d*other.n, self.d*other.d)
 
   def __sub__(self, other):
-    if not isinstance(other, Fraction): other = Fraction(other)
+    if not isinstance(other, Fraction): 
+      other = Fraction(other)
     l = Fraction._lcm(self.d, other.d)
     return Fraction(self.n*l//self.d-other.n*l//other.d, l)
 
@@ -54,22 +56,22 @@ class Fraction():
   def __rtruediv__(self, other):
     return other * Fraction(self.d, self.n)
 
-  def __eq__(self, other):
+  def __eq__(self, other: 'Fraction'):
     return self.n == other.n and self.d == other.d
 
-  def __ne__(self, other):
+  def __ne__(self, other: 'Fraction'):
     return self.n != other.n or self.d != other.d
 
-  def __lt__(self, other):
+  def __lt__(self, other: 'Fraction'):
     return self.n * other.d < self.d * other.n
 
-  def __le__(self, other):
+  def __le__(self, other: 'Fraction'):
     return self.n * other.d <= self.d * other.n
 
-  def __gt__(self, other):
+  def __gt__(self, other: 'Fraction'):
     return self.n * other.d > self.d * other.n
 
-  def __ge__(self, other):
+  def __ge__(self, other: 'Fraction'):
     return self.n * other.d >= self.d * other.n
 
   def __pos__(self):
@@ -94,8 +96,9 @@ class Fraction():
     return hash(str(self))
 
   def __str__(self):
-    return f'{self.n}/{self.d}'
+    return f'({self.n}/{self.d})'
 
   def __repr__(self):
     # return f'Fraction({self.n}, {self.d})'
     return str(self)
+
