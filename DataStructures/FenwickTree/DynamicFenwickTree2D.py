@@ -23,7 +23,9 @@ class DynamicFenwickTree2D():
     _h, _w, _bit = self._h, self._w, self._bit
     while h < _h:
       j = w
-      bit_h = _bit.get(h, [])
+      if h not in _bit:
+        _bit[h] = {}
+      bit_h = _bit[h]
       while j < _w:
         if j in bit_h:
           bit_h[j] += x
@@ -40,7 +42,10 @@ class DynamicFenwickTree2D():
     ret = 0
     while h > 0:
       j = w
-      bit_h = self._bit.get(h, [])
+      if h not in self._bit:
+        h -= h & -h
+        continue
+      bit_h = self._bit[h]
       while j > 0:
         ret += bit_h.get(j, 0)
         j -= j & -j
@@ -56,3 +61,4 @@ class DynamicFenwickTree2D():
 
   def get(self, h: int, w: int):
     return self.sum(h, h+1, w, w+1)
+
