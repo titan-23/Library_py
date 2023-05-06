@@ -252,6 +252,8 @@ class EulerTourTree(Generic[T, F]):
     return True
 
   def leader(self, v: int) -> Node:
+    # vを含む木の代表元
+    # rerootすると変わるので注意
     return self._left_splay(self.ptr_vertex[v])
 
   def reroot(self, v: int) -> None:
@@ -261,7 +263,11 @@ class EulerTourTree(Generic[T, F]):
     self._splay(node)
 
   def same(self, u: int, v: int) -> bool:
-    return self.leader(u) is self.leader(v)
+    u_node = self.ptr_vertex[u]
+    v_node = self.ptr_vertex[v]
+    self._splay(u_node)
+    self._splay(v_node)
+    return u_node.par is not None or u_node is v_node
 
   def show(self) -> None:
     # for debug
