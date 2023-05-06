@@ -56,21 +56,22 @@ class LinkCutTree(Generic[T, F]):
       arr[node<<2|1] = ln
       arr[ln<<2|3] ^= 1
       arr[rn<<2|3] ^= 1
-    if self.lazy[node] != self.id:
-      lazy, data, key = self.lazy, self.data, self.key
-      nlazy = lazy[node]
-      lnode, rnode = arr[node<<2], arr[node<<2|1]
-      if lnode != self.n:
-        data[lnode<<1] = self.mapping(nlazy, data[lnode<<1])
-        data[lnode<<1|1] = self.mapping(nlazy, data[lnode<<1|1])
-        key[lnode] = self.mapping(nlazy, key[lnode])
-        lazy[lnode] = nlazy if lazy[lnode] == self.id else self.composition(nlazy, lazy[lnode])
-      if rnode != self.n:
-        data[rnode<<1] = self.mapping(nlazy, data[rnode<<1])
-        data[rnode<<1|1] = self.mapping(nlazy, data[rnode<<1|1])
-        key[rnode] = self.mapping(nlazy, key[rnode])
-        lazy[rnode] = nlazy if lazy[rnode] == self.id else self.composition(nlazy, lazy[rnode])
-      lazy[node] = self.id
+    if self.lazy[node] == self.id:
+      return
+    lazy, data, key = self.lazy, self.data, self.key
+    nlazy = lazy[node]
+    lnode, rnode = arr[node<<2], arr[node<<2|1]
+    if lnode != self.n:
+      data[lnode<<1] = self.mapping(nlazy, data[lnode<<1])
+      data[lnode<<1|1] = self.mapping(nlazy, data[lnode<<1|1])
+      key[lnode] = self.mapping(nlazy, key[lnode])
+      lazy[lnode] = nlazy if lazy[lnode] == self.id else self.composition(nlazy, lazy[lnode])
+    if rnode != self.n:
+      data[rnode<<1] = self.mapping(nlazy, data[rnode<<1])
+      data[rnode<<1|1] = self.mapping(nlazy, data[rnode<<1|1])
+      key[rnode] = self.mapping(nlazy, key[rnode])
+      lazy[rnode] = nlazy if lazy[rnode] == self.id else self.composition(nlazy, lazy[rnode])
+    lazy[node] = self.id
 
   def _update(self, node: int) -> None:
     if node == self.n: return

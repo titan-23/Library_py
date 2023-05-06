@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar, Callable, Iterable, Optional, Union, Tuple
+from typing import Generic, TypeVar, Callable, Iterable, Optional, Union, Tuple, List, Dict
 T = TypeVar('T')
 F = TypeVar('F')
 
@@ -38,12 +38,12 @@ class EulerTourTree(Generic[T, F]):
     self.id = id
     a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
     self.n = len(a)
-    self.ptr = {(i, i): EulerTourTree.Node((i, i), a[i], id) for i in range(self.n)}
+    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), a[i], id) for i in range(self.n)]
+    self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
 
   def _popleft(self, v: Node) -> Optional[Node]:
     assert v is not None
     v = self._left_splay(v)
-    assert v.lazy == self.id
     if v.right:
       v.right.par = None
     return v.right
@@ -51,7 +51,6 @@ class EulerTourTree(Generic[T, F]):
   def _pop(self, v: Node) -> Optional[Node]:
     assert v is not None
     v = self._right_splay(v)
-    assert v.lazy == self.id
     if v.left:
       v.left.par = None
     return v.left
@@ -102,29 +101,25 @@ class EulerTourTree(Generic[T, F]):
         if pnode.left is node:
           tmp1 = node.right
           pnode.left = tmp1
-          if tmp1:
-            tmp1.par = pnode
           node.right = pnode
           pnode.par = node
           tmp2 = pnode.right
           gnode.left = tmp2
-          if tmp2:
-            tmp2.par = gnode
           pnode.right = gnode
           gnode.par = pnode
         else:
           tmp1 = node.left
           pnode.right = tmp1
-          if tmp1:
-            tmp1.par = pnode
           node.left = pnode
           pnode.par = node
           tmp2 = pnode.left
           gnode.right = tmp2
-          if tmp2:
-            tmp2.par = gnode
           pnode.left = gnode
           gnode.par = pnode
+        if tmp1:
+          tmp1.par = pnode
+        if tmp2:
+          tmp2.par = gnode
       else:
         if pnode.left is node:
           tmp1 = node.right
@@ -133,10 +128,6 @@ class EulerTourTree(Generic[T, F]):
           tmp2 = node.left
           gnode.right = tmp2
           node.left = gnode
-          if tmp1:
-            tmp1.par = pnode
-          if tmp2:
-            tmp2.par = gnode
           pnode.par = node
           gnode.par = node
         else:
@@ -146,12 +137,12 @@ class EulerTourTree(Generic[T, F]):
           tmp2 = node.right
           gnode.left = tmp2
           node.right = gnode
-          if tmp1:
-            tmp1.par = pnode
-          if tmp2:
-            tmp2.par = gnode
           pnode.par = node
           gnode.par = node
+        if tmp1:
+          tmp1.par = pnode
+        if tmp2:
+          tmp2.par = gnode
       self._update(gnode)
       self._update(pnode)
       self._update(node)
@@ -164,7 +155,6 @@ class EulerTourTree(Generic[T, F]):
     if node.par is None:
       return
     pnode = node.par
-    assert pnode.par is None
     self._propagate(pnode)
     self._propagate(node)
     if pnode.left is node:
@@ -218,43 +208,33 @@ class EulerTourTree(Generic[T, F]):
     right_data = self.e if node.right is None else node.right.data
     node.data = self.op(self.op(left_data, node.key), right_data)
 
-  def _same_node(self, u: Node, v: Node) -> bool:
-    u = self._left_splay(u)
-    v = self._left_splay(v)
-    return u is v
-
-  def _root(self, v: Node) -> Node:
-    while v.par is not None:
-      v = v.par
-    return v
-
   def link(self, u: int, v: int) -> None:
     assert not self.same(u, v)
     self.reroot(u)
     self.reroot(v)
-    assert (u, v) not in self.ptr, f'{(u, v)} not in ptr'
-    assert (v, u) not in self.ptr, f'{(v, u)} not in ptr'
+    assert (u, v) not in self.ptr_edge, f'{(u, v)} in ptr_edge'
+    assert (v, u) not in self.ptr_edge, f'{(v, u)} in ptr_edge'
     uvnode = EulerTourTree.Node((u, v), self.e, self.id)
     vu_node = EulerTourTree.Node((v, u), self.e, self.id)
-    self.ptr[(u, v)] = uvnode
-    self.ptr[(v, u)] = vu_node
-    u_node = self.ptr[(u, u)]
-    vnode = self.ptr[(v, v)]
-    self._merge(u_node, uvnode)
+    self.ptr_edge[(u, v)] = uvnode
+    self.ptr_edge[(v, u)] = vu_node
+    unode = self.ptr_vertex[u]
+    vnode = self.ptr_vertex[v]
+    self._merge(unode, uvnode)
     self._merge(uvnode, vnode)
     self._merge(vnode, vu_node)
 
   def cut(self, u: int, v: int) -> None:
     self.reroot(v)
     self.reroot(u)
-    assert (u, v) in self.ptr, f'{(u, v)} not in ptr'
-    assert (v, u) in self.ptr, f'{(v, u)} not in ptr'
-    uv = self.ptr[(u, v)]
-    vu = self.ptr[(v, u)]
+    assert (u, v) in self.ptr_edge, f'{(u, v)} not in ptr_edge'
+    assert (v, u) in self.ptr_edge, f'{(v, u)} not in ptr_edge'
+    uv = self.ptr_edge[(u, v)]
+    vu = self.ptr_edge[(v, u)]
     a, _ = self._split2(uv)
     _, c = self._split1(vu)
-    del self.ptr[(u, v)]
-    del self.ptr[(v, u)]
+    del self.ptr_edge[(u, v)]
+    del self.ptr_edge[(v, u)]
     assert a is not None and c is not None
     a = self._pop(a)
     c = self._popleft(c)
@@ -269,21 +249,20 @@ class EulerTourTree(Generic[T, F]):
 
   def split(self, u: int, v: int) -> bool:
     # 辺[u - v]を削除する
-    if (u, v) not in self.ptr or (v, u) not in self.ptr:
+    if (u, v) not in self.ptr_edge or (v, u) not in self.ptr_edge:
       return False
     return True
 
   def leader(self, v: int) -> Node:
-    assert isinstance(v, int)
-    node = self._root(self.ptr[(v, v)])
+    node = self.ptr_vertex[v]
+    self._splay(node)
     while node.left is not None:
       node = node.left
     self._splay(node)
     return node
 
   def reroot(self, v: int) -> None:
-    assert isinstance(v, int)
-    node = self.ptr[(v, v)]
+    node = self.ptr_vertex[v]
     x, y = self._split1(node)
     self._merge(y, x)
     self._splay(node)
@@ -294,14 +273,16 @@ class EulerTourTree(Generic[T, F]):
   def show(self) -> None:
     # for debug
     print('+++++++++++++++++++++++++++')
-    for k, v in self.ptr.items():
+    for i, v in enumerate(self.ptr_vertex):
+      print((i, i), v, end='\n\n')
+    for k, v in self.ptr_edge.items():
       print(k, v, end='\n\n')
     print('+++++++++++++++++++++++++++')
 
   def subtree_apply(self, v: int, p: int, f: F) -> None:
     # 頂点pを親としたときの頂点vの部分木にfを作用
     if p == -1:
-      vnode = self.ptr[(v, v)]
+      vnode = self.ptr_vertex[v]
       self._splay(vnode)
       vnode.key = self.mapping(f, vnode.key)
       vnode.data = self.mapping(f, vnode.data)
@@ -309,11 +290,11 @@ class EulerTourTree(Generic[T, F]):
       return
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr, f'{(p, v)} not in ptr'
-    assert (v, p) in self.ptr, f'{(v, p)} not in ptr'
-    node1 = self.ptr[(p, v)]
-    node2 = self.ptr[(v, p)]
-    vnode = self.ptr[(v, v)]
+    assert (p, v) in self.ptr_edge, f'{(p, v)} not in ptr_edge'
+    assert (v, p) in self.ptr_edge, f'{(v, p)} not in ptr_edge'
+    node1 = self.ptr_edge[(p, v)]
+    node2 = self.ptr_edge[(v, p)]
+    vnode = self.ptr_vertex[v]
     a, b = self._split1(node1)
     b, d = self._split2(node2)
     self._splay(vnode)
@@ -327,16 +308,16 @@ class EulerTourTree(Generic[T, F]):
   def subtree_sum(self, v: int, p: int) -> T:
     # 頂点pを親としたときの頂点vの部分木に含まれる頂点の総和
     if p == -1:
-      vnode = self.ptr[(v, v)]
+      vnode = self.ptr_vertex[v]
       self._splay(vnode)
       return vnode.data
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr, f'{(p, v)} not in ptr'
-    assert (v, p) in self.ptr, f'{(v, p)} not in ptr'
-    node1 = self.ptr[(p, v)]
-    node2 = self.ptr[(v, p)]
-    vnode = self.ptr[(v, v)]
+    assert (p, v) in self.ptr_edge, f'{(p, v)} not in ptr_edge'
+    assert (v, p) in self.ptr_edge, f'{(v, p)} not in ptr_edge'
+    node1 = self.ptr_edge[(p, v)]
+    node2 = self.ptr_edge[(v, p)]
+    vnode = self.ptr_vertex[v]
     a, b = self._split1(node1)
     b, d = self._split2(node2)
     self._splay(vnode)
@@ -346,12 +327,12 @@ class EulerTourTree(Generic[T, F]):
     return res
 
   def __getitem__(self, k: int) -> T:
-    node = self.ptr[(k, k)]
+    node = self.ptr_vertex[k]
     self._splay(node)
     return node.key
 
   def __setitem__(self, k: int, v: T):
-    node = self.ptr[(k, k)]
+    node = self.ptr_vertex[k]
     self._splay(node)
     node.key = v
     self._update(node)
