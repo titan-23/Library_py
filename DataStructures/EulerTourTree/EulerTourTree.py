@@ -55,18 +55,7 @@ class EulerTourTree(Generic[T, F]):
       v.left.par = None
     return v.left
 
-  def _split1(self, v: Node) -> Tuple[Optional[Node], Node]:
-    # x, yに分割する。ただし、yはvを含む
-    assert v is not None
-    self._splay(v)
-    x, y = v.left, v
-    if x is not None:
-      x.par = None
-    y.left = None
-    self._update(y)
-    return x, y
-
-  def _split2(self, v: Node) -> Tuple[Node, Optional[Node]]:
+  def _split_left(self, v: Node) -> Tuple[Node, Optional[Node]]:
     # x, yに分割する。ただし、xはvを含む
     assert v is not None
     self._splay(v)
@@ -75,6 +64,17 @@ class EulerTourTree(Generic[T, F]):
       y.par = None
     x.right = None
     self._update(x)
+    return x, y
+
+  def _split_right(self, v: Node) -> Tuple[Optional[Node], Node]:
+    # x, yに分割する。ただし、yはvを含む
+    assert v is not None
+    self._splay(v)
+    x, y = v.left, v
+    if x is not None:
+      x.par = None
+    y.left = None
+    self._update(y)
     return x, y
 
   def _merge(self, u: Optional[Node], v: Optional[Node]) -> None:
@@ -86,9 +86,7 @@ class EulerTourTree(Generic[T, F]):
     v.par = u
     self._update(u)
 
-  def _splay(self, node: Optional[Node]) -> None:
-    if node is None:
-      return
+  def _splay(self, node: Node) -> None:
     self._propagate(node)
     while node.par is not None and node.par.par is not None:
       pnode = node.par
@@ -209,61 +207,56 @@ class EulerTourTree(Generic[T, F]):
     node.data = self.op(self.op(left_data, node.key), right_data)
 
   def link(self, u: int, v: int) -> None:
+    # add edge{u, v}
     assert not self.same(u, v)
     self.reroot(u)
     self.reroot(v)
     assert (u, v) not in self.ptr_edge, f'{(u, v)} in ptr_edge'
     assert (v, u) not in self.ptr_edge, f'{(v, u)} in ptr_edge'
-    uvnode = EulerTourTree.Node((u, v), self.e, self.id)
+    uv_node = EulerTourTree.Node((u, v), self.e, self.id)
     vu_node = EulerTourTree.Node((v, u), self.e, self.id)
-    self.ptr_edge[(u, v)] = uvnode
+    self.ptr_edge[(u, v)] = uv_node
     self.ptr_edge[(v, u)] = vu_node
-    unode = self.ptr_vertex[u]
-    vnode = self.ptr_vertex[v]
-    self._merge(unode, uvnode)
-    self._merge(uvnode, vnode)
-    self._merge(vnode, vu_node)
+    u_node = self.ptr_vertex[u]
+    v_node = self.ptr_vertex[v]
+    self._merge(u_node, uv_node)
+    self._merge(uv_node, v_node)
+    self._merge(v_node, vu_node)
 
   def cut(self, u: int, v: int) -> None:
+    # erace edge{u, v}
     self.reroot(v)
     self.reroot(u)
     assert (u, v) in self.ptr_edge, f'{(u, v)} not in ptr_edge'
     assert (v, u) in self.ptr_edge, f'{(v, u)} not in ptr_edge'
-    uv = self.ptr_edge[(u, v)]
-    vu = self.ptr_edge[(v, u)]
-    a, _ = self._split2(uv)
-    _, c = self._split1(vu)
-    del self.ptr_edge[(u, v)]
-    del self.ptr_edge[(v, u)]
-    assert a is not None and c is not None
+    uv_node = self.ptr_edge.pop((u, v))
+    vu_node = self.ptr_edge.pop((v, u))
+    a, _ = self._split_left(uv_node)
+    _, c = self._split_right(vu_node)
     a = self._pop(a)
     c = self._popleft(c)
     self._merge(a, c)
 
   def merge(self, u: int, v: int) -> bool:
-    # 辺[u - v]を追加する
+    # add edge{u, v} unless same(u, v)
     if self.same(u, v):
       return False
     self.link(u, v)
     return True
 
   def split(self, u: int, v: int) -> bool:
-    # 辺[u - v]を削除する
+    # erase edge{u, v} if both {u, v} and {v, u} in E
     if (u, v) not in self.ptr_edge or (v, u) not in self.ptr_edge:
       return False
+    self.cut(u, v)
     return True
 
   def leader(self, v: int) -> Node:
-    node = self.ptr_vertex[v]
-    self._splay(node)
-    while node.left is not None:
-      node = node.left
-    self._splay(node)
-    return node
+    return self._left_splay(self.ptr_vertex[v])
 
   def reroot(self, v: int) -> None:
     node = self.ptr_vertex[v]
-    x, y = self._split1(node)
+    x, y = self._split_right(node)
     self._merge(y, x)
     self._splay(node)
 
@@ -282,46 +275,42 @@ class EulerTourTree(Generic[T, F]):
   def subtree_apply(self, v: int, p: int, f: F) -> None:
     # 頂点pを親としたときの頂点vの部分木にfを作用
     if p == -1:
-      vnode = self.ptr_vertex[v]
-      self._splay(vnode)
-      vnode.key = self.mapping(f, vnode.key)
-      vnode.data = self.mapping(f, vnode.data)
-      vnode.lazy = self.composition(f, vnode.lazy)
+      v_node = self.ptr_vertex[v]
+      self._splay(v_node)
+      v_node.key = self.mapping(f, v_node.key)
+      v_node.data = self.mapping(f, v_node.data)
+      v_node.lazy = self.composition(f, v_node.lazy)
       return
     self.reroot(v)
     self.reroot(p)
     assert (p, v) in self.ptr_edge, f'{(p, v)} not in ptr_edge'
     assert (v, p) in self.ptr_edge, f'{(v, p)} not in ptr_edge'
-    node1 = self.ptr_edge[(p, v)]
-    node2 = self.ptr_edge[(v, p)]
-    vnode = self.ptr_vertex[v]
-    a, b = self._split1(node1)
-    b, d = self._split2(node2)
-    self._splay(vnode)
-    vnode.key = self.mapping(f, vnode.key)
-    vnode.data = self.mapping(f, vnode.data)
-    vnode.lazy = self.composition(f, vnode.lazy)
-    self._propagate(vnode)
+    v_node = self.ptr_vertex[v]
+    a, b = self._split_right(self.ptr_edge[(p, v)])
+    b, d = self._split_left(self.ptr_edge[(v, p)])
+    self._splay(v_node)
+    v_node.key = self.mapping(f, v_node.key)
+    v_node.data = self.mapping(f, v_node.data)
+    v_node.lazy = self.composition(f, v_node.lazy)
+    self._propagate(v_node)
     self._merge(a, b)
     self._merge(b, d)
 
   def subtree_sum(self, v: int, p: int) -> T:
-    # 頂点pを親としたときの頂点vの部分木に含まれる頂点の総和
+    # 頂点pを親としたときの頂点vの部分木に含まれる総和
     if p == -1:
-      vnode = self.ptr_vertex[v]
-      self._splay(vnode)
-      return vnode.data
+      v_node = self.ptr_vertex[v]
+      self._splay(v_node)
+      return v_node.data
     self.reroot(v)
     self.reroot(p)
     assert (p, v) in self.ptr_edge, f'{(p, v)} not in ptr_edge'
     assert (v, p) in self.ptr_edge, f'{(v, p)} not in ptr_edge'
-    node1 = self.ptr_edge[(p, v)]
-    node2 = self.ptr_edge[(v, p)]
-    vnode = self.ptr_vertex[v]
-    a, b = self._split1(node1)
-    b, d = self._split2(node2)
-    self._splay(vnode)
-    res = vnode.data
+    v_node = self.ptr_vertex[v]
+    a, b = self._split_right(self.ptr_edge[(p, v)])
+    b, d = self._split_left(self.ptr_edge[(v, p)])
+    self._splay(v_node)
+    res = v_node.data
     self._merge(a, b)
     self._merge(b, d)
     return res
@@ -336,4 +325,16 @@ class EulerTourTree(Generic[T, F]):
     self._splay(node)
     node.key = v
     self._update(node)
+
+def op(s, t):
+  return
+
+def mapping(f, s):
+  return
+
+def composition(f, g):
+  return
+
+e = None
+id = None
 
