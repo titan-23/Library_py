@@ -303,3 +303,15 @@ class LinkCutTree(Generic[T, F]):
     # 後でやる
     return 'LinkCutTree()'
 
+def op(s, t):
+  return
+
+def mapping(f, s):
+  return
+
+def composition(f, g):
+  return
+
+e = None
+id = None
+
