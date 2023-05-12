@@ -40,6 +40,7 @@ class EulerTourTree(Generic[T, F]):
     self.n = len(a)
     self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), a[i], id) for i in range(self.n)]
     self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
+    self._group_numbers = n
 
   def _popleft(self, v: Node) -> Optional[Node]:
     assert v is not None
@@ -208,11 +209,10 @@ class EulerTourTree(Generic[T, F]):
 
   def link(self, u: int, v: int) -> None:
     # add edge{u, v}
-    assert not self.same(u, v)
     self.reroot(u)
     self.reroot(v)
-    assert (u, v) not in self.ptr_edge, f'{(u, v)} in ptr_edge'
-    assert (v, u) not in self.ptr_edge, f'{(v, u)} in ptr_edge'
+    assert (u, v) not in self.ptr_edge, f'EulerTourTree.cut(), {(u, v)} in ptr_edge'
+    assert (v, u) not in self.ptr_edge, f'EulerTourTree.cut(), {(v, u)} in ptr_edge'
     uv_node = EulerTourTree.Node((u, v), self.e, self.id)
     vu_node = EulerTourTree.Node((v, u), self.e, self.id)
     self.ptr_edge[(u, v)] = uv_node
@@ -222,6 +222,7 @@ class EulerTourTree(Generic[T, F]):
     self._merge(u_node, uv_node)
     self._merge(uv_node, v_node)
     self._merge(v_node, vu_node)
+    self._group_numbers -= 1
 
   def cut(self, u: int, v: int) -> None:
     # erace edge{u, v}
@@ -236,6 +237,7 @@ class EulerTourTree(Generic[T, F]):
     a = self._pop(a)
     c = self._popleft(c)
     self._merge(a, c)
+    self._group_numbers += 1
 
   def merge(self, u: int, v: int) -> bool:
     # add edge{u, v} unless same(u, v)
@@ -321,16 +323,19 @@ class EulerTourTree(Generic[T, F]):
     self._merge(b, d)
     return res
 
-  def __getitem__(self, k: int) -> T:
-    node = self.ptr_vertex[k]
+  def get_vertex(self, v: int) -> T:
+    node = self.ptr_vertex[v]
     self._splay(node)
     return node.key
 
-  def __setitem__(self, k: int, v: T):
-    node = self.ptr_vertex[k]
+  def set_vertex(self, v: int, val: T) -> T:
+    node = self.ptr_vertex[v]
     self._splay(node)
-    node.key = v
+    node.key = val
     self._update(node)
+
+  def group_count(self) -> int:
+    return self._group_numbers
 
 def op(s, t):
   return

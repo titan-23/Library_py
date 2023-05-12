@@ -34,12 +34,12 @@ class Mo():
       while nl > l:
         nl -= 1
         add(nl)
-      while nl < l:
-        delete(nl)
-        nl += 1
       while nr < r:
         add(nr)
         nr += 1
+      while nl < l:
+        delete(nl)
+        nl += 1
       while nr > r:
         nr -= 1
         delete(nr)

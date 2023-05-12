@@ -22,7 +22,7 @@ class FenwickTree():
     ret = 0
     while r > 0:
       ret += self._tree[r]
-      r -= r & -r
+      r &= r - 1
     return ret
 
   def suff(self, l: int) -> int:
@@ -39,10 +39,10 @@ class FenwickTree():
     res = 0
     while r > l:
       res += _tree[r]
-      r -= r & -r
+      r &= r - 1
     while l > r:
       res -= _tree[l]
-      l -= l & -l
+      l &= l - 1
     return res
 
   def __getitem__(self, k: int) -> int:
