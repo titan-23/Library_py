@@ -27,7 +27,8 @@ class SegmentTree(Generic[T]):
     '''Update a[k] <- x. / O(logN)'''
     assert -self._n <= k < self._n, \
         f'IndexError: SegmentTree.set({k}, {v}), n={self._n}'
-    if k < 0: k += self._n
+    if k < 0:
+      k += self._n
     k += self._size
     self._data[k] = v
     for _ in range(self._log):
