@@ -40,7 +40,7 @@ class EulerTourTree(Generic[T, F]):
     self.n = len(a)
     self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), a[i], id) for i in range(self.n)]
     self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
-    self._group_numbers = n
+    self._group_numbers = self.n
 
   def _popleft(self, v: Node) -> Optional[Node]:
     assert v is not None
