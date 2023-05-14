@@ -10,8 +10,8 @@ class Deque():
   # contains: O(N)
 
   def __init__(self, a: Iterable[Any]=[]):
-    self.front = []
-    self.back = list(a)
+    self.front: List[Any] = []
+    self.back: List[Any] = list(a)
 
   def _rebuild(self) -> None:
     new = self.front[::-1] + self.back
@@ -38,11 +38,13 @@ class Deque():
     return self.front[::-1] + self.back
 
   def __getitem__(self, k: int) -> Any:
-    if k < 0: k += len(self)
+    if k < 0:
+      k += len(self)
     return self.front[len(self.front)-k-1] if k < len(self.front) else self.back[k-len(self.front)]
 
   def __setitem__(self, k: int, v: Any):
-    if k < 0: k += len(self)
+    if k < 0:
+      k += len(self)
     if k < len(self.front):
       self.front[len(self.front)-k-1] = v
     else:
