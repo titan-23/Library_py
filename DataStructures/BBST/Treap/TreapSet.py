@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Optional, List
+from typing import Generic, Iterable, TypeVar, Optional, List, Sequence
 T = TypeVar('T')
 
 class TreapSet(Generic[T]):
@@ -28,14 +28,14 @@ class TreapSet(Generic[T]):
       return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
-    self.node = None
-    self.len = 0
-    a = list(a)
+    self.root = None
+    self._len = 0
+    if not isinstance(a, Sequence):
+      a = list(a)
     if a:
-      self.len = len(a)
       self._build(a)
 
-  def _build(self, a: List[T]) -> None:
+  def _build(self, a: Sequence[T]) -> None:
     Node = TreapSet.Node
     def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
@@ -47,8 +47,10 @@ class TreapSet(Generic[T]):
       return node
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(set(a))
-    rand = sorted(TreapSet.Random.random() for _ in range(self.len))
-    self.node = sort(0, self.len)
+    self._len = len(a)
+    rand = [TreapSet.Random.random() for _ in range(self._len)]
+    rand.sort()
+    self.root = sort(0, self._len)
 
   def _rotate_L(self, node: Node) -> Node:
     u = node.left
@@ -63,11 +65,11 @@ class TreapSet(Generic[T]):
     return u
 
   def add(self, key: T) -> bool:
-    if not self.node:
-      self.node = TreapSet.Node(key)
-      self.len += 1
+    if not self.root:
+      self.root = TreapSet.Node(key)
+      self._len += 1
       return True
-    node = self.node
+    node = self.root
     path = []
     di = 0
     while node:
@@ -103,12 +105,12 @@ class TreapSet(Generic[T]):
           else:
             path[-1].right = new_node
         else:
-          self.node = new_node
-    self.len += 1
+          self.root = new_node
+    self._len += 1
     return True
 
   def discard(self, key: T) -> bool:
-    node = self.node
+    node = self.root
     pnode = None
     while node:
       if key == node.key:
@@ -121,12 +123,12 @@ class TreapSet(Generic[T]):
         node = node.right
     else:
       return False
-    self.len -= 1
+    self._len -= 1
     while node.left and node.right:
       if node.left.priority < node.right.priority:
         if not pnode:
           pnode = self._rotate_L(node)
-          self.node = pnode
+          self.root = pnode
           continue
         new_node = self._rotate_L(node)
         if node.key < pnode.key:
@@ -136,7 +138,7 @@ class TreapSet(Generic[T]):
       else:
         if not pnode:
           pnode = self._rotate_R(node)
-          self.node = pnode
+          self.root = pnode
           continue
         new_node = self._rotate_R(node)
         if node.key < pnode.key:
@@ -146,9 +148,9 @@ class TreapSet(Generic[T]):
       pnode = new_node
     if not pnode:
       if node.left is None:
-        self.node = node.right
+        self.root = node.right
       else:
-        self.node = node.left
+        self.root = node.left
       return True
     if node.left is None:
       if node.key < pnode.key:
@@ -164,7 +166,7 @@ class TreapSet(Generic[T]):
 
   def le(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node:
       if key == node.key:
         res = key
@@ -178,7 +180,7 @@ class TreapSet(Generic[T]):
 
   def lt(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node:
       if key <= node.key:
         node = node.left
@@ -189,7 +191,7 @@ class TreapSet(Generic[T]):
 
   def ge(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node:
       if key == node.key:
         res = key
@@ -203,7 +205,7 @@ class TreapSet(Generic[T]):
 
   def gt(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node:
       if key < node.key:
         res = node.key
@@ -214,7 +216,7 @@ class TreapSet(Generic[T]):
 
   def tolist(self) -> List[T]:
     a = []
-    if not self.node:
+    if not self.root:
       return a
     def rec(node):
       if node.left:
@@ -222,11 +224,11 @@ class TreapSet(Generic[T]):
       a.append(node.key)
       if node.right:
         rec(node.right)
-    rec(self.node)
+    rec(self.root)
     return a
 
   def get_min(self) -> Optional[T]:
-    node = self.node
+    node = self.root
     if not node:
       return None
     while node.left:
@@ -234,7 +236,7 @@ class TreapSet(Generic[T]):
     return node.key
 
   def get_max(self) -> Optional[T]:
-    node = self.node
+    node = self.root
     if not node:
       return None
     while node.right:
@@ -242,45 +244,45 @@ class TreapSet(Generic[T]):
     return node.key
 
   def pop_min(self) -> T:
-    assert self.node is not None
-    node = self.node
+    assert self.root is not None
+    node = self.root
     pnode = None
     while node.left:
       pnode = node
       node = node.left
-    self.len -= 1
+    self._len -= 1
     res = node.key
     if not pnode:
-      self.node = self.node.right
+      self.root = self.root.right
     else:
       pnode.left = node.right
     return res
 
   def pop_max(self) -> T:
-    assert self.node is not None
-    node = self.node
+    assert self.root is not None
+    node = self.root
     pnode = None
     while node.right:
       pnode = node
       node = node.right
-    self.len -= 1
+    self._len -= 1
     res = node.key
     if not pnode:
-      self.node = self.node.left
+      self.root = self.root.left
     else:
       pnode.right = node.left
     return res
 
   def __getitem__(self, k: int) -> T:
-    assert self.len > 0
-    if k == -1 or k == self.len-1:
+    assert self._len > 0
+    if k == -1 or k == self._len-1:
       return self.get_max()
     elif k == 0:
       return self.get_min()
     assert False, f'IndexError'
 
   def __contains__(self, key: T):
-    node = self.node
+    node = self.root
     while node:
       if key == node.key:
         return True
@@ -291,7 +293,7 @@ class TreapSet(Generic[T]):
     return False
 
   def __len__(self):
-    return self.len
+    return self._len
 
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'

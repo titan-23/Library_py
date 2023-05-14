@@ -67,7 +67,8 @@ class TreapMultiset(Generic[T]):
     self._len = len(a)
     key, val = self._rle(a)
     self._len_elm = len(key)
-    rand = sorted(TreapMultiset.Random.random() for _ in range(self._len_elm))
+    rand = [TreapMultiset.Random.random() for _ in range(self._len_elm)]
+    rand.sort()
     self.node = sort(0, len(key))
 
   def _rotate_L(self, node: Node) -> Node:
