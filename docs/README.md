@@ -7,10 +7,19 @@
 ## [DataStructures]()
 
 ### BBST
-
 ### BinaryTrie
-
-
+### Dict
+### EulerTourTree
+### FenwickTree
+### Heap
+### LinkCutTree
+### PersistentDataStructure
+### SegmentQuadraticDivision
+### SegmentTree
+### Set
+### SparseTable
+### StaticArrayQuery
+### UnionFind
 
 ## [Graph]()
 
