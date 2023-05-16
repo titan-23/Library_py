@@ -12,7 +12,7 @@ class MinMaxMultiset(Generic[T]):
       else:
         data[x] = 1
     self.data = data
-    self.heap = IntervalHeap(a)
+    self.heap = DoubleEndedHeap(a)
     self.len = len(a)
 
   def add(self, key: T, val: int=1) -> None:

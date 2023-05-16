@@ -6,7 +6,7 @@ class MinMaxSet(Generic[T]):
   def __init__(self, a: Iterable[T]=[]):
     a = set(a)
     self.data = a
-    self.heap = IntervalHeap(a)
+    self.heap = DoubleEndedHeap(a)
 
   def add(self, key: T) -> bool:
     if key not in self.data:

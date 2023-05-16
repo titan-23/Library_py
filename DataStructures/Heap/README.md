@@ -1,15 +1,15 @@
-最終更新: 2023/4/26
+最終更新: 2023/5/16
 - いろいろ更新しました。  
 
 _____
-# [IntervalHeap](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/IntervalHeap.py)
+# [DoubleEndedHeap](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/DoubleEndedHeap.py)
 
-`IntervalHeap` です。  
+`DoubleEndedHeap` です。  
 値の追加/最小値取得/最大値取得 などができます。  
 値の削除に対応した `MinMaxSet/Multiset` もどこかのフォルダにあります。
 
-### ```hq = IntervalHeap(a: Iterable[T]=[])```
-`Iterable a` から `IntervalHeap` を構築します。 $\mathcal{O}(N)$ です。
+### ```hq = DoubleEndedHeap(a: Iterable[T]=[])```
+`Iterable a` から `DoubleEndedHeap` を構築します。 $\mathcal{O}(N)$ です。
 
 ### ```hq.add(key: T) -> None```
 `key` を1つ追加します。 $\mathcal{}(logN)$ です。

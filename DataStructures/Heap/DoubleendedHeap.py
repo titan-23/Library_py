@@ -1,7 +1,7 @@
 from typing import Generic, Iterable, TypeVar
 T = TypeVar('T')
 
-class DoubleendedHeap(Generic[T]):
+class DoubleEndedHeap(Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]):
     self._data = list(a)
@@ -102,5 +102,5 @@ class DoubleendedHeap(Generic[T]):
     return str(sorted(self._data))
 
   def __repr__(self):
-    return f'DoubleendedHeap({self})'
+    return f'DoubleEndedHeap({self})'
 
