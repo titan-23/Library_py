@@ -7,16 +7,53 @@
 ## [DataStructures]()
 
 ### BBST
+
 ### BinaryTrie
 ### Dict
+- HashDict
+
 ### EulerTourTree
+- EulerTourTree
+
 ### FenwickTree
+- DynamicFenwickTree
+- DynamicFenwickTree2D
+- FenwickTree
+- FenwickTreeAbst
+- FenwickTreeRAQ
+
 ### Heap
+- DoubleEndedHeap
+- RandomizedMeldableHeap
+
 ### LinkCutTree
+- LinkCutTree
+
 ### PersistentDataStructure
+- PersistentArray
+- PersistentStack
+
 ### SegmentQuadraticDivision
+- SegmentLazyQuadraticDivision
+- SegmentQuadraticDivision
+
 ### SegmentTree
+- DynamicSegmentTree
+- LazySegmentTree
+- SegmentTree
+- SegmentTreeRmQ
+- SegmentTreeRSQ
+
 ### Set
+- Bitset32
+- DynamicFenwickTreeSet
+- 
+- 
+- 
+- 
+- 
+- 
+
 ### SparseTable
 ### StaticArrayQuery
 ### UnionFind
