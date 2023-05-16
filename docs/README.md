@@ -47,18 +47,51 @@
 ### Set
 - Bitset32
 - DynamicFenwickTreeSet
-- 
-- 
-- 
-- 
-- 
-- 
+- FenwickTreeSet
+- FenwickTreeSetFast
+- HashedMultiset
+- MexMultiset
+- MinMaxMultiset
+- MinMaxSet
+- MultisetQuadraticDivision
+- SetQuadraticDivision
+- StaticMultiset
+- StaticSet
+- WordsizeTreeSet
+- WordsizeTreeSetZ
 
 ### SparseTable
+- SparseTable
+
 ### StaticArrayQuery
+- StaticRmQ
+
 ### UnionFind
+- UnionFind
+- WeightedUnionFind
 
 ## [Graph]()
+- bellman_ford
+- bfs
+- is_bipartite_graph
+- cartesian_tree
+- dijkstra
+- EulerTour
+- LCA
+- Namori
+- RootedTree
+- scc
+- topological_sort
+- warshall_floyd
 
 ## [Math]()
+- AffineMap
+- Divisors
+- Fraction
+- ModArray
+- ModComb
+- ModInt
+- ModMatrix
+- Number
+- PollardRho
 
