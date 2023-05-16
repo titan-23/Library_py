@@ -23,6 +23,7 @@ _____
 
 集合としての赤黒木です。以下の操作ができます:  
 `Add` / `Delete` / `Member` / `Predecessor` / `Successor` / など  
+
 詳しくは以下です。
 
 ### `rbtree = RedBlackTreeSet(a: Iterable[T]=[])`

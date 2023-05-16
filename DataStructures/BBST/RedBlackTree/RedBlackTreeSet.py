@@ -127,7 +127,16 @@ class RedBlackTreeSet(Generic[T]):
         node.right.par = node
       return node
     if not all(a[i] < a[i+1] for i in range(len(a)-1)):
-      a = sorted(set(a))
+      if not hasattr(a, 'sort'):
+        a = list(a)
+      a.sort()
+      b = newlist_hint(len(a))
+      b.append(a[0])
+      for e in a:
+        if b[-1] == e:
+          continue
+        b.append(e)
+      a = b
     Node = RedBlackTreeSet.Node
     flag = len(a).bit_length() & 1
     self.node = sort(0, len(a), 0)
@@ -499,7 +508,7 @@ class RedBlackTreeSet(Generic[T]):
     return self.size
 
   def __str__(self):
-    return '{' + str(self.tolist()) + '}'
+    return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
     return f'RedBlackTreeSet(' + str(self.tolist()) + ')'
