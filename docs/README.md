@@ -6,7 +6,7 @@
 
 ## [DataStructures]()
 
-### [BBST](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/docs)
+### [BBST](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/README.md)
 
 ### BinaryTrie
 ### Dict
