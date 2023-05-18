@@ -5,7 +5,7 @@
 以下の木があります。  
 
 - [AVLTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/AVLTree)
-- [RedBlackTree](DataStructures/BBST/RedBlackTree.md)
+- [RedBlackTree](RedBlackTree.md)
 - [ScapegoatTree](https://github.kcom/titanium-22/Library_py/tree/main/DataStructures/BBST/ScapegoatTree)
 - [SplayTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/SplayTree)
 - [Treap](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/Treap)
