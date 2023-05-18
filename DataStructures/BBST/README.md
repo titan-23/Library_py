@@ -10,7 +10,7 @@
 - [RedBlackTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/RedBlackTree)
 
 _____
-# 列を扱うBinaryTree #
+# 列を扱うBinaryTree
 
 列を扱えます。
 
