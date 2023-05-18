@@ -6,7 +6,7 @@
 
 ## [DataStructures]()
 
-### [BBST](../DataStructures/BBST/DREADME_230518105613.html)
+### [BBST](../DataStructures/BBST/docs/README_230518105613.html)
 
 ### BinaryTrie
 ### Dict
