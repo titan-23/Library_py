@@ -8,6 +8,8 @@ _____
 
 `Euler Tour Tree` です。森を管理します。部分木クエリの強さに定評があります。  
 
+## 解説
+
 解説を入れます。嘘があるかもです。勝手に混乱していってください。  
 
 森です。各連結成分(木)は独立なのでそれごとに見ていきます。  
@@ -37,4 +39,42 @@ _____
 
 計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 `O(logN)` です。この実装ではsplay木とハッシュテーブルで管理するので償却 `O(logN)` +期待 `O(1)` です(ここで `N` と書いたものは平衡二分木の総頂点数です。オイラーツアーすると `(元の頂点数)+(辺数)*2?` の頂点ができるので、たしかに `O(元のグラフの頂点数)` ではありますが、定数倍がバカです)。  
 オイラーツアーがあれば、部分木クエリは簡単に処理できます。
+
+## 仕様
+
+### `ett = EulerTourTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)`
+n/len(a)個の頂点からなるEulerTourTreeを作成します。n_or_aがaのとき、頂点の重みとみなします。
+
+### `ett.build(G: List[List[int]]) -> None`
+隣接リストGをもとにして、etに辺を張り構築します。
+
+### `link(u: int, v: int) -> None`
+
+### `cut(u: int, v: int) -> None`
+
+### `merge(u: int, v: int) -> bool`
+
+### `split(u: int, v: int) -> bool`
+
+### `leader(v: int) -> Node`
+
+### `reroot(v: int) -> None`
+
+### `same(u: int, v: int) -> bool`
+
+### `show() -> None`
+
+### `subtree_apply(v: int, p: int, f: F) -> None`
+
+### `subtree_sum(v: int, p: int) -> T`
+
+### `get_vertex(v: int) -> T`
+
+### `set_vertex(v: int, val: T) -> None`
+
+### `group_count() -> int`
+
+### `ett[v: int] -> T`
+
+### `ett[v: int] = val: T -> None`
 
