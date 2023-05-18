@@ -4,48 +4,58 @@
 各REAMDMEはサボっています。また、ありえないバグを仕込んでたりします。ご注意ください。  
 誰かがバグに引っかかってWAを出してくれたら、筆者冥利に尽きます。  
 
-## [DataStructures]()
+## [DataStructures](DataStructures/DataStructures.md)
 
 ### [BBST](DataStructures/BBST/BBST.md)
 
-### BinaryTrie
+### [BinaryTrie](DataStructures/BinaryTrie/BinaryTrie.md)
 
-### Dict
-- HashDict
+### [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum.md)
+- CumulativeOp
+- CumulativeSum
+- CumulativeSum2D
+
+### [Deque](DataStructures/Deque/Deque.md)
+- deque
+
+### [Dict](DataStructures/Dict/Dict.md)
+- [HashDict](DataStructures/Dict/HashDict.md)
 
 ### [EulerTourTree](DataStructures/EulerTourTree/EulerTourTree.md)
 - EulerTourTree
 
-### FenwickTree
+### [FenwickTree](DataStructures/FenwickTree/FenwickTree.md)
 - DynamicFenwickTree
 - DynamicFenwickTree2D
 - FenwickTree
 - FenwickTreeAbst
 - FenwickTreeRAQ
 
-### Heap
-- DoubleEndedHeap
-- RandomizedMeldableHeap
+### [Heap](DataStructures/Heap/Heap.md)
+- [DoubleEndedHeap](DataStructures/Heap/DoubleEndedHeap.md)
+- [MaxHeap](DataStructures/Heap/MaxHeap.md)
+- [MinHeap](DataStructures/Heap/MinHeap.md)
+- [RandomizedMeldableHeap](DataStructures/Heap/RandomizedMeldableHeap.md)
 
 ### [LinkCutTree](DataStructures/LinkCutTree/LinkCutTree.md)
-- LinkCutTree
+- [LinkCutTree](DataStructures/LinkCutTree/LinkCutTree.md)
 
-### PersistentDataStructure
+### [PersistentDataStructure]()
 - PersistentArray
 - PersistentStack
 
-### SegmentQuadraticDivision
+### [SegmentQuadraticDivision]()
 - SegmentLazyQuadraticDivision
 - SegmentQuadraticDivision
 
-### SegmentTree
+### [SegmentTree](DataStructures/SegmentTree/SegmentTree.md)
 - DynamicSegmentTree
 - LazySegmentTree
 - SegmentTree
 - SegmentTreeRmQ
 - SegmentTreeRSQ
 
-### Set
+### [Set](DataStructures/Set/Set.md)
 - Bitset32
 - DynamicFenwickTreeSet
 - FenwickTreeSet
@@ -61,17 +71,17 @@
 - WordsizeTreeSet
 - WordsizeTreeSetZ
 
-### SparseTable
+### [SparseTable](DataStructures/SparseTable/SparseTable.md)
 - SparseTable
 
-### StaticArrayQuery
+### [StaticArrayQuery](DataStructures/StaticArrayQuery/StaticArrayQuery.md)
 - StaticRmQ
 
-### UnionFind
+### [UnionFind](DataStructures/UnionFind/UnionFind.md)
 - UnionFind
 - WeightedUnionFind
 
-## [Graph]()
+## [Graph](Graph/Graph.md)
 - bellman_ford
 - bfs
 - is_bipartite_graph
@@ -85,7 +95,7 @@
 - topological_sort
 - warshall_floyd
 
-## [Math]()
+## [Math](Math/Math.md)
 - AffineMap
 - Divisors
 - Fraction
