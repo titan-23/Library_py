@@ -25,7 +25,7 @@ _____
 各処理の流れは以下のようになります。
 - 根の変更: `reroot(v)`
   - 辺`{v,v}` の頂点の直前で `split` し、それを順に `A, B` とする
-  - BとAをこの順にマージする
+  - `B` と `A` をこの順にマージする
 - 辺の追加: `link(u, v)`
   - `reroot(u); reroot(v)`
   - `u, v` が属する木(のオイラーツアーした辺の列)をそれぞれ `E1, E2` とする
@@ -48,33 +48,35 @@ n/len(a)個の頂点からなるEulerTourTreeを作成します。n_or_aがaの�
 ### `ett.build(G: List[List[int]]) -> None`
 隣接リストGをもとにして、etに辺を張り構築します。
 
-### `link(u: int, v: int) -> None`
+### `ett.link(u: int, v: int) -> None`
 
-### `cut(u: int, v: int) -> None`
+### `ett.cut(u: int, v: int) -> None`
 
-### `merge(u: int, v: int) -> bool`
+### `ett.merge(u: int, v: int) -> bool`
 
-### `split(u: int, v: int) -> bool`
+### `ett.split(u: int, v: int) -> bool`
 
-### `leader(v: int) -> Node`
+### `ett.leader(v: int) -> Node`
 
-### `reroot(v: int) -> None`
+### `ett.reroot(v: int) -> None`
 
-### `same(u: int, v: int) -> bool`
+### `ett.same(u: int, v: int) -> bool`
 
-### `show() -> None`
+### `ett.show() -> None`
+デバッグ用です。
 
-### `subtree_apply(v: int, p: int, f: F) -> None`
+### `ett.subtree_apply(v: int, p: int, f: F) -> None`
+`v` を根としたときの部分木に `f` を適用します。ただし、 `v` の親は `p` です。 `v` の親が存在しないときは `p=-1` として下さい。
 
-### `subtree_sum(v: int, p: int) -> T`
+### `ett.subtree_sum(v: int, p: int) -> T`
+`v` を根としたときの部分木の総和を返します。ただし、 `v` の親は `p` です。 `v` の親が存在しないときは `p=-1` として下さい。
 
-### `get_vertex(v: int) -> T`
+### `ett.group_count() -> int`
+連結成分の個数を返します。
 
-### `set_vertex(v: int, val: T) -> None`
+### `ett.get_vertex(v: int) / ett[v: int] -> T`
+頂点 `v` の `key` を返します。
 
-### `group_count() -> int`
-
-### `ett[v: int] -> T`
-
-### `ett[v: int] = val: T -> None`
+### `ett.set_vertex(v: int, val: T) / ett[v: int] = val -> None`
+頂点 `v` の `key` を `val` に更新します。
 

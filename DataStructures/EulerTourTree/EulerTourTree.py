@@ -385,6 +385,9 @@ class EulerTourTree(Generic[T, F]):
     self._merge(b, d)
     return res
 
+  def group_count(self) -> int:
+    return self._group_numbers
+
   def get_vertex(self, v: int) -> T:
     node = self.ptr_vertex[v]
     self._splay(node)
@@ -396,9 +399,6 @@ class EulerTourTree(Generic[T, F]):
     node.key = val
     self._update(node)
 
-  def group_count(self) -> int:
-    return self._group_numbers
-  
   def __getitem__(self, v: int) -> T:
     return self.get_vertex(v)
 
