@@ -1,4 +1,5 @@
-from typing import Generic, TypeVar, Callable, Iterable, Optional, Union, Tuple, List, Dict
+from typing import Generic, Iterator, TypeVar, Callable, Iterable, Optional, Union, Tuple, List, Dict
+from types import GeneratorType
 T = TypeVar('T')
 F = TypeVar('F')
 
@@ -41,6 +42,67 @@ class EulerTourTree(Generic[T, F]):
     self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), a[i], id) for i in range(self.n)]
     self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
     self._group_numbers = self.n
+
+  def antirec(func, stack=[]):
+    # 参考: https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py
+    def wrappedfunc(*args, **kwargs):
+      if stack:
+        return func(*args, **kwargs)
+      to = func(*args, **kwargs)
+      while True:
+        if isinstance(to, GeneratorType):
+          stack.append(to)
+          to = next(to)
+        else:
+          stack.pop()
+          if not stack:
+            break
+          to = stack[-1].send(to)
+      return to
+    return wrappedfunc
+
+  def build(self, G: List[List[int]]) -> None:
+    seen = [0] * self.n
+    Node = EulerTourTree.Node
+    antirec = EulerTourTree.antirec
+    ptr_vertex, ptr_edge = self.ptr_vertex, self.ptr_edge
+    e, id = self.e, self.id
+
+    @antirec
+    def dfs(v: int, p=-1) -> Iterator:
+      a.append((v, v))
+      for x in G[v]:
+        if x == p:
+          continue
+        a.append((v, x))
+        yield dfs(x, v)
+        a.append((x, v))
+      yield
+
+    @antirec
+    def sort(l: int, r: int) -> Iterator[Node]:
+      mid = (l + r) >> 1
+      if a[mid][0] == a[mid][1]:
+        seen[a[mid][0]] = 1
+        node = ptr_vertex[a[mid][0]]
+      else:
+        node = Node(a[mid], e, id)
+        ptr_edge[a[mid]] = node
+      if l != mid:
+        node.left = yield sort(l, mid)
+        node.left.par = node
+      if mid + 1 != r:
+        node.right = yield sort(mid+1, r)
+        node.right.par = node
+      self._update(node)
+      yield node
+
+    for root in range(self.n):
+      if seen[root]:
+        continue
+      a = []
+      dfs(root)
+      sort(0, len(a))
 
   def _popleft(self, v: Node) -> Optional[Node]:
     assert v is not None
@@ -328,7 +390,7 @@ class EulerTourTree(Generic[T, F]):
     self._splay(node)
     return node.key
 
-  def set_vertex(self, v: int, val: T) -> T:
+  def set_vertex(self, v: int, val: T) -> None:
     node = self.ptr_vertex[v]
     self._splay(node)
     node.key = val
@@ -336,6 +398,12 @@ class EulerTourTree(Generic[T, F]):
 
   def group_count(self) -> int:
     return self._group_numbers
+  
+  def __getitem__(self, v: int) -> T:
+    return self.get_vertex(v)
+
+  def __setitem__(self, v: int, val: T) -> None:
+    return self.set_vertex(v, val)
 
 def op(s, t):
   return
