@@ -1,13 +1,16 @@
+_____
+
+# [`SplayTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree)
+
 最終更新：2023/5/3
 - READMEを修正しました。
 
-
-# `SplayTree`
 splay操作をする木です。強いです。  
 
 _____
 
-# [`LazySplayTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree/LazySplayTree.py)
+# [`LazySplayTree.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree/LazySplayTree.py)
+
 遅延伝播反転可能平衡二分木です。アホの定数倍をしています(定数倍が大きい方向にアホです)。
 
 ## `LazySplayTreeData`

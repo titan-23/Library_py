@@ -1,12 +1,16 @@
-最終更新：2022/12/12  
-・子がNoneにならないことで無限ループが発生する事象を解消しました。
+____
 
-# ScapegoatTree
-ScapegoatTreeです。  
-ノードを追加したとき、「大きく偏る」部分木があれば、その部分木をO(部分木のサイズ)時間かけてならします。これにより、回転動作(=軽いが多くの処理をする)がなくなり、嬉しいことがあるかもしれません。  
+# [ScapegoatTree](https://github.com/titanium-22/Library/blob/main/BST/ScapegoatTree)
+
+最終更新：2022/12/12  
+
+- 子がNoneにならないことで無限ループが発生する事象を解消しました。
+
+ScapegoatTreeです。ノードを追加したとき、「大きく偏る」部分木があれば、その部分木をO(部分木のサイズ)時間かけてならします。これにより、回転動作(=軽いが多くの処理をする)がなくなり、嬉しいことがあるかもしれません。  
 以下、計算量を明示していないものは計算量O(logN)とします(Nはそのときどきのサイズではないですが、些細な問題です(?))。
 
 _____
+
 # [ScapegoatTreeSet](https://github.com/titanium-22/Library/blob/main/BST/ScapegoatTree/ScapegoatTreeSet.py)
 集合としてのScapegoatTreeです。任意の他要素と比較可能な要素が載ります。  
 全機能をverifyしたわけではないのでコンテスト中の利用は控えると吉です。

@@ -1,8 +1,13 @@
+_____
+
+# [LinkCutTree](https://github.com/titanium-22/Library_py/blob/main/DataStructures/LinkCutTree)
+
 最終更新: 2023/4/26
 - いろいろ更新しました。  
 
 _____
-# [LinkCutTree](https://github.com/titanium-22/Library_py/blob/main/DataStructures/LinkCutTree/LinkCutTree.py)
+
+# [LinkCutTree.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/LinkCutTree/LinkCutTree.py)
 
 `LinkCutTree` です。森を管理します。パスクエリの強さに定評があります。
 
