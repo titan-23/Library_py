@@ -16,25 +16,25 @@ _____
 全機能をverifyしたわけではないのでコンテスト中の利用は控えると吉です。
 
 ### `st = ScapegoatTree(a: Iterable[T]])`
-aからScapegoatTreeを作ります。O(NlogN)時間です。ソート済みを仮定して内部をいじるとO(N)時間です。
+`a` から `ScapegoatTree` を作ります。 `O(NlogN)` 時間です。ソート済みを仮定して内部をいじると `O(N)` 時間です。
 
 ### `len(st)`
-要素の個数を返します。O(1)時間です。
+要素の個数を返します。 `O(1)` 時間です。
 
 ### `x in st / x not in st`
 存在判定です。
 
 ### `st[k] -> T`
-k番目に小さい値(0-indexed)を返します。負の添え字に対応しています。
+`k` 番目に小さい値(0-indexed)を返します。負の添え字に対応しています。
 
 ### `bool(st) / str(st) / reversed(st)`
 よしなに動きます。
 
-### `st.add(x) -> bool`
-xがなければxを追加しTrueを返します。xがあれば追加せずにFalseを返します。償却計算量O(logN)です。
+### `st.add(key) -> bool`
+`key` がなければ `key` を追加し `True` を返します。 `key` があれば追加せずに `False` を返します。償却計算量O(logN)です。
 
 ### `st.discard(x) -> bool`
-xがあれば削除しTrueを返します。xがなければ何も削除せずにFalseを返します。
+xがあれば削除し `True` を返します。xがなければ何も削除せずに `False` を返します。
 
 ### `st.le(x) / .lt(x) / .ge(x) / gt(x) -> Union[T, None]`
 x(以下の/より小さい/以上の/より大きい)値で(最大/最大/最小/最小)の値を返します。存在しなければNoneを返します。
@@ -60,7 +60,7 @@ keyをval個追加します。償却計算量O(logN)です。
 
 ### `st.discard(key, val) -> bool`
 keyをval個削除します。valがkeyの数より大きいときは、keyを全て削除します。  
-keyが無いときFalseを、そうでないときTrueを返します。
+keyが無いとき `False` を、そうでないとき `True` を返します。
 
 ### `st.discard_all(key) -> None`
 keyを全て削除します。st.discard(key, st.count(key))と等価です。

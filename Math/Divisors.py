@@ -170,31 +170,29 @@ def get_primenum(limit: int) -> int:
 
 #  -----------------------  #
 
+from functools import lru_cache
+
 '''Return True if (n is a prime number) else False. / O(logN)'''
-st = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}
 # @lru_cache(maxsize=None)
 def is_prime64(n: int) -> bool:
   # assert 1 <= n and n <= 1<<64 # = 18446744073709551616
-  if n == 1: return False
-  if n == 2: return True
-  if n & 1 == 0: return False  
-  if n in st: return True
-  d = (n - 1) >> 1
-  while d & 1 == 0:
-    d >>= 1
-  for a in st:
+  if n == 1:
+    return False
+  if n == 2:
+    return True
+  if not n & 1:
+    return False  
+  p = [2, 7, 61] if n < 1<<30 else [2, 325, 9375, 28178, 450775, 9780504, 1795265022]
+  d = n - 1
+  d >>= (d & -d).bit_length() - 1
+  for a in p:
+    if n <= a: break
     t = d
-    b = t
-    y = 1
-    while b:
-      if b & 1:
-        y = y * a % n
-      a = a * a % n
-      b >>= 1
-    while t != n - 1 and y != 1 and y != n - 1:
-      y = (y * y) % n
+    y = pow(a, t, n)
+    while t != n-1 and y != 1 and y != n-1:
+      y = pow(y, 2, n)
       t <<= 1
-    if y != n - 1 and t & 1 == 0:
+    if y != n-1 and not t&1:
       return False
   return True
 

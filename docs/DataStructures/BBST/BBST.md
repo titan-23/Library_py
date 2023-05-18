@@ -1,16 +1,21 @@
+____
+
+# BBST
+
 最終更新: 2023/04/19  
 - なんかいろいろ更新
 
 計算量は償却だったり最悪だったりします。詳しくは各READMEを読んでください。  
 以下の木があります。  
 
-- [AVLTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/AVLTree)
+- [AVLTree](AVLTree.md)
 - [RedBlackTree](RedBlackTree.md)
-- [ScapegoatTree](https://github.kcom/titanium-22/Library_py/tree/main/DataStructures/BBST/ScapegoatTree)
-- [SplayTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/SplayTree)
-- [Treap](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/Treap)
+- [ScapegoatTree](ScapegoatTree.md)
+- [SplayTree](SplayTree.md)
+- [Treap](Treap.md)
 
 _____
+
 # 列を扱うBBST
 
 列を扱えます。
@@ -64,7 +69,10 @@ clearします。 `O(1)` です。
 区間 `[0, n)` に `f` を適用します。 `O(1)`です。
 
 _____
-# 集合としてのBinarySearchTree
+
+# 集合としてのBBST
+
+集合です。
 
 ### `x in bst / x not in bst`
 存在判定です。` O(logN)` です。
@@ -93,7 +101,7 @@ clearします。O(1)です。` O(logN)` です。
 ### `bst.tolist()`
 keyを昇順に並べたリストを返します。O(N)です。
 
-# 多重集合
+## 多重集合
 
 Setに加えて、以下の操作ができます。  
 valの値に関わらず、` O(logN)` で動作します。
