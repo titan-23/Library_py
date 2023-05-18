@@ -1,8 +1,14 @@
-# [DoubleEndedHeap](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/DoubleEndedHeap.py)
+# [DoubleEndedHeap.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/DoubleEndedHeap.py)
 
 `DoubleEndedHeap` です。  
 値の追加/最小値取得/最大値取得 などができます。  
-値の削除に対応した `MinMaxSet/Multiset` もどこかのデイレクトリにあります。
+値の削除に対応した `MinMaxSet/Multiset` もどこかのデイレクトリにあります。  
+
+参考です。  
+
+- [両端優先度付きキューのInterval-Heap実装](https://natsugiri.hatenablog.com/entry/2016/10/10/035445)
+- [Double-ended priority queue(wikipedia)]https://en.wikipedia.org/wiki/Double-ended_priority_queue
+
 
 ### `hq = DoubleEndedHeap(a: Iterable[T]=[])`
 `Iterable a` から `DoubleEndedHeap` を構築します。 `O(N)` です。
