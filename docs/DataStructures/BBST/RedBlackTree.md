@@ -1,7 +1,11 @@
+____
+
+
 最終更新：2023/04/27
 - いろいろ更新しました。
 
 赤黒木です。 `std::set` も怖くない。
+
 _____
 # Node
 `Node` です。双方向に進められます。 `1` だけ進める場合、計算量は平均 `O(1)` 、最悪 `O(logN)` です。 `k` だけ進める場合、だいたい `k` 倍になります。  
@@ -19,6 +23,7 @@ _____
 `node` が保持している `key` の個数です。
 
 _____
+
 # [RedBlackTreeSet](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeSet.py)
 
 集合としての赤黒木です。以下の操作ができます:  
