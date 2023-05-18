@@ -12,7 +12,7 @@
 ### Dict
 - HashDict
 
-### [EulerTourTree](DataStructures/EulerTourTree.md)
+### [EulerTourTree](DataStructures/EulerTourTree/EulerTourTree.md)
 - EulerTourTree
 
 ### FenwickTree
@@ -26,7 +26,7 @@
 - DoubleEndedHeap
 - RandomizedMeldableHeap
 
-### [LinkCutTree](DataStructures/LinkCutTree.md)
+### [LinkCutTree](DataStructures/LinkCutTree/LinkCutTree.md)
 - LinkCutTree
 
 ### PersistentDataStructure
