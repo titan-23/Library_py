@@ -17,6 +17,10 @@ class ModInt998244353:
       b >>= 1
     return res
 
+  @classmethod
+  def get_mod(cls) -> int:
+    return 998244353
+
   def __init__(self, val: int) -> None:
     self.val = val if 0 <= val and val < 998244353 else val % 998244353
 
@@ -112,6 +116,10 @@ class ModInt1000000007:
       b >>= 1
     return res
 
+  @classmethod
+  def get_mod(cls) -> int:
+    return 1000000007
+
   def __init__(self, val: int) -> None:
     self.val = val if 0 <= val and val < 1000000007 else val % 1000000007
 
@@ -146,7 +154,7 @@ class ModInt1000000007:
     return ModInt1000000007((other if isinstance(other, int) else other.val) * self.val)
 
   def __rpow__(self, other: Union[int, 'ModInt1000000007']) -> 'ModInt1000000007':
-    return ModInt1000000007(pow((other if isinstance(other, int) else other.val), self.val, 998244353))
+    return ModInt1000000007(pow((other if isinstance(other, int) else other.val), self.val, 1000000007))
 
   def __rtruediv__(self, other: Union[int, 'ModInt1000000007']) -> 'ModInt1000000007':
     return ModInt1000000007((other if isinstance(other, int) else other.val) * self._inv(self.val))
@@ -212,6 +220,10 @@ class ModInt:
       a = a * a % cls.mod
       b >>= 1
     return res
+
+  @classmethod
+  def get_mod(cls) -> int:
+    return cls.mod
 
   def __init__(self, val: int) -> None:
     self.val = val if 0 <= val and val < ModInt.mod else val % ModInt.mod
