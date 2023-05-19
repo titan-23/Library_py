@@ -1,10 +1,11 @@
 from typing import Iterable, TypeVar, Callable, List
+import random
 T = TypeVar('T')
 
 def quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -> List[T]:
   def sort(i: int, j: int):
     if i >= j: return
-    pivot = a[i]
+    pivot = a[random.randint(i, j)]
     l, r = i, j
     while True:
       while key(a[l], pivot):
@@ -21,4 +22,3 @@ def quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
   a = list(a)
   sort(0, len(a)-1)
   return a
-
