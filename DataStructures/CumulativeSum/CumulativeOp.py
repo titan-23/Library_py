@@ -1,9 +1,9 @@
-from typing import List, TypeVar, Callable
+from typing import TypeVar, Callable, Iterable
 T = TypeVar('T')
 
 class CumulativeOp():
 
-  def __init__(self, a: List[T], op: Callable[[T, T], T], e: T):
+  def __init__(self, a: Iterable[T], op: Callable[[T, T], T], e: T):
     if not isinstance(a, list):
       a = list(a)
     n = len(a)
@@ -22,3 +22,4 @@ class CumulativeOp():
 
   def __getitem__(self, k: int):
     return self.a[k]
+
