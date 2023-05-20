@@ -21,7 +21,7 @@ class HLD(Generic[T]):
       return to
     return wrappedfunc
 
-  def __init__(self, n_or_a: Union[int, Iterable[T]], G: List[List[int]], op: Callable[[T, T], T], e: T):
+  def __init__(self, G: List[List[int]], n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T):
     n = len(G)
     self.n = n
     self.G = G
@@ -113,7 +113,6 @@ class HLD(Generic[T]):
   def set(self, k: int, v: T) -> None:
     self.data[self.nodein[k]] = v
     self.rdata[self.n-self.nodein[k]-1] = v
-
 
 def op(s, t):
   return
