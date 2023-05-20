@@ -11,7 +11,6 @@ class Mo():
     self.bucket_size = ceil(sqrt(3)*n/sqrt(2*q)) if q > 0 else n
     if self.bucket_size == 0:
       self.bucket_size = 1
-    # self.bucket_size = 866
     self.bit = max(n, q).bit_length()
     self.msk = (1 << self.bit) - 1
     self.bucket = [newlist_hint(self.bucket_size//10) for _ in range(n//self.bucket_size+1)]
@@ -24,7 +23,8 @@ class Mo():
     self.cnt += 1
 
   def run(self, add: Callable[[int], None], delete: Callable[[int], None], out: Callable[[int], None]) -> None:
-    assert self.cnt == self.q
+    assert self.cnt == self.q, \
+        f'Not Enough Queries, now:{self.cnt}, expected:{self.q}'
     bucket, bit, msk = self.bucket, self.bit, self.msk
     for i, b in enumerate(bucket):
       b.sort(reverse=i & 1)
