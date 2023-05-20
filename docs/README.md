@@ -11,9 +11,9 @@
 ### [BinaryTrie](DataStructures/BinaryTrie/BinaryTrie.md)
 
 ### [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum.md)
-- CumulativeOp
-- CumulativeSum
-- CumulativeSum2D
+- [CumulativeOp](DataStructures/CumulativeSum/CumulativeOp.md)
+- [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum_py.md)
+- [CumulativeSum2D](DataStructures/CumulativeSum/CumulativeSum2D.md)
 
 ### [Deque](DataStructures/Deque/Deque.md)
 - deque

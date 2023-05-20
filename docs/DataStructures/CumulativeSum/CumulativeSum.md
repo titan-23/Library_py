@@ -1,8 +1,6 @@
 ____
 
 累積和です。 
-_____
-
 
 - [CumulativeOp](CumulativeOp.md)
 
@@ -10,3 +8,4 @@ _____
 
 - [CumulativeSum2D](CumulativeSum2D)
 
+_____
