@@ -16,13 +16,13 @@ _____
 `op, mapping, composition, e, id` は遅延セグ木のアレです。よしなに。
 
 ### `lct.expose(v: int) -> int`
-vが属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。
+`v` が属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。
 
 ### `lct.evert(v: int)`
-vを根にします。
+`v` を根にします。
 
 ### `lct.link(c: int, p: int)`
-辺 c-p を追加します。
+辺 `{c, p}` を追加します。
 
 ### `lct.cut(c: int)`
 
