@@ -38,9 +38,9 @@ class EulerTourTree(Generic[T, F]):
     self.e = e
     self.id = id
     a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
-    self.n = len(a)
-    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), a[i], id) for i in range(self.n)]
+    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), elem, id) for i, elem in enumerate(a)]
     self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
+    self.n = len(a)
     self._group_numbers = self.n
 
   def antirec(func, stack=[]):
@@ -65,11 +65,10 @@ class EulerTourTree(Generic[T, F]):
     seen = [0] * self.n
     Node = EulerTourTree.Node
     antirec = EulerTourTree.antirec
-    ptr_vertex, ptr_edge = self.ptr_vertex, self.ptr_edge
-    e, id = self.e, self.id
+    ptr_vertex, ptr_edge, e, id = self.ptr_vertex, self.ptr_edge, self.e, self.id
 
     @antirec
-    def dfs(v: int, p=-1) -> Iterator:
+    def dfs(v: int, p: int=-1) -> Iterator:
       a.append((v, v))
       for x in G[v]:
         if x == p:
