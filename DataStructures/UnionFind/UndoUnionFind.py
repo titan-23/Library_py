@@ -18,13 +18,13 @@ class UndoUnionFind():
     self._parents[x] = px
 
   def root(self, x: int) -> int:
-    '''Return root of x. / O(α(N))'''
+    '''Return root of x. / O(logN)'''
     while self._parents[x] >= 0:
       x = self._parents[x]
     return x
 
   def unite(self, x: int, y: int) -> bool:
-    '''Untie x and y. / O(α(N))'''
+    '''Untie x and y. / O(logN)'''
     x = self.root(x)
     y = self.root(y)
     if x == y:
@@ -40,11 +40,11 @@ class UndoUnionFind():
     return True
 
   def size(self, x: int) -> int:
-    '''Return xが属する集合の要素数. / O(α(N))'''
+    '''Return xが属する集合の要素数. / O(logN)'''
     return -self._parents[self.root(x)]
 
   def same(self, x: int, y: int) -> bool:
-    '''Return True if 'same' else False. / O(α(N))'''
+    '''Return True if 'same' else False. / O(logN)'''
     return self.root(x) == self.root(y)
 
   def all_roots(self) -> List[int]:
@@ -52,7 +52,7 @@ class UndoUnionFind():
     return [i for i, x in enumerate(self._parents) if x < 0]
 
   def all_group_members(self) -> defaultdict:
-    '''Return all_group_members. / O(Nα(N))'''
+    '''Return all_group_members. / O(NlogN)'''
     group_members = defaultdict(list)
     for member in range(self._n):
       group_members[self.root(member)].append(member)
