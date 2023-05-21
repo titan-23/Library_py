@@ -1,7 +1,7 @@
 from typing import List
 from collections import defaultdict
 
-class UndoUnionFind():
+class UndoableUnionFind():
 
   def __init__(self, n: int):
     self._n = n
@@ -9,7 +9,7 @@ class UndoUnionFind():
     self._history = []
 
   def undo(self) -> None:
-    assert self._history, f'UndoUnionFind.undo() with non history'
+    assert self._history, f'UndoableUnionFind.undo() with non history'
     y, py = self._history.pop()
     x, px = self._history.pop()
     if y == -1:
@@ -64,5 +64,5 @@ class UndoUnionFind():
       self._parents[i] = -1
 
   def __str__(self) -> str:
-    return '<UndoUnionFind> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
+    return '<UndoableUnionFind> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
 
