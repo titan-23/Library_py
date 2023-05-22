@@ -58,21 +58,6 @@ class HashDict():
       if h == l:
         h = 0
 
-  def __contains__(self, key: int):
-    assert key != self._e, \
-        f'ValueError: {key} in HashDict, {key} cannot be equal to {self._e}'
-    l, _keys, _e = len(self._keys), self._keys, self._e
-    h = self._hash(key)
-    while True:
-      x = _keys[h]
-      if x == _e:
-        return False
-      if x == key:
-        return True
-      h += 1
-      if h == l:
-        h = 0
-
   def set(self, key: int, val: Any) -> None:
     assert key != self._e, \
         f'ValueError: HashDict.set({key}, {val}), {key} cannot be equal to {self._e}'
@@ -94,8 +79,23 @@ class HashDict():
       if h == l:
         h = 0
 
-  __setitem__ = set
+  def __contains__(self, key: int):
+    assert key != self._e, \
+        f'ValueError: {key} in HashDict, {key} cannot be equal to {self._e}'
+    l, _keys, _e = len(self._keys), self._keys, self._e
+    h = self._hash(key)
+    while True:
+      x = _keys[h]
+      if x == _e:
+        return False
+      if x == key:
+        return True
+      h += 1
+      if h == l:
+        h = 0
+
   __getitem__ = get
+  __setitem__ = set
 
   def keys(self) -> Iterator[int]:
     _keys, _e = self._keys, self._e

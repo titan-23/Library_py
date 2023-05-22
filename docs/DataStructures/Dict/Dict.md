@@ -6,3 +6,5 @@ ____
 
 辞書です。pypyの辞書は、遅い。
 
+- [HashDict](HashDict.md)
+
