@@ -7,7 +7,7 @@
 参考です。  
 
 - [両端優先度付きキューのInterval-Heap実装](https://natsugiri.hatenablog.com/entry/2016/10/10/035445)
-- [Double-ended priority queue(wikipedia)]https://en.wikipedia.org/wiki/Double-ended_priority_queue
+- [Double-ended priority queue(wikipedia)](https://en.wikipedia.org/wiki/Double-ended_priority_queue)
 
 
 ### `hq = DoubleEndedHeap(a: Iterable[T]=[])`
