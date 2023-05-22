@@ -1,5 +1,7 @@
 ____
 
+# [Deque.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Deque/Deque.py)
+
 `Deque` です。
 `getitem / setitem` が `O(1)` で可能です。
 
