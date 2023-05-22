@@ -3,10 +3,10 @@ from typing import Iterable, List, Any
 class Deque():
 
   # コンセプト: ランダムアクセスO(1)でできるDeque
-  # pop/popleft: O(1)
-  # append/appendleft: O(1)
+  # pop / popleft: O(1)
+  # append / appendleft: O(1)
   # tolist: O(N)
-  # getitem/setitem: O(1)
+  # getitem / setitem: O(1)
   # contains: O(N)
 
   def __init__(self, a: Iterable[Any]=[]):
@@ -18,6 +18,12 @@ class Deque():
     self.front = new[:len(new)//2][::-1]
     self.back = new[len(new)//2:]
 
+  def append(self, v: Any) -> None:
+    self.back.append(v)
+
+  def appendleft(self, v: Any) -> None:
+    self.front.append(v)
+
   def pop(self) -> Any:
     if not self.back:
       self._rebuild()
@@ -27,12 +33,6 @@ class Deque():
     if not self.front:
       self._rebuild()
     return self.front.pop() if self.front else self.back.pop()
-
-  def append(self, v: Any) -> None:
-    self.back.append(v)
-
-  def appendleft(self, v: Any) -> None:
-    self.front.append(v)
 
   def tolist(self) -> List[Any]:
     return self.front[::-1] + self.back
@@ -56,7 +56,7 @@ class Deque():
   def __len__(self):
     return len(self.front) + len(self.back)
 
-  def __contains__(self, v):
+  def __contains__(self, v: Any):
     return (v in self.front) or (v in self.back)
 
   def __str__(self):

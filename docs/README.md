@@ -16,7 +16,7 @@
 - [CumulativeSum2D](DataStructures/CumulativeSum/CumulativeSum2D.md)
 
 ### [Deque](DataStructures/Deque/Deque.md)
-- deque
+- [Deque](DataStructures/Deque/Deque.md)
 
 ### [Dict](DataStructures/Dict/Dict.md)
 - [HashDict](DataStructures/Dict/HashDict.md)
