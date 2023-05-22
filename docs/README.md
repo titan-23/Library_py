@@ -22,7 +22,7 @@
 - [HashDict](DataStructures/Dict/HashDict.md)
 
 ### [EulerTourTree](DataStructures/EulerTourTree/EulerTourTree.md)
-- EulerTourTree
+- [EulerTourTree](DataStructures/EulerTourTree/EulerTourTree.md)
 
 ### [FenwickTree](DataStructures/FenwickTree/FenwickTree.md)
 - DynamicFenwickTree
