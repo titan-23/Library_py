@@ -7,11 +7,11 @@
 ## [DataStructures](DataStructures/DataStructures.md)
 
 ### [BBST](DataStructures/BBST/BBST.md)
-- [AVLTree](DataStructures/AVLTree.md)
-- [RedBlackTree](DataStructures/RedBlackTree.md)
-- [ScapegoatTree](DataStructures/ScapegoatTree.md)
-- [SplayTree](DataStructures/SplayTree.md)
-- [Treap](DataStructures/Treap.md)
+- [AVLTree](DataStructures/BBST/AVLTree.md)
+- [RedBlackTree](DataStructures/BBST/RedBlackTree.md)
+- [ScapegoatTree](DataStructures/BBST/ScapegoatTree.md)
+- [SplayTree](DataStructures/BBST/SplayTree.md)
+- [Treap](DataStructures/BBST/Treap.md)
 
 ### [BinaryTrie](DataStructures/BinaryTrie/BinaryTrie.md)
 - [BinaryTrieSet](DataStructures/BinaryTrie/BinaryTrieSet.md)
