@@ -75,7 +75,7 @@
 - SetQuadraticDivision
 - StaticMultiset
 - StaticSet
-- WordsizeTreeSet
+- [WordsizeTreeSet](DataStructures/Set/WordsizeTreeSet.md)
 - WordsizeTreeSetZ
 
 ### [SparseTable](DataStructures/SparseTable/SparseTable.md)
@@ -89,27 +89,27 @@
 - WeightedUnionFind
 
 ## [Graph](Graph/Graph.md)
-- bellman_ford
-- bfs
-- is_bipartite_graph
-- cartesian_tree
-- dijkstra
-- EulerTour
-- LCA
-- Namori
-- RootedTree
-- scc
-- topological_sort
-- warshall_floyd
+- [bellman_ford](Graph/bellman_ford.md)
+- [bfs](Graph/bfs.md)
+- [is_bipartite_graph](Graph/is_bipartite_graph.md)
+- [cartesian_tree](Graph/cartesian_tree.md)
+- [dijkstra](Graph/dijkstra.md)
+- [EulerTour](Graph/EulerTour.md)
+- [LCA](Graph/LCA.md)
+- [Namori](Graph/Namori.md)
+- [RootedTree](Graph/RootedTree.md)
+- [scc](Graph/scc.md)
+- [topological_sort](Graph/topological_sort.md)
+- [warshall_floyd](Graph/warshall_floyd.md)
 
 ## [Math](Math/Math.md)
-- AffineMap
-- Divisors
-- Fraction
-- ModArray
-- ModComb
-- ModInt
-- ModMatrix
-- Number
-- PollardRho
+- [AffineMap](Math/AffineMap.md)
+- [Divisors](Math/Divisors.md)
+- [Fraction](Math/Fraction.md)
+- [ModArray](Math/ModArray.md)
+- [ModComb](Math/ModComb.md)
+- [ModInt](Math/ModInt.md)
+- [ModMatrix](Math/ModMatrix.md)
+- [Number](Math/Number.md)
+- [PollardRho](Math/PollardRho.md)
 
