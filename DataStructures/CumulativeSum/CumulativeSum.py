@@ -25,7 +25,7 @@ class CumulativeSum():
   prod = sum
   all_prod = all_sum
 
-  def __getitem__(self, k: int):
+  def __getitem__(self, k: int) -> int:
     return self.a[k]
 
   def __str__(self):
