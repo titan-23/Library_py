@@ -1,6 +1,6 @@
 ____
 
-# [ScapegoatTree](https://github.com/titanium-22/Library/blob/main/BST/ScapegoatTree)
+# [ScapegoatTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/ScapegoatTree)
 
 最終更新：2022/12/12
 
@@ -11,8 +11,9 @@ ScapegoatTreeです。ノードを追加したとき、「大きく偏る」部�
 
 _____
 
-# [ScapegoatTreeSet](https://github.com/titanium-22/Library/blob/main/BST/ScapegoatTree/ScapegoatTreeSet.py)
-集合としてのScapegoatTreeです。任意の他要素と比較可能な要素が載ります。  
+# [`ScapegoatTreeSet.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/ScapegoatTree/ScapegoatTreeSet.pyy)
+
+集合としてのScapegoatTreeです。全順序集合が乗ります。  
 全機能をverifyしたわけではないのでコンテスト中の利用は控えると吉です。
 
 ### `st = ScapegoatTree(a: Iterable[T]])`
@@ -52,8 +53,10 @@ stを工場出荷状態に戻します。O(1)です。
 リストに変換します。内部でsys.setrecursionlimit(len(self))をしているので安心です。O(N)です。
 
 _____
-# [ScapegoatTreeMultiSet](https://github.com/titanium-22/Library/blob/main/BST/ScapegoatTree/ScapegoatTreeMultiSet.py)
-多重集合としてのScapegoatTreeです。[ScapegoatTreeSet](https://github.com/titanium-22/Library/blob/main/BST/ScapegoatTree/ScapegoatTreeSet.py)でできる操作に加えて以下の操作がができます。  
+
+# [`ScapegoatTreeMultiSet.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/ScapegoatTree/ScapegoatTreeMultiset.py)
+
+多重集合としてのScapegoatTreeです。[ScapegoatTreeSet](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/ScapegoatTree/ScapegoatTreeSet.py)でできる操作に加えて以下の操作がができます。  
 
 ### `st.add(key, val) -> None`
 keyをval個追加します。償却計算量O(logN)です。

@@ -1,14 +1,15 @@
 _____
 
-# [AVLTree](https://github.com/titanium-22/Library/blob/main/BST/AVLTree)
+# [AVLTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/AVLTree)
 
-最終更新：2022/12/03
+最終更新：2022/5/25
 
 - いろいろ更新しました。
 
 _____
 
-# [AVLTreeSet.py](https://github.com/titanium-22/Library/blob/main/BST/AVLTree/AVLTreeSet.py)
+# [AVLTreeSet.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeSet.py)
+
 集合としてのAVL木です。
 
 ### `avl = AVLTreeSet(a: Iterable[T]=[])`
@@ -41,9 +42,9 @@ _____
 ### `avl.tolist()`
 `key` を昇順に並べたリストを返します。 `O(N)` です。
 
-# [AVLTreeSet2.py](https://github.com/titanium-22/Library/blob/main/BST/AVLTree/AVLTreeSet2.py)
+# [AVLTreeSet2.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeSet2.py)
 集合としてのAVL木です。  
-各 `Node` は `key/左の子/右の子` のみをもち、 `Node` を頂点とする部分木の大きさは持ちません。[AVLTreeSet](https://github.com/titanium-22/Library/blob/main/BST/AVLTree/AVLTreeSet.py)の機能を落として高速化を図った形です。違いは以下の通りです。
+各 `Node` は `key/左の子/右の子` のみをもち、 `Node` を頂点とする部分木の大きさは持ちません。[AVLTreeSet](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeSet.py)の機能を落として高速化を図った形です。違いは以下の通りです。
 
 ### `avl = AVLTreeSet2(a: Iterable[T]=[])`
 `a` から `AVLTreeSet` を構築します。ソートがボトルネックとなり、計算量 `O(NlogN)` です。ソート済みを仮定して内部をいじると `O(N)` です。
@@ -60,12 +61,12 @@ _____
 
 _____
 
-# [AVLTreeMultiSet.py](https://github.com/titanium-22/Library/blob/main/BST/AVLTree/AVLTreeMultiSet.py)
+# [AVLTreeMultiSet.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeMultiset.py)
 多重集合としての `AVL` 木です。
 
 _____
 
-# [LazyAVLTree.py](https://github.com/titanium-22/Library/blob/main/BST/AVLTree/LazyAVLTree.py)
+# [LazyAVLTree.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/LazyAVLTree.py)
 
 遅延伝播反転可能平衡二分木です。アホの定数倍をしています(定数倍が大きい方向にアホです)。  
 

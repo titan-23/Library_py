@@ -1,6 +1,6 @@
 ____
 
-# [RedBlackTree](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree)
+# [RedBlackTree](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/RedBlackTree)
 
 最終更新：2023/04/27
 
@@ -83,6 +83,7 @@ keyを昇順に並べたリストを返します。 `O(N)` です。
 _____
 
 # [RedBlackTreeMultiset.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeMultiset.py)
+
 多重集合としての赤黒木です。 主に `RedBlackTreeSet` と同等の操作ができます。差分は以下です。
 
 ### `rbtree = RedBlackTreeMultiset(a: Iterable[T]=[])`
