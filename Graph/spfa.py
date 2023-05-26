@@ -29,5 +29,4 @@ def spfa(G, s):
           else:
             dq.append(x)
           now[x] = 1
-
   return dist
