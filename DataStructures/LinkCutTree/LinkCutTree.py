@@ -119,7 +119,7 @@ class LinkCutTree(Generic[T, F]):
     _propagate, _is_root, _update_triple = self._propagate, self._is_root, self._update_triple
     _propagate(node)
     if _is_root(node): return
-    n, arr = self.n, self.arr
+    arr = self.arr
     pnode = arr[node<<2|2]
     while not _is_root(pnode):
       gnode = arr[pnode<<2|2]

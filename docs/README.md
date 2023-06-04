@@ -32,11 +32,11 @@
 - [EulerTourTree](DataStructures/EulerTourTree/EulerTourTree.md)
 
 ### [FenwickTree](DataStructures/FenwickTree/FenwickTree.md)
-- DynamicFenwickTree
-- DynamicFenwickTree2D
-- FenwickTree
-- FenwickTreeAbst
-- FenwickTreeRAQ
+- [DynamicFenwickTree](DataStructures/FenwickTree/DynamicFenwickTree.md)
+- [DynamicFenwickTree2D](DataStructures/FenwickTree/DynamicFenwickTree2D.md)
+- [FenwickTree](DataStructures/FenwickTree/FenwickTree_.md)
+- [FenwickTreeAbst](DataStructures/FenwickTree/FenwickTreeAbst.md)
+- [FenwickTreeRAQ](DataStructures/FenwickTree/FenwickTreeRAQ.md)
 
 ### [Heap](DataStructures/Heap/Heap.md)
 - [DoubleEndedHeap](DataStructures/Heap/DoubleEndedHeap.md)
@@ -47,46 +47,48 @@
 ### [LinkCutTree](DataStructures/LinkCutTree/LinkCutTree.md)
 - [LinkCutTree](DataStructures/LinkCutTree/LinkCutTree.md)
 
-### [PersistentDataStructure]()
-- PersistentArray
-- PersistentStack
+### [PersistentDataStructure](DataStructures/PersistentDataStructure/PersistentDataStructure.md)
+- [PersistentArray](DataStructures/PersistentDataStructure/PersistentArray.md)
+- [PersistentStack](DataStructures/PersistentDataStructure/PersistentStack.md)
 
-### [SegmentQuadraticDivision]()
-- SegmentLazyQuadraticDivision
-- SegmentQuadraticDivision
+### [SegmentQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision.md)
+- [SegmentLazyQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentLazyQuadraticDivision.md)
+- [SegmentQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision_.md)
 
 ### [SegmentTree](DataStructures/SegmentTree/SegmentTree.md)
-- DynamicSegmentTree
-- LazySegmentTree
-- SegmentTree
-- SegmentTreeRmQ
-- SegmentTreeRSQ
+- [DynamicSegmentTree](DataStructures/SegmentTree/DynamicSegmentTree.md)
+- [LazySegmentTree](DataStructures/SegmentTree/LazySegmentTree.md)
+- [SegmentTree](DataStructures/SegmentTree/SegmentTree_.md)
+- [SegmentTreeRmQ](DataStructures/SegmentTree/SegmentTreeRmQ.md)
+- [SegmentTreeRSQ](DataStructures/SegmentTree/SegmentTreeRSQ.md)
 
 ### [Set](DataStructures/Set/Set.md)
-- Bitset32
-- DynamicFenwickTreeSet
-- FenwickTreeSet
-- FenwickTreeSetFast
-- HashedMultiset
-- MexMultiset
-- MinMaxMultiset
-- MinMaxSet
-- MultisetQuadraticDivision
-- SetQuadraticDivision
-- StaticMultiset
-- StaticSet
+- [Bitset32](DataStructures/Set/Bitset32.md)
+- [DynamicFenwickTreeSet](DataStructures/Set/DynamicFenwickTreeSet.md)
+- [FenwickTreeSet](DataStructures/Set/FenwickTreeSet.md)
+- [FenwickTreeSetFast](DataStructures/Set/FenwickTreeSetFast.md)
+- [HashedMultiset](DataStructures/Set/HashedMultiset.md)
+- [MexMultiset](DataStructures/Set/MexMultiset.md)
+- [MinMaxMultiset](DataStructures/Set/MinMaxMultiset.md)
+- [MinMaxSet](DataStructures/Set/MinMaxSet.md)
+- [MultisetQuadraticDivision](DataStructures/Set/MultisetQuadraticDivision.md)
+- [SetQuadraticDivision](DataStructures/Set/SetQuadraticDivision.md)
+- [StaticMultiset](DataStructures/Set/StaticMultiset.md)
+- [StaticSet](DataStructures/Set/StaticSet.md)
 - [WordsizeTreeSet](DataStructures/Set/WordsizeTreeSet.md)
-- WordsizeTreeSetZ
+- [WordsizeTreeSetZ](DataStructures/Set/WordsizeTreeSetZ.md)
 
 ### [SparseTable](DataStructures/SparseTable/SparseTable.md)
-- SparseTable
+- [SparseTable](DataStructures/SparseTable/SparseTable_.md)
+- [SparseTableRmQ](DataStructures/SparseTable/SparseTableRmQ.md)
 
 ### [StaticArrayQuery](DataStructures/StaticArrayQuery/StaticArrayQuery.md)
-- StaticRmQ
+- [StaticRmQ](DataStructures/StaticArrayQuery/StaticRmQ.md)
 
 ### [UnionFind](DataStructures/UnionFind/UnionFind.md)
-- UnionFind
-- WeightedUnionFind
+- [UnionFind](DataStructures/UnionFind/UnionFind_.md)
+- [UndoableUnionFind](DataStructures/UnionFind/UndoableUnionFind.md)
+- [WeightedUnionFind](DataStructures/UnionFind/WeightedUnionFind.md)
 
 ## [Graph](Graph/Graph.md)
 - [bellman_ford](Graph/bellman_ford.md)
