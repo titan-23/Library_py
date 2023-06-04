@@ -10,6 +10,7 @@ class FenwickTreeSet(Generic[T]):
     self._to_zaatsu = {key: i for i, key in enumerate(_used)} if compress else _used
     self._to_origin = _used
     self._cnt = [0] * self._size
+    _a = list(_a)
     if _a:
       a_ = [0] * self._size
       if _multi:

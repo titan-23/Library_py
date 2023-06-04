@@ -1,5 +1,4 @@
 import random
-random.seed(0)
 from typing import Iterable, List, Iterator, Tuple, Any
 
 class HashSet():
@@ -106,7 +105,6 @@ class HashSet():
 
   def __len__(self):
     return self._len
-
 
 #  -----------------------  #
 

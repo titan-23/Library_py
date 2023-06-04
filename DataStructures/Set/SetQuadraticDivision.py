@@ -2,9 +2,14 @@ from typing import List
 
 class SetQuadraticDivision():
 
+  # Ordered Set
+  # Space Complexity : O(U)
+  # add / discard / remove / contains : O(1)
+  # kth_elm : O(√U)
+
   def __init__(self, u: int, a: List[int]=[]):
     self.data = [0] * u
-    self.size = int(u ** .5) + 1
+    self.size = int(u**.5) + 1
     self.bucket_cnt = (u + self.size - 1) // self.size
     self.bucket_data = [0] * self.bucket_cnt
     for e in a:

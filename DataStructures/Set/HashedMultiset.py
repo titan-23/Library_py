@@ -1,8 +1,8 @@
-from typing import List, Hashable
+from typing import Iterator, List, Hashable
 
 class HashedMultiset():
 
-  def __init__(self, a: List[Hashable]=[]) -> None:
+  def __init__(self, a: List[Hashable]=[]):
     d = {}
     for e in a:
       if e in d:
@@ -39,19 +39,19 @@ class HashedMultiset():
   def len_elm(self) -> int:
     return len(self._data)
 
-  def keys(self):
+  def keys(self) -> Iterator[Hashable]:
     for k in self._data.keys():
       yield k
 
-  def values(self):
+  def values(self) -> Iterator[int]:
     for v in self._data.values():
       yield v
 
-  def items(self):
+  def items(self) -> Iterator[Hashable]:
     for item in self._data.items():
       yield item
 
-  def clear(self):
+  def clear(self) -> None:
     self._data = {}
     self._len = 0
     self._len_elm = 0

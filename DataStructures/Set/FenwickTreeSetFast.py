@@ -48,7 +48,6 @@ class FenwickTreeSetFast():
       return i
 
   def __init__(self, _u: int, a: Iterable[int]=[]):
-    # Build a new FenwickTreeSetFast. / O(len(A) log(len(A)))
     self._len = 0
     self._size = _u
     self._cnt = [0] * _u
