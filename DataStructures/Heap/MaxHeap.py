@@ -34,10 +34,10 @@ class MaxHeap(Generic[T]):
       else:
         break
 
-  def get_min(self) -> T:
+  def get_max(self) -> T:
     return self.a[0]
 
-  def pop_min(self) -> T:
+  def pop_max(self) -> T:
     res = self.a[0]
     self.a[0] = self.a[-1]
     self.a.pop()
@@ -48,7 +48,7 @@ class MaxHeap(Generic[T]):
     self.a.append(key)
     self._up(len(self.a)-1)
 
-  def pushpop_min(self, key: T) -> T:
+  def pushpop_max(self, key: T) -> T:
     if self.a[0] <= key:
       return key
     res = self.a[0]
@@ -56,7 +56,7 @@ class MaxHeap(Generic[T]):
     self._down(0)
     return res
 
-  def replace_min(self, key: T) -> T:
+  def replace_max(self, key: T) -> T:
     res = self.a[0]
     self.a[0] = key
     self._down(0)

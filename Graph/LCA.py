@@ -6,7 +6,7 @@ class LCA():
   def __init__(self, G: List[List[int]], root: int):
     _n = len(G)
     bit = _n.bit_length() + 1
-    msk = (1<<bit)-1
+    msk = (1 << bit) - 1
     path = [-1] * (2*_n-1)
     depth = [-1] * (2*_n-1)
     nodeid = [-1] * _n

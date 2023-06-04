@@ -6,12 +6,13 @@ from collections import Counter
 class Osa_k:
 
   def __init__(self, n: int):
-    self._min_factor = list(range(n+1))
+    _min_factor = list(range(n+1))
     for i in range(2, int(n**.5)+1):
-      if self._min_factor[i] == i:
+      if _min_factor[i] == i:
         for j in range(2, int(n//i)+1):
-          if self._min_factor[i*j] > i:
-            self._min_factor[i*j] = i
+          if _min_factor[i*j] > i:
+            _min_factor[i*j] = i
+    self._min_factor = _min_factor
 
   def p_factorization(self, n: int) -> list:
     ret = []

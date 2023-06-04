@@ -84,7 +84,7 @@ class BinaryTrieSet():
         left, right = right, left
     if size[node]: return False
     size[node] = 1
-    for i in range(self.bit):
+    for _ in range(self.bit):
       node = par[node]
       size[node] += 1
     return True
