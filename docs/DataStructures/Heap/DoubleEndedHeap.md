@@ -1,3 +1,5 @@
+___
+
 # [DoubleEndedHeap.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/DoubleEndedHeap.py)
 
 `DoubleEndedHeap` です。  
@@ -9,6 +11,7 @@
 - [両端優先度付きキューのInterval-Heap実装](https://natsugiri.hatenablog.com/entry/2016/10/10/035445)
 - [Double-ended priority queue(wikipedia)](https://en.wikipedia.org/wiki/Double-ended_priority_queue)
 
+___
 
 ### `hq = DoubleEndedHeap(a: Iterable[T]=[])`
 `Iterable a` から `DoubleEndedHeap` を構築します。 `O(N)` です。

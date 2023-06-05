@@ -42,7 +42,7 @@ _____
 ## 仕様
 
 ### `ett = EulerTourTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)`
-`n/len(a)` 個の頂点からなる `EulerTourTree` を作成します。 `n_or_a` が `a` のとき、頂点の重みとみなします。
+`n / len(a)` 個の頂点からなる `EulerTourTree` を作成します。 `n_or_a` が `a` のとき、頂点の重みとみなします。
 
 ### `ett.build(G: List[List[int]]) -> None`
 隣接リスト `G` をもとにして、 `ett` に辺を張り構築します。

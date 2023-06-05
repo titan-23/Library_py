@@ -69,9 +69,6 @@ class OfflineDynamicConnectivity():
     self.edge = defaultdict(list)
     self.uf = OfflineDynamicConnectivity.UndoableUnionFind(n)
 
-  def add_relax(self) -> None:
-    self.query_count += 1
-
   def add_edge(self, u: int, v: int) -> None:
     if u > v:
       u, v = v, u
@@ -82,6 +79,9 @@ class OfflineDynamicConnectivity():
     if u > v:
       u, v = v, u
     self.edge[u<<self.bit|v].append(self.query_count<<1|1)
+    self.query_count += 1
+
+  def add_relax(self) -> None:
     self.query_count += 1
 
   def run(self, out: Callable[[int], None]) -> None:
