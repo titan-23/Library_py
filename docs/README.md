@@ -28,8 +28,10 @@
 ### [Dict](DataStructures/Dict/Dict.md)
 - [HashDict](DataStructures/Dict/HashDict.md)
 
-### [EulerTourTree](DataStructures/EulerTourTree/EulerTourTree.md)
-- [EulerTourTree](DataStructures/EulerTourTree/EulerTourTree.md)
+### [DynamicConnectivity](DataStructures/DynamicConnectivity/DynamicConnectivity.md)
+- [EulerTourTree](DataStructures/DynamicConnectivity/EulerTourTree.md)
+- [LinkCutTree](DataStructures/DynamicConnectivity/LinkCutTree.md)
+- [OfflineDynamicConnectivity](DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.md)
 
 ### [FenwickTree](DataStructures/FenwickTree/FenwickTree.md)
 - [DynamicFenwickTree](DataStructures/FenwickTree/DynamicFenwickTree.md)
@@ -43,9 +45,6 @@
 - [MaxHeap](DataStructures/Heap/MaxHeap.md)
 - [MinHeap](DataStructures/Heap/MinHeap.md)
 - [RandomizedMeldableHeap](DataStructures/Heap/RandomizedMeldableHeap.md)
-
-### [LinkCutTree](DataStructures/LinkCutTree/LinkCutTree.md)
-- [LinkCutTree](DataStructures/LinkCutTree/LinkCutTree.md)
 
 ### [PersistentDataStructure](DataStructures/PersistentDataStructure/PersistentDataStructure.md)
 - [PersistentArray](DataStructures/PersistentDataStructure/PersistentArray.md)
