@@ -15,13 +15,15 @@ _____
 `op, mapping, composition, e, id` は遅延セグ木のアレです。よしなに。
 
 ### `lct.expose(v: int) -> int`
-`v` が属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。
+- `v` が属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。
 
 ### `lct.evert(v: int)`
-`v` を根にします。
+- `v` を根にします。
+- $O(logN)$ です。
 
 ### `lct.link(c: int, p: int)`
-辺 `{c, p}` を追加します。
+- 辺 `{c, p}` を追加します。
+- $O(logN)$ です。
 
 ### `lct.cut(c: int)`
 
@@ -42,6 +44,8 @@ _____
 ### `lct.split(u: int, v: int)`
 
 ### `lct.path_kth_elm(s: int, t: int, k: int)`
+- `s-t` パスの頂点列を $v_{0}, v_{1}, ..., v_{n}$ としたときの $v_{k}$ を返します。 $k > n$ のとき、 `None` を返します。
+- $O(logN)$ です。
 
 ### `lct[k] / lct[k] = v`
 
