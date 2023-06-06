@@ -2,7 +2,6 @@ _____
 
 # [EulerTourTree.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/EulerTourTree.py)
 
-
 `Euler Tour Tree` です。森を管理します。部分木クエリの強さに定評があります。
 
 ## 解説
@@ -41,49 +40,61 @@ _____
 
 ## 仕様
 
-### `ett = EulerTourTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)`
+#### `ett = EulerTourTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)`
 - `n / len(a)` 個の頂点からなる `EulerTourTree` を作成します。 `n_or_a` が `a` のとき、頂点の重みとみなします。
 
-### `ett.build(G: List[List[int]]) -> None`
+#### `ett.build(G: List[List[int]]) -> None`
 - 隣接リスト `G` をもとにして、 `ett` に辺を張り構築します。
-- $O(N)$ です。
+- `O(N)` です。
 
-### `ett.link(u: int, v: int) -> None`
-- 辺 `{u, v}` を追加します。 `u` と `v` が同じ連結成分にいてはいけません。
+#### `ett.link(u: int, v: int) -> None`
+- 辺 `{u, v}` を追加します。 `u` と `v` が同じ連結成分であってはいけません。
+- `O(logN)` です。
 
-### `ett.cut(u: int, v: int) -> None`
+#### `ett.cut(u: int, v: int) -> None`
 - 辺 `{u, v}` を削除します。辺 `{u, v}` が存在してなければいけません。
+- `O(logN)` です。
 
-### `ett.merge(u: int, v: int) -> bool`
-- `u` と `v` が同じ連結成分にいる場合はなにもせず `False` を返します。そうでない場合は辺 `{u, v}` を追加し `True` を返します。
+#### `ett.merge(u: int, v: int) -> bool`
+- 頂点 `u` と `v` が同じ連結成分にいる場合はなにもせず `False` を返します。そうでない場合は辺 `{u, v}` を追加し `True` を返します。
+- `O(logN)` です。
 
-### `ett.split(u: int, v: int) -> bool`
+#### `ett.split(u: int, v: int) -> bool`
 - 辺 `{u, v}` が存在しない場合はなにもせず `False` を返します。そうでない場合は辺 `{u, v}` を削除し `True` を返します。
+- `O(logN)` です。
 
-### `ett.leader(v: int) -> Node`
-- `v` を含む木の代表元を返します。 `reroot` すると変わるので注意です。
+#### `ett.leader(v: int) -> Node`
+- 頂点 `v` を含む木の代表元を返します。 `reroot` すると変わるので注意です。
+- `O(logN)` です。
 
-### `ett.reroot(v: int) -> None`
-- `v` を含む木の根を `v` にします。
+#### `ett.reroot(v: int) -> None`
+- 頂点 `v` を含む木の根を `v` にします。
+- `O(logN)` です。
 
-### `ett.same(u: int, v: int) -> bool`
-- `u` と `v` が同じ連結成分にいれば `True` を、そうでなければ `False` を返します。
+#### `ett.same(u: int, v: int) -> bool`
+- 頂点 `u` と `v` が同じ連結成分にいれば `True` を、そうでなければ `False` を返します。
+- `O(logN)` です。
 
-### `ett.show() -> None`
+#### `ett.show() -> None`
 - デバッグ用です。
 
-### `ett.subtree_apply(v: int, p: int, f: F) -> None`
-- `v` を根としたときの部分木に `f` を適用します。ただし、 `v` の親は `p` です。 `v` の親が存在しないときは `p=-1` として下さい。
+#### `ett.subtree_apply(v: int, p: int, f: F) -> None`
+- 頂点 `v` を根としたときの部分木に `f` を適用します。ただし、 `v` の親は `p` です。 `v` の親が存在しないときは `p=-1` として下さい。
+- `O(logN)` です。
 
-### `ett.subtree_sum(v: int, p: int) -> T`
-- `v` を根としたときの部分木の総和を返します。ただし、 `v` の親は `p` です。 `v` の親が存在しないときは `p=-1` として下さい。
+#### `ett.subtree_sum(v: int, p: int) -> T`
+- 頂点 `v` を根としたときの部分木の総和を返します。ただし、 `v` の親は `p` です。 `v` の親が存在しないときは `p=-1` として下さい。
+- `O(logN)` です。
 
-### `ett.group_count() -> int`
+#### `ett.group_count() -> int`
 - 連結成分の個数を返します。
+- `O(1)` です。
 
-### `ett.get_vertex(v: int) / ett[v: int] -> T`
-- `v` の `key` を返します。
+#### `ett.get_vertex(v: int) / ett[v: int] -> T`
+- 頂点 `v` の `key` を返します。
+- `O(logN)` です。
 
-### `ett.set_vertex(v: int, val: T) / ett[v: int] = val -> None`
-- `v` の `key` を `val` に更新します。
+#### `ett.set_vertex(v: int, val: T) / ett[v: int] = val -> None`
+- 頂点 `v` の `key` を `val` に更新します。
+- `O(logN)` です。
 
