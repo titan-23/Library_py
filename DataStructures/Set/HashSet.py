@@ -1,5 +1,6 @@
 import random
 from typing import Iterable, List, Iterator, Tuple, Any
+random.seed(3122222)
 
 class HashSet():
 
@@ -13,12 +14,12 @@ class HashSet():
       self.add(e)
 
   def reserve(self, n: int) -> None:
-    self._keys += [self._empty] * (3*n)
+    self._keys += [self._empty] * (4*n)
     self._xor = random.getrandbits(len(self._keys).bit_length())
 
   def _rebuild(self) -> None:
     old_keys, _empty, _deleted = self._keys, self._empty, self._deleted
-    self._keys = [_empty] * (3*len(old_keys)+3)
+    self._keys = [_empty] * (4*len(old_keys)+3)
     self._len = 0
     self._xor = random.getrandbits(len(self._keys).bit_length())
     for k in old_keys:
@@ -39,10 +40,10 @@ class HashSet():
       if _keys[h] == _empty or _keys[h] == _deleted:
         _keys[h] = key
         self._len += 1
-        if 3*self._len > len(self._keys):
+        if 4*self._len > len(self._keys):
           self._rebuild()
         return True
-      if _keys[h] == key:
+      elif _keys[h] == key:
         return False
       h += 1
       if h == l:
@@ -50,7 +51,7 @@ class HashSet():
 
   def _rebuid_shrink(self) -> None:
     old_keys, _empty, _deleted = self._keys, self._empty, self._deleted
-    self._keys = [_empty] * (len(old_keys)//3+3)
+    self._keys = [_empty] * (len(old_keys)//4+3)
     self._len = 0
     self._xor = random.getrandbits(len(self._keys).bit_length())
     for k in old_keys:
@@ -67,11 +68,10 @@ class HashSet():
     while True:
       if _keys[h] == _empty:
         return False
-      if _keys[h] == key:
+      elif _keys[h] == key:
         _keys[h] = self._deleted
         self._len -= 1
-        if 9*self._len < len(self._keys):
-          # print(self._len, len(self._keys), flush=True)
+        if 4*4*self._len < len(self._keys):
           self._rebuid_shrink()
         return True
       h += 1
@@ -88,7 +88,7 @@ class HashSet():
     while True:
       if _keys[h] == _empty:
         return False
-      if _keys[h] == key:
+      elif _keys[h] == key:
         return True
       h += 1
       if h == l:
@@ -108,21 +108,18 @@ class HashSet():
 
 #  -----------------------  #
 
+import sys
 from time import time
 start = time()
+n = 10**6
+start = time()
+st = HashSet()
+st.reserve(n)
+st = set()
+for i in range(n//2):
+  st.add(i)
 
-import sys
-input = lambda: sys.stdin.readline().rstrip()
-n = int(input())
-A = list(map(lambda x: int(x)-1, input().split()))
-# n = 2*10**5
-# A = [random.randint(0, n-1) for _ in range(n)]
-st = HashSet(range(n))
-for i in range(n):
+for i in range(n-1, -1, -1):
   if i in st:
-    st.discard(A[i])
-a = list(st)
-a.sort()
-print(len(a))
-print(' '.join(map(lambda x: str(x+1), a)))
+    st.discard(i)
 print(time() - start, file=sys.stderr)

@@ -1,5 +1,6 @@
 from typing import List, Callable
 from collections import defaultdict
+from types import GeneratorType
 
 class OfflineDynamicConnectivity():
 
@@ -57,6 +58,16 @@ class OfflineDynamicConnectivity():
     def group_sum(self, x: int) -> int:
       return self.sum[self.root(x)]
 
+    def all_group_members(self) -> defaultdict:
+      group_members = defaultdict(list)
+      for member in range(self._n):
+        group_members[self.root(member)].append(member)
+      return group_members
+
+    def __str__(self) -> str:
+      return '<offline-dc.uf> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
+
+
   def __init__(self, n: int, q: int):
     self.n = n
     self.q = q
@@ -65,7 +76,7 @@ class OfflineDynamicConnectivity():
     self.query_count = 0
     self.log  = (self.q - 1).bit_length()
     self.size = 1 << self.log
-    self.data = [[] for _ in range(self.size << 1)]
+    self.data = [[] for _ in range(self.size + self.q)]
     self.edge = defaultdict(list)
     self.uf = OfflineDynamicConnectivity.UndoableUnionFind(n)
 
@@ -86,6 +97,7 @@ class OfflineDynamicConnectivity():
 
   def run(self, out: Callable[[int], None]) -> None:
     assert self.query_count == self.q
+    data, uf, bit, msk, size, q = self.data, self.uf, self.bit, self.msk, self.size, self.q
     for k, v in self.edge.items():
       LR = []
       i = 0
@@ -107,34 +119,32 @@ class OfflineDynamicConnectivity():
           i -= 1
         i += 1
       if cnt > 0:
-        LR.append(self.q)
+        LR.append(q)
       LR.reverse()
       while LR:
         l = LR.pop()
         r = LR.pop()
-        l += self.size
-        r += self.size
+        l += size
+        r += size
         while l < r:
           if l & 1:
-            self.data[l].append(k)
+            data[l].append(k)
             l += 1
           if r & 1:
-            self.data[r^1].append(k)
+            data[r^1].append(k)
           l >>= 1
           r >>= 1
 
-    def dfs(v: int):
-      for uv in self.data[v]:
-        self.uf.unite(uv>>bit, uv&msk)
-      if v * 2 + 1 < len(self.data):
-        dfs(v*2)
-        dfs(v*2+1)
-      else:
-        if v - self.size < self.q:
-          out(v-self.size)
-      for _ in self.data[v]:
-        self.uf.undo()
-    data, uf, bit, msk = self.data, self.uf, self.bit, self.msk
+    def dfs(v: int) -> None:
+      for uv in data[v]:
+        uf.unite(uv>>bit, uv&msk)
+      if v<<1|1 < size + q:
+        dfs(v<<1)
+        dfs(v<<1|1)
+      elif v - size < q:
+        out(v-size)
+      for _ in range(len(data[v])):
+        uf.undo()
     dfs(1)
 
   def __repr__(self):
