@@ -1,6 +1,5 @@
 import random
 from typing import Iterable, List, Iterator, Tuple, Any
-random.seed(3122222)
 
 class HashSet():
 

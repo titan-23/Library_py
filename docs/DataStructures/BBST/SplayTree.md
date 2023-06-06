@@ -68,6 +68,8 @@ _____
 
 ### `iter(st) / next(st) / len(st) / str(st) / repr(st)`
 
+## 使用例
+
 <!--
 _____
 

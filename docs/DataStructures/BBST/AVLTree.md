@@ -12,7 +12,7 @@ _____
 
 ## [`AVLTreeSet.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeSet.py)
 
-集合としてのAVL木です。
+集合としてのAVL木です。 `T` は全順序が定義されてると仮定します。
 
 - `avl = AVLTreeSet(a: Iterable[T]=[])`
   - `a` から `AVLTreeSet` を構築します。ソートがボトルネックとなり、計算量 `O(NlogN)` です。ソート済みを仮定して内部をいじると `O(N)` です。
@@ -23,10 +23,10 @@ _____
 - `avl.discard(key) -> bool`
   - `key` が存在するなら `key` を削除し、 `True` を返します。 `key` が存在しないなら何もせず、 `False` を返します。
 
-- `key in avl`  - 
+- `key in avl`
 存在判定です。 `key` が存在すれば `True` を、そうでなければ `False` を返します。
 
-- `avl[k: int] -> T`  - 
+- `avl[k: int] -> T`
 昇順 `k` 番目の値を返します。
 
 - `avl.le(key) / .lt(key) / .ge(key) / gt(key) -> Optional[T]`
@@ -46,20 +46,19 @@ _____
 
 ## [`AVLTreeSet2.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeSet2.py)
 集合としてのAVL木です。  
-各 `Node` は `key/左の子/右の子` のみをもち、 `Node` を頂点とする部分木の大きさは持ちません。[AVLTreeSet](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeSet.py)の機能を落として高速化を図った形です。違いは以下の通りです。
+各 `Node` は `key/左の子/右の子` のみをもち、 `Node` を頂点とする部分木の大きさは持ちません。[`AVLTreeSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/AVLTree/AVLTreeSet.py)の機能を落として高速化を図った形です。違いは以下の通りです。
 
 - `avl = AVLTreeSet2(a: Iterable[T]=[])`
   - `a` から `AVLTreeSet` を構築します。ソートがボトルネックとなり、計算量 `O(NlogN)` です。ソート済みを仮定して内部をいじると `O(N)` です。
 
-- `avl[k]`
+- `avl[k] -> T`
   - `k` に指定できるものは、 `0/-1/len(avl)-1` のいずれかです。
 
-- `avl.get_min() / .get_max()`
-  - (最小/最大)の値を返します。
+- `avl.get_min() / .get_max() -> T`
+  - (最小 / 最大)の値を返します。
 
-- `avl.pop() / .popleft()`
-  - (最大/最小)の値を削除し、その値を返します。  
-`pop` で引数が指定できなくなりました。
+- `avl.pop() / .popleft() -> T`
+  - (最大 / 最小)の値を削除し、その値を返します。 `pop` で引数が指定できなくなりました。
 
 _____
 
@@ -75,10 +74,10 @@ _____
 - `avl = LazyAVLTree(a, op, mapping, composition, e)` - 
 列 `a` から `LazyAVLTree` を構築します。その他引数は遅延セグ木のアレです。時間計算量 `O(N)` です。
 
-- `avl.merge(other)`
-  - stにotherをmergeできます。
+- `avl.merge(other: LazyAVLTree) -> None`
+  - `avl` に `other` を `merge` できます。
 
-- `avl.split(k)`
+- `avl.split(k) -> Tuple[LazyAVLTree, LazyAVLTree]`
   - `x, y = avl.split(k)` で、`k` 番目で左右に分けた `AVLTree` をつくり `x, y` に代入できます。 `avl` は破壊されます。( `x` の長さが `k` 。)
 
 - `avl.insert(k, key)`
@@ -99,6 +98,6 @@ _____
 - `avl.apply(l, r, f)`
   - 区間 `[l, r)` に `f` を適用します。
 
-- `avl.tolist()`
+- `avl.tolist() -> List[T]`
   - `Node` の `key` からなるリストを返します。計算量 `O(N)` です。
 
