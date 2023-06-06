@@ -67,6 +67,7 @@
 - [FenwickTreeSet](DataStructures/Set/FenwickTreeSet.md)
 - [FenwickTreeSetFast](DataStructures/Set/FenwickTreeSetFast.md)
 - [HashedMultiset](DataStructures/Set/HashedMultiset.md)
+- [HashSet](DataStructures/Set/HashSet.md)
 - [MexMultiset](DataStructures/Set/MexMultiset.md)
 - [MinMaxMultiset](DataStructures/Set/MinMaxMultiset.md)
 - [MinMaxSet](DataStructures/Set/MinMaxSet.md)
