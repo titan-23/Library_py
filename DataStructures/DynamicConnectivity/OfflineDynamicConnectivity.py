@@ -1,6 +1,5 @@
 from typing import List, Callable
 from collections import defaultdict
-from types import GeneratorType
 
 class OfflineDynamicConnectivity():
 
@@ -9,8 +8,8 @@ class OfflineDynamicConnectivity():
     def __init__(self, n: int):
       self._n = n
       self._parents = [-1] * n
-      self._history = []
       self.sum = [0] * n
+      self._history = []
 
     def undo(self) -> None:
       assert self._history, f'UndoableUnionFind.undo() with non history'
@@ -58,7 +57,7 @@ class OfflineDynamicConnectivity():
     def group_sum(self, x: int) -> int:
       return self.sum[self.root(x)]
 
-    def all_group_members(self) -> defaultdict:
+    def all_group_members(self) -> defaultdict[int, List[int]]:
       group_members = defaultdict(list)
       for member in range(self._n):
         group_members[self.root(member)].append(member)
@@ -76,17 +75,19 @@ class OfflineDynamicConnectivity():
     self.query_count = 0
     self.log  = (self.q - 1).bit_length()
     self.size = 1 << self.log
-    self.data = [[] for _ in range(self.size + self.q)]
+    self.data = [[] for _ in range(self.size<<1)]
     self.edge = defaultdict(list)
     self.uf = OfflineDynamicConnectivity.UndoableUnionFind(n)
 
   def add_edge(self, u: int, v: int) -> None:
+    assert 0 <= u < self.n and 0 <= v < self.n
     if u > v:
       u, v = v, u
     self.edge[u<<self.bit|v].append(self.query_count<<1)
     self.query_count += 1
 
   def delete_edge(self, u: int, v: int) -> None:
+    assert 0 <= u < self.n and 0 <= v < self.n
     if u > v:
       u, v = v, u
     self.edge[u<<self.bit|v].append(self.query_count<<1|1)
@@ -96,8 +97,11 @@ class OfflineDynamicConnectivity():
     self.query_count += 1
 
   def run(self, out: Callable[[int], None]) -> None:
-    assert self.query_count == self.q
+    # O(qlogqlogn)
+    assert self.query_count == self.q, \
+        f'query_count=({self.query_count}) is not equal to q=({self.q})'
     data, uf, bit, msk, size, q = self.data, self.uf, self.bit, self.msk, self.size, self.q
+    size2 = size * 2
     for k, v in self.edge.items():
       LR = []
       i = 0
@@ -122,10 +126,8 @@ class OfflineDynamicConnectivity():
         LR.append(q)
       LR.reverse()
       while LR:
-        l = LR.pop()
-        r = LR.pop()
-        l += size
-        r += size
+        l = LR.pop() + size
+        r = LR.pop() + size
         while l < r:
           if l & 1:
             data[l].append(k)
@@ -134,18 +136,32 @@ class OfflineDynamicConnectivity():
             data[r^1].append(k)
           l >>= 1
           r >>= 1
-
-    def dfs(v: int) -> None:
-      for uv in data[v]:
-        uf.unite(uv>>bit, uv&msk)
-      if v<<1|1 < size + q:
-        dfs(v<<1)
-        dfs(v<<1|1)
-      elif v - size < q:
-        out(v-size)
-      for _ in range(len(data[v])):
-        uf.undo()
-    dfs(1)
+    # def dfs(v: int) -> None:
+    #   for uv in data[v]:
+    #     uf.unite(uv>>bit, uv&msk)
+    #   if v<<1|1 < size + q:
+    #     dfs(v<<1)
+    #     dfs(v<<1|1)
+    #   elif v - size < q:
+    #     out(v-size)
+    #   for _ in data[v]:
+    #     uf.undo()
+    # dfs(1)
+    todo = [1]
+    while todo:
+      v = todo.pop()
+      if v >= 0:
+        for uv in data[v]:
+          uf.unite(uv>>bit, uv&msk)
+        todo.append(~v)
+        if v<<1|1 < size2:
+          todo.append(v<<1|1)
+          todo.append(v<<1)
+        elif v - size < q:
+          out(v-size)
+      else:
+        for _ in data[~v]:
+          uf.undo()
 
   def __repr__(self):
     return f'OfflineDynamicConnectivity({self.n}, {self.q})'
