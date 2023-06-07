@@ -13,18 +13,20 @@ _____
 
 #### `dc = OfflineDynamicConnectivity(n: int, q: int)`
 - 頂点数 `n` 、クエリ数 `q` で初期化します。
-- $ O(1) $ です。
+- $O(1)$ です。
+
+$O(1)$
 
 #### `dc.uf: UndoableUnionFind`
 - `dc` 内部で管理される `UndoableUnionFind` です。後述です。
 
 #### `dc.add_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を追加します。
-- $ O(1) $ です。
+- `O(1)` です。
 
 #### `dc.delete_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を削除します。
-- $ O(1) $ です。
+- `O(1)` です。
 
 #### `dc.add_relax() -> None`
 - 何もしません。
