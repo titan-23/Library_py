@@ -33,8 +33,7 @@ _____
 
 ## コード
 
-<details><summary> CumulativeSum.py </summary>
-
+<!-- <details><summary> CumulativeSum.py </summary> -->
 
 ```python
 
@@ -73,5 +72,4 @@ class CumulativeSum():
 
 ```
 
-
-</details>
+<!-- </details> -->
