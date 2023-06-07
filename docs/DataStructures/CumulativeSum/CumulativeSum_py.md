@@ -35,6 +35,7 @@ _____
 
 <details><summary> CumulativeSum.py </summary>
 
+
 ```python
 from typing import Iterable
 
