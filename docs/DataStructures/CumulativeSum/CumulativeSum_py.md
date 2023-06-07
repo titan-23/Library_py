@@ -33,7 +33,7 @@ _____
 
 ## コード
 
-```python :CumulativeSum.py
+```python
 from typing import Iterable
 
 class CumulativeSum():
