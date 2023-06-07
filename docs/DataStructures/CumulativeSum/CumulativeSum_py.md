@@ -33,7 +33,7 @@ _____
 
 ## コード
 
-```python:Deque.py
+```python :CumulativeSum.py
 from typing import Iterable
 
 class CumulativeSum():
