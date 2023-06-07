@@ -33,6 +33,8 @@ _____
 
 ## コード
 
+<details><summary> CumulativeSum.py </summary>
+
 ```python
 from typing import Iterable
 
@@ -68,3 +70,4 @@ class CumulativeSum():
     return str(self.acc)
 
 ```
+</details>
