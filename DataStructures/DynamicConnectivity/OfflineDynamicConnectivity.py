@@ -8,8 +8,9 @@ class OfflineDynamicConnectivity():
     def __init__(self, n: int):
       self._n = n
       self._parents = [-1] * n
-      self.sum = [0] * n
+      self._sum = [0] * n
       self._history = []
+      self._group_count = n
 
     def undo(self) -> None:
       assert self._history, f'UndoableUnionFind.undo() with non history'
@@ -17,8 +18,9 @@ class OfflineDynamicConnectivity():
       x, px = self._history.pop()
       if y == -1:
         return
+      self._group_count += 1
       if self._parents[x] != px:
-          self.sum[x] -= self.sum[y]
+          self._sum[x] -= self._sum[y]
       self._parents[y] = py
       self._parents[x] = px
 
@@ -36,11 +38,12 @@ class OfflineDynamicConnectivity():
         return False
       if self._parents[x] > self._parents[y]:
         x, y = y, x
+      self._group_count -= 1
       self._history.append((x, self._parents[x]))
       self._history.append((y, self._parents[y]))
       self._parents[x] += self._parents[y]
       self._parents[y] = x
-      self.sum[x] += self.sum[y]
+      self._sum[x] += self._sum[y]
       return True
 
     def size(self, x: int) -> int:
@@ -51,11 +54,14 @@ class OfflineDynamicConnectivity():
 
     def add(self, x: int, v: int) -> None:
       while x >= 0:
-        self.sum[x] += v
+        self._sum[x] += v
         x = self._parents[x]
 
+    def group_count(self) -> int:
+      return self._group_count
+
     def group_sum(self, x: int) -> int:
-      return self.sum[self.root(x)]
+      return self._sum[self.root(x)]
 
     def all_group_members(self) -> defaultdict[int, List[int]]:
       group_members = defaultdict(list)

@@ -2,7 +2,7 @@ _____
 
 # [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
 
-最終更新: 2023/06/06
+最終更新: 2023/06/07
 - 書きました
 
 参考: [ちょっと変わったセグメント木の使い方(ei1333の日記)](https://ei1333.hateblo.jp/entry/2017/12/14/000000)
@@ -46,6 +46,10 @@ _____
 - 頂点 `x` に値 `v` を加えます。
 - `O(logn)` です。
 
+### `dc.uf.grouop_count(x: int) -> int`
+- 頂点 `x` を含む連結成分の大きさを返します。
+- `O(1)` です。
+
 ### `dc.uf.group_sum(x: int) -> int`
 - 頂点 `x` を含む連結成分の頂点の総和を返します。
 - `O(logn)` です。
@@ -56,10 +60,11 @@ n, q = map(int, input().split())
 dc = OfflineDynamicConnectivity(n, q)
 for _ in range(q):
   t, u, v = map(int, input().split())
-  # 辺の追加 / 削除
   if t == 0:
+    # 辺 {u, v} の追加
     dc.add_edge(u, v)
   else:
+    # 辺 {u, v} の削除
     dc.delete_edge(u, v)
 def out(k: int):
   # 各クエリ後、頂点0の連結成分の大きさを答える
