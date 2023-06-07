@@ -142,17 +142,6 @@ class OfflineDynamicConnectivity():
             data[r^1].append(k)
           l >>= 1
           r >>= 1
-    # def dfs(v: int) -> None:
-    #   for uv in data[v]:
-    #     uf.unite(uv>>bit, uv&msk)
-    #   if v<<1|1 < size + q:
-    #     dfs(v<<1)
-    #     dfs(v<<1|1)
-    #   elif v - size < q:
-    #     out(v-size)
-    #   for _ in data[v]:
-    #     uf.undo()
-    # dfs(1)
     todo = [1]
     while todo:
       v = todo.pop()

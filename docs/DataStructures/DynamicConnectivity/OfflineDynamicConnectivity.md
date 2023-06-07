@@ -13,18 +13,18 @@ _____
 
 #### `dc = OfflineDynamicConnectivity(n: int, q: int)`
 - 頂点数 `n` 、クエリ数 `q` で初期化します。
-- `O(1)` です。
+- $ O(1) $ です。
 
 #### `dc.uf: UndoableUnionFind`
 - `dc` 内部で管理される `UndoableUnionFind` です。後述です。
 
 #### `dc.add_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を追加します。
-- `O(1)` です。
+- $ O(1) $ です。
 
 #### `dc.delete_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を削除します。
-- `O(1)` です。
+- $ O(1) $ です。
 
 #### `dc.add_relax() -> None`
 - 何もしません。
@@ -219,17 +219,6 @@ class OfflineDynamicConnectivity():
             data[r^1].append(k)
           l >>= 1
           r >>= 1
-    # def dfs(v: int) -> None:
-    #   for uv in data[v]:
-    #     uf.unite(uv>>bit, uv&msk)
-    #   if v<<1|1 < size + q:
-    #     dfs(v<<1)
-    #     dfs(v<<1|1)
-    #   elif v - size < q:
-    #     out(v-size)
-    #   for _ in data[v]:
-    #     uf.undo()
-    # dfs(1)
     todo = [1]
     while todo:
       v = todo.pop()
