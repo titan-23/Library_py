@@ -11,46 +11,46 @@ _____
 
 ## 仕様
 
-### `dc = OfflineDynamicConnectivity(n: int, q: int)`
+#### `dc = OfflineDynamicConnectivity(n: int, q: int)`
 - 頂点数 `n` 、クエリ数 `q` で初期化します。
 - `O(1)` です。
 
-### `dc.uf: UndoableUnionFind`
+#### `dc.uf: UndoableUnionFind`
 - `dc` 内部で管理される `UndoableUnionFind` です。後述です。
 
-### `dc.add_edge(u: int, v: int) -> None`
+#### `dc.add_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を追加します。
 - `O(1)` です。
 
-### `dc.delete_edge(u: int, v: int) -> None`
+#### `dc.delete_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を削除します。
 - `O(1)` です。
 
-### `dc.add_relax() -> None`
+#### `dc.add_relax() -> None`
 - 何もしません。
 - `O(1)` です。
 
-### `dc.run(out: Callable[[int], None]) -> None`
+#### `dc.run(out: Callable[[int], None]) -> None`
 - 実行します。 `out` 関数はクエリ番号 `k` を引数にとります。
 - `O(q(logq)(logn))` です。
 
-### `dc.uf.size(x: int) -> int`
+#### `dc.uf.size(x: int) -> int`
 - 頂点 `x` を含む連結成分の頂点の総数を返します。
 - 戦略は Union by size のみであるため `O(logn)` です。
 
-### `dc.uf.same(x: int, y: int) -> bool`
+#### `dc.uf.same(x: int, y: int) -> bool`
 - 頂点 `x` と `y` の連結性判定です。
 - `O(logn)` です。
 
-### `dc.uf.add(x: int, v: int) -> None`
+#### `dc.uf.add(x: int, v: int) -> None`
 - 頂点 `x` に値 `v` を加えます。
 - `O(logn)` です。
 
-### `dc.uf.grouop_count(x: int) -> int`
+#### `dc.uf.grouop_count(x: int) -> int`
 - 頂点 `x` を含む連結成分の大きさを返します。
 - `O(1)` です。
 
-### `dc.uf.group_sum(x: int) -> int`
+#### `dc.uf.group_sum(x: int) -> int`
 - 頂点 `x` を含む連結成分の頂点の総和を返します。
 - `O(logn)` です。
 
