@@ -37,6 +37,7 @@ _____
 
 
 ```python
+
 from typing import Iterable
 
 class CumulativeSum():
@@ -71,4 +72,6 @@ class CumulativeSum():
     return str(self.acc)
 
 ```
+
+
 </details>
