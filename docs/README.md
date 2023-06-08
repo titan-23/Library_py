@@ -99,6 +99,7 @@
 - [EulerTour](Graph/EulerTour.md)
 - [LCA](Graph/LCA.md)
 - [Namori](Graph/Namori.md)
+- [rerooting_dp](Graph/rerooting_dp.md)
 - [RootedTree](Graph/RootedTree.md)
 - [scc](Graph/scc.md)
 - [topological_sort](Graph/topological_sort.md)
