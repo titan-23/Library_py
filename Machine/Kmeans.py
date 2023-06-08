@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import random
-random.seed(1)
 
 class KmeansPlusPlus:
 

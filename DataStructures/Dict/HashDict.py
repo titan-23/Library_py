@@ -3,18 +3,6 @@ from typing import List, Iterator, Tuple, Any
 
 class HashDict():
 
-  '''
-  load factorの基準: 25%(え?)
-  ↑pypyのdictのメモリ消費量がヤバいのでこれくらいでもギリ許されそう
-  
-  一応uintを想定しているので、eはint型の-1を設定している
-  Hash関数やrehashの基準は適当。有識者求む
-  (intを載せるのにeをNoneにすると、listのstrategyの問題で有意に遅くなる。注意)
-  
-  組み込みdictよりちょっと遅い
-  存  在  意  義
-  '''
-
   def __init__(self, e: int=-1, default: Any=0):
     # e: keyとして使わない値
     # default: valのdefault値

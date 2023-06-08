@@ -27,7 +27,7 @@ class ModComb:
 
   def nCr(self, n: int, r: int) -> int:
     if r < 0 or n < r: return 0
-    return self._fact[n] * self._factinv[r] % self._mod * self._factinv[n-r] % self._mod
+    return (self._fact[n] * self._factinv[r] % self._mod) * self._factinv[n-r] % self._mod
 
   def nHr(self, n: int, r: int) -> int:
     return self.nCr(n+r-1, n-1)
@@ -73,7 +73,7 @@ class ModComb1000000007:
 
   def nCr(self, n: int, r: int) -> int:
     if r < 0 or n < r: return 0
-    return self._fact[n] * self._factinv[r] % 1000000007 * self._factinv[n-r] % 1000000007
+    return (self._fact[n] * self._factinv[r] % 1000000007) * self._factinv[n-r] % 1000000007
 
   def nHr(self, n: int, r: int) -> int:
     return self.nCr(n+r-1, n-1)
@@ -119,7 +119,7 @@ class ModComb998244353:
 
   def nCr(self, n: int, r: int) -> int:
     if r < 0 or n < r: return 0
-    return self._fact[n] * self._factinv[r] % 998244353 * self._factinv[n-r] % 998244353
+    return (self._fact[n] * self._factinv[r] % 998244353) * self._factinv[n-r] % 998244353
 
   def nHr(self, n: int, r: int) -> int:
     return self.nCr(n+r-1, n-1)

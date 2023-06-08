@@ -2,10 +2,10 @@ _____
 
 # [`SplayTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/SplayTree)
 
-最終更新：2023/06/06
+最終更新：2023/06/07
 - READMEを修正しました。
 
-splay操作をする木です。強いです。  
+splay操作をする木です。
 
 _____
 
@@ -21,67 +21,67 @@ _____
 
 親へのポインタ持たせて～～
 
-### `lazy_splay_tree = LazySplayTree(data: LazySplayTreeData, n_or_a: Union[int, Iterable[T]]=0)`
+#### `lazy_splay_tree = LazySplayTree(data: LazySplayTreeData, n_or_a: Union[int, Iterable[T]]=0)`
 - `data` から `LazySplayTree` を構築します。
-- `n_or_a` が `int` のとき、`data` の `e` から長さ `n` の `lazy_splay_tree` が作られます。
+- `n_or_a` が `int` のとき、`data.e` から長さ `n` の `lazy_splay_tree` が作られます。
 `n_or_a` が `Iterable` のとき、`a` から `lazy_splay_tree` が作られます。
 -  `O(N)` です。
 
 以降、`lazy_splay_tree` を `st` と書きます。
 
-### `st.merge(other: LazySplayTree) -> None`
+#### `st.merge(other: LazySplayTree) -> None`
 - `st` に `other` を `merge` します。 `list` における `.extend(other)` と似たような処理です。
 
-### `st.split(k: int) -> Tuple[LazySplayTree, LazySplayTree]`
+#### `st.split(k: int) -> Tuple[LazySplayTree, LazySplayTree]`
 - 2つの `LazySplayTree` を要素に持つタプルを返します。
   - 1要素目は `st` の `0` 番目から `k-1` 番目までを、2要素目は `k` 番目以降を要素に持ちます。
 - 償却 `O(logN)` です。
 
-### `st.insert(k: int, key: T) -> None`
+#### `st.insert(k: int, key: T) -> None`
 - 位置 `k` に `key` を挿入します。
 - 償却 `O(logN)` です。
 
-### `st.append(key: T) / .appendleft(key: T) -> None`
-- 末尾/先頭 に `key` を追加します。
+#### `st.append(key: T) / .appendleft(key: T) -> None`
+- 末尾 / 先頭 に `key` を追加します。
 - 償却 `O(logN)` です。
 
-### `st.pop(k: int=-1) / .popleft() -> T`
-- `k` 番目/末尾/先頭 を削除しその値を返します。
+#### `st.pop(k: int=-1) / .popleft() -> T`
+- `k` 番目 / 末尾 / 先頭 を削除しその値を返します。
 - 償却 `O(logN)` です。
 
-### `st[k] -> T`
+#### `st[k] -> T`
 - `k` 番目を返します。
 - 償却 `O(logN)` です。
 
-### `st[k] = key: T`
+#### `st[k] = key: T`
 - `k` 番目を `key` に更新します。
 - 償却 `O(logN)` です。
 
-### `st.copy() -> LazySplayTree`
+#### `st.copy() -> LazySplayTree`
 - `copy` できます。
 - `O(N)` です。
 
-### `st.prod(l: int, r: int) -> T`
+#### `st.prod(l: int, r: int) -> T`
 - 区間 `[l, r)` に `op` を適用した結果を返します。
 - 償却 `O(logN)` です。
 
-### `st.reverse(l: int, r: int) -> None`
+#### `st.reverse(l: int, r: int) -> None`
 - 区間 `[l, r)` を反転します。 `reverse()` メソッドを一度でも使用するなら `op` には可換性が求められます(可換性がない場合、嘘の動作をします)。
 - 償却 `O(logN)` です。
 
-### `st.apply(l: int, r: int, f: F) -> None`
+#### `st.apply(l: int, r: int, f: F) -> None`
 - 区間 `[l, r)` に作用 `f` を適用します。
 - 償却 `O(logN)` です。
 
-### `st.all_apply(f: F) -> None`
+#### `st.all_apply(f: F) -> None`
 - 区間 `[0, N)` に作用 `f` を適用します。
 - `O(1)` です。
 
-### `st.tolist() -> List[T]`
+#### `st.tolist() -> List[T]`
 - `List` に変換します。非再帰です。
 - `O(N)` です。
 
-### `iter(st) / next(st) / len(st) / str(st) / repr(st)`
+#### `iter(st) / next(st) / len(st) / str(st) / repr(st)`
 
 
 ## 使用例

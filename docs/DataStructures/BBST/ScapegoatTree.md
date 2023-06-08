@@ -3,7 +3,6 @@ ____
 # [`ScapegoatTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/ScapegoatTree)
 
 最終更新：2023/5/25
-
 - 子が `None` にならないことで無限ループが発生する事象を解消しました。
 
 `ScapegoatTree` です。ノードを追加したとき、「大きく偏る」部分木があれば、その部分木をO(部分木のサイズ)時間かけてならします。これにより、回転動作(=軽いが多くの処理をする)がなくなり、嬉しいことがあるかもしれません。  

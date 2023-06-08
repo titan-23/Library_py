@@ -49,7 +49,9 @@ class Osa_k:
 # soinsuubunkai
 "Nを1回素因数分解する"
 "O(√N)"
-def factorization(n: int) -> list:
+from typing import List, Tuple
+
+def factorization(n: int) -> List[Tuple[int, int]]:
   ret = []
   if n == 1: return ret
   for i in range(2, int(-(-n**0.5//1))+1):
@@ -59,13 +61,15 @@ def factorization(n: int) -> list:
       while n % i == 0:
         cnt += 1
         n //= i
-      ret.append([i, cnt])
+      ret.append((i, cnt))
   if n != 1:
-    ret.append([n, 1])
+    ret.append((n, 1))
   return ret
 
 #  -----------------------  #
 
+"Nを1回素因数分解する"
+"O(√N)"
 from collections import Counter
 def factorization(n: int) -> Counter:
   ret = Counter()
@@ -88,7 +92,9 @@ def factorization(n: int) -> Counter:
 "Nの約数を全列挙する"
 "O(√N)"
 '''約数全列挙. / O(√N)'''
-def get_divisors(n: int) -> list:
+from typing import List
+
+def get_divisors(n: int) -> List[int]:
   l = []
   r = []
   for i in range(1, int(n**.5)+1):
@@ -117,7 +123,9 @@ def divisors_num(n: int) -> int:
 # nikanoyakusuunokosuuwomotomeru
 "N以下のそれぞれの数の約数の個数を求める"
 "O(NlogN)"
-def divisors_num(n) -> list:
+from typing import List
+
+def divisors_num(n) -> List[int]:
   li = [0] * (n+1)
   for i in range(1, n+1):
     for j in range(i, n+1, i):
@@ -129,7 +137,9 @@ def divisors_num(n) -> list:
 # nikanoyakusuunokosuuwomotomeru
 "N以下のそれぞれの数の素因数の種類数を求める"
 "O(NloglogN)"
-def primefactor_num(n) -> list:
+from typing import List
+
+def primefactor_num(n) -> List[int]:
   cnt = [0] * (n+1)
   for i in range(2, n+1):
     if cnt[i] >= 1: continue
@@ -142,16 +152,18 @@ def primefactor_num(n) -> list:
 # eratosutenesunofurui
 "エラトステネスの篩(N以下の素数を返す)"
 "O(NloglogN)"
-def get_primelist(MAX: int) -> list:
-  is_prime = [1]*(MAX+1)
-  is_prime[0] = 0
-  is_prime[1] = 0
-  for i in range(2, int(MAX**.5)+1):
-    if is_prime[i] == 0:
+from typing import List
+
+def get_primelist(limit: int) -> List[int]:
+  p = [1] * (limit+1)
+  p[0] = 0
+  p[1] = 0
+  for i in range(2, int(limit**.5)+1):
+    if p[i] == 0:
       continue
-    for j in range(i+i, MAX+1, i):
-      is_prime[j] = 0
-  return [i for i, x in enumerate(is_prime) if x == 1]
+    for j in range(i+i, limit+1, i):
+      p[j] = 0
+  return [i for i, x in enumerate(p) if x]
 
 #  -----------------------  #
 
