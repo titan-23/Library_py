@@ -21,16 +21,15 @@ _____
 
 親へのポインタ持たせて～～
 
-#### `lazy_splay_tree = LazySplayTree(data: LazySplayTreeData, n_or_a: Union[int, Iterable[T]]=0)`
+#### `st = LazySplayTree(data: LazySplayTreeData, n_or_a: Union[int, Iterable[T]]=0)`
 - `data` から `LazySplayTree` を構築します。
-- `n_or_a` が `int` のとき、`data.e` から長さ `n` の `lazy_splay_tree` が作られます。
-`n_or_a` が `Iterable` のとき、`a` から `lazy_splay_tree` が作られます。
+- `n_or_a` が `int` のとき、`data.e` から長さ `n` の `st` が作られます。
+`n_or_a` が `Iterable` のとき、`a` から `st` が作られます。
 -  `O(N)` です。
 
-以降、`lazy_splay_tree` を `st` と書きます。
-
 #### `st.merge(other: LazySplayTree) -> None`
-- `st` に `other` を `merge` します。 `list` における `.extend(other)` と似たような処理です。
+- `st` の後ろに `other` を連結します。
+- 償却 `O(logN)` です。
 
 #### `st.split(k: int) -> Tuple[LazySplayTree, LazySplayTree]`
 - 2つの `LazySplayTree` を要素に持つタプルを返します。
@@ -58,16 +57,16 @@ _____
 - 償却 `O(logN)` です。
 
 #### `st.copy() -> LazySplayTree`
-- `copy` できます。
+- コピーします。
 - `O(N)` です。
-
-#### `st.prod(l: int, r: int) -> T`
-- 区間 `[l, r)` に `op` を適用した結果を返します。
-- 償却 `O(logN)` です。
 
 #### `st.reverse(l: int, r: int) -> None`
 - 区間 `[l, r)` を反転します。 `reverse()` メソッドを一度でも使用するなら `op` には可換性が求められます(可換性がない場合、嘘の動作をします)。
 - 償却 `O(logN)` です。
+
+#### `st.all_reverse() -> None`
+- 区間 `[0, N)` を反転します。
+- `O(1)` です。
 
 #### `st.apply(l: int, r: int, f: F) -> None`
 - 区間 `[l, r)` に作用 `f` を適用します。
@@ -75,6 +74,14 @@ _____
 
 #### `st.all_apply(f: F) -> None`
 - 区間 `[0, N)` に作用 `f` を適用します。
+- `O(1)` です。
+
+#### `st.prod(l: int, r: int) -> T`
+- 区間 `[l, r)` に `op` を適用した結果を返します。
+- 償却 `O(logN)` です。
+
+#### `st.all_prod() -> T`
+- 区間 `[0, N)` の総積を返します。
 - `O(1)` です。
 
 #### `st.tolist() -> List[T]`
@@ -85,7 +92,8 @@ _____
 
 
 ## 使用例
-```
+
+```python
 op = lambda s, t: s + t
 mapping = lambda f, s: f
 composition = lambda f, g: f

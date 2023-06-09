@@ -12,8 +12,7 @@ _____
 ## 仕様
 
 #### `lct = LinkCutTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)`
-`n_or_a`が `int` のとき、頂点数 `n` の `LinkCutTree` を構築します。`Iterable` のとき、頂点数はその長さとなります。  
-`op, mapping, composition, e, id` は遅延セグ木のアレです。よしなに。
+- `n_or_a`が `int` のとき、頂点数 `n` の `LinkCutTree` を構築します。`Iterable` のとき、頂点数はその長さとなります。`op, mapping, composition, e, id` は遅延セグ木のアレです。よしなに。
 
 #### `lct.expose(v: int) -> int`
 - `v` が属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。

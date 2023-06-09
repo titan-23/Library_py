@@ -2,8 +2,8 @@ ____
 
 # [`RedBlackTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/RedBlackTree)
 
-最終更新：2023/06/08
-- いろいろ更新しました。
+最終更新：2023/06/09
+- 使用例を追加しました。
 
 赤黒木です。集合と多重集合です。 `std::set` も怖くない。
 
@@ -98,6 +98,18 @@ _____
 #### `len(rbtree) / bool(rbtree) / iter(rbtree) / next(rbtree)`
 - よしなよしなです。
 
+### 使用例
+
+```python
+s = RedBlackTreeSet([3, 1, 4, 1, 5, 9])
+it = s.get_min_iter()
+while it:
+  print(it.key, end=' ')
+  it += 1
+
+# 1 3 4 5 9
+```
+
 _____
 
 ## [`RedBlackTreeMultiset.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/RedBlackTree/RedBlackTreeMultiset.py)
@@ -120,3 +132,16 @@ _____
 - `key` が存在すればすべて削除し `True` を返します。そうでなければ何もせず `False` を返します。
 - `O(logN)` です。
 
+### 使用例
+
+```python
+s = RedBlackTreeMultiset([3, 1, 4, 1, 5, 9])
+it = s.ge_iter(3)
+while it:
+  print(it.key, it.count, end=' ')
+  it += 1
+
+# 4 1
+# 3 1
+# 1 2
+```

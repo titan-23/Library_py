@@ -19,8 +19,9 @@ class OfflineDynamicConnectivity():
       if y == -1:
         return
       self._group_count += 1
-      if self._parents[x] != px:
-          self._sum[x] -= self._sum[y]
+      # if self._parents[x] != px:
+      #   self._sum[x] -= self._sum[y]
+      self._sum[x] -= self._sum[y]
       self._parents[y] = py
       self._parents[x] = px
 
@@ -63,7 +64,7 @@ class OfflineDynamicConnectivity():
     def group_sum(self, x: int) -> int:
       return self._sum[self.root(x)]
 
-    def all_group_members(self) -> defaultdict[int, List[int]]:
+    def all_group_members(self) -> defaultdict:
       group_members = defaultdict(list)
       for member in range(self._n):
         group_members[self.root(member)].append(member)
@@ -149,6 +150,12 @@ class OfflineDynamicConnectivity():
         for uv in data[v]:
           uf.unite(uv>>bit, uv&msk)
         todo.append(~v)
+        # if v<<1|1 < size+q:
+        #   todo.append(v<<1|1)
+        # if v<<1 < size+q:
+        #   todo.append(v<<1)
+        # if 0 <= v - size < q:
+        #   out(v-size)
         if v<<1|1 < size2:
           todo.append(v<<1|1)
           todo.append(v<<1)

@@ -3,8 +3,8 @@ ___
 # [DoubleEndedHeap.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/DoubleEndedHeap.py)
 
 `DoubleEndedHeap` です。  
-値の追加/最小値取得/最大値取得 などができます。  
-値の削除に対応した `MinMaxSet/Multiset` もどこかのデイレクトリにあります。  
+値の 追加 / 最小値取得 / 最大値取得 などができます。  
+値の削除に対応した `MinMaxSet / Multiset` もどこかのデイレクトリにあります。  
 
 参考です。  
 
