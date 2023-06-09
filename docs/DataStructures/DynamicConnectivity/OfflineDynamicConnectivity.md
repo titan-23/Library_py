@@ -15,9 +15,6 @@ _____
 - 頂点数 `n` 、クエリ数 `q` で初期化します。
 - `O(1)` です。
 
-#### `dc.uf: UndoableUnionFind`
-- `dc` 内部で管理される `UndoableUnionFind` です。後述です。
-
 #### `dc.add_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を追加します。
 - `O(1)` です。
@@ -34,9 +31,12 @@ _____
 - 実行します。 `out` 関数はクエリ番号 `k` を引数にとります。
 - `O(q(logq)(logn))` です。
 
+#### `dc.uf: UndoableUnionFind`
+- `dc` 内部で管理される `UndoableUnionFind` です。戦略は (undo操作のため) Union by size のみです。
+
 #### `dc.uf.size(x: int) -> int`
 - 頂点 `x` を含む連結成分の頂点の総数を返します。
-- 戦略は (undo操作のため) Union by size のみであり `O(logn)` です。
+- `O(logn)` です。
 
 #### `dc.uf.same(x: int, y: int) -> bool`
 - 頂点 `x` と `y` の連結性判定です。
@@ -44,6 +44,10 @@ _____
 
 #### `dc.uf.add(x: int, v: int) -> None`
 - 頂点 `x` に値 `v` を加算します。
+- `O(logn)` です。
+
+#### `dc.uf.add_group(x int, v: int) -> None`
+- 頂点 `x` を含む連結成分の要素それぞれに `v` を加算します。
 - `O(logn)` です。
 
 #### `dc.uf.grouop_count(x: int) -> int`

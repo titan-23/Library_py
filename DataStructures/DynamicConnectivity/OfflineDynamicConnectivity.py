@@ -8,22 +8,24 @@ class OfflineDynamicConnectivity():
     def __init__(self, n: int):
       self._n = n
       self._parents = [-1] * n
-      self._sum = [0] * n
+      self._all_sum = [0] * n
+      self._one_sum = [0] * n
       self._history = []
       self._group_count = n
 
     def undo(self) -> None:
       assert self._history, f'UndoableUnionFind.undo() with non history'
-      y, py = self._history.pop()
-      x, px = self._history.pop()
+      y, py, one_sum_y, all_sum_y = self._history.pop()
+      x, px, one_sum_x, all_sum_x = self._history.pop()
       if y == -1:
         return
       self._group_count += 1
-      # if self._parents[x] != px:
-      #   self._sum[x] -= self._sum[y]
-      self._sum[x] -= self._sum[y]
       self._parents[y] = py
       self._parents[x] = px
+      s = (self._all_sum[x] - all_sum_y - all_sum_x) // (-px-py)
+      self._all_sum[y] += s * -py
+      self._all_sum[x] -= all_sum_y + s * -py
+      self._one_sum[x] -= self._one_sum[y]
 
     def root(self, x: int) -> int:
       while self._parents[x] >= 0:
@@ -34,17 +36,18 @@ class OfflineDynamicConnectivity():
       x = self.root(x)
       y = self.root(y)
       if x == y:
-        self._history.append((-1, -1))
-        self._history.append((-1, -1))
+        self._history.append((-1, -1, -1, -1))
+        self._history.append((-1, -1, -1, -1))
         return False
       if self._parents[x] > self._parents[y]:
         x, y = y, x
       self._group_count -= 1
-      self._history.append((x, self._parents[x]))
-      self._history.append((y, self._parents[y]))
+      self._history.append((x, self._parents[x], self._one_sum[x], self._all_sum[x]))
+      self._history.append((y, self._parents[y], self._one_sum[y], self._all_sum[y]))
+      self._all_sum[x] += self._all_sum[y]
+      self._one_sum[x] += self._one_sum[y]
       self._parents[x] += self._parents[y]
       self._parents[y] = x
-      self._sum[x] += self._sum[y]
       return True
 
     def size(self, x: int) -> int:
@@ -55,14 +58,19 @@ class OfflineDynamicConnectivity():
 
     def add(self, x: int, v: int) -> None:
       while x >= 0:
-        self._sum[x] += v
+        self._one_sum[x] += v
         x = self._parents[x]
+
+    def add_group(self, x: int, v: int) -> None:
+      x = self.root(x)
+      self._all_sum[x] += v * self.size(x)
 
     def group_count(self) -> int:
       return self._group_count
 
     def group_sum(self, x: int) -> int:
-      return self._sum[self.root(x)]
+      x = self.root(x)
+      return self._one_sum[x] + self._all_sum[x]
 
     def all_group_members(self) -> defaultdict:
       group_members = defaultdict(list)
@@ -123,6 +131,7 @@ class OfflineDynamicConnectivity():
             if v[i] & 1 == 0:
               cnt += 1
             else:
+              # assert cnt >= 0
               cnt -= 1
               if cnt == 0:
                 LR.append(v[i]>>1)
@@ -150,12 +159,6 @@ class OfflineDynamicConnectivity():
         for uv in data[v]:
           uf.unite(uv>>bit, uv&msk)
         todo.append(~v)
-        # if v<<1|1 < size+q:
-        #   todo.append(v<<1|1)
-        # if v<<1 < size+q:
-        #   todo.append(v<<1)
-        # if 0 <= v - size < q:
-        #   out(v-size)
         if v<<1|1 < size2:
           todo.append(v<<1|1)
           todo.append(v<<1)
