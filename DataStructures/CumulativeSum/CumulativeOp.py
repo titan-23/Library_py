@@ -1,9 +1,9 @@
-from typing import TypeVar, Callable, Iterable
+from typing import Generic, TypeVar, Callable, Iterable
 T = TypeVar('T')
 
-class CumulativeOp():
+class CumulativeOp(Generic[T]):
 
-  def __init__(self, a: Iterable[T], op: Callable[[T, T], T], e: T):
+  def __init__(self, a: Iterable[T], op: Callable[[T, T], T], inv: Callable[[T], T], e: T):
     if not isinstance(a, list):
       a = list(a)
     n = len(a)
@@ -13,13 +13,18 @@ class CumulativeOp():
     self.n = n
     self.acc = acc
     self.a = a
+    self.op = op
+    self.inv = inv
+
+  def pref(self, r: int) -> T:
+    return self.acc[r]
+
+  def prod(self, l: int, r: int) -> T:
+    return self.op(self.acc[r], self.inv(self.acc[l]))
 
   def all_prod(self) -> T:
     return self.acc[-1]
 
-  def prod(self, l: int, r: int) -> int:
-    return self.acc[r] - self.acc[l]
-
-  def __getitem__(self, k: int):
+  def __getitem__(self, k: int) -> T:
     return self.a[k]
 

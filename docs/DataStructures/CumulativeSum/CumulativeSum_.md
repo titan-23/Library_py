@@ -2,14 +2,14 @@ ____
 
 # [CumulativeSum.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeSum.py)
 
-1次元累積和です。  
+1次元累積和です。 `int` 型を想定しています。
 
 _____
 
 ## 仕様
 
 #### `acc = CumulativeSum(a: Iterable[int], e: int=0)`
-- `a` から `CumulativeSum` を構築します。ここで、 `a` の任意の2要素に対して `+`, `-` 演算子が定義されている必要があります。また、単位元を `e=0` としています。( `int` 型 `list` などを想定しています。)  
+- `a` から `CumulativeSum` を構築します。ここで、 `a` の任意の2要素に対して `+`, `-` 演算子が定義されている必要があります。単位元は `e=0` としています。
 - `O(N)` です。
 
 #### `acc.pref(r: int) -> int`
@@ -36,7 +36,6 @@ _____
 <!-- <details><summary> CumulativeSum.py </summary> -->
 
 ```python
-
 from typing import Iterable
 
 class CumulativeSum():
@@ -53,18 +52,24 @@ class CumulativeSum():
     self.a = a
 
   def pref(self, r: int) -> int:
+    assert 0 <= r <= self.n, \
+        f'IndexError: CumulativeSum.pref({r}), n={self.n}'
     return self.acc[r]
 
   def all_sum(self) -> int:
     return self.acc[-1]
 
   def sum(self, l: int, r: int) -> int:
+    assert 0 <= l <= r <= self.n, \
+        f'IndexError: CumulativeSum.sum({l}, {r}), n={self.n}'
     return self.acc[r] - self.acc[l]
 
   prod = sum
   all_prod = all_sum
 
   def __getitem__(self, k: int) -> int:
+    assert -self.n <= k < self.n, \
+        f'IndexError: CumulativeSum[{k}], n={self.n}'
     return self.a[k]
 
   def __str__(self):
