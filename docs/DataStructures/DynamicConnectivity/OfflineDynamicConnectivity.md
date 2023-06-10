@@ -2,14 +2,19 @@ _____
 
 # [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
 
-最終更新: 2023/06/10
+最終更新: 2023/06/11
+- `build()` メソッドを追加しました
 - 連結成分加算に対応しました。
 
-参考:
-- [ちょっと変わったセグメント木の使い方(ei1333の日記)](https://ei1333.hateblo.jp/entry/2017/12/14/000000)
+- 参考:
+  - [ちょっと変わったセグメント木の使い方(ei1333の日記)](https://ei1333.hateblo.jp/entry/2017/12/14/000000)
 
-実はlogを1つにできるらしいです。あとで理解を試みます。
-- [noshiさんのツイート](https://twitter.com/noshi91/status/1420179696965197824)
+- 実はlogを1つにできるらしいです。あとで理解を試みます。
+  - [noshiさんのツイート](https://twitter.com/noshi91/status/1420179696965197824)
+
+- その他
+  - 内部では辺を `dict` で管理しています。メモリに注意です。
+  - 長さ `q` のセグ木に辺を乗せます。メモリに注意です。
 
 _____
 
@@ -30,6 +35,10 @@ _____
 #### `dc.add_relax() -> None`
 - 何もしません。内部のクエリカウントを1増加させます。
 - `O(1)` です。
+
+#### `dc.build(E: List[Tuple[int, int]]) -> None`
+- 辺のリスト `E` を初期メンバーとします。
+- `O(|E|)` です。
 
 #### `dc.run(out: Callable[[int], None]) -> None`
 - 実行します。 `out` 関数はクエリ番号 `k` を引数にとります。
@@ -65,22 +74,28 @@ _____
 ## 使用例
 
 ```python
-n, q = map(int, input().split())
+n, m = map(int, input().split())
+E = []
+for _ in range(m):
+  u, v = map(int, input().split())
+  E.append((u, v))
+q = int(input())
 dc = OfflineDynamicConnectivity(n, q)
+dc.build(E)  # 初期辺を追加
 Query = [list(map(int, input().split())) for _ in range(q)]
 for t, u, v in Query:
   if t == 0:
     dc.add_edge(u, v)  # 辺 {u, v} の追加
-  elif t == 1
+  elif t == 1:
     dc.delete_edge(u, v)  # 辺 {u, v} の削除
   else:
     dc.add_relax()  # クエリ用
 
 def out(k: int):
-  t, u, v = Query[k]
+  t, x, _ = Query[k]
   if t == 2:
-    # クエリ2で、頂点0の連結成分の大きさを答える
-    print(dc.uf.size(0))
+    # クエリ2で、頂点 x の連結成分の大きさを答える
+    print(dc.uf.size(x))
 
 dc.run(out)
 ```

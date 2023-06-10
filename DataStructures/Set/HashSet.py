@@ -1,4 +1,5 @@
 import random
+random.seed(1000000000)
 from typing import Iterable, List, Iterator, Tuple, Any
 
 class HashSet():
@@ -8,6 +9,7 @@ class HashSet():
     self._empty: int = not_seen
     self._deleted : int = deleted
     self._len: int = 0
+    self._dellen: int = 0
     self._xor: int = random.getrandbits(1)
     for e in a:
       self.add(e)
@@ -18,8 +20,19 @@ class HashSet():
 
   def _rebuild(self) -> None:
     old_keys, _empty, _deleted = self._keys, self._empty, self._deleted
+    self._keys = [_empty] * len(old_keys)
+    self._len = 0
+    self._dellen = 0
+    self._xor = random.getrandbits(len(self._keys).bit_length())
+    for k in old_keys:
+      if k != _empty and k != _deleted:
+        self.add(k)
+
+  def _rebuild_extend(self) -> None:
+    old_keys, _empty, _deleted = self._keys, self._empty, self._deleted
     self._keys = [_empty] * (4*len(old_keys)+3)
     self._len = 0
+    self._dellen = 0
     self._xor = random.getrandbits(len(self._keys).bit_length())
     for k in old_keys:
       if k != _empty and k != _deleted:
@@ -40,7 +53,7 @@ class HashSet():
         _keys[h] = key
         self._len += 1
         if 4*self._len > len(self._keys):
-          self._rebuild()
+          self._rebuild_extend()
         return True
       elif _keys[h] == key:
         return False
@@ -52,6 +65,7 @@ class HashSet():
     old_keys, _empty, _deleted = self._keys, self._empty, self._deleted
     self._keys = [_empty] * (len(old_keys)//4+3)
     self._len = 0
+    self._dellen = 0
     self._xor = random.getrandbits(len(self._keys).bit_length())
     for k in old_keys:
       if k != _empty and k != _deleted:
@@ -69,9 +83,13 @@ class HashSet():
         return False
       elif _keys[h] == key:
         _keys[h] = self._deleted
+        self._dellen += 1
         self._len -= 1
         if 4*4*self._len < len(self._keys):
           self._rebuid_shrink()
+        if len(self._keys) > 1000 and self._dellen*1000 > len(self._keys):
+          # print('rebuild', file=sys.stderr)
+          self._rebuild()
         return True
       h += 1
       if h == l:
@@ -107,17 +125,35 @@ class HashSet():
 
 #  -----------------------  #
 
+from time import time
+start = time()
+import sys
+input = lambda: sys.stdin.readline().rstrip()
+n = int(input())
+A = list(map(lambda x: int(x)-1, input().split()))
+# n = 2*10**5
+# A = list(range(0, n//10)) * 10
+# random.shuffle(A)
+st = HashSet(range(n))
+for i in range(n):
+  if i in st:
+    st.discard(A[i])
+a = list(st)
+a.sort()
+print(len(a))
+print(' '.join(map(lambda x: str(x+1), a)))
+print(time() - start, file=sys.stderr)
+exit()
+
 import sys
 from time import time
 start = time()
 n = 10**6
 start = time()
 st = HashSet()
-st.reserve(n)
-st = set()
-for i in range(n//2):
+# st = set()
+for i in range(n):
   st.add(i)
-
 for i in range(n-1, -1, -1):
   if i in st:
     st.discard(i)

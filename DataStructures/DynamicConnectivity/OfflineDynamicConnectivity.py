@@ -1,4 +1,4 @@
-from typing import List, Callable
+from typing import List, Callable, Tuple
 from collections import defaultdict
 
 class OfflineDynamicConnectivity():
@@ -111,6 +111,14 @@ class OfflineDynamicConnectivity():
   def add_relax(self) -> None:
     self.query_count += 1
 
+  def build(self, E: List[Tuple[int, int]]) -> None:
+    bit, edge = self.bit, self.edge
+    for u, v in E:
+      assert 0 <= u < self.n and 0 <= v < self.n
+      if u > v:
+        u, v = v, u
+      edge[u<<bit|v].append(0)
+
   def run(self, out: Callable[[int], None]) -> None:
     # O(qlogqlogn)
     assert self.query_count == self.q, \
@@ -131,7 +139,7 @@ class OfflineDynamicConnectivity():
             if v[i] & 1 == 0:
               cnt += 1
             else:
-              assert cnt >= 0, f'Edge Error: delete zero edge.'
+              assert cnt >= 0, f'Edge Error: minus edge.'
               cnt -= 1
               if cnt == 0:
                 LR.append(v[i]>>1)
