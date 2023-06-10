@@ -2,13 +2,13 @@ _____
 
 # [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
 
-最終更新: 2023/06/010
+最終更新: 2023/06/10
 - 連結成分加算に対応しました。
 
 参考:
 - [ちょっと変わったセグメント木の使い方(ei1333の日記)](https://ei1333.hateblo.jp/entry/2017/12/14/000000)
 
-実はlogを1つにできるらしいです。
+実はlogを1つにできるらしいです。あとで理解を試みます。
 - [noshiさんのツイート](https://twitter.com/noshi91/status/1420179696965197824)
 
 _____
@@ -67,16 +67,20 @@ _____
 ```python
 n, q = map(int, input().split())
 dc = OfflineDynamicConnectivity(n, q)
-for _ in range(q):
-  t, u, v = map(int, input().split())
+Query = [list(map(int, input().split())) for _ in range(q)]
+for t, u, v in Query:
   if t == 0:
-    # 辺 {u, v} の追加
-    dc.add_edge(u, v)
+    dc.add_edge(u, v)  # 辺 {u, v} の追加
+  elif t == 1
+    dc.delete_edge(u, v)  # 辺 {u, v} の削除
   else:
-    # 辺 {u, v} の削除
-    dc.delete_edge(u, v)
+    dc.add_relax()  # クエリ用
+
 def out(k: int):
-  # 各クエリ後、頂点0の連結成分の大きさを答える
-  print(dc.uf.size(0))
+  t, u, v = Query[k]
+  if t == 2:
+    # クエリ2で、頂点0の連結成分の大きさを答える
+    print(dc.uf.size(0))
+
 dc.run(out)
 ```
