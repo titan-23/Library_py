@@ -15,16 +15,16 @@ class OfflineDynamicConnectivity():
 
     def undo(self) -> None:
       assert self._history, f'UndoableUnionFind.undo() with non history'
-      y, py, one_sum_y, all_sum_y = self._history.pop()
-      x, px, one_sum_x, all_sum_x = self._history.pop()
+      y, py, all_sum_y = self._history.pop()
+      x, px, all_sum_x = self._history.pop()
       if y == -1:
         return
       self._group_count += 1
       self._parents[y] = py
       self._parents[x] = px
-      s = (self._all_sum[x] - all_sum_y - all_sum_x) // (-px-py)
-      self._all_sum[y] += s * -py
-      self._all_sum[x] -= all_sum_y + s * -py
+      s = (self._all_sum[x] - all_sum_y - all_sum_x) // (-py-px) * (-py)
+      self._all_sum[y] += s
+      self._all_sum[x] -= all_sum_y + s
       self._one_sum[x] -= self._one_sum[y]
 
     def root(self, x: int) -> int:
@@ -36,14 +36,14 @@ class OfflineDynamicConnectivity():
       x = self.root(x)
       y = self.root(y)
       if x == y:
-        self._history.append((-1, -1, -1, -1))
-        self._history.append((-1, -1, -1, -1))
+        self._history.append((-1, -1, -1))
+        self._history.append((-1, -1, -1))
         return False
       if self._parents[x] > self._parents[y]:
         x, y = y, x
       self._group_count -= 1
-      self._history.append((x, self._parents[x], self._one_sum[x], self._all_sum[x]))
-      self._history.append((y, self._parents[y], self._one_sum[y], self._all_sum[y]))
+      self._history.append((x, self._parents[x], self._all_sum[x]))
+      self._history.append((y, self._parents[y], self._all_sum[y]))
       self._all_sum[x] += self._all_sum[y]
       self._one_sum[x] += self._one_sum[y]
       self._parents[x] += self._parents[y]
@@ -56,7 +56,7 @@ class OfflineDynamicConnectivity():
     def same(self, x: int, y: int) -> bool:
       return self.root(x) == self.root(y)
 
-    def add(self, x: int, v: int) -> None:
+    def add_point(self, x: int, v: int) -> None:
       while x >= 0:
         self._one_sum[x] += v
         x = self._parents[x]
@@ -78,7 +78,7 @@ class OfflineDynamicConnectivity():
         group_members[self.root(member)].append(member)
       return group_members
 
-    def __str__(self) -> str:
+    def __str__(self):
       return '<offline-dc.uf> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
 
 
@@ -131,7 +131,7 @@ class OfflineDynamicConnectivity():
             if v[i] & 1 == 0:
               cnt += 1
             else:
-              # assert cnt >= 0
+              assert cnt >= 0, f'Edge Error: delete zero edge.'
               cnt -= 1
               if cnt == 0:
                 LR.append(v[i]>>1)

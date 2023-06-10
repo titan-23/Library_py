@@ -2,10 +2,14 @@ _____
 
 # [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
 
-最終更新: 2023/06/07
-- 書きました
+最終更新: 2023/06/010
+- 連結成分加算に対応しました。
 
-参考: [ちょっと変わったセグメント木の使い方(ei1333の日記)](https://ei1333.hateblo.jp/entry/2017/12/14/000000)
+参考:
+- [ちょっと変わったセグメント木の使い方(ei1333の日記)](https://ei1333.hateblo.jp/entry/2017/12/14/000000)
+
+実はlogを1つにできるらしいです。
+- [noshiさんのツイート](https://twitter.com/noshi91/status/1420179696965197824)
 
 _____
 
@@ -42,7 +46,7 @@ _____
 - 頂点 `x` と `y` の連結性判定です。
 - `O(logn)` です。
 
-#### `dc.uf.add(x: int, v: int) -> None`
+#### `dc.uf.add_point(x: int, v: int) -> None`
 - 頂点 `x` に値 `v` を加算します。
 - `O(logn)` です。
 
@@ -59,7 +63,8 @@ _____
 - `O(logn)` です。
 
 ## 使用例
-```
+
+```python
 n, q = map(int, input().split())
 dc = OfflineDynamicConnectivity(n, q)
 for _ in range(q):
