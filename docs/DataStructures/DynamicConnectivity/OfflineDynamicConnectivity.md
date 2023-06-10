@@ -17,7 +17,7 @@ _____
 
 #### `dc = OfflineDynamicConnectivity(n: int, q: int)`
 - 頂点数 `n` 、クエリ数 `q` で初期化します。
-- `O(1)` です。
+- `O(n)` です。
 
 #### `dc.add_edge(u: int, v: int) -> None`
 - 辺 `{u, v}` を追加します。
