@@ -4,7 +4,7 @@ ____
 
 - [CumulativeOp](CumulativeOp.md)
 
-- [CumulativeSum](CumulativeSum_py)
+- [CumulativeSum](CumulativeSum_)
 
 - [CumulativeSum2D](CumulativeSum2D)
 

@@ -19,7 +19,7 @@
 
 ### [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum.md)
 - [CumulativeOp](DataStructures/CumulativeSum/CumulativeOp.md)
-- [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum_py.md)
+- [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum_.md)
 - [CumulativeSum2D](DataStructures/CumulativeSum/CumulativeSum2D.md)
 
 ### [Deque](DataStructures/Deque/Deque.md)
