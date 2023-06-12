@@ -39,7 +39,7 @@ ____
 
 ## 使用例
 
-- https://atcoder.jp/contests/typical90/tasks/typical90_bi
+- [https://atcoder.jp/contests/typical90/tasks/typical90_bi](https://atcoder.jp/contests/typical90/tasks/typical90_bi)
 
 ```python
 q = int(input())
@@ -47,9 +47,9 @@ dq = Deque()
 for _ in range(q):
   t, x = map(int, input().split())
   if t == 1:
-    dq.appendleft(x)
+    dq.appendleft(x)  # O(1)
   elif t == 2:
-    dq.append(x)
+    dq.append(x)  # O(1)
   else:
-    print(dq[x-1])
+    print(dq[x-1])  # O(1)
 ```

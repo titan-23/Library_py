@@ -235,11 +235,19 @@ class LinkCutTree(Generic[T, F]):
     ''' パス[u -> v]間の総積を返す
     非可換に対応
     '''
+    assert self.same(u, v)
     self.evert(u)
     self.expose(v)
     return self.data[v<<1]
 
+  def path_length(self, u: int, v: int) -> int:
+    assert self.same(u, v)
+    self.evert(u)
+    self.expose(v)
+    return self.size[v]
+
   def apply(self, u: int, v: int, f: F) -> None:
+    assert self.same(u, v)
     self.evert(u)
     self.expose(v)
     self.key[v] = self.mapping(f, self.key[v])
@@ -271,6 +279,7 @@ class LinkCutTree(Generic[T, F]):
   def path_kth_elm(self, s: int, t: int, k: int) -> Optional[int]:
     ''' path[s -> t]のk番目を取得する
     '''
+    assert self.same(s, t)
     self.evert(s)
     self.expose(t)
     if self.size[t] <= k:

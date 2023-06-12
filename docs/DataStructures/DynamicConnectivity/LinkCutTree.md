@@ -2,8 +2,9 @@ _____
 
 # [LinkCutTree.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/LinkCutTree.py)
 
-最終更新: 2023/4/26
-- いろいろ更新しました。  
+最終更新: 2023/06/11
+- `path_length()` メソッドを追加しました。
+- assertionエラーを追加しました。
 
 `LinkCutTree` です。森を管理します。パスクエリの強さに定評があります。
 
@@ -17,31 +18,33 @@ _____
 #### `lct.expose(v: int) -> int`
 - `v` が属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。
 
-#### `lct.evert(v: int)`
+#### `lct.evert(v: int) -> None`
 - `v` を根にします。
 - `O(logN)` です。
 
-#### `lct.link(c: int, p: int)`
+#### `lct.link(c: int, p: int) -> None`
 - 辺 `{c, p}` を追加します。
 - `O(logN)` です。
 
-#### `lct.cut(c: int)`
+#### `lct.cut(c: int) -> None`
 
-#### `lct.group_count()`
+#### `lct.group_count() -> int`
 
-#### `lct.root(v: int)`
+#### `lct.root(v: int) -> int`
 
-#### `lct.lca(u: int, v: int)`
+#### `lct.lca(u: int, v: int) -> int`
 
-#### `lct.same(u: int, v: int)`
+#### `lct.same(u: int, v: int) -> bool`
 
-#### `lct.prod(u: int, v: int)`
+#### `lct.prod(u: int, v: int) -> T`
 
-#### `lct.apply(u: int, v: int)`
+#### `lct.path_length(u: int, v: int) -> int`
 
-#### `lct.merge(u: int, v: int)`
+#### `lct.apply(u: int, v: int) -> None`
 
-#### `lct.split(u: int, v: int)`
+#### `lct.merge(u: int, v: int) -> bool`
+
+#### `lct.split(u: int, v: int) -> bool`
 
 #### `lct.path_kth_elm(s: int, t: int, k: int)`
 - `s-t` パスの頂点列を $v_{0}, v_{1}, ..., v_{n}$ としたときの $v_{k}$ を返します。 $k > n$ のとき、 `None` を返します。
