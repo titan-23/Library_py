@@ -15,5 +15,5 @@ class Random():
 
   @classmethod
   def randint(cls, begin: int, end: int) -> int:
-    return begin + cls._xor128() // (0xFFFFFFFF//(end+1-begin))
+    return begin + cls._xor128() % (end - begin + 1)
 
