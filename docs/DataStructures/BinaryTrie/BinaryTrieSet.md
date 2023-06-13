@@ -66,15 +66,16 @@ ____
 
 ```python
 q = int(input())
-bt = BinaryTrieSet(1<<30)
+bt = BinaryTrieSet(1<<30)  # 0 以上 1<<30 未満の整数を管理する集合 bt を定義
 bt.reserve(q)
 for _ in range(q):
   t, x = map(int, input().split())
   if t == 0:
-    bt.add(x)
+    bt.add(x)  # x を追加する
   elif t == 1:
-    bt.discard(x)
+    bt.discard(x)  # x を削除する
   else:
+    # 全体に x を xor した時の最小値を出力する 
     bt.all_xor(x)
     print(bt[0])
     bt.all_xor(x)
