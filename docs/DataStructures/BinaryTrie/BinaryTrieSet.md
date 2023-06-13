@@ -4,12 +4,14 @@ _____
 
 `BinaryTrieSet` です。0以上u未満の正整数からなる集合を管理できます。
 
+空間 `O(nlogu)` のはずです。
+
 ____
 
 ## 仕様
 
 #### `bt = BinaryTrieSet(u: int, a: Iterable[int]=[])`
-- `a` から、**0以上u未満**の正整数を管理する `BinaryTrieSet` を構築します。
+- `a` から、**0 以上 u 未満**の正整数を管理する `BinaryTrieSet` を構築します。
 - `O(nlogu)` です。
 
 #### `bt.reserve(n: int) -> None`
