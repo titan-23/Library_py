@@ -41,13 +41,15 @@ class BinaryTrieSet():
         par[rnode] = node
         size[rnode] = r - k
         if d: rec(rnode, d - 1, k, r)
-    if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-      a = sorted(set(a))
-    assert 0 <= a[0] and a[-1] < self.lim, \
-        f'ValueError: BinaryTrieSet._build({a}), lim={self.lim}'
-    self.reserve(len(a))
-    rec(self.root, self.bit-1, 0, len(a))
-    size[self.root] = len(a)
+    # if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
+    #   a = sorted(set(a))
+    # assert 0 <= a[0] and a[-1] < self.lim, \
+    #     f'ValueError: BinaryTrieSet._build({a}), lim={self.lim}'
+    # self.reserve(len(a))
+    # rec(self.root, self.bit-1, 0, len(a))
+    # size[self.root] = len(a)
+    for e in a:
+      self.add(e)
 
   def _make_node(self) -> int:
     end = self.end
@@ -58,6 +60,21 @@ class BinaryTrieSet():
       self.size.append(0)
     self.end += 1
     return end
+
+  def _find(self, key: int) -> Optional[int]:
+    assert 0 <= key < self.lim, \
+        f'ValueError: BinaryTrieSet._find({key}), lim={self.lim}'
+    left, right = self.left, self.right
+    key ^= self.xor
+    node = self.root
+    for i in range(self.bit-1, -1, -1):
+      if key >> i & 1:
+        left, right = right, left
+      if not left[node]: return None
+      node = left[node]
+      if key >> i & 1:
+        left, right = right, left
+    return node
 
   def reserve(self, n: int) -> None:
     assert n >= 0, f'ValueError: BinaryTrieSet.reserve({n})'
@@ -108,7 +125,7 @@ class BinaryTrieSet():
   def discard(self, key: int) -> bool:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.discard({key}), lim={self.lim}'
-    node = self.find(key)
+    node = self._find(key)
     if not node: return False
     self._discard(node)
     return True
@@ -148,20 +165,8 @@ class BinaryTrieSet():
     assert self, f'IndexError: BinaryTrieSet.pop_min(), len={len(self)}'
     return self.pop(0)
 
-  def find(self, key: int) -> Optional[int]:
-    assert 0 <= key < self.lim, \
-        f'ValueError: BinaryTrieSet.find({key}), lim={self.lim}'
-    left, right = self.left, self.right
-    key ^= self.xor
-    node = self.root
-    for i in range(self.bit-1, -1, -1):
-      if key >> i & 1:
-        left, right = right, left
-      if not left[node]: return None
-      node = left[node]
-      if key >> i & 1:
-        left, right = right, left
-    return node
+  def pop_max(self) -> int:
+    return self.pop()
 
   def all_xor(self, x: int) -> None:
     assert 0 <= x < self.lim, \
@@ -211,9 +216,6 @@ class BinaryTrieSet():
         else:
           node = left[node]
     return ans ^ self.xor
-
-  def pop_max(self) -> int:
-    return self.pop()
 
   def index(self, key: int) -> int:
     assert 0 <= key < self.lim, \
@@ -286,7 +288,7 @@ class BinaryTrieSet():
   def __contains__(self, key: int):
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.__contains__({key}), lim={self.lim}'
-    return self.find(key) is not None
+    return self._find(key) is not None
 
   def __getitem__(self, k: int):
     assert -len(self) <= k < len(self), \

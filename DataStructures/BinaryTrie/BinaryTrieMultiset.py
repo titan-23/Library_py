@@ -25,6 +25,21 @@ class BinaryTrieMultiset():
     self.end += 1
     return self.end - 1
 
+  def _find(self, key: int) -> Optional[int]:
+    assert 0 <= key < self.lim, \
+        f'ValueError: BinaryTrieMultiset._find({key}), lim={self.lim}'
+    left, right = self.left, self.right
+    key ^= self.xor
+    node = self.root
+    for i in range(self.bit-1, -1, -1):
+      if key >> i & 1:
+        left, right = right, left
+      if not left[node]: return None
+      node = left[node]
+      if key >> i & 1:
+        left, right = right, left
+    return node
+
   def reserve(self, n: int) -> None:
     assert n >= 0, f'ValueError: BinaryTrieMultiset.reserve({n})'
     a = array('I', bytes(4*n))
@@ -75,7 +90,7 @@ class BinaryTrieMultiset():
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.discard({key}), lim={self.lim}'
     par, size = self.par, self.size
-    node = self.find(key)
+    node = self._find(key)
     if node is None: return False
     if size[node] <= cnt:
       self._discard(node)
@@ -84,6 +99,10 @@ class BinaryTrieMultiset():
         size[node] -= cnt
         node = par[node]
     return True
+
+  def count(self, key: int) -> int:
+    node = self._find(key)
+    return 0 if node is None else self.size[node]
 
   def pop(self, k: int=-1) -> int:
     assert -len(self) <= k < len(self), \
@@ -127,21 +146,6 @@ class BinaryTrieMultiset():
 
   def pop_max(self) -> int:
     return self.pop()
-
-  def find(self, key: int) -> Optional[int]:
-    assert 0 <= key < self.lim, \
-        f'ValueError: BinaryTrieMultiset.find({key}), lim={self.lim}'
-    left, right = self.left, self.right
-    key ^= self.xor
-    node = self.root
-    for i in range(self.bit-1, -1, -1):
-      if key >> i & 1:
-        left, right = right, left
-      if not left[node]: return None
-      node = left[node]
-      if key >> i & 1:
-        left, right = right, left
-    return node
 
   def all_xor(self, x: int) -> None:
     assert 0 <= x < self.lim, \
@@ -245,7 +249,7 @@ class BinaryTrieMultiset():
     i = self.index_right(key - 1)
     return None if i >= self.size[self.root] else self.__getitem__(i)
 
-  def le(self, key: int):
+  def le(self, key: int) -> Optional[int]:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.le({key}), lim={self.lim}'
     i = self.index(key + 1) - 1
@@ -261,14 +265,10 @@ class BinaryTrieMultiset():
       val = self.gt(val)
     return a
 
-  def count(self, key: int) -> int:
-    node = self.find(key)
-    return 0 if node is None else self.size[node]
-
   def __contains__(self, key: int):
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.__contains__({key}), lim={self.lim}'
-    return self.find(key) is not None
+    return self._find(key) is not None
 
   def __getitem__(self, k: int):
     assert -len(self) <= k < len(self), \

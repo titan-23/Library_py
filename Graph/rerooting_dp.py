@@ -20,48 +20,71 @@ def antirec(func, stack=[]):
     return to
   return wrappedfunc
 
-from typing import List, Callable
+from typing import List, Callable, Tuple, Generator
 
-def rerooting_dp(G: List[List[int]], op: Callable, add_root: Callable, e):
-  dp = [[e]*len(g) for g in G]
-  ans = [e] * len(G)
+def rerooting_dp(G: List[List[Tuple[int, int]]], merge: Callable, apply: Callable, leaf: Callable, e):
+  @antirec
+  def dfs1(v: int, p: int) -> Generator:
+    dp_v = dp[v]
+    if p != -1 and len(dp_v) == 1:
+      yield leaf(v)
+    else:
+      acc = e
+      for i, (x, c) in enumerate(G[v]):
+        if x == p: continue
+        res = yield dfs1(x, v)
+        dp_v[i] = apply(res, x, c, True)
+        acc = merge(acc, dp_v[i])
+      yield acc
 
   @antirec
-  def dfs(v, p):
+  def dfs2(v: int, p: int, dp_p) -> Generator:
     dp_v = dp[v]
-    acc = e
-    for i, x in enumerate(G[v]):
-      if x == p: continue
-      dp_v[i] = yield dfs(x, v)
-      acc = op(acc, add_root(dp_v[i]))
-    yield acc
-
-  @antirec
-  def dfs2(v, p, dp_p):
-    dp_v = dp[v]
-    for i, x in enumerate(G[v]):
+    G_v = G[v]
+    for i, (x, _) in enumerate(G_v):
       if x == p:
         dp_v[i] = dp_p
-    d = len(G[v])
+        break
+    d = len(dp_v)
     acc_l = [e] * (d + 1)
     acc_r = [e] * (d + 1)
     for i in range(d):
-      acc_l[i+1] = op(acc_l[i], add_root(dp_v[i]))
-      acc_r[d-i-1] = op(acc_r[d-i], add_root(dp_v[d-i-1]))
+        acc_l[i+1] = merge(acc_l[i], apply(dp_v[i], G_v[i][0], v, False))
+        acc_r[i+1] = merge(acc_r[i], apply(dp_v[-i-1], G_v[-i-1][0], v, False))
     ans[v] = acc_l[-1]
-    for i, x in enumerate(G[v]):
+    for i, (x, c) in enumerate(G_v):
       if x == p: continue
-      yield dfs2(x, v, op(acc_l[i], acc_r[i+1]))
+      yield dfs2(x, v, apply(merge(acc_l[i], acc_r[d-i-1]), v, c, True))
     yield
 
-  dfs(0, -1)
+  dp = [[e]*len(g) for g in G]
+  ans = [e] * len(G)
+  dfs1(0, -1)
   dfs2(0, -1, e)
   return ans
 
-def op(s, t):
-  return
+def leaf(v: int):
+  return 0
 
-def add_root(s):
-  return
+def merge(s, t):
+  return max(s, t)
 
-e = None
+def apply(dp_x, x, edge, flag):
+  # flag: (辺などを含む)加工をするかどうか
+  res = max(dp_x, D[x]) + (edge if flag else 0)
+  return res
+
+e = 0
+
+import sys
+input = lambda: sys.stdin.buffer.readline().rstrip()
+
+n = int(input())
+A = list(map(int, input().split()))
+G = [[] for _ in range(n)]
+for _ in range(n-1):
+  u, v, b, c = map(int, input().split())
+  G[u].append((v, b, c))
+  G[v].append((u, b, c))
+ans = rerooting_dp(G, merge, apply, leaf, e)
+print(' '.join(map(str, ans)))
