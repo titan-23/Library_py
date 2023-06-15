@@ -2,20 +2,28 @@ from typing import List
 
 class MultisetQuadraticDivision():
 
+  # Ordered Multiset <int>
+  # Space Complexity : O(U)
+  # add / discard / remove / contains : O(1)
+  # kth_elm : O(√U)
+
   def __init__(self, u: int, a: List[int]=[]):
     self.data = [0] * u
     self.size = int(u ** .5) + 1
     self.bucket_cnt = (u + self.size - 1) // self.size
     self.bucket_data = [0] * self.bucket_cnt
+    self._len = 0
     for e in a:
       self.add(e)
 
   def add(self, key: int, cnt: int=1) -> None:
+    self._len += cnt
     self.data[key] += cnt
     self.bucket_data[key//self.size] += cnt
 
   def discard(self, key: int, cnt: int=1) -> None:
     cnt = min(cnt, self.data[key])
+    self._len -= cnt
     self.data[key] -= cnt
     self.bucket_data[key//self.size] -= cnt
 
@@ -40,4 +48,7 @@ class MultisetQuadraticDivision():
       k -= data[indx]
       indx += 1
     return indx
+
+  def __len__(self):
+    return self._len
 

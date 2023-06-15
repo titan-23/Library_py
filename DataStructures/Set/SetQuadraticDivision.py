@@ -2,7 +2,7 @@ from typing import List
 
 class SetQuadraticDivision():
 
-  # Ordered Set
+  # Ordered Set <int>
   # Space Complexity : O(U)
   # add / discard / remove / contains : O(1)
   # kth_elm : O(√U)
@@ -12,12 +12,14 @@ class SetQuadraticDivision():
     self.size = int(u**.5) + 1
     self.bucket_cnt = (u + self.size - 1) // self.size
     self.bucket_data = [0] * self.bucket_cnt
+    self._len = 0
     for e in a:
       self.add(e)
 
   def add(self, key: int) -> bool:
     if self.data[key]:
       return False
+    self._len += 1
     self.data[key] += 1
     self.bucket_data[key//self.size] += 1
     return True
@@ -25,6 +27,7 @@ class SetQuadraticDivision():
   def discard(self, key: int, cnt) -> bool:
     if not self.data[key]:
       return False
+    self._len -= 1
     self.data[key] -= cnt
     self.bucket_data[key//self.size] -= cnt
     return True
@@ -47,4 +50,7 @@ class SetQuadraticDivision():
       k -= data[indx]
       indx += 1
     return indx
+
+  def __len__(self):
+    return self._len
 
