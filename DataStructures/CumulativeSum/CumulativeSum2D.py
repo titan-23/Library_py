@@ -12,6 +12,6 @@ class CumulativeSum2D():
     self.acc = acc
 
   def sum(self, h1: int, w1: int, h2: int, w2: int) -> int:
-    assert h1 <= h2 and w1 <= w2
+    assert h1 <= h2 and w1 <= w2, f'IndexError'
     return self.acc[h2][w2] - self.acc[h2][w1] - self.acc[h1][w2] + self.acc[h1][w1]
 

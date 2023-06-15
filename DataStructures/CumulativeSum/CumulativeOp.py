@@ -20,6 +20,7 @@ class CumulativeOp(Generic[T]):
     return self.acc[r]
 
   def prod(self, l: int, r: int) -> T:
+    assert 0 <= l <= r <= self.n, f'IndexError'
     return self.op(self.acc[r], self.inv(self.acc[l]))
 
   def all_prod(self) -> T:

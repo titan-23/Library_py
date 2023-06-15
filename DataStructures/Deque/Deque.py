@@ -38,11 +38,15 @@ class Deque():
     return self.front[::-1] + self.back
 
   def __getitem__(self, k: int) -> Any:
+    assert -len(self) <= k < len(self), \
+        f'IndexError, Deque.__getitem__({k}), len={len(self)}'
     if k < 0:
       k += len(self)
     return self.front[len(self.front)-k-1] if k < len(self.front) else self.back[k-len(self.front)]
 
   def __setitem__(self, k: int, v: Any):
+    assert -len(self) <= k < len(self), \
+        f'IndexError, Deque.__setitem__({k}, {v}), len={len(self)}'
     if k < 0:
       k += len(self)
     if k < len(self.front):
