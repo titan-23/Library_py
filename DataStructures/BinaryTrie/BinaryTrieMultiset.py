@@ -1,5 +1,6 @@
 from typing import Optional, List, Iterable
 from array import array
+from __pypy__ import newlist_hint
 
 class BinaryTrieMultiset():
 
@@ -25,7 +26,7 @@ class BinaryTrieMultiset():
     self.end += 1
     return self.end - 1
 
-  def _find(self, key: int) -> Optional[int]:
+  def _find(self, key: int) -> int:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset._find({key}), lim={self.lim}'
     left, right = self.left, self.right
@@ -34,7 +35,7 @@ class BinaryTrieMultiset():
     for i in range(self.bit-1, -1, -1):
       if key >> i & 1:
         left, right = right, left
-      if not left[node]: return None
+      if not left[node]: return -1
       node = left[node]
       if key >> i & 1:
         left, right = right, left
@@ -48,7 +49,7 @@ class BinaryTrieMultiset():
     self.par += a
     self.size += a
 
-  def add(self, key: int, cnt: int=1) -> bool:
+  def add(self, key: int, cnt: int=1) -> None:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.add({key}), lim={self.lim}'
     left, right, par, size = self.left, self.right, self.par, self.size
@@ -67,7 +68,6 @@ class BinaryTrieMultiset():
     for i in range(self.bit):
       node = par[node]
       size[node] += cnt
-    return True
 
   def _discard(self, node: int) -> None:
     left, right, par, size = self.left, self.right, self.par, self.size
@@ -91,7 +91,7 @@ class BinaryTrieMultiset():
         f'ValueError: BinaryTrieMultiset.discard({key}), lim={self.lim}'
     par, size = self.par, self.size
     node = self._find(key)
-    if node is None: return False
+    if node == -1: return False
     if size[node] <= cnt:
       self._discard(node)
     else:
@@ -102,7 +102,7 @@ class BinaryTrieMultiset():
 
   def count(self, key: int) -> int:
     node = self._find(key)
-    return 0 if node is None else self.size[node]
+    return 0 if node == -1 else self.size[node]
 
   def pop(self, k: int=-1) -> int:
     assert -len(self) <= k < len(self), \
@@ -256,7 +256,7 @@ class BinaryTrieMultiset():
     return None if i < 0 else self.__getitem__(i)
 
   def tolist(self) -> List[int]:
-    a = []
+    a = newlist_hint(len(self))
     if not self: return a
     val = self.get_min()
     while val is not None:
@@ -268,7 +268,7 @@ class BinaryTrieMultiset():
   def __contains__(self, key: int):
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieMultiset.__contains__({key}), lim={self.lim}'
-    return self._find(key) is not None
+    return self._find(key) != -1
 
   def __getitem__(self, k: int):
     assert -len(self) <= k < len(self), \

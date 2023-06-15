@@ -340,9 +340,3 @@ class BinaryTrieSet():
   def __repr__(self):
     return f'BinaryTrieSet({(1<<self.bit)-1}, {self})'
 
-
-
-a = BinaryTrieSet(10)
-a.add(3)
-a.all_xor(2)
-print(a.ge(0))
