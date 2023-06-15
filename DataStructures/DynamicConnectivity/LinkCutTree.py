@@ -16,7 +16,6 @@ class LinkCutTree(Generic[T, F]):
   # 可換opならupdateを短縮したりなど
 
   # opをするならeは必須 <- 場合分けしてもよさそう?
-  # idは無くてもよいが、あると(strategyの問題で)速くなるため推奨
 
   def __init__(self, n_or_a: Union[int, Iterable[T]], \
               op: Callable[[T, T], T]=lambda x, y: None, \
@@ -182,7 +181,6 @@ class LinkCutTree(Generic[T, F]):
 
   def link(self, c: int, p: int) -> None:
     ''' c->pの辺を追加する / cは元の木の根でなければならない
-    (元の木の根とself._is_root()はまったくの別物)
     '''
     assert not self.same(c, p)
     self.expose(c)
@@ -257,7 +255,7 @@ class LinkCutTree(Generic[T, F]):
     self._propagate(v)
 
   def merge(self, u: int, v: int) -> bool:
-    ''' 辺[u - v]を追加する
+    ''' 辺[u - v]を追加する 既に同じ連結成分にいた場合はreturn
     '''
     if self.same(u, v): return False
     self.evert(u)
@@ -269,7 +267,7 @@ class LinkCutTree(Generic[T, F]):
     return True
 
   def split(self, u: int, v: int) -> bool:
-    ''' 辺[u - v]を削除する
+    ''' 辺[u - v]を削除する 一応assertつけてるけど意味無さそう
     '''
     if not self.same(v, u): return False
     self.evert(u)
