@@ -36,15 +36,15 @@ class SegmentQuadraticDivision(Generic[T]):
       if k2 < self.bucket_cnt and r > 0: s = reduce(self.op, self.data[k2][:r]) if s is None else reduce(self.op, self.data[k2][:r], s)
     return s
 
-  def all_prod(self):
+  def all_prod(self) -> T:
     '''Return op([0, n)). / O(√N)'''
     return reduce(self.op, self.bucket_data)
 
-  def __getitem__(self, indx):
+  def __getitem__(self, indx: int) -> T:
     k = indx // self.size
     return self.data[k][indx-k*self.size]
 
-  def __setitem__(self, indx, key):
+  def __setitem__(self, indx: int, key: T):
     k = indx // self.size
     self.data[k][indx-k*self.size] = key
     self.bucket_data[k] = reduce(self.op, self.data[k])
