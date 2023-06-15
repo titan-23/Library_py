@@ -61,16 +61,14 @@ class BinaryTrieSet():
     self.end += 1
     return end
 
-  def _find(self, key: int) -> Optional[int]:
-    assert 0 <= key < self.lim, \
-        f'ValueError: BinaryTrieSet._find({key}), lim={self.lim}'
+  def _find(self, key: int) -> int:
     left, right = self.left, self.right
     key ^= self.xor
     node = self.root
     for i in range(self.bit-1, -1, -1):
       if key >> i & 1:
         left, right = right, left
-      if not left[node]: return None
+      if not left[node]: return -1
       node = left[node]
       if key >> i & 1:
         left, right = right, left
@@ -126,7 +124,7 @@ class BinaryTrieSet():
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.discard({key}), lim={self.lim}'
     node = self._find(key)
-    if not node: return False
+    if node == -1: return False
     self._discard(node)
     return True
 
@@ -270,7 +268,7 @@ class BinaryTrieSet():
     i = self.index_right(key - 1)
     return None if i >= self.size[self.root] else self.__getitem__(i)
 
-  def le(self, key: int):
+  def le(self, key: int) -> Optional[int]:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.le({key}), lim={self.lim}'
     i = self.index(key + 1) - 1
@@ -288,7 +286,7 @@ class BinaryTrieSet():
   def __contains__(self, key: int):
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.__contains__({key}), lim={self.lim}'
-    return self._find(key) is not None
+    return self._find(key) != -1
 
   def __getitem__(self, k: int):
     assert -len(self) <= k < len(self), \
@@ -342,3 +340,9 @@ class BinaryTrieSet():
   def __repr__(self):
     return f'BinaryTrieSet({(1<<self.bit)-1}, {self})'
 
+
+
+a = BinaryTrieSet(10)
+a.add(3)
+a.all_xor(2)
+print(a.ge(0))
