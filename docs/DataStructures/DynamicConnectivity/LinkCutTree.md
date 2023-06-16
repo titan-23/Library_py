@@ -2,7 +2,8 @@ _____
 
 # [LinkCutTree.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/LinkCutTree.py)
 
-最終更新: 2023/06/11
+最終更新: 2023/06/16
+- メソッド名を少し変更しました
 - `path_length()` メソッドを追加しました。
 - assertionエラーを追加しました。
 
@@ -36,15 +37,15 @@ _____
 
 #### `lct.same(u: int, v: int) -> bool`
 
-#### `lct.prod(u: int, v: int) -> T`
-
-#### `lct.path_length(u: int, v: int) -> int`
-
-#### `lct.apply(u: int, v: int) -> None`
-
 #### `lct.merge(u: int, v: int) -> bool`
 
 #### `lct.split(u: int, v: int) -> bool`
+
+#### `lct.path_prod(u: int, v: int) -> T`
+
+#### `lct.path_apply(u: int, v: int) -> None`
+
+#### `lct.path_length(u: int, v: int) -> int`
 
 #### `lct.path_kth_elm(s: int, t: int, k: int)`
 - `s-t` パスの頂点列を $v_{0}, v_{1}, ..., v_{n}$ としたときの $v_{k}$ を返します。 $k > n$ のとき、 `None` を返します。

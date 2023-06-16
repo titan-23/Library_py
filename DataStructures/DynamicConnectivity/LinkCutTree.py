@@ -9,7 +9,7 @@ class LinkCutTree(Generic[T, F]):
   # - link / cut / merge / split
   # - prod / apply / getitem / setitem
   # - root / same
-  # - lca / path_kth_elm
+  # - lca / path_length / path_kth_elm
   # など
 
   # opがいらないならupdateを即returnするように変更したり、
@@ -229,31 +229,6 @@ class LinkCutTree(Generic[T, F]):
     self.arr[v<<2|3] ^= 1
     self._propagate(v)
 
-  def prod(self, u: int, v: int) -> T:
-    ''' パス[u -> v]間の総積を返す
-    非可換に対応
-    '''
-    assert self.same(u, v)
-    self.evert(u)
-    self.expose(v)
-    return self.data[v<<1]
-
-  def path_length(self, u: int, v: int) -> int:
-    assert self.same(u, v)
-    self.evert(u)
-    self.expose(v)
-    return self.size[v]
-
-  def apply(self, u: int, v: int, f: F) -> None:
-    assert self.same(u, v)
-    self.evert(u)
-    self.expose(v)
-    self.key[v] = self.mapping(f, self.key[v])
-    self.data[v<<1] = self.mapping(f, self.data[v<<1])
-    self.data[v<<1|1] = self.mapping(f, self.data[v<<1|1])
-    self.lazy[v] = f if self.lazy[v] == self.id else self.composition(f, self.lazy[v])
-    self._propagate(v)
-
   def merge(self, u: int, v: int) -> bool:
     ''' 辺[u - v]を追加する 既に同じ連結成分にいた場合はreturn
     '''
@@ -274,14 +249,39 @@ class LinkCutTree(Generic[T, F]):
     self.cut(v)
     return True
 
-  def path_kth_elm(self, s: int, t: int, k: int) -> Optional[int]:
-    ''' path[s -> t]のk番目を取得する
+  def path_prod(self, u: int, v: int) -> T:
+    ''' パス[u -> v]間の総積を返す
+    非可換に対応
+    '''
+    assert self.same(u, v)
+    self.evert(u)
+    self.expose(v)
+    return self.data[v<<1]
+
+  def path_apply(self, u: int, v: int, f: F) -> None:
+    assert self.same(u, v)
+    self.evert(u)
+    self.expose(v)
+    self.key[v] = self.mapping(f, self.key[v])
+    self.data[v<<1] = self.mapping(f, self.data[v<<1])
+    self.data[v<<1|1] = self.mapping(f, self.data[v<<1|1])
+    self.lazy[v] = f if self.lazy[v] == self.id else self.composition(f, self.lazy[v])
+    self._propagate(v)
+
+  def path_length(self, u: int, v: int) -> int:
+    assert self.same(u, v)
+    self.evert(u)
+    self.expose(v)
+    return self.size[v]
+
+  def path_kth_elm(self, s: int, t: int, k: int) -> int:
+    ''' path[s -> t]のk番目の頂点番号を取得する
     '''
     assert self.same(s, t)
     self.evert(s)
     self.expose(t)
     if self.size[t] <= k:
-      return None
+      return -1
     size, arr = self.size, self.arr
     while True:
       self._propagate(t)
@@ -292,6 +292,12 @@ class LinkCutTree(Generic[T, F]):
       t = arr[t<<2|(s<k)]
       if s < k:
         k -= s + 1
+
+  def path_max_right(self, s: int, t: int, f: Callable[[T], bool]) -> int:
+    return -1
+
+  def path_min_left(self, s: int, t: int, f: Callable[[T], bool]) -> int:
+    return -1
 
   def __setitem__(self, k: int, v: T):
     self._splay(k)
