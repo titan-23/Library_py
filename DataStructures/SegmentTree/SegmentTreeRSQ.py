@@ -22,13 +22,13 @@ class SegmentTreeRSQ(Generic[T]):
         _data[i] = _data[i<<1] + _data[i<<1|1]
       self._data = _data
 
-  def set(self, k: int, val: T) -> None:
+  def set(self, k: int, v: T) -> None:
     '''Update a[k] <- x. / O(logN)'''
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRSQ.set({k}: int, {val}: T), n={self._n}'
+        f'IndexError: SegmentTreeRSQ.set({k}: int, {v}: T), n={self._n}'
     if k < 0: k += self._n
     k += self._size
-    self._data[k] = val
+    self._data[k] = v
     for _ in range(self._log):
       k >>= 1
       self._data[k] = self._data[k<<1] + self._data[k<<1|1]
@@ -126,10 +126,10 @@ class SegmentTreeRSQ(Generic[T]):
         f'IndexError: SegmentTreeRSQ.__getitem__({k}: int), n={self._n}'
     return self.get(k)
 
-  def __setitem__(self, k: int, val: T):
+  def __setitem__(self, k: int, v: T):
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRSQw.__setitem__{k}: int, {val}: T), n={self._n}'
-    self.set(k, val)
+        f'IndexError: SegmentTreeRSQ.__setitem__{k}: int, {v}: T), n={self._n}'
+    self.set(k, v)
 
   def __str__(self):
     return '[' + ', '.join(map(str, (self.get(i) for i in range(self._n)))) + ']'

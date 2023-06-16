@@ -12,13 +12,13 @@ class DynamicSegmentTree(Generic[T]):
     self._size = 1 << self._log
     self._data: Dict[int, T] = {}
 
-  def set(self, k: int, val: T) -> None:
+  def set(self, k: int, v: T) -> None:
     '''Update a[k] <- x. / O(logU)'''
     assert -self._u <= k < self._u, \
-        f'IndexError: DynamicSegmentTree.set({k}: int, {val}: T), n={self._u}'
+        f'IndexError: DynamicSegmentTree.set({k}: int, {v}: T), n={self._u}'
     if k < 0: k += self._u
     k += self._size
-    self._data[k] = val
+    self._data[k] = v
     e = self._e
     for _ in range(self._log):
       k >>= 1
@@ -117,10 +117,10 @@ class DynamicSegmentTree(Generic[T]):
         f'IndexError: DynamicSegmentTree.__getitem__({k}: int), n={self._u}'
     return self.get(k)
 
-  def __setitem__(self, k: int, val: T) -> None:
+  def __setitem__(self, k: int, v: T) -> None:
     assert -self._u <= k < self._u, \
-        f'IndexError: DynamicSegmentTree.__setitem__{k}: int, {val}: T), n={self._u}'
-    self.set(k, val)
+        f'IndexError: DynamicSegmentTree.__setitem__{k}: int, {v}: T), n={self._u}'
+    self.set(k, v)
 
   def __str__(self) -> str:
     return str(self.tolist())

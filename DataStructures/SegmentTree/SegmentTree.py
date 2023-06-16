@@ -39,7 +39,8 @@ class SegmentTree(Generic[T]):
     '''Return a[k]. / O(1)'''
     assert -self._n <= k < self._n, \
         f'IndexError: SegmentTree.get({k}), n={self._n}'
-    if k < 0: k += self._n
+    if k < 0:
+      k += self._n
     return self._data[k+self._size]
 
   def prod(self, l: int, r: int) -> T:

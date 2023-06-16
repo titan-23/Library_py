@@ -166,11 +166,11 @@ class LazySegmentTree(Generic[T, F]):
       self._propagate(k >> i)
     return self.data[k]
 
-  def __setitem__(self, k: int, val: T):
+  def __setitem__(self, k: int, v: T):
     k += self.size
     for i in range(self.log, 0, -1):
       self._propagate(k >> i)
-    self.data[k] = val
+    self.data[k] = v
     for i in range(1, self.log+1):
      self._update(k >> i)
 
@@ -190,6 +190,6 @@ def mapping(f, s):
 def composition(f, g):
   return
 
-e = 0
-id = 0
+e = None
+id = None
 
