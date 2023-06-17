@@ -3,15 +3,15 @@ from __pypy__ import newlist_hint
 
 class LCA():
 
-  def __init__(self, G: List[List[int]], root: int):
-    _n = len(G)
+  def __init__(self, _G: List[List[int]], _root: int):
+    _n = len(_G)
     bit = _n.bit_length() + 1
     msk = (1 << bit) - 1
     path = [-1] * (2*_n-1)
     depth = [-1] * (2*_n-1)
     nodeid = [-1] * _n
     todo = newlist_hint(2*_n)
-    todo.append((root, -1<<bit))
+    todo.append((_root, -1<<bit))
     nowt = -1
     while todo:
       v, pd = todo.pop()
@@ -22,7 +22,7 @@ class LCA():
         nodeid[v] = nowt
         path[nowt] = v
         depth[nowt] = d
-        for x in G[v]:
+        for x in _G[v]:
           if x != p:
             todo.append((~v, (p<<bit)+d))
             todo.append((x, (v<<bit)+d+1))
