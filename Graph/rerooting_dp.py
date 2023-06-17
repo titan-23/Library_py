@@ -49,8 +49,8 @@ def rerooting_dp(G: List[List[Tuple[int, int]]], merge: Callable, apply: Callabl
     acc_l = [e] * (d + 1)
     acc_r = [e] * (d + 1)
     for i in range(d):
-        acc_l[i+1] = merge(acc_l[i], apply(dp_v[i], G_v[i][0], v, False))
-        acc_r[i+1] = merge(acc_r[i], apply(dp_v[-i-1], G_v[-i-1][0], v, False))
+        acc_l[i+1] = merge(acc_l[i], apply(dp_v[i], G_v[i][0], G_v[i][1], False))
+        acc_r[i+1] = merge(acc_r[i], apply(dp_v[-i-1], G_v[-i-1][0], G_v[-i-1][1], False))
     ans[v] = acc_l[-1]
     for i, (x, c) in enumerate(G_v):
       if x == p: continue
@@ -64,27 +64,13 @@ def rerooting_dp(G: List[List[Tuple[int, int]]], merge: Callable, apply: Callabl
   return ans
 
 def leaf(v: int):
-  return 0
+  return
 
 def merge(s, t):
-  return max(s, t)
+  return
 
 def apply(dp_x, x, edge, flag):
   # flag: (辺などを含む)加工をするかどうか
-  res = max(dp_x, D[x]) + (edge if flag else 0)
-  return res
+  return
 
-e = 0
-
-import sys
-input = lambda: sys.stdin.buffer.readline().rstrip()
-
-n = int(input())
-A = list(map(int, input().split()))
-G = [[] for _ in range(n)]
-for _ in range(n-1):
-  u, v, b, c = map(int, input().split())
-  G[u].append((v, b, c))
-  G[v].append((u, b, c))
-ans = rerooting_dp(G, merge, apply, leaf, e)
-print(' '.join(map(str, ans)))
+e = None
