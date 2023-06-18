@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 class RootedTree():
 
-  def __init__(self, _G: List[List[Tuple[int, int]]], _root: int, lp: bool=False, lca: bool=False):
+  def __init__(self, _G: List[List[Tuple[int, int]]], _root: int, cp: bool=False, lca: bool=False):
     self._n = len(_G)
     self._G = _G
     self._root = _root
@@ -10,12 +10,12 @@ class RootedTree():
     self._toposo = []
     self._dist = []
     self._descendant_num = []
-    self._leaf = []
-    self._leaf_num = []
+    self._child = []
+    self._child_num = []
     self._parents = []
     self._diameter = (-1, -1, -1)
     self._bipartite_graph = []
-    self._lp = lp
+    self._cp = cp
     self._lca = lca
     self._rank = []
     K = 1
@@ -24,16 +24,16 @@ class RootedTree():
     self._K = K
     self._doubling = [[-1]*self._n for _ in range(self._K)]
     self._calc_dist_toposo()
-    if lp:
-      self._calc_leaf_parents()
+    if cp:
+      self._calc_child_parents()
     if lca:
       self._calc_doubling()
 
   def __str__(self):
-    self._calc_leaf_parents()
+    self._calc_child_parents()
     ret = ["<RootedTree> ["]
     ret.extend(
-      [f'  dist:{str(d).zfill(2)} - v:{str(i).zfill(2)} - p:{str(self._parents[i]).zfill(2)} - child:{sorted(self._leaf[i])}'
+      [f'  dist:{str(d).zfill(2)} - v:{str(i).zfill(2)} - p:{str(self._parents[i]).zfill(2)} - child:{sorted(self._child[i])}'
        for i,d in sorted(enumerate(self._dist), key=lambda x: x[1])]
       )
     ret.append(']')
@@ -43,18 +43,18 @@ class RootedTree():
     '''Calc dist and toposo. / O(N)'''
     # initメソッドで直接実行
     _G, _root = self._G, self._root
-    todo = [_root]
     _dist = [-1] * self._n
     _rank = [-1] * self._n
     _dist[_root] = 0
     _rank[_root] = 0
     _toposo = [_root]
+    todo = [_root]
     while todo:
       v = todo.pop()
       d = _dist[v]
       r = _rank[v]
       for x, c in _G[v]:
-        if self._dist[x] != -1:
+        if _dist[x] != -1:
           continue
         _dist[x] = d + c
         _rank[x] = r + 1
@@ -62,25 +62,25 @@ class RootedTree():
         _toposo.append(x)
     self._dist = _dist
     self._rank = _rank
-    self._toposp = _toposo
+    self._toposo = _toposo
 
-  def _calc_leaf_parents(self) -> None:
+  def _calc_child_parents(self) -> None:
     '''Calc child and parents. / O(N)'''
-    if self._leaf and self._leaf_num and self._parents:
+    if self._child and self._child_num and self._parents:
       return
     _G, _rank = self._G, self._rank
-    _leaf_num = [0] * self._n
-    _leaf = [[] for _ in range(self._n)]
+    _child_num = [0] * self._n
+    _child = [[] for _ in range(self._n)]
     _parents = [-1] * self._n
     for v in self._toposo[::-1]:
       for x, _ in _G[v]:
         if _rank[x] < _rank[v]:
           _parents[v] = x
           continue
-        _leaf[v].append(x)
-        _leaf_num[v] += 1
-    self._leaf_num = _leaf_num
-    self._leaf = _leaf
+        _child[v].append(x)
+        _child_num[v] += 1
+    self._child_num = _child_num
+    self._child = _child
     self._parents = _parents
 
   '''Return dist from root. / O(N)'''
@@ -115,24 +115,24 @@ class RootedTree():
     return self._descendant_num
 
   '''Return child / O(N)'''
-  def get_leaf(self) -> List[List[int]]:
-    if self._leaf:
-      return self._leaf
-    self._calc_leaf_parents()
-    return self._leaf
+  def get_child(self) -> List[List[int]]:
+    if self._child:
+      return self._child
+    self._calc_child_parents()
+    return self._child
 
   '''Return child_num. / O(N)'''
-  def get_leaf_num(self) -> List[int]:
-    if self._leaf_num:
-      return self._leaf_num
-    self._calc_leaf_parents()
-    return self._leaf_num
+  def get_child_num(self) -> List[int]:
+    if self._child_num:
+      return self._child_num
+    self._calc_child_parents()
+    return self._child_num
 
   '''Return parents. / O(N)'''
   def get_parents(self) -> List[int]:
     if self._parents:
       return self._parents
-    self._calc_leaf_parents()
+    self._calc_child_parents()
     return self._parents
 
   '''Return diameter of tree. (diameter, start, stop) / O(N)'''
@@ -176,7 +176,7 @@ class RootedTree():
   def _calc_doubling(self) -> None:
     "Calc doubling if self._lca. / O(NlogN)"
     if not self._parents:
-      self._calc_leaf_parents()
+      self._calc_child_parents()
     for i in range(self._n):
       self._doubling[0][i] = self._parents[i]
     for k in range(self._K-1):
