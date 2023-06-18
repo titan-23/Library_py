@@ -8,11 +8,11 @@ class RedBlackTreeMultiset(Generic[T]):
 
     def __init__(self, key: T, cnt: int=1):
       self.key = key
-      self.cnt = cnt
-      self.col = 0
       self.left = RedBlackTreeMultiset.NIL
       self.right = RedBlackTreeMultiset.NIL
       self.par  = RedBlackTreeMultiset.NIL
+      self.col = 0
+      self.cnt = cnt
 
     @property
     def count(self) -> int:
@@ -81,12 +81,13 @@ class RedBlackTreeMultiset(Generic[T]):
       return f'(key,col,par.key):{self.key, self.col, self.par.key},\n left:{self.left},\n right:{self.right}\n'
 
   class NILNode():
+
     key = None
-    cnt = 0
-    col = 0
     left = None
     right = None
     par = None
+    col = 0
+    cnt = 0
 
     def _min(self):
       return None
@@ -142,9 +143,9 @@ class RedBlackTreeMultiset(Generic[T]):
       return node
     if not all(a[i] <= a[i+1] for i in range(len(a)-1)):
       a = sorted(a)
-    flag = len(a).bit_length() & 1
-    x, y = self._rle(a)
     Node = RedBlackTreeMultiset.Node
+    x, y = self._rle(a)
+    flag = len(x).bit_length() & 1
     self.node = sort(0, len(x), 0)
     self.min_node = self.node._min()
     self.max_node = self.node._max()
@@ -239,7 +240,7 @@ class RedBlackTreeMultiset(Generic[T]):
       g = z.par.par
       if z.par is g.left:
         y = g.right
-        if y.col == 1:
+        if y.col:
           z.par.col = 0
           y.col = 0
           g.col = 1
@@ -254,7 +255,7 @@ class RedBlackTreeMultiset(Generic[T]):
           break
       else:
         y = g.left
-        if y.col == 1:
+        if y.col:
           z.par.col = 0
           y.col = 0
           g.col = 1
@@ -298,22 +299,22 @@ class RedBlackTreeMultiset(Generic[T]):
       y.left = node.left
       y.left.par = y
       y.col = node.col
-    if y_col == 1:
+    if y_col:
       return
-    while x is not self.node and x.col == 0:
+    while x is not self.node and not x.col:
       if x is x.par.left:
         y = x.par
         w = y.right
-        if w.col == 1:
+        if w.col:
           w.col = 0
           y.col = 1
           self._rotate_left(y)
           w = y.right
-        if w.left.col == 0 and w.right.col == 0:
+        if not (w.left.col or w.right.col):
           w.col = 1
           x = y
         else:
-          if w.right.col == 0:
+          if not w.right.col:
             w.left.col = 0
             w.col = 1
             self._rotate_right(w)
@@ -326,16 +327,16 @@ class RedBlackTreeMultiset(Generic[T]):
       else:
         y = x.par
         w = y.left
-        if w.col == 1:
+        if w.col:
           w.col = 0
           y.col = 1
           self._rotate_right(y)
           w = y.left
-        if w.right.col == 0 and w.left.col == 0:
+        if not (w.right.col or w.left.col):
           w.col = 1
           x = y
         else:
-          if w.left.col == 0:
+          if not w.left.col:
             w.right.col = 0
             w.col = 1
             self._rotate_left(w)

@@ -2,8 +2,8 @@ ____
 
 # [`RedBlackTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BBST/RedBlackTree)
 
-最終更新：2023/06/09
-- 使用例を追加しました。
+最終更新：2023/06/18
+- multiset._build()メソッドの致命的なバグを修正しました
 
 赤黒木です。集合と多重集合です。 `std::set` も怖くない。
 

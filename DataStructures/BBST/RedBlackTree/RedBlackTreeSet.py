@@ -8,10 +8,10 @@ class RedBlackTreeSet(Generic[T]):
 
     def __init__(self, key: T):
       self.key = key
-      self.col = 0
       self.left = RedBlackTreeSet.NIL
       self.right = RedBlackTreeSet.NIL
       self.par = RedBlackTreeSet.NIL
+      self.col = 0
 
     @property
     def count(self) -> int:
