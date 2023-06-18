@@ -2,7 +2,8 @@ _____
 
 # [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
 
-最終更新: 2023/06/11
+最終更新: 2023/06/17
+- `q` を消しました
 - `build()` メソッドを追加しました
 - 連結成分加算に対応しました。
 
@@ -21,8 +22,8 @@ _____
 
 ## 仕様
 
-#### `dc = OfflineDynamicConnectivity(n: int, q: int)`
-- 頂点数 `n` 、クエリ数 `q` で初期化します。
+#### `dc = OfflineDynamicConnectivity(n: int)`
+- 頂点数 `n` で初期化します。
 - `O(n)` です。
 
 #### `dc.add_edge(u: int, v: int) -> None`
@@ -38,7 +39,7 @@ _____
 - `O(1)` です。
 
 #### `dc.build(E: List[Tuple[int, int]]) -> None`
-- 辺のリスト `E` を初期メンバーとします。
+- 辺のリスト `E` を初期メンバーとします。内部のクエリカウントを1増加させます。
 - `O(|E|)` です。
 
 #### `dc.run(out: Callable[[int], None]) -> None`
@@ -76,12 +77,12 @@ _____
 
 ```python
 n, m = map(int, input().split())
+dc = OfflineDynamicConnectivity(n)
 E = []
 for _ in range(m):
   u, v = map(int, input().split())
   E.append((u, v))
 q = int(input())
-dc = OfflineDynamicConnectivity(n, q)
 dc.build(E)  # 初期辺を追加
 Query = [list(map(int, input().split())) for _ in range(q)]
 for t, u, v in Query:

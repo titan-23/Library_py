@@ -82,15 +82,11 @@ class OfflineDynamicConnectivity():
       return '<offline-dc.uf> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
 
 
-  def __init__(self, n: int, q: int):
+  def __init__(self, n: int):
     self.n = n
-    self.q = q
     self.bit = n.bit_length() + 1
     self.msk = (1 << self.bit) - 1
     self.query_count = 0
-    self.log  = (self.q - 1).bit_length()
-    self.size = 1 << self.log
-    self.data = [[] for _ in range(self.size<<1)]
     self.edge = defaultdict(list)
     self.uf = OfflineDynamicConnectivity.UndoableUnionFind(n)
 
@@ -118,12 +114,14 @@ class OfflineDynamicConnectivity():
       if u > v:
         u, v = v, u
       edge[u<<bit|v].append(0)
+    self.query_count += 1
 
   def run(self, out: Callable[[int], None]) -> None:
     # O(qlogqlogn)
-    assert self.query_count == self.q, \
-        f'query_count=({self.query_count}) is not equal to q=({self.q})'
-    data, uf, bit, msk, size, q = self.data, self.uf, self.bit, self.msk, self.size, self.q
+    uf, bit, msk, q = self.uf, self.bit, self.msk, self.query_count
+    log  = (q - 1).bit_length()
+    size = 1 << log
+    data = [[] for _ in range(size<<1)]
     size2 = size * 2
     for k, v in self.edge.items():
       LR = []
@@ -177,5 +175,5 @@ class OfflineDynamicConnectivity():
           uf.undo()
 
   def __repr__(self):
-    return f'OfflineDynamicConnectivity({self.n}, {self.q})'
+    return f'OfflineDynamicConnectivity({self.n})'
 
