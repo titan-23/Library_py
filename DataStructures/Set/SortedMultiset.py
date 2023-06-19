@@ -6,6 +6,7 @@ from typing import Generic, Iterable, Iterator, TypeVar, Union, List
 T = TypeVar('T')
 
 class SortedMultiset(Generic[T]):
+
   BUCKET_RATIO = 50
   REBUILD_RATIO = 170
 
@@ -29,16 +30,16 @@ class SortedMultiset(Generic[T]):
   def __reversed__(self) -> Iterator[T]:
     for i in reversed(self.a):
       for j in reversed(i): yield j
-    
+
   def __len__(self) -> int:
     return self.size
-    
+
   def __repr__(self) -> str:
-    return "SortedMultiset" + str(self.a)
-    
+    return 'SortedMultiset' + str(self.a)
+
   def __str__(self) -> str:
     s = str(list(self))
-    return "{" + s[1 : len(s) - 1] + "}"
+    return '{' + s[1 : len(s) - 1] + '}'
 
   def __bool__(self) -> bool:
     return self.size > 0
@@ -97,15 +98,16 @@ class SortedMultiset(Generic[T]):
     for a in self.a:
       if a[-1] >= x:
         return a[bisect_left(a, x)]
-    
-  def __getitem__(self, x: int) -> T:
-    if x < 0: x += self.size
-    if x < 0: raise IndexError
-    if x == self.size-1:
-      return self.a[-1][-1]
-    for a in self.a:
-      if x < len(a): return a[x]
-      x -= len(a)
+
+  def __getitem__(self, k: int) -> T:
+    if k < 0:
+      for a in reversed(self.a):
+        k += len(a)
+        if k >= 0: return a[k]
+    else:
+      for a in self.a:
+        if k < len(a): return a[k]
+        k -= len(a)
     raise IndexError
 
   def index(self, x: T) -> int:
@@ -124,21 +126,22 @@ class SortedMultiset(Generic[T]):
       ans += len(a)
     return ans
 
+  def _pop(self, a: List[T], k: int) -> T:
+    ans = a.pop(k)
+    self.size -= 1
+    if not a: self._build()
+    return ans
+
   def pop(self, k: int=-1) -> T:
-    if k < 0: k += self.size
-    if k == self.size-1:
-      a = self.a[-1]
-      x = a.pop()
-      self.size -= 1
+    if k < 0:
+      for a in reversed(self.a):
+        k += len(a)
+        if k >= 0: return self._pop(a, k)
     else:
       for a in self.a:
-        if k < len(a):
-          x = a.pop(k)
-          self.size -= 1
-          break
+        if k < len(a): return self._pop(a, k)
         k -= len(a)
-    if len(a) == 0: self._build()
-    return x
+    raise IndexError
 
   def pop_min(self) -> T:
     a = self.a[0]
@@ -161,5 +164,4 @@ class SortedMultiset(Generic[T]):
       if flag: ans_l += len(a)
       ans_r += len(a)
     return ans_r - ans_l
-
 

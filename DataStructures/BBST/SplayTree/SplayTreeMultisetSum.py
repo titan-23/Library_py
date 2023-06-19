@@ -3,40 +3,44 @@ from __pypy__ import newlist_hint
 from typing import Iterator, Optional, Generic, Iterable, List, TypeVar, Tuple
 T = TypeVar('T')
 
-class SplayTreeMultiset(Generic[T]):
+class SplayTreeMultisetSum(Generic[T]):
 
-  class Node:
+  class Node():
 
-    def __init__(self, key, val: int) -> None:
+    def __init__(self, key, cnt: int) -> None:
+      self.data = key * cnt
       self.key = key
       self.size = 1
-      self.val = val
-      self.valsize = val
+      self.cnt = cnt
+      self.cntsize = cnt
       self.left = None
       self.right = None
 
     def __str__(self) -> str:
       if self.left is None and self.right is None:
-        return f'key:{self.key, self.size, self.val, self.valsize}\n'
-      return f'key:{self.key, self.size, self.val, self.valsize},\n left:{self.left},\n right:{self.right}\n'
+        return f'key:{self.key, self.size, self.cnt, self.cntsize}\n'
+      return f'key:{self.key, self.size, self.cnt, self.cntsize},\n left:{self.left},\n right:{self.right}\n'
 
-  def __init__(self, a: Iterable[T]=[]) -> None:
-    self.node = None
+    __repr__ = __str__
+
+  def __init__(self, e: T, a: Iterable[T]=[], _node=None) -> None:
+    self.node = _node
+    self.e = e
     if a:
       self._build(a)
 
   def _build(self, a: Iterable[T]) -> None:
-    Node = SplayTreeMultiset.Node
+    Node = SplayTreeMultisetSum.Node
     def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(key[mid], val[mid])
+      node = Node(key[mid], cnt[mid])
       if l != mid:
         node.left = sort(l, mid)
       if mid+1 != r:
         node.right = sort(mid+1, r)
       self._update(node)
       return node
-    key, val = self._rle(sorted(a))
+    key, cnt = self._rle(sorted(a))
     self.node = sort(0, len(key))
 
   def _rle(self, a: List[T]) -> Tuple[List[T], List[int]]:
@@ -58,17 +62,21 @@ class SplayTreeMultiset(Generic[T]):
     if node.left is None:
       if node.right is None:
         node.size = 1
-        node.valsize = node.val
+        node.cntsize = node.cnt
+        node.data = node.key*node.cnt
       else:
         node.size = 1 + node.right.size
-        node.valsize = node.val + node.right.valsize
+        node.cntsize = node.cnt + node.right.cntsize
+        node.data = node.key*node.cnt + node.right.data
     else:
       if node.right is None:
         node.size = 1 + node.left.size
-        node.valsize = node.val + node.left.valsize
+        node.cntsize = node.cnt + node.left.cntsize
+        node.data = node.key*node.cnt + node.left.data
       else:
         node.size = 1 + node.left.size + node.right.size
-        node.valsize = node.val + node.left.valsize + node.right.valsize
+        node.cntsize = node.cnt + node.left.cntsize + node.right.cntsize
+        node.data = node.key*node.cnt + node.left.data + node.right.data
 
   def _splay(self, path: List[Node], d: int) -> Node:
     for _ in range(len(path)>>1):
@@ -149,13 +157,14 @@ class SplayTreeMultiset(Generic[T]):
       self.node = self._splay(path, d)
 
   def _set_kth_elm_splay(self, k: int) -> None:
-    if k < 0: k += self.__len__()
+    if k < 0:
+      k += self.__len__()
     d = 0
     node = self.node
     path = []
     while True:
-      t = node.val if node.left is None else node.val + node.left.valsize
-      if t-node.val <= k < t:
+      t = node.cnt if node.left is None else node.cnt + node.left.cntsize
+      if t-node.cnt <= k < t:
         if path:
           self.node = self._splay(path, d)
         break
@@ -211,16 +220,16 @@ class SplayTreeMultiset(Generic[T]):
       node = node.right
     return self._splay(path, 0)
 
-  def add(self, key: T, val: int=1) -> None:
+  def add(self, key: T, cnt: int=1) -> None:
     if self.node is None:
-      self.node = SplayTreeMultiset.Node(key, val)
+      self.node = SplayTreeMultisetSum.Node(key, cnt)
       return
     self._set_search_splay(key)
     if self.node.key == key:
-      self.node.val += val
+      self.node.cnt += cnt
       self._update(self.node)
       return
-    node = SplayTreeMultiset.Node(key, val)
+    node = SplayTreeMultisetSum.Node(key, cnt)
     if key < self.node.key:
       node.left = self.node.left
       node.right = self.node
@@ -235,12 +244,12 @@ class SplayTreeMultiset(Generic[T]):
     self.node = node
     return
 
-  def discard(self, key: T, val: int=1) -> bool:
+  def discard(self, key: T, cnt: int=1) -> bool:
     if self.node is None: return False
     self._set_search_splay(key)
     if self.node.key != key: return False
-    if self.node.val > val:
-      self.node.val -= val
+    if self.node.cnt > cnt:
+      self.node.cnt -= cnt
       self._update(self.node)
       return True
     if self.node.left is None:
@@ -260,7 +269,7 @@ class SplayTreeMultiset(Generic[T]):
   def count(self, key: T) -> int:
     if self.node is None: return 0
     self._set_search_splay(key)
-    return self.node.val if self.node.key == key else 0
+    return self.node.cnt if self.node.key == key else 0
 
   def le(self, key: T) -> Optional[T]:
     node = self.node
@@ -369,17 +378,17 @@ class SplayTreeMultiset(Generic[T]):
   def index(self, key: T) -> int:
     if self.node is None: return 0
     self._set_search_splay(key)
-    res = 0 if self.node.left is None else self.node.left.valsize
+    res = 0 if self.node.left is None else self.node.left.cntsize
     if self.node.key < key:
-      res += self.node.val
+      res += self.node.cnt
     return res
 
   def index_right(self, key: T) -> int:
     if self.node is None: return 0
     self._set_search_splay(key)
-    res = 0 if self.node.left is None else self.node.left.valsize
+    res = 0 if self.node.left is None else self.node.left.cntsize
     if self.node.key <= key:
-      res += self.node.val
+      res += self.node.cnt
     return res
 
   def index_keys(self, key: T) -> int:
@@ -419,7 +428,7 @@ class SplayTreeMultiset(Generic[T]):
     def rec(node):
       if node.left is not None:
         rec(node.left)
-      for _ in range(node.val):
+      for _ in range(node.cnt):
         a.append(node.key)
       if node.right is not None:
         rec(node.right)
@@ -435,7 +444,7 @@ class SplayTreeMultiset(Generic[T]):
     def rec(node):
       if node.left is not None:
         rec(node.left)
-      a.append((node.key, node.val))
+      a.append((node.key, node.cnt))
       if node.right is not None:
         rec(node.right)
     rec(self.node)
@@ -449,17 +458,17 @@ class SplayTreeMultiset(Generic[T]):
   def items(self) -> Iterator[Tuple[T, int]]:
     for i in range(self.len_elm()):
       self._set_kth_elm_tree_splay(i)
-      yield self.node.key, self.node.val
+      yield self.node.key, self.node.cnt
 
   def keys(self) -> Iterator[T]:
     for i in range(self.len_elm()):
       self._set_kth_elm_tree_splay(i)
       yield self.node.key
 
-  def values(self) -> Iterator[int]:
+  def cntues(self) -> Iterator[int]:
     for i in range(self.len_elm()):
       self._set_kth_elm_tree_splay(i)
-      yield self.node.val
+      yield self.node.cnt
 
   def len_elm(self) -> int:
     return 0 if self.node is None else self.node.size
@@ -469,6 +478,50 @@ class SplayTreeMultiset(Generic[T]):
 
   def clear(self) -> None:
     self.node = None
+
+  def get_sum(self) -> T:
+    if self.node is None:
+      return self.e
+    return self.node.data
+
+  def merge(self, other: 'SplayTreeMultisetSum') -> None:
+    if self.node is None:
+      self.node = other.node
+      return
+    if other.node is None:
+      return
+    self.node = self._get_max_splay(self.node)
+    other.node = other._get_min_splay(other.node)
+    assert self.node.key <= other.node.key
+    if self.node.key == other.node.key:
+      self.node.cnt += other.node.cnt
+      self._update(self.node)
+      other.discard(other.node.key, other.node.cnt)
+    self.node.right = other.node
+    self._update(self.node)
+
+  def split(self, k: int) -> Tuple['SplayTreeMultisetSum', 'SplayTreeMultisetSum']:
+    if self.node is None:
+      return SplayTreeMultisetSum(self.e), self
+    if k >= len(self):
+      return self, SplayTreeMultisetSum(self.e)
+    self._set_kth_elm_splay(k)
+    if self.node.left is None:
+      left = SplayTreeMultisetSum(self.e)
+    else:
+      left = SplayTreeMultisetSum(self.e, _node=self.node.left)
+    if len(left) != k:
+      assert k-len(left) > 0
+      self.node.cnt -= k-len(left)
+      self._update(self.node)
+      root = SplayTreeMultisetSum.Node(self.node.key, k-len(left))
+      root.left = left.node
+      left = SplayTreeMultisetSum(self.e, _node=root)
+      left._update(left.node)
+    if self.node:
+      self.node.left = None
+      self._update(self.node)
+    return left, self
 
   def __iter__(self):
     self.__iter = 0
@@ -494,7 +547,7 @@ class SplayTreeMultiset(Generic[T]):
     return self.node.key
 
   def __len__(self):
-    return 0 if self.node is None else self.node.valsize
+    return 0 if self.node is None else self.node.cntsize
 
   def __bool__(self):
     return self.node is not None
@@ -503,4 +556,7 @@ class SplayTreeMultiset(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'SplayTreeMultiset(' + str(self) + ')'
+    return 'SplayTreeMultisetSum(' + str(self) + ')'
+
+  __repr__ = __str__
+

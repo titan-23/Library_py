@@ -1,6 +1,5 @@
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py
 import math
-from array import array
 from bisect import bisect_left, bisect_right
 from typing import Generic, Iterable, Iterator, TypeVar, Union, List, Optional
 T = TypeVar('T')
@@ -114,7 +113,6 @@ class SortedSet(Generic[T]):
     return ans
 
   def index_right(self, x: T) -> int:
-    "Count the number of elements <= x."
     ans = 0
     for a in self.a:
       if a[-1] > x:
