@@ -10,47 +10,49 @@ class FenwickTreeSetFast():
         self._tree = [0] * (self._size+1)
       else:
         self._size = len(_n_or_a)
-        self._tree = [0] + _n_or_a
+        _tree = [0] + _n_or_a
         for i in range(1, self._size):
           if i + (i & -i) <= self._size:
-            self._tree[i + (i & -i)] += self._tree[i]
+            _tree[i + (i & -i)] += _tree[i]
+        self._tree = _tree
       self._s = 1 << (self._size-1).bit_length()
 
     def pref(self, r: int) -> int:
-      ret = 0
+      ret, _tree = 0, self._tree
       while r > 0:
-        ret += self._tree[r]
+        ret += _tree[r]
         r -= r & -r
       return ret
 
     def add(self, k: int, x: int) -> None:
+      _size, _tree = self._size, self._tree
       k += 1
-      while k <= self._size:
-        self._tree[k] += x
+      while k <= _size:
+        _tree[k] += x
         k += k & -k
 
     def bisect_left(self, w: int) -> Optional[int]:
-      i, s = 0, self._s
+      i, s, _size, _tree = 0, self._s, self._size, self._tree
       while s:
-        if i + s <= self._size and self._tree[i + s] < w:
-          w -= self._tree[i + s]
+        if i + s <= _size and _tree[i + s] < w:
+          w -= _tree[i + s]
           i += s
         s >>= 1
       return i if w else None
 
     def bisect_right(self, w: int) -> int:
-      i, s = 0, self._s
+      i, s, _size, _tree = 0, self._s, self._size, self._tree
       while s:
-        if i + s <= self._size and self._tree[i + s] <= w:
-          w -= self._tree[i + s]
+        if i + s <= _size and _tree[i + s] <= w:
+          w -= _tree[i + s]
           i += s
         s >>= 1
       return i
 
   def __init__(self, _u: int, a: Iterable[int]=[]):
-    self._len = 0
-    self._size = _u
-    self._cnt = [0] * _u
+    _len = 0
+    _size = _u
+    _cnt = [0] * _u
     a_ = []
     if a:
       a_ = [0] * _u
@@ -58,9 +60,12 @@ class FenwickTreeSetFast():
         assert v < _u, \
             f'IndexError: FenwickTreeSetFast.__init__({_u}, {a}), not ({v} < {_u})'
         if a_[v] == 0:
-          self._len += 1
-          self._cnt[v] = 1
+          _len += 1
+          _cnt[v] = 1
           a_[v] = 1
+    self._len = _len
+    self._cnt = _cnt
+    self._size = _size
     self._fw = self.InternalFenwickTree(a_ if a else _u)
 
   def add(self, key: int) -> bool:
@@ -110,7 +115,7 @@ class FenwickTreeSetFast():
   def pop(self, k: int=-1) -> int:
     if k < 0: k += self._len
     self._len -= 1
-    i, s = 0, self._fw._s
+    i, s, _size, _tree = 0, self._fw._s, self._fw._size, self._fw._tree
     while s:
       if i+s <= self._size:
         if self._fw._tree[i+s] <= k:
