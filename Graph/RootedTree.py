@@ -1,4 +1,5 @@
 from typing import List, Tuple
+from __pypy__ import newlish_hint
 
 class RootedTree():
 
@@ -47,7 +48,8 @@ class RootedTree():
     _rank = [-1] * self._n
     _dist[_root] = 0
     _rank[_root] = 0
-    _toposo = [_root]
+    _toposo = newlish_hint(self._n)
+    _toposo.append(_root)
     todo = [_root]
     while todo:
       v = todo.pop()
@@ -105,7 +107,7 @@ class RootedTree():
     _G, _dist = self._G, self._dist
     _descendant_num = [1] * self._n
     for v in self._toposo[::-1]:
-      for x, c in _G[v]:
+      for x, _ in _G[v]:
         if _dist[x] < _dist[v]:
           continue
         _descendant_num[v] += _descendant_num[x]
@@ -192,8 +194,9 @@ class RootedTree():
     _doubling, _rank = self._doubling, self._rank
     if _rank[u] < _rank[v]:
       u, v = v, u
+    _r = _rank[u] - _rank[v]
     for k in range(self._K):
-      if ((_rank[u] - _rank[v]) >> k) & 1:
+      if _r >> k & 1:
         u = _doubling[k][u]
     if u == v:
       return u
@@ -205,12 +208,10 @@ class RootedTree():
 
   '''Return dist(u -- v). / O(logN)'''
   def get_dist(self, u: int, v: int) -> int:
-    assert self._lca, f'RootedTree, `lca` must be True'
     return self._dist[u] + self._dist[v] - 2*self._dist[self.get_lca(u, v)] + 1
 
   '''Return True if (a is on path(u - v)) else False. / O(logN)'''
   def is_on_path(self, u: int, v: int, a: int) -> bool:
-    assert self._lca, f'RootedTree, `lca` must be True'
     return self.get_dist(u, a) + self.get_dist(a, v) == self.get_dist(u, v)  # rank??
 
   '''Return path (u -> v). / O(logN + |path|)'''

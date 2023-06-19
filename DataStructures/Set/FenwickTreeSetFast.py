@@ -21,7 +21,7 @@ class FenwickTreeSetFast():
       ret, _tree = 0, self._tree
       while r > 0:
         ret += _tree[r]
-        r -= r & -r
+        r &= r - 1
       return ret
 
     def add(self, k: int, x: int) -> None:

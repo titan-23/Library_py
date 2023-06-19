@@ -19,9 +19,9 @@ class FenwickTree():
     '''Return sum(a[0, r)) / O(logN)'''
     assert 0 <= r <= self._size, \
         f'IndexError: FenwickTree.pref({r}), n={self._size}'
-    ret = 0
+    ret, _tree = 0, self._tree
     while r > 0:
-      ret += self._tree[r]
+      ret += _tree[r]
       r &= r - 1
     return ret
 
@@ -56,8 +56,9 @@ class FenwickTree():
     assert 0 <= k < self._size, \
         f'IndexError: FenwickTree.add({k}, {x}), n={self._size}'
     k += 1
+    _tree = self._tree
     while k <= self._size:
-      self._tree[k] += x
+      _tree[k] += x
       k += k & -k
 
   def __setitem__(self, k: int, x: int):
@@ -70,20 +71,20 @@ class FenwickTree():
 
   def bisect_left(self, w: int) -> Optional[int]:
     '''bisect_left(acc) / O(logN)'''
-    i, s = 0, self._s
+    i, s, _size, _tree = 0, self._s, self._size, self._tree
     while s:
-      if i + s <= self._size and self._tree[i + s] < w:
-        w -= self._tree[i + s]
+      if i + s <= _size and _tree[i + s] < w:
+        w -= _tree[i + s]
         i += s
       s >>= 1
     return i if w else None
 
   def bisect_right(self, w: int) -> int:
     '''bisect_right(acc) / O(logN)'''
-    i, s = 0, self._s
+    i, s, _size, _tree = 0, self._s, self._size, self._tree
     while s:
-      if i + s <= self._size and self._tree[i + s] <= w:
-        w -= self._tree[i + s]
+      if i + s <= _size and _tree[i + s] <= w:
+        w -= _tree[i + s]
         i += s
       s >>= 1
     return i
@@ -114,7 +115,7 @@ class FenwickTree():
     return inv
 
   def __str__(self):
-    return '[' + ', '.join(map(str, self.tolist())) + ']'
+    return str(self.tolist())
 
   def __repr__(self):
     return f'FenwickTree({self})'
