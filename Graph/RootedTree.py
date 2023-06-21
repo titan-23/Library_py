@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from __pypy__ import newlish_hint
+from __pypy__ import newlist_hint
 
 class RootedTree():
 
@@ -48,7 +48,7 @@ class RootedTree():
     _rank = [-1] * self._n
     _dist[_root] = 0
     _rank[_root] = 0
-    _toposo = newlish_hint(self._n)
+    _toposo = newlist_hint(self._n)
     _toposo.append(_root)
     todo = [_root]
     while todo:
