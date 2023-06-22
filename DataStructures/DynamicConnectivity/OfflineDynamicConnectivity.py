@@ -6,12 +6,12 @@ class OfflineDynamicConnectivity():
   class UndoableUnionFind():
 
     def __init__(self, n: int):
-      self._n = n
-      self._parents = [-1] * n
-      self._all_sum = [0] * n
-      self._one_sum = [0] * n
-      self._history = []
-      self._group_count = n
+      self._n: int = n
+      self._parents: List[int] = [-1] * n
+      self._all_sum: List[int] = [0] * n
+      self._one_sum: List[int] = [0] * n
+      self._history: List[Tuple[int, int, int]] = []
+      self._group_count: int = n
 
     def undo(self) -> None:
       assert self._history, f'UndoableUnionFind.undo() with non history'
@@ -83,47 +83,47 @@ class OfflineDynamicConnectivity():
 
 
   def __init__(self, n: int):
-    self.n = n
-    self.bit = n.bit_length() + 1
-    self.msk = (1 << self.bit) - 1
-    self.query_count = 0
-    self.edge = defaultdict(list)
+    self._n = n
+    self._bit = n.bit_length() + 1
+    self._msk = (1 << self._bit) - 1
+    self._query_count = 0
+    self._edge = defaultdict(list)
     self.uf = OfflineDynamicConnectivity.UndoableUnionFind(n)
 
   def add_edge(self, u: int, v: int) -> None:
-    assert 0 <= u < self.n and 0 <= v < self.n
+    assert 0 <= u < self._n and 0 <= v < self._n
     if u > v:
       u, v = v, u
-    self.edge[u<<self.bit|v].append(self.query_count<<1)
-    self.query_count += 1
+    self._edge[u<<self._bit|v].append(self._query_count<<1)
+    self._query_count += 1
 
   def delete_edge(self, u: int, v: int) -> None:
-    assert 0 <= u < self.n and 0 <= v < self.n
+    assert 0 <= u < self._n and 0 <= v < self._n
     if u > v:
       u, v = v, u
-    self.edge[u<<self.bit|v].append(self.query_count<<1|1)
-    self.query_count += 1
+    self._edge[u<<self._bit|v].append(self._query_count<<1|1)
+    self._query_count += 1
 
   def add_relax(self) -> None:
-    self.query_count += 1
+    self._query_count += 1
 
-  def build(self, E: List[Tuple[int, int]]) -> None:
-    bit, edge = self.bit, self.edge
+  def init_edge(self, E: List[Tuple[int, int]]) -> None:
+    bit, edge = self._bit, self._edge
     for u, v in E:
-      assert 0 <= u < self.n and 0 <= v < self.n
+      assert 0 <= u < self._n and 0 <= v < self._n
       if u > v:
         u, v = v, u
       edge[u<<bit|v].append(0)
-    self.query_count += 1
+    self._query_count += 1
 
   def run(self, out: Callable[[int], None]) -> None:
     # O(qlogqlogn)
-    uf, bit, msk, q = self.uf, self.bit, self.msk, self.query_count
+    uf, bit, msk, q = self.uf, self._bit, self._msk, self._query_count
     log  = (q - 1).bit_length()
     size = 1 << log
     data = [[] for _ in range(size<<1)]
     size2 = size * 2
-    for k, v in self.edge.items():
+    for k, v in self._edge.items():
       LR = []
       i = 0
       cnt = 0
@@ -175,5 +175,5 @@ class OfflineDynamicConnectivity():
           uf.undo()
 
   def __repr__(self):
-    return f'OfflineDynamicConnectivity({self.n})'
+    return f'OfflineDynamicConnectivity({self._n})'
 

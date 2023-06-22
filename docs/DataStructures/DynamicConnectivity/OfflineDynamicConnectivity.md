@@ -4,7 +4,7 @@ _____
 
 最終更新: 2023/06/17
 - `q` を消しました
-- `build()` メソッドを追加しました
+- `init_edge()` メソッドを追加しました
 - 連結成分加算に対応しました。
 
 
@@ -38,7 +38,7 @@ _____
 - 何もしません。内部のクエリカウントを1増加させます。
 - `O(1)` です。
 
-#### `dc.build(E: List[Tuple[int, int]]) -> None`
+#### `dc.init_edge(E: List[Tuple[int, int]]) -> None`
 - 辺のリスト `E` を初期メンバーとします。内部のクエリカウントを1増加させます。
 - `O(|E|)` です。
 
@@ -83,7 +83,7 @@ for _ in range(m):
   u, v = map(int, input().split())
   E.append((u, v))
 q = int(input())
-dc.build(E)  # 初期辺を追加
+dc.init_edge(E)  # 初期辺を追加
 Query = [list(map(int, input().split())) for _ in range(q)]
 for t, u, v in Query:
   if t == 0:
