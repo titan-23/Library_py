@@ -1,4 +1,4 @@
-from bisect import bisect_right, bisect_left
+from bisect import bisect_right
 
 class KnapsackSolver():
 
@@ -18,29 +18,32 @@ class KnapsackSolver():
             value += vw[j][0]
             weight += vw[j][1]
         ret.append([weight, value])
-      ret.sort()
-      for i in range(len(ret)-1):
-        ret[i+1][1] = max(ret[i+1][1], ret[i][1])
       return ret
     left, right = self.VW[:self.N//2], self.VW[self.N//2:]
     left_ret = naive(left)
+    left_ret.sort()
     right_ret = naive(right)
-    ans = 0
+    right_ret.sort()
+    for i in range(len(right_ret)-1):
+      right_ret[i+1][1] = max(right_ret[i+1][1], right_ret[i][1])
+    ans = -1
+    W = self.W
     for weight, value in left_ret:
-      if weight > self.W: continue
-      i = bisect_right(right_ret, [self.W-weight, float('inf')]) - 1
+      if weight > W: break
+      i = bisect_right(right_ret, [W-weight, float('inf')]) - 1
       ans = max(ans, value + right_ret[i][1])
     return ans
 
   def solve_dp_small_weight(self):
     dp = [-1] * (self.W+1)
+    W = self.W
     dp[0] = 0
     for i, (v, w) in enumerate(self.VW):
-      ep = [-1] * (self.W+1)
-      for j in range(self.W+1):
+      ep = [-1] * (W+1)
+      for j in range(W+1):
         if dp[j] == -1: continue
         ep[j] = max(ep[j], dp[j])
-        if j+w <= self.W:
+        if j+w <= W:
           ep[j+w] = max(ep[j+w], dp[j]+v)
       dp = ep
     return max(dp)
