@@ -13,9 +13,11 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
       self.n = n_or_a
       a = [e] * self.n
     else:
-      if not isinstance(a, list):
+      if not isinstance(n_or_a, list):
         a = list(n_or_a)
-      self.n = len(a)
+      else:
+        a = n_or_a
+    self.n = len(a)
     self.op = op
     self.mapping = mapping
     self.composition = composition
@@ -80,27 +82,23 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
     k2 = r // self.bucket_size
     l -= k1 * self.bucket_size
     r -= k2 * self.bucket_size
+    s = self.e
     if k1 == k2:
       s = reduce(self.op, self.data[k1][l:r])
       if self.bucket_lazy[k1] != self.id:
         s = self.mapping(self.bucket_lazy[k1], s)
     else:
-      s = None
       if l < len(self.data[k1]):
         s = reduce(self.op, self.data[k1][l:])
         if self.bucket_lazy[k1] != self.id:
           s = self.mapping(self.bucket_lazy[k1], s)
       if k1+1 < k2:
-        if s is None:
-          s = reduce(self.op, self.bucket_data[k1+1:k2])
-        else:
-          s = reduce(self.op, self.bucket_data[k1+1:k2], s)
+        s = reduce(self.op, self.bucket_data[k1+1:k2], s)
       if k2 < self.bucket_cnt and r > 0:
         s_ = reduce(self.op, self.data[k2][:r])
         if self.bucket_lazy[k2] != self.id:
           s_ = self.mapping(self.bucket_lazy[k2], s_)
-        if s is not None:
-          s = self.op(s, s_)
+        s = self.op(s, s_)
     return s
 
   def all_prod(self) -> T:

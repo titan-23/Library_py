@@ -30,10 +30,10 @@ class SegmentQuadraticDivision(Generic[T]):
     if k1 == k2:
       s = reduce(self.op, self.data[k1][l:r])
     else:
-      s = None
+      s = self.e
       if l < len(self.data[k1]): s = reduce(self.op, self.data[k1][l:])
-      if k1+1 < k2: s = reduce(self.op, self.bucket_data[k1+1:k2]) if s is None else reduce(self.op, self.bucket_data[k1+1:k2], s)
-      if k2 < self.bucket_cnt and r > 0: s = reduce(self.op, self.data[k2][:r]) if s is None else reduce(self.op, self.data[k2][:r], s)
+      if k1+1 < k2: s = reduce(self.op, self.bucket_data[k1+1:k2]) if s == self.e else reduce(self.op, self.bucket_data[k1+1:k2], s)
+      if k2 < self.bucket_cnt and r > 0: s = reduce(self.op, self.data[k2][:r]) if s == self.e else reduce(self.op, self.data[k2][:r], s)
     return s
 
   def all_prod(self) -> T:

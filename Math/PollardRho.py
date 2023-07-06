@@ -23,6 +23,7 @@ class PollardRho():
         todo.append(v//f)
     return res
 
+  @staticmethod
   @lru_cache(maxsize=None)
   def _pollard_rho(n: int) -> int:
     if n & 1 == 0: return 2
