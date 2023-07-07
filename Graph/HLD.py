@@ -21,7 +21,7 @@ class HLD(Generic[T]):
       return to
     return wrappedfunc
 
-  def __init__(self, G: List[List[int]], n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T):
+  def __init__(self, G: List[List[int]], n_or_a: Union[int, Iterable[T]], root: int, op: Callable[[T, T], T], e: T):
     n = len(G)
     self.n = n
     self.G = G
@@ -34,9 +34,9 @@ class HLD(Generic[T]):
     self.nodeout = [0] * n
     self.head = [0] * n
     self.hld = [0] * n
-    self.dfs1(0, -1)
+    self.dfs1(root, -1)
     self.time = 0
-    self.dfs2(0, -1)
+    self.dfs2(root, -1)
     if isinstance(n_or_a, int):
       self.data = SegmentTree(n_or_a, op, e)
       self.rdata = SegmentTree(n_or_a, op, e)
