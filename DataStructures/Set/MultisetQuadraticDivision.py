@@ -2,10 +2,10 @@ from typing import List
 
 class MultisetQuadraticDivision():
 
-  # Ordered Multiset <int>
-  # Space Complexity : O(U)
+  # OrderedMultiset<int>
+  # Space Complexity : O(u)
   # add / discard / remove / contains : O(1)
-  # kth_elm : O(√U)
+  # kth_elm : O(√u)
 
   def __init__(self, u: int, a: List[int]=[]):
     self.data = [0] * u
