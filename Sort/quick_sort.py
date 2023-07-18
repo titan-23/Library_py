@@ -3,6 +3,7 @@ import random
 T = TypeVar('T')
 
 def quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -> List[T]:
+  a = list(a)
   def sort(i: int, j: int):
     if i >= j: return
     pivot = a[random.randint(i, j)]
@@ -19,6 +20,5 @@ def quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
       r -= 1
     sort(i, l-1)
     sort(r+1, j)
-  a = list(a)
   sort(0, len(a)-1)
   return a

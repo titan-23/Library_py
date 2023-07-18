@@ -109,8 +109,8 @@ class LazySegmentTree(Generic[T, F]):
     return self.data[self.size:self.size+self.n]
 
   def max_right(self, l, f) -> int:
-    # assert 0 <= l <= self.n
-    # assert f(self.e)
+    assert 0 <= l <= self.n
+    assert f(self.e)
     if l == self.size:
       return self.n
     l += self.size
@@ -135,8 +135,8 @@ class LazySegmentTree(Generic[T, F]):
     return self.n
 
   def min_left(self, r: int, f) -> int:
-    # assert 0 <= r <= self.n 
-    # assert f(self.e)
+    assert 0 <= r <= self.n 
+    assert f(self.e)
     if r == 0:
       return 0 
     r += self.size

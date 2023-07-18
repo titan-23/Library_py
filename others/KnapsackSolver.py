@@ -1,11 +1,12 @@
 from bisect import bisect_right
+from typing import List, Tuple
 
 class KnapsackSolver():
 
-  def __init__(self, N, W, VW):
-    self.N = N
-    self.W = W
-    self.VW = VW
+  def __init__(self, N: int, W: int, VW: List[Tuple[int, int]]):
+    self.N: int = N
+    self.W: int = W
+    self.VW: List[Tuple[int, int]] = VW
 
   def solve_hanbunzenrekkyo(self) -> int:
     def naive(vw):
@@ -53,7 +54,7 @@ class KnapsackSolver():
     inf = float('inf')
     dp = [inf] * (sum_v+1)
     dp[0] = 0
-    for i, (v, w) in enumerate(self.VW):
+    for v, w in self.VW:
       ep = [inf] * (sum_v+1)
       for j in range(sum_v+1):
         if dp[j] == inf: continue
