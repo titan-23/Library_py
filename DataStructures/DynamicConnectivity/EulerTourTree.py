@@ -43,6 +43,7 @@ class EulerTourTree(Generic[T, F]):
     self.n = len(a)
     self._group_numbers = self.n
 
+  @staticmethod
   def antirec(func, stack=[]):
     # 参考: https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py
     def wrappedfunc(*args, **kwargs):
@@ -64,10 +65,9 @@ class EulerTourTree(Generic[T, F]):
   def build(self, G: List[List[int]]) -> None:
     seen = [0] * self.n
     Node = EulerTourTree.Node
-    antirec = EulerTourTree.antirec
     ptr_vertex, ptr_edge, e, id = self.ptr_vertex, self.ptr_edge, self.e, self.id
 
-    @antirec
+    @EulerTourTree.antirec
     def dfs(v: int, p: int=-1) -> Iterator:
       a.append((v, v))
       for x in G[v]:
@@ -78,14 +78,13 @@ class EulerTourTree(Generic[T, F]):
         a.append((x, v))
       yield
 
-    @antirec
+    @EulerTourTree.antirec
     def sort(l: int, r: int) -> Iterator[Node]:
       mid = (l + r) >> 1
+      node = ptr_vertex[a[mid][0]] if a[mid][0] == a[mid][1] else Node(a[mid], e, id)
       if a[mid][0] == a[mid][1]:
         seen[a[mid][0]] = 1
-        node = ptr_vertex[a[mid][0]]
       else:
-        node = Node(a[mid], e, id)
         ptr_edge[a[mid]] = node
       if l != mid:
         node.left = yield sort(l, mid)
@@ -415,4 +414,3 @@ def composition(f, g):
 
 e = None
 id = None
-
