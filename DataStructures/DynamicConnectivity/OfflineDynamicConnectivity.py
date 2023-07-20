@@ -104,7 +104,7 @@ class OfflineDynamicConnectivity():
     self._edge[u<<self._bit|v].append(self._query_count<<1|1)
     self._query_count += 1
 
-  def add_relax(self) -> None:
+  def add_none(self) -> None:
     self._query_count += 1
 
   def init_edge(self, E: List[Tuple[int, int]]) -> None:

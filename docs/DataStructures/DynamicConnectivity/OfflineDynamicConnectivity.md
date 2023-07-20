@@ -2,7 +2,7 @@ _____
 
 # [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
 
-最終更新: 2023/06/17
+最終更新: 2023/07/20
 - `q` を消しました
 - `init_edge()` メソッドを追加しました
 - 連結成分加算に対応しました。
@@ -32,7 +32,7 @@ _____
 - 辺 `{u, v}` を削除します。呼び出し前で存在していなければなりません。
 - `O(1)` です。
 
-#### `dc.add_relax() -> None`
+#### `dc.add_none() -> None`
 - 何もしません。内部のクエリカウントを1増加させます。
 - `O(1)` です。
 
@@ -89,7 +89,7 @@ for t, u, v in Query:
   elif t == 1:
     dc.delete_edge(u, v)  # 辺 {u, v} の削除
   else:
-    dc.add_relax()  # クエリ用
+    dc.add_none()  # クエリ用
 
 def out(k: int):
   t, x, _ = Query[k]
