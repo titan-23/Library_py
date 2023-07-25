@@ -271,8 +271,8 @@ class EulerTourTree(Generic[T, F]):
     # add edge{u, v}
     self.reroot(u)
     self.reroot(v)
-    assert (u, v) not in self.ptr_edge, f'EulerTourTree.cut(), {(u, v)} in ptr_edge'
-    assert (v, u) not in self.ptr_edge, f'EulerTourTree.cut(), {(v, u)} in ptr_edge'
+    assert (u, v) not in self.ptr_edge, f'EulerTourTree.link(), {(u, v)} in ptr_edge'
+    assert (v, u) not in self.ptr_edge, f'EulerTourTree.link(), {(v, u)} in ptr_edge'
     uv_node = EulerTourTree.Node((u, v), self.e, self.id)
     vu_node = EulerTourTree.Node((v, u), self.e, self.id)
     self.ptr_edge[(u, v)] = uv_node
@@ -288,8 +288,8 @@ class EulerTourTree(Generic[T, F]):
     # erace edge{u, v}
     self.reroot(v)
     self.reroot(u)
-    assert (u, v) in self.ptr_edge, f'{(u, v)} not in ptr_edge'
-    assert (v, u) in self.ptr_edge, f'{(v, u)} not in ptr_edge'
+    assert (u, v) in self.ptr_edge, f'EulerTourTree.cut(), {(u, v)} not in ptr_edge'
+    assert (v, u) in self.ptr_edge, f'EulerTourTree.cut(), {(v, u)} not in ptr_edge'
     uv_node = self.ptr_edge.pop((u, v))
     vu_node = self.ptr_edge.pop((v, u))
     a, _ = self._split_left(uv_node)
@@ -351,8 +351,8 @@ class EulerTourTree(Generic[T, F]):
       return
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr_edge, f'{(p, v)} not in ptr_edge'
-    assert (v, p) in self.ptr_edge, f'{(v, p)} not in ptr_edge'
+    assert (p, v) in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(p, v)} not in ptr_edge'
+    assert (v, p) in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(v, p)} not in ptr_edge'
     v_node = self.ptr_vertex[v]
     a, b = self._split_right(self.ptr_edge[(p, v)])
     b, d = self._split_left(self.ptr_edge[(v, p)])
@@ -372,8 +372,8 @@ class EulerTourTree(Generic[T, F]):
       return v_node.data
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr_edge, f'{(p, v)} not in ptr_edge'
-    assert (v, p) in self.ptr_edge, f'{(v, p)} not in ptr_edge'
+    assert (p, v) in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(p, v)} not in ptr_edge'
+    assert (v, p) in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(v, p)} not in ptr_edge'
     v_node = self.ptr_vertex[v]
     a, b = self._split_right(self.ptr_edge[(p, v)])
     b, d = self._split_left(self.ptr_edge[(v, p)])

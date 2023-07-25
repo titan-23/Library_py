@@ -92,6 +92,9 @@ for t, u, v in Query:
     dc.add_none()  # クエリ用
 
 def out(k: int):
+  if k == 0:  # init_edge の分
+    return
+  k -= 1
   t, x, _ = Query[k]
   if t == 2:
     # クエリ2で、頂点 x の連結成分の大きさを答える
