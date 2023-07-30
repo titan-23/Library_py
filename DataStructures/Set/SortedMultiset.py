@@ -1,8 +1,7 @@
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedMultiset.py
-# を少しか変えたもの
 import math
-from bisect import bisect_left, bisect_right, insort
-from typing import Generic, Iterable, Iterator, TypeVar, Union, List
+from bisect import bisect_left, bisect_right
+from typing import Generic, Iterable, Iterator, List, Tuple, TypeVar, Optional
 T = TypeVar('T')
 
 class SortedMultiset(Generic[T]):
@@ -31,6 +30,9 @@ class SortedMultiset(Generic[T]):
     for i in reversed(self.a):
       for j in reversed(i): yield j
 
+  def __eq__(self, other):
+    return list(self) == list(other)
+
   def __len__(self) -> int:
     return self.size
 
@@ -41,30 +43,26 @@ class SortedMultiset(Generic[T]):
     s = str(list(self))
     return '{' + s[1 : len(s) - 1] + '}'
 
-  def __bool__(self) -> bool:
-    return self.size > 0
-
-  def _find_bucket(self, x: T) -> List[T]:
+  def _position(self, x: T) -> Tuple[List[T], int]:
     for a in self.a:
-      if x <= a[-1]: return a
-    return a
+      if x <= a[-1]: break
+    return (a, bisect_left(a, x))
 
   def __contains__(self, x: T) -> bool:
     if self.size == 0: return False
-    a = self._find_bucket(x)
-    i = bisect_left(a, x)
+    a, i = self._position(x)
     return i != len(a) and a[i] == x
 
   def count(self, x: T) -> int:
-    return self.range_cnt(x, x)
+    return self.index_right(x) - self.index(x)
 
   def add(self, x: T) -> None:
     if self.size == 0:
       self.a = [[x]]
       self.size = 1
       return
-    a = self._find_bucket(x)
-    insort(a, x)
+    a, i = self._position(x)
+    a.insert(i, x)
     self.size += 1
     if len(a) > len(self.a) * self.REBUILD_RATIO:
       self._build()
@@ -75,39 +73,60 @@ class SortedMultiset(Generic[T]):
     i = bisect_left(a, x)
     if i == len(a) or a[i] != x: return False
     a.pop(i)
+
+  def _pop(self, a: List[T], i: int) -> T:
+    ans = a.pop(i)
     self.size -= 1
-    if len(a) == 0: self._build()
+    if not a: self._build()
+    return ans
+
+  def discard(self, x: T) -> bool:
+    if self.size == 0: return False
+    a, i = self._position(x)
+    if i == len(a) or a[i] != x: return False
+    self._pop(a, i)
     return True
 
-  def lt(self, x: T) -> Union[T, None]:
+  def lt(self, x: T) -> Optional[T]:
     for a in reversed(self.a):
       if a[0] < x:
         return a[bisect_left(a, x) - 1]
 
-  def le(self, x: T) -> Union[T, None]:
+  def le(self, x: T) -> Optional[T]:
     for a in reversed(self.a):
       if a[0] <= x:
         return a[bisect_right(a, x) - 1]
 
-  def gt(self, x: T) -> Union[T, None]:
+  def gt(self, x: T) -> Optional[T]:
     for a in self.a:
       if a[-1] > x:
         return a[bisect_right(a, x)]
 
-  def ge(self, x: T) -> Union[T, None]:
+  def ge(self, x: T) -> Optional[T]:
     for a in self.a:
       if a[-1] >= x:
         return a[bisect_left(a, x)]
 
-  def __getitem__(self, k: int) -> T:
-    if k < 0:
+  def __getitem__(self, i: int) -> T:
+    if i < 0:
       for a in reversed(self.a):
-        k += len(a)
-        if k >= 0: return a[k]
+        i += len(a)
+        if i >= 0: return a[i]
     else:
       for a in self.a:
-        if k < len(a): return a[k]
-        k -= len(a)
+        if i < len(a): return a[i]
+        i -= len(a)
+    raise IndexError
+    
+  def pop(self, i: int = -1) -> T:
+    if i < 0:
+      for a in reversed(self.a):
+        i += len(a)
+        if i >= 0: return self._pop(a, i)
+    else:
+      for a in self.a:
+        if i < len(a): return self._pop(a, i)
+        i -= len(a)
     raise IndexError
 
   def index(self, x: T) -> int:
@@ -125,43 +144,4 @@ class SortedMultiset(Generic[T]):
         return ans + bisect_right(a, x)
       ans += len(a)
     return ans
-
-  def _pop(self, a: List[T], k: int) -> T:
-    ans = a.pop(k)
-    self.size -= 1
-    if not a: self._build()
-    return ans
-
-  def pop(self, k: int=-1) -> T:
-    if k < 0:
-      for a in reversed(self.a):
-        k += len(a)
-        if k >= 0: return self._pop(a, k)
-    else:
-      for a in self.a:
-        if k < len(a): return self._pop(a, k)
-        k -= len(a)
-    raise IndexError
-
-  def pop_min(self) -> T:
-    a = self.a[0]
-    x = a.pop(0)
-    self.size -= 1
-    if len(a) == 0: self._build()
-    return x
-
-  def range_cnt(self, l: T, r: T) -> int:
-    "l以上r以下の要素数"
-    ans_l = 0
-    ans_r = 0
-    flag = True
-    for a in self.a:
-      if flag and a[-1] >= l:
-        flag = False
-        ans_l += bisect_left(a, l)
-      if a[-1] > r:
-        return ans_r + bisect_right(a, r) - ans_l
-      if flag: ans_l += len(a)
-      ans_r += len(a)
-    return ans_r - ans_l
 
