@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar
+from typing import Generic, Iterable, TypeVar, Supports
 T = TypeVar('T')
 
 class DoubleEndedHeap(Generic[T]):
