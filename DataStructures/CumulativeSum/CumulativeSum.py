@@ -34,6 +34,9 @@ class CumulativeSum():
         f'IndexError: CumulativeSum[{k}], n={self.n}'
     return self.a[k]
 
+  def __len__(self):
+    return len(self.a)
+
   def __str__(self):
     return str(self.acc)
 
