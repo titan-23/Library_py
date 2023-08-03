@@ -6,15 +6,15 @@ class ModMatrix:
   mod = 998244353
 
   @staticmethod
-  def zeros(n: int, m: int) -> "ModMatrix":
+  def zeros(n: int, m: int) -> 'ModMatrix':
     return ModMatrix([[0]*m for _ in range(n)], _exter=False)
 
   @staticmethod
-  def ones(n: int, m: int) -> "ModMatrix":
+  def ones(n: int, m: int) -> 'ModMatrix':
     return ModMatrix([[1]*m for _ in range(n)], _exter=False)
 
   @staticmethod
-  def identity(n: int) -> "ModMatrix":
+  def identity(n: int) -> 'ModMatrix':
     a = [[0]*n for _ in range(n)]
     for i in range(n):
       a[i][i] = 1
@@ -57,7 +57,7 @@ class ModMatrix:
       res = -res % ModMatrix.mod
     return res
 
-  def inv(self, inplace=False) -> Union[None, "ModMatrix"]:
+  def inv(self, inplace=False) -> Union[None, 'ModMatrix']:
     # 掃き出し法の利用
     assert self.n == self.m
     a = self.a if inplace else [a[:] for a in self.a]
@@ -92,13 +92,13 @@ class ModMatrix:
     return ModMatrix(r, _exter=False)
 
   @classmethod
-  def linear_equations(cls, A: "ModMatrix", b: "ModMatrix", inplace=False):
+  def linear_equations(cls, A: 'ModMatrix', b: 'ModMatrix', inplace=False):
     # A_inv = A.inv(inplace=inplace)
     # res = A_inv @ b
     # return res
     pass
 
-  def __add__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __add__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod
       res = [a[:] for a in self.a]
@@ -121,7 +121,7 @@ class ModMatrix:
     else:
       raise TypeError
 
-  def __sub__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __sub__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod
       res = [a[:] for a in self.a]
@@ -144,7 +144,7 @@ class ModMatrix:
     else:
       raise TypeError
 
-  def __mul__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __mul__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod
       res = [a[:] for a in self.a]
@@ -165,7 +165,7 @@ class ModMatrix:
     else:
       raise TypeError
 
-  def __matmul__(self, other: "ModMatrix") -> "ModMatrix":
+  def __matmul__(self, other: 'ModMatrix') -> 'ModMatrix':
     if isinstance(other, ModMatrix):
       assert self.m == other.n
       res = [[0]*other.m for _ in range(self.n)]
@@ -180,7 +180,7 @@ class ModMatrix:
       return ModMatrix(res, _exter=False)
     raise TypeError
 
-  def __pow__(self, n: int) -> "ModMatrix":
+  def __pow__(self, n: int) -> 'ModMatrix':
     assert self.n == self.m
     res = ModMatrix.identity(self.n)
     a = ModMatrix([a[:] for a in self.a], _exter=False)
@@ -191,10 +191,10 @@ class ModMatrix:
       n >>= 1
     return res
 
-  def __radd__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __radd__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     return self.__add__(other)
 
-  def __rsub__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __rsub__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod
       res = [a[:] for a in self.a]
@@ -217,10 +217,10 @@ class ModMatrix:
     else:
       raise TypeError
 
-  def __rmul__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __rmul__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     return self.__mul__(other)
 
-  def __iadd__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __iadd__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod
       for i in range(self.n):
@@ -240,7 +240,7 @@ class ModMatrix:
       raise TypeError
     return self
   
-  def __isub__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __isub__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod
       for i in range(self.n):
@@ -260,7 +260,7 @@ class ModMatrix:
       raise TypeError
     return self
 
-  def __imul__(self, other: Union[int, "ModMatrix"]) -> "ModMatrix":
+  def __imul__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod
       for i in range(self.n):
@@ -278,10 +278,10 @@ class ModMatrix:
       raise TypeError
     return self
 
-  def __imatmul__(self, other: "ModMatrix") -> "ModMatrix":
+  def __imatmul__(self, other: 'ModMatrix') -> 'ModMatrix':
     return self.__matmul__(other)
 
-  def __ipow__(self, n: int) -> "ModMatrix":
+  def __ipow__(self, n: int) -> 'ModMatrix':
     assert self.n == self.m
     res = ModMatrix.identity(self.n)
     while n > 0:
