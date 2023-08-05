@@ -28,6 +28,9 @@ class SparseTable(Generic[T]):
         f'IndexError: SparseTable.__getitem__({k}), len={self.size}'
     return self.data[0][k]
 
+  def __len__(self):
+    return self.size
+
   def __str__(self):
     return str(self.data[0])
 

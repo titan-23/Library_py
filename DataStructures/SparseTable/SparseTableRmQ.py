@@ -25,6 +25,9 @@ class SparseTableRmQ(Generic[T]):
     assert 0 <= k < self.size
     return self.data[0][k]
 
+  def __len__(slef):
+    return self.size
+
   def __str__(self):
     return str(self.data[0])
 

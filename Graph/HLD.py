@@ -80,23 +80,23 @@ class HLD(Generic[T]):
 
   def path_prod(self, u: int, v: int) -> T:
     head, nodein, dep, par = self.head, self.nodein, self.dep, self.par
-    data_prod, rdata_prod = self.data.prod, self.rdata.prod
+    op, data_prod, rdata_prod = self.op, self.data.prod, self.rdata.prod
     lres, rres = self.e, self.e
     while head[u] != head[v]:
       if dep[head[u]] > dep[head[v]]:
-        lres = self.op(lres, rdata_prod(self.n-nodein[u]-1, self.n-nodein[head[u]]))
+        lres = op(lres, rdata_prod(self.n-nodein[u]-1, self.n-nodein[head[u]]))
         u = par[head[u]]
       else:
-        rres = self.op(data_prod(nodein[head[v]], nodein[v]+1), rres)
+        rres = op(data_prod(nodein[head[v]], nodein[v]+1), rres)
         v = par[head[v]]
     if dep[u] > dep[v]:
-      lres = self.op(lres, rdata_prod(self.n-nodein[u]-1, self.n-nodein[v]))
+      lres = op(lres, rdata_prod(self.n-nodein[u]-1, self.n-nodein[v]))
     else:
-      lres = self.op(lres, data_prod(nodein[u], nodein[v]+1))
-    return self.op(lres, rres)
+      lres = op(lres, data_prod(nodein[u], nodein[v]+1))
+    return op(lres, rres)
 
-  def subtree_prod(self, u: int) -> T:
-    return self.data.prod(self.nodein[u], self.nodeout[u])
+  def subtree_prod(self, v: int) -> T:
+    return self.data.prod(self.nodein[v], self.nodeout[v])
 
   def lca(self, u: int, v: int) -> int:
     nodein, head, par = self.nodein, self.head, self.par
