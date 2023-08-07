@@ -16,7 +16,7 @@ _____
 - `sum(a[:r])` を返します。
 - `Θ(1)` です。
 
-#### `acc.sum(l: int, r: int) / .prod(l, r) -> int`
+#### `acc.sum(l: int, r: int) / .prod(l: int, r: int) -> int`
 - `sum(a[l:r])` を返します。
 - `Θ(1)` です。
 
