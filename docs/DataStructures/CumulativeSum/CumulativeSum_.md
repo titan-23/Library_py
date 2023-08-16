@@ -9,7 +9,7 @@ _____
 ## 仕様
 
 #### `acc = CumulativeSum(a: Iterable[int], e: int=0)`
-- `a` から `CumulativeSum` を構築します。ここで、 `a` の任意の2要素に対して `+`, `-` 演算子が定義されている必要があります。単位元は `e=0` としています。
+- `a` から `CumulativeSum` を構築します。 `int` 型を想定しており、単位元は `e=0` としています。
 - `Θ(N)` です。
 
 #### `acc.pref(r: int) -> int`

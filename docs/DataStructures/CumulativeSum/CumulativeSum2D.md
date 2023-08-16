@@ -1,9 +1,7 @@
-____
-
 - [CumulativeSum2D.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeSum2D.py)
 
 - 2次元累積和です。 `int` 型を想定しています。
-- 内部では、2次元ではなく1次元配列で累積和を管理しています。
+- 内部では、(2次元ではなく)1次元配列で累積和を管理しています。
 
 _____
 

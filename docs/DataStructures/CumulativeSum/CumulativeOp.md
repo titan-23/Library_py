@@ -1,8 +1,6 @@
-____
-
 [CumulativeOp.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeOp.py)
 
-抽象化?累積和です。  
+抽象化累積和です。  
 
 _____
 
@@ -27,7 +25,7 @@ _____
 - 区間 `[0, N)` の演算結果を返します。
 - `Θ(1)` です。
 
-#### `acc[k] -> T`
+#### `acc[k: int] -> T`
 - `k` 番目の値を返します。 `inv` は使用しません。
 - `Θ(1)` です。
 

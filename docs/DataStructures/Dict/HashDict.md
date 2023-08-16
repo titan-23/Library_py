@@ -20,7 +20,7 @@ ____
 
 ### `d.reserve(n: int) -> None`
 - `reserve` します。あまり使わない方が良いかも？知らんけど。
-- `O(n)` です。
+- `Θ(n)` です。
 
 ### `d.get(key: int, default: Any=None) -> Any`
 - キーが `key` の値を返します。存在しない場合、引数 `default` に `None` 以外を指定した場合は `default` が、そうでない場合はコンストラクタで設定した `default` が返ります。
@@ -41,7 +41,7 @@ ____
 
 ### `d.keys() / d.values() / d.items()`
 - `Iterator` です。それぞれ、 `key集合` / `val集合` / `keyとそれに対応するvalのタプル` を列挙します。順序は特に決めてません。
-- `O(N)` です。
+- `Θ(N)` です。
 
 ### `str(d) / len(d)`
 よしなよしなです。
