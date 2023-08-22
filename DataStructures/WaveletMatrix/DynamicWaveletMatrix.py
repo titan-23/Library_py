@@ -37,7 +37,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
   def __str__(self):
     return f'DynamicWaveletMatrix({[self.access(i) for i in range(self.size)]})'
 
-  def insert(self, k: int, x: int) -> int:
+  def insert(self, k: int, x: int) -> None:
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
       if x >> bit & 1:
