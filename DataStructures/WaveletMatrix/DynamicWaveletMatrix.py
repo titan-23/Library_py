@@ -17,17 +17,16 @@ class DynamicWaveletMatrix(WaveletMatrix):
     data.reserve(self.size * self.log)
     for bit in range(self.log-1, -1, -1):
       # bit目の0/1に応じてvを構築 + aを安定ソート
-      v = DynamicBitVector(self.size, data)
+      v_a = [0] * n
       zero, one = [], []
       for i, e in enumerate(a):
         if e >> bit & 1:
-          v.set(i)
+          v_a[i] = 1
           one.append(e)
         else:
           zero.append(e)
-      v.build()
       self.mid[bit] = len(zero)  # 境界をmid[bit]に保持
-      self.v[bit] = v
+      self.v[bit] = DynamicBitVector(v_a, data)
       a = zero + one
 
   def reserve(self, n: int) -> None:

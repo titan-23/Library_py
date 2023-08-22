@@ -1,15 +1,12 @@
-from typing import Optional
+from typing import Optional, Union, Iterable
 
 class DynamicBitVector():
 
-  def __init__(self, n: int, data: Optional[LazySplayTreeData]=None):
+  def __init__(self, n_or_a: Union[int, Iterable[int]], data: Optional[LazySplayTreeData]=None):
     self.N = n
     if data is None:
       data = LazySplayTreeData(op=lambda s, t: s + t, e=0)
-    self.bit = LazySplayTree(data, n)
-
-  def build(self) -> None:
-    pass
+    self.bit = LazySplayTree(data, n_or_a)
 
   def reserve(self, n: int) -> None:
     self.bit.reserve(n)
@@ -35,7 +32,6 @@ class DynamicBitVector():
 
   def rank1(self, r: int) -> int:
     # a[0, r) に含まれる 1 の個数
-    assert r <= self.N, f'{r=}'
     return self.bit.prod(0, r)
 
   def rank(self, r: int, v: int) -> int:

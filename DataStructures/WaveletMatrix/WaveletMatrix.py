@@ -38,10 +38,10 @@ class WaveletMatrix():
         # k番目が立ってたら、
         # kまでの1とすべての0が次のk
         s |= 1 << bit
-        k = self.v[bit].rank(k, 1) + self.mid[bit]
+        k = self.v[bit].rank1(k) + self.mid[bit]
       else:
         # kまでの0が次のk
-        k = self.v[bit].rank(k, 0)
+        k = self.v[bit].rank0(k)
     return s
 
   def __getitem__(self, k: int) -> int:
@@ -58,12 +58,12 @@ class WaveletMatrix():
       # x の bit 目で場合分け
       if x >> bit & 1:
         # 立ってたら、次のl, rは以下
-        l = self.v[bit].rank(l, 1) + mid[bit]
-        r = self.v[bit].rank(r, 1) + mid[bit]
+        l = self.v[bit].rank1(l) + mid[bit]
+        r = self.v[bit].rank1(r) + mid[bit]
       else:
         # そうでなければ次のl, rは以下
-        l = self.v[bit].rank(l, 0)
-        r = self.v[bit].rank(r, 0)
+        l = self.v[bit].rank0(l)
+        r = self.v[bit].rank0(r)
     return r - l
 
   def select(self, k: int, x: int) -> int:
@@ -90,17 +90,18 @@ class WaveletMatrix():
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
-      cnt = v.rank0(r) - v.rank0(l)  # 区間内の 0 の個数
+      r0, l0 = v.rank0(r), v.rank0(l)
+      cnt = r0 - l0  # 区間内の 0 の個数
       if cnt <= k:  # 0 が k 以下のとき、 k 番目は 1
         s |= 1 << bit
         k -= cnt
         # この 1 が次の bit 列でどこに行くか
-        l = v.rank1(l) + mid[bit]
-        r = v.rank1(r) + mid[bit]
+        l = l - l0 + mid[bit]
+        r = r - r0 + mid[bit]
       else:
         # この 0 が次の bit 列でどこに行くか
-        l = v.rank0(l)
-        r = v.rank0(r)
+        l = l0
+        r = r0
     return s
 
   quantile = kth_smallest
