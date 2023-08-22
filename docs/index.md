@@ -19,6 +19,7 @@
 
 ### [BitVector](DataStructures/BitVector/BitVector.md)
 - [BitVector](DataStructures/BitVector/BitVector_.md)
+- [DynamicBitVector](DataStructures/BitVector/DynamicBitVector.md)
 
 ### [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum.md)
 - [CumulativeOp](DataStructures/CumulativeSum/CumulativeOp.md)
@@ -95,6 +96,7 @@
 
 ### [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix.md)
 - [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix_.md)
+- [DynamicWaveletMatrix](DataStructures/WaveletMatrix/DynamicWaveletMatrix.md)
 
 ## [Graph](Graph/Graph.md)
 - [bellman_ford](Graph/bellman_ford.md)

@@ -13,7 +13,7 @@ _____
 
 ## 仕様
 
-[`WaveletMatrix`](./WaveletMatrix_.md) との差分は以下です。
+[`WaveletMatrix`](./WaveletMatrix_.md) との差分は以下です。(以下に示していないメソッドの時間計算量も `O(logn)` 倍されます。)
 
 #### `wm = DynamicWaveletMatrix(sigma: int, a: Sequence[int]=[])`
 - `[0, sigma)` の整数列を管理する `DynamicWaveletMatrix` です。
