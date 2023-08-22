@@ -1,12 +1,12 @@
 ___
 
-# [`WaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix.py)
+# [`WaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
 
 - `WaveletMatrix` です。
 - 参考:
-  - [a](https://miti-7.hatenablog.com/entry/2018/04/28/152259){:target="_blank"}
-  - https://www.slideshare.net/pfi/ss-15916040
-  - https://scrapbox.io/data-structures/Wavelet_Matrix
+  - [https://miti-7.hatenablog.com/entry/2018/04/28/152259](https://miti-7.hatenablog.com/entry/2018/04/28/152259){:target="_blank"}
+  - [https://www.slideshare.net/pfi/ss-15916040](https://www.slideshare.net/pfi/ss-15916040){:target="_blank"}
+  - [デwiki](https://scrapbox.io/data-structures/Wavelet_Matrix){:target="_blank"}
 
 _____
 
