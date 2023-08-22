@@ -4,7 +4,7 @@ ___
 
 - `WaveletMatrix` です。
 - 参考:
-  - https://miti-7.hatenablog.com/entry/2018/04/28/152259
+  - [a](https://miti-7.hatenablog.com/entry/2018/04/28/152259){:target="_blank"}
   - https://www.slideshare.net/pfi/ss-15916040
   - https://scrapbox.io/data-structures/Wavelet_Matrix
 
