@@ -3,6 +3,7 @@ ___
 # [`WaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
 
 - `WaveletMatrix` です。
+- 未verifyが多いです。使わないのが吉でしょう。
 - 参考:
   - [https://miti-7.hatenablog.com/entry/2018/04/28/152259](https://miti-7.hatenablog.com/entry/2018/04/28/152259){:target="_blank"}
   - [https://www.slideshare.net/pfi/ss-15916040](https://www.slideshare.net/pfi/ss-15916040){:target="_blank"}
