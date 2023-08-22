@@ -17,6 +17,9 @@
 - [BinaryTrieSet](DataStructures/BinaryTrie/BinaryTrieSet.md)
 - [BinaryTrieMultiset](DataStructures/BinaryTrie/BinaryTrieMultiset.md)
 
+### [BitVector](DataStructures/BitVector/BitVector.md)
+- [BitVector](DataStructures/BitVector/BitVector_.md)
+
 ### [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum.md)
 - [CumulativeOp](DataStructures/CumulativeSum/CumulativeOp.md)
 - [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum_.md)
@@ -89,6 +92,9 @@
 - [UnionFind](DataStructures/UnionFind/UnionFind_.md)
 - [UndoableUnionFind](DataStructures/UnionFind/UndoableUnionFind.md)
 - [WeightedUnionFind](DataStructures/UnionFind/WeightedUnionFind.md)
+
+### [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix.md)
+- [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix_.md)
 
 ## [Graph](Graph/Graph.md)
 - [bellman_ford](Graph/bellman_ford.md)
