@@ -4,16 +4,16 @@ from array import array
 
 class WaveletMatrix():
 
-  def __init__(self, sigma: int):
+  def __init__(self, sigma: int, a: Sequence[int]=[]):
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.v: List[BitVector] = [None] * self.log
     self.mid: array[int] = array('I', bytes(4*self.log))
-    self.size: int = -1
+    self.size: int = len(a)
+    self._build(a)
 
-  def build(self, a: Sequence[int]) -> None:
+  def _build(self, a: Sequence[int]) -> None:
     '''列 a から wm を構築する'''
-    self.size = len(a)
     for bit in range(self.log-1, -1, -1):
       # bit目の0/1に応じてvを構築 + aを安定ソート
       v = BitVector(self.size)
@@ -33,6 +33,7 @@ class WaveletMatrix():
     '''a[k] を返す'''
     s = 0  # 答え
     for bit in range(self.log-1, -1, -1):
+      # print(self.v[bit], k)
       if self.v[bit].access(k):
         # k番目が立ってたら、
         # kまでの1とすべての0が次のk
@@ -42,6 +43,9 @@ class WaveletMatrix():
         # kまでの0が次のk
         k = self.v[bit].rank(k, 0)
     return s
+
+  def __getitem__(self, k: int) -> int:
+    return self.access(k)
 
   def rank(self, r: int, x: int) -> int:
     '''a[0, r) に含まれる x の個数'''

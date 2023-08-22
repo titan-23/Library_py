@@ -13,10 +13,8 @@ _____
 
 ## 仕様
 
-#### `wm = WaveletMatrix(sigma: int)`
+#### `wm = WaveletMatrix(sigma: int, a: Sequence[int]=[])`
 - `[0, sigma)` の整数列を管理する `WaveletMatrix` です。
-
-#### `wm.build(a: Sequence[int]) -> None`
 - 列 `a` から `WaveletMatrix` を構築します。
 - 時間計算量 `Θ(Nlog(σ))` です。
 - 空間計算量 `Θ(Nlog(σ))` のはずです。

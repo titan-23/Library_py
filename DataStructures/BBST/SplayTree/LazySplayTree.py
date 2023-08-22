@@ -306,6 +306,7 @@ class LazySplayTree(Generic[T, F]):
     data = self.data
     node = self._make_node(key)
     if not self.root:
+      self._update(node)
       self.root = node
       return
     arr = data.arr
@@ -388,13 +389,13 @@ class LazySplayTree(Generic[T, F]):
     self.root = 0
 
   def __setitem__(self, k: int, key: T):
-    assert -len(self) <= k < len(self), f'IndexError: LazyAVLTree.__setitem__({k})'
+    assert -len(self) <= k < len(self), f'IndexError: LazySplayTree.__setitem__({k})'
     self.root = self._kth_elm_splay(self.root, k)
     self.data.keydata[self.root<<1] = key
     self._update(self.root)
 
   def __getitem__(self, k: int) -> T:
-    assert -len(self) <= k < len(self), f'IndexError: LazyAVLTree.__getitem__({k})'
+    assert -len(self) <= k < len(self), f'IndexError: LazySplayTree.__getitem__({k})'
     self.root = self._kth_elm_splay(self.root, k)
     return self.data.keydata[self.root<<1]
 
