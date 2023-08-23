@@ -2,11 +2,11 @@ from typing import Optional, Union, Iterable
 
 class DynamicBitVector():
 
-  def __init__(self, n_or_a: Union[int, Iterable[int]], data: Optional[LazySplayTreeData]=None):
-    self.N = n
+  def __init__(self, n_or_a: Union[int, Iterable[int]], data: Optional[DynamicBitVector_SplayTreeList_Data]=None):
     if data is None:
-      data = LazySplayTreeData(op=lambda s, t: s + t, e=0)
-    self.bit = LazySplayTree(data, n_or_a)
+      data = DynamicBitVector_SplayTreeList_Data()
+    self.bit = DynamicBitVector_SplayTreeList(data, n_or_a)
+    self.N = len(self.bit)
 
   def reserve(self, n: int) -> None:
     self.bit.reserve(n)
@@ -27,7 +27,6 @@ class DynamicBitVector():
 
   def rank0(self, r: int) -> int:
     # a[0, r) に含まれる 0 の個数
-    assert r <= self.N
     return r - self.bit.prod(0, r)
 
   def rank1(self, r: int) -> int:

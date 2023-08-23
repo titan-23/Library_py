@@ -13,20 +13,20 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def _build(self, a: Sequence[int]) -> None:
     '''列 a から wm を構築する'''
-    data = LazySplayTreeData(op=lambda s, t: s + t, e=0)
+    data = DynamicBitVector_SplayTreeList_Data()
     data.reserve(self.size * self.log)
     for bit in range(self.log-1, -1, -1):
       # bit目の0/1に応じてvを構築 + aを安定ソート
-      v_a = [0] * n
+      v = [0] * self.size
       zero, one = [], []
       for i, e in enumerate(a):
         if e >> bit & 1:
-          v_a[i] = 1
+          v[i] = 1
           one.append(e)
         else:
           zero.append(e)
       self.mid[bit] = len(zero)  # 境界をmid[bit]に保持
-      self.v[bit] = DynamicBitVector(v_a, data)
+      self.v[bit] = DynamicBitVector(v, data)
       a = zero + one
 
   def reserve(self, n: int) -> None:
@@ -36,27 +36,29 @@ class DynamicWaveletMatrix(WaveletMatrix):
   def __str__(self):
     return f'DynamicWaveletMatrix({[self.access(i) for i in range(self.size)]})'
 
-  def insert(self, k: int, x: int) -> None:
+  def insert(self, k: int, x: int) -> int:
+    mid = self.mid
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
       if x >> bit & 1:
         v.insert(k, 1)
-        k = v.rank1(k) + self.mid[bit]
+        k = v.rank1(k) + mid[bit]
       else:
         v.insert(k, 0)
-        self.mid[bit] += 1
+        mid[bit] += 1
         k = v.rank0(k)
     self.size += 1
 
   def pop(self, k: int) -> int:
     ans = self.access(k)
+    mid = self.mid
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
       K = k
-      if v.access(K):
-        k = v.rank1(k) + self.mid[bit]
+      if ans >> bit & 1:
+        k = v.rank1(k) + mid[bit]
       else:
-        self.mid[bit] -= 1
+        mid[bit] -= 1
         k = v.rank0(k)
       v.pop(K)
     self.size -= 1
