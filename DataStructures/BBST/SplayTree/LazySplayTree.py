@@ -10,24 +10,23 @@ class LazySplayTreeData(Generic[T, F]):
               mapping: Optional[Callable[[F, T], T]]=None, \
               composition: Optional[Callable[[F, F], F]]=None, \
               e: T=None, id: F=None):
-    self.op = (lambda s, t: e) if op is None else op
-    self.mapping = (lambda f, s: e) if op is None else mapping
-    self.composition = (lambda f, g: id) if op is None else composition
-    self.e = e
-    self.id = id
+    self.op: Callable[[T, T], T] = (lambda s, t: e) if op is None else op
+    self.mapping: Callable[[F, T], T] = (lambda f, s: e) if op is None else mapping
+    self.composition: Callable[[F, F], F] = (lambda f, g: id) if op is None else composition
+    self.e: T = e
+    self.id: F = id
     self.keydata: List[T] = [e, e]
     self.lazy: List[F] = [id]
     self.arr: array[int] = array('I', bytes(16))
-    '''
-    left:  arr[node<<2]
-    right: arr[node<<2|1]
-    size:  arr[node<<2|2]
-    rev:   arr[node<<2|3]
-    '''
+    # left:  arr[node<<2]
+    # right: arr[node<<2|1]
+    # size:  arr[node<<2|2]
+    # rev:   arr[node<<2|3]
     self.end: int = 1
 
   def reserve(self, n: int) -> None:
-    if n <= 0: return
+    if n <= 0:
+      return
     self.keydata += [self.e] * (2 * n)
     self.lazy += [self.id] * n
     self.arr += array('I', bytes(16 * n))
@@ -424,7 +423,7 @@ class LazySplayTree(Generic[T, F]):
     return self.root != 0
 
   def __repr__(self):
-    return f'LazySplayTree({self.tolist()})'
+    return f'LazySplayTree({self})'
 
 def op(s, t):
   return

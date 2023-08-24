@@ -54,7 +54,7 @@ class DynamicBitVector():
     l, r = 0, self.N
     while r - l > 1:
       m = (l + r) >> 1
-      if m - self.bit.sum(0, m) > k:
+      if m - self.bit.prod(0, m) > k:
         r = m
       else:
         l = m
@@ -68,7 +68,7 @@ class DynamicBitVector():
     l, r = 0, self.N
     while r - l > 1:
       m = (l + r) >> 1
-      if self.bit.sum(0, m) > k:
+      if self.bit.prod(0, m) > k:
         r = m
       else:
         l = m
