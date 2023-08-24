@@ -12,6 +12,7 @@ class DynamicBitVector():
     self.bit.reserve(n)
 
   def insert(self, k: int, v: int) -> None:
+    assert v == 0 or v == 1
     self.N += 1
     self.bit.insert(k, v)
 
@@ -20,10 +21,18 @@ class DynamicBitVector():
     return self.bit.pop(k)
 
   def set(self, k: int, v: int=1) -> None:
+    assert v == 0 or v == 1
     self.bit[k] = v
 
   def access(self, k: int) -> int:
     return self.bit[k]
+  
+  def __getitem__(self, k: int) -> int:
+    return self.bit[k]
+  
+  def __setitem__(self, k: int, v: int):
+    assert v == 0 or v == 1
+    self.bit[k] = v
 
   def rank0(self, r: int) -> int:
     # a[0, r) に含まれる 0 の個数
@@ -70,8 +79,12 @@ class DynamicBitVector():
     # O(log(N))
     return self.select1(k) if v else self.select0(k)
 
+  def __len__(self):
+    return self.N
+
   def __str__(self):
     return str(self.bit)
 
-  __repr__ = __str__
+  def __repr__(self):
+    return f'DynamicBitVector({self})'
 

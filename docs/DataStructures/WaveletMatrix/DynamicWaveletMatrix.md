@@ -1,11 +1,23 @@
 ___
 
-# [`DynamicWaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
+# `DynamicWaveletMatrix`
+
+_____
+
+## コード
+
+[`DynamicWaveletMatrix.py`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
+
+### import
+- `WaveletMatrix`
+- `DynamicBitVector`
+
+_____
 
 - `DynamicWaveletMatrix` です。
 - [`WaveletMatrix`](./WaveletMatrix_.md) と大体同じです。
-  - `BitVector` を平衡二分木にしています。あらゆる操作に平衡二分木のlogがつきます。
-- 未verifyが多いです。使わないのが吉でしょう。
+  - `BitVector` を平衡二分木にしています(`DynamicBitVector`)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
+- 未 verify が多いです。使わないのが吉でしょう。
 - とにかく重いです。
   - 10^5 回のクエリで10秒弱です。病弱です。
 
@@ -33,4 +45,5 @@ _____
 
 #### `wm.update(k: int, x: int) -> None / wm[k: int] = x: int`
 - 位置 `k` の要素を `x` に更新します。
+- `__setitem__` をサポートしています。
 - 時間計算量 `Θ(log(n)log(σ))` です。

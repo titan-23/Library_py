@@ -1,9 +1,21 @@
 ___
 
-# [`WaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
+# `WaveletMatrix`
+
+_____
+
+## コード
+
+[`WaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
+
+### import
+- `BitVector`
+
+_____
 
 - `WaveletMatrix` です。
-- 未verifyが多いです。使わないのが吉でしょう。
+- 静的であることに注意してください。
+- 未 verify が多いです。使わないのが吉でしょう。
 - 参考:
   - [https://miti-7.hatenablog.com/entry/2018/04/28/152259](https://miti-7.hatenablog.com/entry/2018/04/28/152259){:target="_blank"}
   - [https://www.slideshare.net/pfi/ss-15916040](https://www.slideshare.net/pfi/ss-15916040){:target="_blank"}
@@ -19,8 +31,9 @@ _____
 - 時間計算量 `Θ(Nlog(σ))` です。
 - 空間計算量 `Θ(Nlog(σ))` のはずです。
 
-#### `wm.access(k: int) -> int`
+#### `wm.access(k: int) / wm[k: int] -> int`
 - `a[k]` を返します。
+- `__getitem__` をサポートしてます。
 - 時間計算量 `Θ(log(σ))` です。
 
 #### `wm.rank(r: int, x: int) -> int`
@@ -45,6 +58,7 @@ _____
   - 返り値は `(要素, 頻度)` です。
 - 時間計算量 `Θ(min(r-l, σ) log(σ))` です。
   - あやしいです。
+  - `σ` が大きい場合、計算量に注意です。
 
 #### `wm.sum(l: int, r: int) -> int`
 - `a[l, r)` の総和を返します。

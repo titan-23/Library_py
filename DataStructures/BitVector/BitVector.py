@@ -36,6 +36,9 @@ class BitVector():
   def access(self, k: int) -> int:
     return (self.bit[k >> 5] >> (k & 31)) & 1
 
+  def __getitem__(self, k: int) -> int:
+    return (self.bit[k >> 5] >> (k & 31)) & 1
+
   def rank0(self, r: int) -> int:
     # a[0, r) に含まれる 0 の個数
     return r - (self.acc[r>>5] + BitVector._popcount(self.bit[r>>5] & ((1 << (r & 31)) - 1)))
