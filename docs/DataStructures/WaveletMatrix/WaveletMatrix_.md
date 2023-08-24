@@ -9,7 +9,7 @@ _____
 [`WaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
 
 ### import
-- `BitVector`
+- [`BitVector`](../BitVector/BitVector_.md)
 
 _____
 

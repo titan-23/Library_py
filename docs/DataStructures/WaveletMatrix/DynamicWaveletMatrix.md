@@ -6,11 +6,11 @@ _____
 
 ## コード
 
-[`DynamicWaveletMatrix.py`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
+[`DynamicWaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
 
 ### import
-- `WaveletMatrix`
-- `DynamicBitVector`
+- [`WaveletMatrix`](./WaveletMatrix_.md)
+- [`DynamicBitVector`](../BitVector/DynamicBitVector.md)
 
 _____
 
