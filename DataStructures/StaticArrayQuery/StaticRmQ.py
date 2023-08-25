@@ -19,7 +19,7 @@ class StaticRmQ():
       if l >= r: return self.INF
       u = (r-l).bit_length()-1
       return min(self.data[u][l], self.data[u][r-(1<<u)])
-
+  
   def __init__(self, a: Iterable[int], INF=10**9):
     a = list(a)
     n = len(a)

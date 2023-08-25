@@ -9,7 +9,7 @@ class UnionFindHeavy():
     self._group_numbers = n
     self._parents = [-1] * n  # defaultdict(lambda: -1)
     # self._roots = set(range(n))
-    # self._edges = [0] * n
+    self._edges = [0] * n
     self._G = [[] for _ in range(n)]
 
   def root(self, x: int) -> int:
@@ -31,8 +31,8 @@ class UnionFindHeavy():
         f'IndexError: UnionFindHeavy.unite({x}, {y})'
     x = self.root(x)
     y = self.root(y)
-    # self._edges[x] += 1
-    # self._edges[y] += 1
+    self._edges[x] += 1
+    self._edges[y] += 1
     if x == y: return False
     self._G[x].append(y)
     self._G[y].append(x)
