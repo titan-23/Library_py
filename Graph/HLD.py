@@ -145,7 +145,7 @@ class HLDQuery():
 
   def get(self, k: int) -> int:
     return self.hld.nodein[k]
-  
+
   def get_noncommutative(self, k: int) -> Tuple[int, int]:
     return self.hld.nodein[k], self.hld.n-self.hld.nodein[k]-1
 
