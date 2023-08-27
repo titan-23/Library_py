@@ -5,9 +5,9 @@ class UnionFind():
 
   def __init__(self, n: int) -> None:
     '''Build a new UnionFind. / O(N)'''
-    self._n = n
-    self._group_numbers = n
-    self._parents = [-1] * n
+    self._n: int = n
+    self._group_numbers: int = n
+    self._parents: List[int] = [-1] * n
 
   def root(self, x: int) -> int:
     '''Return root of x, compressing path. / O(α(N))'''

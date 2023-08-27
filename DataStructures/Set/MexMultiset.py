@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Dict, Iterable, Tuple
 
 class MexMultiset():
 
@@ -12,8 +12,8 @@ class MexMultiset():
   # predecessor problemを高速(O(logN))に解けるデータ構造が必要
 
   def __init__(self, a: Iterable[int]=[]):
-    self.data = SplayTreeSetTopDown()
-    self.dic = {}
+    self.data: SplayTreeSetTopDown[Tuple[int, int]] = SplayTreeSetTopDown()
+    self.dic: Dict[int, int] = {}
     for a_ in sorted(a):
       self.add(a_)
 

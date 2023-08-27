@@ -4,9 +4,9 @@ class UnionFindMembers():
 
   def __init__(self, n: int) -> None:
     '''Build a new UnionFind. / O(N)'''
-    self._n = n
-    self._group_count = n
-    self._group = [[i] for i in range(n)]
+    self._n: int = n
+    self._group_count: int = n
+    self._group: List[List[int]] = [[i] for i in range(n)]
 
   def unite(self, x: int, y: int) -> bool:
     '''Untie x and y. / O(logN)'''

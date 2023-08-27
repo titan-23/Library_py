@@ -1,17 +1,23 @@
 _____
 
-# [`BinaryTrieMultiset.py`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BinaryTrie/BinaryTrieMultiset.py)
+# `BinaryTrieMultiset`
 
-`BinaryTrieMultiset` です。0以上u未満の正整数からなる**多重**集合を管理できます。
+____
 
-空間 `O((要素数)logu)` のはずです。
+## コード
+[`BinaryTrieMultiset.py`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BinaryTrie/BinaryTrieMultiset.py)
+
+____
+
+- `BinaryTrieMultiset` です。0以上u未満の整数からなる**多重**集合を管理できます。
+- 空間 `O((要素数)logu)` のはずです。
 
 ____
 
 ## 仕様
 
 #### `bt = BinaryTrieMultiset(u: int, a: Iterable[int]=[])`
-- `a` から、**0 以上 u 未満**の正整数を管理する `BinaryTrieMultiset` を構築します。
+- `a` から、**0 以上 u 未満**の整数を管理する `BinaryTrieMultiset` を構築します。
 - `O(nlogu)` です。
 
 #### `bt.reserve(n: int) -> None`

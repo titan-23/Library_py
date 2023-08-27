@@ -1,8 +1,17 @@
-___
+____
 
-# [LCA.py](https://github.com/titanium-22/Library_py/blob/main/Graph/LCA.py)
+# `LCA`
 
-オイラーツアーとスパーステーブルを用いて、構築 `O(NlogN)` クエリ `O(1)` を実現しています。
+____
+
+## コード
+[`LCA.py`](https://github.com/titanium-22/Library_py/blob/main/Graph/LCA.py)
+
+____
+
+- オイラーツアーとスパーステーブルを用いて、構築 `O(NlogN)` クエリ `O(1)` を実現しています。
+
+____
 
 ## 仕様
 

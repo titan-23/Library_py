@@ -2,7 +2,7 @@ from typing import List
 
 class SetQuadraticDivision():
 
-  # OrderedSet<int>
+  # OrderedSet[int]
   # Space Complexity : O(u)
   # add / discard / remove / contains : O(1)
   # kth_elm : O(√u)

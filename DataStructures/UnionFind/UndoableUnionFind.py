@@ -1,12 +1,12 @@
-from typing import List
+from typing import List, Tuple
 from collections import defaultdict
 
 class UndoableUnionFind():
 
   def __init__(self, n: int):
-    self._n = n
-    self._parents = [-1] * n
-    self._history = []
+    self._n: int = n
+    self._parents: List[int] = [-1] * n
+    self._history: List[Tuple[int, int]] = []
 
   def undo(self) -> None:
     assert self._history, f'UndoableUnionFind.undo() with non history'

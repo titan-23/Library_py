@@ -1,13 +1,15 @@
 _____
 
-# [LinkCutTree.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/LinkCutTree.py)
+# `LinkCutTree`
 
-最終更新: 2023/06/16
-- メソッド名を少し変更しました
-- `path_length()` メソッドを追加しました。
-- assertionエラーを追加しました。
+_____
 
-`LinkCutTree` です。森を管理します。パスクエリの強さに定評があります。
+## コード
+[`LinkCutTree.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/LinkCutTree.py)
+
+_____
+
+- `LinkCutTree` です。森を管理します。パスクエリの強さに定評があります。
 
 _____
 

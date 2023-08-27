@@ -1,11 +1,13 @@
 _____
 
-# [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
+# `OfflineDynamicConnectivity`
 
-最終更新: 2023/07/20
-- `q` を消しました
-- `init_edge()` メソッドを追加しました
-- 連結成分加算に対応しました。
+_____
+
+## コード [OfflineDynamicConnectivity.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
+
+_____
+
 - 参考:
   - [ちょっと変わったセグメント木の使い方(ei1333の日記)](https://ei1333.hateblo.jp/entry/2017/12/14/000000)
 

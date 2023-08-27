@@ -2,7 +2,7 @@ from typing import List
 
 class MultisetQuadraticDivision():
 
-  # OrderedMultiset<int>
+  # OrderedMultiset[int]
   # Space Complexity : O(u)
   # add / discard / remove / contains : O(1)
   # kth_elm : O(√u)

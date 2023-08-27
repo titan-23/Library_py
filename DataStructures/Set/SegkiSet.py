@@ -15,7 +15,6 @@ class SegkiSet:
     self.log = (u-1).bit_length()
     self.size = 1 << self.log
     self.u = u
-    # self.data = ProtoBitSet(self.size << 1)
     self.data = bytearray(self.size << 1)
     self.len = 0
     for _a in a:
@@ -114,6 +113,7 @@ class SegkiSet:
     return self.data[k + self.size] == 1
 
   def __getitem__(self, k: int):   # kは先頭か末尾にすることを推奨
+    # O(klogu)
     if k < 0: k += self.len
     if k == 0:
       return self.get_min()

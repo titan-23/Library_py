@@ -1,8 +1,17 @@
 _____
 
-# [EulerTourTree.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/EulerTourTree.py)
+# `EulerTourTree`
 
-`Euler Tour Tree` です。森を管理します。部分木クエリの強さに定評があります。
+_____
+
+## コード
+[`EulerTourTree.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/EulerTourTree.py)
+
+_____
+
+- `Euler Tour Tree` です。森を管理します。部分木クエリの強さに定評があります。
+
+_____
 
 ## 解説
 

@@ -3,12 +3,12 @@ from collections import defaultdict
 
 class WeightedUnionFind():
 
-  def __init__(self, n: int) -> None:
-    self._n = n
-    self._group_numbers = n
-    self._parents = [-1]
-    self._weight = [0]
-    self._G = [[] for _ in range(n)]
+  def __init__(self, n: int):
+    self._n: int = n
+    self._group_numbers: int = n
+    self._parents: List[int] = [-1]
+    self._weight: List[int] = [0]
+    self._G: List[List[int]] = [[] for _ in range(n)]
 
   def root(self, x: int) -> int:
     '''Return root of x, compressing path. / O(α(N))'''

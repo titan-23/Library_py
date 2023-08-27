@@ -1,8 +1,16 @@
 ____
 
-# [CumulativeSum.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeSum.py)
+# `CumulativeSum`
 
-1次元累積和です。 `int` 型を想定しています。
+_____
+
+## コード
+
+ [`CumulativeSum.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeSum.py)
+
+_____
+
+- 1次元累積和です。 `int` 型を想定しています。
 
 _____
 
@@ -35,8 +43,6 @@ _____
 累積和の `list` を表示します。
 
 ## コード
-
-<!-- <details><summary> CumulativeSum.py </summary> -->
 
 ```python
 from typing import Iterable
@@ -79,5 +85,3 @@ class CumulativeSum():
     return str(self.acc)
 
 ```
-
-<!-- </details> -->

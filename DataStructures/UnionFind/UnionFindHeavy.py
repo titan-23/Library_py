@@ -5,12 +5,12 @@ class UnionFindHeavy():
 
   def __init__(self, n: int) -> None:
     '''Build a new UnionFindHeavy. / O(N)'''
-    self._n = n
-    self._group_numbers = n
-    self._parents = [-1] * n  # defaultdict(lambda: -1)
+    self._n: int = n
+    self._group_numbers: int = n
+    self._parents: List[int] = [-1] * n  # defaultdict(lambda: -1)
     # self._roots = set(range(n))
-    self._edges = [0] * n
-    self._G = [[] for _ in range(n)]
+    self._edges: List[int] = [0] * n
+    self._G: List[List[int]] = [[] for _ in range(n)]
 
   def root(self, x: int) -> int:
     '''Return root of x, compressing path. / O(α(N))'''

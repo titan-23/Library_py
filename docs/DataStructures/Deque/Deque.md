@@ -1,12 +1,20 @@
 ____
 
-# [Deque.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Deque/Deque.py)
+# `Deque`
 
-`Deque` です。
+____
 
-先頭末尾の追加削除に加えて、`getitem / setitem` が `Θ(1)` で可能です。空間計算量は `Θ(N)` です。
+## コード
 
-内部ではデータを2つのスタックで管理しています。
+[`Deque.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Deque/Deque.py)
+
+____
+
+- `Deque` です。
+- 先頭末尾の追加削除に加えて、`getitem / setitem` が `Θ(1)` で可能です。空間計算量は `Θ(N)` です。
+- 内部ではデータを2つのスタックで管理しています。
+
+____
 
 ## 仕様
 
