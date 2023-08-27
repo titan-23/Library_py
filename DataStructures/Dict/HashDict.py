@@ -14,13 +14,13 @@ class HashDict():
     self._xor: int = random.getrandbits(1)
 
   def reserve(self, n: int) -> None:
-    self._keys += [self._e] * (4*n)
-    self._vals += [self._default] * (4*n)
+    self._keys += [self._e] * (2*n)
+    self._vals += [self._default] * (2*n)
     self._xor = random.getrandbits(len(self._keys).bit_length())
 
   def _rebuild(self) -> None:
     old_keys, old_vals, _e = self._keys, self._vals, self._e
-    self._keys = [_e] * (4*(len(old_keys)+3))
+    self._keys = [_e] * (2*(len(old_keys)+3))
     self._vals = [self._default] * len(self._keys)
     self._len = 0
     self._xor = random.getrandbits(len(self._keys).bit_length())
@@ -33,7 +33,7 @@ class HashDict():
 
   def get(self, key: int, default: Any=None) -> Any:
     assert key != self._e, \
-        f'ValueError: HashDict.get({key}, {default}), {key} cannot be equal to {self._e}'
+        f'KeyError: HashDict.get({key}, {default}), {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
     h = self._hash(key)
     while True:
@@ -42,14 +42,28 @@ class HashDict():
         return self._vals[h] if default is None else default
       if x == key:
         return self._vals[h]
-      h += 1
-      if h == l:
-        h = 0
+      h = 0 if h == l-1 else h+1
+
+  def add(self, key: int, val: Any, default: Any) -> None:
+    assert key != self._e, \
+        f'KeyError: HashDict.add({key}, {default}), {key} cannot be equal to {self._e}'
+    l, _keys, _e = len(self._keys), self._keys, self._e
+    h = self._hash(key)
+    while True:
+      x = _keys[h]
+      if x == _e:
+        self._vals[h] = val
+        return
+      if x == key:
+        self._vals[h] += val
+        return
+      h = 0 if h == l-1 else h+1
 
   def set(self, key: int, val: Any) -> None:
     assert key != self._e, \
-        f'ValueError: HashDict.set({key}, {val}), {key} cannot be equal to {self._e}'
+        f'KeyError: HashDict.set({key}, {val}), {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
+    l -= 1
     h = self._hash(key)
     while True:
       x = _keys[h]
@@ -57,19 +71,17 @@ class HashDict():
         _keys[h] = key
         self._vals[h] = val
         self._len += 1
-        if 4*self._len > len(self._keys):
+        if 2*self._len > len(self._keys):
           self._rebuild()
         return
       if x == key:
         self._vals[h] = val
         return
-      h += 1
-      if h == l:
-        h = 0
+      h = 0 if h == l else h+1
 
   def __contains__(self, key: int):
     assert key != self._e, \
-        f'ValueError: {key} in HashDict, {key} cannot be equal to {self._e}'
+        f'KeyError: {key} in HashDict, {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
     h = self._hash(key)
     while True:

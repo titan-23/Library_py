@@ -1,11 +1,11 @@
 from array import array
 from typing import List, Tuple, Iterable, Optional, Union, Sequence
 from __pypy__ import newlist_hint
-
+# uppdatenomi
 class DynamicBitVector_SplayTreeList_Data():
 
   def __init__(self):
-    self.keydata: List[int] = array('I', bytes(8))
+    self.keydata: array[int] = array('I', bytes(8))
     self.arr: array[int] = array('I', bytes(16))
     '''
     left:  arr[node<<2]
@@ -17,7 +17,6 @@ class DynamicBitVector_SplayTreeList_Data():
   def reserve(self, n: int) -> None:
     if n <= 0: return
     self.keydata += array('I', bytes(8 * n))
-    # self.keydata += array('I', [0] * (2 * n))
     self.arr += array('I', bytes(16 * n))
 
 class DynamicBitVector_SplayTreeList():
