@@ -59,7 +59,7 @@ _____
 - 頂点 `x` に値 `v` を加算します。
 - `O(logn)` です。
 
-#### `dc.uf.add_group(x int, v: int) -> None`
+#### `dc.uf.add_group(x: int, v: int) -> None`
 - 頂点 `x` を含む連結成分の要素それぞれに `v` を加算します。
 - `O(logn)` です。
 

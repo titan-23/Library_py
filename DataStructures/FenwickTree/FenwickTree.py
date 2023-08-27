@@ -45,6 +45,8 @@ class FenwickTree():
       l &= l - 1
     return res
 
+  prod = sum
+
   def __getitem__(self, k: int) -> int:
     assert -self._size <= k < self._size, \
         f'IndexError: FenwickTree.__getitem__({k}), n={self._size}'

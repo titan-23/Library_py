@@ -1,8 +1,7 @@
-from typing import Generic, Iterable, TypeVar, Callable, Union, List, Generator
+from typing import Callable, List, Generator, Tuple
 from types import GeneratorType
-T = TypeVar('T')
 
-class HLD(Generic[T]):
+class HLD():
 
   def antirec(func, stack=[]):
     def wrappedfunc(*args, **kwargs):
@@ -21,30 +20,20 @@ class HLD(Generic[T]):
       return to
     return wrappedfunc
 
-  def __init__(self, G: List[List[int]], n_or_a: Union[int, Iterable[T]], root: int, op: Callable[[T, T], T], e: T):
+  def __init__(self, G: List[List[int]], root: int):
     n = len(G)
-    self.n = n
-    self.G = G
-    self.e = e
-    self.op = op
-    self.size = [0] * n
-    self.par = [0] * n
-    self.dep = [0] * n
-    self.nodein = [0] * n
-    self.nodeout = [0] * n
-    self.head = [0] * n
-    self.hld = [0] * n
+    self.n: int = n
+    self.G: List[List[int]] = G
+    self.size: List[int] = [0] * n
+    self.par: List[int] = [0] * n
+    self.dep: List[int] = [0] * n
+    self.nodein: List[int] = [0] * n
+    self.nodeout: List[int] = [0] * n
+    self.head: List[int] = [0] * n
+    self.hld: List[int] = [0] * n
     self.dfs1(root, -1)
-    self.time = 0
+    self.time: int = 0
     self.dfs2(root, -1)
-    if isinstance(n_or_a, int):
-      self.data = SegmentTree(n_or_a, op, e)
-      self.rdata = SegmentTree(n_or_a, op, e)
-    else:
-      n_or_a = list(n_or_a)
-      a = [n_or_a[e] for e in self.hld]
-      self.data = SegmentTree(a, op, e)
-      self.rdata = SegmentTree(a[::-1], op, e)
 
   @antirec
   def dfs1(self, v: int, p: int) -> Generator:
@@ -78,28 +67,75 @@ class HLD(Generic[T]):
     self.nodeout[v] = self.time
     yield
 
-  def path_prod(self, u: int, v: int) -> T:
+  def for_each_edge(self, u: int, v: int) -> Generator[Tuple[int, int], None, None]:
     head, nodein, dep, par = self.head, self.nodein, self.dep, self.par
-    op, data_prod, rdata_prod = self.op, self.data.prod, self.rdata.prod
-    lres, rres = self.e, self.e
     while head[u] != head[v]:
       if dep[head[u]] > dep[head[v]]:
-        lres = op(lres, rdata_prod(self.n-nodein[u]-1, self.n-nodein[head[u]]))
+        yield (self.n-nodein[u]-1, self.n-nodein[head[u]])  # lres
         u = par[head[u]]
       else:
-        rres = op(data_prod(nodein[head[v]], nodein[v]+1), rres)
+        yield ((nodein[head[v]], nodein[v]+1))  # rres
         v = par[head[v]]
     if dep[u] > dep[v]:
-      lres = op(lres, rdata_prod(self.n-nodein[u]-1, self.n-nodein[v]))
+      yield (self.n-nodein[u]-1, self.n-nodein[v])  # lres
     else:
-      lres = op(lres, data_prod(nodein[u], nodein[v]+1))
+      yield nodein[u], nodein[v]+1  # lres
+
+
+class HLDQuery():
+
+  def __init__(self, hld: HLD):
+    self.hld = hld
+
+  def build_list(self, a: List) -> List:
+    return [a[e] for e in self.hld.hld]
+
+  def path_prod(self, u: int, v: int, data, op, e):
+    head, nodein, dep, par, n = self.hld.head, self.hld.nodein, self.hld.dep, self.hld.par, self.hld.n
+    res = e
+    while head[u] != head[v]:
+      if dep[head[u]] > dep[head[v]]:
+        u, v = v, u
+      res = op(data.prod(nodein[head[v]], nodein[v]+1), res)
+      v = par[head[v]]
+    if dep[u] > dep[v]:
+      u, v = v, u
+    return op(res, data.prod(nodein[u], nodein[v]+1))
+
+  def path_prod_noncommutative(self, u: int, v: int, data, rdata, op, e):
+    head, nodein, dep, par, n = self.hld.head, self.hld.nodein, self.hld.dep, self.hld.par, self.hld.n
+    lres, rres = e, e
+    while head[u] != head[v]:
+      if dep[head[u]] > dep[head[v]]:
+        lres = op(lres, rdata.prod(n-nodein[u]-1, n-nodein[head[u]]))
+        u = par[head[u]]
+      else:
+        rres = op(data.prod(nodein[head[v]], nodein[v]+1), rres)
+        v = par[head[v]]
+    if dep[u] > dep[v]:
+      lres = op(lres, rdata.prod(n-nodein[u]-1, n-nodein[v]))
+    else:
+      lres = op(lres, data.prod(nodein[u], nodein[v]+1))
     return op(lres, rres)
 
-  def subtree_prod(self, v: int) -> T:
-    return self.data.prod(self.nodein[v], self.nodeout[v])
+  def path_kth_elm(self, s: int, t: int, k: int) -> int:
+    head, dep, par = self.hld.head, self.hld.dep, self.hld.par
+    lca = self.lca(s, t)
+    d = dep[s] + dep[t] - 2*dep[lca]
+    if d < k:
+      return -1
+    if dep[s] - dep[lca] < k:
+      s = t
+      k = d - k
+    hs = head[s]
+    while dep[s] - dep[hs] < k:
+      k -= dep[s] - dep[hs] + 1
+      s = par[hs]
+      hs = head[s]
+    return self.hld.hld[self.hld.nodein[s] - k]
 
   def lca(self, u: int, v: int) -> int:
-    nodein, head, par = self.nodein, self.head, self.par
+    nodein, head, par = self.hld.nodein, self.hld.head, self.hld.par
     while True:
       if nodein[u] > nodein[v]:
         u, v = v, u
@@ -107,15 +143,12 @@ class HLD(Generic[T]):
         return u
       v = par[head[v]]
 
-  def get(self, k: int) -> T:
-    return self.data[self.nodein[k]]
+  def get(self, k: int) -> int:
+    return self.hld.nodein[k]
+  
+  def get_noncommutative(self, k: int) -> Tuple[int, int]:
+    return self.hld.nodein[k], self.hld.n-self.hld.nodein[k]-1
 
-  def set(self, k: int, v: T) -> None:
-    self.data[self.nodein[k]] = v
-    self.rdata[self.n-self.nodein[k]-1] = v
-
-def op(s, t):
-  return
-
-e = None
+  def subtree_prod(self, v: int) -> Tuple[int, int]:
+    return self.hld.nodein[v], self.hld.nodeout[v]
 
