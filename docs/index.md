@@ -19,7 +19,11 @@
 
 ### [BitVector](DataStructures/BitVector/BitVector.md)
 - [BitVector](DataStructures/BitVector/BitVector_.md)
-- [DynamicBitVector](DataStructures/BitVector/DynamicBitVector.md)
+- [AVLTreeBitVector](DataStructures/BitVector/AVLTreeBitVector.md)
+
+### [BTree](DataStructures/BTree/BTree.md)
+- [BTreeList](DataStructures/BTree/BTreeList.md)
+- [BTreeSet](DataStructures/BTree/BTreeSet.md)
 
 ### [CumulativeSum](DataStructures/CumulativeSum/CumulativeSum.md)
 - [CumulativeOp](DataStructures/CumulativeSum/CumulativeOp.md)

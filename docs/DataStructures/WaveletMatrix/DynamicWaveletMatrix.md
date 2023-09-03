@@ -10,13 +10,13 @@ _____
 
 ### import
 - [`WaveletMatrix`](./WaveletMatrix_.md)
-- [`DynamicBitVector`](../BitVector/DynamicBitVector.md)
+- [`AVLTreeBitVector`](../BitVector/AVLTreeBitVector.md)
 
 _____
 
 - `DynamicWaveletMatrix` です。
 - [`WaveletMatrix`](./WaveletMatrix_.md) と大体同じです。
-  - `BitVector` を平衡二分木にしています(`DynamicBitVector`)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
+  - `BitVector` を平衡二分木にしています(`AVLTreeBitVector`)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
 - 未 verify が多いです。使わないのが吉でしょう。
 - とにかく重いです。
   - 10^5 回のクエリで10秒弱です。病弱です。
