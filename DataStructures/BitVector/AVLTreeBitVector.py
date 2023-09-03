@@ -161,7 +161,7 @@ class AVLTreeBitVector():
     self._update_balance(D)
     return D
 
-  def pref(self, r: int) -> int:
+  def _pref(self, r: int) -> int:
     left, right, bit_len, size, key, total = self.left, self.right, self.bit_len, self.size, self.key, self.total
     node = self.root
     s = 0
@@ -381,6 +381,9 @@ class AVLTreeBitVector():
     self._pop_under(path, d, pnode, res)
     return res
 
+  def set(self, k: int, v: int) -> None:
+    self.__setitem__(k, v)
+
   def tolist(self) -> List[int]:
     left, right, key, bit_len = self.left, self.right, self.key, self.bit_len
     a = newlist_hint(len(self))
@@ -455,11 +458,11 @@ class AVLTreeBitVector():
 
   def rank0(self, r: int) -> int:
     # a[0, r) に含まれる 0 の個数
-    return r - self.pref(r)
+    return r - self._pref(r)
 
   def rank1(self, r: int) -> int:
     # a[0, r) に含まれる 1 の個数
-    return self.pref(r)
+    return self._pref(r)
 
   def rank(self, r: int, v: int) -> int:
     # a[0, r) に含まれる v の個数
@@ -473,7 +476,7 @@ class AVLTreeBitVector():
     l, r = 0, len(self)
     while r - l > 1:
       m = (l + r) >> 1
-      if m - self.pref(m) > k:
+      if m - self._pref(m) > k:
         r = m
       else:
         l = m
@@ -487,7 +490,7 @@ class AVLTreeBitVector():
     l, r = 0, len(self)
     while r - l > 1:
       m = (l + r) >> 1
-      if self.pref(m) > k:
+      if self._pref(m) > k:
         r = m
       else:
         l = m
