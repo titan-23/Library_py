@@ -164,6 +164,9 @@ class WaveletMatrix():
   def next_value(self, l: int, r: int, x: int) -> int:
     return self.kth_smallest(l, r, self._range_freq(l, r, x))
 
+  def range_count(self, l: int, r: int, x: int) -> int:
+    return self.rank(r, x) - self.rank(l, x)
+
   def __len__(self):
     return self.size
 
