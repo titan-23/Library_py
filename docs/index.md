@@ -59,6 +59,7 @@
 - [PersistentStack](DataStructures/PersistentDataStructure/PersistentStack.md)
 
 ### [SegmentQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision.md)
+- [QuadraticDivisionList](DataStructures/SegmentQuadraticDivision/QuadraticDivisionList.md)
 - [SegmentLazyQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentLazyQuadraticDivision.md)
 - [SegmentQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision_.md)
 
