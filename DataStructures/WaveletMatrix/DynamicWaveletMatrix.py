@@ -12,27 +12,25 @@ class DynamicWaveletMatrix(WaveletMatrix):
     self._build(a)
 
   def _build(self, a: Sequence[int]) -> None:
-    '''列 a から wm を構築する'''
+    '''列 a から Dwm を構築する'''
+    v = array('B', bytes(self.size))
     for bit in range(self.log-1, -1, -1):
       # bit目の0/1に応じてvを構築 + aを安定ソート
-      v = [0] * self.size
       zero, one = [], []
       for i, e in enumerate(a):
         if e >> bit & 1:
           v[i] = 1
           one.append(e)
         else:
+          v[i] = 0
           zero.append(e)
       self.mid[bit] = len(zero)  # 境界をmid[bit]に保持
       self.v[bit] = AVLTreeBitVector(v)
       a = zero + one
 
   def reserve(self, n: int) -> None:
-    for bit in range(self.log):
-      self.v[bit].reserve(n)
-
-  def __str__(self):
-    return f'DynamicWaveletMatrix({[self.access(i) for i in range(self.size)]})'
+    for v in self.v:
+      v.reserve(n)
 
   def insert(self, k: int, x: int) -> None:
     mid = self.mid
@@ -48,12 +46,13 @@ class DynamicWaveletMatrix(WaveletMatrix):
     self.size += 1
 
   def pop(self, k: int) -> int:
-    ans = self.access(k)
     mid = self.mid
+    ans = 0
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
       K = k
-      if ans >> bit & 1:
+      if v.access(k):
+        ans |= 1 << bit
         k = v.rank1(k) + mid[bit]
       else:
         mid[bit] -= 1
@@ -68,4 +67,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def __setitem__(self, k: int, x: int):
     self.update(k, x)
+
+  def __str__(self):
+    return f'DynamicWaveletMatrix({[self.access(i) for i in range(self.size)]})'
 
