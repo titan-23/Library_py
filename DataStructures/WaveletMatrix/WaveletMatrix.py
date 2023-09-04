@@ -111,7 +111,7 @@ class WaveletMatrix():
 
   def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:
     # heap[length, x, l, bit]
-    hq = [(-(r-l), 0, l, self.log-1)]
+    hq: List[Tuple[int, int, int, int]] = [(-(r-l), 0, l, self.log-1)]
     ans = []
     while hq:
       length, x, l, bit = heappop(hq)
