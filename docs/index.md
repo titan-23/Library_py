@@ -104,6 +104,9 @@
 - [DynamicWaveletMatrix](DataStructures/WaveletMatrix/DynamicWaveletMatrix.md)
 
 ## [Graph](Graph/Graph.md)
+- [MaxFlow](Graph/MaxFlow/MaxFlow.md)
+  - [MaxFlowDinic](Graph/MaxFlow/MaxFlowDinic.md)
+  - [MaxFlowFordFulkerson](Graph/MaxFlow/MaxFlowFordFulkerson.md)
 - [bellman_ford](Graph/bellman_ford.md)
 - [bfs](Graph/bfs.md)
 - [is_bipartite_graph](Graph/is_bipartite_graph.md)
