@@ -34,4 +34,6 @@ class CumulativeOp(Generic[T]):
   
   def __str__(self):
     return str(self.acc)
+  
+  __repr__ = __str__
 
