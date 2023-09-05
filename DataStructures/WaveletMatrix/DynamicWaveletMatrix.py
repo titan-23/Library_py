@@ -36,13 +36,20 @@ class DynamicWaveletMatrix(WaveletMatrix):
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
+      # if x >> bit & 1:
+      #   v.insert(k, 1)
+      #   k = v.rank1(k) + mid[bit]
+      # else:
+      #   v.insert(k, 0)
+      #   mid[bit] += 1
+      #   k = v.rank0(k)
       if x >> bit & 1:
-        v.insert(k, 1)
-        k = v.rank1(k) + mid[bit]
+        s = v._insert_and_rank1(k, 1)
+        k = s + mid[bit]
       else:
-        v.insert(k, 0)
+        s = v._insert_and_rank1(k, 0)
+        k -= s
         mid[bit] += 1
-        k = v.rank0(k)
     self.size += 1
 
   def pop(self, k: int) -> int:
@@ -50,14 +57,22 @@ class DynamicWaveletMatrix(WaveletMatrix):
     ans = 0
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
-      K = k
-      if v.access(k):
+      # K = k
+      # if v.access(k):
+      #   ans |= 1 << bit
+      #   k = v.rank1(k) + mid[bit]
+      # else:
+      #   mid[bit] -= 1
+      #   k = v.rank0(k)
+      # v.pop(K)
+      sb = v._access_pop_and_rank1(k)
+      s = sb >> 1
+      if sb & 1:
         ans |= 1 << bit
-        k = v.rank1(k) + mid[bit]
+        k = s + mid[bit]
       else:
         mid[bit] -= 1
-        k = v.rank0(k)
-      v.pop(K)
+        k -= s
     self.size -= 1
     return ans
 

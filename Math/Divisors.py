@@ -2,7 +2,10 @@
 # 高速素因数分解
 # init: O(NloglogN)
 # N個の数の素因数分解 : O(NlogA)
+
 from collections import Counter
+from typing import List
+
 class Osa_k:
 
   def __init__(self, n: int):
@@ -14,18 +17,20 @@ class Osa_k:
             _min_factor[i*j] = i
     self._min_factor = _min_factor
 
-  def p_factorization(self, n: int) -> list:
+  def p_factorization(self, n: int) -> List[int]:
     ret = []
+    _min_factor = self._min_factor
     while n > 1:
-      ret.append(self._min_factor[n])
-      n //= self._min_factor[n]
+      ret.append(_min_factor[n])
+      n //= _min_factor[n]
     return ret
 
   def p_factorization_Counter(self, n: int) -> Counter:
     ret = Counter()
+    _min_factor = self._min_factor
     while n > 1:
-      ret[self._min_factor[n]] += 1
-      n //= self._min_factor[n]
+      ret[_min_factor[n]] += 1
+      n //= _min_factor[n]
     return ret
 
   def get_divisors(self, n: int) -> set:

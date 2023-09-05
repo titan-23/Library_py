@@ -1,5 +1,5 @@
 from array import array
-from typing import Tuple, List, Iterable, Sequence
+from typing import Tuple, List, Sequence
 from __pypy__ import newlist_hint
 
 class AVLTreeBitVector():
@@ -163,7 +163,7 @@ class AVLTreeBitVector():
     s = 0
     while r > 0:
       t = size[left[node]] + bit_len[node]
-      if size[left[node]] < r <= t:
+      if t - bit_len[node] < r <= t:
         r -= size[left[node]]
         s += total[left[node]] + AVLTreeBitVector._popcount(key[node] >> (bit_len[node] - r))
         break
@@ -203,7 +203,7 @@ class AVLTreeBitVector():
     d = 0
     while node:
       t = size[left[node]] + bit_len[node]
-      if size[left[node]] <= k <= t:
+      if t - bit_len[node] <= k <= t:
         break
       d <<= 1
       size[node] += 1
@@ -348,7 +348,7 @@ class AVLTreeBitVector():
     path = []
     while node:
       t = size[left[node]] + bit_len[node]
-      if size[left[node]] <= k < t:
+      if t - bit_len[node] <= k < t:
         break
       path.append(node)
       node = left[node] if t > k else right[node]
@@ -358,13 +358,11 @@ class AVLTreeBitVector():
       else:
         k -= t
     k -= size[left[node]]
-    if bit_len[node] == 1:
-      v = keys[node]
-      res = v >> (bit_len[node] - k - 1) & 1
-      self._pop_under(path, d, node, res)
-      return res
     v = keys[node]
     res = v >> (bit_len[node] - k - 1) & 1
+    if bit_len[node] == 1:
+      self._pop_under(path, d, node, res)
+      return res
     keys[node] = ((v >> (bit_len[node]-k)) << ((bit_len[node]-k-1))) | (v & ((1<<(bit_len[node]-k-1))-1))
     bit_len[node] -= 1
     size[node] -= 1
@@ -392,20 +390,7 @@ class AVLTreeBitVector():
     rec(self.root)
     return a
 
-  def tree_debug(self):
-    return
-    left, right = self.left, self.right
-    print(f'tree_debug() $$$$$$$$$$$$$$')
-    key, bit_len, size = self.key, self.bit_len, self.size
-    def rec(node):
-      if left[node]: print('left'); rec(left[node])
-      print(f'key={key[node]}, bit_len={bit_len[node]}, size={size[node]}')
-      if right[node]: print('right'); rec(right[node])
-    rec(self.root)
-    print()
-
   def debug(self) -> None:
-    self.tree_debug()
     print(f'debug ##########')
     print(f'{self.root=}')
     print(f'{len(self.key)=}')
@@ -494,13 +479,143 @@ class AVLTreeBitVector():
     # O(log(N))
     return self.select1(k) if v else self.select0(k)
 
+  def _insert_and_rank1(self, k: int, key: int) -> int:
+    if self.root == 0:
+      self.root = self._make_node(key, 1)
+      return 0
+    left, right, size, bit_len, balance, keys, total = self.left, self.right, self.size, self.bit_len, self.balance, self.key, self.total
+    node = self.root
+    s = 0
+    path = []
+    d = 0
+    while node:
+      t = size[left[node]] + bit_len[node]
+      if t - bit_len[node] <= k <= t:
+        break
+      if t <= k:
+        s += total[left[node]] + AVLTreeBitVector._popcount(keys[node])
+      d <<= 1
+      size[node] += 1
+      total[node] += key
+      path.append(node)
+      node = left[node] if t > k else right[node]
+      if t > k:
+        d |= 1
+      else:
+        k -= t
+    k -= size[left[node]]
+    s += total[left[node]] + AVLTreeBitVector._popcount(keys[node] >> (bit_len[node] - k))
+    if bit_len[node] < self.w:
+      v = keys[node]
+      bl = bit_len[node] - k
+      keys[node] = (((v >> bl) << 1 | key) << bl) | (v & ((1<<bl)-1))
+      bit_len[node] += 1
+      size[node] += 1
+      total[node] += key
+      return s
+    path.append(node)
+    size[node] += 1
+    total[node] += key
+    v = keys[node]
+    bl = self.w - k
+    v = (((v >> bl) << 1 | key) << bl) | (v & ((1<<bl)-1))
+    left_key = v >> self.w
+    left_key_popcount = left_key & 1
+    keys[node] = v & ((1 << self.w) - 1)
+    node = left[node]
+    d <<= 1
+    d |= 1
+    if not node:
+      if bit_len[path[-1]] < self.w:
+        bit_len[path[-1]] += 1
+        keys[path[-1]] = (keys[path[-1]] << 1) | left_key
+        return s
+      else:
+        left[path[-1]] = self._make_node(left_key, 1)
+    else:
+      path.append(node)
+      size[node] += 1
+      total[node] += left_key_popcount
+      d <<= 1
+      while right[node]:
+        node = right[node]
+        path.append(node)
+        size[node] += 1
+        total[node] += left_key_popcount
+        d <<= 1
+      if bit_len[node] < self.w:
+        bit_len[node] += 1
+        keys[node] = (keys[node] << 1) | left_key
+        return s
+      else:
+        right[node] = self._make_node(left_key, 1)
+    new_node = 0
+    while path:
+      node = path.pop()
+      balance[node] += 1 if d & 1 else -1
+      d >>= 1
+      if balance[node] == 0:
+        break
+      if balance[node] == 2:
+        new_node = self._rotate_LR(node) if balance[left[node]] == -1 else self._rotate_L(node)
+        break
+      elif balance[node] == -2:
+        new_node = self._rotate_RL(node) if balance[right[node]] == 1 else self._rotate_R(node)
+        break
+    if new_node:
+      if path:
+        if d & 1:
+          left[path[-1]] = new_node
+        else:
+          right[path[-1]] = new_node
+      else:
+        self.root = new_node
+    return s
+
+  def _access_pop_and_rank1(self, k: int) -> int:
+    assert 0 <= k < len(self)
+    left, right, size = self.left, self.right, self.size
+    bit_len, balance, keys, total = self.bit_len, self.balance, self.key, self.total
+    s = 0
+    node = self.root
+    d = 0
+    path = []
+    while node:
+      t = size[left[node]] + bit_len[node]
+      if t - bit_len[node] <= k < t:
+        break
+      if t <= k:
+        s += total[left[node]] + AVLTreeBitVector._popcount(keys[node])
+      path.append(node)
+      node = left[node] if t > k else right[node]
+      d <<= 1
+      if t > k:
+        d |= 1
+      else:
+        k -= t
+    k -= size[left[node]]
+    s += total[left[node]] + AVLTreeBitVector._popcount(keys[node] >> (bit_len[node] - k))
+    v = keys[node]
+    res = v >> (bit_len[node] - k - 1) & 1
+    if bit_len[node] == 1:
+      self._pop_under(path, d, node, res)
+      return s << 1 | res
+    keys[node] = ((v >> (bit_len[node]-k)) << ((bit_len[node]-k-1))) | (v & ((1<<(bit_len[node]-k-1))-1))
+    bit_len[node] -= 1
+    size[node] -= 1
+    total[node] -= res
+    for p in path:
+      size[p] -= 1
+      total[p] -= res
+    return s << 1 | res
+
   def __getitem__(self, k: int) -> int:
     assert 0 <= k < len(self)
     left, right, bit_len, size, key = self.left, self.right, self.bit_len, self.size, self.key
     node = self.root
     while True:
       t = size[left[node]] + bit_len[node]
-      if size[left[node]] <= k < t:
+      if t - bit_len[node] <= k < t:
         k -= size[left[node]]
         return key[node] >> (bit_len[node] - k - 1) & 1
       elif t > k:
@@ -514,7 +629,7 @@ class AVLTreeBitVector():
     node = self.root
     while True:
       t = size[left[node]] + bit_len[node]
-      if size[left[node]] <= k < t:
+      if t - bit_len[node] <= k < t:
         k -= size[left[node]]
         if v:
           key[node] |= 1 << k

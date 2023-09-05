@@ -33,7 +33,6 @@ class WaveletMatrix():
     '''a[k] を返す'''
     s = 0  # 答え
     for bit in range(self.log-1, -1, -1):
-      # print(self.v[bit], k)
       if self.v[bit].access(k):
         # k番目が立ってたら、
         # kまでの1とすべての0が次のk
