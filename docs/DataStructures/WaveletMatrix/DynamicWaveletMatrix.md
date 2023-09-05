@@ -20,6 +20,9 @@ _____
 - 未 verify が多いです。使わないのが吉でしょう。
 - とにかく重いです。
   - 10^5 回のクエリで10秒弱です。病弱です。
+- 高速化のため、アホの設計のもとコーディングをしています。
+  - `AVLTreeBitVector` の `_insert_and_rank1` / `_access_pop_and_rank1` なるメソッドです。
+  - そもそも設計してませんが。
 
 _____
 
@@ -47,3 +50,25 @@ _____
 - 位置 `k` の要素を `x` に更新します。
 - `__setitem__` をサポートしています。
 - 時間計算量 `Θ(log(n)log(σ))` です。
+
+_____
+
+## 使用例
+
+```python
+# AVLTreeBitVector を貼る
+# WaveletMatrix を貼る
+# DynamicWaveletMatrix を貼る
+
+n = int(input())
+A = list(map(int, input().split()))
+dwm = DynamicWaveletMatrix(1<<30, A)
+q = int(input())
+for _ in range(q):
+  c, l, r, k = map(int, input().split())
+  if c == 0:
+    v = wm.pop(r)
+    wm.insert(l, v)
+  if c == 1:
+    print(dwm.kth_smallest(l, r, k))
+```
