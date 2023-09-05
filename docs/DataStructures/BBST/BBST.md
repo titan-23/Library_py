@@ -13,6 +13,8 @@ ____
 
 - [`AVLTree`](AVLTree.md)
 - [`RedBlackTree`](RedBlackTree.md)
+  - [`RedBlackTreeSet`](RedBlackTreeSet.md)
+  - [`RedBlackTreeMultiset`](RedBlackTreeMultiset.md)
 - [`ScapegoatTree`](ScapegoatTree.md)
 - [`SplayTree`](SplayTree.md)
 - [`Treap`](Treap.md)
