@@ -26,8 +26,8 @@ _____
   - 32bitごとの和を保存しています。同様に使用bitは `2n bit` です。
 - コンパクトです。
 
-#### `v.set(k: int, v: int=1) -> None`
-- `k` 番目の bit を `v` にします。
+#### `v.set(k: int) -> None`
+- `k` 番目の bit を `1` にします。
 - `O(1)` です。
 
 #### `v.build() -> None`
@@ -39,10 +39,10 @@ _____
 - `__getitem__` メソッドをサポートしています。
 - `O(1)` です。
 
-#### `v.rank0(r: int) -> int, v.rank1(r: int) -> int, v.rank(r: int, v: int) -> int`
+#### `v.rank0(r: int) / v.rank1(r: int) / v.rank(r: int, v: int) -> int`
 - `a[0, r)` に含まれる `0 / 1 / v` の個数を返します。
 - `O(1)` です。
 
-#### `v.select0(r: int) -> int, v.select1(r: int) -> int, v.select(r: int, v: int) -> int`
+#### `v.select0(r: int) / v.select1(r: int) / v.select(r: int, v: int) -> int`
 - `k` 番目の `0 / 1 / v` のインデックスを返します。
 - `Θ(logN)` です。

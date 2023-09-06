@@ -7,16 +7,16 @@ class WaveletMatrix():
   def __init__(self, sigma: int, a: Sequence[int]=[]):
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
-    self.v: List[BitVector] = [None] * self.log
     self.mid: array[int] = array('I', bytes(4*self.log))
     self.size: int = len(a)
+    self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
     self._build(a)
 
   def _build(self, a: Sequence[int]) -> None:
     '''列 a から wm を構築する'''
     for bit in range(self.log-1, -1, -1):
       # bit目の0/1に応じてvを構築 + aを安定ソート
-      v = BitVector(self.size)
+      v = self.v[bit]
       zero, one = [], []
       for i, e in enumerate(a):
         if e >> bit & 1:
@@ -26,7 +26,6 @@ class WaveletMatrix():
           zero.append(e)
       v.build()
       self.mid[bit] = len(zero)  # 境界をmid[bit]に保持
-      self.v[bit] = v
       a = zero + one
 
   def access(self, k: int) -> int:
@@ -88,8 +87,7 @@ class WaveletMatrix():
     s = 0
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
-      v = self.v[bit]
-      r0, l0 = v.rank0(r), v.rank0(l)
+      r0, l0 = self.v[bit].rank0(r), self.v[bit].rank0(l)
       cnt = r0 - l0  # 区間内の 0 の個数
       if cnt <= k:  # 0 が k 以下のとき、 k 番目は 1
         s |= 1 << bit

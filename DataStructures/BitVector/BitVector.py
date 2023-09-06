@@ -10,23 +10,21 @@ class BitVector():
     self.N = n
     self.block_size = (n + 31) >> 5
     # bit数 32*n/32 * 2 = 2n bit
-    self.bit = array('I', bytes(4*(self.block_size+1)))
-    self.acc = array('I', bytes(4*(self.block_size+1)))
+    b = bytes(4*(self.block_size+1))
+    self.bit = array('I', b)
+    self.acc = array('I', b)
 
   @staticmethod
   def _popcount(x: int) -> int:
     x = x - ((x >> 1) & 0x55555555)
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333)
     x = x + (x >> 4) & 0x0f0f0f0f
-    x = x + (x >> 8)
-    x = x + (x >> 16)
+    x += x >> 8
+    x += x >> 16
     return x & 0x0000007f
 
-  def set(self, k: int, v: int=1) -> None:
-    if v:
-      self.bit[k >> 5] |= 1 << (k & 31)
-    else:
-      self.bit[k >> 5] &= ~(1 << (k & 31))
+  def set(self, k: int) -> None:
+    self.bit[k>>5] |= 1 << (k & 31)
 
   def build(self) -> None:
     acc, bit = self.acc, self.bit
