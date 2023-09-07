@@ -12,7 +12,7 @@ class SplayTreeSetTopDown(Generic[T]):
     self.end = 1
     self.node = 0
     self.len = 0
-    self.e = 0
+    self.e = e
     if not isinstance(a, list):
       a = list(a)
     if a:

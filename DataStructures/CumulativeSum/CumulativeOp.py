@@ -4,8 +4,7 @@ T = TypeVar('T')
 class CumulativeOp(Generic[T]):
 
   def __init__(self, a: Iterable[T], op: Callable[[T, T], T], inv: Callable[[T], T], e: T):
-    if not isinstance(a, list):
-      a = list(a)
+    a = list(a)
     n = len(a)
     acc = [e for _ in range(n+1)]
     for i in range(n):

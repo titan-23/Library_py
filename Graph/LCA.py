@@ -1,3 +1,4 @@
+from ..DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
 from typing import List
 from __pypy__ import newlist_hint
 
@@ -34,7 +35,8 @@ class LCA():
     self._nodeid = nodeid
     self._depth = depth
     self._msk = msk
-    self._st = SparseTableRmQ((d<<bit)+i for i, d in enumerate(depth))
+    a = [(d<<bit)+i for i, d in enumerate(depth)]
+    self._st = SparseTableRmQ(a, e=max(a))
 
   def lca(self, x: int, y: int) -> int:
     l, r = self._nodeid[x], self._nodeid[y]

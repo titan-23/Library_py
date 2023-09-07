@@ -1,6 +1,5 @@
 from collections import deque
-from bisect import bisect_left, bisect_right, insort
-from typing import Generic, TypeVar, List, Optional, Iterable, Tuple
+from typing import Generic, TypeVar, List, Iterable
 from __pypy__ import newlist_hint
 from array import array
 T = TypeVar('T')
@@ -109,7 +108,6 @@ class BTreeList(Generic[T]):
         if k == 0 and i < node.len_key():
           return node.key[i]
         k -= 1
-    assert False, f'IndexError'
 
   def pref(self, r: int) -> int:
     node = self._root

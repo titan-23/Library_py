@@ -55,7 +55,7 @@ class Deque():
       self.back[k-len(self.front)] = v
 
   def __bool__(self):
-    return self.front or self.back
+    return bool(self.front or self.back)
 
   def __len__(self):
     return len(self.front) + len(self.back)

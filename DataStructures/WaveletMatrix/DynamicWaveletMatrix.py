@@ -1,3 +1,5 @@
+from ..BitVector.AVLTreeBitVector import AVLTreeBitVector
+from .WaveletMatrix import WaveletMatrix
 from typing import Sequence, List
 from array import array
 

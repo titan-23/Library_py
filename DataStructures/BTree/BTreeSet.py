@@ -1,6 +1,6 @@
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
-from typing import Generic, TypeVar, List, Optional, Iterable, Tuple
+from typing import Generic, TypeVar, List, Optional, Iterable
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 

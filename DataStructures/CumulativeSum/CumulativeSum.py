@@ -3,8 +3,7 @@ from typing import Iterable
 class CumulativeSum():
 
   def __init__(self, a: Iterable[int], e: int=0):
-    if not isinstance(a, list):
-      a = list(a)
+    a = list(a)
     n = len(a)
     acc = [e] * (n+1)
     for i in range(n):

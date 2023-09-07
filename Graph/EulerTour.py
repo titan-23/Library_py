@@ -1,10 +1,9 @@
+from ..DataStructures.FenwickTree.FenwickTree import FenwickTree
+from ..DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
 from typing import List
 from __pypy__ import newlist_hint
 
 class EulerTour():
-
-  'FenwickTree'
-  'SparseTableRmQ'
 
   def __init__(self, G: List[List[List[int]]], root: int, vertexcost: List[int]=[]) -> None:
     n = len(G)
@@ -86,7 +85,8 @@ class EulerTour():
 
     bit = len(pathdepth).bit_length()
     self.msk = (1 << bit) - 1
-    self._st = SparseTableRmQ((d<<bit)+i for i, d in enumerate(pathdepth))
+    a = [(d<<bit)+i for i, d in enumerate(pathdepth)]
+    self._st = SparseTableRmQ(a, e=max(a))
 
   def get_lca(self, x: int, y: int) -> int:
     if x == y: return x
