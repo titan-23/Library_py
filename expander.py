@@ -1,23 +1,50 @@
 import sys
+import pyperclip
+import re
+import io
+import sys
+
+LIB_PATH = 'C:\\Users\\titan\\source'
 
 input_filename = sys.argv[1]
-
 output_filename = sys.argv[2] if len(sys.argv) == 3 else 'aa.py'
-
-input_file = open(input_filename, 'r')
-output_file = open(output_filename, 'w')
+input_file = open(input_filename, 'r', encoding='utf-8')
 
 added_file = set()
+output = ''
+input_lines = 0
 
-def get_code(now_path, input_file):
+def get_code(now_path, input_file, need_class, is_input=False):
+  global input_lines, output
+
   for line in input_file:
+
+    if 'class' in line:
+      match = re.search(r'class\s+(\w+)', line)
+      if match:
+        class_name = match.group(1)
+        if class_name in need_class:
+          print(f'import {class_name} OK.')
+          need_class.remove(class_name)
+
+    if is_input:
+      input_lines += 1
     if line.startswith('from Library_py'):
       _, s, _, *fs = line.split()
       s = s.replace('.', '\\')
-      s = f'C:\\Users\\titan\\source\\{s}.py'
+      s = f'{LIB_PATH}\\{s}.py'
       if s not in added_file:
-        f = open(s, 'r')
-        get_code(s, f)
+        try:
+          f = open(s, 'r', encoding='utf-8')
+        except FileNotFoundError:
+          print(f'  File \"{input_filename}\", line {input_lines}')
+          error_line = line.rstrip()
+          error_underline = '^' * len(error_line)
+          print(f'    {error_line}')
+          print(f'    {error_underline}')
+          print('ImportError')
+          exit(1)
+        get_code(s, f, fs)
         f.close()
         added_file.add(s)
     elif line.startswith('from .'):
@@ -35,13 +62,29 @@ def get_code(now_path, input_file):
         t = t[:i]
       s = f'{t}\\{s}.py'
       if s not in added_file:
-        f = open(s, 'r')
-        get_code(s, f)
+        f = open(s, 'r', encoding='utf-8')
+        get_code(s, f, fs)
         f.close()
         added_file.add(s)
     else:
-      print(line, end='', file=output_file)
+      output += line
+      # print(line, end='', file=output_file)
+  if need_class:
+    for e in need_class:
+      print(f'  {e}')
+    print('ImportError: class not found.')
+    exit(1)
 
-get_code('./', input_file)
+get_code('./', input_file, [], is_input=True)
+
+if output_filename in ['clip', 'CLIP', 'c', 'C']:
+  output_filename = 'clipboard'
+  pyperclip.copy(output)
+else:
+  output_file = open(output_filename, 'w', encoding='utf-8')
+  print(output, file=output_file)
+  output_file.close()
+
+print()
 print(f'The process completed successfully.')
 print(f'Output file: \"{output_filename}\" .')
