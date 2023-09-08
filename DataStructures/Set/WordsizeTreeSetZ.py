@@ -1,3 +1,4 @@
+from .WordsizeTreeSet import WordsizeTreeSet
 from typing import TypeVar, Iterable, Optional, Generic
 T = TypeVar('T')
 

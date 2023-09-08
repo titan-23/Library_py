@@ -156,7 +156,7 @@ class WordsizeTreeSet:
 
 
 from array import array
-from typing import Iterable, TypeVar, Optional
+from typing import Iterable, Optional
 
 class WordsizeTreeMultiset:
 
