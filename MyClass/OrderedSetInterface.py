@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
 T = TypeVar('T')
 
 class OrderedSetInterface(ABC, Generic[T]):
@@ -61,11 +61,11 @@ class OrderedSetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def __iter__(self):
+  def __iter__(self) -> Iterator:
     raise NotImplementedError
 
   @abstractmethod
-  def __next__(self):
+  def __next__(self) -> T:
     raise NotImplementedError
 
   @abstractmethod

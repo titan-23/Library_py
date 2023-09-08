@@ -1,13 +1,15 @@
+from ....MyClass.OrderedSetInterface import OrderedSetInterface
 import math
-from typing import List, TypeVar, Generic, Iterable, Tuple, Optional
+from typing import Iterator, List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional
+from __pypy__ import newlist_hint
 T = TypeVar('T')
 
-class ScapegoatTreeSet(Generic[T]):
+class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
 
-  alpha = 0.75
-  beta = math.log2(1 / alpha)
+  alpha: float = 0.75
+  beta: float = math.log2(1 / alpha)
 
-  class Node:
+  class Node():
 
     def __init__(self, key: T):
       self.key = key
@@ -22,12 +24,12 @@ class ScapegoatTreeSet(Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]):
     self.node = None
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: List[T]) -> None:
+  def _build(self, a: Sequence[T]) -> None:
     def sort(l: int, r: int) -> 'Node':
       mid = (l + r) >> 1
       node = Node(a[mid])
@@ -50,24 +52,24 @@ class ScapegoatTreeSet(Generic[T]):
       a.append(node)
       if node.right is not None:
         get(node.right)
-    def sort(l: int, r: int) -> Tuple['ScapegoatTreeSet.Node', int]:
+    def rec(l: int, r: int) -> Tuple['ScapegoatTreeSet.Node', int]:
       mid = (l + r) >> 1
       node = a[mid]
       node.size = 1
       if l != mid:
-        node.left = sort(l, mid)
+        node.left = rec(l, mid)
         node.size += node.left.size
       else:
         node.left = None
       if mid+1 != r:
-        node.right = sort(mid+1, r)
+        node.right = rec(mid+1, r)
         node.size += node.right.size
       else:
         node.right = None
       return node
     a = []
     get(node)
-    return sort(0, len(a))
+    return rec(0, len(a))
 
   def add(self, key: T) -> bool:
     Node = ScapegoatTreeSet.Node
@@ -145,6 +147,11 @@ class ScapegoatTreeSet(Generic[T]):
     for p in path:
       p.size -= 1
     return True
+
+  def remove(self, key: T) -> None:
+    if self.discard(key):
+      return
+    raise KeyError
 
   def le(self, key: T) -> Optional[T]:
     res = None
@@ -268,11 +275,14 @@ class ScapegoatTreeSet(Generic[T]):
   def pop_min(self) -> T:
     return self.pop(0)
 
-  def claer(self) -> None:
+  def pop_max(self) -> T:
+    return self.pop()
+
+  def clear(self) -> None:
     self.node = None
 
   def tolist(self) -> List[T]:
-    a = []
+    a = newlist_hint(len(self))
     if self.node is None:
       return a
     def rec(node):
@@ -284,14 +294,11 @@ class ScapegoatTreeSet(Generic[T]):
     rec(self.node)
     return a
 
-  def get_max(self) -> T:
-    return self.__getitem__(-1)
-
   def get_min(self) -> T:
     return self.__getitem__(0)
 
-  def pop_max(self) -> T:
-    return self.pop()
+  def get_max(self) -> T:
+    return self.__getitem__(-1)
 
   def __contains__(self, key: T):
     node = self.node
@@ -317,11 +324,11 @@ class ScapegoatTreeSet(Generic[T]):
         node = node.right
         k -= t + 1
 
-  def __iter__(self):
+  def __iter__(self) -> Iterator:
     self.__iter = 0
     return self
 
-  def __next__(self):
+  def __next__(self) -> T:
     if self.__iter == self.__len__():
       raise StopIteration
     res = self.__getitem__(self.__iter)
@@ -342,5 +349,5 @@ class ScapegoatTreeSet(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'ScapegoatTreeSet(' + str(self) + ')'
+    return f'ScapegoatTreeSet({self})'
 

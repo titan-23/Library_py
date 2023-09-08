@@ -1,3 +1,5 @@
+raise NotImplementedError
+
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
 from typing import Generic, TypeVar, List, Optional, Iterable
