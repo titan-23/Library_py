@@ -310,15 +310,15 @@ class LinkCutTree(Generic[T, F]):
   def __repr__(self):
     return str([self.__getitem__(i) for i in range(self.n)])
 
-def op(s, t):
-  return
+# def op(s, t):
+#   return
 
-def mapping(f, s):
-  return
+# def mapping(f, s):
+#   return
 
-def composition(f, g):
-  return
+# def composition(f, g):
+#   return
 
-e = None
-id = None
+# e = None
+# id = None
 
