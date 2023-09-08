@@ -1,7 +1,9 @@
+from ....MyClass.OrderedSetInterface import OrderedSetInterface
+from ....MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, TypeVar, Optional, List, Sequence
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
-class TreapSet(Generic[T]):
+class TreapSet(OrderedSetInterface, Generic[T]):
 
   class Random():
 
@@ -16,8 +18,8 @@ class TreapSet(Generic[T]):
 
   class Node():
 
-    def __init__(self, key, priority: int=-1):
-      self.key = key
+    def __init__(self, key: T, priority: int=-1):
+      self.key: T = key
       self.left: Optional['TreapSet.Node'] = None
       self.right: Optional['TreapSet.Node'] = None
       self.priority = TreapSet.Random.random() if priority == -1 else priority
@@ -37,20 +39,25 @@ class TreapSet(Generic[T]):
 
   def _build(self, a: Sequence[T]) -> None:
     Node = TreapSet.Node
-    def sort(l: int, r: int) -> Node:
+    def rec(l: int, r: int) -> Node:
       mid = (l + r) >> 1
       node = Node(a[mid], rand[mid])
       if l != mid:
-        node.left = sort(l, mid)
+        node.left = rec(l, mid)
       if mid+1 != r:
-        node.right = sort(mid+1, r)
+        node.right = rec(mid+1, r)
       return node
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-      a = sorted(set(a))
+      a = sorted(a)
+      b = [a[0]]
+      for e in a:
+        if b[-1] == e:
+          continue
+        b.append(e)
+      a = b
     self._len = len(a)
-    rand = [TreapSet.Random.random() for _ in range(self._len)]
-    rand.sort()
-    self.root = sort(0, self._len)
+    rand = sorted(TreapSet.Random.random() for _ in range(self._len))
+    self.root = rec(0, self._len)
 
   def _rotate_L(self, node: Node) -> Node:
     u = node.left
@@ -164,6 +171,11 @@ class TreapSet(Generic[T]):
         pnode.right = node.left
     return True
 
+  def remove(self, key: T) -> None:
+    if self.discard(key):
+      return
+    raise KeyError
+
   def le(self, key: T) -> Optional[T]:
     res = None
     node = self.root
@@ -182,7 +194,7 @@ class TreapSet(Generic[T]):
     res = None
     node = self.root
     while node:
-      if key <= node.key:
+      if key == node.key or key < node.key:
         node = node.left
       else:
         res = node.key
@@ -214,19 +226,6 @@ class TreapSet(Generic[T]):
         node = node.right
     return res
 
-  def tolist(self) -> List[T]:
-    a = []
-    if not self.root:
-      return a
-    def rec(node):
-      if node.left:
-        rec(node.left)  
-      a.append(node.key)
-      if node.right:
-        rec(node.right)
-    rec(self.root)
-    return a
-
   def get_min(self) -> Optional[T]:
     node = self.root
     if not node:
@@ -244,7 +243,7 @@ class TreapSet(Generic[T]):
     return node.key
 
   def pop_min(self) -> T:
-    assert self.root is not None
+    assert self.root is not None, f'IndexError'
     node = self.root
     pnode = None
     while node.left:
@@ -259,7 +258,7 @@ class TreapSet(Generic[T]):
     return res
 
   def pop_max(self) -> T:
-    assert self.root is not None
+    assert self.root is not None, f'IndexError'
     node = self.root
     pnode = None
     while node.right:
@@ -272,6 +271,32 @@ class TreapSet(Generic[T]):
     else:
       pnode.right = node.left
     return res
+
+  def clear(self) -> None:
+    self.root = None
+
+  def tolist(self) -> List[T]:
+    a = []
+    if not self.root:
+      return a
+    def rec(node):
+      if node.left:
+        rec(node.left)  
+      a.append(node.key)
+      if node.right:
+        rec(node.right)
+    rec(self.root)
+    return a
+
+  def __iter__(self):
+    self.__iter = 0
+    return self
+  
+  def __next__(self):
+    if self.__iter == len(self):
+      raise StopIteration
+    self.__iter += 1
+    return self.__getitem__(self.__iter - 1)
 
   def __getitem__(self, k: int) -> T:
     assert self._len > 0
@@ -294,6 +319,9 @@ class TreapSet(Generic[T]):
 
   def __len__(self):
     return self._len
+
+  def __bool__(self):
+    return self._len > 0
 
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'

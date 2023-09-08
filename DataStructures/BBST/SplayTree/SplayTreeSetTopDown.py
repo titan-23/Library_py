@@ -1,24 +1,26 @@
+from ....MyClass.SupportsLessThan import SupportsLessThan
+from ....MyClass.OrderedSetInterface import OrderedSetInterface
 from array import array
 from __pypy__ import newlist_hint
-from typing import Optional, Generic, Iterable, List, TypeVar
-T = TypeVar('T')
+from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
+T = TypeVar('T', bound=SupportsLessThan)
 
-class SplayTreeSetTopDown(Generic[T]):
+class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[], e: T=0):
     self.keys: List[T] = [e]
     self.size = array('I', bytes(4))
     self.child = array('I', bytes(8))
-    self.end = 1
-    self.node = 0
-    self.len = 0
-    self.e = e
-    if not isinstance(a, list):
+    self.end: int = 1
+    self.node: int = 0
+    self.len: int = 0
+    self.e: T = e
+    if not isinstance(a, Sequence):
       a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: List[T]) -> None:
+  def _build(self, a: Sequence[T]) -> None:
     def sort(l: int, r: int) -> int:
       mid = (l + r) >> 1
       if l != mid:
@@ -28,7 +30,13 @@ class SplayTreeSetTopDown(Generic[T]):
       size[mid] = 1 + size[child[mid<<1]] + size[child[mid<<1|1]]
       return mid
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-      a = sorted(set(a))
+      a = sorted(a)
+      b = [a[0]]
+      for e in a:
+        if b[-1] == e:
+          continue
+        b.append(e)
+      a = b
     n = len(a)
     key, child, size = self.keys, self.child, self.size
     self.reserve(n-len(key)+2)
@@ -160,6 +168,11 @@ class SplayTreeSetTopDown(Generic[T]):
     self.len -= 1
     return True
 
+  def remove(self, key: T) -> None:
+    if self.discard(key):
+      return
+    raise KeyError(key)
+
   def ge(self, key: T) -> Optional[T]:
     node = self.node
     if not node: return None
@@ -289,7 +302,7 @@ class SplayTreeSetTopDown(Generic[T]):
     keys, child = self.keys, self.child
     left, right = 0, 0
     while True:
-      if key <= keys[node]:
+      if not keys[node] > key:
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
           new = child[node<<1]
@@ -355,6 +368,20 @@ class SplayTreeSetTopDown(Generic[T]):
     node = self._get_min_splay(self.node)
     self.node = self.child[node<<1|1]
     return self.keys[node]
+
+  def clear(self) -> None:
+    self.node = 0
+
+  def __iter__(self):
+    self.it = self.get_min()
+    return self
+  
+  def __next__(self):
+    if self.it is None:
+      raise StopIteration
+    res = self.it
+    self.it = self.gt(res)
+    return res
 
   def __contains__(self, key: T):
     self._set_search_splay(key)

@@ -1,8 +1,9 @@
+from ...MyClass.OrderedSetInterface import OrderedSetInterface
 from typing import Optional, List, Iterable, Sequence
 from array import array
 from __pypy__ import newlist_hint
 
-class BinaryTrieSet():
+class BinaryTrieSet(OrderedSetInterface):
 
   def __init__(self, u: int, a: Iterable[int]=[]):
     self.left = array('I', bytes(8))
@@ -128,6 +129,11 @@ class BinaryTrieSet():
     self._discard(node)
     return True
 
+  def remove(self, key: int) -> None:
+    if self.discard(key):
+      return
+    raise KeyError(key)
+
   def pop(self, k: int=-1) -> int:
     assert -len(self) <= k < len(self), \
         f'IndexError: BinaryTrieSet.pop({k}), len={len(self)}'
@@ -248,6 +254,9 @@ class BinaryTrieSet():
     else:
       k += 1
     return k
+
+  def clear(self) -> None:
+    self.root = 1
 
   def gt(self, key: int) -> Optional[int]:
     assert 0 <= key < self.lim, \

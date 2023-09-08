@@ -9,11 +9,11 @@ class BinaryTrieMultiset():
     self.right = array('I', bytes(8))
     self.par = array('I', bytes(8))
     self.size = array('I', bytes(8))
-    self.end = 2
-    self.root = 1
-    self.bit = (u - 1).bit_length()
-    self.lim = 1 << self.bit
-    self.xor = 0
+    self.end: int = 2
+    self.root: int = 1
+    self.bit: int = (u - 1).bit_length()
+    self.lim: int = 1 << self.bit
+    self.xor: int = 0
     for e in a:
       self.add(e)
 

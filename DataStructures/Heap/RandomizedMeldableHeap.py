@@ -1,4 +1,3 @@
-import sys
 from array import array
 from __pypy__ import newlist_hint
 from typing import TypeVar, Generic, List, Iterable

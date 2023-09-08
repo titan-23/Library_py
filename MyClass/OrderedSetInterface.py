@@ -1,6 +1,7 @@
+from .SupportsLessThan import SupportsLessThan
 from abc import ABC, abstractmethod
 from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class OrderedSetInterface(ABC, Generic[T]):
 

@@ -1,5 +1,6 @@
+from ...MyClass.SupportsLessThan import SupportsLessThan
 from typing import TypeVar, Generic, Iterable
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class MinHeap(Generic[T]):
 
@@ -49,7 +50,7 @@ class MinHeap(Generic[T]):
     self._up(len(self.a)-1)
 
   def pushpop_min(self, key: T) -> T:
-    if self.a[0] >= key:
+    if self.a[0] > key or self.a[0] == key:
       return key
     res = self.a[0]
     self.a[0] = key

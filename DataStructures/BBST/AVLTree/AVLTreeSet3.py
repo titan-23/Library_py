@@ -1,6 +1,7 @@
+from ....MyClass.SupportsLessThan import SupportsLessThan
 from array import array
 from typing import Generic, Iterable, Tuple, TypeVar, Optional, List
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeSet(Generic[T]):
 

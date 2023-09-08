@@ -1,6 +1,7 @@
+from ....MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
 from __pypy__ import newlist_hint
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class TreapMultiset(Generic[T]):
 
@@ -17,12 +18,12 @@ class TreapMultiset(Generic[T]):
 
   class Node():
 
-    def __init__(self, key, val: int=1, priority: int=-1):
-      self.key = key
-      self.val = val
-      self.left = None
-      self.right = None
-      self.priority = TreapMultiset.Random.random() if priority == -1 else priority
+    def __init__(self, key: T, val: int=1, priority: int=-1):
+      self.key: T = key
+      self.val: int = val
+      self.left: Optional['TreapMultiset.Node'] = None
+      self.right: Optional['TreapMultiset.Node'] = None
+      self.priority: int = TreapMultiset.Random.random() if priority == -1 else priority
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -30,9 +31,9 @@ class TreapMultiset(Generic[T]):
       return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
-    self.node = None
-    self._len = 0
-    self._len_elm = 0
+    self.node: Optional['TreapMultiset.Node'] = None
+    self._len: int = 0
+    self._len_elm: int = 0
     if not isinstance(a, Sequence):
       a = list(a)
     if a:
@@ -221,7 +222,7 @@ class TreapMultiset(Generic[T]):
     res = None
     node = self.node
     while node is not None:
-      if key <= node.key:
+      if node.key > key:
         node = node.left
       else:
         res = node.key
@@ -302,6 +303,7 @@ class TreapMultiset(Generic[T]):
     return node.key
 
   def pop_min(self) -> T:
+    assert self
     self._len -= 1
     node = self.node
     pnode = None
@@ -320,6 +322,7 @@ class TreapMultiset(Generic[T]):
     return res
 
   def pop_max(self) -> T:
+    assert self
     self._len -= 1
     node = self.node
     pnode = None

@@ -1,8 +1,9 @@
+from ...MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, TypeVar, Generic, Optional, Set, List
 from bisect import bisect_right, bisect_left
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
-class StaticSet(Generic[T]):
+class StaticOrderedSet(Generic[T]):
 
   def __init__(self, a: Iterable=[T]):
     self.s: Set[T] = set(a)
@@ -44,5 +45,5 @@ class StaticSet(Generic[T]):
     return '{' + ', '.join(map(str, self.l)) + '}'
 
   def __repr__(self):
-    return f'StaticSet({self})'
+    return f'StaticOrderedSet({self})'
 

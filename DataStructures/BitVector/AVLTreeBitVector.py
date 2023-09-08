@@ -1,8 +1,9 @@
+from .BitVectorInterface import BitVectorInterface
 from array import array
 from typing import Tuple, List, Sequence
 from __pypy__ import newlist_hint
 
-class AVLTreeBitVector():
+class AVLTreeBitVector(BitVectorInterface):
 
   @staticmethod
   def _popcount(x: int) -> int:
@@ -626,6 +627,7 @@ class AVLTreeBitVector():
 
   def __setitem__(self, k: int, v: int):
     left, right, bit_len, size, key = self.left, self.right, self.bit_len, self.size, self.key
+    assert v == 0 or v == 1
     node = self.root
     while True:
       t = size[left[node]] + bit_len[node]

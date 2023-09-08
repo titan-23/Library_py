@@ -1,9 +1,11 @@
+from ....MyClass.OrderedSetInterface import OrderedSetInterface
+from ....MyClass.SupportsLessThan import SupportsLessThan
 from array import array
 from __pypy__ import newlist_hint
 from typing import Generic, Iterable, List, TypeVar, Optional
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
-class SplayTreeSet(Generic[T]):
+class SplayTreeSet(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[], e: T=0):
     self.keys: List[T] = [e]
@@ -172,6 +174,11 @@ class SplayTreeSet(Generic[T]):
       self._update(child[node<<1])
       self.node = node
     return True
+
+  def remove(self, key: T) -> None:
+    if self.discard(key):
+      return
+    raise KeyError(key)
 
   def le(self, key: T) -> Optional[T]:
     node = self.node

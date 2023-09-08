@@ -1,8 +1,10 @@
+from ....MyClass.OrderedSetInterface import OrderedSetInterface
+from ....MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, Optional, TypeVar, Generic, List, Sequence
 from __pypy__ import newlist_hint
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
-class RedBlackTreeSet(Generic[T]):
+class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
 
   class Node():
 
@@ -354,6 +356,11 @@ class RedBlackTreeSet(Generic[T]):
     self.discard_iter(node)
     return True
 
+  def remove(self, key: T) -> None:
+    if self.discard(key):
+      return
+    raise KeyError
+
   def count(self, key: T) -> int:
     return 1 if self.find(key) else 0
 
@@ -478,17 +485,14 @@ class RedBlackTreeSet(Generic[T]):
 
   def __iter__(self):
     self.it = self.min_node
-    self.cnt = 0
     return self
 
   def __next__(self):
-    if self.cnt >= self.it.cnt:
-      self.it += 1
-      self.cnt = 0
-    self.cnt += 1
-    if self.it is None:
+    if not self.it:
       raise StopIteration
-    return self.it.key
+    res = self.it.key
+    self.it += 1
+    return res
 
   def __bool__(self):
     return self.node is not RedBlackTreeSet.NIL

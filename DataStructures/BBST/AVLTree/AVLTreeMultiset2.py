@@ -1,16 +1,17 @@
+from ....MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Optional, Tuple, TypeVar, List
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeMultiset2(Generic[T]):
 
   class Node():
 
-    def __init__(self, key, val: int):
-      self.key = key
-      self.val = val
-      self.left = None
-      self.right = None
-      self.balance = 0
+    def __init__(self, key: T, val: int):
+      self.key: T = key
+      self.val: int = val
+      self.left: Optional['AVLTreeMultiset2.Node'] = None
+      self.right: Optional['AVLTreeMultiset2.Node'] = None
+      self.balance: int = 0
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -18,9 +19,9 @@ class AVLTreeMultiset2(Generic[T]):
       return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):  
-    self.node = None
-    self._len = 0
-    self._len_elm = 0
+    self.node: Optional['AVLTreeMultiset2.Node'] = None
+    self._len: int = 0
+    self._len_elm: int = 0
     if a:
       self._build(a)
 
@@ -55,6 +56,8 @@ class AVLTreeMultiset2(Generic[T]):
           h = hr
       return node, h+1
     a = sorted(a)
+    if not a:
+      return
     self._len = len(a)
     x, y = self._rle(a)
     self._len_elm = len(x)

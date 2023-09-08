@@ -1,6 +1,7 @@
+from .BitVectorInterface import BitVectorInterface
 from array import array
 
-class BitVector():
+class BitVector(BitVectorInterface):
 
   # 簡潔ではない
   # コンパクトのつもり
@@ -99,4 +100,13 @@ class BitVector():
     # k 番目の v のindex
     # O(log(N))
     return self.select1(k) if v else self.select0(k)
+
+  def __len__(self):
+    return self.N
+  
+  def __str__(self):
+    return str([self.access(i) for i in range(self.N)])
+
+  def __repr__(self):
+    return f'BitVector({self})'
 

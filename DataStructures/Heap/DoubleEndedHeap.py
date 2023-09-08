@@ -1,5 +1,6 @@
-from typing import Generic, Iterable, TypeVar, Supports
-T = TypeVar('T')
+from ...MyClass.SupportsLessThan import SupportsLessThan
+from typing import Generic, Iterable, TypeVar
+T = TypeVar('T', bound=SupportsLessThan)
 
 class DoubleEndedHeap(Generic[T]):
 

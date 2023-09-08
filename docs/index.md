@@ -82,8 +82,8 @@
 - [MinMaxSet](DataStructures/Set/MinMaxSet.md)
 - [MultisetQuadraticDivision](DataStructures/Set/MultisetQuadraticDivision.md)
 - [SetQuadraticDivision](DataStructures/Set/SetQuadraticDivision.md)
-- [StaticMultiset](DataStructures/Set/StaticMultiset.md)
-- [StaticSet](DataStructures/Set/StaticSet.md)
+- [StaticOrderedMultiset](DataStructures/Set/StaticOrderedMultiset.md)
+- [StaticOrderedSet](DataStructures/Set/StaticOrderedSet.md)
 - [WordsizeTreeSet](DataStructures/Set/WordsizeTreeSet.md)
 - [WordsizeTreeSetZ](DataStructures/Set/WordsizeTreeSetZ.md)
 
