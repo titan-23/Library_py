@@ -1,12 +1,13 @@
+from ...MyClass.OrderedSetInterface import OrderedSetInterface
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
 from typing import Generic, TypeVar, List, Optional, Iterable
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 
-class BTreeSet(Generic[T]):
+class BTreeSet(OrderedSetInterface, Generic[T]):
 
-  class Node(Generic[T]):
+  class Node():
 
     def __init__(self):
       self.key: List[T] = []
@@ -16,7 +17,7 @@ class BTreeSet(Generic[T]):
     def is_leaf(self) -> bool:
       return not self.child
 
-    def _add_size(self, s):
+    def _add_size(self, s: int):
       self.size += s
 
     def split(self, i: int) -> 'BTreeSet.Node':
@@ -73,7 +74,6 @@ class BTreeSet(Generic[T]):
 
     __repr__ = __str__
 
-
   def __init__(self, a: Iterable[T]=[]):
     self._m = 1000
     self._root = BTreeSet.Node()
@@ -97,7 +97,6 @@ class BTreeSet(Generic[T]):
         if k == 0 and i < node.len_key():
           return node.key[i]
         k -= 1
-    assert False, f'IndexError'
 
   def _is_over(self, node: 'BTreeSet.Node') -> bool:
     return node.len_key() > self._m
@@ -216,7 +215,7 @@ class BTreeSet(Generic[T]):
     if node is self._root and not node.key:
       self._root = y
 
-  def _update_stack(self, stack):
+  def _update_stack(self, stack: List['BTreeSet.Node']) -> None:
     for s in stack:
       s.size -= 1
 
@@ -272,6 +271,11 @@ class BTreeSet(Generic[T]):
       return True
     return False
 
+  def remove(self, key: T) -> None:
+    if self.discard(key):
+      return
+    raise ValueError
+
   def tolist(self) -> List[T]:
     a = newlist_hint(len(self))
     def dfs(node):
@@ -299,7 +303,7 @@ class BTreeSet(Generic[T]):
         return node.key[0] if node.key else None
       node = node.child[0]
 
-  def debug(self):
+  def debug(self) -> None:
     dep = [[] for _ in range(10)]
     dq = deque([(self._root, 0)])
     while dq:
@@ -316,8 +320,10 @@ class BTreeSet(Generic[T]):
         print(e, end='  ')
       print()
 
-  def pop(self, k: int) -> T:
-    assert 0 <= k < len(self), f'IndexError'
+  def pop(self, k: int=-1) -> T:
+    assert -len(self) <= k < len(self), f'IndexError'
+    if k < 0:
+      k += len(self)
     node = self._root
     self._len -= 1
     stack = []
@@ -366,6 +372,14 @@ class BTreeSet(Generic[T]):
         node = cnode
         continue
       node = node.child[i]
+
+  def pop_max(self) -> T:
+    assert self, f'IndexError'
+    return self.pop()
+
+  def pop_min(self) -> T:
+    assert self, f'IndexError'
+    return self.pop(0)
 
   def ge(self, key: T) -> Optional[T]:
     res, node = None, self._root
@@ -432,45 +446,6 @@ class BTreeSet(Generic[T]):
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
+  def __repr__(self):
+    return f'BTreeSet({self.tolist()})'
 
-import os
-from __pypy__.builders import StringBuilder
-
-class FastO():
-
-  sb = StringBuilder()
-
-  @classmethod
-  def write(cls, *args, sep: str=' ', end: str='\n', flush: bool=False) -> None:
-    append = cls.sb.append
-    for i in range(len(args)-1):
-      append(str(args[i]))
-      append(sep)
-    if args:
-      append(str(args[-1]))
-    append(end)
-    if flush:
-      cls.flush()
-
-  @classmethod
-  def flush(cls) -> None:
-    os.write(1, cls.sb.build().encode())
-    cls.sb = StringBuilder()
-
-write = FastO.write
-flush = FastO.flush
-
-import sys
-input = lambda: sys.stdin.buffer.readline().rstrip()
-
-
-b = BTreeSet()
-q = int(input())
-for _ in range(q):
-  t, x = map(int, input().split())
-  if t == 1:
-    b.add(x)
-  else:
-    v = b.pop(x-1)
-    write(v)
-flush()

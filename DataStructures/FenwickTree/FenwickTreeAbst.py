@@ -75,13 +75,13 @@ class FenwickTreeAbst(Generic[T]):
   def __repr__(self):
     return f'FenwickTreeAbst({self})'
 
-def op(s, t):
-  # return s + t
-  return
+# def op(s, t):
+#   # return s + t
+#   return
 
-def inv(s):
-  # return -s
-  return
+# def inv(s):
+#   # return -s
+#   return
 
-e = None
+# e = None
 

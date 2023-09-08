@@ -1,16 +1,17 @@
+from ....MyClass.OrderedSetInterface import OrderedSetInterface
 from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
 T = TypeVar('T')
 
-class AVLTreeSet(Generic[T]):
+class AVLTreeSet(OrderedSetInterface, Generic[T]):
 
   class Node:
 
     def __init__(self, key: T):
-      self.key = key
-      self.size = 1
-      self.left = None
-      self.right = None
-      self.balance = 0
+      self.key: T = key
+      self.size: int = 1
+      self.left: Optional['AVLTreeSet.Node'] = None
+      self.right: Optional['AVLTreeSet.Node'] = None
+      self.balance: int = 0
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -29,16 +30,13 @@ class AVLTreeSet(Generic[T]):
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(a[mid])
+      hl, hr = 0, 0
       if l != mid:
         node.left, hl = sort(l, mid)
         node.size += node.left.size
-      else:
-        hl = 0
       if mid+1 != r:
         node.right, hr = sort(mid+1, r)
         node.size += node.right.size
-      else:
-        hr = 0
       node.balance = hl - hr
       return node, max(hl, hr)+1
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
@@ -183,11 +181,6 @@ class AVLTreeSet(Generic[T]):
       p.size += 1
     return True
 
-  def remove(self, key: T) -> None:
-    if self.discard(key):
-      return
-    raise KeyError(key)
-
   def discard(self, key: T) -> bool:
     di = 0
     path = []
@@ -251,6 +244,11 @@ class AVLTreeSet(Generic[T]):
     for p in path:
       p.size -= 1
     return True
+
+  def remove(self, key: T) -> None:
+    if self.discard(key):
+      return
+    raise KeyError(key)
 
   def le(self, key: T) -> Optional[T]:
     res = None

@@ -1,3 +1,4 @@
+from ..FenwickTree.DynamicFenwickTree import DynamicFenwickTree
 from typing import Iterable, Tuple, Optional
 
 class DynamicFenwickTreeSet():

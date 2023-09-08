@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Callable, Union, List, Tuple
+from typing import Generic, Iterable, TypeVar, Callable, List, Tuple
 T = TypeVar('T')
 F = TypeVar('F')
 

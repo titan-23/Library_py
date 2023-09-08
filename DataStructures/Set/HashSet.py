@@ -1,6 +1,5 @@
 import random
-random.seed(211)
-from typing import Iterable, List, Iterator, Tuple, Any
+from typing import Iterable, List, Iterator
 
 class HashSet():
 
@@ -77,6 +76,7 @@ class HashSet():
         return True
       elif _keys[h] == key:
         return False
+    assert False
 
   def discard(self, key: int) -> bool:
     assert key != self._empty, \
@@ -100,6 +100,7 @@ class HashSet():
         if self._len > 1000 and self._dellen*20 > self._len:
           self._rebuild()
         return True
+    assert False
 
   def __contains__(self, key: int):
     assert key != self._empty, \

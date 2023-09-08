@@ -128,9 +128,8 @@ class DynamicSegmentTree(Generic[T]):
   def __repr__(self) -> str:
     return f'DynamicSegmentTree({self})'
 
-
-def op(s, t):
-  return
+# def op(s, t):
+#   return
  
-e = None
+# e = None
 
