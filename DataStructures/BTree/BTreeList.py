@@ -1,7 +1,6 @@
 from collections import deque
 from typing import Generic, TypeVar, List, Iterable
 from __pypy__ import newlist_hint
-from array import array
 T = TypeVar('T')
 
 class BTreeList(Generic[T]):

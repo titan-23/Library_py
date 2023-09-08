@@ -1,6 +1,7 @@
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, Optional, Sequence, TypeVar, Generic, List, Tuple
 from __pypy__ import newlist_hint
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class RedBlackTreeMultiset(Generic[T]):
 
@@ -132,8 +133,7 @@ class RedBlackTreeMultiset(Generic[T]):
     def sort(l: int, r: int, d: int):
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
-      if (not flag and d&1) or (flag and d > 1 and not d&1):
-        node.col = 1
+      node.col = int((not flag and d&1) or (flag and d > 1 and not d&1))
       if l != mid:
         node.left = sort(l, mid, d+1)
         node.left.par = node
@@ -219,10 +219,7 @@ class RedBlackTreeMultiset(Generic[T]):
       if key == node.key:
         node.cnt += cnt
         return
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     z = RedBlackTreeMultiset.Node(key, cnt)
     if key < self.min_node.key:
       self.min_node = z
@@ -355,10 +352,7 @@ class RedBlackTreeMultiset(Generic[T]):
     while node:
       if key == node.key:
         break
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     else:
       return False
     if node.cnt > cnt:
@@ -369,14 +363,22 @@ class RedBlackTreeMultiset(Generic[T]):
     return True
 
   def discard_all(self, key: T) -> bool:
-    node = self.find(key)
-    if not node:
+    node = self.node
+    while node:
+      if key == node.key:
+        break
+      node = node.left if key < node.key else node.right
+    else:
       return False
     self.discard_iter(node)
     return True
 
   def count(self, key: T) -> int:
-    node = self.find(key)
+    node = self.node
+    while node:
+      if key == node.key:
+        break
+      node = node.left if key < node.key else node.right
     return node.cnt if node else 0
 
   def get_max(self) -> Optional[T]:
@@ -394,20 +396,50 @@ class RedBlackTreeMultiset(Generic[T]):
     return self.min_node
 
   def le(self, key: T) -> Optional[T]:
-    res = self.le_iter(key)
-    return None if res is None else res.key
+    res, node = None, self.node
+    while node:
+      if key == node.key:
+        res = node
+        break
+      elif key < node.key:
+        node = node.left
+      else:
+        res = node
+        node = node.right
+    return res.key if res else None
 
   def lt(self, key: T) -> Optional[T]:
-    res = self.lt_iter(key)
-    return None if res is None else res.key
+    res, node = None, self.node
+    while node:
+      if key <= node.key:
+        node = node.left
+      else:
+        res = node
+        node = node.right
+    return res.key if res else None
 
   def ge(self, key: T) -> Optional[T]:
-    res = self.ge_iter(key)
-    return None if res is None else res.key
+    res, node = None, self.node
+    while node:
+      if key == node.key:
+        res = node
+        break
+      elif key < node.key:
+        res = node
+        node = node.left
+      else:
+        node = node.right
+    return res.key if res else None
 
   def gt(self, key: T) -> Optional[T]:
-    res = self.gt_iter(key)
-    return None if res is None else res.key
+    res, node = None, self.node
+    while node:
+      if key < node.key:
+        res = node
+        node = node.left
+      else:
+        node = node.right
+    return res.key if res else None
 
   def le_iter(self, key: T) -> Optional[Node]:
     res, node = None, self.node
@@ -460,10 +492,7 @@ class RedBlackTreeMultiset(Generic[T]):
     while node:
       if key == node.key:
         return node
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return None
 
   def tolist(self) -> List[T]:
@@ -529,10 +558,7 @@ class RedBlackTreeMultiset(Generic[T]):
     while node:
       if key == node.key:
         return True
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return False
 
   def __len__(self):

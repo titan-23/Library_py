@@ -1,9 +1,10 @@
 from ...MyClass.OrderedSetInterface import OrderedSetInterface
+from ...MyClass.SupportsLessThan import SupportsLessThan
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
-from typing import Generic, TypeVar, List, Optional, Iterable
+from typing import Deque, Generic, Tuple, TypeVar, List, Optional, Iterable
 from __pypy__ import newlist_hint
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class BTreeSet(OrderedSetInterface, Generic[T]):
 
@@ -75,9 +76,9 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     __repr__ = __str__
 
   def __init__(self, a: Iterable[T]=[]):
-    self._m = 1000
-    self._root = BTreeSet.Node()
-    self._len = 0
+    self._m: int = 1000
+    self._root: 'BTreeSet.Node' = BTreeSet.Node()
+    self._len: int = 0
     self._build(a)
 
   def _build(self, a: Iterable[T]):
@@ -305,7 +306,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
   def debug(self) -> None:
     dep = [[] for _ in range(10)]
-    dq = deque([(self._root, 0)])
+    dq: Deque[Tuple['BTreeSet.Node', int]] = deque([(self._root, 0)])
     while dq:
       node, d = dq.popleft()
       dep[d].append((node.key, node.size))
@@ -333,6 +334,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
         self._update_stack(stack)
         return v
       stack.append(node)
+      i = -1
       for i in range(node.len_key()+1):
         if k < node.child[i].size:
           break
@@ -429,6 +431,9 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
       node = node.child[i]
     return res
 
+  def clear(self) -> None:
+    self._root = BTreeSet.Node()
+
   def __iter__(self):
     self._iter_val = self.get_min()
     return self
@@ -439,6 +444,9 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     p = self._iter_val
     self._iter_val = self.gt(self._iter_val)
     return p
+
+  def __bool__(self):
+    return self._len > 0
 
   def __len__(self):
     return self._len

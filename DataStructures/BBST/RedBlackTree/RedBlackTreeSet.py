@@ -1,5 +1,5 @@
-from ....MyClass.OrderedSetInterface import OrderedSetInterface
-from ....MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, Optional, TypeVar, Generic, List, Sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
@@ -116,16 +116,16 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       self._build(a)
 
   def _build(self, a: Sequence[T]) -> None:
-    def sort(l: int, r: int, d: int):
+    Node = RedBlackTreeSet.Node
+    def rec(l: int, r: int, d: int) -> Node:
       mid = (l + r) >> 1
       node = Node(a[mid])
-      if (not flag and d&1) or (flag and d > 1 and not d&1):
-        node.col = 1
+      node.col = int((not flag and d&1) or (flag and d > 1 and not d&1))
       if l != mid:
-        node.left = sort(l, mid, d+1)
+        node.left = rec(l, mid, d+1)
         node.left.par = node
       if mid+1 != r:
-        node.right = sort(mid+1, r, d+1)
+        node.right = rec(mid+1, r, d+1)
         node.right.par = node
       return node
     if not all(a[i] < a[i+1] for i in range(len(a)-1)):
@@ -139,9 +139,8 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
           continue
         b.append(e)
       a = b
-    Node = RedBlackTreeSet.Node
     flag = len(a).bit_length() & 1
-    self.node = sort(0, len(a), 0)
+    self.node = rec(0, len(a), 0)
     self.min_node = self.node._min()
     self.max_node = self.node._max()
     self.size = len(a)
@@ -211,10 +210,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       pnode = node
       if key == node.key:
         return False
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     self.size += 1
     z = RedBlackTreeSet.Node(key)
     if key < self.min_node.key:
@@ -347,10 +343,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     while node:
       if key == node.key:
         break
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     else:
       return False
     self.discard_iter(node)
@@ -423,7 +416,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       if key == node.key:
         res = node
         break
-      elif key < node.key:
+      if key < node.key:
         res = node
         node = node.left
       else:
@@ -445,10 +438,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     while node:
       if key == node.key:
         return node
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return None
 
   def tolist(self) -> List[T]:
@@ -502,10 +492,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     while node:
       if key == node.key:
         return True
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return False
 
   def __len__(self):
@@ -515,5 +502,5 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'RedBlackTreeSet(' + str(self.tolist()) + ')'
+    return f'RedBlackTreeSet({self})'
 
