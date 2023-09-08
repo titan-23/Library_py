@@ -23,7 +23,7 @@ class CycleMemo(Generic[T]):
     self.pre = pre
     self.cycle = cycle
 
-  def calc(self, k: int) -> T:
+  def kth(self, k: int) -> T:
     if k < self.cycle_start:
       return self.pre[k]
     k -= self.cycle_start

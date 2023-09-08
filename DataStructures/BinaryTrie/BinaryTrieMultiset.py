@@ -1,8 +1,9 @@
+from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from typing import Optional, List, Iterable
 from array import array
 from __pypy__ import newlist_hint
 
-class BinaryTrieMultiset():
+class BinaryTrieMultiset(OrderedMultisetInterface):
 
   def __init__(self, u: int, a: Iterable[int]=[]):
     self.left = array('I', bytes(8))
@@ -99,6 +100,15 @@ class BinaryTrieMultiset():
         size[node] -= cnt
         node = par[node]
     return True
+  
+  def discard_all(self, key: int) -> bool:
+    return self.discard(key, self.count(key))
+
+  def remove(self, key: int, cnt: int=1) -> None:
+    c = self.count(key)
+    if c > cnt:
+      raise KeyError(key)
+    self.discard(key, cnt)
 
   def count(self, key: int) -> int:
     node = self._find(key)
@@ -264,6 +274,9 @@ class BinaryTrieMultiset():
         a.append(val)
       val = self.gt(val)
     return a
+
+  def clear(self) -> None:
+    self.root = 1
 
   def __contains__(self, key: int):
     assert 0 <= key < self.lim, \

@@ -1,9 +1,10 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from typing import Iterable, Optional, Sequence, TypeVar, Generic, List, Tuple
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
 
-class RedBlackTreeMultiset(Generic[T]):
+class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   class Node():
 
@@ -372,6 +373,12 @@ class RedBlackTreeMultiset(Generic[T]):
       return False
     self.discard_iter(node)
     return True
+
+  def remove(self, key: T, cnt: int=1) -> None:
+    c = self.count(key)
+    if c < cnt:
+      raise KeyError(key)
+    self.discard(key, cnt)
 
   def count(self, key: T) -> int:
     node = self.node

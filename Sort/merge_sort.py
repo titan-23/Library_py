@@ -1,6 +1,7 @@
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, TypeVar, Callable, List
 from __pypy__ import newlist_hint
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -> List[T]:
   def _sort(a: List[T]) -> List[T]:

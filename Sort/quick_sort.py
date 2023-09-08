@@ -1,6 +1,7 @@
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, TypeVar, Callable, List
 import random
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 def quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -> List[T]:
   a = list(a)
