@@ -3,6 +3,7 @@ from collections import Counter
 import math
 
 class PollardRho():
+  
   # 高速素因数分解
 
   L = [2, 325, 9375, 28178, 450775, 9780504, 1795265022]

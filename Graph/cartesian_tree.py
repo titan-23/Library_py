@@ -1,8 +1,8 @@
 from __pypy__ import newlist_hint
 from typing import List, Tuple
 
-'''Get cartesian_tree. / O(N)'''
 def cartesian_tree(a: List[int]) -> Tuple[List[int], List[int], List[int]]:
+  '''Get cartesian_tree. / O(N)'''
   n = len(a)
   par = [-1] * n
   left = [-1] * n

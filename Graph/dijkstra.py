@@ -5,7 +5,7 @@ inf = float('inf')
 def dijkstra(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
   dist = [inf] * len(G)
   dist[s] = 0
-  hq = [(0, s)]
+  hq: List[Tuple[int, int]] = [(0, s)]
   while hq:
     d, v = heappop(hq)
     if dist[v] < d: continue
@@ -15,12 +15,12 @@ def dijkstra(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
         heappush(hq, (d + c, x))
   return dist
 
-'''Return (Path: from s to t, Dist: from s)'''
 def dijkstra_path(G: List[List[Tuple[int, int]]], s: int, t: int) -> Tuple[List[int], List[Union[int, float]]]:
+  '''Return (Path: from s to t, Dist: from s)'''
   prev = [-1] * len(G)
   dist = [inf] * len(G)
   dist[s] = 0
-  hq = [(0, s)]
+  hq: List[Tuple[int, int]] = [(0, s)]
   while hq:
     d, v = heappop(hq)
     if dist[v] < d: continue

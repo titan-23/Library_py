@@ -1,4 +1,4 @@
-class ModComb:
+class ModComb():
 
   # nCr2のみをつかうときなどは、limit=-1とかにすると吉
   def __init__(self, limit: int, mod: int):

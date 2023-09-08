@@ -1,9 +1,9 @@
 from typing import List, Tuple
 from __pypy__ import newlist_hint
 
-class RootedTree():
+class WeightedWeightedRootedTree():
 
-  def __init__(self, _G: List[List[int]], _root: int, cp: bool=False, lca: bool=False):
+  def __init__(self, _G: List[List[Tuple[int, int]]], _root: int, cp: bool=False, lca: bool=False):
     self._n = len(_G)
     self._G = _G
     self._root = _root
@@ -18,7 +18,7 @@ class RootedTree():
     self._bipartite_graph = []
     self._cp = cp
     self._lca = lca
-    # self._rank = []
+    self._rank = []
     K = 1
     while 1 << K < self._n:
       K += 1
@@ -32,7 +32,7 @@ class RootedTree():
 
   def __str__(self):
     self._calc_child_parents()
-    ret = ["<RootedTree> ["]
+    ret = ["<WeightedRootedTree> ["]
     ret.extend(
       [f'  dist:{str(d).zfill(2)} - v:{str(i).zfill(2)} - p:{str(self._parents[i]).zfill(2)} - child:{sorted(self._child[i])}'
        for i,d in sorted(enumerate(self._dist), key=lambda x: x[1])]
@@ -45,33 +45,38 @@ class RootedTree():
     # initメソッドで直接実行
     _G, _root = self._G, self._root
     _dist = [-1] * self._n
+    _rank = [-1] * self._n
     _dist[_root] = 0
+    _rank[_root] = 0
     _toposo = newlist_hint(self._n)
     _toposo.append(_root)
     todo = [_root]
     while todo:
       v = todo.pop()
       d = _dist[v]
-      for x in _G[v]:
+      r = _rank[v]
+      for x, c in _G[v]:
         if _dist[x] != -1:
           continue
-        _dist[x] = d + 1
+        _dist[x] = d + c
+        _rank[x] = r + 1
         todo.append(x)
         _toposo.append(x)
     self._dist = _dist
+    self._rank = _rank
     self._toposo = _toposo
 
   def _calc_child_parents(self) -> None:
     '''Calc child and parents. / O(N)'''
     if self._child and self._child_num and self._parents:
       return
-    _G, _dist = self._G, self._dist
+    _G, _rank = self._G, self._rank
     _child_num = [0] * self._n
     _child = [[] for _ in range(self._n)]
     _parents = [-1] * self._n
     for v in self._toposo[::-1]:
-      for x in _G[v]:
-        if _dist[x] < _dist[v]:
+      for x, _ in _G[v]:
+        if _rank[x] < _rank[v]:
           _parents[v] = x
           continue
         _child[v].append(x)
@@ -102,7 +107,7 @@ class RootedTree():
     _G, _dist = self._G, self._dist
     _descendant_num = [1] * self._n
     for v in self._toposo[::-1]:
-      for x in _G[v]:
+      for x, _ in _G[v]:
         if _dist[x] < _dist[v]:
           continue
         _descendant_num[v] += _descendant_num[x]
@@ -143,10 +148,10 @@ class RootedTree():
     while todo:
       v = todo.pop()
       d = ndist[v]
-      for x in self._G[v]:
+      for x, c in self._G[v]:
         if ndist[x] != -1:
           continue
-        ndist[x] = d + 1
+        ndist[x] = d + c
         todo.append(x)
     diameter = max(ndist)
     t = ndist.index(diameter)
@@ -163,7 +168,7 @@ class RootedTree():
     while todo:
       v = todo.pop()
       nc = 0 if self._bipartite_graph[v] else 1
-      for x in self._G[v]:
+      for x,_ in self._G[v]:
         if self._bipartite_graph[x] != -1:
           continue
         self._bipartite_graph[x] = nc
@@ -185,11 +190,11 @@ class RootedTree():
 
   '''Return LCA of (u, v). / O(logN)'''
   def get_lca(self, u: int, v: int) -> int:
-    assert self._lca, f'RootedTree.get_lca(), `lca` must be True'
-    _doubling, _dist = self._doubling, self._dist
-    if _dist[u] < _dist[v]:
+    assert self._lca, f'WeightedRootedTree.get_lca(), `lca` must be True'
+    _doubling, _rank = self._doubling, self._rank
+    if _rank[u] < _rank[v]:
       u, v = v, u
-    _r = _dist[u] - _dist[v]
+    _r = _rank[u] - _rank[v]
     for k in range(self._K):
       if _r >> k & 1:
         u = _doubling[k][u]
@@ -211,7 +216,7 @@ class RootedTree():
 
   '''Return path (u -> v). / O(logN + |path|)'''
   def get_path(self, u: int, v: int) -> List[int]:
-    assert self._lca, f'RootedTree, `lca` must be True'
+    assert self._lca, f'WeightedRootedTree, `lca` must be True'
     if u == v: return [u]
     self.get_parents()
     def get_path_lca(u: int, v: int) -> List[int]:
@@ -243,7 +248,7 @@ class RootedTree():
       v = todo.pop()
       if v >= 0:
         intime[v] = curtime
-        for x in self._G[v]:
+        for x,_ in self._G[v]:
           if not seen[x]:
             todo.append(~x)
             todo.append(x)

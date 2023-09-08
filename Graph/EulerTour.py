@@ -85,7 +85,7 @@ class EulerTour():
 
     bit = len(pathdepth).bit_length()
     self.msk = (1 << bit) - 1
-    a = [(d<<bit)+i for i, d in enumerate(pathdepth)]
+    a: List[int] = [(d<<bit)+i for i, d in enumerate(pathdepth)]
     self._st = SparseTableRmQ(a, e=max(a))
 
   def get_lca(self, x: int, y: int) -> int:

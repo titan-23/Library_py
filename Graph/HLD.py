@@ -1,4 +1,4 @@
-from typing import Callable, List, Generator, Tuple
+from typing import List, Generator, Tuple
 from types import GeneratorType
 
 class HLD():

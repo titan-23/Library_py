@@ -1,8 +1,7 @@
 from typing import List, Tuple, Union
 from collections import deque
-inf = float('inf')
 
-def bfs(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
+def bfs(G: List[List[Tuple[int, int]]], s: int, inf: Union[int, float]=float('inf')) -> List[Union[int, float]]:
   dist = [inf] * len(G)
   dist[s] = 0
   todo = deque([s])
@@ -15,7 +14,7 @@ def bfs(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
   return dist
 
 '''Return Tuple[Path: from s to t, Dist: from s]'''
-def bfs_path(G: List[List[Tuple[int, int]]], s: int, t: int) -> Tuple[List[int], List[Union[int, float]]]:
+def bfs_path(G: List[List[Tuple[int, int]]], s: int, t: int, inf: Union[int, float]=float('inf')) -> Tuple[List[int], List[Union[int, float]]]:
   prev = [-1] * len(G)
   dist = [inf] * len(G)
   dist[s] = 0
