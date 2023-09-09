@@ -1,13 +1,14 @@
-from typing import Iterable, TypeVar, Generic, Union, Tuple, Optional
-T = TypeVar('T')
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from typing import Dict, Iterable, TypeVar, Generic, Union, Tuple, Optional
+T = TypeVar('T', bound=SupportsLessThan)
 
 class FenwickTreeSet(Generic[T]):
 
   def __init__(self, _used: Union[int, Iterable[T]], _a: Iterable[T]=[], compress=True, _multi=False):
-    _used = range(_used) if isinstance(_used, int) else sorted(set(_used))
+    _used = list(range(_used)) if isinstance(_used, int) else sorted(set(_used))
     self._size = len(_used)
     self._len = 0
-    self._to_zaatsu = {key: i for i, key in enumerate(_used)} if compress else _used
+    self._to_zaatsu: Dict[T, int] = {key: i for i, key in enumerate(_used)} if compress else _used
     self._to_origin = _used
     self._cnt = [0] * self._size
     _a = list(_a)

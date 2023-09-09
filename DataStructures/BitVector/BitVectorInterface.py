@@ -5,7 +5,7 @@ class BitVectorInterface(ABC):
   @abstractmethod
   def access(self, k: int) -> int:
     raise NotImplementedError
-  
+
   @abstractmethod
   def __getitem__(self, k: int) -> int:
     raise NotImplementedError

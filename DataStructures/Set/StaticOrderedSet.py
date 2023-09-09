@@ -1,4 +1,4 @@
-from ...MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, TypeVar, Generic, Optional, Set, List
 from bisect import bisect_right, bisect_left
 T = TypeVar('T', bound=SupportsLessThan)

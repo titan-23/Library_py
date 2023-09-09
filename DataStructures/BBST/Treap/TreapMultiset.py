@@ -1,5 +1,5 @@
-from ....MyClass.OrderedMultisetInterface import OrderedMultisetInterface
-from ....MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
@@ -138,12 +138,8 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     while node is not None:
       if key == node.key:
         break
-      elif key < node.key:
-        pnode = node
-        node = node.left
-      else:
-        pnode = node
-        node = node.right
+      pnode = node
+      node = node.left if key < node.key else node.right
     else:
       return False
     self._len -= min(val, node.val)
@@ -204,10 +200,7 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     while node is not None:
       if node.key == key:
         return node.val
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return 0
 
   def le(self, key: T) -> Optional[T]:

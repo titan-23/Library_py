@@ -48,12 +48,12 @@ class LazySplayTree(Generic[T, F]):
       self._build(a)
 
   def _build(self, a: Sequence[T]) -> None:
-    def sort(l: int, r: int) -> int:
+    def rec(l: int, r: int) -> int:
       mid = (l + r) >> 1
       if l != mid:
-        arr[mid<<2] = sort(l, mid)
+        arr[mid<<2] = rec(l, mid)
       if mid + 1 != r:
-        arr[mid<<2|1] = sort(mid+1, r)
+        arr[mid<<2|1] = rec(mid+1, r)
       self._update(mid)
       return mid
     n = len(a)
@@ -64,7 +64,7 @@ class LazySplayTree(Generic[T, F]):
     for i, e in enumerate(a):
       keydata[end+i<<1] = e
       keydata[end+i<<1|1] = e
-    self.root = sort(end, n+end)
+    self.root = rec(end, n+end)
 
   def _make_node(self, key: T) -> int:
     data = self.data

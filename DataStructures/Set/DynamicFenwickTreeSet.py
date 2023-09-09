@@ -1,5 +1,5 @@
 from ..FenwickTree.DynamicFenwickTree import DynamicFenwickTree
-from typing import Iterable, Tuple, Optional
+from typing import Dict, Iterable, Optional
 
 class DynamicFenwickTreeSet():
 
@@ -7,9 +7,9 @@ class DynamicFenwickTreeSet():
   
   def __init__(self, u: int, a: Iterable[int]=[]):
     # Build a new FenwickTreeSet. / O(1)
-    self._size = u
-    self._len = 0
-    self._cnt = {}
+    self._size: int = u
+    self._len: int = 0
+    self._cnt: Dict[int, int] = {}
     self._fw = DynamicFenwickTree(self._size)
     for _a in a:
       self.add(_a)
@@ -58,18 +58,22 @@ class DynamicFenwickTreeSet():
   def index_right(self, key: int) -> int:
     return self._fw.pref(key + 1)
 
-  def pop(self, k: int=-1):
+  def pop(self, k: int=-1) -> int:
     x = self.__getitem__(k)
     self.discard(x)
     return x
 
-  def pop_min(self):
-    x = self.__getitem__(0)
-    self.discard(x)
-    return x
+  def pop_max(self) -> int:
+    assert self, f'IndexError'
+    return self.pop()
 
-  def __getitem__(self, k: int):
-    if k < 0: k += self._len
+  def pop_min(self) -> int:
+    assert self, f'IndexError'
+    return self.pop(0)
+
+  def __getitem__(self, k: int) -> int:
+    if k < 0:
+      k += self._len
     return self._fw.bisect_right(k)
 
   def __iter__(self):
@@ -101,51 +105,4 @@ class DynamicFenwickTreeSet():
 
   def __repr__(self):
     return f'DynamicFenwickTreeSet({self})'
-
-class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet):
-
-  def __init__(self, n: int, a: Iterable[int]=[]) -> None:
-    super().__init__(n, a)
-
-  def add(self, key: int, val: int=1) -> None:
-    self._len += val
-    if key in self._cnt:
-      self._cnt[key] += val
-    else:
-      self._cnt[key] = val
-    self._fw.add(key, val)
-
-  def discard(self, key: int, val: int=1) -> bool:
-    if key not in self._cnt:
-      return False
-    cnt = self._cnt[key]
-    if val >= cnt:
-      self._len -= cnt
-      del self._cnt[key]
-      self._fw.add(key, -cnt)
-    else:
-      self._len -= val
-      self._cnt[key] -= val
-      self._fw.add(key, -val)
-    return True
-
-  def discard_all(self, key: int) -> bool:
-    return self.discard(key, val=self.count(key))
-
-  def count(self, key: int) -> int:
-    return self._cnt[key]
-
-  def items(self) -> Iterable[Tuple[int, int]]:
-    _iter = 0
-    while _iter < self._len:
-      res = self.__getitem__(_iter)
-      cnt = self.count(res)
-      _iter += cnt
-      yield res, cnt
-
-  def show(self) -> None:
-    print('{' + ', '.join(f'{i[0]}: {i[1]}' for i in self.items()) + '}')
-
-  def __repr__(self):
-    return f'DynamicFenwickTreeMultiset({self})'
 

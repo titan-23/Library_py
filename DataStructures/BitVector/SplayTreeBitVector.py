@@ -1,7 +1,8 @@
+from .BitVectorInterface import BitVectorInterface
 from typing import Sequence, List
 from array import array
 
-class SplayTreeBitVector():
+class SplayTreeBitVector(BitVectorInterface):
 
   @staticmethod
   def _popcount(x: int) -> int:

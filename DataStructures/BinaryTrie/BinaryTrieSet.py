@@ -1,4 +1,4 @@
-from ...MyClass.OrderedSetInterface import OrderedSetInterface
+from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
 from typing import Optional, List, Iterable, Sequence
 from array import array
 from __pypy__ import newlist_hint

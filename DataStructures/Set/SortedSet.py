@@ -1,8 +1,10 @@
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py
+
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import math
 from bisect import bisect_left, bisect_right
-from typing import Generic, Iterable, Iterator, TypeVar, Union, List, Optional
-T = TypeVar('T')
+from typing import Generic, Iterable, Iterator, TypeVar, List, Optional
+T = TypeVar('T', bound=SupportsLessThan)
 
 class SortedSet(Generic[T]):
 
@@ -40,7 +42,8 @@ class SortedSet(Generic[T]):
 
   def _find_bucket(self, x: T) -> List[T]:
     for a in self.a:
-      if x <= a[-1]: return a
+      if not x > a[-1]:
+        return a
     return a
 
   def __contains__(self, x: T) -> bool:
@@ -80,7 +83,7 @@ class SortedSet(Generic[T]):
 
   def le(self, x: T) -> Optional[T]:
     for a in reversed(self.a):
-      if a[0] <= x:
+      if not a[0] > x:
         return a[bisect_right(a, x) - 1]
 
   def gt(self, x: T) -> Optional[T]:
@@ -90,7 +93,7 @@ class SortedSet(Generic[T]):
 
   def ge(self, x: T) -> Optional[T]:
     for a in self.a:
-      if a[-1] >= x:
+      if not a[-1] < x:
         return a[bisect_left(a, x)]
 
   # s[-1]はO(1)
@@ -107,7 +110,7 @@ class SortedSet(Generic[T]):
   def index(self, x: T) -> int:
     ans = 0
     for a in self.a:
-      if a[-1] >= x:
+      if not a[-1] < x:
         return ans + bisect_left(a, x)
       ans += len(a)
     return ans
@@ -121,7 +124,8 @@ class SortedSet(Generic[T]):
     return ans
 
   def pop(self, k: int=-1) -> T:
-    if k < 0: k += self.size
+    if k < 0:
+      k += self.size
     if k == self.size-1:
       a = self.a[-1]
       x = a.pop()
@@ -150,7 +154,7 @@ class SortedSet(Generic[T]):
     ans_r = 0
     flag = True
     for a in self.a:
-      if flag and a[-1] >= l:
+      if flag and not a[-1] < l:
         flag = False
         ans_l += bisect_left(a, l)
       if a[-1] > r:

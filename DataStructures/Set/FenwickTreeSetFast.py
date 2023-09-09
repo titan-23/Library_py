@@ -118,11 +118,11 @@ class FenwickTreeSetFast():
     i, s, _size, _tree = 0, self._fw._s, self._fw._size, self._fw._tree
     while s:
       if i+s <= self._size:
-        if self._fw._tree[i+s] <= k:
-          k -= self._fw._tree[i+s]
+        if _tree[i+s] <= k:
+          k -= _tree[i+s]
           i += s
         else:
-          self._fw._tree[i+s] -= 1
+          _tree[i+s] -= 1
       s >>= 1
     self._cnt[i] = 0
     return i
