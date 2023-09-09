@@ -1,8 +1,9 @@
-from ....MyClass.OrderedSetInterface import OrderedSetInterface
+from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import math
 from typing import Iterator, List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional
 from __pypy__ import newlist_hint
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
 

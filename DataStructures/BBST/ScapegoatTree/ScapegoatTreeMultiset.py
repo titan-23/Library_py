@@ -1,12 +1,14 @@
+from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import math
 from __pypy__ import newlist_hint
-from typing import List, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
-T = TypeVar('T')
+from typing import List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
+T = TypeVar('T', bound=SupportsLessThan)
 
-class ScapegoatTreeMultiset(Generic[T]):
+class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
-  ALPHA = 0.75
-  BETA = math.log2(1 / ALPHA)
+  ALPHA: float = 0.75
+  BETA: float = math.log2(1 / ALPHA)
 
   class Node():
 
@@ -25,12 +27,12 @@ class ScapegoatTreeMultiset(Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]):
     self.node = None
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     if a:
       self._build(a)
 
-  def _rle(self, L: List[T]) -> Tuple[List[T], List[int]]:
+  def _rle(self, L: Sequence[T]) -> Tuple[List[T], List[int]]:
     x, y = newlist_hint(len(L)), newlist_hint(len(L))
     x.append(L[0])
     y.append(1)
@@ -125,7 +127,7 @@ class ScapegoatTreeMultiset(Generic[T]):
       self.node = Node(key, val)
       return
     node = self.node
-    path = newlist_hint(self.len_elm().bit_length())
+    path = []
     while node:
       path.append(node)
       if key == node.key:
@@ -206,9 +208,10 @@ class ScapegoatTreeMultiset(Generic[T]):
       p.valsize -= 1
     return True
 
-  def discard(self, key, val=1) -> bool:
-    assert val >= 0
-    path = newlist_hint(self.len_elm().bit_length())
+  def discard(self, key: T, val=1) -> bool:
+    if val <= 0:
+      return True
+    path = []
     node = self.node
     while node:
       path.append(node)
@@ -233,6 +236,12 @@ class ScapegoatTreeMultiset(Generic[T]):
       while path:
         path.pop().valsize -= val
     return True
+
+  def remove(self, key: T, val: int=1) -> None:
+    c = self.count(key)
+    if c > val:
+      raise KeyError(key)
+    self.discard(key, val)
 
   def count(self, key: T) -> int:
     node = self.node

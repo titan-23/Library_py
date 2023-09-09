@@ -1,8 +1,9 @@
+from ....MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from ....MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Optional, Tuple, TypeVar, List
 T = TypeVar('T', bound=SupportsLessThan)
 
-class AVLTreeMultiset2(Generic[T]):
+class AVLTreeMultiset2(OrderedMultisetInterface, Generic[T]):
 
   class Node():
 
@@ -290,11 +291,11 @@ class AVLTreeMultiset2(Generic[T]):
     res = None
     node = self.node
     while node is not None:
-      if key <= node.key:
-        node = node.left
-      else:
+      if node.key < key:
         res = node.key
         node = node.right
+      else:
+        node = node.left
     return res
 
   def ge(self, key: T) -> Optional[T]:
@@ -392,13 +393,13 @@ class AVLTreeMultiset2(Generic[T]):
           break
     return res
 
-  def get_min(self) -> T:
+  def get_min(self) -> Optional[T]:
     node = self.node
     while node.left is not None:
       node = node.left
     return node.key
 
-  def get_max(self) -> T:
+  def get_max(self) -> Optional[T]:
     node = self.node
     while node.right is not None:
       node = node.right
@@ -436,6 +437,9 @@ class AVLTreeMultiset2(Generic[T]):
     rec(self.node)
     return a
 
+  def clear(self) -> None:
+    self.node = None
+
   def __contains__(self, key: T):
     node = self.node
     while node:
@@ -447,12 +451,21 @@ class AVLTreeMultiset2(Generic[T]):
         node = node.right
     return False
 
-  def __getitem__(self, k: int):
-    if k == -1 or k == self._len-1:
-      return self.get_max()
-    elif k == 0:
-      return self.get_min()
-    raise IndexError
+  def __iter__(self):
+    self._it = self.get_min()
+    self._cnt = 1
+    return self
+  
+  def __next__(self):
+    if self._it is None:
+      raise StopIteration
+    res = self._it
+    if self._cnt == self.count(self._it):
+      self._it = self.gt(self._it)
+      self._cnt = 1
+    else:
+      self._cnt += 1
+    return res
 
   def __len__(self):
     return self._len
@@ -464,5 +477,5 @@ class AVLTreeMultiset2(Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return 'AVLTreeMultiset2([' + ', '.join(map(str, self.tolist())) + '])'
+    return f'AVLTreeMultiset2({self})'
 

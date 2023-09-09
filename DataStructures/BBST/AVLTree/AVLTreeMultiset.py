@@ -1,18 +1,20 @@
+from ....MyClass.OrderedMultisetInterface import OrderedMultisetInterface
+from ....MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
-class AVLTreeMultiset(Generic[T]):
+class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   class Node():
 
-    def __init__(self, key, val: int):
-      self.key = key
-      self.val = val
-      self.valsize = val
-      self.size = 1
-      self.left = None
-      self.right = None
-      self.balance = 0
+    def __init__(self, key: T, val: int):
+      self.key: T = key
+      self.val: int = val
+      self.valsize: int = val
+      self.size: int = 1
+      self.left: Optional['AVLTreeMultiset.Node'] = None
+      self.right: Optional['AVLTreeMultiset.Node'] = None
+      self.balance: int = 0
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -20,7 +22,7 @@ class AVLTreeMultiset(Generic[T]):
       return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):  
-    self.node = None
+    self.node: Optional['AVLTreeMultiset.Node'] = None
     if a:
       self._build(a)
 
@@ -58,7 +60,10 @@ class AVLTreeMultiset(Generic[T]):
         if hr > h:
           h = hr
       return node, h+1
-    x, y = self._rle(sorted(a))
+    a = sorted(a)
+    if not a:
+      return
+    x, y = self._rle(a)
     self.node = sort(0, len(x))[0]
 
   def _rotate_L(self, node: Node) -> Node:
@@ -278,6 +283,11 @@ class AVLTreeMultiset(Generic[T]):
   def discard_all(self, key: T) -> None:
     self.discard(key, self.count(key))
 
+  def remove(self, key: T, val: int=1) -> None:
+    if self.discard(key, val):
+      return
+    raise KeyError(key)
+
   def add(self, key: T, val: int=1) -> None:
     if self.node is None:
       self.node = AVLTreeMultiset.Node(key, val)
@@ -451,6 +461,22 @@ class AVLTreeMultiset(Generic[T]):
         node = node.right
     return k
 
+  def get_min(self) -> Optional[T]:
+    if self.node is None:
+      return
+    node = self.node
+    while node.left is not None:
+      node = node.left
+    return node.key
+
+  def get_max(self) -> Optional[T]:
+    if self.node is None:
+      return
+    node = self.node
+    while node.right is not None:
+      node = node.right
+    return node.key
+
   def pop(self, k: int=-1) -> T:
     if k < 0: k += self.node.valsize
     node = self.node
@@ -493,6 +519,10 @@ class AVLTreeMultiset(Generic[T]):
         p.valsize -= 1
     return x
 
+  def pop_max(self) -> T:
+    assert self
+    return self.pop()
+
   def pop_min(self) -> T:
     node = self.node
     path = []
@@ -526,6 +556,9 @@ class AVLTreeMultiset(Generic[T]):
 
   def show(self) -> None:
     print('{' + ', '.join(map(lambda x: f'{x[0]}: {x[1]}', self.tolist_items())) + '}')
+
+  def clear(self) -> None:
+    self.node = None
 
   def get_elm(self, k: int) -> T:
     return self._kth_elm_tree(k)[0]

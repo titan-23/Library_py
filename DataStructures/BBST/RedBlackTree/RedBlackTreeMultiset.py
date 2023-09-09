@@ -20,19 +20,19 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def count(self) -> int:
       return self.cnt
 
-    def _min(self):
+    def _min(self) -> 'RedBlackTreeMultiset.Node':
       now = self
       while now.left:
         now = now.left
       return now
 
-    def _max(self):
+    def _max(self) -> 'RedBlackTreeMultiset.Node':
       now = self
       while now.right:
         now = now.right
       return now
 
-    def _next(self):
+    def _next(self) -> Optional['RedBlackTreeMultiset.Node']:
       now = self
       pre = RedBlackTreeMultiset.NIL
       flag = now.right is pre
@@ -42,7 +42,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
         return None
       return now if flag and pre is now.left else now.right._min()
 
-    def _prev(self):
+    def _prev(self) -> Optional['RedBlackTreeMultiset.Node']:
       now, pre = self, RedBlackTreeMultiset.NIL
       flag = now.left is pre
       while now.left is pre:
@@ -51,31 +51,20 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
         return None
       return now if flag and pre is now.right else now.left._max()
 
-    def __iadd__(self, other: int):
-      res = self
-      for _ in range(other):
-        assert res is not None
-        res = res._next()
-      return res
-
-    def __isub__(self, other: int):
-      res = self
-      for _ in range(other):
-        assert res is not None
-        res = res._prev()
-      return res
-
-    def __add__(self, other: int):
+    def __add__(self, other: int) -> Optional['RedBlackTreeMultiset.Node']:
       res = self
       for _ in range(other):
         res = res._next()
       return res
 
-    def __sub__(self, other: int):
+    def __sub__(self, other: int) -> Optional['RedBlackTreeMultiset.Node']:
       res = self
       for _ in range(other):
         res = res._prev()
       return res
+
+    __iadd__ = __add__
+    __isub__ = __sub__
 
     def __str__(self):
       if (not self.left) and (not self.right):

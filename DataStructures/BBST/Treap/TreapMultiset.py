@@ -1,9 +1,10 @@
+from ....MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from ....MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
 
-class TreapMultiset(Generic[T]):
+class TreapMultiset(OrderedMultisetInterface, Generic[T]):
 
   class Random():
 
@@ -31,7 +32,7 @@ class TreapMultiset(Generic[T]):
       return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
-    self.node: Optional['TreapMultiset.Node'] = None
+    self.root: Optional['TreapMultiset.Node'] = None
     self._len: int = 0
     self._len_elm: int = 0
     if not isinstance(a, Sequence):
@@ -70,7 +71,7 @@ class TreapMultiset(Generic[T]):
     self._len_elm = len(key)
     rand = [TreapMultiset.Random.random() for _ in range(self._len_elm)]
     rand.sort()
-    self.node = sort(0, len(key))
+    self.root = sort(0, len(key))
 
   def _rotate_L(self, node: Node) -> Node:
     u = node.left
@@ -86,11 +87,11 @@ class TreapMultiset(Generic[T]):
 
   def add(self, key: T, val: int=1) -> None:
     self._len += val
-    if self.node is None:
-      self.node = TreapMultiset.Node(key, val)
+    if self.root is None:
+      self.root = TreapMultiset.Node(key, val)
       self._len_elm += 1
       return
-    node = self.node
+    node = self.root
     path = []
     di = 0
     while node is not None:
@@ -128,11 +129,11 @@ class TreapMultiset(Generic[T]):
           else:
             path[-1].right = new_node
         else:
-          self.node = new_node
+          self.root = new_node
     self._len += 1
 
   def discard(self, key: T, val: int=1) -> bool:
-    node = self.node
+    node = self.root
     pnode = None
     while node is not None:
       if key == node.key:
@@ -154,7 +155,7 @@ class TreapMultiset(Generic[T]):
       if node.left.priority < node.right.priority:
         if pnode is None:
           pnode = self._rotate_L(node)
-          self.node = pnode
+          self.root = pnode
           continue
         new_node = self._rotate_L(node)
         if node.key < pnode.key:
@@ -164,7 +165,7 @@ class TreapMultiset(Generic[T]):
       else:
         if pnode is None:
           pnode = self._rotate_R(node)
-          self.node = pnode
+          self.root = pnode
           continue
         new_node = self._rotate_R(node)
         if node.key < pnode.key:
@@ -174,9 +175,9 @@ class TreapMultiset(Generic[T]):
       pnode = new_node
     if pnode is None:
       if node.left is None:
-        self.node = node.right
+        self.root = node.right
       else:
-        self.node = node.left
+        self.root = node.left
       return True
     if node.left is None:
       if node.key < pnode.key:
@@ -190,11 +191,16 @@ class TreapMultiset(Generic[T]):
         pnode.right = node.left
     return True
 
-  def discard_all(self, key: T) -> None:
-    self.discard(key, self.count(key))
+  def discard_all(self, key: T) -> bool:
+    return self.discard(key, self.count(key))
+
+  def remove(self, key: T, val: int=1) -> None:
+    if self.discard(key, val):
+      return
+    raise KeyError(key)
 
   def count(self, key: T) -> int:
-    node = self.node
+    node = self.root
     while node is not None:
       if node.key == key:
         return node.val
@@ -206,7 +212,7 @@ class TreapMultiset(Generic[T]):
 
   def le(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node is not None:
       if key == node.key:
         res = key
@@ -220,7 +226,7 @@ class TreapMultiset(Generic[T]):
 
   def lt(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node is not None:
       if node.key > key:
         node = node.left
@@ -231,7 +237,7 @@ class TreapMultiset(Generic[T]):
 
   def ge(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node is not None:
       if key == node.key:
         res = key
@@ -245,7 +251,7 @@ class TreapMultiset(Generic[T]):
 
   def gt(self, key: T) -> Optional[T]:
     res = None
-    node = self.node
+    node = self.root
     while node is not None:
       if key < node.key:
         res = node.key
@@ -262,7 +268,7 @@ class TreapMultiset(Generic[T]):
 
   def tolist(self) -> List[T]:
     a = []
-    if self.node is None:
+    if self.root is None:
       return a
     def rec(node):
       if node.left is not None:
@@ -270,12 +276,12 @@ class TreapMultiset(Generic[T]):
       a.extend([node.key]*node.val)
       if node.right is not None:
         rec(node.right)
-    rec(self.node)
+    rec(self.root)
     return a
 
   def tolist_items(self) -> List[Tuple[T, int]]:
     a = []
-    if self.node is None:
+    if self.root is None:
       return a
     def rec(node):
       if node.left is not None:
@@ -283,21 +289,21 @@ class TreapMultiset(Generic[T]):
       a.append((node.key, node.val))
       if node.right is not None:
         rec(node.right)
-    rec(self.node)
+    rec(self.root)
     return a
 
   def get_min(self) -> Optional[T]:
-    if self.node is None:
+    if self.root is None:
       return
-    node = self.node
+    node = self.root
     while node.left is not None:
       node = node.left
     return node.key
 
   def get_max(self) -> Optional[T]:
-    if self.node is None:
+    if self.root is None:
       return
-    node = self.node
+    node = self.root
     while node.right is not None:
       node = node.right
     return node.key
@@ -305,7 +311,7 @@ class TreapMultiset(Generic[T]):
   def pop_min(self) -> T:
     assert self
     self._len -= 1
-    node = self.node
+    node = self.root
     pnode = None
     while node.left is not None:
       pnode = node
@@ -316,49 +322,62 @@ class TreapMultiset(Generic[T]):
     self._len_elm -= 1
     res = node.key
     if pnode is None:
-      self.node = self.node.right
+      self.root = self.root.right
     else:
       pnode.left = node.right
     return res
 
   def pop_max(self) -> T:
-    assert self
+    assert self, f'IndexError'
     self._len -= 1
-    node = self.node
+    node = self.root
     pnode = None
     while node.right is not None:
       pnode = node
       node = node.right
     if node.val > 1:
+      node.val -= 1
       return node.key
     self._len_elm -= 1
     res = node.key
     if pnode is None:
-      self.node = self.node.left
+      self.root = self.root.left
     else:
       pnode.right = node.left
     return res
 
-  def __getitem__(self, k: int) -> T:
-    if k == -1 or k == self._len-1:
-      return self.get_max()
-    elif k == 0:
-      return self.get_min()
-    raise IndexError
+  def clear(self) -> None:
+    self.root = None
+
+  def __iter__(self):
+    self._it = self.get_min()
+    self._cnt = 1
+    return self
+  
+  def __next__(self):
+    if self._it is None:
+      raise StopIteration
+    res = self._it
+    if self._cnt == self.count(self._it):
+      self._it = self.gt(self._it)
+      self._cnt = 1
+    else:
+      self._cnt += 1
+    return res
 
   def __contains__(self, key: T):
-    node = self.node
+    node = self.root
     while node is not None:
       if key == node.key:
         return True
-      elif key < node.key:
+      if key < node.key:
         node = node.left
       else:
         node = node.right
     return False
 
   def __bool__(self):
-    return self.node is not None
+    return self.root is not None
 
   def __len__(self):
     return self._len
