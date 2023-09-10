@@ -1,6 +1,6 @@
 from .BitVectorInterface import BitVectorInterface
 from array import array
-from typing import Tuple, List, Sequence
+from typing import Iterable, Tuple, List, Sequence
 from __pypy__ import newlist_hint
 
 class AVLTreeBitVector(BitVectorInterface):
@@ -14,7 +14,7 @@ class AVLTreeBitVector(BitVectorInterface):
     x += x >> 16
     return x & 0x0000007f
 
-  def __init__(self, a: Sequence[int]):
+  def __init__(self, a: Iterable[int]=[]):
     self.root = 0
     self.bit_len = array('B', bytes(1))
     self.key = array('I', bytes(4))
@@ -39,7 +39,7 @@ class AVLTreeBitVector(BitVectorInterface):
     self.right += a
     self.balance += array('b', bytes(n))
 
-  def _build(self, a: Sequence[int]) -> None:
+  def _build(self, a: Iterable[int]) -> None:
     key, bit_len, left, right, size, balance, total = self.key, self.bit_len, self.left, self.right, self.size, self.balance, self.total
     _popcount = AVLTreeBitVector._popcount
     def rec(l: int, r: int) -> Tuple[int, int]:
@@ -55,7 +55,7 @@ class AVLTreeBitVector(BitVectorInterface):
         total[mid] += total[right[mid]]
       balance[mid] = hl - hr
       return mid, max(hl, hr)+1
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    if not isinstance(a, Sequence):
       a = list(a)
     n = len(a)
     end = self.end
