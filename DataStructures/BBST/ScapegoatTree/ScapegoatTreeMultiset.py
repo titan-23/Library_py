@@ -13,12 +13,12 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
   class Node():
 
     def __init__(self, key: T, val: int):
-      self.key = key
-      self.val = val
-      self.left = None
-      self.right = None
-      self.size = 1
-      self.valsize = val
+      self.key: T = key
+      self.val: int = val
+      self.size: int = 1
+      self.valsize: int = val
+      self.left: Optional['ScapegoatTreeMultiset.Node'] = None
+      self.right: Optional['ScapegoatTreeMultiset.Node'] = None
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -29,8 +29,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     self.node = None
     if not isinstance(a, Sequence):
       a = list(a)
-    if a:
-      self._build(a)
+    self._build(a)
 
   def _rle(self, L: Sequence[T]) -> Tuple[List[T], List[int]]:
     x, y = newlist_hint(len(L)), newlist_hint(len(L))
@@ -46,24 +45,26 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       y.append(1)
     return x, y
  
-  def _build(self, a: List[T]) -> None:
-    def sort(l: int, r: int) -> 'Node':
+  def _build(self, a: Sequence[T]) -> None:
+    Node = ScapegoatTreeMultiset.Node
+    def rec(l: int, r: int) -> 'Node':
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
       if l != mid:
-        node.left = sort(l, mid)
+        node.left = rec(l, mid)
         node.size += node.left.size
         node.valsize += node.left.valsize
       if mid+1 != r:
-        node.right = sort(mid+1, r)
+        node.right = rec(mid+1, r)
         node.size += node.right.size
         node.valsize += node.right.valsize
       return node
     if not all(a[i] <= a[i+1] for i in range(len(a)-1)):
       a = sorted(a)
-    Node = ScapegoatTreeMultiset.Node
+    if not a:
+      return
     x, y = self._rle(a)
-    self.node = sort(0, len(x))
+    self.node = rec(0, len(x))
 
   def _rebuild(self, node: Node) -> Node:
     def get(node: 'ScapegoatTreeMultiset.Node') -> None:
@@ -95,9 +96,10 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return sort(0, len(a))
 
   def _kth_elm(self, k: int) -> Tuple[T, int]:
-    if k < 0: k += self.__len__()
+    if k < 0:
+      k += len(self)
     node = self.node
-    while True:
+    while node:
       t = (node.val + node.left.valsize) if node.left else node.val
       if t-node.val <= k and k < t:
         return node.key, node.val
@@ -106,11 +108,13 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       else:
         node = node.right
         k -= t
+    assert False, f'IndexError'
 
   def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
-    if k < 0: k += self.len_elm()
+    if k < 0:
+      k += self.len_elm()
     node = self.node
-    while True:
+    while node:
       t = node.left.size if node.left else 0
       if t == k:
         return node.key, node.val
@@ -119,9 +123,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       else:
         node = node.right
         k -= t + 1
+    assert False, f'IndexError'
 
   def add(self, key: T, val: int=1) -> None:
-    if val <= 0: return
+    if val <= 0:
+      return
     Node = ScapegoatTreeMultiset.Node
     if not self.node:
       self.node = Node(key, val)
@@ -248,14 +254,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     while node:
       if key == node.key:
         return node.val
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return 0
 
-  def discard_all(self, key: T) -> None:
-    self.discard(key, self.count(key))
+  def discard_all(self, key: T) -> bool:
+    return self.discard(key, self.count(key))
 
   def le(self, key: T) -> Optional[T]:
     res = None
@@ -439,10 +442,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     while node:
       if key == node.key:
         return True
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return False
 
   def __getitem__(self, k: int) -> T:

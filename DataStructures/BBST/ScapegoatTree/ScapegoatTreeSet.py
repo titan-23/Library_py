@@ -1,7 +1,7 @@
 from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import math
-from typing import Iterator, List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional
+from typing import Iterator, List, Sequence, TypeVar, Generic, Iterable, Optional
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
 
@@ -13,10 +13,10 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
   class Node():
 
     def __init__(self, key: T):
-      self.key = key
-      self.left = None
-      self.right = None
-      self.size = 1
+      self.key: T = key
+      self.left: Optional['ScapegoatTreeSet.Node'] = None
+      self.right: Optional['ScapegoatTreeSet.Node'] = None
+      self.size: int = 1
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -24,27 +24,27 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       return f'key:{self.key, self.size},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
-    self.node = None
+    self.node: Optional['ScapegoatTreeSet.Node'] = None
     if not isinstance(a, Sequence):
       a = list(a)
     if a:
       self._build(a)
 
   def _build(self, a: Sequence[T]) -> None:
-    def sort(l: int, r: int) -> 'Node':
+    def rec(l: int, r: int) -> 'Node':
       mid = (l + r) >> 1
       node = Node(a[mid])
       if l != mid:
-        node.left = sort(l, mid)
+        node.left = rec(l, mid)
         node.size += node.left.size
       if mid+1 != r:
-        node.right = sort(mid+1, r)
+        node.right = rec(mid+1, r)
         node.size += node.right.size
       return node
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(set(a))
     Node = ScapegoatTreeSet.Node
-    self.node = sort(0, len(a))
+    self.node = rec(0, len(a))
 
   def _rebuild(self, node: Node) -> Node:
     def get(node: 'ScapegoatTreeSet.Node') -> None:
@@ -53,7 +53,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       a.append(node)
       if node.right is not None:
         get(node.right)
-    def rec(l: int, r: int) -> Tuple['ScapegoatTreeSet.Node', int]:
+    def rec(l: int, r: int) -> 'ScapegoatTreeSet.Node':
       mid = (l + r) >> 1
       node = a[mid]
       node.size = 1
@@ -234,7 +234,8 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     return k
 
   def pop(self, k: int=-1) -> T:
-    if k < 0: k += self.node.size
+    if k < 0:
+      k += len(self)
     di = 1
     node = self.node
     path = []
@@ -242,13 +243,12 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       t = 0 if node.left is None else node.left.size
       if t == k:
         break
-      elif t < k:
-        path.append(node)
+      path.append(node)
+      if t < k:
         node = node.right
         k -= t + 1
         di = 0
       elif t > k:
-        path.append(node)
         di = 1
         node = node.left
     res = node.key
@@ -306,14 +306,12 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     while node is not None:
       if key == node.key:
         return True
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return False
 
   def __getitem__(self, k: int) -> T:
-    if k < 0: k += self.__len__()
+    if k < 0:
+      k += len(self)
     node = self.node
     while True:
       t = 0 if node.left is None else node.left.size

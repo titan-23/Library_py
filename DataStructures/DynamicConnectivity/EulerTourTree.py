@@ -1,4 +1,5 @@
-from typing import Generic, Iterator, TypeVar, Callable, Iterable, Optional, Union, Tuple, List, Dict
+from re import L
+from typing import Generator, Generic, TypeVar, Callable, Iterable, Optional, Union, Tuple, List, Dict
 from types import GeneratorType
 T = TypeVar('T')
 F = TypeVar('F')
@@ -8,13 +9,13 @@ class EulerTourTree(Generic[T, F]):
   class Node():
 
     def __init__(self, index: Tuple[int, int], key: T, lazy: F):
-      self.index = index
-      self.key = key
-      self.data = key
-      self.lazy = lazy
-      self.par = None
-      self.left = None
-      self.right = None
+      self.index: Tuple[int, int] = index
+      self.key: T = key
+      self.data: T = key
+      self.lazy: F = lazy
+      self.par: Optional[EulerTourTree.Node] = None
+      self.left: Optional[EulerTourTree.Node] = None
+      self.right: Optional[EulerTourTree.Node] = None
 
     def is_vertex(self) -> bool:
       return self.index[0] == self.index[1]
@@ -40,8 +41,8 @@ class EulerTourTree(Generic[T, F]):
     a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
     self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), elem, id) for i, elem in enumerate(a)]
     self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
-    self.n = len(a)
-    self._group_numbers = self.n
+    self.n: int = len(a)
+    self._group_numbers: int = self.n
 
   @staticmethod
   def antirec(func, stack=[]):
@@ -68,7 +69,7 @@ class EulerTourTree(Generic[T, F]):
     ptr_vertex, ptr_edge, e, id = self.ptr_vertex, self.ptr_edge, self.e, self.id
 
     @EulerTourTree.antirec
-    def dfs(v: int, p: int=-1) -> Iterator:
+    def dfs(v: int, p: int=-1) -> Generator:
       a.append((v, v))
       for x in G[v]:
         if x == p:
@@ -79,7 +80,7 @@ class EulerTourTree(Generic[T, F]):
       yield
 
     @EulerTourTree.antirec
-    def sort(l: int, r: int) -> Iterator[Node]:
+    def rec(l: int, r: int) -> Generator:
       mid = (l + r) >> 1
       node = ptr_vertex[a[mid][0]] if a[mid][0] == a[mid][1] else Node(a[mid], e, id)
       if a[mid][0] == a[mid][1]:
@@ -87,10 +88,10 @@ class EulerTourTree(Generic[T, F]):
       else:
         ptr_edge[a[mid]] = node
       if l != mid:
-        node.left = yield sort(l, mid)
+        node.left = yield rec(l, mid)
         node.left.par = node
       if mid + 1 != r:
-        node.right = yield sort(mid+1, r)
+        node.right = yield rec(mid+1, r)
         node.right.par = node
       self._update(node)
       yield node
@@ -98,9 +99,9 @@ class EulerTourTree(Generic[T, F]):
     for root in range(self.n):
       if seen[root]:
         continue
-      a = []
+      a: List[Tuple[int, int]] = []
       dfs(root)
-      sort(0, len(a))
+      rec(0, len(a))
 
   def _popleft(self, v: Node) -> Optional[Node]:
     assert v is not None
