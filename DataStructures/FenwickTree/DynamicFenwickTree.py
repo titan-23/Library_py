@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Final, Dict
 
 class DynamicFenwickTree():
 
@@ -6,9 +6,9 @@ class DynamicFenwickTree():
     '''Build DynamicFenwickTree [0, u).'''
     assert isinstance(u, int), \
         f'TypeError: DynamicFenwickTree({u}), {u} must be int'
-    self._u = u
-    self._tree = {}
-    self._s = 1 << (u-1).bit_length()
+    self._u: Final[int] = u
+    self._tree: Dict[int, int] = {}
+    self._s: Final[int] = 1 << (u-1).bit_length()
 
   def add(self, k: int, x: int) -> None:
     assert 0 <= k < self._u, \

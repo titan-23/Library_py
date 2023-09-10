@@ -50,7 +50,8 @@ class FenwickTree():
   def __getitem__(self, k: int) -> int:
     assert -self._size <= k < self._size, \
         f'IndexError: FenwickTree.__getitem__({k}), n={self._size}'
-    if k < 0: k += self._size
+    if k < 0:
+      k += self._size
     return self.sum(k, k+1)
 
   def add(self, k: int, x: int) -> None:

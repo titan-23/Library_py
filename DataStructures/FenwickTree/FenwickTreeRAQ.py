@@ -52,7 +52,7 @@ class FenwickTreeRAQ():
   def tolist(self) -> List[int]:
     return [self.sum(i, i+1) for i in range(self.n)]
 
-  def __getitem__(self, k: int):
+  def __getitem__(self, k: int) -> int:
     assert 0 <= k < self.n, \
         f'IndexError: FenwickTreeRAQ.__getitem__({k}), n={self.n}'
     return self.sum(k, k+1)
