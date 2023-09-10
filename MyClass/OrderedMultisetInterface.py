@@ -78,7 +78,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def __contains__(self) -> bool:
+  def __contains__(self, item: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod

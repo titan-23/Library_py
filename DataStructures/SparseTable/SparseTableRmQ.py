@@ -1,9 +1,10 @@
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, TypeVar, Iterable, Sequence
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsLessThan)
 
 class SparseTableRmQ(Generic[T]):
 
-  def __init__(self, a: Iterable[T], e: T=float('inf')):
+  def __init__(self, a: Iterable[T], e: T):
     if not isinstance(a, Sequence):
       a = list(a)
     self.size = len(a)
@@ -25,7 +26,7 @@ class SparseTableRmQ(Generic[T]):
     assert 0 <= k < self.size
     return self.data[0][k]
 
-  def __len__(slef):
+  def __len__(self):
     return self.size
 
   def __str__(self):
