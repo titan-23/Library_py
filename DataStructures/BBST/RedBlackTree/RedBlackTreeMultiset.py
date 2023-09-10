@@ -9,12 +9,12 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
   class Node():
 
     def __init__(self, key: T, cnt: int=1):
-      self.key = key
+      self.key: T = key
       self.left = RedBlackTreeMultiset.NIL
       self.right = RedBlackTreeMultiset.NIL
       self.par  = RedBlackTreeMultiset.NIL
-      self.col = 0
-      self.cnt = cnt
+      self.col: int = 0
+      self.cnt: int = cnt
 
     @property
     def count(self) -> int:

@@ -129,9 +129,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
         node.right.par = node
       return node
     if not all(a[i] < a[i+1] for i in range(len(a)-1)):
-      if not hasattr(a, 'sort'):
-        a = list(a)
-      a.sort()
+      a = sorted(a)
       b = newlist_hint(len(a))
       b.append(a[0])
       for e in a:

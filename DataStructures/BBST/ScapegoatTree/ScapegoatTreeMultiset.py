@@ -2,13 +2,13 @@ from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import math
 from __pypy__ import newlist_hint
-from typing import List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
+from typing import Final, List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
 T = TypeVar('T', bound=SupportsLessThan)
 
 class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
-  ALPHA: float = 0.75
-  BETA: float = math.log2(1 / ALPHA)
+  ALPHA: Final[float] = 0.75
+  BETA: Final[float] = math.log2(1 / ALPHA)
 
   class Node():
 

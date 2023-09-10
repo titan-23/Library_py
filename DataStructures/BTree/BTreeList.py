@@ -5,7 +5,7 @@ T = TypeVar('T')
 
 class BTreeList(Generic[T]):
 
-  class Node(Generic[T]):
+  class Node():
 
     def __init__(self):
       self.key: List[T] = []

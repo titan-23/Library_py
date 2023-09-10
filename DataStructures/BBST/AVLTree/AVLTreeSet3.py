@@ -1,9 +1,10 @@
-from ....MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
 from array import array
 from typing import Generic, Iterable, Tuple, TypeVar, Optional, List
 T = TypeVar('T', bound=SupportsLessThan)
 
-class AVLTreeSet(Generic[T]):
+class AVLTreeSet(OrderedSetInterface, Generic[T]):
 
   key = [0]
   size = array('I', bytes(4))
@@ -360,10 +361,23 @@ class AVLTreeSet(Generic[T]):
         node = right[node]
     return k
 
+  def get_max(self) -> Optional[T]:
+    if not self:
+      return
+    return self._kth_elm(len(self)-1)
+
+  def get_min(self) -> Optional[T]:
+    if not self:
+      return
+    return self._kth_elm(0)
+
   def pop(self, k: int=-1) -> T:
     x = self._kth_elm(k)
     self.discard(x)
     return x
+
+  def pop_max(self) -> T:
+    return self.pop()
 
   def pop_min(self) -> T:
     return self.pop(0)

@@ -1,5 +1,5 @@
-from ....MyClass.OrderedMultisetInterface import OrderedMultisetInterface
-from ....MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
 T = TypeVar('T', bound=SupportsLessThan)
 
