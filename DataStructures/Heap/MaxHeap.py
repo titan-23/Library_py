@@ -1,4 +1,4 @@
-from ...MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import TypeVar, Generic, Iterable
 T = TypeVar('T', bound=SupportsLessThan)
 
