@@ -1,7 +1,8 @@
-from typing import Generic, TypeVar, Callable, List, Dict, Optional
+from .SegmentTreeInterface import SegmentTreeInterface
+from typing import Generic, TypeVar, Callable, List, Dict
 T = TypeVar('T')
 
-class DynamicSegmentTree(Generic[T]):
+class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
 
   def __init__(self, u: int, op: Callable[[T, T], T], e: T):
     '''Build a new DynamicSegmentTree. / O(1)'''

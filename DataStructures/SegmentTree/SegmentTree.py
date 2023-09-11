@@ -1,9 +1,10 @@
+from .SegmentTreeInterface import SegmentTreeInterface
 from typing import Generic, Iterable, TypeVar, Callable, Union, List
 T = TypeVar('T')
 
-class SegmentTree(Generic[T]):
+class SegmentTree(SegmentTreeInterface, Generic[T]):
 
-  def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T) -> None:
+  def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T):
     '''Build a new SegmentTree. / O(N)'''
     self._op = op
     self._e = e
@@ -130,15 +131,15 @@ class SegmentTree(Generic[T]):
         f'IndexError: SegmentTree.__getitem__({k}), n={self._n}'
     return self.get(k)
 
-  def __setitem__(self, k: int, v: T) -> None:
+  def __setitem__(self, k: int, v: T):
     assert -self._n <= k < self._n, \
         f'IndexError: SegmentTree.__setitem__{k}, {v}), n={self._n}'
     self.set(k, v)
 
-  def __str__(self) -> str:
+  def __str__(self):
     return str(self.tolist())
 
-  def __repr__(self) -> str:
+  def __repr__(self):
     return f'SegmentTree({self})'
 
 # def op(s, t):

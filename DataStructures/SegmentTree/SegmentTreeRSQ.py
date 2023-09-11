@@ -1,7 +1,9 @@
+from .SegmentTreeInterface import SegmentTreeInterface
+from Library_py.MyClass.SupportsAdd import SupportsAdd
 from typing import Generic, Iterable, TypeVar, Union, List
-T = TypeVar('T')
+T = TypeVar('T', bound=SupportsAdd)
 
-class SegmentTreeRSQ(Generic[T]):
+class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
 
   def __init__(self, _n_or_a: Union[int, Iterable[T]], e: T=0) -> None:
     '''Build a new SegmentTreeRSQ. / O(N)'''
