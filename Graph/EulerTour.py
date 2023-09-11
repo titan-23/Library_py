@@ -1,73 +1,53 @@
 from Library_py.DataStructures.FenwickTree.FenwickTree import FenwickTree
 from Library_py.DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
-from typing import List
-from __pypy__ import newlist_hint
+from typing import List, Tuple
 
 class EulerTour():
 
-  def __init__(self, G: List[List[List[int]]], root: int, vertexcost: List[int]=[]) -> None:
+  def __init__(self, G: List[List[Tuple[int, int]]], root: int, vertexcost: List[int]=[]) -> None:
     n = len(G)
     if not vertexcost:
       vertexcost = [0] * n
 
-    path = newlist_hint(2*n)
-    pathdepth = newlist_hint(2*n)
-
-    vcost1 = newlist_hint(2*n+1)
-    vcost2 = newlist_hint(2*n+1)
-    ecost1 = newlist_hint(2*n+1)
-    ecost2 = newlist_hint(2*n+1)
-
-    nodein = [-1] * n
-    nodeout = [-1] * n
+    path = [0] * (2*n)
+    vcost1 = [0] * (2*n)
+    vcost2 = [0] * (2*n)
+    ecost1 = [0] * (2*n)
+    ecost2 = [0] * (2*n)
+    nodein = [0] * n
+    nodeout = [0] * n
 
     curtime = -1
     depth = [-1] * n
     depth[root] = 0
-    todo = []
-    todo.append((root, 0, 0, vertexcost[root]))
-    while todo:
-      curtime += 1
-      cn, cd, ec, vc = todo.pop()
-      if cn >= 0:
-        if nodein[cn] == -1:
-          nodein[cn] = curtime
-        depth[cn] = cd
-        pathdepth.append(cd)
-        path.append(cn)
-        ecost1.append(ec)
-        ecost2.append(ec)
-        vcost1.append(vc)
-        vcost2.append(vc)
-        if len(G[cn]) == 1:
-          nodeout[cn] = curtime + 1
-        for nn, nv in G[cn]:
-          if depth[nn] != -1:
-            continue
-          todo.append((~cn, cd, nv, -vertexcost[nn]))
-          todo.append((nn, cd+1, nv, vertexcost[nn]))
-      else:
-        cn = ~cn
-        if nodein[cn] == -1:
-          nodein[cn] = curtime
-        path.append(cn)
-        ecost1.append(0)
-        ecost2.append(-ec)
-        vcost1.append(0)
-        vcost2.append(vc)
-        pathdepth.append(cd)
-        nodeout[cn] = curtime + 1
 
-    path.append(-1)
-    pathdepth.append(-1)
-    vcost1.append(0)
-    vcost1.append(0)
-    vcost2.append(-vertexcost[root])
-    vcost2.append(-vertexcost[root])
-    ecost1.append(0)
-    ecost1.append(0)
-    ecost2.append(0)
-    ecost2.append(0)
+    stack: List[Tuple[int, int]] = [(~root, 0), (root, 0)]
+    while stack:
+      curtime += 1
+      v, ec = stack.pop()
+      if v >= 0:
+        nodein[v] = curtime
+        path[curtime] = v
+        ecost1[curtime] = ec
+        ecost2[curtime] = ec
+        vcost1[curtime] = vertexcost[v]
+        vcost2[curtime] = vertexcost[v]
+        if len(G[v]) == 1:
+          nodeout[v] = curtime + 1
+        for x, c in G[v]:
+          if depth[x] != -1:
+            continue
+          depth[x] = depth[v] + 1
+          stack.append((~v, c))
+          stack.append((x, c))
+      else:
+        v = ~v
+        path[curtime] = v
+        ecost1[curtime] = 0
+        ecost2[curtime] = -ec
+        vcost1[curtime] = 0
+        vcost2[curtime] = -vertexcost[v]
+        nodeout[v] = curtime
 
     # ---------------------- #
 
@@ -78,20 +58,20 @@ class EulerTour():
     self._vertexcost = vertexcost
     self._path = path
 
-    self._vcost1 = FenwickTree(vcost1)
-    self._vcost2 = FenwickTree(vcost2)
-    self._ecost1 = FenwickTree(ecost1)
-    self._ecost2 = FenwickTree(ecost2)
+    self._vcost_subtree = FenwickTree(vcost1)
+    self._vcost_path    = FenwickTree(vcost2)
+    self._ecost_subtree = FenwickTree(ecost1)
+    self._ecost_path    = FenwickTree(ecost2)
 
-    bit = len(pathdepth).bit_length()
+    bit = len(path).bit_length()
     self.msk = (1 << bit) - 1
-    a: List[int] = [(d<<bit)+i for i, d in enumerate(pathdepth)]
-    self._st = SparseTableRmQ(a, e=max(a))
+    a: List[int] = [(depth[v]<<bit)+i for i, v in enumerate(path)]
+    self._st: SparseTableRmQ[int] = SparseTableRmQ(a, e=max(a))
 
-  def get_lca(self, x: int, y: int) -> int:
-    if x == y: return x
-    l = min(self._nodein[x], self._nodein[y])
-    r = max(self._nodeout[x], self._nodeout[y])
+  def lca(self, u: int, v: int) -> int:
+    if u == v: return u
+    l = min(self._nodein[u], self._nodein[v])
+    r = max(self._nodeout[u], self._nodeout[v])
     ind = self._st.prod(l, r) & self.msk
     return self._path[ind]
 
@@ -103,43 +83,43 @@ class EulerTour():
     ind = self._st.prod(l, r) & self.msk
     return self._path[ind]
 
-  def get_subtree_vcost(self, x: int) -> int:
-    l = self._nodein[x]
-    r = self._nodeout[x]
-    return self._vcost1.sum(l, r)
+  def subtree_vcost(self, v: int) -> int:
+    l = self._nodein[v]
+    r = self._nodeout[v]
+    return self._vcost_subtree.prod(l, r)
 
-  def get_subtree_ecost(self, x: int) -> int:
-    l = self._nodein[x]
-    r = self._nodeout[x]
-    return self._ecost1.sum(l+1, r)
+  def subtree_ecost(self, v: int) -> int:
+    l = self._nodein[v]
+    r = self._nodeout[v]
+    return self._ecost_subtree.prod(l+1, r)
 
-  def get_path_vcost1(self, x: int) -> int:
-    '''頂点xを含む'''
-    return self._vcost2.pref(self._nodein[x]+1)
+  def _path_vcost(self, v: int) -> int:
+    '''頂点 v を含む'''
+    return self._vcost_path.pref(self._nodein[v]+1)
 
-  def get_path_ecost1(self, x: int) -> int:
-    '''根から頂点xまでの辺'''
-    return self._ecost2.pref(self._nodein[x]+1)
+  def _path_ecost(self, v: int) -> int:
+    '''根から頂点 v までの辺'''
+    return self._ecost_path.pref(self._nodein[v]+1)
 
-  def get_path_vcost2(self, x: int, y: int) -> int:
-    a = self.get_lca(x, y)
-    return self.get_path_vcost1(x) + self.get_path_vcost1(y) - 2 * self.get_path_vcost1(a) + self._vertexcost[a]
+  def path_vcost(self, u: int, v: int) -> int:
+    a = self.lca(u, v)
+    return self._path_vcost(u) + self._path_vcost(v) - 2 * self._path_vcost(a) + self._vertexcost[a]
 
-  def get_path_ecost2(self, x: int, y: int) -> int:
-    return self.get_path_ecost1(x) + self.get_path_ecost1(y) - 2 * self.get_path_ecost1(self.get_lca(x, y))
+  def path_ecost(self, u: int, v: int) -> int:
+    return self._path_ecost(u) + self._path_ecost(v) - 2 * self._path_ecost(self.lca(u, v))
 
-  def add_vertex(self, x: int, w: int) -> None:
+  def add_vertex(self, v: int, w: int) -> None:
     '''Add w to vertex x. / O(logN)'''
-    l = self._nodein[x]
-    r = self._nodeout[x]
-    self._vcost1.add(l, w)
-    self._vcost2.add(l, w)
-    self._vcost2.add(r+1, -w)
-    self._vertexcost[x] += w
+    l = self._nodein[v]
+    r = self._nodeout[v]
+    self._vcost_subtree.add(l, w)
+    self._vcost_path.add(l, w)
+    self._vcost_path.add(r, -w)
+    self._vertexcost[v] += w
 
-  def set_vertex(self, x: int, w: int) -> None:
-    '''Set w to vertex x. / O(logN)'''
-    self.add_vertex(x, self.get_path_vcost2(x, x))
+  def set_vertex(self, v: int, w: int) -> None:
+    '''Set w to vertex v. / O(logN)'''
+    self.add_vertex(v, w - self._vertexcost[v])
 
   def add_edge(self, u: int, v: int, w: int) -> None:
     '''Add w to edge([u - v]). / O(logN)'''
@@ -147,12 +127,12 @@ class EulerTour():
       u, v = v, u
     l = self._nodein[u]
     r = self._nodeout[u]
-    self._ecost1.add(l, w)
-    self._ecost1.add(r+1, -w)
-    self._ecost2.add(l, w)
-    self._ecost2.add(r+1, -w)
+    self._ecost_subtree.add(l, w)
+    self._ecost_subtree.add(r+1, -w)
+    self._ecost_path.add(l, w)
+    self._ecost_path.add(r+1, -w)
 
   def set_edge(self, u: int, v: int, w: int) -> None:
     '''Set w to edge([u - v]). / O(logN)'''
-    self.add_edge(u, v, w - self.get_path_ecost2(u, v))
+    self.add_edge(u, v, w - self.path_ecost(u, v))
 
