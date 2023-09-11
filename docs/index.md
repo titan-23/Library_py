@@ -1,5 +1,7 @@
 # [Library_py](https://github.com/titanium-22/Library_py)
 
+**注意！ライブラリ魔改造に伴って、色々壊れています！**
+
 [titan23](https://atcoder.jp/users/titan23) が使用している、競技プログラミング用のライブラリです。pypyで動きます。色々と更新しています。  
 各REAMDMEはサボっています。また、ありえないバグを仕込んでたりします。ご注意ください。  
 誰かがバグに引っかかってWAを出してくれたら、筆者冥利に尽きます。  
@@ -104,6 +106,10 @@
 - [DynamicWaveletMatrix](DataStructures/WaveletMatrix/DynamicWaveletMatrix.md)
 
 ## [Graph](Graph/Graph.md)
+- [HLD](Graph/HLD/HLD.md)
+  - [HLDLazySegmentTree](Graph/HLD/HLDLazySegmentTree.md)
+  - [HLDNoncommutativeSegmentTree](Graph/HLD/HLDNoncommutativeSegmentTree.md)
+  - [HLDSegmentTree](Graph/HLD/HLDSegmentTree.md)
 - [MaxFlow](Graph/MaxFlow/MaxFlow.md)
   - [MaxFlowDinic](Graph/MaxFlow/MaxFlowDinic.md)
   - [MaxFlowFordFulkerson](Graph/MaxFlow/MaxFlowFordFulkerson.md)
