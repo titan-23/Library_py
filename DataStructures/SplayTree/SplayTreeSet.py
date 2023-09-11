@@ -1,5 +1,5 @@
-from ....MyClass.OrderedSetInterface import OrderedSetInterface
-from ....MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from array import array
 from __pypy__ import newlist_hint
 from typing import Generic, Iterable, List, TypeVar, Optional

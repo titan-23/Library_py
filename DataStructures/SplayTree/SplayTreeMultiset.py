@@ -1,4 +1,4 @@
-from ....MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import sys
 from __pypy__ import newlist_hint
 from typing import Iterator, Optional, Generic, Iterable, List, TypeVar, Tuple
