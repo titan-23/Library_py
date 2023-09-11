@@ -4,24 +4,21 @@ from __pypy__ import newlist_hint
 class RootedTree():
 
   def __init__(self, _G: List[List[int]], _root: int, cp: bool=False, lca: bool=False):
-    self._n = len(_G)
-    self._G = _G
-    self._root = _root
-    self._height = -1
-    self._toposo = []
-    self._dist = []
-    self._descendant_num = []
-    self._child = []
-    self._child_num = []
-    self._parents = []
-    self._diameter = (-1, -1, -1)
+    self._n: int = len(_G)
+    self._G: List[List[int]] = _G
+    self._root: int = _root
+    self._height: int = -1
+    self._toposo: List[int] = []
+    self._dist: List[int] = []
+    self._descendant_num: List[int] = []
+    self._child: List[List[int]] = []
+    self._child_num: List[int] = []
+    self._parents: List[int] = []
+    self._diameter: Tuple[int, int, int] = (-1, -1, -1)
     self._bipartite_graph = []
     self._cp = cp
     self._lca = lca
-    # self._rank = []
-    K = 1
-    while 1 << K < self._n:
-      K += 1
+    K = self._n.bit_length()
     self._K = K
     self._doubling = [[-1]*self._n for _ in range(self._K)]
     self._calc_dist_toposo()

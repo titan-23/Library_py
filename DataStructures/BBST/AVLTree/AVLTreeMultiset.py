@@ -616,7 +616,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def __reversed__(self):
     for i in range(self.__len__()):
-      yield self._kth_elm(-i-1)
+      yield self._kth_elm(-i-1)[0]
 
   def __len__(self):
     return 0 if self.node is None else self.node.valsize
