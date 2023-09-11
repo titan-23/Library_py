@@ -9,8 +9,8 @@ class HLD():
     self.size: List[int] = [1] * n
     self.par: List[int] = [-1] * n
     self.dep: List[int] = [-1] * n
-    self.nodein: List[int] = [-1] * n
-    self.nodeout: List[int] = [-1] * n
+    self.nodein: List[int] = [0] * n
+    self.nodeout: List[int] = [0] * n
     self.head: List[int] = [0] * n
     self.hld: List[int] = [0] * n
     self._dfs(root)
@@ -40,6 +40,8 @@ class HLD():
           if size[x] > size[G_v[0]]:
             G_v[0], G_v[i] = G_v[i], G_v[0]
     
+    if self.n <= 1:
+      return
     head, nodein, nodeout, hld = self.head, self.nodein, self.nodeout, self.hld
     curtime = 0
     stack = [~root, root]

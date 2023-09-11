@@ -1,5 +1,5 @@
-from ..DataStructures.FenwickTree.FenwickTree import FenwickTree
-from ..DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
+from Library_py.DataStructures.FenwickTree.FenwickTree import FenwickTree
+from Library_py.DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
 from typing import List
 from __pypy__ import newlist_hint
 

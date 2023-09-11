@@ -29,7 +29,6 @@ def bfs_path(G: List[List[Tuple[int, int]]], s: int, t: int, inf: Union[int, flo
   if dist[t] == inf:
     return [], dist
   path = []
-  d = dist[t]
   while prev[t] != -1:
     path.append(t)
     t = prev[t]
