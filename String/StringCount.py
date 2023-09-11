@@ -1,4 +1,6 @@
-class StringCount:
+from Library_py.DataStructures.FenwickTree.FenwickTree import FenwickTree
+
+class StringCount():
 
   alp = 'abcdefghijklmnopqrstuvwxyz'
   # alp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
