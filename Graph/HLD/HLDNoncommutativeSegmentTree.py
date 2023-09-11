@@ -1,5 +1,5 @@
 from Library_py.DataStructures.SegmentTree.SegmentTree import SegmentTree
-from .HLD import HLD
+from Library_py.Graph.HLD.HLD import HLD
 from typing import Union, Iterable, Callable, TypeVar, Generic, List
 T = TypeVar('T')
 
