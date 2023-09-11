@@ -1,4 +1,4 @@
-from ..BBST.SplayTree.SplayTreeSetTopDown import SplayTreeSetTopDown
+from Library_py.DataStructures.SplayTree.SplayTreeSetTopDown import SplayTreeSetTopDown
 from typing import Dict, Iterable, Tuple
 
 class MexMultiset():
