@@ -18,7 +18,7 @@ class HLD():
     self.time: int = 0
     self.dfs2(root, -1)
 
-  @staticmethod
+  # @staticmethod
   def antirec(func, stack=[]):
     def wrappedfunc(*args, **kwargs):
       if stack:
