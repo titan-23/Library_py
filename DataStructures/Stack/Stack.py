@@ -1,12 +1,17 @@
 from typing import Iterable, Any, List
 
-class Stack:
+class Stack():
 
   # コンセプト：popをしないStack
 
   def __init__(self, a: Iterable[Any]=[]):
     self.data: List[Any] = list(a)
     self.back: int = len(self.data)
+
+  def reserve(self, n: int) -> None:
+    if n <= 0:
+      return
+    self.data += [0] * n
 
   def pop(self) -> Any:
     self.back -= 1
