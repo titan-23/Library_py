@@ -11,7 +11,7 @@ class AffineMap():
 
   @classmethod
   def _matmul3(cls, a: List[List[Union[int, float]]], b: List[List[Union[int, float]]]) -> List[List[Union[int, float]]]:
-    res = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    res: List[List[Union[int, float]]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i in range(3):
       for k in range(3):
         for j in range(3):
@@ -19,7 +19,7 @@ class AffineMap():
     return res
 
   @classmethod
-  def new(cls) -> List[List[float]]:
+  def new(cls) -> List[List[Union[int, float]]]:
     return [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
   @classmethod
