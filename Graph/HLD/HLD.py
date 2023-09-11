@@ -7,66 +7,60 @@ class HLD():
     n = len(G)
     self.n: int = n
     self.G: List[List[int]] = G
-    self.size: List[int] = [0] * n
-    self.par: List[int] = [0] * n
-    self.dep: List[int] = [0] * n
-    self.nodein: List[int] = [0] * n
-    self.nodeout: List[int] = [0] * n
+    self.size: List[int] = [1] * n
+    self.par: List[int] = [-1] * n
+    self.dep: List[int] = [-1] * n
+    self.nodein: List[int] = [-1] * n
+    self.nodeout: List[int] = [-1] * n
     self.head: List[int] = [0] * n
     self.hld: List[int] = [0] * n
-    self.dfs1(root, -1)
-    self.time: int = 0
-    self.dfs2(root, -1)
+    self._dfs(root)
 
-  # @staticmethod
-  def antirec(func, stack=[]):
-    def wrappedfunc(*args, **kwargs):
-      if stack:
-        return func(*args, **kwargs)
-      to = func(*args, **kwargs)
-      while True:
-        if isinstance(to, GeneratorType):
-          stack.append(to)
-          to = next(to)
-        else:
-          stack.pop()
-          if not stack:
-            break
-          to = stack[-1].send(to)
-      return to
-    return wrappedfunc
-
-  @antirec
-  def dfs1(self, v: int, p: int) -> Generator:
-    self.par[v] = p
-    size = 1
-    dep = self.dep[v]
-    for i, x in enumerate(self.G[v]):
-      x = self.G[v][i]
-      if x == p:
-        continue
-      self.dep[x] = dep + 1
-      yield self.dfs1(x, v)
-      size += self.size[x]
-      if self.size[x] > self.size[self.G[v][0]]:
-        self.G[v][0], self.G[v][i] = self.G[v][i], self.G[v][0]
-    self.size[v] = size
-    yield
-
-  @antirec
-  def dfs2(self, v: int, p: int) -> Generator:
-    if p == -1:
-      self.head[v] = v
-    self.nodein[v] = self.time
-    self.hld[self.time] = v
-    self.time += 1
-    for x in self.G[v]:
-      if x == p:
-        continue
-      self.head[x] = self.head[v] if x == self.G[v][0] else x
-      yield self.dfs2(x, v)
-    self.nodeout[v] = self.time
-    yield
+  def _dfs(self, root: int) -> None:
+    dep, par, size, G = self.dep, self.par, self.size, self.G
+    dep[root] = 0
+    stack = [root]
+    while stack:
+      v = stack.pop()
+      if v >= 0:
+        dep_nxt = dep[v] + 1
+        for x in G[v]:
+          if dep[x] != -1:
+            continue
+          dep[x] = dep_nxt
+          stack.append(~x)
+          stack.append(x)
+      else:
+        v = ~v
+        G_v, dep_v = G[v], dep[v]
+        for i, x in enumerate(G_v):
+          if dep[x] < dep_v:
+            par[v] = x
+            continue
+          size[v] += size[x]
+          if size[x] > size[G_v[0]]:
+            G_v[0], G_v[i] = G_v[i], G_v[0]
+    
+    head, nodein, nodeout, hld = self.head, self.nodein, self.nodeout, self.hld
+    curtime = 0
+    stack = [~root, root]
+    while stack:
+      v = stack.pop()
+      if v >= 0:
+        if par[v] == -1:
+          head[v] = v
+        nodein[v] = curtime
+        hld[curtime] = v
+        curtime += 1
+        G_v0 = G[v][0]
+        for x in reversed(G[v]):
+          if x == par[v]:
+            continue
+          head[x] = head[v] if x == G_v0 else x
+          stack.append(~x)
+          stack.append(x)
+      else:
+        nodeout[~v] = curtime
 
   def path_kth_elm(self, s: int, t: int, k: int) -> int:
     head, dep, par = self.head, self.dep, self.par
@@ -106,4 +100,7 @@ class HLD():
     if dep[u] < dep[v]:
       u, v = v, u
     yield nodein[v], nodein[u]+1
+
+  def for_each_vertex_subtree(self, v: int) -> Tuple[int, int]:
+    return self.nodein[v], self.nodeout[v]
 

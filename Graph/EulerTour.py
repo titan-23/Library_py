@@ -24,7 +24,7 @@ class EulerTour():
     curtime = -1
     depth = [-1] * n
     depth[root] = 0
-    todo = newlist_hint(n)
+    todo = []
     todo.append((root, 0, 0, vertexcost[root]))
     while todo:
       curtime += 1
