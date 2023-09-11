@@ -40,8 +40,6 @@ class HLD():
           if size[x] > size[G_v[0]]:
             G_v[0], G_v[i] = G_v[i], G_v[0]
     
-    if self.n <= 1:
-      return
     head, nodein, nodeout, hld = self.head, self.nodein, self.nodeout, self.hld
     curtime = 0
     stack = [~root, root]
@@ -53,6 +51,8 @@ class HLD():
         nodein[v] = curtime
         hld[curtime] = v
         curtime += 1
+        if not G[v]:
+          continue
         G_v0 = G[v][0]
         for x in reversed(G[v]):
           if x == par[v]:
@@ -102,6 +102,6 @@ class HLD():
       u, v = v, u
     yield nodein[v], nodein[u]+1
 
-  def for_each_vertex_subtree(self, v: int) -> Tuple[int, int]:
-    return self.nodein[v], self.nodeout[v]
+  def for_each_vertex_subtree(self, v: int) -> Generator[Tuple[int, int], None, None]:
+    yield self.nodein[v], self.nodeout[v]
 

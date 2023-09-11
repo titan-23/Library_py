@@ -29,7 +29,6 @@ class HLDLazySegmentTree(Generic[T, F]):
 
   def path_apply(self, u: int, v: int, f: F) -> None:
     head, nodein, dep, par = self.hld.head, self.hld.nodein, self.hld.dep, self.hld.par
-    res = self.e
     while head[u] != head[v]:
       if dep[head[u]] < dep[head[v]]:
         u, v = v, u

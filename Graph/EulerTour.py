@@ -1,5 +1,5 @@
 from Library_py.DataStructures.FenwickTree.FenwickTree import FenwickTree
-from Library_py.DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
+from Library_py.DataStructures.SegmentTree.SegmentTreeRmQ import SegmentTreeRmQ
 from typing import List, Tuple
 
 class EulerTour():
@@ -10,17 +10,16 @@ class EulerTour():
       vertexcost = [0] * n
 
     path = [0] * (2*n)
-    vcost1 = [0] * (2*n)
-    vcost2 = [0] * (2*n)
-    ecost1 = [0] * (2*n)
-    ecost2 = [0] * (2*n)
+    vcost1 = [0] * (2*n)  # for vertex subtree
+    vcost2 = [0] * (2*n)  # for vertex path
+    ecost1 = [0] * (2*n)  # for edge subtree
+    ecost2 = [0] * (2*n)  # for edge path
     nodein = [0] * n
     nodeout = [0] * n
+    depth = [-1] * n
 
     curtime = -1
-    depth = [-1] * n
     depth[root] = 0
-
     stack: List[Tuple[int, int]] = [(~root, 0), (root, 0)]
     while stack:
       curtime += 1
@@ -66,7 +65,7 @@ class EulerTour():
     bit = len(path).bit_length()
     self.msk = (1 << bit) - 1
     a: List[int] = [(depth[v]<<bit)+i for i, v in enumerate(path)]
-    self._st: SparseTableRmQ[int] = SparseTableRmQ(a, e=max(a))
+    self._st: SegmentTreeRmQ[int] = SegmentTreeRmQ(a, e=max(a))
 
   def lca(self, u: int, v: int) -> int:
     if u == v: return u
