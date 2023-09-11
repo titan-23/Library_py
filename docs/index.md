@@ -6,7 +6,7 @@
 [titan23](https://atcoder.jp/users/titan23) が使用している、競技プログラミング用のライブラリです。pypyで動きます。色々と更新しています。  
 各REAMDMEはサボっています。また、ありえないバグを仕込んでたりします。ご注意ください。  
 誰かがバグに引っかかってWAを出してくれたら、筆者冥利に尽きます。  
-
+****
 ## [DataStructures](DataStructures/DataStructures.md)
 
 ### [BBST](DataStructures/BBST/BBST.md)
@@ -108,6 +108,7 @@
 
 ## [Graph](Graph/Graph.md)
 - [HLD](Graph/HLD/HLD.md)
+  - [HLD_](Graph/HLD/HLD_.md)
   - [HLDLazySegmentTree](Graph/HLD/HLDLazySegmentTree.md)
   - [HLDNoncommutativeSegmentTree](Graph/HLD/HLDNoncommutativeSegmentTree.md)
   - [HLDSegmentTree](Graph/HLD/HLDSegmentTree.md)
