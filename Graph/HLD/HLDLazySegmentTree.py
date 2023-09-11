@@ -6,6 +6,8 @@ F = TypeVar('F')
 
 class HLDLazySegmentTree(Generic[T, F]):
 
+  # セグ木バージョンあればすぐ書けるが、その手間を省くのがライブラリ
+
   def __init__(self, hld: HLD, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], mapping: Callable[[F, T], T], composition: Callable[[F, F], F], e: T, id: F):
     self.hld: HLD = hld
     n_or_a = n_or_a if isinstance(n_or_a, int) else self.hld.build_list(list(n_or_a))
