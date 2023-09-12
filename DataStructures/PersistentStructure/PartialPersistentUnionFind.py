@@ -1,19 +1,18 @@
 from .PersistentArray import PartialPersistentArray
+from typing import List
 
 class PartialPersistentUnionFind():
 
   def __init__(self, n: int):
     self._n: int = n
-    self._parents = PartialPersistentArray([-1] * n)
-    self._last_time = 0
+    self._parents: PartialPersistentArray = PartialPersistentArray([-1] * n)
 
   def root(self, x: int, t: int=-1) -> int:
     while True:
       p = self._parents.get(x, t)
       if p < 0:
-        break
+        return x
       x = p
-    return x
 
   def unite(self, x: int, y: int, t: int) -> bool:
     x = self.root(x, t)

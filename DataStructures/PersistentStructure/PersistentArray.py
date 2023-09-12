@@ -2,7 +2,7 @@ from typing import Any, Iterable, List
 
 class PartialPersistentArray():
 
-  def __init__(self, a: Iterable[Any]=[]):
+  def __init__(self, a: Iterable[Any]):
     self.a = [[e] for e in a]
     self.t: List[List[int]] = [[-1] for _ in range(len(self.a))]
     self.last_time: int = 0
