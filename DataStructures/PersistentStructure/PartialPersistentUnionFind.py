@@ -1,5 +1,4 @@
 from .PersistentArray import PartialPersistentArray
-from typing import List
 
 class PartialPersistentUnionFind():
 
