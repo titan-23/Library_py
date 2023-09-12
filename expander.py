@@ -26,6 +26,11 @@ def get_code(now_path, input_file, need_class, is_input=False):
         if class_name in need_class:
           print(f'import {class_name} OK.')
           need_class.remove(class_name)
+    if 'def' in line:
+      for func_name in need_class:
+        if line.startswith(f'def {func_name}'):
+          print(f'import {func_name} OK.(function)')
+          need_class.remove(func_name)
 
     if is_input:
       input_lines += 1
