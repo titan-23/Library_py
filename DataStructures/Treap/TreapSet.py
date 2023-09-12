@@ -22,7 +22,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
       self.key: T = key
       self.left: Optional['TreapSet.Node'] = None
       self.right: Optional['TreapSet.Node'] = None
-      self.priority = TreapSet.Random.random() if priority == -1 else priority
+      self.priority: int = TreapSet.Random.random() if priority == -1 else priority
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -30,8 +30,8 @@ class TreapSet(OrderedSetInterface, Generic[T]):
       return f'key:{self.key, self.priority},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
-    self.root = None
-    self._len = 0
+    self.root: Optional['TreapSet.Node'] = None
+    self._len: int = 0
     if not isinstance(a, Sequence):
       a = list(a)
     if a:
@@ -289,22 +289,15 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     return a
 
   def __iter__(self):
-    self.__iter = 0
+    self._it = self.get_min()
     return self
   
   def __next__(self):
-    if self.__iter == len(self):
+    if self._it is None:
       raise StopIteration
-    self.__iter += 1
-    return self.__getitem__(self.__iter - 1)
-
-  def __getitem__(self, k: int) -> T:
-    assert self._len > 0
-    if k == -1 or k == self._len-1:
-      return self.get_max()
-    elif k == 0:
-      return self.get_min()
-    assert False, f'IndexError'
+    res = self._it
+    self._it = self.gt(self._it)
+    return res
 
   def __contains__(self, key: T):
     node = self.root

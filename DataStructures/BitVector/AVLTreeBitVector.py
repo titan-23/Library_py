@@ -1,4 +1,4 @@
-from .BitVectorInterface import BitVectorInterface
+from Library_py.DataStructures.BitVector.BitVectorInterface import BitVectorInterface
 from array import array
 from typing import Iterable, Tuple, List, Sequence
 from __pypy__ import newlist_hint
@@ -391,19 +391,6 @@ class AVLTreeBitVector(BitVectorInterface):
     rec(self.root)
     return a
 
-  def debug(self) -> None:
-    print(f'debug ##########')
-    print(f'{self.root=}')
-    print(f'{len(self.key)=}')
-    print(f'bit_length():', [bin(x).count('1') for x in self.key])
-    print(f'{self.key=}')
-    print(f'{self.bit_len=}')
-    print(f'{self.size=}')
-    print(f'{self.total=}')
-    print(f'{self.balance=}')
-    print(f'{self.left=}')
-    print(f'{self.right=}')
-
   def debug_acc(self) -> None:
     left, right = self.left, self.right
     key = self.key
@@ -418,19 +405,6 @@ class AVLTreeBitVector(BitVectorInterface):
         assert False, 'acc Error'
       return acc
     rec(self.root)
-
-  def debug_height(self) -> int:
-    left, right = self.left, self.right
-    h = 0
-    def rec(node, dep):
-      nonlocal h
-      h = max(h, dep)
-      if left[node]:
-        rec(left[node], dep+1)
-      if right[node]:
-        rec(right[node], dep+1)
-    rec(self.root, 0)
-    return h
 
   def access(self, k: int) -> int:
     return self.__getitem__(k)
@@ -627,7 +601,7 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def __setitem__(self, k: int, v: int):
     left, right, bit_len, size, key = self.left, self.right, self.bit_len, self.size, self.key
-    assert v == 0 or v == 1
+    assert v == 0 or v == 1, f'ValueError'
     node = self.root
     while True:
       t = size[left[node]] + bit_len[node]
