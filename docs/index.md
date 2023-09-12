@@ -1,21 +1,34 @@
+_____
+
 # [Library_py](https://github.com/titanium-22/Library_py)
 
 **2023/9/11 追記**
 
 **注意！ライブラリ魔改造に伴って、色々壊れています！怖すぎ！**
 
-[titan23](https://atcoder.jp/users/titan23) が使用している、競技プログラミング用のライブラリです。pypyで動きます。色々と更新しています。  
-各REAMDMEはサボっています。また、ありえないバグを仕込んでたりします。ご注意ください。  
-誰かがバグに引っかかってWAを出してくれたら、筆者冥利に尽きます。  
+[titan23](https://atcoder.jp/users/titan23) が使用している、競技プログラミング用のライブラリです。 PyPy で動きます。色々と更新しています。  
+各 REAMDME はサボっています。また、ありえないバグを仕込んでたりします。ご注意ください。  
+誰かがバグに引っかかって WA を出してくれたら、筆者冥利に尽きます。  
+
+_____
+
+## [Algorithm](Algorithm/Algorithm.md)
+
+### [Mo](Algorithm/Mo/Mo.md)
+
+### [Sort](Algorithm/Sort/Sort.md)
+- [merge_sort](Algorithm/Sort/merge_sort.md)
+- [quick_sort](Algorithm/Sort/quick_sort.md)
+
+### [Doubling](Algorithm/Doubling.md)
+
+### [permutation](Algorithm/permutation.md)
+
+_____
 
 ## [DataStructures](DataStructures/DataStructures.md)
 
-### [BBST](DataStructures/BBST/BBST.md)
-- [AVLTree](DataStructures/BBST/AVLTree.md)
-- [RedBlackTree](DataStructures/BBST/RedBlackTree.md)
-- [ScapegoatTree](DataStructures/BBST/ScapegoatTree.md)
-- [SplayTree](DataStructures/BBST/SplayTree.md)
-- [Treap](DataStructures/BBST/Treap.md)
+### [AVLTree](DataStructures/AVLTree/AVLTree.md)
 
 ### [BinaryTrie](DataStructures/BinaryTrie/BinaryTrie.md)
 - [BinaryTrieSet](DataStructures/BinaryTrie/BinaryTrieSet.md)
@@ -62,6 +75,12 @@
 - [PersistentArray](DataStructures/PersistentDataStructure/PersistentArray.md)
 - [PersistentStack](DataStructures/PersistentDataStructure/PersistentStack.md)
 
+### [RedBlackTree](DataStructures/RedBlackTree/RedBlackTree.md)
+- [RedBlackTreeSet](DataStructures/RedBlackTree/RedBlackTreeSet.md)
+- [RedBlackTreeMultiset](DataStructures/RedBlackTree/RedBlackTreeMultiset.md)
+
+### [ScapegoatTree](DataStructures/ScapegoatTree/ScapegoatTree.md)
+
 ### [SegmentQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision.md)
 - [QuadraticDivisionList](DataStructures/SegmentQuadraticDivision/QuadraticDivisionList.md)
 - [SegmentLazyQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentLazyQuadraticDivision.md)
@@ -91,9 +110,13 @@
 - [WordsizeTreeSet](DataStructures/Set/WordsizeTreeSet.md)
 - [WordsizeTreeSetZ](DataStructures/Set/WordsizeTreeSetZ.md)
 
+### [SplayTree](DataStructures/SplayTree/SplayTree.md)
+
 ### [SparseTable](DataStructures/SparseTable/SparseTable.md)
 - [SparseTable](DataStructures/SparseTable/SparseTable_.md)
 - [SparseTableRmQ](DataStructures/SparseTable/SparseTableRmQ.md)
+
+### [Treap](DataStructures/Treap/Treap.md)
 
 ### [StaticArrayQuery](DataStructures/StaticArrayQuery/StaticArrayQuery.md)
 - [StaticRmQ](DataStructures/StaticArrayQuery/StaticRmQ.md)
@@ -106,6 +129,8 @@
 ### [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix.md)
 - [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix_.md)
 - [DynamicWaveletMatrix](DataStructures/WaveletMatrix/DynamicWaveletMatrix.md)
+
+_____
 
 ## [Graph](Graph/Graph.md)
 - [HLD](Graph/HLD/HLD.md)
@@ -129,6 +154,8 @@
 - [scc](Graph/scc.md)
 - [topological_sort](Graph/topological_sort.md)
 - [warshall_floyd](Graph/warshall_floyd.md)
+
+_____
 
 ## [Math](Math/Math.md)
 - [AffineMap](Math/AffineMap.md)
