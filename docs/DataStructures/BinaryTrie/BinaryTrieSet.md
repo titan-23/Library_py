@@ -17,6 +17,8 @@ ____
 
 ## 仕様
 
+[`OrderedSetInterface`](../../MyClass/OrderedSetInterface.md) を継承しています。
+
 #### `bt = BinaryTrieSet(u: int, a: Iterable[int]=[])`
 - `a` から、**0 以上 u 未満**の整数を管理する `BinaryTrieSet` を構築します。
 - `O(nlogu)` です。
@@ -24,22 +26,6 @@ ____
 #### `bt.reserve(n: int) -> None`
 - 内部のメモリを `O(n)` だけ確保します。
 - `O(n)` です。
-
-#### `bt.add(key: int) -> bool`
-- `key` が存在しないなら `key` を追加し `True` を返します。そうでないなら何も追加せず `False` を返します。
-- `O(logu)` です。
-
-#### `bt.discard(key: int) -> bool`
-- `key` が存在するなら `key` を削除し `True` を返します。そうでないなら何もせず `False` を返します。
-- `O(logu)` です。
-
-#### `bt.pop(k: int=-1) / .pop_max() / .pop_min() -> int`
-- (最大(昇順 `k` 番目) / 最大 / 最小) の値を削除し、その値を返します。
-- `O(logu)` です。
-
-#### `bt.get_max() / .get_min() -> int`
-- (最大 / 最小) の値を返します。
-- `O(logu)` です。
 
 #### `bt.all_xor(x: int) -> None`
 - すべての要素に `x` で `xor` をかけます。
@@ -49,27 +35,9 @@ ____
 - `key` (より小さい / 以下の) 要素の数を返します。
 - `O(logu)` です。
 
-#### `bt.le(key: int) / .lt(key) / .ge(key) / gt(key) -> Optional[int]`
-- `key` (以下の / より小さい / 以上の / より大きい) 値で (最大 / 最大 / 最小 / 最小) の値を返します。存在しなければ `None` を返します。
-- `O(logu)` です。
-
-#### `bt.tolist() -> List[int]`
-- `key` を昇順に並べたリストを返します。
-- `O(Nlogu)` です。
-
-#### `key: int in bt`
-- 存在判定です。
-- `O(logu)` です。
-
 #### `bt[k: int] -> int`
 - 昇順 `k` 番目の値を返します
 - `O(logu)` です。
-
-#### `bool(bt) / iter(bt) / next(bt) / len(bt)`
-- よしなです。
-
-#### `str(bt) / repr(bt)`
-- よしなです。
 
 ## 使用例
 

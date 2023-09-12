@@ -49,7 +49,7 @@ _____
 
 #### `lct.path_length(u: int, v: int) -> int`
 
-#### `lct.path_kth_elm(s: int, t: int, k: int)`
+#### `lct.path_kth_elm(s: int, t: int, k: int) -> int`
 
 #### `lct[k] / lct[k] = v`
 

@@ -1,4 +1,4 @@
-from typing import Any, List, Generator, Tuple
+from typing import Any, Iterator, List, Tuple
 
 class HLD():
 
@@ -63,6 +63,23 @@ class HLD():
       else:
         nodeout[~v] = curtime
 
+  def build_list(self, a: List[Any]) -> List[Any]:
+    return [a[e] for e in self.hld]
+
+  def for_each_vertex(self, u: int, v: int) -> Iterator[Tuple[int, int]]:
+    head, nodein, dep, par = self.head, self.nodein, self.dep, self.par
+    while head[u] != head[v]:
+      if dep[head[u]] < dep[head[v]]:
+        u, v = v, u
+      yield nodein[head[u]], nodein[u]+1
+      u = par[head[u]]
+    if dep[u] < dep[v]:
+      u, v = v, u
+    yield nodein[v], nodein[u]+1
+
+  def for_each_vertex_subtree(self, v: int) -> Iterator[Tuple[int, int]]:
+    yield self.nodein[v], self.nodeout[v]
+
   def path_kth_elm(self, s: int, t: int, k: int) -> int:
     head, dep, par = self.head, self.dep, self.par
     lca = self.lca(s, t)
@@ -87,21 +104,4 @@ class HLD():
       if head[u] == head[v]:
         return u
       v = par[head[v]]
-
-  def build_list(self, a: List[Any]) -> List[Any]:
-    return [a[e] for e in self.hld]
-
-  def for_each_vertex(self, u: int, v: int) -> Generator[Tuple[int, int], None, None]:
-    head, nodein, dep, par = self.head, self.nodein, self.dep, self.par
-    while head[u] != head[v]:
-      if dep[head[u]] < dep[head[v]]:
-        u, v = v, u
-      yield nodein[head[u]], nodein[u]+1
-      u = par[head[u]]
-    if dep[u] < dep[v]:
-      u, v = v, u
-    yield nodein[v], nodein[u]+1
-
-  def for_each_vertex_subtree(self, v: int) -> Generator[Tuple[int, int], None, None]:
-    yield self.nodein[v], self.nodeout[v]
 

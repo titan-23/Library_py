@@ -17,3 +17,5 @@ _____
 
 ## 仕様
 
+[`SparseTable`](./SparseTable_.md) の `op` を `min` にしたものです。
+
