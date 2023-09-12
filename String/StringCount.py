@@ -1,16 +1,17 @@
 from Library_py.DataStructures.FenwickTree.FenwickTree import FenwickTree
+from typing import List, Dict
 
 class StringCount():
 
-  alp = 'abcdefghijklmnopqrstuvwxyz'
-  # alp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  DIC = {c: i for i, c in enumerate(alp)}
+  alp: str = 'abcdefghijklmnopqrstuvwxyz'
+  # alp: str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  DIC: Dict[str, int] = {c: i for i, c in enumerate(alp)}
 
   def __init__(self, s: str):
     assert isinstance(s, str)
-    self.n = len(s)
-    self.s = list(s)
-    self.data = [FenwickTree(self.n) for _ in range(26)]
+    self.n: int = len(s)
+    self.s: List[str] = list(s)
+    self.data: List[FenwickTree] = [FenwickTree(self.n) for _ in range(26)]
     for i, c in enumerate(s):
       self.data[StringCount.DIC[c]].add(i, 1)
 
@@ -38,16 +39,18 @@ class StringCount():
     return True
 
   # 区間[l, r)の最小の文字を返す
-  def get_min(self, l, r):
+  def get_min(self, l: int, r: int) -> str:
     for i in range(26):
       if self.data[i].sum(l, r):
         return StringCount.alp[i]
+    assert False, 'Indexerror'
 
   # 区間[l, r)の最大の文字を返す
-  def get_max(self, l, r):
+  def get_max(self, l: int, r: int) -> str:
     for i in range(25, -1, -1):
       if self.data[i].sum(l, r):
         return StringCount.alp[i]
+    assert False, 'Indexerror'
 
   # k番目の文字をcに変更する
   def __setitem__(self, k: int, c: str):
@@ -58,19 +61,15 @@ class StringCount():
 
   # 区間[l, r)の全ての文字の個数を返す
   # 返り値は要素数26のList[int]
-  def get_all_count(self, l: int, r: int):
+  def get_all_count(self, l: int, r: int) -> List[int]:
     return [self.data[i].sum(l, r) for i in range(26)]
 
   # 区間[l, r)のcの個数を返す
-  def get_count(self, l: int, r: int, c: str):
+  def get_count(self, l: int, r: int, c: str) -> int:
     return self.data[StringCount.DIC[c]].sum(l, r)
 
-  def __getitem__(self, item):
-    if isinstance(item, int):
-      return self.s[item]
-    elif isinstance(item, slice):
-      return ''.join(self.s[item])
-    raise TypeError
+  def __getitem__(self, k: int) -> str:
+    return self.s[k]
 
   def __str__(self):
     return ''.join(self.s)

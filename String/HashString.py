@@ -2,16 +2,19 @@ import random
 
 # HashString_MOD = 2**61-1  # MODはglobalにとる
 HashString_MOD = 998244353
+
 class HashString:
 
   def __init__(self, s: str):
     self.b = random.randint(37, 10000)
     self.n = len(s)
-    self.data = [0] * (self.n+1)
-    self.powb = [1] * (self.n+1)
+    data = [0] * (self.n+1)
+    powb = [1] * (self.n+1)
     for i in range(1, self.n+1):
-      self.powb[i] = self.powb[i-1] * self.b % HashString_MOD
-      self.data[i] = (self.b * self.data[i-1] + ord(s[i-1])) % HashString_MOD
+      powb[i] = powb[i-1] * self.b % HashString_MOD
+      data[i] = (self.b * data[i-1] + ord(s[i-1])) % HashString_MOD
+    self.powb = powb
+    self.data = data
 
   def get(self, l: int, r: int) -> int:
     return (self.data[r] - self.data[l] * self.powb[r-l]) % HashString_MOD
