@@ -28,6 +28,9 @@ _____
 
 ## [DataStructures](DataStructures/DataStructures.md)
 
+### [Array](DataStructures/Array/Array.md)
+- [PartialPersistentArray](DataStructures/Array/PartialPersistentArray.md)
+
 ### [AVLTree](DataStructures/AVLTree/AVLTree.md)
 
 ### [BinaryTrie](DataStructures/BinaryTrie/BinaryTrie.md)
@@ -71,10 +74,6 @@ _____
 - [MinHeap](DataStructures/Heap/MinHeap.md)
 - [RandomizedMeldableHeap](DataStructures/Heap/RandomizedMeldableHeap.md)
 
-### [PersistentDataStructure](DataStructures/PersistentDataStructure/PersistentDataStructure.md)
-- [PersistentArray](DataStructures/PersistentDataStructure/PersistentArray.md)
-- [PersistentStack](DataStructures/PersistentDataStructure/PersistentStack.md)
-
 ### [RedBlackTree](DataStructures/RedBlackTree/RedBlackTree.md)
 - [RedBlackTreeSet](DataStructures/RedBlackTree/RedBlackTreeSet.md)
 - [RedBlackTreeMultiset](DataStructures/RedBlackTree/RedBlackTreeMultiset.md)
@@ -112,6 +111,10 @@ _____
 
 ### [SplayTree](DataStructures/SplayTree/SplayTree.md)
 
+### [Stack](DataStructures/Stack/Stack.md)
+- [Stack](DataStructures/Stack/Stack_.md)
+- [PartialPersistentStack](DataStructures/Stack/PartialPersistentStack.md)
+
 ### [SparseTable](DataStructures/SparseTable/SparseTable.md)
 - [SparseTable](DataStructures/SparseTable/SparseTable_.md)
 - [SparseTableRmQ](DataStructures/SparseTable/SparseTableRmQ.md)
@@ -122,6 +125,7 @@ _____
 - [StaticRmQ](DataStructures/StaticArrayQuery/StaticRmQ.md)
 
 ### [UnionFind](DataStructures/UnionFind/UnionFind.md)
+- [PartialPersistentUnionFind](DataStructures/UnionFind/PartialPersistentUnionFind.md)
 - [UnionFind](DataStructures/UnionFind/UnionFind_.md)
 - [UndoableUnionFind](DataStructures/UnionFind/UndoableUnionFind.md)
 - [WeightedUnionFind](DataStructures/UnionFind/WeightedUnionFind.md)

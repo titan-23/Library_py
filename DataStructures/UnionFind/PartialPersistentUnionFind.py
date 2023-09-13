@@ -1,4 +1,4 @@
-from .PersistentArray import PartialPersistentArray
+from ..Array.PartialPersistentArray import PartialPersistentArray
 
 class PartialPersistentUnionFind():
 
