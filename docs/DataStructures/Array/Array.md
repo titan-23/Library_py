@@ -1,6 +1,6 @@
 _____
 
-# [Array](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Array)
+# [`Array`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Array)
 
 _____
 
@@ -8,6 +8,6 @@ _____
 
 _____
 
-- [PartialPersistentArray](./PartialPersistentArray.md)
+- [`PartialPersistentArray`](./PartialPersistentArray.md)
   - 部分永続配列です。
 
