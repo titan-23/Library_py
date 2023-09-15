@@ -19,7 +19,7 @@ class Doubling(Generic[T]):
         db[k+1][i] = db[k][db[k][i]]
     self.db = db
 
-  def kth(self, start: T, k: int):
+  def kth(self, start: T, k: int) -> T:
     now = start
     for i in range(self.log):
       if k & 1:
