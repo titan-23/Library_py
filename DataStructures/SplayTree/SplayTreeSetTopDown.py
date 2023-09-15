@@ -9,7 +9,6 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[], e: T=0):
     self.keys: List[T] = [e]
-    self.size = array('I', bytes(4))
     self.child = array('I', bytes(8))
     self.end: int = 1
     self.node: int = 0
@@ -21,13 +20,12 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       self._build(a)
 
   def _build(self, a: Sequence[T]) -> None:
-    def sort(l: int, r: int) -> int:
+    def rec(l: int, r: int) -> int:
       mid = (l + r) >> 1
       if l != mid:
-        child[mid<<1] = sort(l, mid)
+        child[mid<<1] = rec(l, mid)
       if mid + 1 != r:
-        child[mid<<1|1] = sort(mid+1, r)
-      size[mid] = 1 + size[child[mid<<1]] + size[child[mid<<1|1]]
+        child[mid<<1|1] = rec(mid+1, r)
       return mid
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(a)
@@ -38,17 +36,16 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         b.append(e)
       a = b
     n = len(a)
-    key, child, size = self.keys, self.child, self.size
+    key, child = self.keys, self.child
     self.reserve(n-len(key)+2)
     self.end += n
     key[1:n+1] = a
-    self.node = sort(1, n+1)
+    self.node = rec(1, n+1)
     self.len = n
 
   def _make_node(self, key: T) -> int:
     if self.end >= len(self.keys):
       self.keys.append(key)
-      self.size.append(1)
       self.child.append(0)
       self.child.append(0)
     else:
@@ -91,7 +88,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     self.node = node
 
   def _get_min_splay(self, node: int) -> int:
-    keys, child = self.keys, self.child
+    child = self.child
     if (not node) or (not child[node<<1]): return node
     right = 0
     while child[node<<1]:
@@ -110,7 +107,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return node
 
   def _get_max_splay(self, node: int) -> int:
-    keys, child = self.keys, self.child
+    child = self.child
     if (not node) or (not child[node<<1|1]): return node
     left = 0
     while child[node<<1|1]:
@@ -131,7 +128,6 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
   def reserve(self, n: int) -> None:
     assert n >= 0, f'ValueError'
     self.keys += [self.e] * n
-    self.size += array('I', [1] * n)
     self.child += array('I', bytes(8 * n))
 
   def add(self, key: T) -> bool:
@@ -336,7 +332,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
   def tolist(self) -> List[T]:
     node = self.node
     child, keys = self.child, self.keys
-    stack, res = newlist_hint(len(self)), newlist_hint(len(self))
+    stack, res = [], newlist_hint(len(self))
     while stack or node:
       if node:
         stack.append(node)
