@@ -1,6 +1,6 @@
 from Library_py.DataStructures.BitVector.BitVectorInterface import BitVectorInterface
 from array import array
-from typing import Iterable, Tuple, List, Sequence
+from typing import Iterable, List, Sequence
 from __pypy__ import newlist_hint
 
 class AVLTreeBitVector(BitVectorInterface):
@@ -42,22 +42,27 @@ class AVLTreeBitVector(BitVectorInterface):
   def _build(self, a: Iterable[int]) -> None:
     key, bit_len, left, right, size, balance, total = self.key, self.bit_len, self.left, self.right, self.size, self.balance, self.total
     _popcount = AVLTreeBitVector._popcount
-    def rec(l: int, r: int) -> Tuple[int, int]:
+    def rec(lr: int) -> int:
+      l, r = lr>>bit, lr&msk
       mid = (l + r) >> 1
       hl, hr = 0, 0
       if l != mid:
-        left[mid], hl = rec(l, mid)
+        le = rec(l<<bit|mid)
+        left[mid], hl = le>>bit, le&msk
         size[mid] += size[left[mid]]
         total[mid] += total[left[mid]]
       if mid + 1 != r:
-        right[mid], hr = rec(mid+1, r)
+        ri = rec((mid+1)<<bit|r)
+        right[mid], hr = ri>>bit, ri&msk
         size[mid] += size[right[mid]]
         total[mid] += total[right[mid]]
       balance[mid] = hl - hr
-      return mid, max(hl, hr)+1
+      return mid<<bit|(max(hl, hr)+1)
     if not isinstance(a, Sequence):
       a = list(a)
     n = len(a)
+    bit = n.bit_length() + 2
+    msk = (1 << bit) - 1
     end = self.end
     self.reserve(n)
     i = 0
@@ -75,7 +80,7 @@ class AVLTreeBitVector(BitVectorInterface):
       total[indx] = _popcount(v)
       indx += 1
     self.end = indx
-    self.root = rec(end, self.end)[0]
+    self.root = rec(end<<bit|self.end)>>bit
 
   def _rotate_L(self, node: int) -> int:
     left, right, size, balance, total = self.left, self.right, self.size, self.balance, self.total
