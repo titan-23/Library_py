@@ -1,4 +1,4 @@
-from ..Array.PartialPersistentArray import PartialPersistentArray
+from Library_py.DataStructures.Array.PartialPersistentArray import PartialPersistentArray
 
 class PartialPersistentUnionFind():
 
