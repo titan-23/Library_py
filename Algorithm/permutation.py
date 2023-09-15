@@ -1,4 +1,6 @@
-def next_permutation(a: list, l: int=0, r: int=-1) -> bool:
+from typing import List, Any
+
+def next_permutation(a: List[Any], l: int=0, r: int=-1) -> bool:
   if r == -1:
     r = len(a)
   for i in range(r-2, l-1, -1):
@@ -15,8 +17,7 @@ def next_permutation(a: list, l: int=0, r: int=-1) -> bool:
           return True
   return False
 
-
-def prev_permutation(a: list) -> bool:
+def prev_permutation(a: List[Any]) -> bool:
   l = 0
   r = len(a)
   for i in range(r-2, l-1, -1):
