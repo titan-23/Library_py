@@ -5,7 +5,7 @@ _____
 _____
 
 ## コード
-[`LinkCutTree.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/LinkCutTree.py)
+[`LinkCutTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/LinkCutTree.py)
 
 _____
 

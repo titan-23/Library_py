@@ -1,9 +1,11 @@
-___
+_____
 
-# [DynamicConnectivity](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity)
+# [`DynamicConnectivity`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity)
 
-Dynamic Connectivity です。
+- Dynamic Connectivity です。
 
-- [EulerTourTree](EulerTourTree.md)
-- [LinkCutTree](LinkCutTree.md)
-- [OfflineDynamicConnectivity](OfflineDynamicConnectivity.md)
+_____
+
+- [`EulerTourTree`](EulerTourTree.md)
+- [`LinkCutTree`](LinkCutTree.md)
+- [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md)
