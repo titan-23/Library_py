@@ -1,11 +1,15 @@
-___
+_____
 
-# `SparseTable`
+# [`SparseTable`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/SparseTable)
+
+_____
 
 スパテです。
 
-- [`SparseTable`](SparseTable_.md)
+_____
+
+- [`SparseTable`](./SparseTable_.md)
   - 普通のスパテです。
-- [`SparseTableRmQ`](SparseTableRmQ.md)
+- [`SparseTableRmQ`](./SparseTableRmQ.md)
   - RmQ のスパテです。
 
