@@ -14,16 +14,13 @@ p {
 /* リンクのスタイル */
 a {
   color: #2a7def; /* リンクのカラーを青に設定 */
-  text-decoration: none; /* リンクの下線を削除 */
 }
 
 
 /* 水平線のスタイル */
 hr {
   border: none; /* ボーダーを削除 */
-  height: 2px; /* 水平線の高さを設定 */
-  background-color: #0078d4; /* 水平線のカラーを青に設定 */
-  margin: 20px 0; /* 水平線の上下の余白を設定 */
+  background-color: #a7a7a8; /* 水平線のカラーを青に設定 */
 }
 
 
@@ -31,7 +28,7 @@ hr {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #0c1414; /* ダークモードの背景色 */
-    color: #fff; /* ダークモードのテキストカラー */
+    color: #ffffffea; /* ダークモードのテキストカラー */
   }
   h1 {
     color: #ff9900; /* ダークモードの見出しのカラー */
