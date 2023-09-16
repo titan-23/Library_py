@@ -1,8 +1,13 @@
-___
+_____
 
-列を平方分割します。
+# [`SegmentQuadraticDivision`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/SegmentQuadraticDivision)
 
-# [SegmentQuadraticDivision](SegmentQuadraticDivision.md)
+_____
 
-# [SegmentLazyQuadraticDivision](SegmentLazyQuadraticDivision.md)
+- 列を平方分割します。
+
+_____
+
+- [`SegmentLazyQuadraticDivision`](./SegmentLazyQuadraticDivision.md)
+- [`SegmentQuadraticDivision`](./SegmentQuadraticDivision_.md)
 
