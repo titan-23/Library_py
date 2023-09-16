@@ -130,5 +130,5 @@ dmypy.json
 .pyre/
 
 # my file
-docs/copy_and_paste.md
+copy_and_paste.md
 
