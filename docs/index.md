@@ -81,6 +81,8 @@ _____
 - [RedBlackTreeMultiset](DataStructures/RedBlackTree/RedBlackTreeMultiset.md)
 
 ### [ScapegoatTree](DataStructures/ScapegoatTree/ScapegoatTree.md)
+- [ScapegoatTreeSet](DataStructures/ScapegoatTree/ScapegoatTreeSet.md)
+- [ScapegoatTreeMultiset](DataStructures/ScapegoatTree/ScapegoatTreeMultiset.md)
 
 ### [SegmentQuadraticDivision](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision.md)
 - [QuadraticDivisionList](DataStructures/SegmentQuadraticDivision/QuadraticDivisionList.md)

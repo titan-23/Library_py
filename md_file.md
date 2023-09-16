@@ -2,6 +2,8 @@ _____
 
 # [`Deque`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Deque)
 
+_____
+
 - `Deque` です。
 
 _____
@@ -24,7 +26,6 @@ _____
 
 _____
 
-説明
 
 _____
 
