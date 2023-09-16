@@ -20,9 +20,9 @@ class PersistentArray(Generic[T]):
 
   def __init__(self, a: Iterable[T], init_t: int=0):
     root = self._build(a)
-    self.a: Dict[int, PersistentArray.Node] = {init_t: root}
+    self.a: Dict[int, Optional[PersistentArray.Node]] = {init_t: root}
 
-  def _build(self, a: Iterable[T]) -> Node:
+  def _build(self, a: Iterable[T]) -> Optional[Node]:
     Node = PersistentArray.Node
     if not isinstance(a, Sequence):
       a = list(a)
@@ -36,16 +36,24 @@ class PersistentArray(Generic[T]):
         node.right = rec(mid+1, r)
         node.size += node.right.size
       return node
+    if not a:
+      return None
     root = rec(0, len(a))
     return root
 
   def copy(self, pre_t: int, new_t: int) -> None:
     node = self.a[pre_t]
+    if node is None:
+      self.a[new_t] = None
+      return
     new_node = node.copy()
     self.a[new_t] = new_node
 
   def set(self, k: int, v: T, pre_t: int, new_t: int) -> None:
     node = self.a[pre_t]
+    if node is None:
+      self.a[new_t] = None
+      return
     new_node = node.copy()
     self.a[new_t] = new_node
     while node:
