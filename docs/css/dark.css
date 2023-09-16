@@ -3,14 +3,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-h1 {
-  color: #333; /* デフォルトのテキストカラー */
-}
-
-p {
-  line-height: 1.5;
-}
-
 /* リンクのスタイル */
 a {
   color: #2a7def; /* リンクのカラーを青に設定 */
@@ -20,7 +12,7 @@ a {
 /* 水平線のスタイル */
 hr {
   border: none; /* ボーダーを削除 */
-  background-color: #a7a7a8; /* 水平線のカラーを青に設定 */
+  color: #858585; /* 水平線のカラーを青に設定 */
 }
 
 
@@ -28,9 +20,6 @@ hr {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #0c1414; /* ダークモードの背景色 */
-    color: #ffffffea; /* ダークモードのテキストカラー */
-  }
-  h1 {
-    color: #ff9900; /* ダークモードの見出しのカラー */
+    color: #e0eaedea; /* ダークモードのテキストカラー */
   }
 }
