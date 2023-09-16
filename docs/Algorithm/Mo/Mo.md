@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/docs/css/dark.css">
+<link rel="stylesheet" type="text/css" href="../../css/dark.css">
 
 _____
 
