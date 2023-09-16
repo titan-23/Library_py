@@ -30,6 +30,7 @@ _____
 
 ### [Array](DataStructures/Array/Array.md)
 - [PartialPersistentArray](DataStructures/Array/PartialPersistentArray.md)
+- [PersistentArray](DataStructures/Array/PersistentArray.md)
 
 ### [AVLTree](DataStructures/AVLTree/AVLTree.md)
 
@@ -126,6 +127,7 @@ _____
 
 ### [UnionFind](DataStructures/UnionFind/UnionFind.md)
 - [PartialPersistentUnionFind](DataStructures/UnionFind/PartialPersistentUnionFind.md)
+- [PersistentUnionFind](DataStructures/UnionFind/PersistentUnionFind.md)
 - [UnionFind](DataStructures/UnionFind/UnionFind_.md)
 - [UndoableUnionFind](DataStructures/UnionFind/UndoableUnionFind.md)
 - [WeightedUnionFind](DataStructures/UnionFind/WeightedUnionFind.md)
