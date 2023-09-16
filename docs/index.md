@@ -116,8 +116,8 @@ _____
 ### [SplayTree](DataStructures/SplayTree/SplayTree.md)
 
 ### [Stack](DataStructures/Stack/Stack.md)
+- [PersistentStack](DataStructures/Stack/PersistentStack.md)
 - [Stack](DataStructures/Stack/Stack_.md)
-- [PartialPersistentStack](DataStructures/Stack/PartialPersistentStack.md)
 
 ### [SparseTable](DataStructures/SparseTable/SparseTable.md)
 - [SparseTable](DataStructures/SparseTable/SparseTable_.md)
