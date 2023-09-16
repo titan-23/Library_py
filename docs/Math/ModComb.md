@@ -1,6 +1,26 @@
-___
+_____
 
-[ModComb.py](https://github.com/titanium-22/Library_py/blob/main/Math/ModComb.py)
+# `ModComb`
 
-nCrを若干高速にしました
+_____
+
+## コード
+
+[`ModComb`](https://github.com/titanium-22/Library_py/blob/main/Math/ModComb.py)
+
+_____
+
+
+_____
+
+## 仕様
+
+あとで書く
+
+_____
+
+## 使用例
+
+```python
+```
 

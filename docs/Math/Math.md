@@ -1,6 +1,8 @@
-___
+_____
 
-数学ライブラリです。
+# [Math](https://github.com/titanium-22/Library_py/tree/main/Math)
 
-[Math](https://github.com/titanium-22/Library_py/tree/main/Math)
+_____
+
+- Math 系のライブラリです。
 
