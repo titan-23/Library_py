@@ -13,12 +13,8 @@ p {
 
 /* リンクのスタイル */
 a {
-  color: #1339a2; /* リンクのカラーを青に設定 */
+  color: #2a7def; /* リンクのカラーを青に設定 */
   text-decoration: none; /* リンクの下線を削除 */
-}
-
-a:hover {
-  text-decoration: underline; /* リンクにホバー時に下線を表示 */
 }
 
 
@@ -37,7 +33,6 @@ hr {
     background-color: #0c1414; /* ダークモードの背景色 */
     color: #fff; /* ダークモードのテキストカラー */
   }
-
   h1 {
     color: #ff9900; /* ダークモードの見出しのカラー */
   }
