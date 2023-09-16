@@ -124,6 +124,8 @@ _____
 - [SparseTableRmQ](DataStructures/SparseTable/SparseTableRmQ.md)
 
 ### [Treap](DataStructures/Treap/Treap.md)
+- [TreapMultiset](DataStructures/Treap/TreapMultiset.md)
+- [TreapSet](DataStructures/Treap/TreapSet.md)
 
 ### [StaticArrayQuery](DataStructures/StaticArrayQuery/StaticArrayQuery.md)
 - [StaticRmQ](DataStructures/StaticArrayQuery/StaticRmQ.md)
