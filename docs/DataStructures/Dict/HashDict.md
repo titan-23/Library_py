@@ -6,7 +6,7 @@ ____
 
 ## コード
 
-[`HashDict.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Dict/HashDict.py)
+[`HashDict`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Dict/HashDict.py)
 
 ____
 
