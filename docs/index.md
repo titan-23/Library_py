@@ -66,6 +66,7 @@ _____
 - [DynamicFenwickTree](DataStructures/FenwickTree/DynamicFenwickTree.md)
 - [DynamicFenwickTree2D](DataStructures/FenwickTree/DynamicFenwickTree2D.md)
 - [FenwickTree](DataStructures/FenwickTree/FenwickTree_.md)
+- [FenwickTree2D](DataStructures/FenwickTree/FenwickTree2D.md)
 - [FenwickTreeAbst](DataStructures/FenwickTree/FenwickTreeAbst.md)
 - [FenwickTreeRAQ](DataStructures/FenwickTree/FenwickTreeRAQ.md)
 
