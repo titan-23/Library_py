@@ -1,0 +1,30 @@
+/* 共通のスタイル */
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333; /* デフォルトのテキストカラー */
+}
+
+p {
+  line-height: 1.5;
+}
+
+/* ダークモードのスタイル */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #222; /* ダークモードの背景色 */
+    color: #fff; /* ダークモードのテキストカラー */
+  }
+
+  h1 {
+    color: #ff9900; /* ダークモードの見出しのカラー */
+  }
+}
+
+/* 任意の要素にダークモード用のスタイルを追加する場合 */
+.dark-mode {
+  background-color: #222;
+  color: #fff;
+}

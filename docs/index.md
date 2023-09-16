@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+
 _____
 
 # [Library_py](https://github.com/titanium-22/Library_py)
