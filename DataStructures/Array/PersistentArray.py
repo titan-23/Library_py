@@ -1,4 +1,4 @@
-from typing import List, Sequence, Iterable, TypeVar, Generic, Optional
+from typing import Dict, List, Sequence, Iterable, TypeVar, Generic, Optional
 T = TypeVar('T')
 
 class PersistentArray(Generic[T]):
@@ -20,7 +20,7 @@ class PersistentArray(Generic[T]):
 
   def __init__(self, a: Iterable[T], init_t: int=0):
     root = self._build(a)
-    self.a = {init_t: root}
+    self.a: Dict[int, PersistentArray.Node] = {init_t: root}
 
   def _build(self, a: Iterable[T]) -> Node:
     Node = PersistentArray.Node
