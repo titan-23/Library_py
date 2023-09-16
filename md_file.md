@@ -1,6 +1,6 @@
 _____
 
-# [`Deque`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Deque)
+# [`Deque`](https://github.com/titanium-22/Library_py/tree/main/Graph/Deque)
 
 _____
 

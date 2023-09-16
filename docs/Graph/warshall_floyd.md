@@ -1,20 +1,22 @@
-____
+_____
 
-# `warshall_floyd.py`
+# `warshall_floyd`
 
-____
+_____
 
 ## コード
 
-[`warshall_floyd.py`](https://github.com/titanium-22/Library_py/blob/main/Graph/warshall_floyd.py)
+[`warshall_floyd`](https://github.com/titanium-22/Library_py/blob/main/Graph/warshall_floyd.py)
 
-____
+_____
 
 ## 仕様
 
-###  `warshall_floyd(G: List[List[Tuple[int, int]]]) -> List[List[Union[int, float]]]`
+####  `warshall_floyd(G: List[List[Tuple[int, int]]]) -> List[List[Union[int, float]]]`
 - 重み付き隣接リスト `G` に対し、全点対最短経路を返します。
 - `O(N^3)` です。
+
+_____
 
 ## 使用例
 
