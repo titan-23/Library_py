@@ -131,8 +131,8 @@ _____
 ### [UnionFind](DataStructures/UnionFind/UnionFind.md)
 - [PartialPersistentUnionFind](DataStructures/UnionFind/PartialPersistentUnionFind.md)
 - [PersistentUnionFind](DataStructures/UnionFind/PersistentUnionFind.md)
-- [UnionFind](DataStructures/UnionFind/UnionFind_.md)
 - [UndoableUnionFind](DataStructures/UnionFind/UndoableUnionFind.md)
+- [UnionFind](DataStructures/UnionFind/UnionFind_.md)
 - [WeightedUnionFind](DataStructures/UnionFind/WeightedUnionFind.md)
 
 ### [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix.md)
