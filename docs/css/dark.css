@@ -8,20 +8,18 @@ a {
   color: #2a7def; /* リンクのカラーを青に設定 */
 }
 
-
-/* 水平線のスタイル */
-hr {
-  border: none; /* ボーダーを削除 */
-  background-color: #000000; /* 水平線の背景色を黒に設定 */
-  height: 2px; /* 水平線の高さを設定 */
-  margin: 20px 0; /* 水平線の上下の余白を設定 */
-}
-
-
 /* ダークモードのスタイル */
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #0c1414; /* ダークモードの背景色 */
     color: #e0eaedea; /* ダークモードのテキストカラー */
+  }
+
+  /* 水平線のスタイル */
+  hr {
+    border: none; /* ボーダーを削除 */
+    background-color: #000000; /* 水平線の背景色を黒に設定 */
+    height: 2px; /* 水平線の高さを設定 */
+    margin: 20px 0; /* 水平線の上下の余白を設定 */
   }
 }
