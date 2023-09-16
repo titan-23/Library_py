@@ -128,8 +128,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-DataStructures/BinaryTrie/a.exe
 
 # my file
-Library_py/docs/copy_and_paste.md
+docs/copy_and_paste.md
 
