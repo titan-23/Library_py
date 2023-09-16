@@ -14,17 +14,11 @@ p {
 /* ダークモードのスタイル */
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #222; /* ダークモードの背景色 */
+    background-color: #0c1414; /* ダークモードの背景色 */
     color: #fff; /* ダークモードのテキストカラー */
   }
 
   h1 {
     color: #ff9900; /* ダークモードの見出しのカラー */
   }
-}
-
-/* 任意の要素にダークモード用のスタイルを追加する場合 */
-.dark-mode {
-  background-color: #222;
-  color: #fff;
 }
