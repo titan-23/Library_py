@@ -8,10 +8,6 @@ _____
 
 [`DynamicWaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
 
-### import
-- [`WaveletMatrix`](./WaveletMatrix_.md)
-- [`AVLTreeBitVector`](../BitVector/AVLTreeBitVector.md)
-
 _____
 
 - `DynamicWaveletMatrix` です。
@@ -56,10 +52,6 @@ _____
 ## 使用例
 
 ```python
-# AVLTreeBitVector を貼る
-# WaveletMatrix を貼る
-# DynamicWaveletMatrix を貼る
-
 n = int(input())
 A = list(map(int, input().split()))
 dwm = DynamicWaveletMatrix(1<<30, A)

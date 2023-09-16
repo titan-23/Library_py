@@ -6,7 +6,7 @@ _____
 
 ## コード
 
-[`BitVector.py`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BitVector/BitVector.py)
+[`BitVector`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BitVector/BitVector.py)
 
 _____
 

@@ -10,4 +10,6 @@ _____
 
 - [`PartialPersistentArray`](./PartialPersistentArray.md)
   - 部分永続配列です。
+- [`PersistentArray`](./PersistentArray.md)
+  - 永続配列です。
 

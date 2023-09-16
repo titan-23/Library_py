@@ -19,7 +19,7 @@ _____
 #### `hld = HLD(G: List[List[int]], root: int)`
 - `root` を根とする木 `G` から `HLD` を構築します。
 - 時間・空間ともに `O(n)` です。
-- 非再帰です
+- 非再帰です（！）。
 
 #### `hld.build_list(a: List[Any]) -> List[Any]`
 - `hld配列` を基にインデックスを振りなおします。

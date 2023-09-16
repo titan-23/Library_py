@@ -140,7 +140,7 @@ _____
 
 ## [Graph](Graph/Graph.md)
 - [HLD](Graph/HLD/HLD.md)
-  - [HLD_](Graph/HLD/HLD_.md)
+  - [HLD](Graph/HLD/HLD_.md)
   - [HLDLazySegmentTree](Graph/HLD/HLDLazySegmentTree.md)
   - [HLDNoncommutativeSegmentTree](Graph/HLD/HLDNoncommutativeSegmentTree.md)
   - [HLDSegmentTree](Graph/HLD/HLDSegmentTree.md)

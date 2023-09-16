@@ -41,14 +41,6 @@ class PersistentArray(Generic[T]):
     root = rec(0, len(a))
     return root
 
-  def copy(self, pre_t: int, new_t: int) -> None:
-    node = self.a[pre_t]
-    if node is None:
-      self.a[new_t] = None
-      return
-    new_node = node.copy()
-    self.a[new_t] = new_node
-
   def set(self, k: int, v: T, pre_t: int, new_t: int) -> None:
     node = self.a[pre_t]
     if node is None:
@@ -86,9 +78,19 @@ class PersistentArray(Generic[T]):
         node = node.left
     assert False, f'IndexError'
 
-  def tolist(self, t: int) -> List[Node]:
+  def copy(self, pre_t: int, new_t: int) -> None:
+    node = self.a[pre_t]
+    if node is None:
+      self.a[new_t] = None
+      return
+    new_node = node.copy()
+    self.a[new_t] = new_node
+
+  def tolist(self, t: int) -> List[T]:
+    assert t in self.a
     node = self.a[t]
-    stack, a = [], []
+    stack = []
+    a: List[T] = []
     while stack or node:
       if node:
         stack.append(node)
