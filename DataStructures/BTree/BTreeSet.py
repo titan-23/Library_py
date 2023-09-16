@@ -1,5 +1,5 @@
-from ...MyClass.OrderedSetInterface import OrderedSetInterface
-from ...MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
 from typing import Deque, Generic, Tuple, TypeVar, List, Optional, Iterable
