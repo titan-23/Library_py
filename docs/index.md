@@ -97,6 +97,7 @@ _____
 
 ### [Set](DataStructures/Set/Set.md)
 - [Bitset32](DataStructures/Set/Bitset32.md)
+- [DynamicFenwickTreeMultiset](DataStructures/Set/DynamicFenwickTreeMultiset.md)
 - [DynamicFenwickTreeSet](DataStructures/Set/DynamicFenwickTreeSet.md)
 - [FenwickTreeSet](DataStructures/Set/FenwickTreeSet.md)
 - [FenwickTreeSetFast](DataStructures/Set/FenwickTreeSetFast.md)
@@ -109,8 +110,8 @@ _____
 - [SetQuadraticDivision](DataStructures/Set/SetQuadraticDivision.md)
 - [StaticOrderedMultiset](DataStructures/Set/StaticOrderedMultiset.md)
 - [StaticOrderedSet](DataStructures/Set/StaticOrderedSet.md)
+- [WordsizeTreeMultiset](DataStructures/Set/WordsizeTreeMultiset.md)
 - [WordsizeTreeSet](DataStructures/Set/WordsizeTreeSet.md)
-- [WordsizeTreeSetZ](DataStructures/Set/WordsizeTreeSetZ.md)
 
 ### [SplayTree](DataStructures/SplayTree/SplayTree.md)
 

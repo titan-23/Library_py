@@ -1,5 +1,27 @@
-___
+_____
 
-集合の Neighbor Query を高速に解けます。空間計算量 `O(logU)` であることに注意してください。
+# `WordsizeTreeSet`
 
-[WordsizeTreeSet.py](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/WordsizeTreeSet.py)
+_____
+
+## コード
+
+[`WordsizeTreeSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/WordsizeTreeSet.py)
+
+_____
+
+- `WordsizeTreeSet` です。
+
+_____
+
+## 仕様
+
+あとで書く
+
+_____
+
+## 使用例
+
+```python
+```
+
