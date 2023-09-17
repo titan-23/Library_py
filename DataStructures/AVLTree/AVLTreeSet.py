@@ -28,21 +28,21 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
 
   def _build(self, a: Sequence[T]) -> None:
     Node = AVLTreeSet.Node
-    def sort(l: int, r: int) -> Tuple[Node, int]:
+    def rec(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(a[mid])
       hl, hr = 0, 0
       if l != mid:
-        node.left, hl = sort(l, mid)
+        node.left, hl = rec(l, mid)
         node.size += node.left.size
       if mid+1 != r:
-        node.right, hr = sort(mid+1, r)
+        node.right, hr = rec(mid+1, r)
         node.size += node.right.size
       node.balance = hl - hr
       return node, max(hl, hr)+1
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(set(a))
-    self.node = sort(0, len(a))[0]
+    self.node = rec(0, len(a))[0]
 
   def _rotate_L(self, node: Node) -> Node:
     u = node.left
