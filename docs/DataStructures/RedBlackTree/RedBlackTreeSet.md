@@ -16,7 +16,7 @@ _____
 
 _____
 
-## `Node`
+## 仕様: `Node`
 
 `Node` です。双方向に進められます。 `1` だけ進める場合、計算量は平均 `O(1)` 、最悪 `O(logN)` です。 `k` だけ進める場合、だいたい `k` 倍になります(ホント?)。
 
@@ -34,14 +34,7 @@ _____
 
 _____
 
-## コード
-
-[`RedBlackTreeSet.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/RedBlackTree/RedBlackTreeSet.py)
-
-集合としての赤黒木です。以下の操作ができます:  
-`Add` / `Delete` / `Member` / `Predecessor` / `Successor` / など  
-
-詳しくは以下です。
+## 仕様: `RedBlackTreeSet`
 
 #### `rbtree = RedBlackTreeSet(a: Iterable[T]=[])`
 - `a` から `RedBlackTreeSet` を再帰的に構築します。
@@ -50,10 +43,6 @@ _____
 #### `rbtree.discard_iter(node: Node) -> None`
 - `node` を削除します。
 - 償却 `O(1)` らしいです。ホントですか?
-
-#### `key: T in rbtree`
-- 存在判定です。 `key` が存在すれば `True` を、そうでなければ `False` を返します。
-- `O(logN)` です。
 
 #### `rbtree.get_max_iter() / .get_min_iter() -> Optional[Node]`
 - 最大値 / 最小値を指す `Node` を返します。空であれば `None` を返します。
@@ -67,7 +56,9 @@ _____
 - `key` が存在すれば `key` を指す `Node` を返します。存在しなければ `None` を返します。
 - `O(logN)` です。
 
-### 使用例
+_____
+
+## 使用例
 
 ```python
 s = RedBlackTreeSet([3, 1, 4, 1, 5, 9])

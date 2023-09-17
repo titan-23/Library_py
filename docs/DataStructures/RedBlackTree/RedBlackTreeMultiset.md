@@ -16,7 +16,7 @@ _____
 
 _____
 
-## [`RedBlackTreeMultiset.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/RedBlackTree/RedBlackTreeMultiset.py)
+## 仕様
 
 多重集合としての赤黒木です。 主に [`RedBlackTreeSet`](RedBlackTreeSet.md) と同等の操作ができます。差分は以下です。
 
@@ -24,13 +24,15 @@ _____
 - `a` から `RedBlackTreeMultiset` を構築します。
 - ソート済みなら `O(N)` 、そうでないなら `O(NlogN)` です。
 
-### 使用例
+_____
+
+## 使用例
 
 ```python
 s = RedBlackTreeMultiset([3, 1, 4, 1, 5, 9])
 it = s.ge_iter(3)
 while it:
-  print(it.key, it.count, end=' ')
+  print(it.key, it.count)
   it += 1
 
 # 4 1

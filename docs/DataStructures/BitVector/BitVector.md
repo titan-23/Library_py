@@ -2,7 +2,9 @@ _____
 
 # [`BitVector`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BitVector)
 
-`BitVector` です。
+_____
+
+- `BitVector` です。
 
 _____
 
