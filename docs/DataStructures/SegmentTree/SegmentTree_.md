@@ -10,7 +10,7 @@ _____
 
 _____
 
-- `SegmentTree` です。非再帰です。
+- セグメント木です。非再帰です。
 
 _____
 
@@ -59,5 +59,12 @@ _____
 ## 使用例
 
 ```python
+def op(s, t):
+  return min(s, t)
+e = 10**9
+
+n = int(input())
+A = list(map(int, input().split()))
+seg = SegmentTree(A, op, e)
 ```
 
