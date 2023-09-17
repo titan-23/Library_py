@@ -1,4 +1,4 @@
-from typing import List, Iterable, Union
+from typing import List, Iterable, Sequence, Union
 
 class FenwickTreeRAQ():
 
@@ -9,7 +9,7 @@ class FenwickTreeRAQ():
       self.bit1 = [0] * (n_or_a + 2)
       self.bit_size = self.n + 1
     else:
-      if not hasattr(n_or_a, '__len__'):
+      if not isinstance(n_or_a, Sequence):
         n_or_a = list(n_or_a)
       self.n = len(n_or_a)
       self.bit0 = [0] * (self.n + 2)
