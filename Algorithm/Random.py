@@ -15,5 +15,11 @@ class Random():
 
   @classmethod
   def randint(cls, begin: int, end: int) -> int:
+    assert begin <= end
     return begin + cls._xor128() % (end - begin + 1)
+
+  @classmethod
+  def randrange(cls, begin: int, end: int) -> int:
+    assert begin < end
+    return begin + cls._xor128() % (end - begin)
 
