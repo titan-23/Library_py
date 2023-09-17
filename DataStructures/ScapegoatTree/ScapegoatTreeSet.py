@@ -31,7 +31,8 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       self._build(a)
 
   def _build(self, a: Sequence[T]) -> None:
-    def rec(l: int, r: int) -> 'Node':
+    Node = ScapegoatTreeSet.Node
+    def rec(l: int, r: int) -> Node:
       mid = (l + r) >> 1
       node = Node(a[mid])
       if l != mid:
@@ -42,8 +43,14 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
         node.size += node.right.size
       return node
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-      a = sorted(set(a))
-    Node = ScapegoatTreeSet.Node
+      a = sorted(a)
+      b = newlist_hint(len(a))
+      b.append(a[0])
+      for e in a:
+        if b[-1] == e:
+          continue
+        b.append(e)
+      a = b
     self.node = rec(0, len(a))
 
   def _rebuild(self, node: Node) -> Node:
