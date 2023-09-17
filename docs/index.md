@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="./css/dark.css">
-
 _____
 
 # [Library_py](https://github.com/titanium-22/Library_py)
