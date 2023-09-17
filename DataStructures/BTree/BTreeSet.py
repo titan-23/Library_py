@@ -44,8 +44,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
       insort(self.key, key)
 
     def pop_child(self, i: int=-1) -> 'BTreeSet.Node':
-      cnode = self.child.pop(i)
-      return cnode
+      return self.child.pop(i)
 
     def extend_key(self, keys: List[T]) -> None:
       self.key += keys
