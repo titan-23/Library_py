@@ -2,25 +2,22 @@ from Library_py.DataStructures.Array.PersistentArray import PersistentArray
 
 class PersistentUnionFind():
 
-  def __init__(self, n: int, init_t: int=0):
+  def __init__(self, n: int, init_t: int=0, max_t: int=-1):
     self._n: int = n
-    self._parents: PersistentArray[int] = PersistentArray([-1]*n, init_t=init_t)
+    self._parents: PersistentArray[int] = PersistentArray([-1]*n, init_t=init_t, max_t=max_t)
 
   def root(self, x: int, t: int) -> int:
-    a = x
-    while True:
-      p = self._parents.get(a, t)
-      if p < 0:
-        break
-      a = p
+    stack = []
     while True:
       p = self._parents.get(x, t)
       if p < 0:
         break
-      y = x
+      stack.append(x)
       x = p
-      self._parents.set(y, a, t, t)
-    return a
+    while stack:
+      v = stack.pop()
+      self._parents.set(v, x, t, t)
+    return x
 
   def unite(self, x: int, y: int, pre_t: int, new_t: int) -> bool:
     x = self.root(x, pre_t)

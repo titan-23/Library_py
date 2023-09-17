@@ -1,4 +1,4 @@
-from typing import Dict, List, Sequence, Iterable, TypeVar, Generic, Optional
+from typing import Dict, List, Sequence, Iterable, TypeVar, Generic, Optional, Union
 T = TypeVar('T')
 
 class PersistentArray(Generic[T]):
@@ -18,9 +18,15 @@ class PersistentArray(Generic[T]):
       node.right = self.right
       return node
 
-  def __init__(self, a: Iterable[T], init_t: int=0):
+  def __init__(self, a: Iterable[T], init_t: int=0, max_t: int=-1):
     root = self._build(a)
-    self.a: Dict[int, Optional[PersistentArray.Node]] = {init_t: root}
+    if max_t == -1:
+      self.a: Union[Dict[int, Optional[PersistentArray.Node]], List[Optional[PersistentArray.Node]]] = {init_t: root}
+    else:
+      assert max_t >= 0 and init_t >= 0
+      b: List[Optional[PersistentArray.Node]] = [None] * (max_t+1)
+      self.a: Union[Dict[int, Optional[PersistentArray.Node]], List[Optional[PersistentArray.Node]]] = b
+      self.a[init_t] = root
 
   def _build(self, a: Iterable[T]) -> Optional[Node]:
     Node = PersistentArray.Node
@@ -87,7 +93,6 @@ class PersistentArray(Generic[T]):
     self.a[new_t] = new_node
 
   def tolist(self, t: int) -> List[T]:
-    assert t in self.a
     node = self.a[t]
     stack = []
     a: List[T] = []
