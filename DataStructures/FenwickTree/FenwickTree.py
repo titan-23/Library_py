@@ -2,12 +2,12 @@ from typing import List, Union, Iterable, Optional
 
 class FenwickTree():
 
-  def __init__(self, _n_or_a: Union[Iterable[int], int]):
-    if isinstance(_n_or_a, int):
-      self._size = _n_or_a
+  def __init__(self, n_or_a: Union[Iterable[int], int]):
+    if isinstance(n_or_a, int):
+      self._size = n_or_a
       self._tree = [0] * (self._size + 1)
     else:
-      a = _n_or_a if isinstance(_n_or_a, list) else list(_n_or_a)
+      a = n_or_a if isinstance(n_or_a, list) else list(n_or_a)
       self._size = len(a)
       self._tree = [0] + a
       for i in range(1, self._size):
