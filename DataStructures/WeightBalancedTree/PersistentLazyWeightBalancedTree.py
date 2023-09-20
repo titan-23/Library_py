@@ -1,8 +1,12 @@
+raise NotImplementedError
+
+# pop_right で回転をサボると速くなる
+
 from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple
 T = TypeVar('T')
 F = TypeVar('F')
 
-class PersistentLazyAVLTree(Generic[T, F]):
+class PersistentLazyWeightBalancedTree(Generic[T, F]):
 
   class Node:
 
@@ -14,29 +18,27 @@ class PersistentLazyAVLTree(Generic[T, F]):
                  ):
       self.key: T = key
       self.data: T = key
-      self.left: Optional[PersistentLazyAVLTree.Node] = None
-      self.right: Optional[PersistentLazyAVLTree.Node] = None
+      self.left: Optional[PersistentLazyWeightBalancedTree.Node] = None
+      self.right: Optional[PersistentLazyWeightBalancedTree.Node] = None
       self.lazy: F = lazy
       self.rev: int = 0
-      self.height: int = 1
       self.size: int = 1
       self.copy_t: Callable[[T], T] = copy_t
       self.copy_f: Callable[[F], F] = copy_f
 
     def copy(self):
-      node = PersistentLazyAVLTree.Node(self.copy_t(self.key), self.copy_f(self.lazy), self.copy_t, self.copy_f)
+      node = PersistentLazyWeightBalancedTree.Node(self.copy_t(self.key), self.copy_f(self.lazy), self.copy_t, self.copy_f)
       node.data = self.copy_t(self.data)
       node.left = self.left
       node.right = self.right
       node.rev = self.rev
-      node.height = self.height
       node.size = self.size
       return node
 
     def __str__(self):
       if self.left is None and self.right is None:
-        return f'key={self.key}, height={self.height}, size={self.size}, data={self.data}, lazy={self.lazy}, rev={self.rev}\n'
-      return f'key={self.key}, height={self.height}, size={self.size}, data={self.data}, lazy={self.lazy}, rev={self.rev},\n left:{self.left},\n right:{self.right}\n'
+        return f'key={self.key}, size={self.size}, data={self.data}, lazy={self.lazy}, rev={self.rev}\n'
+      return f'key={self.key}, size={self.size}, data={self.data}, lazy={self.lazy}, rev={self.rev},\n left:{self.left},\n right:{self.right}\n'
 
     __repr__ = __str__
 
@@ -50,7 +52,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
                copy_f: Callable[[F], F],
                _root=None
                ) -> None:
-    self.root: Optional[PersistentLazyAVLTree.Node] = _root
+    self.root: Optional[PersistentLazyWeightBalancedTree.Node] = _root
     self.op: Callable[[T, T], T] = op
     self.mapping: Callable[[F, T], T] = mapping
     self.composition: Callable[[F, F], F] = composition
@@ -63,7 +65,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
       self._build(list(a))
 
   def _build(self, a: List[T]) -> None:
-    Node = PersistentLazyAVLTree.Node
+    Node = PersistentLazyWeightBalancedTree.Node
     def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
       node = Node(a[mid], id, copy_t, copy_f)
@@ -107,23 +109,22 @@ class PersistentLazyAVLTree(Generic[T, F]):
       if node.right is None:
         node.size = 1
         node.data = node.key
-        node.height = 1
       else:
         node.size = 1 + node.right.size
         node.data = self.op(node.key, node.right.data)
-        node.height = node.right.height+1
     else:
       if node.right is None:
         node.size = 1 + node.left.size
         node.data = self.op(node.left.data, node.key)
-        node.height = node.left.height+1
       else:
         node.size = 1 + node.left.size + node.right.size
         node.data = self.op(self.op(node.left.data, node.key), node.right.data)
-        node.height = node.left.height+1 if node.left.height > node.right.height else node.right.height+1
 
   def _get_balance(self, node: Node) -> int:
-    return (0 if node.right is None else -node.right.height) if node.left is None else (node.left.height if node.right is None else node.left.height-node.right.height)
+    # 左がでかい -> balance がでかい
+    l = node.left.size if node.left else 0
+    r = node.right.size if node.right else 0
+    return (l+1) / (r+1)
 
   def _rotate_right(self, node: Node) -> Node:
     assert node.left
@@ -148,7 +149,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
     node.right = node.right.copy()
     u = node.right
     self._propagate(u)
-    if self._get_balance(u) == 1:
+    if self._get_balance(u) > 2:
       assert u.left
       self._propagate(u.left)
       node.right = self._rotate_right(u)
@@ -160,7 +161,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
     node.left = node.left.copy()
     u = node.left
     self._propagate(u)
-    if self._get_balance(u) == -1:
+    if self._get_balance(u) < 1/2:
       assert u.right
       self._propagate(u.right)
       node.left = self._rotate_left(u)
@@ -184,27 +185,25 @@ class PersistentLazyAVLTree(Generic[T, F]):
         node = node.left
 
   def _merge_with_root(self, l: Optional[Node], root: Node, r: Optional[Node]) -> Node:
-    diff = 0
-    if l:
-      diff += l.height
-    if r:
-      diff -= r.height
-    if diff > 1:
+    ls = l.size if l else 0
+    rs = r.size if r else 0
+    diff = (ls+1) / (rs+1)
+    if diff > 3:
       assert l
       l = l.copy()
       self._propagate(l)
       l.right = self._merge_with_root(l.right, root, r)
       self._update(l)
-      if self._get_balance(l) == -2:
+      if self._get_balance(l) < 1/3:
         return self._balance_left(l)
       return l
-    if diff < -1:
+    if diff < 1/3:
       assert r
       r = r.copy()
       self._propagate(r)
       r.left = self._merge_with_root(l, root, r.left)
       self._update(r)
-      if self._get_balance(r) == 2:
+      if self._get_balance(r) > 3:
         return self._balance_right(r)
       return r
     root = root.copy()
@@ -226,7 +225,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
     l, root = self._pop_right(l)
     return self._merge_with_root(l, root, r)
 
-  def merge(self, other: 'PersistentLazyAVLTree') -> 'PersistentLazyAVLTree':
+  def merge(self, other: 'PersistentLazyWeightBalancedTree') -> 'PersistentLazyWeightBalancedTree':
     root = self._merge_node(self.root, other.root)
     return self._new(root)
 
@@ -235,32 +234,15 @@ class PersistentLazyAVLTree(Generic[T, F]):
     node = node.copy()
     self._propagate(node)
     mx = node
-    while node.right is not None:
+    while node.right:
       path.append(node)
       node = node.right.copy()
-      mx = node
       self._propagate(node)
+      mx = node
     path.append(node.left.copy() if node.left else None)
-    for _ in range(len(path)-1):
-      node = path.pop()
-      if node is None:
-        path[-1].right = None
-        self._update(path[-1])
-        continue
-      b = self._get_balance(node)
-      if b == 2:
-        path[-1].right = self._balance_right(node)
-      elif b == -2:
-        path[-1].right = self._balance_left(node)
-      else:
-        path[-1].right = node
+    while len(path) > 1:
+      path[-1].right = path.pop()
       self._update(path[-1])
-    if path[0] is not None:
-      b = self._get_balance(path[0])
-      if b == 2:
-        path[0] = self._balance_right(path[0])
-      elif b == -2:
-        path[0] = self._balance_left(path[0])
     mx.left = None
     self._update(mx)
     return path[0], mx
@@ -280,14 +262,14 @@ class PersistentLazyAVLTree(Generic[T, F]):
       l, r = self._split_node(node.right, tmp-1)
       return self._merge_with_root(node.left, node, l), r
 
-  def split(self, k: int) -> Tuple['PersistentLazyAVLTree', 'PersistentLazyAVLTree']:
+  def split(self, k: int) -> Tuple['PersistentLazyWeightBalancedTree', 'PersistentLazyWeightBalancedTree']:
     l, r = self._split_node(self.root, k)
     return self._new(l), self._new(r)
 
-  def _new(self, root: Optional['PersistentLazyAVLTree.Node']) -> 'PersistentLazyAVLTree':
-    return PersistentLazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, self.copy_t, self.copy_f, root)
+  def _new(self, root: Optional['PersistentLazyWeightBalancedTree.Node']) -> 'PersistentLazyWeightBalancedTree':
+    return PersistentLazyWeightBalancedTree([], self.op, self.mapping, self.composition, self.e, self.id, self.copy_t, self.copy_f, root)
 
-  def apply(self, l: int, r: int, f: F) -> 'PersistentLazyAVLTree':
+  def apply(self, l: int, r: int, f: F) -> 'PersistentLazyWeightBalancedTree':
     if l >= r:
       return self._new(self.root.copy() if self.root else None)
     s, t = self._split_node(self.root, r)
@@ -308,29 +290,6 @@ class PersistentLazyAVLTree(Generic[T, F]):
     root = self._merge_node(self._merge_node(u, s), t)
     return res
 
-  def insert(self, k: int, key: T) -> 'PersistentLazyAVLTree':
-    s, t = self._split_node(self.root, k)
-    root = self._merge_with_root(s, PersistentLazyAVLTree.Node(key, self.id, self.copy_t, self.copy_f), t)
-    return self._new(root)
-
-  def pop(self, k: int) -> Tuple['PersistentLazyAVLTree', T]:
-    s, t = self._split_node(self.root, k+1)
-    assert s
-    s, tmp = self._pop_right(s)
-    root = self._merge_node(s, t)
-    return self._new(root), tmp.key
-
-  def reverse(self, l: int, r: int) -> 'PersistentLazyAVLTree':
-    if l >= r:
-      return self._new(self.root.copy() if self.root else None)
-    s, t = self._split_node(self.root, r)
-    assert s
-    u, s = self._split_node(s, l)
-    assert s
-    s.rev ^= 1
-    root = self._merge_node(self._merge_node(u, s), t)
-    return self._new(root)
-
   def tolist(self) -> List[T]:
     node = self.root
     stack = []
@@ -346,7 +305,6 @@ class PersistentLazyAVLTree(Generic[T, F]):
         node = node.right
     return a
 
-
   def __getitem__(self, k: int) -> T:
     return self._kth_elm(k)
 
@@ -357,5 +315,59 @@ class PersistentLazyAVLTree(Generic[T, F]):
     return '[' + ', '.join(map(str, self.tolist())) + ']'
 
   def __repr__(self):
-    return f'PersistentLazyAVLTree({self})'
+    return f'PersistentLazyWeightBalancedTree({self})'
 
+import os
+from __pypy__.builders import StringBuilder
+
+class FastO():
+
+  sb = StringBuilder()
+
+  @classmethod
+  def write(cls, *args, sep: str=' ', end: str='\n', flush: bool=False) -> None:
+    append = cls.sb.append
+    for i in range(len(args)-1):
+      append(str(args[i]))
+      append(sep)
+    if args:
+      append(str(args[-1]))
+    append(end)
+    if flush:
+      cls.flush()
+
+  @classmethod
+  def flush(cls) -> None:
+    os.write(1, cls.sb.build().encode())
+    cls.sb = StringBuilder()
+
+write = FastO.write
+flush = FastO.flush
+
+import sys
+input = lambda: sys.stdin.readline().rstrip()
+
+#  -----------------------  #
+
+op = lambda s, t: None
+mapping = lambda f, s: None
+composition = lambda f, g: None
+e = None
+id = None
+copy_t = lambda s: s
+copy_f = lambda f: f
+
+m = int(input())
+s = input()
+wb = PersistentLazyWeightBalancedTree(s, op, mapping, composition, e, id, copy_t, copy_f)
+n = int(input())
+for _ in range(n):
+  a, b, c = map(int, input().split())
+  u, _ = wb.split(b)
+  _, ab = u.split(a)
+  y, z = wb.split(c)
+  y = y.merge(ab)
+  wb = y.merge(z)
+  wb, _ = wb.split(m)
+ans = wb.tolist()
+print(''.join(ans))
