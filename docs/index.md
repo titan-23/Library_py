@@ -35,6 +35,8 @@ _____
 - [PersistentArray](DataStructures/Array/PersistentArray.md)
 
 ### [AVLTree](DataStructures/AVLTree/AVLTree.md)
+- [PersistentAVLTreeList](DataStructures/AVLTree/PersistentAVLTreeList.md)
+- [PersistentLazyAVLTree](DataStructures/AVLTree/PersistentLazyAVLTree.md)
 
 ### [BinaryTrie](DataStructures/BinaryTrie/BinaryTrie.md)
 - [BinaryTrieSet](DataStructures/BinaryTrie/BinaryTrieSet.md)
