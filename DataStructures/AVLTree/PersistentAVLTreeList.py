@@ -1,67 +1,79 @@
 from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple
 T = TypeVar('T')
 
-class PersistentAVLTree(Generic[T]):
+class PersistentAVLTreeList(Generic[T]):
 
-  class Node:
+  class Node():
 
     def __init__(self,
                  key: T,
-                 ):
+                 copy_t: Callable[[T], T],
+                 ) -> None:
       self.key: T = key
-      self.left: Optional[PersistentAVLTree.Node] = None
-      self.right: Optional[PersistentAVLTree.Node] = None
+      self.left: Optional[PersistentAVLTreeList.Node] = None
+      self.right: Optional[PersistentAVLTreeList.Node] = None
       self.height: int = 1
       self.size: int = 1
+      self.copy_t: Callable[[T], T] = copy_t
 
-    def copy(self):
-      node = PersistentAVLTree.Node(self.key)
+    def copy(self) -> 'PersistentAVLTreeList.Node':
+      node = PersistentAVLTreeList.Node(self.copy_t(self.key), self.copy_t)
       node.left = self.left
       node.right = self.right
       node.height = self.height
       node.size = self.size
       return node
 
+    def balance(self) -> int:
+      return (0 if self.right is None else -self.right.height) if self.left is None else (self.left.height if self.right is None else self.left.height-self.right.height)
 
-  def __init__(self, a: Iterable[T],
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key={self.key}, height={self.height}, size={self.size}\n'
+      return f'key={self.key}, height={self.height}, size={self.size},\n left:{self.left},\n right:{self.right}\n'
+
+    __repr__ = __str__
+
+
+  def __init__(self, a: Iterable[T] = [],
+               copy_t: Callable[[T], T] = lambda t: t,
                _root=None
                ) -> None:
-    self.root: Optional[PersistentAVLTree.Node] = _root
+    self.root: Optional[PersistentAVLTreeList.Node] = _root
+    self.copy_t: Callable[[T], T] = copy_t
     a = list(a)
     if a:
       self._build(list(a))
 
   def _build(self, a: List[T]) -> None:
-    Node = PersistentAVLTree.Node
+    Node = PersistentAVLTreeList.Node
     def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid])
+      node = Node(a[mid], copy_t)
       if l != mid:
         node.left = build(l, mid)
       if mid+1 != r:
         node.right = build(mid+1, r)
       self._update(node)
       return node
+    copy_t = self.copy_t
     self.root = build(0, len(a))
 
   def _update(self, node: Node) -> None:
-    if node.left is None:
-      if node.right is None:
-        node.size = 1
-        node.height = 1
-      else:
-        node.size = 1 + node.right.size
-        node.height = node.right.height+1
-    else:
-      if node.right is None:
-        node.size = 1 + node.left.size
-        node.height = node.left.height+1
-      else:
+    if node.left:
+      if node.right:
         node.size = 1 + node.left.size + node.right.size
         node.height = node.left.height+1 if node.left.height > node.right.height else node.right.height+1
-
-  def _get_balance(self, node: Node) -> int:
-    return (0 if node.right is None else -node.right.height) if node.left is None else (node.left.height if node.right is None else node.left.height-node.right.height)
+      else:
+        node.size = 1 + node.left.size
+        node.height = node.left.height+1
+    else:
+      if node.right:
+        node.size = 1 + node.right.size
+        node.height = node.right.height+1
+      else:
+        node.size = 1
+        node.height = 1
 
   def _rotate_right(self, node: Node) -> Node:
     assert node.left
@@ -85,7 +97,7 @@ class PersistentAVLTree(Generic[T]):
     assert node.right
     node.right = node.right.copy()
     u = node.right
-    if self._get_balance(u) == 1:
+    if u.balance() == 1:
       assert u.left
       node.right = self._rotate_right(u)
     u = self._rotate_left(node)
@@ -95,11 +107,26 @@ class PersistentAVLTree(Generic[T]):
     assert node.left
     node.left = node.left.copy()
     u = node.left
-    if self._get_balance(u) == -1:
+    if u.balance() == -1:
       assert u.right
       node.left = self._rotate_left(u)
     u = self._rotate_right(node)
     return u
+
+  def _kth_elm(self, k: int) -> T:
+    if k < 0:
+      k += len(self)
+    node = self.root
+    while True:
+      assert node
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        return node.key
+      elif t < k:
+        k -= t + 1
+        node = node.right
+      else:
+        node = node.left
 
   def _merge_with_root(self, l: Optional[Node], root: Node, r: Optional[Node]) -> Node:
     diff = 0
@@ -112,7 +139,7 @@ class PersistentAVLTree(Generic[T]):
       l = l.copy()
       l.right = self._merge_with_root(l.right, root, r)
       self._update(l)
-      if self._get_balance(l) == -2:
+      if l.balance() == -2:
         return self._balance_left(l)
       return l
     if diff < -1:
@@ -120,7 +147,7 @@ class PersistentAVLTree(Generic[T]):
       r = r.copy()
       r.left = self._merge_with_root(l, root, r.left)
       self._update(r)
-      if self._get_balance(r) == 2:
+      if r.balance() == 2:
         return self._balance_right(r)
       return r
     root = root.copy()
@@ -142,7 +169,7 @@ class PersistentAVLTree(Generic[T]):
     l, root = self._pop_right(l)
     return self._merge_with_root(l, root, r)
 
-  def merge(self, other: 'PersistentAVLTree') -> 'PersistentAVLTree':
+  def merge(self, other: 'PersistentAVLTreeList') -> 'PersistentAVLTreeList':
     root = self._merge_node(self.root, other.root)
     return self._new(root)
 
@@ -161,7 +188,7 @@ class PersistentAVLTree(Generic[T]):
         path[-1].right = None
         self._update(path[-1])
         continue
-      b = self._get_balance(node)
+      b = node.balance()
       if b == 2:
         path[-1].right = self._balance_right(node)
       elif b == -2:
@@ -170,7 +197,7 @@ class PersistentAVLTree(Generic[T]):
         path[-1].right = node
       self._update(path[-1])
     if path[0] is not None:
-      b = self._get_balance(path[0])
+      b = path[0].balance()
       if b == 2:
         path[0] = self._balance_right(path[0])
       elif b == -2:
@@ -193,12 +220,24 @@ class PersistentAVLTree(Generic[T]):
       l, r = self._split_node(node.right, tmp-1)
       return self._merge_with_root(node.left, node, l), r
 
-  def split(self, k: int) -> Tuple['PersistentAVLTree', 'PersistentAVLTree']:
+  def split(self, k: int) -> Tuple['PersistentAVLTreeList', 'PersistentAVLTreeList']:
     l, r = self._split_node(self.root, k)
     return self._new(l), self._new(r)
 
-  def _new(self, root: Optional['PersistentAVLTree.Node']) -> 'PersistentAVLTree':
-    return PersistentAVLTree([], root)
+  def _new(self, root: Optional['PersistentAVLTreeList.Node']) -> 'PersistentAVLTreeList':
+    return PersistentAVLTreeList([], self.copy_t, root)
+
+  def insert(self, k: int, key: T) -> 'PersistentAVLTreeList':
+    s, t = self._split_node(self.root, k)
+    root = self._merge_with_root(s, PersistentAVLTreeList.Node(key, self.copy_t), t)
+    return self._new(root)
+
+  def pop(self, k: int) -> Tuple['PersistentAVLTreeList', T]:
+    s, t = self._split_node(self.root, k+1)
+    assert s
+    s, tmp = self._pop_right(s)
+    root = self._merge_node(s, t)
+    return self._new(root), tmp.key
 
   def tolist(self) -> List[T]:
     node = self.root
@@ -214,6 +253,9 @@ class PersistentAVLTree(Generic[T]):
         node = node.right
     return a
 
+  def __getitem__(self, k: int) -> T:
+    return self._kth_elm(k)
+
   def __len__(self):
     return 0 if self.root is None else self.root.size
 
@@ -221,5 +263,5 @@ class PersistentAVLTree(Generic[T]):
     return '[' + ', '.join(map(str, self.tolist())) + ']'
 
   def __repr__(self):
-    return f'PersistentAVLTree({self})'
+    return f'PersistentAVLTreeList({self})'
 
