@@ -148,6 +148,7 @@ _____
 ### [WBTree](DataStructures/WBTree/WBTree.md)
 - [LazyWBTree](DataStructures/WBTree/LazyWBTree.md)
 - [PersistentLazyWBTree](DataStructures/WBTree/PersistentLazyWBTree.md)
+- [PersistentWBTreeList](DataStructures/WBTree/PersistentWBTreeList.md)
 - [WBTreeSet](DataStructures/WBTree/WBTreeSet.md)
 
 _____
