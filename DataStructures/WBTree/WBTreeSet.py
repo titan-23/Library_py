@@ -13,19 +13,20 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
   def _balance(self, node: int) -> float:
     return (self.size[self.left[node]]+1) / (self.size[node]+1)
 
-  def __init__(self, a: Iterable[T]=[]) -> None:
+  def __init__(self, a: Iterable[T]=[], e: T=0) -> None:
     self.root : int = 0
-    self.key  : List[T] = [0]
+    self.key  : List[T] = [e]
     self.size : array[int] = array('I', bytes(4))
     self.left : array[int] = array('I', bytes(4))
     self.right: array[int] = array('I', bytes(4))
     self.end  : int = 1
+    self.e    : T = e
     a = list(a)
     if a:
       self._build(a)
 
   def reserve(self, n: int) -> None:
-    self.key += [0] * n
+    self.key += [self.e] * n
     self.size += array('I', [1] * n)
     self.left += array('I', bytes(4 * n))
     self.right += array('I', bytes(4 * n))
