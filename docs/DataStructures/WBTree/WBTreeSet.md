@@ -23,5 +23,9 @@ _____
 ## 使用例
 
 ```python
+from Library_py.DataStructures.WBTree.WBTreeSet import WBTreeSet
+
+s = WBTreeSet()
+
 ```
 
