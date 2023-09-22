@@ -1,4 +1,4 @@
-from ..BitVector.BitVector import BitVector
+from Library_py.DataStructures.BitVector.BitVector import BitVector
 from typing import Sequence, List, Tuple
 from heapq import heappush, heappop
 from array import array
@@ -125,7 +125,7 @@ class WaveletMatrix():
         f'IndexError: topk({l}, {r}, {k}), size={self.size}'
     assert 0 <= k < r-l, \
         f'IndexError: topk({l}, {r}, {k}), wrong k'
-    # heap[length, x, l, bit]
+    # heap[-length, x, l, bit]
     hq: List[Tuple[int, int, int, int]] = [(-(r-l), 0, l, self.log-1)]
     ans = []
     while hq:

@@ -1,5 +1,5 @@
-from ..BitVector.AVLTreeBitVector import AVLTreeBitVector
-from .WaveletMatrix import WaveletMatrix
+from Library_py.DataStructures.BitVector.AVLTreeBitVector import AVLTreeBitVector
+from Library_py.DataStructures.WaveletMatrix.WaveletMatrix import WaveletMatrix
 from typing import Sequence, List
 from array import array
 
@@ -8,7 +8,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
   def __init__(self, sigma: int, a: Sequence[int]=[]):
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
-    self.v: List[AVLTreeBitVector] = [None] * self.log
+    self.v: List[AVLTreeBitVector] = [AVLTreeBitVector()] * self.log
     self.mid: array[int] = array('I', bytes(4*self.log))
     self.size: int = len(a)
     self._build(a)
