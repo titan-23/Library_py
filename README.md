@@ -5,5 +5,6 @@
 誰かがバグに引っかかって WA を出してくれたら、筆者冥利に尽きます。  
 
 [仕様などの解説](https://titanium-22.github.io/Library_py/)
+
 [使い方](https://github.com/titanium-22/Library_py/blob/main/docs/HowToUse.md)
 
