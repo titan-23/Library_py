@@ -2,16 +2,13 @@ from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
 from math import sqrt
 from array import array
-from typing import Generic, Iterable, Optional, TypeVar, List, Union
+from typing import Generic, Iterable, Optional, TypeVar, List, Final
 T = TypeVar('T', bound=SupportsLessThan)
 
 class WBTreeSet(OrderedSetInterface, Generic[T]):
 
-  ALPHA: float = 1 - sqrt(2) / 2
-  BETA : float = (1 - 2*ALPHA) / (1 - ALPHA)
-
-  def _balance(self, node: int) -> float:
-    return (self.size[self.left[node]]+1) / (self.size[node]+1)
+  ALPHA: Final[float] = 1 - sqrt(2) / 2
+  BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
 
   def __init__(self, a: Iterable[T]=[], e: T=0) -> None:
     self.root : int = 0
@@ -31,6 +28,9 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
     self.size += array('I', [1] * n)
     self.left += array('I', bytes(4 * n))
     self.right += array('I', bytes(4 * n))
+
+  def _balance(self, node: int) -> float:
+    return (self.size[self.left[node]]+1) / (self.size[node]+1)
 
   def _build(self, a: List[T]) -> None:
     left, right, size = self.left, self.right, self.size

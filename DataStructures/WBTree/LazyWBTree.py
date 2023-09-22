@@ -1,12 +1,12 @@
 from math import sqrt
-from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple
+from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple, Final
 T = TypeVar('T')
 F = TypeVar('F')
 
 class LazyWBTree(Generic[T, F]):
 
-  ALPHA: float = 1 - sqrt(2) / 2
-  BETA : float = (1 - 2*ALPHA) / (1 - ALPHA)
+  ALPHA: Final[float] = 1 - sqrt(2) / 2
+  BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
 
   class Node():
 
