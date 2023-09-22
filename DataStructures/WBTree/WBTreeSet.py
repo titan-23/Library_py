@@ -21,7 +21,8 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
     self.right: array[int] = array('I', bytes(4))
     self.end  : int = 1
     self.e    : T = e
-    a = list(a)
+    if not isinstance(a, list):
+      a = list(a)
     if a:
       self._build(a)
 
