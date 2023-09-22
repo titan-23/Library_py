@@ -7,7 +7,7 @@ _____
 `WBTree` です。
 - マルチセットも後で書くつもりです。
 - 参考
-  - [ARY SEARCH TREES OF BOUNDED BALANCE](https://dl.acm.org/doi/pdf/10.1145/800152.804906)
+  - [BINARY SEARCH TREES OF BOUNDED BALANCE](https://dl.acm.org/doi/pdf/10.1145/800152.804906)
 
 _____
 
