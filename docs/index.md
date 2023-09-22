@@ -145,6 +145,11 @@ _____
 - [WaveletMatrix](DataStructures/WaveletMatrix/WaveletMatrix_.md)
 - [DynamicWaveletMatrix](DataStructures/WaveletMatrix/DynamicWaveletMatrix.md)
 
+### [WBTree](DataStructures/WBTree/WBTree.md)
+- [LazyWBTree](DataStructures/WBTree/LazyWBTree.md)
+- [PersistentLazyWBTree](DataStructures/WBTree/PersistentLazyWBTree.md)
+- [WBTreeSet](DataStructures/WBTree/WBTreeSet.md)
+
 _____
 
 ## [Graph](Graph/Graph.md)
