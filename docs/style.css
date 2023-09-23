@@ -25,6 +25,7 @@ code {
   margin: 0 0 1.5em; /* 外側の余白 */
   background: #000000; /* 背景色 */
   white-space: pre;
+  overflow-x: auto;
   font-family: Consolas, 'Courier New', Courier, Monaco, monospace;;
 }
 
