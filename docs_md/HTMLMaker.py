@@ -27,8 +27,11 @@ class HTMLMaker():
       self.code_file_flag = True
     except FileNotFoundError:
       if self.filename and self.filename[-1] == '_':
-        self.code_file = open(f'..\\..\\Library_py\\{filename[:-1]}.py', 'r', encoding='utf-8')
-        self.code_file_flag = True
+        try:
+          self.code_file = open(f'..\\..\\Library_py\\{filename[:-1]}.py', 'r', encoding='utf-8')
+          self.code_file_flag = True
+        except FileNotFoundError:
+          pass
 
     try:
       self.output_file = open(f'..\\..\\Library_py\\docs\\{filename}.html', 'w', encoding='utf-8')
@@ -40,9 +43,11 @@ class HTMLMaker():
     return True
 
   def output_code(self):
+    cnt = self.filename.count("\\")
+    copy_js_path = '../' * cnt + 'copy.js'
     # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
     print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
-    print('<script src=https://github.com/titanium-22/Library_py/blob/main/docs/js/copy.js\n"></script>', file=self.output_file)
+    print(f'<script src={copy_js_path}"></script>', file=self.output_file)
     formatter = HtmlFormatter(style="monokai")
     # the_css = formatter.get_style_defs()
     code = ''
