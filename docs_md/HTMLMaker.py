@@ -47,7 +47,7 @@ class HTMLMaker():
     copy_js_path = '../' * cnt + 'copy.js'
     # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
     print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
-    print(f'<script src={copy_js_path}"></script>', file=self.output_file)
+    print(f'<script src="{copy_js_path}"></script>', file=self.output_file)
     formatter = HtmlFormatter(style="monokai")
     # the_css = formatter.get_style_defs()
     code = ''
