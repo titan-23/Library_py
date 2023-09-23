@@ -16,22 +16,22 @@ class HTMLMaker():
     self.code_file_flag = False
 
     try:
-      self.input_file = open(f'..\\Library_py\\docs_md\\{filename}.md', 'r', encoding='utf-8')
+      self.input_file = open(f'..\\..\\Library_py\\docs_md\\{filename}.md', 'r', encoding='utf-8')
       self.input_file_flag = True
     except FileNotFoundError:
-      print(f'..\\Library_py\\docs_md\\{filename}.md is not found.')
+      print(f'..\\..\\Library_py\\docs_md\\{filename}.md is not found.')
       return False
 
     try:
-      self.code_file = open(f'..\\Library_py\\{filename}.py', 'r', encoding='utf-8')
+      self.code_file = open(f'..\\..\\Library_py\\{filename}.py', 'r', encoding='utf-8')
       self.code_file_flag = True
     except FileNotFoundError:
-      # print(f'..\\Library_py\\{filename}.py is not found.')
-      # return False
-      pass
+      if self.filename and self.filename[-1] == '_':
+        self.code_file = open(f'..\\..\\Library_py\\{filename[:-1]}.py', 'r', encoding='utf-8')
+        self.code_file_flag = True
 
     try:
-      self.output_file = open(f'..\\Library_py\\docs\\{filename}.html', 'w', encoding='utf-8')
+      self.output_file = open(f'..\\..\\Library_py\\docs\\{filename}.html', 'w', encoding='utf-8')
       self.output_file_flag = True
     except FileNotFoundError:
       print(f'..\\Library_py\\docs\\{filename}.html is not found.')
@@ -44,7 +44,7 @@ class HTMLMaker():
     print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
     print('<script src=https://github.com/titanium-22/Library_py/blob/main/docs/js/copy.js\n"></script>', file=self.output_file)
     formatter = HtmlFormatter(style="monokai")
-    the_css = formatter.get_style_defs()
+    # the_css = formatter.get_style_defs()
     code = ''
     for line in self.code_file:
       code += str(line)
@@ -52,6 +52,7 @@ class HTMLMaker():
     print(html_code, file=self.output_file)
 
   def write(self, title):
+    print(title)
     cnt = self.filename.count("\\")
     style_path = '../' * cnt + 'style.css'
     line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{title}</title>\n</head>\n<body>'''
@@ -80,12 +81,12 @@ class HTMLMaker():
 
 maker = HTMLMaker()
 
-for root, dirs, files in os.walk("..\\Library_py\\docs_md\\"):
+for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
   for filename in files:
     filename = str(filename)
     if filename.endswith('.md'):
       filename = filename.removesuffix('.md')
-      path = os.path.join(root, filename).removeprefix('..\\Library_py\\docs_md\\')
+      path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
       if not maker.set(path):
         continue
       maker.write(title=filename)
