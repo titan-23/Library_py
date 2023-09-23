@@ -6,45 +6,7 @@
 <title>merge_sort</title>
 </head>
 <body>
-<hr /><h1><code>merge_sort</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/Algorithm/Sort/merge_sort.py"><code>merge_sort</code></a></p><button id="copyButton">コピー</button>
-<script src="js/copy.js"></script>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.MyClass.SupportsLessThan</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
-<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">merge_sort</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-  <span class="k">def</span> <span class="nf">_sort</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
-      <span class="k">return</span> <span class="n">a</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">key</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-        <span class="k">return</span> <span class="n">a</span>
-      <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="k">return</span> <span class="n">a</span>
-    <span class="n">left</span> <span class="o">=</span> <span class="n">_sort</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">right</span> <span class="o">=</span> <span class="n">_sort</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">:])</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">key</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-        <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">:</span>
-      <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-      <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
-      <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-      <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">res</span>
-  <span class="k">return</span> <span class="n">_sort</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-</pre></div>
-
-<hr /><ul>
+<hr /><h1><code>merge_sort</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/Algorithm/Sort/merge_sort.py"><code>merge_sort</code></a></p><hr /><ul>
 <li>まーじそーと</li>
 </ul><hr /><h2>仕様</h2><h4><code>merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s &lt; t) -&gt; List[T]:</code></h4><ul>
 <li>列 <code>a</code> をマージソートします。</li>

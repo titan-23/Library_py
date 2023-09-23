@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/dark.css">
+<title>a</title>
+</head>
+<body>
+<h1>pypy-tips</h1><p>pypy の tips です。</p><h2>Algorithm</h2><h3>再帰</h3><p>非再帰にしましょう。</p><p>python/pypy には再帰上限があります。1000 回以上再帰する可能性のある場合は</p><p><code>sys.setlimitrecursion(10**6)</code></p><p>などとしましょう。しないと<code>RE</code>です。パスグラフなんかを想像すると良いかも。</p><p>pypy の再帰は遅いです。代替？案として、以下のものがあります。</p><ul>
+<li>非再帰にする</li>
+</ul><ul>
+<li>常勝！</li>
+</ul><ul>
+<li>python で提出する</li>
+</ul><ul>
+<li>(深めの)再帰は python の方が速いと言われています。</li>
+</ul><pre><code>- というか、pypy がおそすぎるだけです。
+</code></pre><pre><code>  - 言語アップデートでマシになったかも？
+</code></pre><ul>
+<li>そもそも python も遅いので、再帰の中でガチャガチャやるコードは python にしても遅いと思われます。</li>
+</ul><ul>
+<li><code>pypyjit</code></li>
+</ul><ul>
+<li><code>import pypyjit; pypyjit.set_param('max_unroll_recursion=-1')</code>みたいな</li>
+</ul><ul>
+<li>pypy で提出するならつけましょう。</li>
+</ul><ul>
+<li>基本、速くなります。</li>
+</ul><ul>
+<li>メモリ使うのかな？</li>
+</ul><ul>
+<li><a href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py">ジェネレータ</a></li>
+</ul><ul>
+<li>基本、速くなります。というか、遅くなった例を1件しか知りません。</li>
+</ul><pre><code>- `pypyjit` より速く、スタック非再帰よりは遅いイメージです。
+</code></pre><ul>
+<li>書き換えるのがやや面倒ですが、pypy -&gt; c++ などと比べると圧倒的に楽です。</li>
+</ul><pre><code>- 関数の途中で `return` ができない点だけかな。 `if-else` で頑張ります。
+</code></pre><ul>
+<li>なんで皆使ってないのか、正直謎に思ってます。</li>
+</ul><p>こどふぉでは</p><ul>
+<li><code>sys.setlimitrecursion(2*10**5)</code>をすると<code>MLE</code></li>
+</ul><ul>
+<li>しないと<code>RE</code></li>
+</ul><p>となるため、再帰をしてはいけないことが知られています。</p><h3>メモ化</h3><p><code>functools.lru_cache</code> は内部で辞書を使っています。配列作って自力で書いた方が速い場合が多いです。</p><h2>DataStructures</h2><h3>順序付き集合</h3><p>pypy の標準ライブラリに順序付き集合はありません。代替手段を考えます。</p><ul>
+<li><code>sortedcontainers</code></li>
+</ul><ul>
+<li>言語アップデートを介して導入されました。速いかは分かってないです。</li>
+</ul><ul>
+<li>平方分割木(tatyam木)</li>
+</ul><ul>
+<li>tatyam氏の <a href="https://github.com/tatyam-prime/SortedSet"><code>SortedSet/Multiset</code></a> です。</li>
+</ul><ul>
+<li><code>O(√N)</code> ですが、コードが短くわりと速いです。おそらく多くの人が使っていると思います。</li>
+</ul><ul>
+<li>平衡二分木</li>
+</ul><ul>
+<li>強いです。平方分割木と比べると遅いケースが目立ちます。</li>
+</ul><ul>
+<li>B木</li>
+</ul><ul>
+<li><code>k</code> 番目の値は遅めです。</li>
+</ul><ul>
+<li><code>Set</code> はまずまずの速度です。</li>
+</ul><ul>
+<li><code>Multiset</code> はまだ実装してません。</li>
+</ul><ul>
+<li>BIT/セグ木</li>
+</ul><ul>
+<li>空間 <code>Θ(U)</code> かかる点には注意です。</li>
+</ul><pre><code>- (BIT/セグ木に限らず、)座圧できるものに限られるので汎用性は低いです。
+</code></pre><ul>
+<li>しかし、速いです。</li>
+</ul><ul>
+<li><code>BinaryTrie</code></li>
+</ul><ul>
+<li>全体 xor ができます。</li>
+</ul><ul>
+<li>実装が簡易(かもしれない)です。</li>
+</ul><ul>
+<li>32分木</li>
+</ul><ul>
+<li>neighbor query に関しては最強です。</li>
+</ul><ul>
+<li>空間 <code>Θ(U)</code> 、昇順 <code>k</code> 番目の値に <code>Θ(klogU)</code> かかる点には注意です。</li>
+</ul><ul>
+<li>亜種たち</li>
+</ul><ul>
+<li>van emde boas tree は実装次第ではとても遅いです。自分は速い実装が分かりません。</li>
+</ul><ul>
+<li>追加 / 削除 を <code>O(√U)</code> として <code>k</code> 番目取得を <code>O(1)</code> でするようにすると、Mo で強いです。</li>
+</ul><h2>Graph</h2><ul>
+<li>基本的に隣接リスト <code>[[] for _ in range(|V|)]</code> で問題ないと思います。</li>
+</ul><ul>
+<li>グラフライブラリを作るのもよいでしょう。</li>
+</ul><h2>Math</h2><ul>
+<li><code>ModInt</code> はとにかく遅いです。使わない方が吉です。</li>
+</ul>
+</body>
+</html>

@@ -6,67 +6,7 @@
 <title>LCA</title>
 </head>
 <body>
-<hr /><h1><code>LCA</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/Graph/LCA.py"><code>LCA.py</code></a></p><button id="copyButton">コピー</button>
-<script src="js/copy.js"></script>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">..DataStructures.SparseTable.SparseTableRmQ</span> <span class="kn">import</span> <span class="n">SparseTableRmQ</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-
-<span class="k">class</span> <span class="nc">LCA</span><span class="p">():</span>
-
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">_root</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">_G</span><span class="p">)</span>
-    <span class="n">bit</span> <span class="o">=</span> <span class="n">_n</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">msk</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">_n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">depth</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">_n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">nodeid</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_n</span>
-    <span class="n">todo</span> <span class="o">=</span> <span class="p">[(</span><span class="n">_root</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">bit</span><span class="p">)]</span>
-    <span class="n">nowt</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
-      <span class="n">v</span><span class="p">,</span> <span class="n">pd</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-      <span class="n">nowt</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span> <span class="o">&amp;</span> <span class="n">msk</span>
-      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">pd</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span>
-        <span class="n">nodeid</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">nowt</span>
-        <span class="n">path</span><span class="p">[</span><span class="n">nowt</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-        <span class="n">depth</span><span class="p">[</span><span class="n">nowt</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">_G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-          <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">p</span><span class="p">:</span>
-            <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">~</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">&lt;&lt;</span><span class="n">bit</span><span class="p">)</span><span class="o">+</span><span class="n">d</span><span class="p">))</span>
-            <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">v</span><span class="o">&lt;&lt;</span><span class="n">bit</span><span class="p">)</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="p">[</span><span class="n">nowt</span><span class="p">]</span> <span class="o">=</span> <span class="o">~</span><span class="n">v</span>
-        <span class="n">depth</span><span class="p">[</span><span class="n">nowt</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">_n</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_nodeid</span> <span class="o">=</span> <span class="n">nodeid</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span> <span class="o">=</span> <span class="n">depth</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_msk</span> <span class="o">=</span> <span class="n">msk</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="p">[(</span><span class="n">d</span><span class="o">&lt;&lt;</span><span class="n">bit</span><span class="p">)</span><span class="o">+</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">depth</span><span class="p">)]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="p">:</span> <span class="n">SparseTableRmQ</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">SparseTableRmQ</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-
-  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeid</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeid</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">r</span><span class="p">:</span>
-      <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">&amp;</span><span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">]</span>
-
-  <span class="k">def</span> <span class="nf">lca_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="n">l</span>
-    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
-      <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeid</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
-      <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">e</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="n">e</span>
-      <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">e</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">e</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
-
-  <span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="c1"># assert all costs are 1.</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodeid</span><span class="p">[</span><span class="n">x</span><span class="p">]]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodeid</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_depth</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodeid</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]]</span>
-</pre></div>
-
-<hr /><ul>
+<hr /><h1><code>LCA</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/Graph/LCA.py"><code>LCA.py</code></a></p><hr /><ul>
 <li>オイラーツアーとスパーステーブルを用いて、構築 <code>O(NlogN)</code> クエリ <code>O(1)</code> を実現しています。</li>
 </ul><ul>
 <li>セグ木の方が速いと話題</li>
