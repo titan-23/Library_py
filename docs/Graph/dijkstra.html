@@ -6,6 +6,51 @@
 <title>dijkstra</title>
 </head>
 <body>
-<hr /><h1><code>dijkstra</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/Graph/dijkstra.py"><code>dijkstra</code></a></p><hr /><hr /><h2>仕様</h2><p>あとで書く</p><hr /><h2>使用例</h2><p>```python</p><p>```</p>
+<hr /><h1><code>dijkstra</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/Graph/dijkstra.py"><code>dijkstra</code></a></p><button id="copyButton">コピー</button>
+<script src=https://github.com/titanium-22/Library_py/blob/main/docs/js/copy.js
+"></script>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappop</span>
+<span class="n">inf</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+  <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">inf</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+  <span class="n">dist</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">hq</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">)]</span>
+  <span class="k">while</span> <span class="n">hq</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">hq</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">:</span> <span class="k">continue</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span> <span class="o">+</span> <span class="n">c</span><span class="p">:</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">c</span>
+        <span class="n">heappush</span><span class="p">(</span><span class="n">hq</span><span class="p">,</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">dist</span>
+
+<span class="k">def</span> <span class="nf">dijkstra_path</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
+<span class="w">  </span><span class="sd">&#39;&#39;&#39;Return (Path: from s to t, Dist: from s)&#39;&#39;&#39;</span>
+  <span class="n">prev</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+  <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">inf</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+  <span class="n">dist</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">hq</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">)]</span>
+  <span class="k">while</span> <span class="n">hq</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">hq</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">:</span> <span class="k">continue</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span> <span class="o">+</span> <span class="n">c</span><span class="p">:</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">c</span>
+        <span class="n">prev</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">heappush</span><span class="p">(</span><span class="n">hq</span><span class="p">,</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+  <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">inf</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">[],</span> <span class="n">dist</span>
+  <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">d</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+  <span class="k">while</span> <span class="n">prev</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">prev</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+  <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">path</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dist</span>
+</pre></div>
+
+<hr /><hr /><h2>仕様</h2><p>あとで書く</p><hr /><h2>使用例</h2><p>```python</p><p>```</p>
 </body>
 </html>
