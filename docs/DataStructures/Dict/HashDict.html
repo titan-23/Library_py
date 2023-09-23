@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/dark.css">
+<title>HashDict</title>
+</head>
+<body>
+<hr /><h1><code>HashDict</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/Dict/HashDict.py"><code>HashDict</code></a></p><button id="copyButton">コピー</button>
+<script src="js/copy.js"></script>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="k">class</span> <span class="nc">HashDict</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="c1"># e: keyとして使わない値</span>
+    <span class="c1"># default: valのdefault値</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">default</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">default</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_default</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">())</span>
+
+  <span class="k">def</span> <span class="nf">_rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">old_keys</span><span class="p">,</span> <span class="n">old_vals</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">_e</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">old_keys</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_default</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">old_keys</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">old_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">old_keys</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">old_vals</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+  <span class="k">def</span> <span class="nf">_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">key</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;KeyError: HashDict.get(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">default</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">l</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="n">h</span><span class="o">+</span><span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;KeyError: HashDict.add(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span>
+        <span class="k">return</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">l</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="n">h</span><span class="o">+</span><span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;KeyError: HashDict.set(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="n">l</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">()</span>
+        <span class="k">return</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span>
+      <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">l</span> <span class="k">else</span> <span class="n">h</span><span class="o">+</span><span class="mi">1</span>
+
+  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;KeyError: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> in HashDict, </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+      <span class="n">h</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="fm">__getitem__</span> <span class="o">=</span> <span class="n">get</span>
+  <span class="fm">__setitem__</span> <span class="o">=</span> <span class="nb">set</span>
+
+  <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_keys</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+    <span class="n">_keys</span><span class="p">,</span> <span class="n">_vals</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_keys</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="n">_keys</span><span class="p">,</span> <span class="n">_vals</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_keys</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_e</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span>
+</pre></div>
+
+<hr /><p>ハッシュテーブルです。組み込み辞書の <code>dict</code> よりやや遅いです。使わないのが吉です。存在意義を教えてください。</p><p>一応 <code>uint</code> を想定しているので、 <code>e</code> は <code>int</code> 型の <code>-1</code> を設定しています。Hash関数やrehashの基準は適当。有識者求みます。( <code>int</code> を載せるのに <code>e</code> を <code>None</code> にすると、 <code>list</code> の <code>strategy</code> の問題で有意に遅くなる。注意。)</p><hr /><h2>仕様</h2><h3><code>d = HashDict(e: int=-1, default: Any=0)</code></h3><ul>
+<li><code>e</code> , <code>default</code> から <code>HasiDict</code> を構築します。ここで、</li>
+</ul><ul>
+<li><code>e</code> は <code>int</code> 型で <code>key</code> として使用しない値</li>
+</ul><ul>
+<li><code>default</code> は存在しないキーにアクセスした値</li>
+</ul><p>です。 <code>key</code> を <code>int</code> 型以外のもので指定したいときは <code>_hash(key) -&gt; int</code> 関数をいじってください。</p><h3><code>d.reserve(n: int) -&gt; None</code></h3><ul>
+<li><code>reserve</code> します。</li>
+</ul><ul>
+<li><code>Θ(n)</code> です。</li>
+</ul><h3><code>d.get(key: int, default: Any=None) -&gt; Any</code></h3><ul>
+<li>キーが <code>key</code> の値を返します。存在しない場合、引数 <code>default</code> に <code>None</code> 以外を指定した場合は <code>default</code> が、そうでない場合はコンストラクタで設定した <code>default</code> が返ります。</li>
+</ul><ul>
+<li>期待 <code>O(1)</code> です。</li>
+</ul><h3><code>d.set(key: int, val: Any) -&gt; None</code></h3><ul>
+<li>キーを <code>key</code> として <code>val</code> を格納します。 <code>key</code> が既に存在している場合は上書きされます。</li>
+</ul><ul>
+<li>期待 <code>O(1)</code> です。</li>
+</ul><h3><code>key: int in d</code></h3><ul>
+<li><code>key</code> が存在すれば <code>True</code> を、そうでなければ <code>False</code> を返します。</li>
+</ul><ul>
+<li><strong><code>key in d.keys()</code> は <code>O(N)</code> であることに注意してください。</strong></li>
+</ul><ul>
+<li>期待 <code>O(1)</code> です。  </li>
+</ul><h3><code>d[key] / d[key] = val</code></h3><ul>
+<li><code>getitem / setitem</code> をサポートしてます</li>
+</ul><ul>
+<li>期待 <code>O(1)</code> です。</li>
+</ul><h3><code>d.keys() / d.values() / d.items()</code></h3><ul>
+<li><code>Iterator</code> です。それぞれ、 <code>key 集合</code> / <code>val 集合</code> / <code>key とそれに対応する val のタプル</code> を列挙します。順序は特に決めてません。</li>
+</ul><ul>
+<li><code>Θ(N)</code> です。</li>
+</ul><h3><code>str(d) / len(d)</code></h3><ul>
+<li><code>len(d)</code> は <code>O(1)</code> です。</li>
+</ul><hr /><h2>使用例</h2><p>```python</p><p>d = HashDict()</p><p>```</p>
+</body>
+</html>

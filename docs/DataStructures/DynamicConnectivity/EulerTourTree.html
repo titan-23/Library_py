@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/dark.css">
+<title>EulerTourTree</title>
+</head>
+<body>
+<hr /><h1><code>EulerTourTree</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/EulerTourTree.py"><code>EulerTourTree</code></a></p><button id="copyButton">コピー</button>
+<script src="js/copy.js"></script>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">L</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">GeneratorType</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EulerTourTree</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">F</span><span class="p">]):</span>
+
+  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">lazy</span><span class="p">:</span> <span class="n">F</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">key</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">key</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">lazy</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">is_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;(index,par):</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">index</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="kc">None</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+      <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;(index,par):</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">index</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="kc">None</span><span class="p">)</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> left:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> right:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
+
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> \
+              <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> \
+              <span class="n">mapping</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> \
+              <span class="n">composition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">,</span> <span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> \
+              <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">F</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="n">op</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="n">mapping</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">composition</span> <span class="o">=</span> <span class="n">composition</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">)]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">elem</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">antirec</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="c1"># 参考: https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py</span>
+    <span class="k">def</span> <span class="nf">wrappedfunc</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">stack</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+      <span class="n">to</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+      <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">GeneratorType</span><span class="p">):</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+          <span class="n">to</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+          <span class="k">if</span> <span class="ow">not</span> <span class="n">stack</span><span class="p">:</span>
+            <span class="k">break</span>
+          <span class="n">to</span> <span class="o">=</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">to</span>
+    <span class="k">return</span> <span class="n">wrappedfunc</span>
+
+  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">Node</span> <span class="o">=</span> <span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span>
+    <span class="n">ptr_vertex</span><span class="p">,</span> <span class="n">ptr_edge</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="nd">@EulerTourTree</span><span class="o">.</span><span class="n">antirec</span>
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+      <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">p</span><span class="p">:</span>
+          <span class="k">continue</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="k">yield</span> <span class="n">dfs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+      <span class="k">yield</span>
+
+    <span class="nd">@EulerTourTree</span><span class="o">.</span><span class="n">antirec</span>
+    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+      <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">ptr_vertex</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">],</span> <span class="n">e</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">seen</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">ptr_edge</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">]]</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">rec</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">if</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">rec</span><span class="p">(</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="k">yield</span> <span class="n">node</span>
+
+    <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">seen</span><span class="p">[</span><span class="n">root</span><span class="p">]:</span>
+        <span class="k">continue</span>
+      <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+      <span class="n">rec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">_popleft</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left_splay</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+      <span class="n">v</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">right</span>
+
+  <span class="k">def</span> <span class="nf">_pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_splay</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">v</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">left</span>
+
+  <span class="k">def</span> <span class="nf">_split_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]]:</span>
+    <span class="c1"># x, yに分割する。ただし、xはvを含む</span>
+    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">y</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+  <span class="k">def</span> <span class="nf">_split_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="n">Node</span><span class="p">]:</span>
+    <span class="c1"># x, yに分割する。ただし、yはvを含む</span>
+    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">v</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">x</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+  <span class="k">def</span> <span class="nf">_merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="n">v</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">u</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right_splay</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">par</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span>
+      <span class="n">gnode</span> <span class="o">=</span> <span class="n">pnode</span><span class="o">.</span><span class="n">par</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">gnode</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">gnode</span><span class="o">.</span><span class="n">par</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">gnode</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">pnode</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">node</span><span class="p">:</span>
+          <span class="n">tmp1</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tmp1</span>
+          <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">pnode</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+          <span class="n">tmp2</span> <span class="o">=</span> <span class="n">pnode</span><span class="o">.</span><span class="n">right</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tmp2</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">gnode</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">pnode</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">tmp1</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">tmp1</span>
+          <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">pnode</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+          <span class="n">tmp2</span> <span class="o">=</span> <span class="n">pnode</span><span class="o">.</span><span class="n">left</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">tmp2</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">gnode</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">pnode</span>
+        <span class="k">if</span> <span class="n">tmp1</span><span class="p">:</span>
+          <span class="n">tmp1</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">pnode</span>
+        <span class="k">if</span> <span class="n">tmp2</span><span class="p">:</span>
+          <span class="n">tmp2</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">gnode</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">node</span><span class="p">:</span>
+          <span class="n">tmp1</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tmp1</span>
+          <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">pnode</span>
+          <span class="n">tmp2</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">tmp2</span>
+          <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">gnode</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">tmp1</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">tmp1</span>
+          <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">pnode</span>
+          <span class="n">tmp2</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">tmp2</span>
+          <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">gnode</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+          <span class="n">gnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">if</span> <span class="n">tmp1</span><span class="p">:</span>
+          <span class="n">tmp1</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">pnode</span>
+        <span class="k">if</span> <span class="n">tmp2</span><span class="p">:</span>
+          <span class="n">tmp2</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">gnode</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">gnode</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">gnode</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span>
+    <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">node</span><span class="p">:</span>
+      <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="k">if</span> <span class="n">pnode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">pnode</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">pnode</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">pnode</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="k">if</span> <span class="n">pnode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">pnode</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">pnode</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">pnode</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pnode</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_left_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">_right_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">_propagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">lazy</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+      <span class="k">return</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lazy</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lazy</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">composition</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lazy</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">lazy</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lazy</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lazy</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">composition</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">lazy</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">lazy</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+  <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="n">left_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">right_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">left_data</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">),</span> <span class="n">right_data</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># add edge{u, v}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.link(), </span><span class="si">{</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s1"> in ptr_edge&#39;</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.link(), </span><span class="si">{</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="si">}</span><span class="s1"> in ptr_edge&#39;</span>
+    <span class="n">uv_node</span> <span class="o">=</span> <span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">vu_node</span> <span class="o">=</span> <span class="n">EulerTourTree</span><span class="o">.</span><span class="n">Node</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">[(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span> <span class="o">=</span> <span class="n">uv_node</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)]</span> <span class="o">=</span> <span class="n">vu_node</span>
+    <span class="n">u_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+    <span class="n">v_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">u_node</span><span class="p">,</span> <span class="n">uv_node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">uv_node</span><span class="p">,</span> <span class="n">v_node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">v_node</span><span class="p">,</span> <span class="n">vu_node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span> <span class="o">-=</span> <span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># erace edge{u, v}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.cut(), </span><span class="si">{</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s1"> not in ptr_edge&#39;</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.cut(), </span><span class="si">{</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="si">}</span><span class="s1"> not in ptr_edge&#39;</span>
+    <span class="n">uv_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+    <span class="n">vu_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="o">.</span><span class="n">pop</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">))</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_left</span><span class="p">(</span><span class="n">uv_node</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_right</span><span class="p">(</span><span class="n">vu_node</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pop</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_popleft</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span> <span class="o">+=</span> <span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="c1"># add edge{u, v} unless same(u, v)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">same</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+      <span class="k">return</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="c1"># erase edge{u, v} if both {u, v} and {v, u} in E</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span> <span class="ow">or</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">:</span>
+      <span class="k">return</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">leader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="c1"># vを含む木の代表元</span>
+    <span class="c1"># rerootすると変わるので注意</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_left_splay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+
+  <span class="k">def</span> <span class="nf">reroot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_right</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">u_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+    <span class="n">v_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">u_node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v_node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">u_node</span><span class="o">.</span><span class="n">par</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">u_node</span> <span class="ow">is</span> <span class="n">v_node</span>
+
+  <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># for debug</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+++++++++++++++++++++++++++&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">v</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+++++++++++++++++++++++++++&#39;</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">subtree_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># 頂点pを親としたときの頂点vの部分木にfを作用</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">v_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v_node</span><span class="p">)</span>
+      <span class="n">v_node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">v_node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+      <span class="n">v_node</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">v_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+      <span class="n">v_node</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">composition</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">v_node</span><span class="o">.</span><span class="n">lazy</span><span class="p">)</span>
+      <span class="k">return</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.subtree_apply(), </span><span class="si">{</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s1"> not in ptr_edge&#39;</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.subtree_apply(), </span><span class="si">{</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="si">}</span><span class="s1"> not in ptr_edge&#39;</span>
+    <span class="n">v_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_right</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">[(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">)])</span>
+    <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_left</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">)])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v_node</span><span class="p">)</span>
+    <span class="n">v_node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">v_node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">v_node</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">v_node</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">v_node</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">composition</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">v_node</span><span class="o">.</span><span class="n">lazy</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">v_node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">subtree_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="c1"># 頂点pを親としたときの頂点vの部分木に含まれる総和</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">v_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v_node</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">v_node</span><span class="o">.</span><span class="n">data</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reroot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.subtree_sum(), </span><span class="si">{</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s1"> not in ptr_edge&#39;</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;EulerTourTree.subtree_sum(), </span><span class="si">{</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="si">}</span><span class="s1"> not in ptr_edge&#39;</span>
+    <span class="n">v_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_right</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">[(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">)])</span>
+    <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_left</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_edge</span><span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">)])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">v_node</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">v_node</span><span class="o">.</span><span class="n">data</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">group_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span>
+
+  <span class="k">def</span> <span class="nf">get_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">set_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_vertex</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vertex</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_vertex</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+  <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">mapping</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+  <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">composition</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+  <span class="k">return</span>
+
+<span class="n">e</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+
+<hr /><ul>
+<li><code>Euler Tour Tree</code> です。森を管理します。部分木クエリの強さに定評があります。</li>
+</ul><hr /><h2>解説</h2><p>解説を入れます。嘘があるかもです。勝手に混乱していってください。  </p><p>森です。各連結成分(木)は独立なのでそれごとに見ていきます。  </p><p>基本戦術はオイラーツアー(Euler tour technique)です。これはググってください。  </p><p>実は、ある木をオイラーツアーした列と、その木に対して 根の変更 / 辺の追加 / 辺の削除 をした木のオイラーツアーした列との差分は多くはありません。実際に紙に書くとよいでしょう。これをうまいこと管理します。  </p><p>列を平衡二分木で管理します。ここで、オイラーツアーの列はでは頂点ではなく辺の列とします。例えば、  </p><p><code>[0, 1, 0, 2, 0]</code>  </p><p>の頂点列は辺列  </p><p><code>[{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 2}, {2, 2}, {2, 0}]</code>  </p><p>などとなります。  </p><p>また、補助データ構造として辺からノードのポインタをたどれる辞書を保持します。  </p><p>各処理の流れは以下のようになります。</p><ul>
+<li>根の変更: <code>reroot(v)</code></li>
+</ul><ul>
+<li>辺 <code>{v, v}</code> の頂点の直前で <code>split</code> し、それを順に <code>A, B</code> とする</li>
+</ul><ul>
+<li><code>B</code> と <code>A</code> をこの順にマージする</li>
+</ul><ul>
+<li>辺の追加: <code>link(u, v)</code></li>
+</ul><ul>
+<li><code>reroot(u); reroot(v)</code></li>
+</ul><ul>
+<li><code>u, v</code> が属する木(のオイラーツアーした辺の列)をそれぞれ <code>E1, E2</code> とする</li>
+</ul><ul>
+<li><code>E1, [{u, v}], E2, [{v, u}]</code> をこの順にマージする</li>
+</ul><ul>
+<li>辺の削除: <code>cut(u, v)</code></li>
+</ul><ul>
+<li><code>reroot(v); reroot(u)</code></li>
+</ul><ul>
+<li><code>{u, v}, {v, u}</code> で <code>split</code> してできたものを順に <code>A, B, C</code> とする。ただし、 <code>{u, v}</code> は <code>A</code> に含まれ、 <code>{v, u}</code> は <code>C</code> に含まれる。</li>
+</ul><ul>
+<li><code>A</code> の末尾と <code>C</code> の先頭を削除し、 <code>A</code> と <code>C</code> をこの順にマージする </li>
+</ul><ul>
+<li>連結性判定: <code>same(u, v)</code></li>
+</ul><ul>
+<li><code>u, v</code> を <code>splay</code> して、 <code>u</code> の親が <code>None</code> じゃなければ連結。 <code>u == v</code> のときは別途処理をする。</li>
+</ul><p>計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 <code>O(logN)</code> です。この実装ではsplay木とハッシュテーブルで管理するので償却 <code>O(logN)</code> +期待 <code>O(1)</code> です(もとのグラフの頂点数に対してオイラーツアーすると <code>(元の頂点数)+(辺数)*2?</code> の頂点ができるので、たしかに <code>O(元のグラフの頂点数)</code> ではありますが、定数倍がバカです)。  </p><p>オイラーツアーがあれば、部分木クエリは簡単に処理できます。</p><h2>仕様</h2><h4><code>ett = EulerTourTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)</code></h4><ul>
+<li><code>n / len(a)</code> 個の頂点からなる <code>EulerTourTree</code> を作成します。 <code>n_or_a</code> が <code>a</code> のとき、頂点の重みとみなします。</li>
+</ul><h4><code>ett.build(G: List[List[int]]) -&gt; None</code></h4><ul>
+<li>隣接リスト <code>G</code> をもとにして、 <code>ett</code> に辺を張り構築します。</li>
+</ul><ul>
+<li><code>O(N)</code> です。</li>
+</ul><h4><code>ett.link(u: int, v: int) -&gt; None</code></h4><ul>
+<li>辺 <code>{u, v}</code> を追加します。 <code>u</code> と <code>v</code> が同じ連結成分であってはいけません。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.cut(u: int, v: int) -&gt; None</code></h4><ul>
+<li>辺 <code>{u, v}</code> を削除します。辺 <code>{u, v}</code> が存在してなければいけません。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.merge(u: int, v: int) -&gt; bool</code></h4><ul>
+<li>頂点 <code>u</code> と <code>v</code> が同じ連結成分にいる場合はなにもせず <code>False</code> を返します。そうでない場合は辺 <code>{u, v}</code> を追加し <code>True</code> を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.split(u: int, v: int) -&gt; bool</code></h4><ul>
+<li>辺 <code>{u, v}</code> が存在しない場合はなにもせず <code>False</code> を返します。そうでない場合は辺 <code>{u, v}</code> を削除し <code>True</code> を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.leader(v: int) -&gt; Node</code></h4><ul>
+<li>頂点 <code>v</code> を含む木の代表元を返します。 <code>reroot</code> すると変わるので注意です。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.reroot(v: int) -&gt; None</code></h4><ul>
+<li>頂点 <code>v</code> を含む木の根を <code>v</code> にします。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.same(u: int, v: int) -&gt; bool</code></h4><ul>
+<li>頂点 <code>u</code> と <code>v</code> が同じ連結成分にいれば <code>True</code> を、そうでなければ <code>False</code> を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.show() -&gt; None</code></h4><ul>
+<li>デバッグ用です。</li>
+</ul><h4><code>ett.subtree_apply(v: int, p: int, f: F) -&gt; None</code></h4><ul>
+<li>頂点 <code>v</code> を根としたときの部分木に <code>f</code> を適用します。ただし、 <code>v</code> の親は <code>p</code> です。 <code>v</code> の親が存在しないときは <code>p=-1</code> として下さい。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.subtree_sum(v: int, p: int) -&gt; T</code></h4><ul>
+<li>頂点 <code>v</code> を根としたときの部分木の総和を返します。ただし、 <code>v</code> の親は <code>p</code> です。 <code>v</code> の親が存在しないときは <code>p=-1</code> として下さい。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.group_count() -&gt; int</code></h4><ul>
+<li>連結成分の個数を返します。</li>
+</ul><ul>
+<li><code>O(1)</code> です。</li>
+</ul><h4><code>ett.get_vertex(v: int) / ett[v: int] -&gt; T</code></h4><ul>
+<li>頂点 <code>v</code> の <code>key</code> を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>ett.set_vertex(v: int, val: T) / ett[v: int] = val -&gt; None</code></h4><ul>
+<li>頂点 <code>v</code> の <code>key</code> を <code>val</code> に更新します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/dark.css">
+<title>OrderedSetInterface</title>
+</head>
+<body>
+<h4><code>x in bst / x not in bst</code></h4><ul>
+<li>存在判定です。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>bst[k: int] -&gt; T</code></h4><ul>
+<li>昇順 <code>k</code> 番目の値を返します</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>bst.add(key: T) -&gt; bool</code></h4><ul>
+<li><code>key</code> が存在しないなら <code>key</code> を追加し <code>True</code> を返します。そうでないなら何も追加せず <code>False</code> を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>bst.discard(key: T) -&gt; bool</code></h4><ul>
+<li><code>key</code> が存在するなら <code>key</code> を削除し <code>True</code> を返します。そうでないなら何もせず <code>False</code> を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>bst.le(key) / .lt(key) / .ge(key) / gt(key) -&gt; Optional[T]</code></h4><ul>
+<li><code>key</code> (以下の / より小さい / 以上の / より大きい) 値で (最大 / 最大 / 最小 / 最小) の値を返します。存在しなければ <code>None</code> を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>bst.index(key: T) / .index_right(key: T) -&gt; int</code></h4><ul>
+<li><code>key</code> (より小さい / 以下の) 要素の数を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>bst.pop(k: int=-1) / .pop_min() -&gt; T</code></h4><ul>
+<li>(最大(昇順k番目) / 最小) の値を削除し、その値を返します。</li>
+</ul><ul>
+<li><code>O(logN)</code> です。</li>
+</ul><h4><code>bst.clear() -&gt; None</code></h4><ul>
+<li>clearします。</li>
+</ul><ul>
+<li><code>O(1)</code> です。</li>
+</ul><h4><code>bst.tolist() -&gt; List[T]</code></h4><ul>
+<li><code>key</code> を昇順に並べたリストを返します。</li>
+</ul><ul>
+<li><code>O(N)</code> です。</li>
+</ul>
+</body>
+</html>

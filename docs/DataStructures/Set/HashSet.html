@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/dark.css">
+<title>HashSet</title>
+</head>
+<body>
+<hr /><h1><code>HashSet</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/HashSet.py"><code>HashSet</code></a></p><button id="copyButton">コピー</button>
+<script src="js/copy.js"></script>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterator</span>
+
+<span class="k">class</span> <span class="nc">HashSet</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">not_seen</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">deleted</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">2</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">not_seen</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">not_seen</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">deleted</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dellen</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_being_rebuild</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">())</span>
+
+  <span class="k">def</span> <span class="nf">_inner_rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">_empty</span><span class="p">,</span> <span class="n">_deleted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dellen</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_being_rebuild</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">old_keys</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">_empty</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">_deleted</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_being_rebuild</span> <span class="o">=</span> <span class="kc">False</span>
+
+  <span class="k">def</span> <span class="nf">_rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span>
+    <span class="n">old_keys</span><span class="p">,</span> <span class="n">_empty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">_empty</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">old_keys</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_inner_rebuild</span><span class="p">(</span><span class="n">old_keys</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_rebuild_extend</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">old_keys</span><span class="p">,</span> <span class="n">_empty</span><span class="p">,</span> <span class="n">_deleted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">_empty</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">old_keys</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="p">)]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_inner_rebuild</span><span class="p">(</span><span class="n">old_keys</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_rebuid_shrink</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">old_keys</span><span class="p">,</span> <span class="n">_empty</span><span class="p">,</span> <span class="n">_deleted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">_empty</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">old_keys</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span><span class="o">+</span><span class="mi">4</span><span class="p">)]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_inner_rebuild</span><span class="p">(</span><span class="n">old_keys</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_query_check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_being_rebuild</span><span class="p">:</span>
+      <span class="k">return</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">1000</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span><span class="o">*</span><span class="mi">3</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">key</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: HashSet.add(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: HashSet.add(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_empty</span><span class="p">,</span> <span class="n">_deleted</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_query_check</span><span class="p">()</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">H</span><span class="o">+</span><span class="n">l</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;=</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">-=</span> <span class="n">l</span>
+      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">==</span> <span class="n">_empty</span> <span class="ow">or</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">==</span> <span class="n">_deleted</span><span class="p">:</span>
+        <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild_extend</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+      <span class="k">elif</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">assert</span> <span class="kc">False</span>
+
+  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: HashSet.discard(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: HashSet.discard(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_empty</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_query_check</span><span class="p">()</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">H</span><span class="o">+</span><span class="n">l</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;=</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">-=</span> <span class="n">l</span>
+      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">==</span> <span class="n">_empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+      <span class="k">elif</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dellen</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="mi">3</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rebuid_shrink</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">1000</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dellen</span><span class="o">*</span><span class="mi">20</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">assert</span> <span class="kc">False</span>
+
+  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> in HashSet, </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> in HashSet, </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_empty</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_query_check</span><span class="p">()</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">H</span><span class="o">+</span><span class="n">l</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">h</span> <span class="o">&gt;=</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">-=</span> <span class="n">l</span>
+      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">==</span> <span class="n">_empty</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+      <span class="k">elif</span> <span class="n">_keys</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">_empty</span><span class="p">,</span> <span class="n">_deleted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_empty</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">_empty</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">_deleted</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">k</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span>
+
+<span class="c1">#  -----------------------  #</span>
+
+<span class="c1"># n = 10**4</span>
+<span class="c1"># st = HashSet(range(n))</span>
+<span class="c1"># for i in range(n):</span>
+<span class="c1">#   assert i in st, f&#39;{i}&#39;</span>
+<span class="c1"># exit()</span>
+
+<span class="n">FLAG</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">FLAG</span><span class="p">:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+  <span class="n">A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span>
+  <span class="n">A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span>
+  <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">HashSet</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="c1"># st = set(range(n))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">st</span><span class="p">:</span>
+    <span class="n">st</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<span class="n">exit</span><span class="p">()</span>
+</pre></div>
+
+<hr /><ul>
+<li>ハッシュテーブルです。</li>
+</ul><ul>
+<li>組み込み辞書の <code>set</code> よりやや遅いです。とにかくハッシュ関数の質が悪いです。</li>
+</ul><ul>
+<li>削除クエリがくると、その遅さには特に目を見張るものがあります。視力を落としたくなければ使わないのが吉です。</li>
+</ul><hr /><h2>仕様</h2><h4><code>s = HashSet(a: Iterable[int]=[], not_seen: int=-1, deleted: int=-2)</code></h4><ul>
+<li><code>a</code> から <code>HashSet</code> を作ります。</li>
+</ul><ul>
+<li><code>not_seen</code>, <code>deleted</code> はキーとして使用しない値を入れてください。デフォルト値はそれぞれ <code>-1</code>, <code>-2</code> であり、キーが非負整数と仮定しています。</li>
+</ul><h4><code>s.reserve(n: int) -&gt; None</code></h4><ul>
+<li>空間 <code>O(n)</code> のメモリを確保します。</li>
+</ul><h4><code>s.add(key: int) -&gt; bool</code></h4><ul>
+<li><code>key</code> が既に存在すれば何もせずに <code>False</code> を返します。そうでなければ <code>key</code> を追加して <code>True</code> を返します。期待 <code>O(1)</code> 時間です。</li>
+</ul><h4><code>s.discard(key: int) -&gt; bool</code></h4><ul>
+<li><code>key</code> が存在してなければ何もせずに <code>False</code> を返します。そうでなければ <code>key</code> を削除して <code>True</code> を返します。期待 <code>O(1)</code> 時間です。</li>
+</ul><h4><code>key in s</code></h4><ul>
+<li><code>key</code> が存在すれば <code>True</code> を、そうでなければ <code>False</code> を返します。</li>
+</ul><h4><code>iter(s) / str(s) / len(s)</code></h4><ul>
+<li>毎度のよしなです。</li>
+</ul><hr /><h2>使用例</h2><p>```python</p><p>```</p>
+</body>
+</html>

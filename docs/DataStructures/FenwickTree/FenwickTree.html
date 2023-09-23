@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/dark.css">
+<title>FenwickTree</title>
+</head>
+<body>
+<hr /><h1><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/FenwickTree"><code>FenwickTree</code></a></h1><button id="copyButton">コピー</button>
+<script src="js/copy.js"></script>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="k">class</span> <span class="nc">FenwickTree</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">n_or_a</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="n">n_or_a</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">i</span><span class="p">)]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">pref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return sum(a[0, r)) / O(logN)&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: FenwickTree.pref(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">_tree</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
+    <span class="k">while</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">ret</span> <span class="o">+=</span> <span class="n">_tree</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+      <span class="n">r</span> <span class="o">&amp;=</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">ret</span>
+
+  <span class="k">def</span> <span class="nf">suff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return sum(a[l, n)). / O(logN)&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: FenwickTree.suff(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pref</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return sum(a[l, r)]. / O(logN)&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: FenwickTree.sum(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">l</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="n">_tree</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+      <span class="n">r</span> <span class="o">&amp;=</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">r</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">-=</span> <span class="n">_tree</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+      <span class="n">l</span> <span class="o">&amp;=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="n">prod</span> <span class="o">=</span> <span class="nb">sum</span>
+
+  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: FenwickTree.__getitem__(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Add x to a[k]. / O(logN)&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: FenwickTree.add(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
+    <span class="k">while</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">:</span>
+      <span class="n">_tree</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="n">k</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">k</span>
+
+  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update A[k] to x. / O(logN)&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: FenwickTree.__setitem__(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+    <span class="n">pre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="n">pre</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">bisect_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;bisect_left(acc) / O(logN)&#39;&#39;&#39;</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">_size</span><span class="p">,</span> <span class="n">_tree</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
+    <span class="k">while</span> <span class="n">s</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">s</span> <span class="o">&lt;=</span> <span class="n">_size</span> <span class="ow">and</span> <span class="n">_tree</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">s</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">w</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">-=</span> <span class="n">_tree</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">s</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="n">s</span>
+      <span class="n">s</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">i</span> <span class="k">if</span> <span class="n">w</span> <span class="k">else</span> <span class="kc">None</span>
+
+  <span class="k">def</span> <span class="nf">bisect_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;bisect_right(acc) / O(logN)&#39;&#39;&#39;</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">_size</span><span class="p">,</span> <span class="n">_tree</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span>
+    <span class="k">while</span> <span class="n">s</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">s</span> <span class="o">&lt;=</span> <span class="n">_size</span> <span class="ow">and</span> <span class="n">_tree</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">s</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">w</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">-=</span> <span class="n">_tree</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">s</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="n">s</span>
+      <span class="n">s</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">i</span>
+
+  <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;for debug&#39;&#39;&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pref</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="o">+</span><span class="mi">1</span><span class="p">))))</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pref</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">sub</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">sub</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">)]</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_inversion_num</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">compress</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">inv</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">compress</span><span class="p">:</span>
+      <span class="n">a_</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+      <span class="n">z</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a_</span><span class="p">)}</span>
+      <span class="n">fw</span> <span class="o">=</span> <span class="n">FenwickTree</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a_</span><span class="p">))</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">inv</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">fw</span><span class="o">.</span><span class="n">pref</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">e</span><span class="p">])</span>
+        <span class="n">fw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">e</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">fw</span> <span class="o">=</span> <span class="n">FenwickTree</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">inv</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">fw</span><span class="o">.</span><span class="n">pref</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">fw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inv</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;FenwickTree(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+</pre></div>
+
+<ul>
+<li><code>FenwickTree</code> です。</li>
+</ul><hr /><ul>
+<li><a href="./DynamicFenwickTree.md"><code>DynamicFenwickTree</code></a></li>
+</ul><ul>
+<li>必要なところだけノードを作ります。</li>
+</ul><ul>
+<li><a href="./DynamicFenwickTree2D.md"><code>DynamicFenwickTree2D</code></a></li>
+</ul><ul>
+<li>2次元です。</li>
+</ul><ul>
+<li>必要なところだけノードを作ります。</li>
+</ul><ul>
+<li><a href="./FenwickTree_.md"><code>FenwickTree</code></a></li>
+</ul><ul>
+<li>普通のやつです。</li>
+</ul><ul>
+<li><a href="./FenwickTree2D.md"><code>FenwickTree2D</code></a></li>
+</ul><ul>
+<li>2次元です。</li>
+</ul><ul>
+<li><a href="./FenwickTreeAbst.md"><code>FenwickTreeAbst</code></a></li>
+</ul><ul>
+<li>和や逆元をこちらで定義できます。</li>
+</ul><ul>
+<li><a href="./FenwickTreeRAQ.md"><code>FenwickTreeRAQ</code></a></li>
+</ul><ul>
+<li>区間加算ができます。</li>
+</ul>
+</body>
+</html>
