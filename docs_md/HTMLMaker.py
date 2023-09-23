@@ -2,7 +2,6 @@ from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
 from markdown import markdown
-import glob
 import os
 
 class HTMLMaker():
@@ -55,7 +54,7 @@ class HTMLMaker():
   def write(self, title):
     cnt = self.filename.count("\\")
     style_path = '../' * cnt + 'style.css'
-    line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href={style_path}\">\n<title>{title}</title>\n</head>\n<body>'''
+    line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{title}</title>\n</head>\n<body>'''
     html_output = line
     print(html_output, file=self.output_file)
 
