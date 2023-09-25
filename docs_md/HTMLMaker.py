@@ -58,7 +58,7 @@ class HTMLMaker():
       code += str(line)
     html_code = highlight(code, PythonLexer(), formatter)
     print(html_code, file=self.output_file)
-  
+
   def out(self, s: str) -> None:
     html_output = markdown(s)
     print(html_output, file=self.output_file)
@@ -68,6 +68,8 @@ class HTMLMaker():
     cnt = self.filename.count("\\")
     style_path = '../' * cnt + 'style.css'
     t = 'Library_py-' + self.filename.replace('\\', '-')
+    if title == 'index':
+      t = 'Library_py'
     line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{t}</title>\n</head>\n<body>'''
     self.out(line)
 
@@ -101,37 +103,37 @@ class HTMLMaker():
 
 maker = HTMLMaker()
 
-for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
-  for filename in files:
-    filename = str(filename)
-    if filename.endswith('.md'):
-      filename = filename.removesuffix('.md')
-      path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
-      if not maker.set(path):
-        continue
-      maker.write(title=filename)
-
 # for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
 #   for filename in files:
 #     filename = str(filename)
 #     if filename.endswith('.md'):
 #       filename = filename.removesuffix('.md')
 #       path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
-#       file_name = f'{path}.md'
-#       with open(file_name, encoding="utf-8") as f:
-#         data_lines = f.readlines()
-#       out_lines = ''
-#       x = False
-#       for line in data_lines:
-#         s = str(line)
-#         out_lines += s
-#         if '`](https://github.com/titanium-22/Library_py/blob/main/' in s:
-#           if s.startswith('- ') or s.startswith('\t- '):
-#             continue
-#           assert not x
-#           x = True
-#           print('aaaaaaaaaa', s)
-#           out_lines += f'''<!-- code=https://github.com/titanium-22/Library_py/blob/main/{path}.py -->'''
-#           out_lines += '\n'
-#       with open(file_name, mode="w", encoding="utf-8") as f:
-#         f.write(out_lines)
+#       if not maker.set(path):
+#         continue
+#       maker.write(title=filename)
+
+for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
+  for filename in files:
+    filename = str(filename)
+    if filename.endswith('.md'):
+      filename = filename.removesuffix('.md')
+      path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
+      file_name = f'{path}.md'
+      with open(file_name, encoding="utf-8") as f:
+        data_lines = f.readlines()
+      out_lines = ''
+      x = False
+      for line in data_lines:
+        s = str(line)
+        out_lines += s
+        if '`](https://github.com/titanium-22/Library_py/blob/main/' in s:
+          if s.startswith('- ') or s.startswith('\t- '):
+            continue
+          assert not x
+          x = True
+          print('aaaaaaaaaa', s)
+          out_lines += f'''<!-- code=https://github.com/titanium-22/Library_py/blob/main/{path}.py -->'''
+          out_lines += '\n'
+      with open(file_name, mode="w", encoding="utf-8") as f:
+        f.write(out_lines)

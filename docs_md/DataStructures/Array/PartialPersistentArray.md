@@ -6,7 +6,7 @@ _____
 
 ## コード
 
-[`PartialPersistentArray`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Array/PartialPersistentArray.py)
+[`PartialPersistentArray`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Array/PartialPersistentArray.py)
 
 _____
 
