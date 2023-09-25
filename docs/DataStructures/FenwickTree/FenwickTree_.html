@@ -6,20 +6,13 @@
 <title>Library_py-DataStructures-FenwickTree-FenwickTree_</title>
 </head>
 <body>
-### [Home](https://titanium-22.github.io/Library_py/)
-
-_____
-
-_____
-
-# `FenwickTree`
-
-_____
-
-## コード
-
-[`FenwickTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/FenwickTree/FenwickTree.py)
-
+<h3><a href="https://titanium-22.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>FenwickTree</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/FenwickTree/FenwickTree.py"><code>FenwickTree</code></a></p>
 <button id="copyButton">コピー</button>
 <script src="../../copy.js"></script>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
@@ -148,65 +141,66 @@ _____
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;FenwickTree(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 
-
-_____
-
-- `FenwickTree` です。
-- 1点更新と区間和取得ができます。
-
-_____
-
-## 仕様
-
-#### `fw = FenwicTree(n_or_a: Union[Iterable[int], int])`
-- `n_or_a` が `int` のとき、初期値 `0` 、長さ `n` で構築します。
-- `n_or_a` が `Iterable` のとき、初期値 `a` で構築します。
-- 時間計算量 `O(n)` です。
-
-#### `fw.pref(r: int) -> int`
-- 区間 `[0, r)` の総和を返します。
-- 時間計算量 `O(logn)` です。
-
-#### `fw.suff(l: int) -> int`
-- 区間 `[l, n)` の総和を返します。
-- 時間計算量 `O(logn)` です。
-
-#### `fw.sum(l: int, r: int) / prod -> int`
-- 区間 `[l, r)` の総和を返します。
-- 時間計算量 `O(logn)` です。
-
-#### `fw[k: int] -> int`
-- 位置 `k` の要素を返します。
-- 時間計算量 `O(logn)` です。
-
-#### `fw.add(k: int, x: int) -> None`
-- 位置 `k` に `x` を加算します。
-- 時間計算量 `O(logn)` です。
-
-#### `fw[k: int] = x: int`
-- 位置 `k` を `x` に更新します。
-- 時間計算量 `O(logn)` です。
-
-#### `fw.bisect_left(w: int) -> Optional[int]`
-
-#### `fw.bisect_right(w: int) -> int`
-
-#### `fw.tolist() -> List[int]`
-- List にして返します。
-- 時間計算量 `O(nlogn)` です。
-
-#### `get_inversion_num(a: List[int], compress: bool=False) -> int`
-- `staticmethod` です。
-- List `a` の転倒数を返します。
-- 時間計算量 `O(nlogn)` です。
-
-_____
-
-## 使用例
-
-[Point Add Range Sum](https://judge.yosupo.jp/submission/148336)
-
-```python
+<hr />
+<ul>
+<li><code>FenwickTree</code> です。</li>
+<li>1点更新と区間和取得ができます。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>fw = FenwicTree(n_or_a: Union[Iterable[int], int])</code></h4>
+<ul>
+<li><code>n_or_a</code> が <code>int</code> のとき、初期値 <code>0</code> 、長さ <code>n</code> で構築します。</li>
+<li><code>n_or_a</code> が <code>Iterable</code> のとき、初期値 <code>a</code> で構築します。</li>
+<li>時間計算量 <code>O(n)</code> です。</li>
+</ul>
+<h4><code>fw.pref(r: int) -&gt; int</code></h4>
+<ul>
+<li>区間 <code>[0, r)</code> の総和を返します。</li>
+<li>時間計算量 <code>O(logn)</code> です。</li>
+</ul>
+<h4><code>fw.suff(l: int) -&gt; int</code></h4>
+<ul>
+<li>区間 <code>[l, n)</code> の総和を返します。</li>
+<li>時間計算量 <code>O(logn)</code> です。</li>
+</ul>
+<h4><code>fw.sum(l: int, r: int) / prod -&gt; int</code></h4>
+<ul>
+<li>区間 <code>[l, r)</code> の総和を返します。</li>
+<li>時間計算量 <code>O(logn)</code> です。</li>
+</ul>
+<h4><code>fw[k: int] -&gt; int</code></h4>
+<ul>
+<li>位置 <code>k</code> の要素を返します。</li>
+<li>時間計算量 <code>O(logn)</code> です。</li>
+</ul>
+<h4><code>fw.add(k: int, x: int) -&gt; None</code></h4>
+<ul>
+<li>位置 <code>k</code> に <code>x</code> を加算します。</li>
+<li>時間計算量 <code>O(logn)</code> です。</li>
+</ul>
+<h4><code>fw[k: int] = x: int</code></h4>
+<ul>
+<li>位置 <code>k</code> を <code>x</code> に更新します。</li>
+<li>時間計算量 <code>O(logn)</code> です。</li>
+</ul>
+<h4><code>fw.bisect_left(w: int) -&gt; Optional[int]</code></h4>
+<h4><code>fw.bisect_right(w: int) -&gt; int</code></h4>
+<h4><code>fw.tolist() -&gt; List[int]</code></h4>
+<ul>
+<li>List にして返します。</li>
+<li>時間計算量 <code>O(nlogn)</code> です。</li>
+</ul>
+<h4><code>get_inversion_num(a: List[int], compress: bool=False) -&gt; int</code></h4>
+<ul>
+<li><code>staticmethod</code> です。</li>
+<li>List <code>a</code> の転倒数を返します。</li>
+<li>時間計算量 <code>O(nlogn)</code> です。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<p><a href="https://judge.yosupo.jp/submission/148336">Point Add Range Sum</a></p>
+<p><code>python
 n, q = map(int, input().split())
 A = list(map(int, input().split()))
 fw = FenwickTree(A)
@@ -216,10 +210,6 @@ for _ in range(q):
     fw.add(p, x)
   else:
     l, r = p, x
-    print(fw.sum(l, r))
-```
-
-
-
-</body>
-</html>
+    print(fw.sum(l, r))</code></p>
+<p></body>
+</html></p>

@@ -6,20 +6,13 @@
 <title>Library_py-DataStructures-UnionFind-UnionFind_</title>
 </head>
 <body>
-### [Home](https://titanium-22.github.io/Library_py/)
-
-_____
-
-_____
-
-# `UnionFind`
-
-_____
-
-## コード
-
-[`UnionFind.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind/UnionFind.py)
-
+<h3><a href="https://titanium-22.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>UnionFind</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind/UnionFind.py"><code>UnionFind.py</code></a></p>
 <button id="copyButton">コピー</button>
 <script src="../../copy.js"></script>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
@@ -114,62 +107,67 @@ _____
     <span class="k">return</span> <span class="s1">&#39;&lt;UnionFind&gt; [</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_group_members</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">]&#39;</span>
 </pre></div>
 
-
-_____
-
-- `UnionFind` です。素集合データ構造です。 
-
-_____
-
-## 仕様
-
-以下、α(N)をアッカーマン関数の逆関数とします。
-
-#### `uf = UnionFind(n: int)`
-- `n` 個の要素からなる `UnionFind` を構築します。
-- 時間計算量 `Θ(N)` です。
-
-#### `uf.root(x: int) -> int`
-- 要素 `x` を含む集合の代表元を返します。
-
-#### `uf.unite(x: int, y: int) -> int`
-- 要素 `x` を含む集合と要素 `y` を含む集合を併合し、併合後の集合の代表元を返します。
-- `Θ(α(N))` です。
-
-#### `uf.same(x: int, y: int) -> bool`
-- 要素 `x` と `y` が同じ集合に属するなら `True` を、そうでないなら `False` を返します。
-- `Θ(α(N))` です。
-
-#### `uf.size(x: int) -> int`
-- 要素` x` を含む集合の要素数を返します。
-- `Θ(α(N))` です。
-
-#### `uf.members(x: int) -> Set[int]`
-- 要素` x` を含む集合を返します。
-- `Θ(n)`
-
-#### `uf.all_roots() -> List[int]`
-- 全ての集合の代表元からなるリストを返します。
-- `Θ(N)` です。
-
-#### `uf.group_count() -> int`
-- `uf` の集合の総数を返します。
-- `Θ(1)` です。
-
-#### `uf.all_group_members() -> defaultdict[int, List[int]]`
-- `key` に代表元、 `value` に `key` を代表元とする集合のリストをもつ `defaultdict` を返します。
-- `Θ(Nα(N))` です。
-
-#### `uf.claer() -> None`
-- 集合を工場出荷状態に戻します。
-- `Θ(N)` です。
-
-#### `str(uf)`
-- よしなにします。
-- `ΘNα(N))` です。
-
-_____
-
-
-</body>
-</html>
+<hr />
+<ul>
+<li><code>UnionFind</code> です。素集合データ構造です。 </li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<p>以下、α(N)をアッカーマン関数の逆関数とします。</p>
+<h4><code>uf = UnionFind(n: int)</code></h4>
+<ul>
+<li><code>n</code> 個の要素からなる <code>UnionFind</code> を構築します。</li>
+<li>時間計算量 <code>Θ(N)</code> です。</li>
+</ul>
+<h4><code>uf.root(x: int) -&gt; int</code></h4>
+<ul>
+<li>要素 <code>x</code> を含む集合の代表元を返します。</li>
+</ul>
+<h4><code>uf.unite(x: int, y: int) -&gt; int</code></h4>
+<ul>
+<li>要素 <code>x</code> を含む集合と要素 <code>y</code> を含む集合を併合し、併合後の集合の代表元を返します。</li>
+<li><code>Θ(α(N))</code> です。</li>
+</ul>
+<h4><code>uf.same(x: int, y: int) -&gt; bool</code></h4>
+<ul>
+<li>要素 <code>x</code> と <code>y</code> が同じ集合に属するなら <code>True</code> を、そうでないなら <code>False</code> を返します。</li>
+<li><code>Θ(α(N))</code> です。</li>
+</ul>
+<h4><code>uf.size(x: int) -&gt; int</code></h4>
+<ul>
+<li>要素<code>x</code> を含む集合の要素数を返します。</li>
+<li><code>Θ(α(N))</code> です。</li>
+</ul>
+<h4><code>uf.members(x: int) -&gt; Set[int]</code></h4>
+<ul>
+<li>要素<code>x</code> を含む集合を返します。</li>
+<li><code>Θ(n)</code></li>
+</ul>
+<h4><code>uf.all_roots() -&gt; List[int]</code></h4>
+<ul>
+<li>全ての集合の代表元からなるリストを返します。</li>
+<li><code>Θ(N)</code> です。</li>
+</ul>
+<h4><code>uf.group_count() -&gt; int</code></h4>
+<ul>
+<li><code>uf</code> の集合の総数を返します。</li>
+<li><code>Θ(1)</code> です。</li>
+</ul>
+<h4><code>uf.all_group_members() -&gt; defaultdict[int, List[int]]</code></h4>
+<ul>
+<li><code>key</code> に代表元、 <code>value</code> に <code>key</code> を代表元とする集合のリストをもつ <code>defaultdict</code> を返します。</li>
+<li><code>Θ(Nα(N))</code> です。</li>
+</ul>
+<h4><code>uf.claer() -&gt; None</code></h4>
+<ul>
+<li>集合を工場出荷状態に戻します。</li>
+<li><code>Θ(N)</code> です。</li>
+</ul>
+<h4><code>str(uf)</code></h4>
+<ul>
+<li>よしなにします。</li>
+<li><code>ΘNα(N))</code> です。</li>
+</ul>
+<hr />
+<p></body>
+</html></p>

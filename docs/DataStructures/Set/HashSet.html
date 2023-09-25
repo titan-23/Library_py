@@ -6,20 +6,13 @@
 <title>Library_py-DataStructures-Set-HashSet</title>
 </head>
 <body>
-### [Home](https://titanium-22.github.io/Library_py/)
-
-_____
-
-_____
-
-# `HashSet`
-
-_____
-
-## コード
-
-[`HashSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/HashSet.py)
-
+<h3><a href="https://titanium-22.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>HashSet</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/HashSet.py"><code>HashSet</code></a></p>
 <button id="copyButton">コピー</button>
 <script src="../../copy.js"></script>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
@@ -190,44 +183,41 @@ _____
 <span class="n">exit</span><span class="p">()</span>
 </pre></div>
 
-
-_____
-
-- ハッシュテーブルです。
-- 組み込み辞書の `set` よりやや遅いです。とにかくハッシュ関数の質が悪いです。
-- 削除クエリがくると、その遅さには特に目を見張るものがあります。視力を落としたくなければ使わないのが吉です。
-
-_____
-
-## 仕様
-
-#### `s = HashSet(a: Iterable[int]=[], not_seen: int=-1, deleted: int=-2)`
-- `a` から `HashSet` を作ります。
-- `not_seen`, `deleted` はキーとして使用しない値を入れてください。デフォルト値はそれぞれ `-1`, `-2` であり、キーが非負整数と仮定しています。
-
-#### `s.reserve(n: int) -> None`
-- 空間 `O(n)` のメモリを確保します。
-
-#### `s.add(key: int) -> bool`
-- `key` が既に存在すれば何もせずに `False` を返します。そうでなければ `key` を追加して `True` を返します。期待 `O(1)` 時間です。
-
-#### `s.discard(key: int) -> bool`
-- `key` が存在してなければ何もせずに `False` を返します。そうでなければ `key` を削除して `True` を返します。期待 `O(1)` 時間です。
-
-#### `key in s`
-- `key` が存在すれば `True` を、そうでなければ `False` を返します。
-
-#### `iter(s) / str(s) / len(s)`
-- 毎度のよしなです。
-
-_____
-
-## 使用例
-
-```python
-```
-
-
-
-</body>
-</html>
+<hr />
+<ul>
+<li>ハッシュテーブルです。</li>
+<li>組み込み辞書の <code>set</code> よりやや遅いです。とにかくハッシュ関数の質が悪いです。</li>
+<li>削除クエリがくると、その遅さには特に目を見張るものがあります。視力を落としたくなければ使わないのが吉です。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>s = HashSet(a: Iterable[int]=[], not_seen: int=-1, deleted: int=-2)</code></h4>
+<ul>
+<li><code>a</code> から <code>HashSet</code> を作ります。</li>
+<li><code>not_seen</code>, <code>deleted</code> はキーとして使用しない値を入れてください。デフォルト値はそれぞれ <code>-1</code>, <code>-2</code> であり、キーが非負整数と仮定しています。</li>
+</ul>
+<h4><code>s.reserve(n: int) -&gt; None</code></h4>
+<ul>
+<li>空間 <code>O(n)</code> のメモリを確保します。</li>
+</ul>
+<h4><code>s.add(key: int) -&gt; bool</code></h4>
+<ul>
+<li><code>key</code> が既に存在すれば何もせずに <code>False</code> を返します。そうでなければ <code>key</code> を追加して <code>True</code> を返します。期待 <code>O(1)</code> 時間です。</li>
+</ul>
+<h4><code>s.discard(key: int) -&gt; bool</code></h4>
+<ul>
+<li><code>key</code> が存在してなければ何もせずに <code>False</code> を返します。そうでなければ <code>key</code> を削除して <code>True</code> を返します。期待 <code>O(1)</code> 時間です。</li>
+</ul>
+<h4><code>key in s</code></h4>
+<ul>
+<li><code>key</code> が存在すれば <code>True</code> を、そうでなければ <code>False</code> を返します。</li>
+</ul>
+<h4><code>iter(s) / str(s) / len(s)</code></h4>
+<ul>
+<li>毎度のよしなです。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<p><code>python</code></p>
+<p></body>
+</html></p>

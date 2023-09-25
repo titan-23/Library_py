@@ -6,97 +6,110 @@
 <title>Library_py-DataStructures-WaveletMatrix-WaveletMatrix_</title>
 </head>
 <body>
-### [Home](https://titanium-22.github.io/Library_py/)
-
-_____
-
-___
-
-# `WaveletMatrix`
-
-_____
-
-## コード
-
-[`WaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
-
-_____
-
-- `WaveletMatrix` です。
-- 静的であることに注意してください。
-- 以下の仕様の計算量には嘘があるかもしれません。import 元の [`BitVector`](../BitVector/BitVector_.md) の計算量も参考にしてください。
-- 未 verify が多いです。使わないのが吉でしょう。
-- 参考:
-	- [https://miti-7.hatenablog.com/entry/2018/04/28/152259](https://miti-7.hatenablog.com/entry/2018/04/28/152259){:target="_blank"}
-	- [https://www.slideshare.net/pfi/ss-15916040](https://www.slideshare.net/pfi/ss-15916040){:target="_blank"}
-	- [デwiki](https://scrapbox.io/data-structures/Wavelet_Matrix){:target="_blank"}
-
-_____
-
-## 仕様
-
-#### `wm = WaveletMatrix(sigma: int, a: Sequence[int]=[])`
-- `[0, sigma)` の整数列を管理する `WaveletMatrix` です。
-- 列 `a` から `WaveletMatrix` を構築します。
-- 時間計算量 `Θ(Nlog(σ))` です。
-- 空間計算量 `Θ(Nlog(σ))` のはずです。
-
-#### `wm.access(k: int) / wm[k: int] -> int`
-- `a[k]` を返します。
-- `__getitem__` をサポートしてます。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.rank(r: int, x: int) -> int`
-- `a[0, r)` に含まれる `x` の個数を返します。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.select(k: int, x: int) -> int`
-- `k` 番目の `v` のインデックスを返します。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.kth_smallest(l: int, r: int, k: int) -> int`
-- `wm.quantile(l, r, k)` と等価です。
-- `a[l, r)` で `k` 番目に小さい値を返します。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.kth_largest(l: int, r: int, k: int) -> int`
-- `a[l, r)` で `k` 番目に**大きい値**を返します。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.topk(l: int, r: int, k: int) -> List[Tuple[int, int]]`
-- `a[l, r)` の中で、要素を出現回数が多い順にその頻度とともに `k` 個返します。
-	- 返り値は `(要素, 頻度)` です。
-- 時間計算量 `Θ(min(r-l, σ) log(σ))` です。
-	- あやしいです。
-	- `σ` が大きい場合、計算量に注意です。
-
-#### `wm.sum(l: int, r: int) -> int`
-- `a[l, r)` の総和を返します。
-- 時間計算量 `Θ(min(r-l, σ) log(σ))` です。
-	- `σ` が大きい場合、計算量に注意です。
-
-#### `wm.range_freq(l: int, r: int, x: int, y: int) -> int`
-- `a[l, r)` に含まれる、 `x` 以上 `y` 未満である要素の個数を返します。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.prev_value(l: int, r: int, x: int) -> int`
-- `a[l, r)` で、`x` 以上 `y` 未満であるような要素のうち最大の要素を返します。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.next_value(l: int, r: int, x: int) -> int`
-- `a[l, r)` で、`x` 以上 `y` 未満であるような要素のうち最小の要素を返します。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `wm.range_conut(l: int, r: int, x: int) -> int`
-- `a[l, r)` に含まれる `x` の個数を返します。
-- `wm.rank(r, x) - wm.rank(l, x)` と等価です。必要性
-	- `range_freq` だと遅くなることに気を付けるためのメソッドです。
-- 時間計算量 `Θ(log(σ))` です。
-
-#### `len(wm) / str(wm)`
-- よしなです。
-- `len(wm)` の計算量は `Θ(1)` です。
-
-
-</body>
-</html>
+<h3><a href="https://titanium-22.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>WaveletMatrix</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/WaveletMatrix.py"><code>WaveletMatrix</code></a></p>
+<hr />
+<ul>
+<li><code>WaveletMatrix</code> です。</li>
+<li>静的であることに注意してください。</li>
+<li>以下の仕様の計算量には嘘があるかもしれません。import 元の <a href="../BitVector/BitVector_.md"><code>BitVector</code></a> の計算量も参考にしてください。</li>
+<li>未 verify が多いです。使わないのが吉でしょう。</li>
+<li>参考:<ul>
+<li><a href="https://miti-7.hatenablog.com/entry/2018/04/28/152259">https://miti-7.hatenablog.com/entry/2018/04/28/152259</a>{:target="_blank"}</li>
+<li><a href="https://www.slideshare.net/pfi/ss-15916040">https://www.slideshare.net/pfi/ss-15916040</a>{:target="_blank"}</li>
+<li><a href="https://scrapbox.io/data-structures/Wavelet_Matrix">デwiki</a>{:target="_blank"}</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>wm = WaveletMatrix(sigma: int, a: Sequence[int]=[])</code></h4>
+<ul>
+<li><code>[0, sigma)</code> の整数列を管理する <code>WaveletMatrix</code> です。</li>
+<li>列 <code>a</code> から <code>WaveletMatrix</code> を構築します。</li>
+<li>時間計算量 <code>Θ(Nlog(σ))</code> です。</li>
+<li>空間計算量 <code>Θ(Nlog(σ))</code> のはずです。</li>
+</ul>
+<h4><code>wm.access(k: int) / wm[k: int] -&gt; int</code></h4>
+<ul>
+<li><code>a[k]</code> を返します。</li>
+<li><code>__getitem__</code> をサポートしてます。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.rank(r: int, x: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[0, r)</code> に含まれる <code>x</code> の個数を返します。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.select(k: int, x: int) -&gt; int</code></h4>
+<ul>
+<li><code>k</code> 番目の <code>v</code> のインデックスを返します。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.kth_smallest(l: int, r: int, k: int) -&gt; int</code></h4>
+<ul>
+<li><code>wm.quantile(l, r, k)</code> と等価です。</li>
+<li><code>a[l, r)</code> で <code>k</code> 番目に小さい値を返します。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.kth_largest(l: int, r: int, k: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[l, r)</code> で <code>k</code> 番目に<strong>大きい値</strong>を返します。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.topk(l: int, r: int, k: int) -&gt; List[Tuple[int, int]]</code></h4>
+<ul>
+<li><code>a[l, r)</code> の中で、要素を出現回数が多い順にその頻度とともに <code>k</code> 個返します。<ul>
+<li>返り値は <code>(要素, 頻度)</code> です。</li>
+</ul>
+</li>
+<li>時間計算量 <code>Θ(min(r-l, σ) log(σ))</code> です。<ul>
+<li>あやしいです。</li>
+<li><code>σ</code> が大きい場合、計算量に注意です。</li>
+</ul>
+</li>
+</ul>
+<h4><code>wm.sum(l: int, r: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[l, r)</code> の総和を返します。</li>
+<li>時間計算量 <code>Θ(min(r-l, σ) log(σ))</code> です。<ul>
+<li><code>σ</code> が大きい場合、計算量に注意です。</li>
+</ul>
+</li>
+</ul>
+<h4><code>wm.range_freq(l: int, r: int, x: int, y: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[l, r)</code> に含まれる、 <code>x</code> 以上 <code>y</code> 未満である要素の個数を返します。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.prev_value(l: int, r: int, x: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[l, r)</code> で、<code>x</code> 以上 <code>y</code> 未満であるような要素のうち最大の要素を返します。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.next_value(l: int, r: int, x: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[l, r)</code> で、<code>x</code> 以上 <code>y</code> 未満であるような要素のうち最小の要素を返します。</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>wm.range_conut(l: int, r: int, x: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[l, r)</code> に含まれる <code>x</code> の個数を返します。</li>
+<li><code>wm.rank(r, x) - wm.rank(l, x)</code> と等価です。必要性<ul>
+<li><code>range_freq</code> だと遅くなることに気を付けるためのメソッドです。</li>
+</ul>
+</li>
+<li>時間計算量 <code>Θ(log(σ))</code> です。</li>
+</ul>
+<h4><code>len(wm) / str(wm)</code></h4>
+<ul>
+<li>よしなです。</li>
+<li><code>len(wm)</code> の計算量は <code>Θ(1)</code> です。</li>
+</ul>
+<p></body>
+</html></p>

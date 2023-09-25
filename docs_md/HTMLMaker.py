@@ -60,7 +60,7 @@ class HTMLMaker():
     print(html_code, file=self.output_file)
   
   def out(self, s: str) -> None:
-    html_output = s
+    html_output = markdown(s)
     print(html_output, file=self.output_file)
 
   def write(self, title):
