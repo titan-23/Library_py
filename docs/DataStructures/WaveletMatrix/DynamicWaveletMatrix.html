@@ -6,64 +6,67 @@
 <title>Library_py-DataStructures-WaveletMatrix-DynamicWaveletMatrix</title>
 </head>
 <body>
-<hr />
-<h1><code>DynamicWaveletMatrix</code></h1>
-<hr />
-<h2>コード</h2>
-<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py"><code>DynamicWaveletMatrix</code></a></p>
-<hr />
-<ul>
-<li><code>DynamicWaveletMatrix</code> です。</li>
-<li><a href="./WaveletMatrix_.md"><code>WaveletMatrix</code></a> と大体同じです。<ul>
-<li><code>BitVector</code> を平衡二分木にしています(<code>AVLTreeBitVector</code>)。あらゆる操作に平衡二分木の log がつきます。これヤバくね</li>
-</ul>
-</li>
-<li>未 verify が多いです。使わないのが吉でしょう。</li>
-<li>とにかく重いです。<ul>
-<li>10^5 回のクエリで 4 秒弱です。病弱です。</li>
-</ul>
-</li>
-<li>高速化のため、アホの設計のもとコーディングをしています。<ul>
-<li><code>AVLTreeBitVector</code> の <code>_insert_and_rank1</code> / <code>_access_pop_and_rank1</code> なるメソッドです。</li>
-<li>そもそも設計なんてしてませんが。</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h2>仕様</h2>
-<p><a href="./WaveletMatrix_.md"><code>WaveletMatrix</code></a> との差分は以下です。(以下に示していないメソッドの時間計算量も <code>O(logn)</code> 倍されます。)</p>
-<h4><code>wm = DynamicWaveletMatrix(sigma: int, a: Sequence[int]=[])</code></h4>
-<ul>
-<li><code>[0, sigma)</code> の整数列を管理する <code>DynamicWaveletMatrix</code> です。</li>
-<li>列 <code>a</code> から <code>DynamicWaveletMatrix</code> を構築します。</li>
-</ul>
-<h4><code>wm.reserve(n: int) -&gt; None</code></h4>
-<ul>
-<li><code>n</code> 要素分のメモリを確保します。</li>
-<li>時間計算量 <code>Θ(n)</code> です。</li>
-</ul>
-<h4><code>wm.insert(k: int, x: int) -&gt; None</code></h4>
-<ul>
-<li>位置 <code>k</code> に <code>x</code> を挿入します。</li>
-<li>時間計算量 <code>Θ(log(n)log(σ))</code> です。</li>
-</ul>
-<h4><code>wm.pop(k: int) -&gt; int</code></h4>
-<ul>
-<li>位置 <code>k</code> の要素を削除し、その値を返します。</li>
-<li>時間計算量 <code>Θ(log(n)log(σ))</code> です。</li>
-</ul>
-<h4><code>wm.update(k: int, x: int) -&gt; None / wm[k: int] = x: int</code></h4>
-<ul>
-<li>位置 <code>k</code> の要素を <code>x</code> に更新します。</li>
-<li><code>__setitem__</code> をサポートしています。</li>
-<li>時間計算量 <code>Θ(log(n)log(σ))</code> です。</li>
-</ul>
-<hr />
-<h2>使用例</h2>
-<p><code>python
+### [Home](https://titanium-22.github.io/Library_py/)
+
+_____
+
+_____
+
+# `DynamicWaveletMatrix`
+
+_____
+
+## コード
+
+[`DynamicWaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
+
+_____
+
+- `DynamicWaveletMatrix` です。
+- [`WaveletMatrix`](./WaveletMatrix_.md) と大体同じです。
+	- `BitVector` を平衡二分木にしています(`AVLTreeBitVector`)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
+- 未 verify が多いです。使わないのが吉でしょう。
+- とにかく重いです。
+	- 10^5 回のクエリで 4 秒弱です。病弱です。
+- 高速化のため、アホの設計のもとコーディングをしています。
+	- `AVLTreeBitVector` の `_insert_and_rank1` / `_access_pop_and_rank1` なるメソッドです。
+	- そもそも設計なんてしてませんが。
+
+_____
+
+## 仕様
+
+[`WaveletMatrix`](./WaveletMatrix_.md) との差分は以下です。(以下に示していないメソッドの時間計算量も `O(logn)` 倍されます。)
+
+#### `wm = DynamicWaveletMatrix(sigma: int, a: Sequence[int]=[])`
+- `[0, sigma)` の整数列を管理する `DynamicWaveletMatrix` です。
+- 列 `a` から `DynamicWaveletMatrix` を構築します。
+
+#### `wm.reserve(n: int) -> None`
+- `n` 要素分のメモリを確保します。
+- 時間計算量 `Θ(n)` です。
+
+#### `wm.insert(k: int, x: int) -> None`
+- 位置 `k` に `x` を挿入します。
+- 時間計算量 `Θ(log(n)log(σ))` です。
+
+#### `wm.pop(k: int) -> int`
+- 位置 `k` の要素を削除し、その値を返します。
+- 時間計算量 `Θ(log(n)log(σ))` です。
+
+#### `wm.update(k: int, x: int) -> None / wm[k: int] = x: int`
+- 位置 `k` の要素を `x` に更新します。
+- `__setitem__` をサポートしています。
+- 時間計算量 `Θ(log(n)log(σ))` です。
+
+_____
+
+## 使用例
+
+```python
 n = int(input())
 A = list(map(int, input().split()))
-dwm = DynamicWaveletMatrix(1&lt;&lt;30, A)
+dwm = DynamicWaveletMatrix(1<<30, A)
 q = int(input())
 for _ in range(q):
   c, l, r, k = map(int, input().split())
@@ -71,6 +74,9 @@ for _ in range(q):
     v = wm.pop(r)
     wm.insert(l, v)
   if c == 1:
-    print(dwm.kth_smallest(l, r, k))</code></p>
+    print(dwm.kth_smallest(l, r, k))
+```
+
+
 </body>
 </html>

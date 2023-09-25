@@ -6,50 +6,47 @@
 <title>Library_py-MyClass-OrderedSetInterface</title>
 </head>
 <body>
-<h4><code>x in bst / x not in bst</code></h4>
-<ul>
-<li>存在判定です。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>bst[k: int] -&gt; T</code></h4>
-<ul>
-<li>昇順 <code>k</code> 番目の値を返します</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>bst.add(key: T) -&gt; bool</code></h4>
-<ul>
-<li><code>key</code> が存在しないなら <code>key</code> を追加し <code>True</code> を返します。そうでないなら何も追加せず <code>False</code> を返します。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>bst.discard(key: T) -&gt; bool</code></h4>
-<ul>
-<li><code>key</code> が存在するなら <code>key</code> を削除し <code>True</code> を返します。そうでないなら何もせず <code>False</code> を返します。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>bst.le(key) / .lt(key) / .ge(key) / gt(key) -&gt; Optional[T]</code></h4>
-<ul>
-<li><code>key</code> (以下の / より小さい / 以上の / より大きい) 値で (最大 / 最大 / 最小 / 最小) の値を返します。存在しなければ <code>None</code> を返します。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>bst.index(key: T) / .index_right(key: T) -&gt; int</code></h4>
-<ul>
-<li><code>key</code> (より小さい / 以下の) 要素の数を返します。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>bst.pop(k: int=-1) / .pop_min() -&gt; T</code></h4>
-<ul>
-<li>(最大(昇順k番目) / 最小) の値を削除し、その値を返します。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>bst.clear() -&gt; None</code></h4>
-<ul>
-<li>clearします。</li>
-<li><code>O(1)</code> です。</li>
-</ul>
-<h4><code>bst.tolist() -&gt; List[T]</code></h4>
-<ul>
-<li><code>key</code> を昇順に並べたリストを返します。</li>
-<li><code>O(N)</code> です。</li>
-</ul>
+### [Home](https://titanium-22.github.io/Library_py/)
+
+_____
+
+
+#### `x in bst / x not in bst`
+- 存在判定です。
+- `O(logN)` です。
+
+#### `bst[k: int] -> T`
+- 昇順 `k` 番目の値を返します
+- `O(logN)` です。
+
+#### `bst.add(key: T) -> bool`
+- `key` が存在しないなら `key` を追加し `True` を返します。そうでないなら何も追加せず `False` を返します。
+- `O(logN)` です。
+
+#### `bst.discard(key: T) -> bool`
+- `key` が存在するなら `key` を削除し `True` を返します。そうでないなら何もせず `False` を返します。
+- `O(logN)` です。
+
+#### `bst.le(key) / .lt(key) / .ge(key) / gt(key) -> Optional[T]`
+- `key` (以下の / より小さい / 以上の / より大きい) 値で (最大 / 最大 / 最小 / 最小) の値を返します。存在しなければ `None` を返します。
+- `O(logN)` です。
+
+#### `bst.index(key: T) / .index_right(key: T) -> int`
+- `key` (より小さい / 以下の) 要素の数を返します。
+- `O(logN)` です。
+
+#### `bst.pop(k: int=-1) / .pop_min() -> T`
+- (最大(昇順k番目) / 最小) の値を削除し、その値を返します。
+- `O(logN)` です。
+
+#### `bst.clear() -> None`
+- clearします。
+- `O(1)` です。
+
+#### `bst.tolist() -> List[T]`
+- `key` を昇順に並べたリストを返します。
+- `O(N)` です。
+
+
 </body>
 </html>

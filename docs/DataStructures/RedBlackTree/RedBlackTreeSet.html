@@ -6,69 +6,82 @@
 <title>Library_py-DataStructures-RedBlackTree-RedBlackTreeSet</title>
 </head>
 <body>
-<hr />
-<h1><code>RedBlackTreeSet</code></h1>
-<hr />
-<h2>コード</h2>
-<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeSet.py"><code>RedBlackTreeSet</code></a></p>
-<hr />
-<p>赤黒木です。集合です。 <code>std::set</code> も怖くない。</p>
-<p>アルゴリズムイントロダクションを参考に書きました。</p>
-<hr />
-<h2>仕様: <code>Node</code></h2>
-<p><code>Node</code> です。双方向に進められます。 <code>1</code> だけ進める場合、計算量は平均 <code>O(1)</code> 、最悪 <code>O(logN)</code> です。 <code>k</code> だけ進める場合、だいたい <code>k</code> 倍になります(ホント?)。</p>
-<h4><code>node += 1 / node -= 1</code></h4>
-<ul>
-<li><code>node</code> を次 / 前の <code>node</code> にします。存在しないときは <code>None</code> になります。</li>
-</ul>
-<h4><code>node + 1 / node - 1</code></h4>
-<ul>
-<li>次 / 前の <code>node</code> を返します。存在しないときは <code>None</code> を返します。</li>
-</ul>
-<h4><code>node.key</code></h4>
-<ul>
-<li><code>node</code> が保持している <code>key</code> です。変更はしないでください。できない仕様にしろ、それはそう</li>
-</ul>
-<h4><code>node.count</code></h4>
-<ul>
-<li><code>node</code> が保持している <code>key</code> の個数です。</li>
-</ul>
-<hr />
-<h2>仕様: <code>RedBlackTreeSet</code></h2>
-<h4><code>rbtree = RedBlackTreeSet(a: Iterable[T]=[])</code></h4>
-<ul>
-<li><code>a</code> から <code>RedBlackTreeSet</code> を再帰的に構築します。</li>
-<li>重複無くソート済みなら <code>O(N)</code> 、そうでないなら <code>O(NlogN)</code> です。</li>
-</ul>
-<h4><code>rbtree.discard_iter(node: Node) -&gt; None</code></h4>
-<ul>
-<li><code>node</code> を削除します。</li>
-<li>償却 <code>O(1)</code> らしいです。ホントですか?</li>
-</ul>
-<h4><code>rbtree.get_max_iter() / .get_min_iter() -&gt; Optional[Node]</code></h4>
-<ul>
-<li>最大値 / 最小値を指す <code>Node</code> を返します。空であれば <code>None</code> を返します。</li>
-<li><code>O(1)</code> です。</li>
-</ul>
-<h4><code>rbtree.le_iter(key: T) / .lt_iter(key) / .ge_iter(key) / gt_iter(key) -&gt; Optional[Node]</code></h4>
-<ul>
-<li><code>key</code> (以下の / より小さい / 以上の / より大きい) 値で (最大 / 最大 / 最小 / 最小) の <code>Node</code> を返します。存在しなければ <code>None</code> を返します。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>rbtree.find(key) -&gt; Optional[Node]</code></h4>
-<ul>
-<li><code>key</code> が存在すれば <code>key</code> を指す <code>Node</code> を返します。存在しなければ <code>None</code> を返します。</li>
-<li><code>O(logN)</code> です。</li>
-</ul>
-<hr />
-<h2>使用例</h2>
-<p>```python
+### [Home](https://titanium-22.github.io/Library_py/)
+
+_____
+
+_____
+
+# `RedBlackTreeSet`
+
+_____
+
+## コード
+
+[`RedBlackTreeSet`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeSet.py)
+
+_____
+
+赤黒木です。集合です。 `std::set` も怖くない。
+
+アルゴリズムイントロダクションを参考に書きました。
+
+_____
+
+## 仕様: `Node`
+
+`Node` です。双方向に進められます。 `1` だけ進める場合、計算量は平均 `O(1)` 、最悪 `O(logN)` です。 `k` だけ進める場合、だいたい `k` 倍になります(ホント?)。
+
+#### `node += 1 / node -= 1`
+- `node` を次 / 前の `node` にします。存在しないときは `None` になります。
+
+#### `node + 1 / node - 1`
+- 次 / 前の `node` を返します。存在しないときは `None` を返します。
+
+#### `node.key`
+- `node` が保持している `key` です。変更はしないでください。できない仕様にしろ、それはそう
+
+#### `node.count`
+- `node` が保持している `key` の個数です。
+
+_____
+
+## 仕様: `RedBlackTreeSet`
+
+#### `rbtree = RedBlackTreeSet(a: Iterable[T]=[])`
+- `a` から `RedBlackTreeSet` を再帰的に構築します。
+- 重複無くソート済みなら `O(N)` 、そうでないなら `O(NlogN)` です。
+
+#### `rbtree.discard_iter(node: Node) -> None`
+- `node` を削除します。
+- 償却 `O(1)` らしいです。ホントですか?
+
+#### `rbtree.get_max_iter() / .get_min_iter() -> Optional[Node]`
+- 最大値 / 最小値を指す `Node` を返します。空であれば `None` を返します。
+- `O(1)` です。
+
+#### `rbtree.le_iter(key: T) / .lt_iter(key) / .ge_iter(key) / gt_iter(key) -> Optional[Node]`
+- `key` (以下の / より小さい / 以上の / より大きい) 値で (最大 / 最大 / 最小 / 最小) の `Node` を返します。存在しなければ `None` を返します。
+- `O(logN)` です。
+
+#### `rbtree.find(key) -> Optional[Node]`
+- `key` が存在すれば `key` を指す `Node` を返します。存在しなければ `None` を返します。
+- `O(logN)` です。
+
+_____
+
+## 使用例
+
+```python
 s = RedBlackTreeSet([3, 1, 4, 1, 5, 9])
 it = s.get_min_iter()
 while it:
   print(it.key, end=' ')
-  it += 1</p>
-<h1>1 3 4 5 9</h1>
-<p>```</p>
+  it += 1
+
+# 1 3 4 5 9
+```
+
+
 </body>
 </html>

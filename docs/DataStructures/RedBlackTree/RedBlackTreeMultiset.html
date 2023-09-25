@@ -6,33 +6,52 @@
 <title>Library_py-DataStructures-RedBlackTree-RedBlackTreeMultiset</title>
 </head>
 <body>
-<hr />
-<h1><code>RedBlackTreeMultiset</code></h1>
-<hr />
-<h2>コード</h2>
-<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeMultiset.py"><code>RedBlackTreeMultiset</code></a></p>
-<hr />
-<p>赤黒木です。多重集合です。 <code>std::set</code> も怖くない。</p>
-<p>アルゴリズムイントロダクションを参考に書きました。</p>
-<hr />
-<h2>仕様</h2>
-<p>多重集合としての赤黒木です。 主に <a href="RedBlackTreeSet.md"><code>RedBlackTreeSet</code></a> と同等の操作ができます。差分は以下です。</p>
-<h4><code>rbtree = RedBlackTreeMultiset(a: Iterable[T]=[])</code></h4>
-<ul>
-<li><code>a</code> から <code>RedBlackTreeMultiset</code> を構築します。</li>
-<li>ソート済みなら <code>O(N)</code> 、そうでないなら <code>O(NlogN)</code> です。</li>
-</ul>
-<hr />
-<h2>使用例</h2>
-<p>```python
+### [Home](https://titanium-22.github.io/Library_py/)
+
+_____
+
+_____
+
+# `RedBlackTreeMultiset`
+
+_____
+
+## コード
+
+[`RedBlackTreeMultiset`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeMultiset.py)
+
+_____
+
+赤黒木です。多重集合です。 `std::set` も怖くない。
+
+アルゴリズムイントロダクションを参考に書きました。
+
+_____
+
+## 仕様
+
+多重集合としての赤黒木です。 主に [`RedBlackTreeSet`](RedBlackTreeSet.md) と同等の操作ができます。差分は以下です。
+
+#### `rbtree = RedBlackTreeMultiset(a: Iterable[T]=[])`
+- `a` から `RedBlackTreeMultiset` を構築します。
+- ソート済みなら `O(N)` 、そうでないなら `O(NlogN)` です。
+
+_____
+
+## 使用例
+
+```python
 s = RedBlackTreeMultiset([3, 1, 4, 1, 5, 9])
 it = s.ge_iter(3)
 while it:
   print(it.key, it.count)
-  it += 1</p>
-<h1>4 1</h1>
-<h1>3 1</h1>
-<h1>1 2</h1>
-<p>```</p>
+  it += 1
+
+# 4 1
+# 3 1
+# 1 2
+```
+
+
 </body>
 </html>

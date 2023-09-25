@@ -6,50 +6,55 @@
 <title>Library_py-DataStructures-Array-PersistentArray</title>
 </head>
 <body>
-<hr />
-<h1><code>PersistentArray</code></h1>
-<hr />
-<h2>コード</h2>
-<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/Array/PersistentArray.py"><code>PersistentArray</code></a></p>
-<hr />
-<ul>
-<li>永続配列です。<ul>
-<li>過去の更新とアクセスが可能です。</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h2>仕様</h2>
-<h4><code>pa = PersistentArray(a: Iterable[T]=[], init_t: int=0)</code></h4>
-<ul>
-<li><code>a</code> から永続配列 <code>PersistentArray</code> を構築します。</li>
-<li><code>init_t</code> は初期時刻です。</li>
-<li>計算量 <code>Θ(N)</code> です。</li>
-</ul>
-<h4><code>pa.set(k: int, v: T, pre_t: int, new_t: int) -&gt; None</code></h4>
-<ul>
-<li><code>pa</code> を更新します。<ul>
-<li>位置 <code>k</code> を <code>v</code> に更新します。</li>
-<li>更新前のバージョンを <code>pre_t</code> 、更新後のバージョンを <code>new_t</code> とします。</li>
-</ul>
-</li>
-<li>計算量は時間・空間ともに <code>Θ(logN)</code> です。</li>
-</ul>
-<h4><code>pa.get(k: int, t: int) -&gt; T</code></h4>
-<ul>
-<li>位置 <code>k</code> 、バージョン <code>t</code> の要素を返します。</li>
-<li>時間計算量 <code>Θ(1)</code> です。</li>
-</ul>
-<h4><code>pa.copy(pre_t: int, new_t: int) -&gt; None</code></h4>
-<ul>
-<li>バージョン <code>pre_t</code> を変更せずバージョン <code>new_t</code> へコピーします。</li>
-<li>計算量は時間・空間ともに <code>Θ(1)</code> です。</li>
-</ul>
-<h4><code>pa.tolist(t: int) -&gt; List[T]</code></h4>
-<ul>
-<li>バージョン <code>t</code> の配列をリストにして返します。</li>
-<li>計算量は時間・空間ともに <code>Θ(N)</code> です。</li>
-</ul>
-<hr />
+### [Home](https://titanium-22.github.io/Library_py/)
+
+_____
+
+_____
+
+# `PersistentArray`
+
+_____
+
+## コード
+
+[`PersistentArray`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Array/PersistentArray.py)
+
+_____
+
+- 永続配列です。
+	- 過去の更新とアクセスが可能です。
+
+_____
+
+## 仕様
+
+#### `pa = PersistentArray(a: Iterable[T]=[], init_t: int=0)`
+- `a` から永続配列 `PersistentArray` を構築します。
+- `init_t` は初期時刻です。
+- 計算量 `Θ(N)` です。
+
+#### `pa.set(k: int, v: T, pre_t: int, new_t: int) -> None`
+- `pa` を更新します。
+	- 位置 `k` を `v` に更新します。
+	- 更新前のバージョンを `pre_t` 、更新後のバージョンを `new_t` とします。
+- 計算量は時間・空間ともに `Θ(logN)` です。
+
+#### `pa.get(k: int, t: int) -> T`
+- 位置 `k` 、バージョン `t` の要素を返します。
+- 時間計算量 `Θ(1)` です。
+
+#### `pa.copy(pre_t: int, new_t: int) -> None`
+- バージョン `pre_t` を変更せずバージョン `new_t` へコピーします。
+- 計算量は時間・空間ともに `Θ(1)` です。
+
+#### `pa.tolist(t: int) -> List[T]`
+- バージョン `t` の配列をリストにして返します。
+- 計算量は時間・空間ともに `Θ(N)` です。
+
+_____
+
+
+
 </body>
 </html>

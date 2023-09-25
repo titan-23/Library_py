@@ -4,12 +4,12 @@ from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
 from markdown import markdown
 import os
-import re
+
 
 class HTMLMaker():
 
   def __init__(self):
-    pass
+    self.HEAD: str = '''https://titanium-22.github.io/Library_py/'''
 
   def set(self, filename) -> bool:
     self.filename = filename
@@ -58,6 +58,10 @@ class HTMLMaker():
       code += str(line)
     html_code = highlight(code, PythonLexer(), formatter)
     print(html_code, file=self.output_file)
+  
+  def out(self, s: str) -> None:
+    html_output = s
+    print(html_output, file=self.output_file)
 
   def write(self, title):
     # print(title)
@@ -65,16 +69,17 @@ class HTMLMaker():
     style_path = '../' * cnt + 'style.css'
     t = 'Library_py-' + self.filename.replace('\\', '-')
     line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{t}</title>\n</head>\n<body>'''
-    html_output = line
-    print(html_output, file=self.output_file)
+    self.out(line)
+
+    line = f'''### [Home]({self.HEAD})\n\n'''
+    line += f'''_____\n'''
+    self.out(line)
 
     outs = ''
     for line in self.input_file:
       line = str(line)
       if self.code_file_flag and line.startswith("<!-- code=https://github.com/titanium-22/Library_py/blob/main/"):
-        html_output = markdown(outs)
-        print(html_output, end='', file=self.output_file)
-        # print(f'code {filename} found.')
+        self.out(outs)
         self.output_code()
         outs = ''
         continue
@@ -83,12 +88,10 @@ class HTMLMaker():
       if line.startswith("  - "):
         line = "\t" + line[2:]
       outs += line
-    html_output = markdown(outs)
-    print(html_output, end='', file=self.output_file)
+    self.out(outs)
 
     line = "\n</body>\n</html>"
-    html_output = line
-    print(html_output, file=self.output_file)
+    self.out(line)
 
     self.input_file.close()
     self.output_file.close()
