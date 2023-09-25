@@ -6,34 +6,6 @@
 <title>RedBlackTreeSet</title>
 </head>
 <body>
-<hr /><h1><code>RedBlackTreeSet</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeSet.py"><code>RedBlackTreeSet</code></a></p><hr /><p>赤黒木です。集合です。 <code>std::set</code> も怖くない。</p><p>アルゴリズムイントロダクションを参考に書きました。</p><hr /><h2>仕様: <code>Node</code></h2><p><code>Node</code> です。双方向に進められます。 <code>1</code> だけ進める場合、計算量は平均 <code>O(1)</code> 、最悪 <code>O(logN)</code> です。 <code>k</code> だけ進める場合、だいたい <code>k</code> 倍になります(ホント?)。</p><h4><code>node += 1 / node -= 1</code></h4><ul>
-<li><code>node</code> を次 / 前の <code>node</code> にします。存在しないときは <code>None</code> になります。</li>
-</ul><h4><code>node + 1 / node - 1</code></h4><ul>
-<li>次 / 前の <code>node</code> を返します。存在しないときは <code>None</code> を返します。</li>
-</ul><h4><code>node.key</code></h4><ul>
-<li><code>node</code> が保持している <code>key</code> です。変更はしないでください。できない仕様にしろ、それはそう</li>
-</ul><h4><code>node.count</code></h4><ul>
-<li><code>node</code> が保持している <code>key</code> の個数です。</li>
-</ul><hr /><h2>仕様: <code>RedBlackTreeSet</code></h2><h4><code>rbtree = RedBlackTreeSet(a: Iterable[T]=[])</code></h4><ul>
-<li><code>a</code> から <code>RedBlackTreeSet</code> を再帰的に構築します。</li>
-</ul><ul>
-<li>重複無くソート済みなら <code>O(N)</code> 、そうでないなら <code>O(NlogN)</code> です。</li>
-</ul><h4><code>rbtree.discard_iter(node: Node) -&gt; None</code></h4><ul>
-<li><code>node</code> を削除します。</li>
-</ul><ul>
-<li>償却 <code>O(1)</code> らしいです。ホントですか?</li>
-</ul><h4><code>rbtree.get_max_iter() / .get_min_iter() -&gt; Optional[Node]</code></h4><ul>
-<li>最大値 / 最小値を指す <code>Node</code> を返します。空であれば <code>None</code> を返します。</li>
-</ul><ul>
-<li><code>O(1)</code> です。</li>
-</ul><h4><code>rbtree.le_iter(key: T) / .lt_iter(key) / .ge_iter(key) / gt_iter(key) -&gt; Optional[Node]</code></h4><ul>
-<li><code>key</code> (以下の / より小さい / 以上の / より大きい) 値で (最大 / 最大 / 最小 / 最小) の <code>Node</code> を返します。存在しなければ <code>None</code> を返します。</li>
-</ul><ul>
-<li><code>O(logN)</code> です。</li>
-</ul><h4><code>rbtree.find(key) -&gt; Optional[Node]</code></h4><ul>
-<li><code>key</code> が存在すれば <code>key</code> を指す <code>Node</code> を返します。存在しなければ <code>None</code> を返します。</li>
-</ul><ul>
-<li><code>O(logN)</code> です。</li>
-</ul><hr /><h2>使用例</h2><p>```python</p><p>s = RedBlackTreeSet([3, 1, 4, 1, 5, 9])</p><p>it = s.get_min_iter()</p><p>while it:</p><p>print(it.key, end=' ')</p><p>it += 1</p><h1>1 3 4 5 9</h1><p>```</p>
+<p>```</p>
 </body>
 </html>

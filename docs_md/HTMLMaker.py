@@ -3,6 +3,7 @@ from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
 from markdown import markdown
 import os
+import re
 
 class HTMLMaker():
 
@@ -31,6 +32,7 @@ class HTMLMaker():
           self.code_file = open(f'..\\..\\Library_py\\{filename[:-1]}.py', 'r', encoding='utf-8')
           self.code_file_flag = True
         except FileNotFoundError:
+          print(f'code {filename} not found.')
           pass
 
     try:
@@ -64,17 +66,23 @@ class HTMLMaker():
     html_output = line
     print(html_output, file=self.output_file)
 
+    outs = ''
     for line in self.input_file:
       line = str(line)
+      if self.code_file_flag and line.startswith("<!-- code=https://github.com/titanium-22/Library_py/blob/main/"):
+        html_output = markdown(line)
+        print(html_output, end='', file=self.output_file)
+        print(f'code {filename} found.')
+        self.output_code()
+        outs = ''
+        continue
       if line.endswith(".md)\n"):
         line = line.replace('.md', '.html')
-      html_output = markdown(line)
-      print(html_output, end='', file=self.output_file)
-      if self.code_file_flag and '](https://github.com/titanium-22/Library_py/blob/main/' in line and line.endswith('.py)\n'):
-        print(filename)
-        self.output_code()
+      outs += line
+    html_output = markdown(line)
+    print(html_output, end='', file=self.output_file)
 
-    line = '''\n</body>\n</html>'''
+    line = "\n</body>\n</html>"
     html_output = line
     print(html_output, file=self.output_file)
 

@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`Mo`](https://github.com/titanium-22/Library_py/blob/main/Algorithm/Mo/Mo.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Algorithm/Mo/Mo.py -->
 
 _____
 

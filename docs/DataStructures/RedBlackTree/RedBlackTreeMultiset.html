@@ -6,10 +6,6 @@
 <title>RedBlackTreeMultiset</title>
 </head>
 <body>
-<hr /><h1><code>RedBlackTreeMultiset</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeMultiset.py"><code>RedBlackTreeMultiset</code></a></p><hr /><p>赤黒木です。多重集合です。 <code>std::set</code> も怖くない。</p><p>アルゴリズムイントロダクションを参考に書きました。</p><hr /><h2>仕様</h2><p>多重集合としての赤黒木です。 主に <a href="RedBlackTreeSet.md"><code>RedBlackTreeSet</code></a> と同等の操作ができます。差分は以下です。</p><h4><code>rbtree = RedBlackTreeMultiset(a: Iterable[T]=[])</code></h4><ul>
-<li><code>a</code> から <code>RedBlackTreeMultiset</code> を構築します。</li>
-</ul><ul>
-<li>ソート済みなら <code>O(N)</code> 、そうでないなら <code>O(NlogN)</code> です。</li>
-</ul><hr /><h2>使用例</h2><p>```python</p><p>s = RedBlackTreeMultiset([3, 1, 4, 1, 5, 9])</p><p>it = s.ge_iter(3)</p><p>while it:</p><p>print(it.key, it.count)</p><p>it += 1</p><h1>4 1</h1><h1>3 1</h1><h1>1 2</h1><p>```</p>
+<p>```</p>
 </body>
 </html>

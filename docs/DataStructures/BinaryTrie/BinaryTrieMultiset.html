@@ -6,36 +6,6 @@
 <title>BinaryTrieMultiset</title>
 </head>
 <body>
-<hr /><h1><code>BinaryTrieMultiset</code></h1><hr /><h2>コード</h2><p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/BinaryTrie/BinaryTrieMultiset.py"><code>BinaryTrieMultiset.py</code></a></p><hr /><ul>
-<li><code>BinaryTrieMultiset</code> です。0以上u未満の整数からなる<strong>多重</strong>集合を管理できます。</li>
-</ul><ul>
-<li>空間 <code>O((要素数)logu)</code> のはずです。</li>
-</ul><hr /><h2>仕様</h2><p><a href="../../MyClass/OrderedMultisetInterface.md"><code>OrderedMultisetInterface</code></a> を継承しています。</p><h4><code>bt = BinaryTrieMultiset(u: int, a: Iterable[int]=[])</code></h4><ul>
-<li><code>a</code> から、<strong>0 以上 u 未満</strong>の整数を管理する <code>BinaryTrieMultiset</code> を構築します。</li>
-</ul><ul>
-<li><code>O(nlogu)</code> です。</li>
-</ul><h4><code>bt.reserve(n: int) -&gt; None</code></h4><ul>
-<li>内部のメモリを <code>O(n)</code> だけ確保します。</li>
-</ul><ul>
-<li><code>O(n)</code> です。</li>
-</ul><h4><code>bt.all_xor(x: int) -&gt; None</code></h4><ul>
-<li>すべての要素に <code>x</code> で <code>xor</code> をかけます。</li>
-</ul><ul>
-<li><code>O(1)</code> です。</li>
-</ul><h4><code>bt.index(key: int) / .index_right(key: int) -&gt; int</code></h4><ul>
-<li><code>key</code> (より小さい / 以下の) 要素の数を返します。</li>
-</ul><ul>
-<li><code>O(logu)</code> です。</li>
-</ul><h4><code>bt[k: int] -&gt; int</code></h4><ul>
-<li>昇順 <code>k</code> 番目の値を返します</li>
-</ul><ul>
-<li><code>O(logu)</code> です。</li>
-</ul><h2>使用例</h2><p>```python</p><p>q = int(input())</p><p>bt = BinaryTrieMultiset(1&lt;&lt;30)  # 0 以上 1&lt;&lt;30 未満の整数を管理する多重集合 bt を定義</p><p>bt.reserve(q)</p><p>for _ in range(q):</p><p>t, x = map(int, input().split())</p><p>if t == 0:</p><pre><code>bt.add(x)  # x を追加する
-</code></pre><p>elif t == 1:</p><pre><code>bt.discard(x)  # x を削除する
-</code></pre><p>else:</p><pre><code># 全体に x を xor した時の最小値を出力する
-</code></pre><pre><code>bt.all_xor(x)
-</code></pre><pre><code>print(bt[0])
-</code></pre><pre><code>bt.all_xor(x)
-</code></pre><p>```</p>
+<p>```</p>
 </body>
 </html>
