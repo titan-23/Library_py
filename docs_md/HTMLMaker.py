@@ -63,7 +63,8 @@ class HTMLMaker():
     # print(title)
     cnt = self.filename.count("\\")
     style_path = '../' * cnt + 'style.css'
-    line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{title}</title>\n</head>\n<body>'''
+    t = 'Library_py-' + self.filename.replace('\\', '-')
+    line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{t}</title>\n</head>\n<body>'''
     html_output = line
     print(html_output, file=self.output_file)
 
