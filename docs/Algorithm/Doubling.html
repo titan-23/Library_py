@@ -6,6 +6,29 @@
 <title>Doubling</title>
 </head>
 <body>
-
+<hr />
+<h1><code>Doubling</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/Algorithm/Doubling.py"><code>Doubling</code></a></p>
+<hr />
+<ul>
+<li>ダブリングのライブラリです。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>db = Doubling(n: int, lim: int, move_to: Callable[[T], T])</code></h4>
+<ul>
+<li>ダブリングテーブルを構築します。</li>
+<li><code>n</code> はテーブルサイズです。</li>
+<li><code>lim</code> はクエリの最大数です。</li>
+<li><code>move_to(u) -&gt; v</code> は遷移関数です。 <code>u</code> から <code>v</code> へ遷移します。</li>
+<li><code>Θ(nlog(lim))</code> です。</li>
+</ul>
+<h4><code>ans = db.kth(start: T, k: int) -&gt; T</code></h4>
+<ul>
+<li><code>start</code> から <code>k</code> 個進んだ状態を返します。</li>
+<li><code>Θ(logk)</code> です。</li>
+</ul>
 </body>
 </html>

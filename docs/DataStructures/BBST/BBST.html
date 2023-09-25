@@ -6,6 +6,104 @@
 <title>BBST</title>
 </head>
 <body>
-
+<hr />
+<h1>BBST</h1>
+<p>最終更新: 2023/09/12
+- なんかいろいろ更新
+- 統一させるの難しいね</p>
+<p>計算量は償却だったり最悪だったりします。詳しくは各READMEを読んでください。  </p>
+<p>以下の木があります。  </p>
+<ul>
+<li><a href="../AVLTree/AVLTree.html"><code>AVLTree</code></a></li>
+<li><a href="../RedBlackTree/RedBlackTree.html"><code>RedBlackTree</code></a></li>
+<li><a href="../RedBlackTree/RedBlackTreeSet.html"><code>RedBlackTreeSet</code></a></li>
+<li><a href="../RedBlackTree/RedBlackTreeMultiset.html"><code>RedBlackTreeMultiset</code></a></li>
+<li><a href="../ScapegoatTree/ScapegoatTree.html"><code>ScapegoatTree</code></a></li>
+<li><a href="../SplayTree/SplayTree.html"><code>SplayTree</code></a></li>
+<li><a href="../Treap/Treap.html"><code>Treap</code></a></li>
+</ul>
+<hr />
+<h2>集合としてのBBST</h2>
+<p>集合です。</p>
+<p><a href="../../MyClass/OrderedSetInterface.md"><code>OrderedSetInterface</code></a> を継承しています。</p>
+<h2>多重集合</h2>
+<p>多重集合です。</p>
+<p><a href="../../MyClass/OrderedMultisetInterface.md"><code>OrderedMultisetInterface</code></a> を継承しています。</p>
+<h2>列を扱うBBST</h2>
+<p>列を扱えます。</p>
+<h4><code>bt.merge(other: BBST) -&gt; None</code></h4>
+<p><code>bt</code> に <code>other</code> をマージします。 <code>merge</code> した後に <code>other</code> を使うとマズイです。 <code>O(logN)</code> です。</p>
+<h4><code>bt.split(k: int) -&gt; Tuple[BBST, BBST]</code></h4>
+<ul>
+<li><code>bt</code> を <code>k</code> で <code>split</code> します。<code>O(logN)</code>です。</li>
+</ul>
+<h4><code>bt.prod(l: int, r: int) -&gt; T</code></h4>
+<ul>
+<li>区間 <code>[l, r)</code>の総積を取得します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bt.all_prod() -&gt; T</code></h4>
+<ul>
+<li>区間 <code>[0, n)</code> の総積を取得します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>bt.insert(k: int, key: T) -&gt; None</code></h4>
+<ul>
+<li><code>k</code> 番目に <code>key</code> を挿入します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bt.append(key: T) / .appendleft(key: T) -&gt; None</code></h4>
+<ul>
+<li>先頭 / 末尾に <code>key</code> を追加します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bt.pop(k: int=-1) / .popleft() -&gt; T</code></h4>
+<ul>
+<li>末尾( <code>k</code> 番目) / 先頭の値を削除し、その値を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bt[k: int] -&gt; T</code></h4>
+<ul>
+<li><code>k</code> 番目の値を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bt[k: int] = key: T</code></h4>
+<ul>
+<li><code>k</code> 番目の値を <code>key</code> に更新します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bt.copy() -&gt; None</code></h4>
+<ul>
+<li>コピーします。</li>
+<li><code>O(N)</code> です。</li>
+</ul>
+<h4><code>bt.clear() -&gt; None</code></h4>
+<ul>
+<li>clearします。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>bt.tolist() -&gt; List[T]</code></h4>
+<ul>
+<li><code>key</code> からなるリストを返します。</li>
+<li><code>O(N)</code> です。</li>
+</ul>
+<h2>遅延評価できる木</h2>
+<p>列を扱う <code>BinaryTree</code> に加えて以下の操作ができます。</p>
+<h4><code>bt.reverse(l: int, r: int) -&gt; None</code></h4>
+<ul>
+<li>区間 <code>[l, r)</code> を反転します。 <code>reverse</code> メソッドを使うなら、<code>op</code> には可換性が求められます。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bt.apply(l: int, r: int, f: F) -&gt; None</code></h4>
+<ul>
+<li>区間 <code>[l, r)</code> に <code>f</code> を適用します。</li>
+<li><code>O(logN)</code>です。</li>
+</ul>
+<h4><code>bt.all_apply(f: F) -&gt; None</code></h4>
+<ul>
+<li>区間 <code>[0, n)</code> に <code>f</code> を適用します。
+<code>O(1)</code>です。</li>
+</ul>
+<hr />
 </body>
 </html>

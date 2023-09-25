@@ -70,7 +70,7 @@ class HTMLMaker():
     for line in self.input_file:
       line = str(line)
       if self.code_file_flag and line.startswith("<!-- code=https://github.com/titanium-22/Library_py/blob/main/"):
-        html_output = markdown(line)
+        html_output = markdown(outs)
         print(html_output, end='', file=self.output_file)
         print(f'code {filename} found.')
         self.output_code()
@@ -79,7 +79,7 @@ class HTMLMaker():
       if line.endswith(".md)\n"):
         line = line.replace('.md', '.html')
       outs += line
-    html_output = markdown(line)
+    html_output = markdown(outs)
     print(html_output, end='', file=self.output_file)
 
     line = "\n</body>\n</html>"

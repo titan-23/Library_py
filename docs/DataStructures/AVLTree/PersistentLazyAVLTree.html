@@ -6,6 +6,95 @@
 <title>PersistentLazyAVLTree</title>
 </head>
 <body>
-
+<hr />
+<h1><code>PersistentLazyAVLTree</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/AVLTree/PersistentLazyAVLTree.py"><code>PersistentLazyAVLTree</code></a></p>
+<hr />
+<ul>
+<li>♰完全永続遅延伝播反転可能抽象化平衡二分探索木♰</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>avl = PersistentLazyAVLTree(a: Iterable[T],  op, mapping, composition, e, id, copy_t, copy_f)</code></h4>
+<ul>
+<li><code>PersistentLazyAVLTree</code> を構築します。</li>
+<li>時間・空間共に <code>O(N)</code> です。</li>
+</ul>
+<h4><code>avl.merge(other: PersistentLazyAVLTree) -&gt; PersistentLazyAVLTree</code></h4>
+<ul>
+<li><code>avl</code> の後ろに <code>other</code> を連結？させた <code>PersistentLazyAVLTree</code> を返します。</li>
+<li>時間・空間共に <code>O(logN)</code> です。</li>
+</ul>
+<h4><code>avl.split(k: int) -&gt; Tuple[PersistentLazyAVLTree, PersistentLazyAVLTree]</code></h4>
+<ul>
+<li>時間・空間共に <code>O(logN)</code> です。</li>
+</ul>
+<h4><code>avl.apply(l: int, r: int, f: F) -&gt; PersistentLazyAVLTree</code></h4>
+<ul>
+<li>時間・空間共に <code>O(logN)</code> です。</li>
+</ul>
+<h4><code>avl.prod(l: int, r) -&gt; T</code></h4>
+<ul>
+<li>時間・空間共に <code>O(logN)</code> です。</li>
+</ul>
+<h4><code>avl.insert(k: int, key: T) -&gt; PersistentLazyAVLTree</code></h4>
+<ul>
+<li>時間・空間共に <code>O(logN)</code> です。</li>
+</ul>
+<h4><code>avl.pop(k: int) -&gt; Tuple[PersistentLazyAVLTree, T]</code></h4>
+<ul>
+<li>時間・空間共に <code>O(logN)</code> です。</li>
+</ul>
+<h4><code>avl.reverse(l: int, r: int) -&gt; PersistentLazyAVLTree</code></h4>
+<ul>
+<li>時間・空間共に <code>O(logN)</code> です。</li>
+</ul>
+<h4><code>avl.tolist() -&gt; List[T]</code></h4>
+<ul>
+<li>時間・空間共に <code>O(N)</code> です。</li>
+</ul>
+<h4><code>avl[k: int] -&gt; T</code></h4>
+<ul>
+<li>時間 <code>O(logN)</code> 、空間 <code>O(1)</code> です。</li>
+</ul>
+<h4><code>len(avl) / str(avl) / repr(avl)</code></h4>
+<hr />
+<h2>使用例</h2>
+<p><a href="https://atcoder.jp/contests/arc030/submissions/45758203">グラフではない</a></p>
+<p>```python
+op = lambda s, t: (s[0]+t[0], s[1]+t[1])
+mapping = lambda f, s: (s[0] + f * s[1], s[1])
+composition = lambda f, g: f + g
+copy_t = lambda s: s
+copy_f = lambda f: f
+e = (0, 0)
+id = 0</p>
+<p>n, q = map(int, input().split())
+X = list(map(int, input().split()))
+X = [(x, 1) for x in X]
+avl = PersistentLazyAVLTree(X, op, mapping, composition, e, id, copy_t, copy_f)
+for _ in range(q):
+  com, *qu = list(map(int, input().split()))
+  if com == 1:
+    a, b, v = qu
+    a -= 1; b -= 1
+    avl = avl.apply(a, b+1, v)
+  if com == 2:
+    a, b, c, d = qu
+    a -= 1; b -= 1; c -= 1; d -= 1
+    t, _ = avl.split(d+1)
+    _, t = t.split(c)
+    y, z = avl.split(b+1)
+    x, _ = y.split(a)
+    avl = x.merge(t)
+    avl = avl.merge(z)
+  if com == 3:
+    a, b = qu
+    a -= 1; b -= 1
+    ans = avl.prod(a, b+1)[0]
+    print(ans)
+```</p>
 </body>
 </html>

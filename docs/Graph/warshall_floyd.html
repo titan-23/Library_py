@@ -6,6 +6,27 @@
 <title>warshall_floyd</title>
 </head>
 <body>
-<p>```</p>
+<hr />
+<h1><code>warshall_floyd</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/Graph/warshall_floyd.py"><code>warshall_floyd</code></a></p>
+<hr />
+<h2>仕様</h2>
+<h4><code>warshall_floyd(G: List[List[Tuple[int, int]]]) -&gt; List[List[Union[int, float]]]</code></h4>
+<ul>
+<li>重み付き隣接リスト <code>G</code> に対し、全点対最短経路を返します。</li>
+<li><code>O(N^3)</code> です。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<p><code>python
+n, m = int(input())
+G = [[] for _ in range(n)]
+for _ in range(m):
+  # u -&gt; v の無向辺, 距離c
+  u, v, c = map(int, input().split())
+  G[u].append((u, v, c))
+dist = warshall_floyd(G)  # dist[i][j]:= (i -&gt; j)の最短距離</code></p>
 </body>
 </html>

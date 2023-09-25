@@ -6,7 +6,52 @@
 <title>BitVector_</title>
 </head>
 <body>
+<hr />
+<h1><code>BitVector</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/BitVector/BitVector.py"><code>BitVector</code></a></p>
+<hr />
 <ul>
+<li><code>BitVector</code> です。</li>
+<li>コンパクトのつもりでいます。</li>
+<li><code>select</code> は <code>Θ(logN)</code> です。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>v = BitVector(n: int)</code></h4>
+<ul>
+<li>長さ <code>n</code> の <code>BitVector</code> を用意します。</li>
+<li>bit を保持するのに <code>array[I]</code> を使用します。</li>
+<li><code>block_size= n / 32</code> として、使用bitは <code>32*block_size=2n bit</code> です。</li>
+<li>累積和を保持するのに同様の <code>array[I]</code> を使用します。</li>
+<li>32bitごとの和を保存しています。同様に使用bitは <code>2n bit</code> です。</li>
+<li>コンパクトです。</li>
+</ul>
+<h4><code>v.set(k: int) -&gt; None</code></h4>
+<ul>
+<li><code>k</code> 番目の bit を <code>1</code> にします。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>v.build() -&gt; None</code></h4>
+<ul>
+<li>構築します。<strong>これ以降<code>set</code>メソッドを使用してはいけません。</strong></li>
+<li><code>O(n)</code> です。</li>
+</ul>
+<h4><code>v.access(k: int) / v[k: int] -&gt; int</code></h4>
+<ul>
+<li><code>k</code> 番目の bit の値を返します。</li>
+<li><code>__getitem__</code> メソッドをサポートしています。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>v.rank0(r: int) / v.rank1(r: int) / v.rank(r: int, v: int) -&gt; int</code></h4>
+<ul>
+<li><code>a[0, r)</code> に含まれる <code>0 / 1 / v</code> の個数を返します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>v.select0(r: int) / v.select1(r: int) / v.select(r: int, v: int) -&gt; int</code></h4>
+<ul>
+<li><code>k</code> 番目の <code>0 / 1 / v</code> のインデックスを返します。</li>
 <li><code>Θ(logN)</code> です。</li>
 </ul>
 </body>

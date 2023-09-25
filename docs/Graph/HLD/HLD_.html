@@ -6,6 +6,69 @@
 <title>HLD_</title>
 </head>
 <body>
+<hr />
+<h1><code>HLD</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/tree/main/Graph/HLD/HLD.py"><code>HLD.py</code></a></p>
+<hr />
+<ul>
+<li><code>HLD</code> です。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>hld = HLD(G: List[List[int]], root: int)</code></h4>
+<ul>
+<li><code>root</code> を根とする木 <code>G</code> から <code>HLD</code> を構築します。</li>
+<li>時間・空間ともに <code>O(n)</code> です。</li>
+<li>非再帰です（！）。</li>
+</ul>
+<h4><code>hld.build_list(a: List[Any]) -&gt; List[Any]</code></h4>
+<ul>
+<li><code>hld配列</code> を基にインデックスを振りなおします。</li>
+</ul>
+<h4><code>hld.for_each_vertex(u: int, v: int) -&gt; Iterator[Tuple[int, int]]</code></h4>
+<ul>
+<li><code>u-v</code> パスに対応する区間のインデックスを返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>hld.for_each_vertex_subtree(v: int) -&gt; Iterator[Tuple[int, int]]</code></h4>
+<ul>
+<li>頂点 <code>v</code> の部分木に対応する区間のインデックスを返します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>hld.path_kth_elm(s: int, t: int, k: int) -&gt; int</code></h4>
+<ul>
+<li><code>s</code> から <code>t</code> に向かって <code>k</code> 個進んだ頂点のインデックスを返します。</li>
+<li>存在しないときは <code>-1</code> を返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>hld.lca(u: int, v: int) -&gt; int</code></h4>
+<ul>
+<li><code>u</code>, <code>v</code> の <code>lca</code> を返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<p>```python
+n = int(input())
+A = list(map(int, input().split()))
+G = [[] for _ in range(n)]
+for _ in range(n-1):
+  u, v = map(int, input().split())
+  G[u].append(v)
+  G[v].append(u)</p>
+<p>root = 0
+hld = HLD(G, root)
+hld_a = hld.build_list(a)
+seg = SegmentTree(hld_a, op, e)</p>
+<p>q = int(input())
+for _ in range(q):
+  u, v = map(int, input().split())
+  res = e
+  for s, t in hld.for_each_vertex(u, v):
+    res = op(res, seg.prod(s, t))
+  print(res)</p>
 <p>```</p>
 </body>
 </html>

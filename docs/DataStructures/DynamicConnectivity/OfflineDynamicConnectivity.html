@@ -6,6 +6,122 @@
 <title>OfflineDynamicConnectivity</title>
 </head>
 <body>
-<p>```</p>
+<hr />
+<h1><code>OfflineDynamicConnectivity</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py"><code>OfflineDynamicConnectivity</code></a></p>
+<hr />
+<ul>
+<li>参考:</li>
+<li>
+<p><a href="https://ei1333.hateblo.jp/entry/2017/12/14/000000">ちょっと変わったセグメント木の使い方(ei1333の日記)</a></p>
+</li>
+<li>
+<p>実はlogを1つにできるらしいです。あとで理解を試みます。</p>
+</li>
+<li>
+<p><a href="https://twitter.com/noshi91/status/1420179696965197824">noshiさんのツイート</a></p>
+</li>
+<li>
+<p>その他</p>
+</li>
+<li>内部では辺を <code>dict</code> で管理しています。メモリに注意です。</li>
+<li>長さ <code>q</code> のセグ木に辺を乗せます。メモリに注意です。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>dc = OfflineDynamicConnectivity(n: int)</code></h4>
+<ul>
+<li>頂点数 <code>n</code> で初期化します。</li>
+<li><code>O(n)</code> です。</li>
+</ul>
+<h4><code>dc.add_edge(u: int, v: int) -&gt; None</code></h4>
+<ul>
+<li>辺 <code>{u, v}</code> を追加します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>dc.delete_edge(u: int, v: int) -&gt; None</code></h4>
+<ul>
+<li>辺 <code>{u, v}</code> を削除します。呼び出し前で存在していなければなりません。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>dc.add_none() -&gt; None</code></h4>
+<ul>
+<li>何もしません。内部のクエリカウントを1増加させます。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>dc.init_edge(E: List[Tuple[int, int]]) -&gt; None</code></h4>
+<ul>
+<li>辺のリスト <code>E</code> を初期メンバーとします。内部のクエリカウントを1増加させます。</li>
+<li><code>O(|E|)</code> です。</li>
+</ul>
+<h4><code>dc.run(out: Callable[[int], None]) -&gt; None</code></h4>
+<ul>
+<li>実行します。 <code>out</code> 関数はクエリ番号 <code>k</code> を引数にとります。</li>
+<li><code>O(q(logq)(logn))</code> です。</li>
+</ul>
+<h4><code>dc.uf: UndoableUnionFind</code></h4>
+<ul>
+<li><code>dc</code> 内部で管理される <code>UndoableUnionFind</code> です。戦略は (undo操作のため) Union by size のみです。</li>
+</ul>
+<h4><code>dc.uf.size(x: int) -&gt; int</code></h4>
+<ul>
+<li>頂点 <code>x</code> を含む連結成分の頂点の総数を返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>dc.uf.same(x: int, y: int) -&gt; bool</code></h4>
+<ul>
+<li>頂点 <code>x</code> と <code>y</code> の連結性判定です。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>dc.uf.add_point(x: int, v: int) -&gt; None</code></h4>
+<ul>
+<li>頂点 <code>x</code> に値 <code>v</code> を加算します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>dc.uf.add_group(x: int, v: int) -&gt; None</code></h4>
+<ul>
+<li>頂点 <code>x</code> を含む連結成分の要素それぞれに <code>v</code> を加算します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>dc.uf.grouop_count(x: int) -&gt; int</code></h4>
+<ul>
+<li>連結成分の個数を返します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>dc.uf.group_sum(x: int) -&gt; int</code></h4>
+<ul>
+<li>頂点 <code>x</code> を含む連結成分の頂点の総和を返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h2>使用例</h2>
+<p>```python
+n, m = map(int, input().split())
+dc = OfflineDynamicConnectivity(n)
+E = []
+for _ in range(m):
+  u, v = map(int, input().split())
+  E.append((u, v))
+q = int(input())
+dc.init_edge(E)  # 初期辺を追加
+Query = [list(map(int, input().split())) for _ in range(q)]
+for t, u, v in Query:
+  if t == 0:
+    dc.add_edge(u, v)  # 辺 {u, v} の追加
+  elif t == 1:
+    dc.delete_edge(u, v)  # 辺 {u, v} の削除
+  else:
+    dc.add_none()  # クエリ用</p>
+<p>def out(k: int):
+  if k == 0:  # init_edge の分
+    return
+  k -= 1
+  t, x, _ = Query[k]
+  if t == 2:
+    # クエリ2で、頂点 x の連結成分の大きさを答える
+    print(dc.uf.size(x))</p>
+<p>dc.run(out)
+```</p>
 </body>
 </html>

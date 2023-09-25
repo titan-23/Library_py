@@ -6,6 +6,50 @@
 <title>OrderedMultisetInterface</title>
 </head>
 <body>
-
+<p><code>Set</code> に加えて、以下の操作ができます。<br />
+valの値に関わらず <code>O(logN)</code> で動作します。</p>
+<h4><code>bst.add(key: T, val: int=1) -&gt; None</code></h4>
+<ul>
+<li><code>key</code> を <code>val</code> 個追加します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bst.discard(key: T, val: int=1) -&gt; bool</code></h4>
+<ul>
+<li><code>key</code> を <code>val</code> 個削除します。 <code>val</code> が <code>key</code> の数より大きいときは、 <code>key</code> を全て削除します。</li>
+<li><code>key</code> が無いとき <code>False</code> を、そうでないときTrueを返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bst.dicard_all(key: T) -&gt; None</code></h4>
+<ul>
+<li><code>key</code> を全て削除します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bst.count(key: T) -&gt; int</code></h4>
+<ul>
+<li>含まれる <code>key</code> の数を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bst.index_keys(key: T) / index_right_keys(key: T) -&gt; int</code></h4>
+<ul>
+<li><code>key</code> (より小さい / 以下の) 要素の種類数を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bst.tolist_items() -&gt; Liset[Tuple[T, int]]</code></h4>
+<ul>
+<li><code>key</code> で昇順に並べたリストを返します。各要素は <code>(key, st.count(key))</code> です。</li>
+<li><code>O(N)</code> です。</li>
+</ul>
+<h4><code>bst.keys() / values() / items()</code></h4>
+<p>よしなに動きます。</p>
+<h4><code>bst.get_elm(k: int) -&gt; T</code></h4>
+<ul>
+<li>要素の重複を除いたときの、昇順 <code>k</code> 番目の <code>key</code> を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>bst.len_elm() -&gt; int</code></h4>
+<ul>
+<li>要素の種類数を返します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
 </body>
 </html>

@@ -6,6 +6,56 @@
 <title>PartialPersistentArray</title>
 </head>
 <body>
-
+<hr />
+<h1><code>PartialPersistentArray</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/Array/PartialPersistentArray.py"><code>PartialPersistentArray</code></a></p>
+<hr />
+<ul>
+<li>部分永続配列です。</li>
+<li>最新版の更新と、過去へのアクセスが可能です。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>pa = PartialPersistentArray(a: Iterable[T])</code></h4>
+<ul>
+<li><code>a</code> から部分永続配列を作ります。</li>
+<li>初期配列のバージョンは <code>0</code> です。</li>
+<li><code>O(N)</code> です。</li>
+</ul>
+<h4><code>pa.set(k: int, v: T, t: int) -&gt; None</code></h4>
+<ul>
+<li><code>pa</code> を更新します。</li>
+<li>位置 <code>k</code> を <code>v</code> に更新します。</li>
+<li>新たな永続配列のバージョンを <code>t</code> とします。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>pa.get(k: int, t: int=-1) -&gt; T</code></h4>
+<ul>
+<li>位置 <code>k</code> 、バージョン <code>t</code> の要素を返します。</li>
+<li><code>t=-1</code> のとき、バージョンを最新版とします。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>pa.tolist(t: int) -&gt; List[T]</code></h4>
+<ul>
+<li>バージョン <code>t</code> の配列を返します。</li>
+<li><code>O(NlogN)</code> です。</li>
+</ul>
+<h4><code>pa.show(t: int) -&gt; None</code></h4>
+<ul>
+<li>バージョン <code>t</code> の配列を表示します。</li>
+<li><code>O(NlogN)</code> です。</li>
+</ul>
+<h4><code>pa.show_all() -&gt; None</code></h4>
+<ul>
+<li>すべてのバージョンの配列を表示します。</li>
+<li><code>O(NlogN)</code> です。</li>
+</ul>
+<h4><code>len(pa)</code></h4>
+<ul>
+<li>よしなです。</li>
+</ul>
+<hr />
 </body>
 </html>

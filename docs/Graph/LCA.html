@@ -6,6 +6,53 @@
 <title>LCA</title>
 </head>
 <body>
-<p>```</p>
+<hr />
+<h1><code>LCA</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/Graph/LCA.py"><code>LCA.py</code></a></p>
+<hr />
+<ul>
+<li>オイラーツアーとスパーステーブルを用いて、構築 <code>O(NlogN)</code> クエリ <code>O(1)</code> を実現しています。</li>
+<li>セグ木の方が速いと話題</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>tree = LCA(G: List[List[int]], root: int)</code></h4>
+<ul>
+<li>根が <code>root</code> の重み無し隣接リスト <code>G</code> で表されるグラフに対して <code>lca</code> を求めます。</li>
+<li>初期化時に前計算を行っています。</li>
+<li>計算量は時間・空間共に <code>O(NlogN)</code> です。</li>
+</ul>
+<h4><code>tree.lca(x: int, y: int) -&gt; int</code></h4>
+<ul>
+<li>頂点 <code>x</code> と頂点 <code>y</code> の <code>lca</code> を返します。</li>
+<li><code>O(1)</code> 時間です。</li>
+</ul>
+<h4><code>tree.lca_mul(a: List[int]) -&gt; int</code></h4>
+<ul>
+<li>頂点集合 <code>a</code> の <code>lca</code> を求めます。</li>
+<li><code>O(|A|)</code> 時間です。</li>
+</ul>
+<h4><code>tree.dist(x: int, y: int) -&gt; int</code></h4>
+<ul>
+<li>頂点 <code>x</code> と頂点 <code>y</code> の距離を返します。<strong>全ての辺のコストが1のときのみ使用できます。</strong></li>
+<li><code>O(1)</code> 時間です。</li>
+</ul>
+<h2>使用例</h2>
+<p><code>python
+n = int(input())
+G = [[] for _ in range(n)]
+for _ in range(n-1):
+  u, v = map(int, input().split())
+  u -= 1; v -= 1
+  G[u].append(v)
+  G[v].append(u)
+tree = LCA(G, 0)  # O(nlogn)
+q = int(input())
+for _ in range(q):
+  x, y = map(int, input().split())
+  x -= 1; y -= 1
+  print(tree.lca(x, y))  # O(1)</code></p>
 </body>
 </html>
