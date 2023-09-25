@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`Stack`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Stack/Stack.py)
+[`Stack`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Stack/Stack.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Stack\Stack_.py -->
 
 _____
 

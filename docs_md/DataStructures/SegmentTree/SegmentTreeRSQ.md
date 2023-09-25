@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`SegmentTreeRSQ`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/SegmentTree/SegmentTreeRSQ.py)
+[`SegmentTreeRSQ`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SegmentTree/SegmentTreeRSQ.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SegmentTree\SegmentTreeRSQ.py -->
 
 _____
 

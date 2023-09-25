@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`HLD.py`](https://github.com/titanium-22/Library_py/tree/main/Graph/HLD/HLD.py)
+[`HLD.py`](https://github.com/titanium-22/Library_py/blob/main/Graph/HLD/HLD.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\HLD\HLD_.py -->
 
 _____
 

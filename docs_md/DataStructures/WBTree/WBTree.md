@@ -1,6 +1,7 @@
 _____
 
-# [`WBTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WBTree)
+# [`WBTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/WBTree)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\WBTree\WBTree.py -->
 
 _____
 

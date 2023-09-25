@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`PersistentStack`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Stack/PersistentStack.py)
+[`PersistentStack`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Stack/PersistentStack.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Stack\PersistentStack.py -->
 
 _____
 

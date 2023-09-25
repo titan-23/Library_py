@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`TreapSet`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Treap/TreapSet.py)
+[`TreapSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Treap/TreapSet.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Treap\TreapSet.py -->
 
 _____
 

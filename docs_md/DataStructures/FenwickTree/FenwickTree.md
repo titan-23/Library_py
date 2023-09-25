@@ -1,6 +1,7 @@
 _____
 
-# [`FenwickTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/FenwickTree)
+# [`FenwickTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/FenwickTree)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\FenwickTree\FenwickTree.py -->
 
 - `FenwickTree` です。
 

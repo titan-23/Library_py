@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`DynamicWaveletMatrix`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
+[`DynamicWaveletMatrix`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/WaveletMatrix/DynamicWaveletMatrix.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\WaveletMatrix\DynamicWaveletMatrix.py -->
 
 _____
 

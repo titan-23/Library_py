@@ -1,6 +1,7 @@
 _____
 
-# [`BTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BTree)
+# [`BTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BTree)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\BTree\BTree.py -->
 
 `BTree` です。
 

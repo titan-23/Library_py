@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`RedBlackTreeMultiset`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeMultiset.py)
+[`RedBlackTreeMultiset`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/RedBlackTree/RedBlackTreeMultiset.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\RedBlackTree\RedBlackTreeMultiset.py -->
 
 _____
 

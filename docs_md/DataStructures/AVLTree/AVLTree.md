@@ -1,6 +1,7 @@
 _____
 
-# [`AVLTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/AVLTree)
+# [`AVLTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/AVLTree)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\AVLTree\AVLTree.py -->
 
 最終更新：2023/09/12
 

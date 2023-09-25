@@ -1,6 +1,7 @@
 _____
 
-# [`SegmentQuadraticDivision`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/SegmentQuadraticDivision)
+# [`SegmentQuadraticDivision`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SegmentQuadraticDivision)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SegmentQuadraticDivision\SegmentQuadraticDivision.py -->
 
 _____
 

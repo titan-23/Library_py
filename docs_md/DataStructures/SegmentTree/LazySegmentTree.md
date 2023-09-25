@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`LazySegmentTree`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/SegmentTree/LazySegmentTree.py)
+[`LazySegmentTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SegmentTree/LazySegmentTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SegmentTree\LazySegmentTree.py -->
 
 _____
 

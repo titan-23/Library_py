@@ -1,6 +1,7 @@
 _____
 
-# [`SparseTable`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/SparseTable)
+# [`SparseTable`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SparseTable)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SparseTable\SparseTable.py -->
 
 _____
 

@@ -6,7 +6,8 @@ _____
 
 ## コード
 
-[`TreapMultiset`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Treap/TreapMultiset.py)
+[`TreapMultiset`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Treap/TreapMultiset.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Treap\TreapMultiset.py -->
 
 _____
 

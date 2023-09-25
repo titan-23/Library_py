@@ -1,6 +1,7 @@
 _____
 
-# [`Stack`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Stack)
+# [`Stack`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Stack)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Stack\Stack.py -->
 
 _____
 

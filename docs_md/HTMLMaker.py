@@ -126,14 +126,17 @@ for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
       x = False
       for line in data_lines:
         s = str(line)
-        out_lines += s
-        if '`](https://github.com/titanium-22/Library_py/blob/main/' in s:
+        if '`](https://github.com/titanium-22/Library_py/tree/main/' in s:
           if s.startswith('- ') or s.startswith('\t- '):
+            out_lines += s
             continue
           assert not x
           x = True
           print('aaaaaaaaaa', s)
+          out_lines += s.replace('/Library_py/tree/main/', '/Library_py/blob/main/')
           out_lines += f'''<!-- code=https://github.com/titanium-22/Library_py/blob/main/{path}.py -->'''
           out_lines += '\n'
+        else:
+          out_lines += s
       with open(file_name, mode="w", encoding="utf-8") as f:
         f.write(out_lines)

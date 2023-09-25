@@ -1,6 +1,7 @@
 _____
 
-# [`MaxFlow`](https://github.com/titanium-22/Library_py/tree/main/Graph/MaxFlow)
+# [`MaxFlow`](https://github.com/titanium-22/Library_py/blob/main/Graph/MaxFlow)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\MaxFlow\MaxFlow.py -->
 
 _____
 

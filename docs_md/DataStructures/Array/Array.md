@@ -1,6 +1,7 @@
 _____
 
-# [`Array`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/Array)
+# [`Array`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Array)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Array\Array.py -->
 
 _____
 
