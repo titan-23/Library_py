@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`HashedMultiset`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/HashedMultiset.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\HashedMultiset.py -->
 
 _____
 

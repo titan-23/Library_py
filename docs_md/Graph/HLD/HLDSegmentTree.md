@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`HLDSegmentTree`](https://github.com/titanium-22/Library_py/blob/main/Graph/HLD/HLDSegmentTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\HLD\HLDSegmentTree.py -->
 
 _____
 

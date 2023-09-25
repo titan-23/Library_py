@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`Doubling`](https://github.com/titanium-22/Library_py/blob/main/Algorithm/Doubling.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Algorithm\Doubling.py -->
 
 _____
 

@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`MaxFlowDinic`](https://github.com/titanium-22/Library_py/blob/main/Graph/MaxFlow/MaxFlowDinic.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\MaxFlow\MaxFlowDinic.py -->
 
 _____
 

@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`WeightedUnionFind`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind/WeightedUnionFind.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\UnionFind\WeightedUnionFind.py -->
 
 _____
 

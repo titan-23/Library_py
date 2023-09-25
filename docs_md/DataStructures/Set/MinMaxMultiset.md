@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`MinMaxMultiset`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/MinMaxMultiset.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\MinMaxMultiset.py -->
 
 _____
 

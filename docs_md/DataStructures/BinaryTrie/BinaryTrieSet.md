@@ -6,7 +6,8 @@ ____
 
 ## コード
 
-[`BinaryTrieSet.py`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BinaryTrie/BinaryTrieSet.py)
+[`BinaryTrieSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BinaryTrie/BinaryTrieSet.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\BinaryTrie\BinaryTrieSet.py -->
 
 ____
 

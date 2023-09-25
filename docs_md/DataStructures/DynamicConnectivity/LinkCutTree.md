@@ -6,6 +6,7 @@ _____
 
 ## コード
 [`LinkCutTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/LinkCutTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\DynamicConnectivity\LinkCutTree.py -->
 
 _____
 

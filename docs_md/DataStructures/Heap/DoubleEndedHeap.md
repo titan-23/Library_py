@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`DoubleEndedHeap`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/DoubleEndedHeap.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Heap\DoubleEndedHeap.py -->
 
 _____
 

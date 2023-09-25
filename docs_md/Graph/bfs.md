@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`bfs`](https://github.com/titanium-22/Library_py/blob/main/Graph/bfs.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\bfs.py -->
 
 _____
 

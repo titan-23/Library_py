@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`UndoableUnionFind`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind/UndoableUnionFind.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\UnionFind\UndoableUnionFind.py -->
 
 _____
 

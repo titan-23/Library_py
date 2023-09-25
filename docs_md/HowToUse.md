@@ -3,6 +3,7 @@ _____
 # 使い方
 
 なんちゃって [`expander`](https://github.com/titanium-22/Library_py/blob/main/expander.py) を使用できます。
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/HowToUse.py -->
 
 以下のコマンドで動きます：
 

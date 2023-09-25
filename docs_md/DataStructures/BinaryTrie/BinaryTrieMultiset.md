@@ -5,7 +5,8 @@ _____
 ____
 
 ## コード
-[`BinaryTrieMultiset.py`](https://github.com/titanium-22/Library_py/tree/main/DataStructures/BinaryTrie/BinaryTrieMultiset.py)
+[`BinaryTrieMultiset`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BinaryTrie/BinaryTrieMultiset.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\BinaryTrie\BinaryTrieMultiset.py -->
 
 ____
 

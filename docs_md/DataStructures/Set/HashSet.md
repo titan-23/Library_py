@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`HashSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/HashSet.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\HashSet.py -->
 
 _____
 

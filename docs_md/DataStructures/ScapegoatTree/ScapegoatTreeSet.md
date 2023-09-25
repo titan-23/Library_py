@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`ScapegoatTreeSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/ScapegoatTree/ScapegoatTreeSet.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\ScapegoatTree\ScapegoatTreeSet.py -->
 
 _____
 

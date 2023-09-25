@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`EulerTour`](https://github.com/titanium-22/Library_py/blob/main/Graph/EulerTour.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\EulerTour.py -->
 
 _____
 

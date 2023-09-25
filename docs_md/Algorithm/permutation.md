@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`permutation`](https://github.com/titanium-22/Library_py/blob/main/Algorithm/permutation.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Algorithm\permutation.py -->
 
 _____
 

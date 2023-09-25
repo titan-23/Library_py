@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`PersistentUnionFind`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind/PersistentUnionFind.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\UnionFind\PersistentUnionFind.py -->
 
 _____
 

@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`rerooting_dp`](https://github.com/titanium-22/Library_py/blob/main/Graph/rerooting_dp.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\rerooting_dp.py -->
 
 _____
 

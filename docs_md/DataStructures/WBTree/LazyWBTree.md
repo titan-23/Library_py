@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`LazyWBTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/WBTree/LazyWBTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\WBTree\LazyWBTree.py -->
 
 _____
 

@@ -1,3 +1,4 @@
+from numpy import s_
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
@@ -79,7 +80,6 @@ class HTMLMaker():
       if line.endswith(".md)\n"):
         line = line.replace('.md', '.html')
       if line.startswith("  - "):
-        print('a')
         line = "\t" + line[2:]
       outs += line
     html_output = markdown(outs)
@@ -106,3 +106,28 @@ for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
       if not maker.set(path):
         continue
       maker.write(title=filename)
+
+# for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
+#   for filename in files:
+#     filename = str(filename)
+#     if filename.endswith('.md'):
+#       filename = filename.removesuffix('.md')
+#       path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
+#       file_name = f'{path}.md'
+#       with open(file_name, encoding="utf-8") as f:
+#         data_lines = f.readlines()
+#       out_lines = ''
+#       x = False
+#       for line in data_lines:
+#         s = str(line)
+#         out_lines += s
+#         if '`](https://github.com/titanium-22/Library_py/blob/main/' in s:
+#           if s.startswith('- ') or s.startswith('\t- '):
+#             continue
+#           assert not x
+#           x = True
+#           print('aaaaaaaaaa', s)
+#           out_lines += f'''<!-- code=https://github.com/titanium-22/Library_py/blob/main/{path}.py -->'''
+#           out_lines += '\n'
+#       with open(file_name, mode="w", encoding="utf-8") as f:
+#         f.write(out_lines)

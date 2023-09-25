@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`CumulativeSum`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeSum.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\CumulativeSum\CumulativeSum_.py -->
 
 _____
 

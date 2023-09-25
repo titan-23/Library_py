@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`StaticOrderedMultiset`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/StaticOrderedMultiset.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\StaticOrderedMultiset.py -->
 
 _____
 

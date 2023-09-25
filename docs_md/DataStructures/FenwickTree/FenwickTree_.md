@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`FenwickTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/FenwickTree/FenwickTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\FenwickTree\FenwickTree_.py -->
 
 _____
 

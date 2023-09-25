@@ -6,6 +6,7 @@ _____
 
 ## コード
 [`EulerTourTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/EulerTourTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\DynamicConnectivity\EulerTourTree.py -->
 
 _____
 

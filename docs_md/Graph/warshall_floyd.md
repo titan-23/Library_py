@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`warshall_floyd`](https://github.com/titanium-22/Library_py/blob/main/Graph/warshall_floyd.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\warshall_floyd.py -->
 
 _____
 

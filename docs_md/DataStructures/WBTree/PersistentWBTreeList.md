@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`PersistentWBTreeList`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/WBTree/PersistentWBTreeList.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\WBTree\PersistentWBTreeList.py -->
 
 _____
 

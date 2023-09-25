@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`Number`](https://github.com/titanium-22/Library_py/blob/main/Math/Number.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Math\Number.py -->
 
 _____
 

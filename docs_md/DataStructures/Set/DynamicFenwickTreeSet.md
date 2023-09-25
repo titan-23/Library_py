@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`DynamicFenwickTreeSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/DynamicFenwickTreeSet.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\DynamicFenwickTreeSet.py -->
 
 _____
 

@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`topological_sort`](https://github.com/titanium-22/Library_py/blob/main/Graph/topological_sort.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\topological_sort.py -->
 
 _____
 

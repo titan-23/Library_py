@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`HLDNoncommutativeSegmentTree`](https://github.com/titanium-22/Library_py/blob/main/Graph/HLD/HLDNoncommutativeSegmentTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\HLD\HLDNoncommutativeSegmentTree.py -->
 
 _____
 

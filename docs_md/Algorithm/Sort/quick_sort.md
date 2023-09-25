@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`quick_sort`](https://github.com/titanium-22/Library_py/blob/main/Algorithm/Sort/quick_sort.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/Algorithm\Sort\quick_sort.py -->
 
 _____
 

@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`SegmentTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SegmentTree/SegmentTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SegmentTree\SegmentTree_.py -->
 
 _____
 

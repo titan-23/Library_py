@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`PersistentLazyAVLTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/AVLTree/PersistentLazyAVLTree.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\AVLTree\PersistentLazyAVLTree.py -->
 
 _____
 

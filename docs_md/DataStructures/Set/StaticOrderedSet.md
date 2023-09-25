@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`StaticOrderedSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/StaticOrderedSet.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\StaticOrderedSet.py -->
 
 _____
 
