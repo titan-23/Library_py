@@ -12,7 +12,514 @@
 <h1><code>RedBlackTreeSet</code></h1>
 <hr />
 <h2>コード</h2>
-<p><a href="https://github.com/titanium-22/Library_py/tree/main/DataStructures/RedBlackTree/RedBlackTreeSet.py"><code>RedBlackTreeSet</code></a></p>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/RedBlackTree/RedBlackTreeSet.py"><code>RedBlackTreeSet</code></a></p>
+<button id="copyButton">コピー</button>
+<script src="../../copy.js"></script>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.MyClass.OrderedSetInterface</span> <span class="kn">import</span> <span class="n">OrderedSetInterface</span>
+<span class="kn">from</span> <span class="nn">Library_py.MyClass.SupportsLessThan</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">RedBlackTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+
+  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+      <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">now</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">while</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span>
+      <span class="k">return</span> <span class="n">now</span>
+
+    <span class="k">def</span> <span class="nf">_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">now</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">while</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span>
+      <span class="k">return</span> <span class="n">now</span>
+
+    <span class="k">def</span> <span class="nf">_next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">now</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="n">pre</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+      <span class="n">flag</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="n">pre</span>
+      <span class="k">while</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="n">pre</span><span class="p">:</span>
+        <span class="n">pre</span><span class="p">,</span> <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">par</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">now</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+      <span class="k">return</span> <span class="n">now</span> <span class="k">if</span> <span class="n">flag</span> <span class="ow">and</span> <span class="n">pre</span> <span class="ow">is</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">_min</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_prev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">now</span><span class="p">,</span> <span class="n">pre</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+      <span class="n">flag</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">pre</span>
+      <span class="k">while</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">pre</span><span class="p">:</span>
+        <span class="n">pre</span><span class="p">,</span> <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">par</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">now</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+      <span class="k">return</span> <span class="n">now</span> <span class="k">if</span> <span class="n">flag</span> <span class="ow">and</span> <span class="n">pre</span> <span class="ow">is</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span> <span class="k">else</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">_max</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;RedBlackTreeSet Node.__iadd__() Error&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">_next</span><span class="p">()</span>
+      <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="fm">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;RedBlackTreeSet Node.__isub__() Error&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">_prev</span><span class="p">()</span>
+      <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;RedBlackTreeSet Node.__add__() Error&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">_next</span><span class="p">()</span>
+      <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span>
+      <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;RedBlackTreeSet Node.__add__() Error&#39;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">_prev</span><span class="p">()</span>
+      <span class="k">return</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;(key,col,par.key):</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+      <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;(key,col,par.key):</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> left:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> right:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+  <span class="k">class</span> <span class="nc">NILNode</span><span class="p">():</span>
+    
+    <span class="n">key</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">par</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="s1">&#39;NIL&#39;</span>
+
+  <span class="n">NIL</span> <span class="o">=</span> <span class="n">NILNode</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">Node</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">Node</span>
+    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+      <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">])</span>
+      <span class="n">node</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="ow">not</span> <span class="n">flag</span> <span class="ow">and</span> <span class="n">d</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">flag</span> <span class="ow">and</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">d</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">))</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">if</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">return</span> <span class="n">node</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+      <span class="n">b</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+      <span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+      <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">e</span><span class="p">:</span>
+          <span class="k">continue</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_min</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_max</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_rotate_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">left</span>
+    <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">u</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="k">elif</span> <span class="n">node</span> <span class="ow">is</span> <span class="n">p</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">u</span>
+
+  <span class="k">def</span> <span class="nf">_rotate_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">par</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+      <span class="n">u</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="k">elif</span> <span class="n">node</span> <span class="ow">is</span> <span class="n">p</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">u</span>
+
+  <span class="k">def</span> <span class="nf">_transplant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">u</span><span class="o">.</span><span class="n">par</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">elif</span> <span class="n">u</span> <span class="ow">is</span> <span class="n">u</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">u</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">u</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">par</span>
+
+  <span class="k">def</span> <span class="nf">_get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+    <span class="k">return</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">_get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="n">pnode</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="n">z</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="n">z</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">pnode</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pnode</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">z</span>
+    <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">pnode</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">z</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">z</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+      <span class="n">g</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">par</span>
+      <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">par</span> <span class="ow">is</span> <span class="n">g</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">right</span>
+        <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+          <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">y</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">g</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="n">z</span> <span class="o">=</span> <span class="n">g</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">par</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+          <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">g</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+          <span class="k">break</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">left</span>
+        <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+          <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">y</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">g</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="n">z</span> <span class="o">=</span> <span class="n">g</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">par</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+          <span class="n">z</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">g</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+          <span class="k">break</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">discard_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">Node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_next</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">_prev</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="n">y_col</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">col</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transplant</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transplant</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+      <span class="n">y_col</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">col</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">right</span>
+      <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">par</span> <span class="ow">is</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">y</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transplant</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">y</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_transplant</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+      <span class="n">y</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="n">y</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">y</span>
+      <span class="n">y</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">col</span>
+    <span class="k">if</span> <span class="n">y_col</span><span class="p">:</span>
+      <span class="k">return</span>
+    <span class="k">while</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">x</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">par</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">right</span>
+        <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">y</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+          <span class="n">w</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">right</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">col</span> <span class="ow">or</span> <span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">col</span><span class="p">):</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">if</span> <span class="ow">not</span> <span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">right</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">col</span>
+          <span class="n">y</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">par</span><span class="p">)</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">par</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">left</span>
+        <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">y</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+          <span class="n">w</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">left</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">col</span> <span class="ow">or</span> <span class="n">w</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">col</span><span class="p">):</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">if</span> <span class="ow">not</span> <span class="n">w</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">col</span><span class="p">:</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">left</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">col</span>
+          <span class="n">y</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">w</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">col</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="k">break</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">discard_iter</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+      <span class="k">return</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span>
+
+  <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+
+  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">get_max_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span>
+
+  <span class="k">def</span> <span class="nf">get_min_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span>
+
+  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">le_iter</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">res</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lt_iter</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">res</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ge_iter</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">res</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gt_iter</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">res</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">le_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">res</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">break</span>
+      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">lt_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">res</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">ge_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">res</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">break</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">gt_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">res</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">node</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+    <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max() from empty RedBlackTreeSet&#39;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">discard_iter</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min() from empty RedBlackTreeSet&#39;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">discard_iter</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">it</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">StopIteration</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">it</span><span class="o">.</span><span class="n">key</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">RedBlackTreeSet</span><span class="o">.</span><span class="n">NIL</span>
+
+  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;RedBlackTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+</pre></div>
+
 <hr />
 <p>赤黒木です。集合です。 <code>std::set</code> も怖くない。</p>
 <p>アルゴリズムイントロダクションを参考に書きました。</p>

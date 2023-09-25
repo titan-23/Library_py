@@ -103,40 +103,40 @@ class HTMLMaker():
 
 maker = HTMLMaker()
 
-# for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
-#   for filename in files:
-#     filename = str(filename)
-#     if filename.endswith('.md'):
-#       filename = filename.removesuffix('.md')
-#       path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
-#       if not maker.set(path):
-#         continue
-#       maker.write(title=filename)
-
 for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
   for filename in files:
     filename = str(filename)
     if filename.endswith('.md'):
       filename = filename.removesuffix('.md')
       path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
-      file_name = f'{path}.md'
-      with open(file_name, encoding="utf-8") as f:
-        data_lines = f.readlines()
-      out_lines = ''
-      x = False
-      for line in data_lines:
-        s = str(line)
-        if '`](https://github.com/titanium-22/Library_py/tree/main/' in s:
-          if s.startswith('- ') or s.startswith('\t- '):
-            out_lines += s
-            continue
-          assert not x
-          x = True
-          print('aaaaaaaaaa', s)
-          out_lines += s.replace('/Library_py/tree/main/', '/Library_py/blob/main/')
-          out_lines += f'''<!-- code=https://github.com/titanium-22/Library_py/blob/main/{path}.py -->'''
-          out_lines += '\n'
-        else:
-          out_lines += s
-      with open(file_name, mode="w", encoding="utf-8") as f:
-        f.write(out_lines)
+      if not maker.set(path):
+        continue
+      maker.write(title=filename)
+
+# for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
+#   for filename in files:
+#     filename = str(filename)
+#     if filename.endswith('.md'):
+#       filename = filename.removesuffix('.md')
+#       path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
+#       file_name = f'{path}.md'
+#       with open(file_name, encoding="utf-8") as f:
+#         data_lines = f.readlines()
+#       out_lines = ''
+#       x = False
+#       for line in data_lines:
+#         s = str(line)
+#         if '`](https://github.com/titanium-22/Library_py/tree/main/' in s:
+#           if s.startswith('- ') or s.startswith('\t- '):
+#             out_lines += s
+#             continue
+#           assert not x
+#           x = True
+#           print('aaaaaaaaaa', s)
+#           out_lines += s.replace('/Library_py/tree/main/', '/Library_py/blob/main/')
+#           out_lines += f'''<!-- code=https://github.com/titanium-22/Library_py/blob/main/{path}.py -->'''
+#           out_lines += '\n'
+#         else:
+#           out_lines += s
+#       with open(file_name, mode="w", encoding="utf-8") as f:
+#         f.write(out_lines)

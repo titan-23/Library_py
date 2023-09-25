@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`PersistentArray`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Array/PersistentArray.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures/Array/PersistentArray.py -->
 
 _____
 
