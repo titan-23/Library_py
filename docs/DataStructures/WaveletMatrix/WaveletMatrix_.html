@@ -17,10 +17,12 @@
 <li>静的であることに注意してください。</li>
 <li>以下の仕様の計算量には嘘があるかもしれません。import 元の <a href="../BitVector/BitVector_.md"><code>BitVector</code></a> の計算量も参考にしてください。</li>
 <li>未 verify が多いです。使わないのが吉でしょう。</li>
-<li>参考:</li>
+<li>参考:<ul>
 <li><a href="https://miti-7.hatenablog.com/entry/2018/04/28/152259">https://miti-7.hatenablog.com/entry/2018/04/28/152259</a>{:target="_blank"}</li>
 <li><a href="https://www.slideshare.net/pfi/ss-15916040">https://www.slideshare.net/pfi/ss-15916040</a>{:target="_blank"}</li>
 <li><a href="https://scrapbox.io/data-structures/Wavelet_Matrix">デwiki</a>{:target="_blank"}</li>
+</ul>
+</li>
 </ul>
 <hr />
 <h2>仕様</h2>
@@ -60,17 +62,23 @@
 </ul>
 <h4><code>wm.topk(l: int, r: int, k: int) -&gt; List[Tuple[int, int]]</code></h4>
 <ul>
-<li><code>a[l, r)</code> の中で、要素を出現回数が多い順にその頻度とともに <code>k</code> 個返します。</li>
+<li><code>a[l, r)</code> の中で、要素を出現回数が多い順にその頻度とともに <code>k</code> 個返します。<ul>
 <li>返り値は <code>(要素, 頻度)</code> です。</li>
-<li>時間計算量 <code>Θ(min(r-l, σ) log(σ))</code> です。</li>
+</ul>
+</li>
+<li>時間計算量 <code>Θ(min(r-l, σ) log(σ))</code> です。<ul>
 <li>あやしいです。</li>
 <li><code>σ</code> が大きい場合、計算量に注意です。</li>
+</ul>
+</li>
 </ul>
 <h4><code>wm.sum(l: int, r: int) -&gt; int</code></h4>
 <ul>
 <li><code>a[l, r)</code> の総和を返します。</li>
-<li>時間計算量 <code>Θ(min(r-l, σ) log(σ))</code> です。</li>
+<li>時間計算量 <code>Θ(min(r-l, σ) log(σ))</code> です。<ul>
 <li><code>σ</code> が大きい場合、計算量に注意です。</li>
+</ul>
+</li>
 </ul>
 <h4><code>wm.range_freq(l: int, r: int, x: int, y: int) -&gt; int</code></h4>
 <ul>
@@ -90,8 +98,10 @@
 <h4><code>wm.range_conut(l: int, r: int, x: int) -&gt; int</code></h4>
 <ul>
 <li><code>a[l, r)</code> に含まれる <code>x</code> の個数を返します。</li>
-<li><code>wm.rank(r, x) - wm.rank(l, x)</code> と等価です。必要性</li>
+<li><code>wm.rank(r, x) - wm.rank(l, x)</code> と等価です。必要性<ul>
 <li><code>range_freq</code> だと遅くなることに気を付けるためのメソッドです。</li>
+</ul>
+</li>
 <li>時間計算量 <code>Θ(log(σ))</code> です。</li>
 </ul>
 <h4><code>len(wm) / str(wm)</code></h4>

@@ -22,10 +22,14 @@
 <h4><code>v = BitVector(n: int)</code></h4>
 <ul>
 <li>長さ <code>n</code> の <code>BitVector</code> を用意します。</li>
-<li>bit を保持するのに <code>array[I]</code> を使用します。</li>
+<li>bit を保持するのに <code>array[I]</code> を使用します。<ul>
 <li><code>block_size= n / 32</code> として、使用bitは <code>32*block_size=2n bit</code> です。</li>
-<li>累積和を保持するのに同様の <code>array[I]</code> を使用します。</li>
+</ul>
+</li>
+<li>累積和を保持するのに同様の <code>array[I]</code> を使用します。<ul>
 <li>32bitごとの和を保存しています。同様に使用bitは <code>2n bit</code> です。</li>
+</ul>
+</li>
 <li>コンパクトです。</li>
 </ul>
 <h4><code>v.set(k: int) -&gt; None</code></h4>

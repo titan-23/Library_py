@@ -18,10 +18,12 @@
 <h2>仕様</h2>
 <h3><code>d = HashDict(e: int=-1, default: Any=0)</code></h3>
 <ul>
-<li><code>e</code> , <code>default</code> から <code>HasiDict</code> を構築します。ここで、</li>
+<li><code>e</code> , <code>default</code> から <code>HasiDict</code> を構築します。ここで、<ul>
 <li><code>e</code> は <code>int</code> 型で <code>key</code> として使用しない値</li>
 <li><code>default</code> は存在しないキーにアクセスした値
 です。 <code>key</code> を <code>int</code> 型以外のもので指定したいときは <code>_hash(key) -&gt; int</code> 関数をいじってください。</li>
+</ul>
+</li>
 </ul>
 <h3><code>d.reserve(n: int) -&gt; None</code></h3>
 <ul>

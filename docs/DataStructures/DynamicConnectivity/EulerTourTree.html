@@ -29,19 +29,27 @@
 また、補助データ構造として辺からノードのポインタをたどれる辞書を保持します。<br />
 各処理の流れは以下のようになります。</p>
 <ul>
-<li>根の変更: <code>reroot(v)</code></li>
+<li>根の変更: <code>reroot(v)</code><ul>
 <li>辺 <code>{v, v}</code> の頂点の直前で <code>split</code> し、それを順に <code>A, B</code> とする</li>
 <li><code>B</code> と <code>A</code> をこの順にマージする</li>
-<li>辺の追加: <code>link(u, v)</code></li>
+</ul>
+</li>
+<li>辺の追加: <code>link(u, v)</code><ul>
 <li><code>reroot(u); reroot(v)</code></li>
 <li><code>u, v</code> が属する木(のオイラーツアーした辺の列)をそれぞれ <code>E1, E2</code> とする</li>
 <li><code>E1, [{u, v}], E2, [{v, u}]</code> をこの順にマージする</li>
-<li>辺の削除: <code>cut(u, v)</code></li>
+</ul>
+</li>
+<li>辺の削除: <code>cut(u, v)</code><ul>
 <li><code>reroot(v); reroot(u)</code></li>
 <li><code>{u, v}, {v, u}</code> で <code>split</code> してできたものを順に <code>A, B, C</code> とする。ただし、 <code>{u, v}</code> は <code>A</code> に含まれ、 <code>{v, u}</code> は <code>C</code> に含まれる。</li>
 <li><code>A</code> の末尾と <code>C</code> の先頭を削除し、 <code>A</code> と <code>C</code> をこの順にマージする </li>
-<li>連結性判定: <code>same(u, v)</code></li>
+</ul>
+</li>
+<li>連結性判定: <code>same(u, v)</code><ul>
 <li><code>u, v</code> を <code>splay</code> して、 <code>u</code> の親が <code>None</code> じゃなければ連結。 <code>u == v</code> のときは別途処理をする。</li>
+</ul>
+</li>
 </ul>
 <p>計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 <code>O(logN)</code> です。この実装ではsplay木とハッシュテーブルで管理するので償却 <code>O(logN)</code> +期待 <code>O(1)</code> です(もとのグラフの頂点数に対してオイラーツアーすると <code>(元の頂点数)+(辺数)*2?</code> の頂点ができるので、たしかに <code>O(元のグラフの頂点数)</code> ではありますが、定数倍がバカです)。<br />
 オイラーツアーがあれば、部分木クエリは簡単に処理できます。</p>

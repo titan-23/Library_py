@@ -33,8 +33,10 @@
 </ul>
 <h4><code>st.split(k: int) -&gt; Tuple[LazySplayTree, LazySplayTree]</code></h4>
 <ul>
-<li>2つの <code>LazySplayTree</code> を要素に持つタプルを返します。</li>
+<li>2つの <code>LazySplayTree</code> を要素に持つタプルを返します。<ul>
 <li>1要素目は <code>st</code> の <code>0</code> 番目から <code>k-1</code> 番目までを、2要素目は <code>k</code> 番目以降を要素に持ちます。</li>
+</ul>
+</li>
 <li>償却 <code>O(logN)</code> です。</li>
 </ul>
 <h4><code>st.insert(k: int, key: T) -&gt; None</code></h4>

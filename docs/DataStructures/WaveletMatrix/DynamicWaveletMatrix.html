@@ -14,14 +14,20 @@
 <hr />
 <ul>
 <li><code>DynamicWaveletMatrix</code> です。</li>
-<li><a href="./WaveletMatrix_.md"><code>WaveletMatrix</code></a> と大体同じです。</li>
+<li><a href="./WaveletMatrix_.md"><code>WaveletMatrix</code></a> と大体同じです。<ul>
 <li><code>BitVector</code> を平衡二分木にしています(<code>AVLTreeBitVector</code>)。あらゆる操作に平衡二分木の log がつきます。これヤバくね</li>
+</ul>
+</li>
 <li>未 verify が多いです。使わないのが吉でしょう。</li>
-<li>とにかく重いです。</li>
+<li>とにかく重いです。<ul>
 <li>10^5 回のクエリで 4 秒弱です。病弱です。</li>
-<li>高速化のため、アホの設計のもとコーディングをしています。</li>
+</ul>
+</li>
+<li>高速化のため、アホの設計のもとコーディングをしています。<ul>
 <li><code>AVLTreeBitVector</code> の <code>_insert_and_rank1</code> / <code>_access_pop_and_rank1</code> なるメソッドです。</li>
 <li>そもそも設計なんてしてませんが。</li>
+</ul>
+</li>
 </ul>
 <hr />
 <h2>仕様</h2>

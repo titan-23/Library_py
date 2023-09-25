@@ -59,7 +59,7 @@ class HTMLMaker():
     print(html_code, file=self.output_file)
 
   def write(self, title):
-    print(title)
+    # print(title)
     cnt = self.filename.count("\\")
     style_path = '../' * cnt + 'style.css'
     line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{title}</title>\n</head>\n<body>'''
@@ -72,12 +72,15 @@ class HTMLMaker():
       if self.code_file_flag and line.startswith("<!-- code=https://github.com/titanium-22/Library_py/blob/main/"):
         html_output = markdown(outs)
         print(html_output, end='', file=self.output_file)
-        print(f'code {filename} found.')
+        # print(f'code {filename} found.')
         self.output_code()
         outs = ''
         continue
       if line.endswith(".md)\n"):
         line = line.replace('.md', '.html')
+      if line.startswith("  - "):
+        print('a')
+        line = "\t" + line[2:]
       outs += line
     html_output = markdown(outs)
     print(html_output, end='', file=self.output_file)
