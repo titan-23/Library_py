@@ -11,99 +11,15 @@
 <h3><a href="https://titanium-22.github.io/Library_py/">Home</a></h3>
 <hr />
 <hr />
-<h1><code>SegmentQuadraticDivision</code></h1>
-<hr />
-<h2>コード</h2>
-<p><a href="https://github.com/titanium-22/Library/blob/main/QuadraticDivision/SegmentQuadraticDivision.py"><code>SegmentQuadraticDivision</code></a></p>
-<div class="code-block">
-<div class="button-group">
-<button id="copyButton">コピー</button>
-<button id="ShowFullCodeButton">全表示</button>
-</div>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">SegmentQuadraticDivision</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n_or_a</span>
-      <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">)</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="n">op</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">**</span><span class="mf">.5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">bucket_cnt</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bucket_cnt</span><span class="p">)]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">bucket_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
-
-  <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return op([l, r)). / 0 &lt;= l &lt;= r &lt;= n / O(√N)&#39;&#39;&#39;</span>
-    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
-    <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
-    <span class="n">k1</span> <span class="o">=</span> <span class="n">l</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">k2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">l</span> <span class="o">-=</span> <span class="n">k1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">r</span> <span class="o">-=</span> <span class="n">k2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-    <span class="k">if</span> <span class="n">k1</span> <span class="o">==</span> <span class="n">k2</span><span class="p">:</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k1</span><span class="p">][</span><span class="n">l</span><span class="p">:</span><span class="n">r</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
-      <span class="k">if</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k1</span><span class="p">]):</span> <span class="n">s</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k1</span><span class="p">][</span><span class="n">l</span><span class="p">:])</span>
-      <span class="k">if</span> <span class="n">k1</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">k2</span><span class="p">:</span> <span class="n">s</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bucket_data</span><span class="p">[</span><span class="n">k1</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">k2</span><span class="p">])</span> <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="k">else</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bucket_data</span><span class="p">[</span><span class="n">k1</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">k2</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">k2</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">bucket_cnt</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">s</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k2</span><span class="p">][:</span><span class="n">r</span><span class="p">])</span> <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="k">else</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k2</span><span class="p">][:</span><span class="n">r</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">s</span>
-
-  <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return op([0, n)). / O(√N)&#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bucket_data</span><span class="p">)</span>
-
-  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">indx</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">indx</span><span class="o">-</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">]</span>
-
-  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">indx</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">indx</span><span class="o">-</span><span class="n">k</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">bucket_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
-
-  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
-
-  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;SegmentQuadraticDivision(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
-
-<span class="c1"># def op(s, t):</span>
-<span class="c1">#   return</span>
-
-<span class="c1"># e = 0</span>
-</pre></div>
-
-</div>
+<h1><a href="https://github.com/titanium-22/Library_py/blob/main/DataStructures/SegmentQuadraticDivision"><code>SegmentQuadraticDivision</code></a></h1>
 <hr />
 <ul>
-<li>区間の総積取得クエリを時間計算量 <code>O(N√N)</code> で処理できるデータ構造です。計算量が <code>O(N√N)</code> になったセグ木ともみなせます。</li>
+<li>列を平方分割します。</li>
 </ul>
 <hr />
-<h2>仕様</h2>
-<h4><code>qd = SegmentQuadraticDivision(n_or_a: Iterable[T], op: Callable[[T, T], T], e: T)</code></h4>
 <ul>
-<li>列 <code>a</code> から <code>SegmentQuadraticDivision</code> を構築します。その他引数はセグ木のアレです。
-<code>n</code> の型を <code>int</code> にすると <code>n</code> 個の <code>e</code> からなる配列で構築します。</li>
-<li>計算量 <code>O(N)</code> です。</li>
+<li><a href="./SegmentLazyQuadraticDivision.html"><code>SegmentLazyQuadraticDivision</code></a></li>
+<li><a href="./SegmentQuadraticDivision_.html"><code>SegmentQuadraticDivision</code></a></li>
 </ul>
-<h4>後で書く</h4>
-<hr />
-<h2>使用例</h2>
-<div class="code-block">
-<div class="highlight"><pre><span></span>
-</pre></div>
-
-</div>
-
 <p></body>
 </html></p>

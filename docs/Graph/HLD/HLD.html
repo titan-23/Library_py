@@ -11,15 +11,295 @@
 <h3><a href="https://titanium-22.github.io/Library_py/">Home</a></h3>
 <hr />
 <hr />
-<h1><a href="https://github.com/titanium-22/Library_py/tree/main/Graph/HLD">HLD</a></h1>
+<h1><code>HLD</code></h1>
 <hr />
-<p><code>HLD</code> です。</p>
+<h2>コード</h2>
+<p><a href="https://github.com/titanium-22/Library_py/blob/main/Graph/HLD/HLD.py"><code>HLD.py</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="k">class</span> <span class="nc">HLD</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">G</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">dep</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span>
+    <span class="n">dep</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dep_nxt</span> <span class="o">=</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">continue</span>
+          <span class="n">dep</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">dep_nxt</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">)</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="o">~</span><span class="n">v</span>
+        <span class="n">G_v</span><span class="p">,</span> <span class="n">dep_v</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G_v</span><span class="p">):</span>
+          <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dep_v</span><span class="p">:</span>
+            <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="k">continue</span>
+          <span class="n">size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+          <span class="k">if</span> <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">[</span><span class="n">G_v</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
+            <span class="n">G_v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">G_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">G_v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">G_v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">head</span><span class="p">,</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">nodeout</span><span class="p">,</span> <span class="n">hld</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span>
+    <span class="n">curtime</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="o">~</span><span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+          <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+        <span class="n">hld</span><span class="p">[</span><span class="n">curtime</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">curtime</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="k">continue</span>
+        <span class="n">G_v0</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+          <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+            <span class="k">continue</span>
+          <span class="n">head</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">G_v0</span> <span class="k">else</span> <span class="n">x</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">)</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">nodeout</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+
+  <span class="k">def</span> <span class="nf">build_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">for_each_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span>
+    <span class="k">while</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]:</span>
+        <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+      <span class="k">yield</span> <span class="n">nodein</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+      <span class="n">u</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+    <span class="k">yield</span> <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">for_each_vertex_subtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">path_kth_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span>
+    <span class="n">lca</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+</span> <span class="n">dep</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">dep</span><span class="p">[</span><span class="n">lca</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+      <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">dep</span><span class="p">[</span><span class="n">lca</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">t</span>
+      <span class="n">k</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="n">k</span>
+    <span class="n">hs</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">dep</span><span class="p">[</span><span class="n">hs</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">-=</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">dep</span><span class="p">[</span><span class="n">hs</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">hs</span><span class="p">]</span>
+      <span class="n">hs</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">nodein</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+        <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+      <span class="k">if</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">u</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span>
+</pre>
+<div class="highlight"><pre style="display: none;"><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="k">class</span> <span class="nc">HLD</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">G</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">dep</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span>
+    <span class="n">dep</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dep_nxt</span> <span class="o">=</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">continue</span>
+          <span class="n">dep</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">dep_nxt</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">)</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="o">~</span><span class="n">v</span>
+        <span class="n">G_v</span><span class="p">,</span> <span class="n">dep_v</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G_v</span><span class="p">):</span>
+          <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dep_v</span><span class="p">:</span>
+            <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="k">continue</span>
+          <span class="n">size</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+          <span class="k">if</span> <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">[</span><span class="n">G_v</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
+            <span class="n">G_v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">G_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">G_v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">G_v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">head</span><span class="p">,</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">nodeout</span><span class="p">,</span> <span class="n">hld</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span>
+    <span class="n">curtime</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="o">~</span><span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+          <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+        <span class="n">hld</span><span class="p">[</span><span class="n">curtime</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">curtime</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="k">continue</span>
+        <span class="n">G_v0</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+          <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+            <span class="k">continue</span>
+          <span class="n">head</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">G_v0</span> <span class="k">else</span> <span class="n">x</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">)</span>
+          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">nodeout</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+
+  <span class="k">def</span> <span class="nf">build_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">for_each_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span>
+    <span class="k">while</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]:</span>
+        <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+      <span class="k">yield</span> <span class="n">nodein</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+      <span class="n">u</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+    <span class="k">yield</span> <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">for_each_vertex_subtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">path_kth_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span>
+    <span class="n">lca</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">+</span> <span class="n">dep</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">dep</span><span class="p">[</span><span class="n">lca</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+      <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">dep</span><span class="p">[</span><span class="n">lca</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">t</span>
+      <span class="n">k</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="n">k</span>
+    <span class="n">hs</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">dep</span><span class="p">[</span><span class="n">hs</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">-=</span> <span class="n">dep</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">dep</span><span class="p">[</span><span class="n">hs</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">hs</span><span class="p">]</span>
+      <span class="n">hs</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">nodein</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+        <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+      <span class="k">if</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">u</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span>
+</pre></div>
+
+</div>
 <hr />
 <ul>
-<li><a href="./HLD_.html">HLD</a></li>
-<li><a href="./HLDLazySegmentTree.html">HLDLazySegmentTree</a></li>
-<li><a href="./HLDNoncommutativeSegmentTree.html">HLDNoncommutativeSegmentTree</a></li>
-<li><a href="./HLDSegmentTree.html">HLDSegmentTree</a></li>
+<li><code>HLD</code> です。</li>
 </ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>hld = HLD(G: List[List[int]], root: int)</code></h4>
+<ul>
+<li><code>root</code> を根とする木 <code>G</code> から <code>HLD</code> を構築します。</li>
+<li>時間・空間ともに <code>O(n)</code> です。</li>
+<li>非再帰です（！）。</li>
+</ul>
+<h4><code>hld.build_list(a: List[Any]) -&gt; List[Any]</code></h4>
+<ul>
+<li><code>hld配列</code> を基にインデックスを振りなおします。</li>
+</ul>
+<h4><code>hld.for_each_vertex(u: int, v: int) -&gt; Iterator[Tuple[int, int]]</code></h4>
+<ul>
+<li><code>u-v</code> パスに対応する区間のインデックスを返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>hld.for_each_vertex_subtree(v: int) -&gt; Iterator[Tuple[int, int]]</code></h4>
+<ul>
+<li>頂点 <code>v</code> の部分木に対応する区間のインデックスを返します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
+<h4><code>hld.path_kth_elm(s: int, t: int, k: int) -&gt; int</code></h4>
+<ul>
+<li><code>s</code> から <code>t</code> に向かって <code>k</code> 個進んだ頂点のインデックスを返します。</li>
+<li>存在しないときは <code>-1</code> を返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<h4><code>hld.lca(u: int, v: int) -&gt; int</code></h4>
+<ul>
+<li><code>u</code>, <code>v</code> の <code>lca</code> を返します。</li>
+<li><code>O(logn)</code> です。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">G</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+  <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+  <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">hld</span> <span class="o">=</span> <span class="n">HLD</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+<span class="n">hld_a</span> <span class="o">=</span> <span class="n">hld</span><span class="o">.</span><span class="n">build_list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">seg</span> <span class="o">=</span> <span class="n">SegmentTree</span><span class="p">(</span><span class="n">hld_a</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">e</span>
+  <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">hld</span><span class="o">.</span><span class="n">for_each_vertex</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">op</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
 <p></body>
 </html></p>

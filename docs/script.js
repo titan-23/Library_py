@@ -1,11 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const codeBlock = document.querySelector(".code-block"); // .code-block クラスを持つ要素を選択
+    
     if (codeBlock) { // 要素が存在するか確認
         const codePre = codeBlock.querySelector("pre");
         const copyButton = document.getElementById("copyButton");
         const showFullCodeButton = document.getElementById("ShowFullCodeButton");
+        const toggleCodeButton = document.getElementById("toggleCodeButton");
         
         let isFullCodeShown = false;
+        let isAlternateCodeShown = false;
         
         showFullCodeButton.addEventListener("click", function () {
             if (isFullCodeShown) {
@@ -35,5 +38,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 copyButton.textContent = "コピー";
             }, 1000);
         });
+
+        toggleCodeButton.addEventListener("click", function () { // 追加
+            if (isAlternateCodeShown) {
+                codePre.style.display = "block"; // 初期のコードを表示
+                isAlternateCodeShown = false;
+                toggleCodeButton.textContent = "別のコードを表示";
+            } else {
+                codePre.style.display = "none"; // 初期のコードを非表示
+                isAlternateCodeShown = true;
+                toggleCodeButton.textContent = "初期のコードを表示";
+            }
+        });
+        
     }
 });

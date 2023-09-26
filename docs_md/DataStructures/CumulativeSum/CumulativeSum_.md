@@ -1,45 +1,15 @@
-____
+_____
 
-# `CumulativeSum`
+# [`CumulativeSum`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum)
+
+累積和です。構築 `Θ(N)` 、区間和取得 `Θ(1)` などです。変更不可であることに注意してください。
 
 _____
 
-## コード
-
-[`CumulativeSum`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeSum.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\CumulativeSum\CumulativeSum_.py -->
-
-_____
-
-- 1次元累積和です。 `int` 型を想定しています。
-
-_____
-
-## 仕様
-
-#### `acc = CumulativeSum(a: Iterable[int], e: int=0)`
-- `a` から `CumulativeSum` を構築します。 `int` 型を想定しており、単位元は `e=0` としています。
-- `Θ(N)` です。
-
-#### `acc.pref(r: int) -> int`
-- `sum(a[:r])` を返します。
-- `Θ(1)` です。
-
-#### `acc.sum(l: int, r: int) / .prod(l: int, r: int) -> int`
-- `sum(a[l:r])` を返します。
-- `Θ(1)` です。
-
-#### `acc.all_sum() / .all_prod() -> int`
-- `sum(a)` を返します。
-- `Θ(1)` です。
-
-#### `acc[k] -> int`
-- `a[k]` を返します。
-- `Θ(1)` です。
-
-#### `len(acc)`
-- 元の `a` の長さを返します。
-
-#### `str(acc) / repr(acc)`
-- 累積和の `list` を表示します。
+- [`CumulativeOp`](CumulativeOp.md)
+  - 抽象化累積和です。
+- [`CumulativeSum`](CumulativeSum_)
+  - `int` 型を想定した累積和です。
+- [`CumulativeSum2D`](CumulativeSum2D)
+  - 2次元累積和です。
 

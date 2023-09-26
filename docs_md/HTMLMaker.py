@@ -1,6 +1,7 @@
 # python3 src_expand.py
 # python3 HTMLMaker.py
 
+import re
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
@@ -55,6 +56,7 @@ class HTMLMaker():
       print("<div class=\"button-group\">", file=self.output_file)
       print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
       print('<button id=\"ShowFullCodeButton\">全表示</button>', file=self.output_file)
+      print('<button id=\"toggleCodeButton\">展開</button>', file=self.output_file)
       print('</div>', file=self.output_file)
     formatter = HtmlFormatter(style="monokai")
     # the_css = formatter.get_style_defs()
@@ -62,6 +64,24 @@ class HTMLMaker():
     for line in code:
       outs += str(line)
     html_code = highlight(outs, PythonLexer(), formatter)
+    if copy:
+      # expand
+      assert html_code.endswith('</div>\n')
+      html_code = re.sub(r"</div>\n$", "", html_code)
+      html_code += '\n'
+
+      exp_filepath = f'..\\..\\Library_py\\_src_expanded\\{self.filename}.py'
+      with open(exp_filepath, 'r', encoding="utf-8") as exp_code:
+        outs = ''
+        for line in exp_code:
+          outs += str(line)
+        html_code2 = highlight(outs, PythonLexer(), formatter)
+        html_code2 = html_code2.replace('<pre>', '<pre style=\"display: none;\">')
+        assert html_code2.endswith('</div>\n')
+        assert html_code2.startswith('<div class=\"highlight\">')
+        html_code2 = re.sub(r"<div class=\"highlight\">$", "", html_code2)
+        html_code += html_code2
+
     print(html_code, file=self.output_file)
     print("</div>", file=self.output_file)
 
