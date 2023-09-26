@@ -7,6 +7,7 @@ _____
 ## コード
 
 [`SegmentQuadraticDivision`](https://github.com/titanium-22/Library/blob/main/QuadraticDivision/SegmentQuadraticDivision.py)
+<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SegmentQuadraticDivision\SegmentQuadraticDivision.py -->
 
 _____
 

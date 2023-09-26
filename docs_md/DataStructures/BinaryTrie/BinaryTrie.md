@@ -1,7 +1,6 @@
 _____
 
 # [`BinaryTrie`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BinaryTrie)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\BinaryTrie\BinaryTrie.py -->
 
 `BinaryTrie` です。
 

@@ -1,7 +1,6 @@
 _____
 
 # [`SegmentTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SegmentTree)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SegmentTree\SegmentTree.py -->
 
 _____
 

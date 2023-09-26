@@ -1,8 +1,7 @@
 _____
 
 # [`BitVector`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BitVector)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\BitVector\BitVector.py -->
-
+ww
 _____
 
 - `BitVector` です。

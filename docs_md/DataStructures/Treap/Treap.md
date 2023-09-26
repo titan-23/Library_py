@@ -1,7 +1,6 @@
 _____
 
 # [`Treap`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Treap)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Treap\Treap.py -->
 
 _____
 

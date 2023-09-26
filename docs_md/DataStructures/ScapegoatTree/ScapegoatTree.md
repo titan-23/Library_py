@@ -1,7 +1,6 @@
 _____
 
 # [`ScapegoatTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/ScapegoatTree)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\ScapegoatTree\ScapegoatTree.py -->
 
 _____
 

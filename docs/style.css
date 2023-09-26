@@ -26,7 +26,7 @@ code {
   background: #000000; /* 背景色 */
   white-space: pre;
   overflow-x: auto;
-  font-family: Consolas, 'Courier New', Courier, Monaco, monospace;;
+  font-family: 'Consolas', 'Inconsolata', Monaco, monospace;;
 }
 
 pre {
@@ -36,7 +36,7 @@ pre {
   white-space: pre;
   max-height: 30em;
   overflow-x: auto;
-  font-family: Consolas, 'Courier New', Courier, Monaco, monospace;;
+  font-family: 'Consolas', 'Inconsolata', Monaco, monospace;;
   clear: both; /* フロート要素の下にコードブロックを配置 */
 }
 

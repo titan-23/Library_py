@@ -1,7 +1,6 @@
 _____
 
 # [`UnionFind`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\UnionFind\UnionFind.py -->
 
 _____
 

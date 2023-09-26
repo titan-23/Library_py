@@ -70,7 +70,13 @@ class HTMLMaker():
     t = 'Library_py-' + self.filename.replace('\\', '-')
     if title == 'index':
       t = 'Library_py'
-    line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n<title>{t}</title>\n</head>\n<body>'''
+    line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n'''
+    self.out(line)
+    line = f'''<link href=\"http://fonts.googleapis.com/css?family=Inconsolata\" rel=\"stylesheet\" type=\"text/css\">\n'''
+    self.out(line)
+    line = f'''<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n'''
+    self.out(line)
+    line = f'''<title>{t}</title>\n</head>\n<body>'''
     self.out(line)
 
     line = f'''### [Home]({self.HEAD})\n\n'''

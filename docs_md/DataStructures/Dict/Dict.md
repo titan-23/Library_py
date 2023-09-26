@@ -1,7 +1,6 @@
 _____
 
 # [`Dict`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Dict)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Dict\Dict.py -->
 
 - 辞書です。 pypy の辞書は、遅い。速い辞書が欲しいのです。
 

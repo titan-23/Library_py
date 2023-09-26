@@ -1,7 +1,6 @@
 _____
 
 # [`SplayTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BBST/SplayTree)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SplayTree\SplayTree.py -->
 
 最終更新：2023/06/07
 - READMEを修正しました。
