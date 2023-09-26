@@ -6,5 +6,5 @@ _____
 
 _____
 
-- [`Deque`](./Deque_.md)
+- [`Deque`](./Deque.md)
 

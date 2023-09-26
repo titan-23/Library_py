@@ -13,6 +13,6 @@ _____
 - [`PersistentUnionFind`](./PersistentUnionFind.md)
   - 永続 UnionFind です。
 - [`UndoableUnionFind`](UndoableUnionFind.md)
-- [`UnionFind`](UnionFind_.md)
+- [`UnionFind`](UnionFind.md)
 - [`WeightedUnionFind`](WeightedUnionFind.md)
 

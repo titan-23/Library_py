@@ -9,5 +9,5 @@ _____
 _____
 
 - [`PersistentStack`](./PersistentStack.md)
-- [`Stack`](./Stack_.md)
+- [`Stack`](./Stack.md)
 

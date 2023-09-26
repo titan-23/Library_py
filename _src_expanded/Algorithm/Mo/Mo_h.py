@@ -1,7 +1,7 @@
 from __pypy__ import newlist_hint
 from typing import Callable
 
-class MoHi:
+class Mo_h():
 
   # https://take44444.github.io/Algorithm-Book/range/mo/main.html
   
@@ -51,4 +51,5 @@ class MoHi:
         nr -= 1
         delete(nr)
       out(i)
+
 

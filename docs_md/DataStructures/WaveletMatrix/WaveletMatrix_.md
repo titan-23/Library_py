@@ -8,7 +8,7 @@ _____
 
 _____
 
-- [`WaveletMatrix`](./WaveletMatrix_.md)
+- [`WaveletMatrix`](./WaveletMatrix.md)
   - 静的です。
 - [`DynamicWaveletMatrix`](./DynamicWaveletMatrix.md)
   - 動的です。

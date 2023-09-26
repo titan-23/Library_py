@@ -1,4 +1,4 @@
-class pair:
+class Pair():
 
   # pair<unsigned very long, unsigned int>
 
@@ -35,4 +35,5 @@ class pair:
 
   def __repr__(self):
     return f'pair({self.first}, {self.second})'
+
 

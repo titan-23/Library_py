@@ -8,7 +8,7 @@ _____
 
 _____
 
-- [`SparseTable`](./SparseTable_.md)
+- [`SparseTable`](./SparseTable.md)
   - 普通のスパテです。
 - [`SparseTableRmQ`](./SparseTableRmQ.md)
   - RmQ のスパテです。

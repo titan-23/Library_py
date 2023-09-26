@@ -8,7 +8,7 @@ _____
 
 - [`CumulativeOp`](CumulativeOp.md)
   - 抽象化累積和です。
-- [`CumulativeSum`](CumulativeSum_)
+- [`CumulativeSum`](CumulativeSum)
   - `int` 型を想定した累積和です。
 - [`CumulativeSum2D`](CumulativeSum2D)
   - 2次元累積和です。

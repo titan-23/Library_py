@@ -12,7 +12,7 @@ _____
   - 動的セグ木です。
 - [`LazySegmentTree`](LazySegmentTree.md)
   - 遅延セグ木です。
-- [`SegmentTree`](SegmentTree_.md)
+- [`SegmentTree`](SegmentTree.md)
   - セグ木です。
 - [`SegmentTreeRmQ`](SegmentTreeRmQ.md)
   - RmQ セグ木です。

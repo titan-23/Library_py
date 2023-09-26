@@ -54,3 +54,4 @@ buf_input = FastIO.buf_input
 input = FastIO.input
 write = FastIO.write
 flush = FastIO.flush
+

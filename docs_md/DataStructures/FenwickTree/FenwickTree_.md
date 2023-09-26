@@ -11,7 +11,7 @@ _____
 - [`DynamicFenwickTree2D`](./DynamicFenwickTree2D.md)
   - 2次元です。
   - 必要なところだけノードを作ります。
-- [`FenwickTree`](./FenwickTree_.md)
+- [`FenwickTree`](./FenwickTree.md)
   - 普通のやつです。
 - [`FenwickTree2D`](./FenwickTree2D.md)
   - 2次元です。

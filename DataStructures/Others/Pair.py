@@ -1,4 +1,4 @@
-class pair:
+class Pair():
 
   # pair<unsigned very long, unsigned int>
 

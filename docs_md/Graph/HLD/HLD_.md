@@ -8,8 +8,8 @@ _____
 
 _____
 
-- [HLD](./HLD_.md)
-- [HLDLazySegmentTree](./HLDLazySegmentTree.md)
-- [HLDNoncommutativeSegmentTree](./HLDNoncommutativeSegmentTree.md)
-- [HLDSegmentTree](./HLDSegmentTree.md)
+- [`HLD`](./HLD.md)
+- [`HLDLazySegmentTree`](./HLDLazySegmentTree.md)
+- [`HLDNoncommutativeSegmentTree`](./HLDNoncommutativeSegmentTree.md)
+- [`HLDSegmentTree`](./HLDSegmentTree.md)
 
