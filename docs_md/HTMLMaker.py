@@ -1,5 +1,5 @@
-# python3 src_expand.py
-# python3 HTMLMaker.py
+# python src_expand.py
+# python HTMLMaker.py
 
 import re
 from pygments import highlight
