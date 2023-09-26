@@ -431,38 +431,40 @@
 <hr />
 <h2>使用例</h2>
 <p><a href="https://atcoder.jp/contests/arc030/submissions/45758203">グラフではない</a></p>
-<p>```python
-op = lambda s, t: (s[0]+t[0], s[1]+t[1])
-mapping = lambda f, s: (s[0] + f * s[1], s[1])
-composition = lambda f, g: f + g
-copy_t = lambda s: s
-copy_f = lambda f: f
-e = (0, 0)
-id = 0</p>
-<p>n, q = map(int, input().split())
-X = list(map(int, input().split()))
-X = [(x, 1) for x in X]
-avl = PersistentLazyAVLTree(X, op, mapping, composition, e, id, copy_t, copy_f)
-for _ in range(q):
-  com, *qu = list(map(int, input().split()))
-  if com == 1:
-    a, b, v = qu
-    a -= 1; b -= 1
-    avl = avl.apply(a, b+1, v)
-  if com == 2:
-    a, b, c, d = qu
-    a -= 1; b -= 1; c -= 1; d -= 1
-    t, _ = avl.split(d+1)
-    _, t = t.split(c)
-    y, z = avl.split(b+1)
-    x, _ = y.split(a)
-    avl = x.merge(t)
-    avl = avl.merge(z)
-  if com == 3:
-    a, b = qu
-    a -= 1; b -= 1
-    ans = avl.prod(a, b+1)[0]
-    print(ans)
-```</p>
+<div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">mapping</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">f</span> <span class="o">*</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">composition</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span> <span class="o">+</span> <span class="n">g</span>
+<span class="n">copy_t</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span>
+<span class="n">copy_f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span>
+<span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">X</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">X</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
+<span class="n">avl</span> <span class="o">=</span> <span class="n">PersistentLazyAVLTree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">composition</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">copy_t</span><span class="p">,</span> <span class="n">copy_f</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">com</span><span class="p">,</span> <span class="o">*</span><span class="n">qu</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+  <span class="k">if</span> <span class="n">com</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">qu</span>
+    <span class="n">a</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">avl</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">com</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">qu</span>
+    <span class="n">a</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">c</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">d</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">avl</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">avl</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">com</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">qu</span>
+    <span class="n">a</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+</pre></div>
+
+
 <p></body>
 </html></p>

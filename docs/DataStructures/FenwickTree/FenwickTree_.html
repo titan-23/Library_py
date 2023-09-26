@@ -201,16 +201,18 @@
 <hr />
 <h2>使用例</h2>
 <p><a href="https://judge.yosupo.jp/submission/148336">Point Add Range Sum</a></p>
-<p><code>python
-n, q = map(int, input().split())
-A = list(map(int, input().split()))
-fw = FenwickTree(A)
-for _ in range(q):
-  t, p, x = map(int, input().split())
-  if t == 0:
-    fw.add(p, x)
-  else:
-    l, r = p, x
-    print(fw.sum(l, r))</code></p>
+<div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">fw</span> <span class="o">=</span> <span class="n">FenwickTree</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">fw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">p</span><span class="p">,</span> <span class="n">x</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fw</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+</pre></div>
+
+
 <p></body>
 </html></p>

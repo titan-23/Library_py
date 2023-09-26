@@ -111,19 +111,21 @@
 </ul>
 <h4><code>iter(st) / next(st) / len(st) / str(st) / repr(st)</code></h4>
 <h2>使用例</h2>
-<p>```python
-op = lambda s, t: s + t
-mapping = lambda f, s: f
-composition = lambda f, g: f
-e = 0
-id = 0
-data = LazySplayTreeData(op, mapping, composition, e, id)</p>
-<p>n, q = map(int, input().split())
-A = list(map(int, input().split()))
-splay = LazySplayTree(data, A)
-for _ in range(q):
-  qu = map(int, input().split())
-  if</p>
-<p>```</p>
+<div class="highlight"><pre><span></span><span class="n">op</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="n">t</span>
+<span class="n">mapping</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">f</span>
+<span class="n">composition</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span>
+<span class="n">e</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">LazySplayTreeData</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">composition</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">splay</span> <span class="o">=</span> <span class="n">LazySplayTree</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">qu</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="k">if</span>
+</pre></div>
+
+
 <p></body>
 </html></p>

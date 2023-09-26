@@ -133,16 +133,18 @@
 <ul>
 <li><a href="https://atcoder.jp/contests/typical90/tasks/typical90_bi">https://atcoder.jp/contests/typical90/tasks/typical90_bi</a></li>
 </ul>
-<p><code>python
-q = int(input())
-dq = Deque()
-for _ in range(q):
-  t, x = map(int, input().split())
-  if t == 1:
-    dq.appendleft(x)  # O(1)
-  elif t == 2:
-    dq.append(x)  # O(1)
-  else:
-    print(dq[x-1])  # O(1)</code></p>
+<div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">dq</span> <span class="o">=</span> <span class="n">Deque</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">dq</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># O(1)</span>
+  <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">dq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># O(1)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dq</span><span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># O(1)</span>
+</pre></div>
+
+
 <p></body>
 </html></p>

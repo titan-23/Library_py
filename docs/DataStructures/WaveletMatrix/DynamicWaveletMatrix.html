@@ -156,17 +156,19 @@
 </ul>
 <hr />
 <h2>使用例</h2>
-<p><code>python
-n = int(input())
-A = list(map(int, input().split()))
-dwm = DynamicWaveletMatrix(1&lt;&lt;30, A)
-q = int(input())
-for _ in range(q):
-  c, l, r, k = map(int, input().split())
-  if c == 0:
-    v = wm.pop(r)
-    wm.insert(l, v)
-  if c == 1:
-    print(dwm.kth_smallest(l, r, k))</code></p>
+<div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">dwm</span> <span class="o">=</span> <span class="n">DynamicWaveletMatrix</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">30</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">c</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">wm</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="n">wm</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dwm</span><span class="o">.</span><span class="n">kth_smallest</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+</pre></div>
+
+
 <p></body>
 </html></p>

@@ -598,15 +598,17 @@
 </ul>
 <hr />
 <h2>使用例</h2>
-<p>```python
-s = RedBlackTreeMultiset([3, 1, 4, 1, 5, 9])
-it = s.ge_iter(3)
-while it:
-  print(it.key, it.count)
-  it += 1</p>
-<h1>4 1</h1>
-<h1>3 1</h1>
-<h1>1 2</h1>
-<p>```</p>
+<div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="n">it</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">ge_iter</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">it</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+  <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># 4 1</span>
+<span class="c1"># 3 1</span>
+<span class="c1"># 1 2</span>
+</pre></div>
+
+
 <p></body>
 </html></p>

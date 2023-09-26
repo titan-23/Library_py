@@ -402,20 +402,22 @@
 <li><code>O(logu)</code> です。</li>
 </ul>
 <h2>使用例</h2>
-<p><code>python
-q = int(input())
-bt = BinaryTrieSet(1&lt;&lt;30)  # 0 以上 1&lt;&lt;30 未満の整数を管理する集合 bt を定義
-bt.reserve(q)
-for _ in range(q):
-  t, x = map(int, input().split())
-  if t == 0:
-    bt.add(x)  # x を追加する
-  elif t == 1:
-    bt.discard(x)  # x を削除する
-  else:
-    # 全体に x を xor した時の最小値を出力する 
-    bt.all_xor(x)
-    print(bt[0])
-    bt.all_xor(x)</code></p>
+<div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">BinaryTrieSet</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 0 以上 1&lt;&lt;30 未満の整数を管理する集合 bt を定義</span>
+<span class="n">bt</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">bt</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># x を追加する</span>
+  <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">bt</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># x を削除する</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 全体に x を xor した時の最小値を出力する </span>
+    <span class="n">bt</span><span class="o">.</span><span class="n">all_xor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">bt</span><span class="o">.</span><span class="n">all_xor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
 <p></body>
 </html></p>

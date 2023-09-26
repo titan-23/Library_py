@@ -45,7 +45,7 @@ class HTMLMaker():
 
     return True
 
-  def output_code(self, copy: bool):
+  def output_code(self, code, copy: bool):
     cnt = self.filename.count("\\")
     copy_js_path = '../' * cnt + 'copy.js'
     # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
@@ -54,10 +54,10 @@ class HTMLMaker():
       print(f'<script src="{copy_js_path}"></script>', file=self.output_file)
     formatter = HtmlFormatter(style="monokai")
     # the_css = formatter.get_style_defs()
-    code = ''
-    for line in self.code_file:
-      code += str(line)
-    html_code = highlight(code, PythonLexer(), formatter)
+    outs = ''
+    for line in code:
+      outs += str(line)
+    html_code = highlight(outs, PythonLexer(), formatter)
     print(html_code, file=self.output_file)
 
   def out(self, s: str) -> None:
@@ -88,14 +88,26 @@ class HTMLMaker():
     self.out(line)
 
     # body
+    code_flag = False
     outs = ''
     for line in self.input_file:
       line = str(line)
       if self.code_file_flag and line.startswith("<!-- code=https://github.com/titanium-22/Library_py/blob/main/"):
         self.out(outs)
-        self.output_code(copy=True)
+        self.output_code(code=self.code_file, copy=True)
         outs = ''
         continue
+      if (not code_flag) and line == "```python\n":
+        code_flag = True
+        self.out(outs)
+        outs = ''
+        continue
+      if code_flag and line == "```\n":
+        code_flag = False
+        self.output_code(code=outs, copy=False)
+        outs = ''
+        continue
+
       if line.endswith(".md)\n"):
         line = line.replace('.md', '.html')
       if line.startswith("  - "):
