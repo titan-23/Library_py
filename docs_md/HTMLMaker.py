@@ -1,4 +1,6 @@
-from numpy import s_
+# python3 src_expand.py
+# python3 HTMLMaker.py
+
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter

@@ -5,6 +5,7 @@ import io
 import sys
 
 LIB_PATH = 'C:\\Users\\titan\\source'
+TO_LIB_PATH = '../'
 
 input_filename = sys.argv[1]
 output_filename = sys.argv[2] if len(sys.argv) == 3 else 'aa.py'
@@ -62,12 +63,17 @@ def get_code(now_path, input_file, need_class, is_input=False):
       t = now_path
       for _ in range(cnt):
         i = len(t)-1
-        while t[i] != '\\':
+        while i >= 0 and t[i] != '\\':
           i -= 1
         t = t[:i]
       s = f'{t}\\{s}.py'
       if s not in added_file:
-        f = open(s, 'r', encoding='utf-8')
+        try:
+          f = open(s, 'r', encoding='utf-8')
+        except FileNotFoundError:
+          print(s)
+          print('FileNotFoundError')
+          exit(1)
         get_code(s, f, fs)
         f.close()
         added_file.add(s)
@@ -80,7 +86,7 @@ def get_code(now_path, input_file, need_class, is_input=False):
     print('ImportError: class not found.')
     exit(1)
 
-get_code('./', input_file, [], is_input=True)
+get_code(TO_LIB_PATH, input_file, [], is_input=True)
 
 if output_filename in ['clip', 'CLIP', 'c', 'C']:
   output_filename = 'clipboard'
