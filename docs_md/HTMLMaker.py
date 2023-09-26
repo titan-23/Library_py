@@ -46,12 +46,12 @@ class HTMLMaker():
     return True
 
   def output_code(self, code, copy: bool):
-    cnt = self.filename.count("\\")
-    copy_js_path = '../' * cnt + 'copy.js'
     # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
     if copy:
+      print("<div class=\"button-group\">\n", file=self.output_file)
       print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
-      print(f'<script src="{copy_js_path}"></script>', file=self.output_file)
+      print('<button id=\"ShowFullCodeButton\">全表示</button>', file=self.output_file)
+      print('</div>', file=self.output_file)
     formatter = HtmlFormatter(style="monokai")
     # the_css = formatter.get_style_defs()
     outs = ''
@@ -79,6 +79,12 @@ class HTMLMaker():
     self.out(line)
     line = f'''<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n'''
     self.out(line)
+
+    cnt = self.filename.count("\\")
+    copy_js_path = '../' * cnt + 'script.js'
+    line = f'''<script src="../{copy_js_path}"></script>\n'''
+    self.out(line)
+
     line = f'''<title>{t}</title>\n</head>\n<body>'''
     self.out(line)
 

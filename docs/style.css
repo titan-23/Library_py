@@ -20,12 +20,6 @@ a:hover {
   text-decoration: underline; /* リンクにホバー時に下線を表示 */
 }
 
-h2 {
-  padding: 1rem 2rem;
-  border-left: 5px solid #ff8c00;
-  /* background: #f4f4f4; */
-}
-
 code {
   padding: 0.1em; /* 内側の余白 */
   margin: 0 0 1.5em; /* 外側の余白 */
@@ -46,8 +40,34 @@ pre {
   clear: both; /* フロート要素の下にコードブロックを配置 */
 }
 
+/* 初期状態では折り返しを有効に */
+.code-block pre {
+  max-height: 30em;
+}
+
+/* フルコード表示時に折り返しを無効に */
+.code-block.pre-full-code pre {
+  max-height: none;
+}
+
+.button-group {
+  display: flex; /* ボタンを横に並べるための flex コンテナ */
+  gap: 10px; /* ボタン間の間隔 */
+  margin-bottom: 10px; /* ボタンとコードブロックの間の余白 */
+}
+
 /* コピーボタンのスタイル */
 #copyButton {
+  padding: 6px 20px;
+  background-color: #0091ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  float: right;
+}
+
+/* コピーボタンのスタイル */
+#ShowFullCodeButton {
   padding: 6px 20px;
   background-color: #0091ff;
   color: #fff;
@@ -61,15 +81,9 @@ pre {
   background-color: #004ea1;
 }
 
-/* 行数表示のスタイル */
-.line-numbers {
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding: 4px 8px;
-  background-color: #f0f0f0;
-  font-family: Consolas;
-  font-size: 12px;
+/* ホバー時のスタイル */
+#ShowFullCodeButton:hover {
+  background-color: #004ea1;
 }
 
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
