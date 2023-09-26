@@ -26,7 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
             textArea.select();
             document.execCommand("copy");
             document.body.removeChild(textArea);
-            alert("コードがクリップボードにコピーされました！");
+
+            // ボタンの内容を変更
+            copyButton.textContent = "コピーしました";
+
+            // 1秒後にボタンの内容を元に戻す
+            setTimeout(function () {
+                copyButton.textContent = "コピー";
+            }, 1000);
         });
     }
 });
