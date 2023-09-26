@@ -2,13 +2,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const codeBlock = document.querySelector(".code-block"); // .code-block クラスを持つ要素を選択
     
     if (codeBlock) { // 要素が存在するか確認
-        const codePre = codeBlock.querySelector("pre");
         const copyButton = document.getElementById("copyButton");
         const showFullCodeButton = document.getElementById("ShowFullCodeButton");
         const toggleCodeButton = document.getElementById("toggleCodeButton");
         const codeContainer1 = document.getElementById("codeContainer1");
         const codeContainer2 = document.getElementById("codeContainer2");
-        
+
         let isFullCodeShown = false;
         let isAlternateCodeShown = false;
         
@@ -25,8 +24,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         
         copyButton.addEventListener("click", function () {
+            let codeToCopy = "";
+            if (isAlternateCodeShown) {
+                codeToCopy = codeContainer2.querySelector("pre").textContent;
+            } else {
+                codeToCopy = codeContainer1.querySelector("pre").textContent;
+            }
+
             const textArea = document.createElement("textarea");
-            textArea.value = codePre.textContent;
+            textArea.value = codeToCopy;
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand("copy");
