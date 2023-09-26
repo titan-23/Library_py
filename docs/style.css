@@ -7,12 +7,12 @@ body {
   justify-content: center; /* 水平方向に中央に配置 */
   align-items: center; /* 垂直方向に中央に配置 */
   margin: 0 5%; /* 左右のマージンを設定 */
-  font-size: 15px;
+  font-size: 16px;
 }
 
 /* リンクのスタイル */
 a {
-  color: #0091ff; /* リンクのカラーを青に設定 */
+  color: #009dff; /* リンクのカラーを青に設定 */
   text-decoration: none; /* リンクの下線を削除 */
 }
 
@@ -27,7 +27,7 @@ code {
   white-space: pre;
   overflow-x: auto;
   font-family: 'Consolas', 'Inconsolata', Monaco, monospace;;
-  font-size: 18px;
+  /* font-size: 18px; */
 }
 
 pre {
