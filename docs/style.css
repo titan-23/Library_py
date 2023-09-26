@@ -54,6 +54,7 @@ pre {
   display: flex; /* ボタンを横に並べるための flex コンテナ */
   gap: 10px; /* ボタン間の間隔 */
   margin-bottom: 10px; /* ボタンとコードブロックの間の余白 */
+  overflow: hidden;
 }
 
 /* コピーボタンのスタイル */
