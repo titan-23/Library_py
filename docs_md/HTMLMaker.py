@@ -48,7 +48,7 @@ class HTMLMaker():
   def output_code(self, code, copy: bool):
     # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
     if copy:
-      print("<div class=\"button-group\">\n", file=self.output_file)
+      print("<div class=\"button-group\">", file=self.output_file)
       print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
       print('<button id=\"ShowFullCodeButton\">全表示</button>', file=self.output_file)
       print('</div>', file=self.output_file)
