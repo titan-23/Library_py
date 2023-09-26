@@ -65,13 +65,10 @@ class HTMLMaker():
       outs += str(line)
     html_code = highlight(outs, PythonLexer(), formatter)
     html_code = html_code.replace('<div class=\"highlight\">', '<div class=\"highlight\" id=\"codeContainer1\">')
+    assert html_code.endswith('</div>\n')
 
     if copy:
       # expand
-      assert html_code.endswith('</div>\n')
-      html_code = re.sub(r"</div>\n$", "", html_code)
-      html_code += '\n'
-
       exp_filepath = f'..\\..\\Library_py\\_src_expanded\\{self.filename}.py'
       with open(exp_filepath, 'r', encoding="utf-8") as exp_code:
         outs = ''
