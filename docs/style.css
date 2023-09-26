@@ -20,6 +20,12 @@ a:hover {
   text-decoration: underline; /* リンクにホバー時に下線を表示 */
 }
 
+h2 {
+  padding: 1rem 2rem;
+  border-left: 5px solid #ff8c00;
+  /* background: #f4f4f4; */
+}
+
 code {
   padding: 0.1em; /* 内側の余白 */
   margin: 0 0 1.5em; /* 外側の余白 */
