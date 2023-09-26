@@ -75,7 +75,7 @@ class HTMLMaker():
     # header
     line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n'''
     self.out(line)
-    line = f'''<link href=\"http://fonts.googleapis.com/css?family=Inconsolata\" rel=\"stylesheet\" type=\"text/css\">\n'''
+    line = f'''<link href=\"https://fonts.googleapis.com/css?family=Inconsolata\" rel=\"stylesheet\" type=\"text/css\">\n'''
     self.out(line)
     line = f'''<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n'''
     self.out(line)
