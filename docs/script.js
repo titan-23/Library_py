@@ -39,17 +39,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 1000);
         });
 
-        toggleCodeButton.addEventListener("click", function () { // 追加
+        toggleCodeButton.addEventListener("click", function () {
             if (isAlternateCodeShown) {
-                codePre.style.display = "block"; // 初期のコードを表示
-                isAlternateCodeShown = false;
-                toggleCodeButton.textContent = "別のコードを表示";
-            } else {
-                codePre.style.display = "none"; // 初期のコードを非表示
-                isAlternateCodeShown = true;
+                // 別のコードを表示
+                codeContainer.children[0].style.display = "none";
+                codeContainer.children[1].style.display = "block";
                 toggleCodeButton.textContent = "初期のコードを表示";
+            } else {
+                // 初期のコードを表示
+                codeContainer.children[0].style.display = "block";
+                codeContainer.children[1].style.display = "none";
+                toggleCodeButton.textContent = "別のコードを表示";
             }
+            isAlternateCodeShown = !isAlternateCodeShown;
         });
-        
+
     }
 });
