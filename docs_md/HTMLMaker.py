@@ -45,12 +45,13 @@ class HTMLMaker():
 
     return True
 
-  def output_code(self):
+  def output_code(self, copy: bool):
     cnt = self.filename.count("\\")
     copy_js_path = '../' * cnt + 'copy.js'
     # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
-    print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
-    print(f'<script src="{copy_js_path}"></script>', file=self.output_file)
+    if copy:
+      print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
+      print(f'<script src="{copy_js_path}"></script>', file=self.output_file)
     formatter = HtmlFormatter(style="monokai")
     # the_css = formatter.get_style_defs()
     code = ''
@@ -70,6 +71,8 @@ class HTMLMaker():
     t = 'Library_py-' + self.filename.replace('\\', '-')
     if title == 'index':
       t = 'Library_py'
+    
+    # header
     line = f'''<!DOCTYPE html>\n<html>\n<head>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n'''
     self.out(line)
     line = f'''<link href=\"http://fonts.googleapis.com/css?family=Inconsolata\" rel=\"stylesheet\" type=\"text/css\">\n'''
@@ -79,16 +82,18 @@ class HTMLMaker():
     line = f'''<title>{t}</title>\n</head>\n<body>'''
     self.out(line)
 
+    # Home
     line = f'''### [Home]({self.HEAD})\n\n'''
     line += f'''_____\n'''
     self.out(line)
 
+    # body
     outs = ''
     for line in self.input_file:
       line = str(line)
       if self.code_file_flag and line.startswith("<!-- code=https://github.com/titanium-22/Library_py/blob/main/"):
         self.out(outs)
-        self.output_code()
+        self.output_code(copy=True)
         outs = ''
         continue
       if line.endswith(".md)\n"):
