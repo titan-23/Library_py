@@ -82,7 +82,7 @@ class HTMLMaker():
 
     cnt = self.filename.count("\\")
     copy_js_path = '../' * cnt + 'script.js'
-    line = f'''<script src="../{copy_js_path}"></script>\n'''
+    line = f'''<script src="{copy_js_path}"></script>\n'''
     self.out(line)
 
     line = f'''<title>{t}</title>\n</head>\n<body>'''
