@@ -52,6 +52,7 @@ pre {
 
 .button-group {
   display: flex; /* ボタンを横に並べるための flex コンテナ */
+  justify-content: flex-end; /* ボタンを右側に配置 */
   gap: 10px; /* ボタン間の間隔 */
   margin-bottom: 10px; /* ボタンとコードブロックの間の余白 */
   overflow: hidden;
