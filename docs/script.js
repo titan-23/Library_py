@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const copyButton = document.getElementById("copyButton");
         const showFullCodeButton = document.getElementById("ShowFullCodeButton");
         const toggleCodeButton = document.getElementById("toggleCodeButton");
-        
+        const codeContainer = document.getElementById("codeContainer");
+
         let isFullCodeShown = false;
         let isAlternateCodeShown = false;
         
@@ -40,18 +41,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         toggleCodeButton.addEventListener("click", function () {
-            if (isAlternateCodeShown) {
-                // 別のコードを表示
-                codeContainer.children[0].style.display = "none";
-                codeContainer.children[1].style.display = "block";
-                toggleCodeButton.textContent = "初期のコードを表示";
-            } else {
-                // 初期のコードを表示
-                codeContainer.children[0].style.display = "block";
-                codeContainer.children[1].style.display = "none";
-                toggleCodeButton.textContent = "別のコードを表示";
+            const alternateCode = codeContainer.querySelector("pre:last-child");
+            if (alternateCode) {
+                if (isAlternateCodeShown) {
+                    alternateCode.style.display = "none";
+                    toggleCodeButton.textContent = "別のコードを表示";
+                } else {
+                    alternateCode.style.display = "block";
+                    toggleCodeButton.textContent = "初期のコードを表示";
+                }
+                isAlternateCodeShown = !isAlternateCodeShown;
             }
-            isAlternateCodeShown = !isAlternateCodeShown;
         });
 
     }

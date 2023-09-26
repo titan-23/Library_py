@@ -81,7 +81,7 @@ class HTMLMaker():
         assert html_code2.startswith('<div class=\"highlight\">')
         html_code2 = re.sub(r"<div class=\"highlight\">$", "", html_code2)
         html_code += html_code2
-
+    html_code = html_code.replace('<div class=\"highlight\">', '<div class=\"highlight\" id=\"codeContainer\">')
     print(html_code, file=self.output_file)
     print("</div>", file=self.output_file)
 

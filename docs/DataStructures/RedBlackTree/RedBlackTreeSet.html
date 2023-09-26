@@ -21,7 +21,7 @@
 <button id="ShowFullCodeButton">全表示</button>
 <button id="toggleCodeButton">展開</button>
 </div>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.MyClass.OrderedSetInterface</span> <span class="kn">import</span> <span class="n">OrderedSetInterface</span>
+<div class="highlight" id="codeContainer"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.MyClass.OrderedSetInterface</span> <span class="kn">import</span> <span class="n">OrderedSetInterface</span>
 <span class="kn">from</span> <span class="nn">Library_py.MyClass.SupportsLessThan</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
@@ -525,7 +525,7 @@
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;RedBlackTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre>
-<div class="highlight"><pre style="display: none;"><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight" id="codeContainer"><pre style="display: none;"><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
 <span class="k">class</span> <span class="nc">SupportsLessThan</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
 
@@ -1177,7 +1177,7 @@
 <hr />
 <h2>使用例</h2>
 <div class="code-block">
-<div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<div class="highlight" id="codeContainer"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">RedBlackTreeSet</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 <span class="n">it</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get_min_iter</span><span class="p">()</span>
 <span class="k">while</span> <span class="n">it</span><span class="p">:</span>
   <span class="nb">print</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
