@@ -27,6 +27,7 @@ code {
   white-space: pre;
   overflow-x: auto;
   font-family: 'Consolas', 'Inconsolata', Monaco, monospace;;
+  font-size: 18px;
 }
 
 pre {
