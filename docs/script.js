@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const codeBlock = document.querySelector(".code-block");
+    const codeBlock = document.querySelector("pre");
     if (codeBlock) { // 要素が存在するか確認
-        const codePre = codeBlock.querySelector("pre");
+        // const codePre = codeBlock.querySelector("pre");
         const copyButton = document.getElementById("copyButton");
         const showFullCodeButton = document.getElementById("ShowFullCodeButton");
         
