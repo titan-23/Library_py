@@ -47,6 +47,8 @@ class HTMLMaker():
 
   def output_code(self, code, copy: bool):
     # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
+    print("<div class=\"code-block\">", file=self.output_file)
+
     if copy:
       print("<div class=\"button-group\">", file=self.output_file)
       print('<button id=\"copyButton\">コピー</button>', file=self.output_file)
@@ -59,6 +61,7 @@ class HTMLMaker():
       outs += str(line)
     html_code = highlight(outs, PythonLexer(), formatter)
     print(html_code, file=self.output_file)
+    print("</div>", file=self.output_file)
 
   def out(self, s: str) -> None:
     html_output = markdown(s)
