@@ -78,6 +78,16 @@ pre {
   float: right;
 }
 
+/* コピーボタンのスタイル */
+#toggleCodeButton {
+  padding: 6px 20px;
+  background-color: #0091ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  float: right;
+}
+
 /* ホバー時のスタイル */
 #copyButton:hover {
   background-color: #004ea1;
@@ -85,6 +95,11 @@ pre {
 
 /* ホバー時のスタイル */
 #ShowFullCodeButton:hover {
+  background-color: #004ea1;
+}
+
+/* ホバー時のスタイル */
+#toggleCodeButton:hover {
   background-color: #004ea1;
 }
 

@@ -75,10 +75,8 @@ class HTMLMaker():
         for line in exp_code:
           outs += str(line)
         html_code2 = highlight(outs, PythonLexer(), formatter)
-        html_code2 = html_code2.replace('<pre>', '<pre style=\"display: none;\">')
-        assert html_code2.endswith('</div>\n')
         assert html_code2.startswith('<div class=\"highlight\">')
-        html_code2 = html_code2.replace('<div class=\"highlight\">', '<div class=\"highlight\" id=\"codeContainer2\">')
+        html_code2 = html_code2.replace('<div class=\"highlight\">', '<div class=\"highlight\" id=\"codeContainer2\" style=\"display: none;\">')
         html_code += html_code2
     print(html_code, file=self.output_file)
     print("</div>", file=self.output_file)
