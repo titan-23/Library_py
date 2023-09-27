@@ -28,7 +28,7 @@
 
 <span class="k">class</span> <span class="nc">SegmentQuadraticDivision</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n_or_a</span>
       <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
@@ -90,7 +90,7 @@
 
 <span class="k">class</span> <span class="nc">SegmentQuadraticDivision</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n_or_a</span>
       <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
@@ -159,7 +159,6 @@
 <code>n</code> の型を <code>int</code> にすると <code>n</code> 個の <code>e</code> からなる配列で構築します。</li>
 <li>計算量 <code>O(N)</code> です。</li>
 </ul>
-<h4>後で書く</h4>
 <hr />
 <h2>使用例</h2>
 <div class="code-block">

@@ -8,7 +8,7 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
 
   def __init__(self, n_or_a: Union[int, Iterable[T]], \
               op: Callable[[T, T], T], mapping: Callable[[F, T], T], \
-              composition: Callable[[F, F], F], e: T=None, id: F=None):
+              composition: Callable[[F, F], F], e: T, id: F):
     if isinstance(n_or_a, int):
       self.n = n_or_a
       a = [e] * self.n

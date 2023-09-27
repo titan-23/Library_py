@@ -18,7 +18,7 @@ _____
 
 ## 仕様
 
-#### `qd = SegmentLazyQuadraticDivision(n_or_a: Iterable[T], op: Callable[[T, T], T], mapping: Callable[[F, T], T], composition: Callable[F, F], F], e: T)`
+#### `qd = SegmentLazyQuadraticDivision(n_or_a: Iterable[T], op: Callable[[T, T], T], mapping: Callable[[F, T], T], composition: Callable[F, F], F], e: T, id: F)`
 - 列 `a` から `SegmentLazyQuadraticDivision` を構築します。その他引数は遅延セグ木のアレです。
 - `n` の型を `int` にすると、 `n` 個の `e` からなる配列から構築します。
 - 計算量 `O(N)` です。

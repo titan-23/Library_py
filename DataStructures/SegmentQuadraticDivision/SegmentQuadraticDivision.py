@@ -5,7 +5,7 @@ T = TypeVar('T')
 
 class SegmentQuadraticDivision(Generic[T]):
 
-  def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T=None):
+  def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T):
     if isinstance(n_or_a, int):
       self.n = n_or_a
       a = [e] * self.n
