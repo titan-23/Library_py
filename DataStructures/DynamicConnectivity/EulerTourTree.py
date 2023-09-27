@@ -1,4 +1,3 @@
-from re import L
 from typing import Generator, Generic, TypeVar, Callable, Iterable, Optional, Union, Tuple, List, Dict
 from types import GeneratorType
 T = TypeVar('T')
@@ -404,14 +403,14 @@ class EulerTourTree(Generic[T, F]):
   def __setitem__(self, v: int, val: T) -> None:
     return self.set_vertex(v, val)
 
-def op(s, t):
-  return
+# def op(s, t):
+#   return
 
-def mapping(f, s):
-  return
+# def mapping(f, s):
+#   return
 
-def composition(f, g):
-  return
+# def composition(f, g):
+#   return
 
-e = None
-id = None
+# e = None
+# id = None

@@ -1,7 +1,7 @@
 from typing import List, Tuple
 from __pypy__ import newlist_hint
 
-class WeightedWeightedRootedTree():
+class WeightedRootedTree():
 
   def __init__(self, _G: List[List[Tuple[int, int]]], _root: int, cp: bool=False, lca: bool=False):
     self._n = len(_G)
@@ -256,4 +256,5 @@ class WeightedWeightedRootedTree():
       else:
         outtime[~v] = curtime
     return intime, outtime
+
 

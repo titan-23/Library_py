@@ -1,5 +1,5 @@
 from array import array
-from typing import Generic, List, TypeVar, Callable, Iterable, Optional, Union
+from typing import Generic, List, TypeVar, Callable, Iterable, Union
 T = TypeVar('T')
 F = TypeVar('F')
 
