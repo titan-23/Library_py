@@ -1,6 +1,6 @@
 _____
 
-# [DataStructures](https://github.com/titanium-22/Library_py/tree/main/DataStructures)
+# [`DataStructures`](https://github.com/titanium-22/Library_py/tree/main/DataStructures)
 
 _____
 
