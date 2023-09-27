@@ -12,7 +12,7 @@ _____
 _____
 
 - `DynamicWaveletMatrix` です。
-- [`WaveletMatrix`](./WaveletMatrix_.md) と大体同じです。
+- [`WaveletMatrix`](./WaveletMatrix.md) と大体同じです。
   - `BitVector` を平衡二分木にしています(`AVLTreeBitVector`)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
 - 未 verify が多いです。使わないのが吉でしょう。
 - とにかく重いです。

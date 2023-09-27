@@ -1,6 +1,7 @@
 # python src_expand.py
 # python HTMLMaker.py
 
+import re
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
@@ -82,6 +83,7 @@ class HTMLMaker():
 
   def out(self, s: str) -> None:
     html_output = markdown(s)
+    html_output = re.sub(r'href="([^"]+)\.md"', r'href="\1.html"', html_output)
     print(html_output, file=self.output_file)
 
   def write(self, title):
