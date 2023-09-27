@@ -175,6 +175,7 @@ _____
 - [`scc`](Graph/scc.md)
 - [`topological_sort`](Graph/topological_sort.md)
 - [`warshall_floyd`](Graph/warshall_floyd.md)
+- [`WeightedRootedTree`](Graph/WeightedRootedTree.md)
 
 _____
 

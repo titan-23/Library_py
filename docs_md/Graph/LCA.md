@@ -6,12 +6,13 @@ _____
 
 ## コード
 
-[`LCA.py`](https://github.com/titanium-22/Library_py/blob/main/Graph/LCA.py)
+[`LCA`](https://github.com/titanium-22/Library_py/blob/main/Graph/LCA.py)
 <!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\LCA.py -->
 
 _____
 
-- オイラーツアーとスパーステーブルを用いて、構築 `Θ(NlogN)` クエリ `Θ(1)` を実現しています。
+- `lca` を高速に求めます。
+- オイラーツアーとスパーステーブルを用いて、構築 `Θ(NlogN)` クエリ `Θ(1)` で動作します。
 - セグ木の方が速いと話題
 
 _____

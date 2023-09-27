@@ -1,6 +1,7 @@
 # python src_expand.py
 # python HTMLMaker.py
 
+import sys
 import re
 from pygments import highlight
 from pygments.lexers import PythonLexer
@@ -15,6 +16,7 @@ class HTMLMaker():
     self.HEAD: str = '''https://titanium-22.github.io/Library_py/'''
 
   def set(self, filename) -> bool:
+    print(f'set {filename}', file=sys.stderr)
     self.filename = filename
     self.input_file_flag = False
     self.output_file_flag = False

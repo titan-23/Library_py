@@ -13,12 +13,12 @@ _____
 
 - `WaveletMatrix` です。
 - 静的であることに注意してください。（[動的バージョン](./DynamicWaveletMatrix.md)）。
-- 以下の仕様の計算量には嘘があるかもしれません。import 元の [`BitVector`](../BitVector/BitVector_.md) の計算量も参考にしてください。
+- 以下の仕様の計算量には嘘があるかもしれません。import 元の [`BitVector`](../BitVector/BitVector.md) の計算量も参考にしてください。
 - 未 verify が多いです。使わないのが吉でしょう。
 - 参考:
-  - [https://miti-7.hatenablog.com/entry/2018/04/28/152259](https://miti-7.hatenablog.com/entry/2018/04/28/152259){:target="_blank"}
-  - [https://www.slideshare.net/pfi/ss-15916040](https://www.slideshare.net/pfi/ss-15916040){:target="_blank"}
-  - [デwiki](https://scrapbox.io/data-structures/Wavelet_Matrix){:target="_blank"}
+  - [https://miti-7.hatenablog.com/entry/2018/04/28/152259](https://miti-7.hatenablog.com/entry/2018/04/28/152259)
+  - [https://www.slideshare.net/pfi/ss-15916040](https://www.slideshare.net/pfi/ss-15916040)
+  - [デwiki](https://scrapbox.io/data-structures/Wavelet_Matrix)
 
 _____
 

@@ -1,6 +1,6 @@
 _____
 
-# [Math](https://github.com/titanium-22/Library_py/tree/main/Math)
+# [`Math`](https://github.com/titanium-22/Library_py/tree/main/Math)
 
 _____
 
