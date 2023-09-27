@@ -12,7 +12,7 @@ _____
 _____
 
 - `WaveletMatrix` です。
-- 静的であることに注意してください。
+- 静的であることに注意してください。（[動的バージョン](./DynamicWaveletMatrix.md)）。
 - 以下の仕様の計算量には嘘があるかもしれません。import 元の [`BitVector`](../BitVector/BitVector_.md) の計算量も参考にしてください。
 - 未 verify が多いです。使わないのが吉でしょう。
 - 参考:
