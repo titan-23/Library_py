@@ -6,7 +6,7 @@ _____
 
 ## コード
 
-[`Bitset32`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/BitSet32.py)
+[`Bitset32`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/Bitset32.py)
 <!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\Bitset32.py -->
 
 _____
