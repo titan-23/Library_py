@@ -51,8 +51,10 @@ ____
 - [https://atcoder.jp/contests/typical90/tasks/typical90_bi](https://atcoder.jp/contests/typical90/tasks/typical90_bi)
 
 ```python
+from Library_py.DataStructures.Deque.Deque import Deque
+
 q = int(input())
-dq = Deque()
+dq: Deque[int] = Deque()
 for _ in range(q):
   t, x = map(int, input().split())
   if t == 1:

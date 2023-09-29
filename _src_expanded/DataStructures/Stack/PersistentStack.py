@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterable, List, Optional, TypeVar, Generic
+from typing import Dict, Iterable, List, Optional, TypeVar, Generic
 T = TypeVar('T')
 
 class PersistentStack(Generic[T]):

@@ -1,4 +1,4 @@
-from ..FenwickTree.DynamicFenwickTree import DynamicFenwickTree
+from Library_py.DataStructures.FenwickTree.DynamicFenwickTree import DynamicFenwickTree
 from typing import Dict, Iterable, Optional
 
 class DynamicFenwickTreeSet():

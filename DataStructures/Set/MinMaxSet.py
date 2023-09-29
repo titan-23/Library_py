@@ -1,5 +1,5 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
-from ..Heap.DoubleEndedHeap import DoubleEndedHeap
+from Library_py.DataStructures.Heap.DoubleEndedHeap import DoubleEndedHeap
 from typing import Generic, Iterable, TypeVar, List
 T = TypeVar('T', bound=SupportsLessThan)
 
