@@ -54,12 +54,6 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     self.node = rec(0, len(a))
 
   def _rebuild(self, node: Node) -> Node:
-    def get(node: 'ScapegoatTreeSet.Node') -> None:
-      if node.left is not None:
-        get(node.left)
-      a.append(node)
-      if node.right is not None:
-        get(node.right)
     def rec(l: int, r: int) -> 'ScapegoatTreeSet.Node':
       mid = (l + r) >> 1
       node = a[mid]
@@ -75,8 +69,16 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       else:
         node.right = None
       return node
-    a = []
-    get(node)
+    a = newlist_hint(node.size)
+    stack = []
+    while stack or node:
+      if node:
+        stack.append(node)
+        node = node.left
+      else:
+        node = stack.pop()
+        a.append(node)
+        node = node.right
     return rec(0, len(a))
 
   def add(self, key: T) -> bool:

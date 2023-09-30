@@ -169,33 +169,35 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     self.node = rec(0, len(x))
 
   def _rebuild(self, node: Node) -> Node:
-    def get(node: 'ScapegoatTreeMultiset.Node') -> None:
-      if node.left:
-        get(node.left)
-      a.append(node)
-      if node.right:
-        get(node.right)
-    def sort(l: int, r: int) -> 'ScapegoatTreeMultiset.Node':
+    def rec(l: int, r: int) -> 'ScapegoatTreeMultiset.Node':
       mid = (l + r) >> 1
       node = a[mid]
       node.size = 1
       node.valsize = node.val
       if l != mid:
-        node.left = sort(l, mid)
+        node.left = rec(l, mid)
         node.size += node.left.size
         node.valsize += node.left.valsize
       else:
         node.left = None
       if mid+1 != r:
-        node.right = sort(mid+1, r)
+        node.right = rec(mid+1, r)
         node.size += node.right.size
         node.valsize += node.right.valsize
       else:
         node.right = None
       return node
     a = newlist_hint(node.size)
-    get(node)
-    return sort(0, len(a))
+    stack = []
+    while stack or node:
+      if node:
+        stack.append(node)
+        node = node.left
+      else:
+        node = stack.pop()
+        a.append(node)
+        node = node.right
+    return rec(0, len(a))
 
   def _kth_elm(self, k: int) -> Tuple[T, int]:
     if k < 0:
