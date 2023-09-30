@@ -53,6 +53,8 @@ _____
 ## 使用例
 
 ```python
+from Library_py.DataStructures.WaveletMatrix.DynamicWaveletMatrix import DynamicWaveletMatrix
+
 n = int(input())
 A = list(map(int, input().split()))
 dwm = DynamicWaveletMatrix(1<<30, A)
@@ -60,8 +62,8 @@ q = int(input())
 for _ in range(q):
   c, l, r, k = map(int, input().split())
   if c == 0:
-    v = wm.pop(r)
-    wm.insert(l, v)
+    v = dwm.pop(r)
+    dwm.insert(l, v)
   if c == 1:
     print(dwm.kth_smallest(l, r, k))
 ```

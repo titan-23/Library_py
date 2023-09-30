@@ -4,7 +4,7 @@ _____
 
 _____
 
-`WaveletMatrix` です。
+- `WaveletMatrix` です。
 
 _____
 

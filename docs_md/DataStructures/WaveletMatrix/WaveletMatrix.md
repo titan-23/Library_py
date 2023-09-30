@@ -85,3 +85,19 @@ _____
 #### `len(wm) / str(wm)`
 - よしなです。
 - `len(wm)` の計算量は `Θ(1)` です。
+
+_____
+
+## 使用例
+
+```python
+from Library_py.DataStructures.WaveletMatrix.WaveletMatrix import WaveletMatrix
+
+n = int(input())
+A = list(map(int, input().split()))
+dwm = WaveletMatrix(1<<30, A)
+q = int(input())
+for _ in range(q):
+  l, r, k = map(int, input().split())
+  print(dwm.kth_smallest(l, r, k))
+```
