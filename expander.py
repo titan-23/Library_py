@@ -1,8 +1,6 @@
-
 import sys
 import pyperclip
 import re
-import io
 import sys
 
 LIB_PATH = 'C:\\Users\\titan\\source'
