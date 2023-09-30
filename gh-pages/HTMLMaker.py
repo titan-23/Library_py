@@ -45,7 +45,6 @@ class HTMLMaker():
     return True
 
   def output_code(self, code, copy: bool):
-    # Monokaiテーマを指定してHTMLに変換してシンタックスハイライト
     print("<div class=\"code-block\">", file=self.output_file)
 
     if copy:
@@ -84,7 +83,7 @@ class HTMLMaker():
 
   def write(self, title):
     # print(title)
-    cnt = self.filename.count("/")
+    cnt = self.filename.count("/") + 1
     style_path = '../' * cnt + 'style.css'
     t = 'Library_py-' + self.filename.replace('/', '-')
     if title == 'index':
@@ -98,7 +97,6 @@ class HTMLMaker():
     line = f'''<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n'''
     self.out(line)
 
-    cnt = self.filename.count("/")
     script_js_path = '../' * cnt + 'script.js'
     line = f'''<script src="{script_js_path}"></script>\n'''
     self.out(line)
