@@ -1,6 +1,3 @@
-# python src_expand.py
-# python HTMLMaker.py
-
 import sys
 import re
 from pygments import highlight
@@ -8,7 +5,6 @@ from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
 from markdown import markdown
 import os
-
 
 class HTMLMaker():
 
