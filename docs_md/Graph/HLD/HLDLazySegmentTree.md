@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`HLDLazySegmentTree`](https://github.com/titanium-22/Library_py/blob/main/Graph/HLD/HLDLazySegmentTree.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\HLD\HLDLazySegmentTree.py -->
+[`HLDLazySegmentTree`](https://github.com/titan-23/Library_py/blob/main/Graph/HLD/HLDLazySegmentTree.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Graph\HLD\HLDLazySegmentTree.py -->
 
 _____
 

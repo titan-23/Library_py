@@ -1,6 +1,6 @@
 _____
 
-# [`Array`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Array)
+# [`Array`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Array)
 
 _____
 

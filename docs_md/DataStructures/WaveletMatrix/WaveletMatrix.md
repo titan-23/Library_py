@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`WaveletMatrix`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\WaveletMatrix\WaveletMatrix_.py -->
+[`WaveletMatrix`](https://github.com/titan-23/Library_py/blob/main/DataStructures/WaveletMatrix/WaveletMatrix.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\WaveletMatrix\WaveletMatrix_.py -->
 
 _____
 

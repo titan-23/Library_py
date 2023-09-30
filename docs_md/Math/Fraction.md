@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`Fraction`](https://github.com/titanium-22/Library_py/blob/main/Math/Fraction.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Math\Fraction.py -->
+[`Fraction`](https://github.com/titan-23/Library_py/blob/main/Math/Fraction.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Math\Fraction.py -->
 
 _____
 

@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`MaxFlowFordFulkerson`](https://github.com/titanium-22/Library_py/blob/main/Graph/MaxFlow/MaxFlowFordFulkerson.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\MaxFlow\MaxFlowFordFulkerson.py -->
+[`MaxFlowFordFulkerson`](https://github.com/titan-23/Library_py/blob/main/Graph/MaxFlow/MaxFlowFordFulkerson.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Graph\MaxFlow\MaxFlowFordFulkerson.py -->
 
 _____
 

@@ -1,6 +1,6 @@
 _____
 
-# [`FenwickTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/FenwickTree)
+# [`FenwickTree`](https://github.com/titan-23/Library_py/blob/main/DataStructures/FenwickTree)
 
 - `FenwickTree` です。
 

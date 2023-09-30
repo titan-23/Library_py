@@ -5,8 +5,8 @@ ___
 ___
 
 ## コード
-[`AVLTreeBitVector`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BitVector/AVLTreeBitVector.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\BitVector\AVLTreeBitVector.py -->
+[`AVLTreeBitVector`](https://github.com/titan-23/Library_py/blob/main/DataStructures/BitVector/AVLTreeBitVector.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\BitVector\AVLTreeBitVector.py -->
 
 ___
 

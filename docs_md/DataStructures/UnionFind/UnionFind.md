@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`UnionFind.py`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind/UnionFind.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\UnionFind\UnionFind_.py -->
+[`UnionFind.py`](https://github.com/titan-23/Library_py/blob/main/DataStructures/UnionFind/UnionFind.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\UnionFind\UnionFind_.py -->
 
 _____
 

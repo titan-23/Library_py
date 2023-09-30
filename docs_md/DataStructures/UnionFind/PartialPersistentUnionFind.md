@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`PartialPersistentUnionFind`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/UnionFind/PartialPersistentUnionFind.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\UnionFind\PartialPersistentUnionFind.py -->
+[`PartialPersistentUnionFind`](https://github.com/titan-23/Library_py/blob/main/DataStructures/UnionFind/PartialPersistentUnionFind.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\UnionFind\PartialPersistentUnionFind.py -->
 
 _____
 

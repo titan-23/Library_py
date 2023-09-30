@@ -10,8 +10,8 @@ for f in F:
       if filename.endswith('.py'):
         input_path = os.path.join(root, filename)
         output_dir = os.path.join(root)
-        output_dir = output_dir[:len("..\\..\\Library_py\\")] + "_src_expanded\\" + output_dir[len("..\\..\\Library_py\\"):]
-        output_path = input_path[:len("..\\..\\Library_py\\")] + "_src_expanded\\" + input_path[len("..\\..\\Library_py\\"):]
+        output_dir = output_dir[:len("..\\..\\Library_py\\")] + "gh-pages\\_src_expanded\\" + output_dir[len("..\\..\\Library_py\\"):]
+        output_path = input_path[:len("..\\..\\Library_py\\")] + "gh-pages\\_src_expanded\\" + input_path[len("..\\..\\Library_py\\"):]
         if not os.path.exists(output_dir):
           print(output_dir)
           os.makedirs(output_dir)

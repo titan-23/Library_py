@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`MultisetQuadraticDivision`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/MultisetQuadraticDivision.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\MultisetQuadraticDivision.py -->
+[`MultisetQuadraticDivision`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Set/MultisetQuadraticDivision.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\Set\MultisetQuadraticDivision.py -->
 
 _____
 

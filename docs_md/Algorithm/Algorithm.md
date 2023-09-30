@@ -1,6 +1,6 @@
 _____
 
-# [`Algorithm`](https://github.com/titanium-22/Library_py/tree/main/Algorithm)
+# [`Algorithm`](https://github.com/titan-23/Library_py/tree/main/Algorithm)
 
 _____
 

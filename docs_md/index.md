@@ -1,6 +1,6 @@
 _____
 
-# [Library_py](https://github.com/titanium-22/Library_py)
+# [Library_py](https://github.com/titan-23/Library_py)
 
 **2023/9/11 追記**
 

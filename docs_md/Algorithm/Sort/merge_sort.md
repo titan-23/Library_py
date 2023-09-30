@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`merge_sort`](https://github.com/titanium-22/Library_py/blob/main/Algorithm/Sort/merge_sort.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Algorithm\Sort\merge_sort.py -->
+[`merge_sort`](https://github.com/titan-23/Library_py/blob/main/Algorithm/Sort/merge_sort.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Algorithm\Sort\merge_sort.py -->
 
 _____
 

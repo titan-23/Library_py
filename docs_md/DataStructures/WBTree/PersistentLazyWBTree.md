@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`PersistentLazyWBTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/WBTree/PersistentLazyWBTree.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\WBTree\PersistentLazyWBTree.py -->
+[`PersistentLazyWBTree`](https://github.com/titan-23/Library_py/blob/main/DataStructures/WBTree/PersistentLazyWBTree.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\WBTree\PersistentLazyWBTree.py -->
 
 _____
 

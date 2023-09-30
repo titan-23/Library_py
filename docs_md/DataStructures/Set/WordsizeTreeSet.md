@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`WordsizeTreeSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Set/WordsizeTreeSet.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Set\WordsizeTreeSet.py -->
+[`WordsizeTreeSet`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Set/WordsizeTreeSet.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\Set\WordsizeTreeSet.py -->
 
 _____
 

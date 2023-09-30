@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`scc`](https://github.com/titanium-22/Library_py/blob/main/Graph/scc.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\scc.py -->
+[`scc`](https://github.com/titan-23/Library_py/blob/main/Graph/scc.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Graph\scc.py -->
 
 _____
 

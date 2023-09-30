@@ -1,6 +1,6 @@
 _____
 
-# [`CumulativeSum`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/CumulativeSum)
+# [`CumulativeSum`](https://github.com/titan-23/Library_py/blob/main/DataStructures/CumulativeSum)
 
 累積和です。構築 `Θ(N)` 、区間和取得 `Θ(1)` などです。変更不可であることに注意してください。
 

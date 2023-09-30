@@ -1,6 +1,6 @@
 _____
 
-# [`Treap`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Treap)
+# [`Treap`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Treap)
 
 _____
 

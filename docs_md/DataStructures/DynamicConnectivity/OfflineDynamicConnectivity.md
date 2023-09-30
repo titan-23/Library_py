@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`OfflineDynamicConnectivity`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\DynamicConnectivity\OfflineDynamicConnectivity.py -->
+[`OfflineDynamicConnectivity`](https://github.com/titan-23/Library_py/blob/main/DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\DynamicConnectivity\OfflineDynamicConnectivity.py -->
 
 _____
 

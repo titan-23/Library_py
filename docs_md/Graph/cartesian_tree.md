@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`cartesian_tree`](https://github.com/titanium-22/Library_py/blob/main/Graph/cartesian_tree.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\cartesian_tree.py -->
+[`cartesian_tree`](https://github.com/titan-23/Library_py/blob/main/Graph/cartesian_tree.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Graph\cartesian_tree.py -->
 
 _____
 

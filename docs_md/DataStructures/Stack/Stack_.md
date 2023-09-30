@@ -1,6 +1,6 @@
 _____
 
-# [`Stack`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Stack)
+# [`Stack`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Stack)
 
 _____
 

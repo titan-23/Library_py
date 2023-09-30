@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`Divisors`](https://github.com/titanium-22/Library_py/blob/main/Math/Divisors.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Math\Divisors.py -->
+[`Divisors`](https://github.com/titan-23/Library_py/blob/main/Math/Divisors.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Math\Divisors.py -->
 
 _____
 

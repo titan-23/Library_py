@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`MaxHeap`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Heap/MaxHeap.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\Heap\MaxHeap.py -->
+[`MaxHeap`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Heap/MaxHeap.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\Heap\MaxHeap.py -->
 
 _____
 

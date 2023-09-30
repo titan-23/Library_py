@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`AffineMap`](https://github.com/titanium-22/Library_py/blob/main/Math/AffineMap.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Math\AffineMap.py -->
+[`AffineMap`](https://github.com/titan-23/Library_py/blob/main/Math/AffineMap.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Math\AffineMap.py -->
 
 _____
 

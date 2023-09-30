@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`SparseTableRmQ`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SparseTable/SparseTableRmQ.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SparseTable\SparseTableRmQ.py -->
+[`SparseTableRmQ`](https://github.com/titan-23/Library_py/blob/main/DataStructures/SparseTable/SparseTableRmQ.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\SparseTable\SparseTableRmQ.py -->
 
 _____
 

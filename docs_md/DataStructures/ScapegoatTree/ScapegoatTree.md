@@ -1,6 +1,6 @@
 _____
 
-# [`ScapegoatTree`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/ScapegoatTree)
+# [`ScapegoatTree`](https://github.com/titan-23/Library_py/blob/main/DataStructures/ScapegoatTree)
 
 _____
 

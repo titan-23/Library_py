@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`PartialPersistentArray`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/Array/PartialPersistentArray.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures/Array/PartialPersistentArray.py -->
+[`PartialPersistentArray`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Array/PartialPersistentArray.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures/Array/PartialPersistentArray.py -->
 
 _____
 

@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`dijkstra`](https://github.com/titanium-22/Library_py/blob/main/Graph/dijkstra.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Graph\dijkstra.py -->
+[`dijkstra`](https://github.com/titan-23/Library_py/blob/main/Graph/dijkstra.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Graph\dijkstra.py -->
 
 _____
 

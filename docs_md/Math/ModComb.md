@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`ModComb`](https://github.com/titanium-22/Library_py/blob/main/Math/ModComb.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/Math\ModComb.py -->
+[`ModComb`](https://github.com/titan-23/Library_py/blob/main/Math/ModComb.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/Math\ModComb.py -->
 
 _____
 

@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`BTreeSet`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/BTree/BTreeSet.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\BTree\BTreeSet.py -->
+[`BTreeSet`](https://github.com/titan-23/Library_py/blob/main/DataStructures/BTree/BTreeSet.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\BTree\BTreeSet.py -->
 
 _____
 

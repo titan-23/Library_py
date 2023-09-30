@@ -13,7 +13,7 @@ import os
 class HTMLMaker():
 
   def __init__(self):
-    self.HEAD: str = '''https://titanium-22.github.io/Library_py/'''
+    self.HEAD: str = '''https://titan-23.github.io/Library_py/'''
 
   def set(self, filename) -> bool:
     print(f'set {filename}', file=sys.stderr)
@@ -23,29 +23,23 @@ class HTMLMaker():
     self.code_file_flag = False
 
     try:
-      self.input_file = open(f'..\\..\\Library_py\\docs_md\\{filename}.md', 'r', encoding='utf-8')
+      self.input_file = open(f'../../Library_py/docs_md/{filename}.md', 'r', encoding='utf-8')
       self.input_file_flag = True
     except FileNotFoundError:
-      print(f'..\\..\\Library_py\\docs_md\\{filename}.md is not found.')
+      print(f'<NotFound> ../../Library_py/docs_md/{filename}.md.')
       return False
 
     try:
-      self.code_file = open(f'..\\..\\Library_py\\{filename}.py', 'r', encoding='utf-8')
+      self.code_file = open(f'../../Library_py/{filename}.py', 'r', encoding='utf-8')
       self.code_file_flag = True
     except FileNotFoundError:
-      if self.filename and self.filename[-1] == '_':
-        try:
-          self.code_file = open(f'..\\..\\Library_py\\{filename[:-1]}.py', 'r', encoding='utf-8')
-          self.code_file_flag = True
-        except FileNotFoundError:
-          print(f'code {filename} not found.')
-          pass
+      print(f'code {filename} not found.')
 
     try:
-      self.output_file = open(f'..\\..\\Library_py\\docs\\{filename}.html', 'w', encoding='utf-8')
+      self.output_file = open(f'../../Library_py/docs/{filename}.html', 'w', encoding='utf-8')
       self.output_file_flag = True
     except FileNotFoundError:
-      print(f'..\\Library_py\\docs\\{filename}.html is not found.')
+      print(f'../Library_py/docs/{filename}.html is not found.')
       return False
 
     return True
@@ -71,7 +65,7 @@ class HTMLMaker():
 
     if copy:
       # expand
-      exp_filepath = f'..\\..\\Library_py\\_src_expanded\\{self.filename}.py'
+      exp_filepath = f'../../Library_py/gh-pages/_src_expanded/{self.filename}.py'
       with open(exp_filepath, 'r', encoding="utf-8") as exp_code:
         outs = ''
         for line in exp_code:
@@ -90,9 +84,9 @@ class HTMLMaker():
 
   def write(self, title):
     # print(title)
-    cnt = self.filename.count("\\")
+    cnt = self.filename.count("/")
     style_path = '../' * cnt + 'style.css'
-    t = 'Library_py-' + self.filename.replace('\\', '-')
+    t = 'Library_py-' + self.filename.replace('/', '-')
     if title == 'index':
       t = 'Library_py'
     
@@ -104,7 +98,7 @@ class HTMLMaker():
     line = f'''<link rel=\"stylesheet\" type=\"text/css\" href=\"{style_path}\">\n'''
     self.out(line)
 
-    cnt = self.filename.count("\\")
+    cnt = self.filename.count("/")
     script_js_path = '../' * cnt + 'script.js'
     line = f'''<script src="{script_js_path}"></script>\n'''
     self.out(line)
@@ -122,7 +116,7 @@ class HTMLMaker():
     outs = ''
     for line in self.input_file:
       line = str(line)
-      if self.code_file_flag and line.startswith("<!-- code=https://github.com/titanium-22/Library_py/blob/main/"):
+      if self.code_file_flag and line.startswith("<!-- code=https://github.com/titan-23/Library_py/blob/main/"):
         self.out(outs)
         self.output_code(code=self.code_file, copy=True)
         outs = ''
@@ -156,40 +150,12 @@ class HTMLMaker():
 
 maker = HTMLMaker()
 
-for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
+for root, dirs, files in os.walk("../../Library_py/docs_md/"):
   for filename in files:
     filename = str(filename)
     if filename.endswith('.md'):
       filename = filename.removesuffix('.md')
-      path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
+      path = os.path.join(root, filename).removeprefix('../../Library_py/docs_md/')
       if not maker.set(path):
         continue
       maker.write(title=filename)
-
-# for root, dirs, files in os.walk("../../Library_py\\docs_md\\"):
-#   for filename in files:
-#     filename = str(filename)
-#     if filename.endswith('.md'):
-#       filename = filename.removesuffix('.md')
-#       path = os.path.join(root, filename).removeprefix('../../Library_py\\docs_md\\')
-#       file_name = f'{path}.md'
-#       with open(file_name, encoding="utf-8") as f:
-#         data_lines = f.readlines()
-#       out_lines = ''
-#       x = False
-#       for line in data_lines:
-#         s = str(line)
-#         if '`](https://github.com/titanium-22/Library_py/tree/main/' in s:
-#           if s.startswith('- ') or s.startswith('\t- '):
-#             out_lines += s
-#             continue
-#           assert not x
-#           x = True
-#           print('aaaaaaaaaa', s)
-#           out_lines += s.replace('/Library_py/tree/main/', '/Library_py/blob/main/')
-#           out_lines += f'''<!-- code=https://github.com/titanium-22/Library_py/blob/main/{path}.py -->'''
-#           out_lines += '\n'
-#         else:
-#           out_lines += s
-#       with open(file_name, mode="w", encoding="utf-8") as f:
-#         f.write(out_lines)

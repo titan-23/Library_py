@@ -6,8 +6,8 @@ _____
 
 ## コード
 
-[`SegmentLazyQuadraticDivision`](https://github.com/titanium-22/Library_py/blob/main/DataStructures/SegmentQuadraticDivision/SegmentLazyQuadraticDivision.py)
-<!-- code=https://github.com/titanium-22/Library_py/blob/main/DataStructures\SegmentQuadraticDivision\SegmentLazyQuadraticDivision.py -->
+[`SegmentLazyQuadraticDivision`](https://github.com/titan-23/Library_py/blob/main/DataStructures/SegmentQuadraticDivision/SegmentLazyQuadraticDivision.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\SegmentQuadraticDivision\SegmentLazyQuadraticDivision.py -->
 
 _____
 
