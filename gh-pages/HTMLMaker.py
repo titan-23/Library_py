@@ -82,8 +82,7 @@ class HTMLMaker():
     print(html_output, file=self.output_file)
 
   def write(self, title):
-    # print(title)
-    cnt = self.filename.count("/") + 1
+    cnt = self.filename.count('\\')
     style_path = '../' * cnt + 'style.css'
     t = 'Library_py-' + self.filename.replace('/', '-')
     if title == 'index':
