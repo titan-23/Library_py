@@ -6,9 +6,13 @@ F = TypeVar('F')
 
 class SegmentLazyQuadraticDivision(Generic[T, F]):
 
-  def __init__(self, n_or_a: Union[int, Iterable[T]], \
-              op: Callable[[T, T], T], mapping: Callable[[F, T], T], \
-              composition: Callable[[F, F], F], e: T, id: F):
+  def __init__(self,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F):
     if isinstance(n_or_a, int):
       self.n = n_or_a
       a = [e] * self.n
@@ -30,11 +34,12 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
     self.bucket_lazy = [id] * self.bucket_cnt
 
   def apply(self, l: int, r: int, f: F) -> None:
-    '''Applay f to a[l,r). / O(√N)'''
     assert 0 <= l <= r <= self.n
     def _change_data(k: int, l: int, r: int) -> None:
       self._propagate(k)
-      self.data[k][l:r] = [self.mapping(f, d) for d in self.data[k][l:r]]
+      d = self.data[k]
+      for i in range(l, r):
+        d[i] = self.mapping(f, d[i])
       self.bucket_data[k] = reduce(self.op, self.data[k])
     k1 = l // self.bucket_size
     k2 = r // self.bucket_size
@@ -66,16 +71,18 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
   def _propagate(self, k: int) -> None:
     if self.bucket_lazy[k] == self.id: return
     f = self.bucket_lazy[k]
-    self.data[k] = [self.mapping(f, d) for d in self.data[k]]
+    dk = self.data[k]
+    for i, d in enumerate(dk):
+      dk[i] = self.mapping(f, d)
     self.bucket_lazy[k] = self.id
 
   def _all_propagatae(self) -> None:
     for k in range(self.bucket_cnt):
       self._propagate(k)
-    self.bucket_lazy = [self.id] * self.bucket_cnt
+    for i in range(self.bucket_cnt):
+      self.bucket_lazy[i] = self.id
 
   def prod(self, l: int, r: int) -> T:
-    '''Return op([l, r)). / 0 <= l <= r <= n / O(√N)'''
     assert 0 <= l <= r <= self.n
     if l == r: return self.e
     k1 = l // self.bucket_size
@@ -102,7 +109,6 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
     return s
 
   def all_prod(self) -> T:
-    '''Return op([0, n)). / O(√N)'''
     return reduce(self.op, self.bucket_data)
 
   def tolist(self) -> List[T]:
@@ -124,16 +130,4 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
 
   def __repr__(self):
     return f'SegmentLazyQuadraticDivision({self})'
-
-# def op(s, t):
-#   return
-
-# def mapping(f, s):
-#   return
-
-# def composition(f, g):
-#   return
-
-# e = None
-# id = None
 

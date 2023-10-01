@@ -21,14 +21,13 @@
 <button id="ShowFullCodeButton">全表示</button>
 <button id="toggleCodeButton">展開</button>
 </div>
-<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">.SegmentTreeInterface</span> <span class="kn">import</span> <span class="n">SegmentTreeInterface</span>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.SegmentTree.SegmentTreeInterface</span> <span class="kn">import</span> <span class="n">SegmentTreeInterface</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">DynamicSegmentTree</span><span class="p">(</span><span class="n">SegmentTreeInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Build a new DynamicSegmentTree. / O(1)&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_op</span> <span class="o">=</span> <span class="n">op</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="o">=</span> <span class="n">e</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">=</span> <span class="n">u</span>
@@ -37,7 +36,6 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
   <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update a[k] &lt;- x. / O(logU)&#39;&#39;&#39;</span>
     <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> \
         <span class="sa">f</span><span class="s1">&#39;IndexError: DynamicSegmentTree.set(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: int, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">: T), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span>
@@ -49,14 +47,12 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
 
   <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return a[k]. / O(1)&#39;&#39;&#39;</span>
     <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> \
         <span class="sa">f</span><span class="s1">&#39;IndexError: DynamicSegmentTree.get(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: int), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return op([l, r)). / O(logU)&#39;&#39;&#39;</span>
     <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> \
         <span class="sa">f</span><span class="s1">&#39;IndexError: DynamicSegmentTree.prod(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">: int, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">: int)&#39;</span>
     <span class="n">l</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
@@ -75,7 +71,6 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">lres</span><span class="p">,</span> <span class="n">rres</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return op([0, n)). / O(1)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -133,7 +128,6 @@
     <span class="k">return</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return List[self]. / O(NlogN)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">)]</span>
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
@@ -151,11 +145,6 @@
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;DynamicSegmentTree(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
-
-<span class="c1"># def op(s, t):</span>
-<span class="c1">#   return</span>
- 
-<span class="c1"># e = None</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
@@ -219,7 +208,6 @@
 <span class="k">class</span> <span class="nc">DynamicSegmentTree</span><span class="p">(</span><span class="n">SegmentTreeInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Build a new DynamicSegmentTree. / O(1)&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_op</span> <span class="o">=</span> <span class="n">op</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="o">=</span> <span class="n">e</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">=</span> <span class="n">u</span>
@@ -228,7 +216,6 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
   <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Update a[k] &lt;- x. / O(logU)&#39;&#39;&#39;</span>
     <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> \
         <span class="sa">f</span><span class="s1">&#39;IndexError: DynamicSegmentTree.set(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: int, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">: T), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span>
@@ -240,14 +227,12 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
 
   <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return a[k]. / O(1)&#39;&#39;&#39;</span>
     <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> \
         <span class="sa">f</span><span class="s1">&#39;IndexError: DynamicSegmentTree.get(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: int), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return op([l, r)). / O(logU)&#39;&#39;&#39;</span>
     <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">,</span> \
         <span class="sa">f</span><span class="s1">&#39;IndexError: DynamicSegmentTree.prod(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">: int, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">: int)&#39;</span>
     <span class="n">l</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
@@ -266,7 +251,6 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">lres</span><span class="p">,</span> <span class="n">rres</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return op([0, n)). / O(1)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -324,7 +308,6 @@
     <span class="k">return</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return List[self]. / O(NlogN)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">)]</span>
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
@@ -342,11 +325,6 @@
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;DynamicSegmentTree(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
-
-<span class="c1"># def op(s, t):</span>
-<span class="c1">#   return</span>
- 
-<span class="c1"># e = None</span>
 </pre></div>
 
 </div>

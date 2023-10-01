@@ -59,8 +59,10 @@ T = TypeVar('T')
 
 class SegmentTree(SegmentTreeInterface, Generic[T]):
 
-  def __init__(self, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T):
-    '''Build a new SegmentTree. / O(N)'''
+  def __init__(self,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T],
+               e: T) -> None:
     self._op = op
     self._e = e
     if isinstance(n_or_a, int):
@@ -80,7 +82,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
       self._data = _data
 
   def set(self, k: int, v: T) -> None:
-    '''Update a[k] <- x. / O(logN)'''
     assert -self._n <= k < self._n, \
         f'IndexError: SegmentTree.set({k}, {v}), n={self._n}'
     if k < 0:
@@ -92,7 +93,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
       self._data[k] = self._op(self._data[k<<1], self._data[k<<1|1])
 
   def get(self, k: int) -> T:
-    '''Return a[k]. / O(1)'''
     assert -self._n <= k < self._n, \
         f'IndexError: SegmentTree.get({k}), n={self._n}'
     if k < 0:
@@ -100,7 +100,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return self._data[k+self._size]
 
   def prod(self, l: int, r: int) -> T:
-    '''Return op([l, r)). / O(logN)'''
     assert 0 <= l <= r <= self._n, \
         f'IndexError: SegmentTree.prod({l}, {r})'
     l += self._size
@@ -118,7 +117,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return self._op(lres, rres)
 
   def all_prod(self) -> T:
-    '''Return op([0, n)). / O(1)'''
     return self._data[1]
 
   def max_right(self, l: int, f: Callable[[T], bool]) -> int:
@@ -174,11 +172,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return 0
 
   def tolist(self) -> List[T]:
-    '''Return List[self]. / O(N)'''
     return [self.get(i) for i in range(self._n)]
 
   def show(self) -> None:
-    '''Debug. / O(N)'''
     print('<SegmentTree> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
 
   def __getitem__(self, k: int) -> T:
@@ -196,11 +192,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def __repr__(self):
     return f'SegmentTree({self})'
-
-# def op(s, t):
-#   return
-
-# e = None
 
 from typing import Any, Iterator, List, Tuple
 

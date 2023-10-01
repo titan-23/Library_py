@@ -190,7 +190,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
 
-  def __init__(self, _n_or_a: Union[int, Iterable[T]], e: T=float('inf')) -> None:
+  def __init__(self, _n_or_a: Union[int, Iterable[T]], e: T) -> None:
     '''Build a new SegmentTreeRmQ. / O(N)'''
     self._e = e
     if isinstance(_n_or_a, int):

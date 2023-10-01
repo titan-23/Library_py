@@ -68,7 +68,6 @@ T = TypeVar('T', bound=SupportsAdd)
 class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
 
   def __init__(self, _n_or_a: Union[int, Iterable[T]], e: T=0) -> None:
-    '''Build a new SegmentTreeRSQ. / O(N)'''
     self._e = e
     if isinstance(_n_or_a, int):
       self._n = _n_or_a

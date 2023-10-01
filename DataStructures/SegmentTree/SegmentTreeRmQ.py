@@ -1,11 +1,11 @@
-from .SegmentTreeInterface import SegmentTreeInterface
+from Library_py.DataStructures.SegmentTree.SegmentTreeInterface import SegmentTreeInterface
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, TypeVar, Union, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
 
-  def __init__(self, _n_or_a: Union[int, Iterable[T]], e: T=float('inf')) -> None:
+  def __init__(self, _n_or_a: Union[int, Iterable[T]], e: T) -> None:
     '''Build a new SegmentTreeRmQ. / O(N)'''
     self._e = e
     if isinstance(_n_or_a, int):

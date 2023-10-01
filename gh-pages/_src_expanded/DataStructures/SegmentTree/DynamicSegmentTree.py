@@ -60,7 +60,6 @@ T = TypeVar('T')
 class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
 
   def __init__(self, u: int, op: Callable[[T, T], T], e: T):
-    '''Build a new DynamicSegmentTree. / O(1)'''
     self._op = op
     self._e = e
     self._u = u
@@ -69,7 +68,6 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
     self._data: Dict[int, T] = {}
 
   def set(self, k: int, v: T) -> None:
-    '''Update a[k] <- x. / O(logU)'''
     assert -self._u <= k < self._u, \
         f'IndexError: DynamicSegmentTree.set({k}: int, {v}: T), n={self._u}'
     if k < 0: k += self._u
@@ -81,14 +79,12 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
       self._data[k] = self._op(self._data.get(k<<1, e), self._data.get(k<<1|1, e))
 
   def get(self, k: int) -> T:
-    '''Return a[k]. / O(1)'''
     assert -self._u <= k < self._u, \
         f'IndexError: DynamicSegmentTree.get({k}: int), n={self._u}'
     if k < 0: k += self._u
     return self._data.get(k+self._size, self._e)
 
   def prod(self, l: int, r: int) -> T:
-    '''Return op([l, r)). / O(logU)'''
     assert 0 <= l <= r <= self._u, \
         f'IndexError: DynamicSegmentTree.prod({l}: int, {r}: int)'
     l += self._size
@@ -107,7 +103,6 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
     return self._op(lres, rres)
 
   def all_prod(self) -> T:
-    '''Return op([0, n)). / O(1)'''
     return self._data[1]
 
   def max_right(self, l: int, f: Callable[[T], bool]) -> int:
@@ -165,7 +160,6 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
     return 0
 
   def tolist(self) -> List[T]:
-    '''Return List[self]. / O(NlogN)'''
     return [self.get(i) for i in range(self._u)]
 
   def __getitem__(self, k: int) -> T:
@@ -183,10 +177,5 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
 
   def __repr__(self) -> str:
     return f'DynamicSegmentTree({self})'
-
-# def op(s, t):
-#   return
- 
-# e = None
 
 
