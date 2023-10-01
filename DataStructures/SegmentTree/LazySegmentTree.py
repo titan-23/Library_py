@@ -31,6 +31,7 @@ class LazySegmentTree(Generic[T, F]):
     self.data[k] = self.op(self.data[k<<1], self.data[k<<1|1])
 
   def _all_apply(self, k: int, f: F) -> None:
+    if f == self.id: return
     self.data[k] = self.mapping(f, self.data[k])
     if k < self.size:
       self.lazy[k] = self.composition(f, self.lazy[k])
@@ -53,10 +54,11 @@ class LazySegmentTree(Generic[T, F]):
     if l == r: return
     l += self.size
     r += self.size
+    lazy = self.lazy
     for i in range(self.log,0,-1):
-      if l >> i << i != l and self.lazy[l>>i] != self.id:
+      if l >> i << i != l and lazy[l>>i] != self.id:
         self._propagate(l >> i)
-      if r >> i << i != r and self.lazy[(r-1)>>i] != self.id:
+      if r >> i << i != r and lazy[(r-1)>>i] != self.id:
         self._propagate((r-1) >> i)
     l2, r2 = l, r
     while l < r:
@@ -80,10 +82,11 @@ class LazySegmentTree(Generic[T, F]):
     if l == r: return self.e
     l += self.size
     r += self.size
+    lazy = self.lazy
     for i in range(self.log, 0, -1):
-      if l >> i << i != l and self.lazy[l>>i] != self.id:
+      if l >> i << i != l and lazy[l>>i] != self.id:
         self._propagate(l >> i)
-      if r >> i << i != r and self.lazy[r>>i] != self.id:
+      if r >> i << i != r and lazy[r>>i] != self.id:
         self._propagate(r >> i)
     lres = self.e
     rres = self.e
