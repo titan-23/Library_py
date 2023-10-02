@@ -15,6 +15,7 @@ except subprocess.CalledProcessError as e:
   print('Error: ExpandError')
   print('Try: python AllExpander.py')
   exit(1)
+print('AllExpander.py Finished.')
 
 # HTML ファイルを生成
 command_html = ["python", "./HTMLMaker.py"]

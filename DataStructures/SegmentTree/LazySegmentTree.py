@@ -11,11 +11,11 @@ class LazySegmentTree(Generic[T, F]):
                composition: Callable[[F, F], F],
                e: T,
                id: F):
-    self.e = e
-    self.id = id
-    self.op = op
-    self.mapping = mapping
-    self.composition = composition
+    self.op: Callable[[T, T], T] = op
+    self.mapping: Callable[[F, T], T] = mapping
+    self.composition: Callable[[F, F], F] = composition
+    self.e: T = e
+    self.id: F = id
     if isinstance(n_or_a, int):
       self.n = n_or_a
       self.log = (self.n - 1).bit_length()
@@ -94,9 +94,9 @@ class LazySegmentTree(Generic[T, F]):
     for i in range(self.log, 0, -1):
       ll, rr = l>>i, r>>i
       if ll << i != l and lazy[ll] != self.id:
-        self._propagate(l >> i)
+        self._propagate(ll)
       if rr << i != r and lazy[rr] != self.id:
-        self._propagate(r >> i)
+        self._propagate(rr)
     lres = self.e
     rres = self.e
     while l < r:
