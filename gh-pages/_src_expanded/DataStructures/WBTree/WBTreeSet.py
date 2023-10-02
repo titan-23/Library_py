@@ -119,9 +119,10 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
 
   def reserve(self, n: int) -> None:
     self.key += [self.e] * n
+    a = array('I', bytes(4 * n))
+    self.left += a
+    self.right += a
     self.size += array('I', [1] * n)
-    self.left += array('I', bytes(4 * n))
-    self.right += array('I', bytes(4 * n))
 
   def _balance(self, node: int) -> float:
     return (self.size[self.left[node]]+1) / (self.size[node]+1)

@@ -261,27 +261,4 @@ class PersistentWBTreeList(Generic[T]):
   def __repr__(self):
     return f'PersistentWBTreeList({self})'
 
-  def isok(self):
-    def rec(node):
-      ls, rs = 0, 0
-      height = 0
-      if node.left:
-        ls, h = rec(node.left)
-        height = max(height, h)
-      if node.right:
-        rs, h = rec(node.right)
-        height = max(height, h)
-      s = ls + rs + 1
-      b = (ls+1) / (s+1)
-      assert s == node.size
-      if not (self.ALPHA <= b <= 1-self.ALPHA):
-        print('NG!')
-        print(f'{node.key=}, {ls=}, {rs=}, {s=}, {b=}')
-        print(f'{self.ALPHA=}, {1-self.ALPHA=}')
-        assert False
-      return s, height+1
-    if not self.root: return
-    _, h = rec(self.root)
-    # print(f'isok.ok., height={h}')
-
 

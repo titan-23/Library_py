@@ -283,29 +283,6 @@
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;PersistentWBTreeList(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
-
-  <span class="k">def</span> <span class="nf">isok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-      <span class="n">ls</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-      <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-        <span class="n">ls</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-        <span class="n">rs</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="n">ls</span> <span class="o">+</span> <span class="n">rs</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">ls</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-      <span class="k">assert</span> <span class="n">s</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">size</span>
-      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NG!&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">ls</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">rs</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">s</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">b</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="kc">False</span>
-      <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span> <span class="k">return</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
-    <span class="c1"># print(f&#39;isok.ok., height={h}&#39;)</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Final</span>
@@ -569,29 +546,6 @@
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;PersistentWBTreeList(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
-
-  <span class="k">def</span> <span class="nf">isok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-      <span class="n">ls</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-      <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-        <span class="n">ls</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-        <span class="n">rs</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-      <span class="n">s</span> <span class="o">=</span> <span class="n">ls</span> <span class="o">+</span> <span class="n">rs</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">ls</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-      <span class="k">assert</span> <span class="n">s</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">size</span>
-      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NG!&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">ls</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">rs</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">s</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">b</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="kc">False</span>
-      <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span> <span class="k">return</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
-    <span class="c1"># print(f&#39;isok.ok., height={h}&#39;)</span>
 </pre></div>
 
 </div>

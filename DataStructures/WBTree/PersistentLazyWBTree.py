@@ -5,7 +5,7 @@ F = TypeVar('F')
 
 class PersistentLazyWBTree(Generic[T, F]):
 
-  ALPHA: Final[float] = 1 - sqrt(2) / 2
+  ALPHA: Final[float] = 1 - sqrt(2) / 2  # 0.2
   BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
 
   class Node():
@@ -15,7 +15,7 @@ class PersistentLazyWBTree(Generic[T, F]):
                  lazy: F,
                  copy_t: Callable[[T], T],
                  copy_f: Callable[[F], F],
-                 ):
+                 ) -> None:
       self.key: T = key
       self.data: T = key
       self.left: Optional[PersistentLazyWBTree.Node] = None
@@ -277,14 +277,14 @@ class PersistentLazyWBTree(Generic[T, F]):
       l, r = self._split_node(node.right, tmp-1)
       return self._merge_with_root(node.left, node, l), r
 
-  def split(self, k: int) -> Tuple['PersistentLazyWBTree', 'PersistentLazyWBTree']:
+  def split(self, k: int) -> Tuple['PersistentLazyWBTree[T, F]', 'PersistentLazyWBTree[T, F]']:
     l, r = self._split_node(self.root, k)
     return self._new(l), self._new(r)
 
-  def _new(self, root: Optional['PersistentLazyWBTree.Node']) -> 'PersistentLazyWBTree':
+  def _new(self, root: Optional['PersistentLazyWBTree.Node']) -> 'PersistentLazyWBTree[T, F]':
     return PersistentLazyWBTree([], self.op, self.mapping, self.composition, self.e, self.id, self.copy_t, self.copy_f, root)
 
-  def apply(self, l: int, r: int, f: F) -> 'PersistentLazyWBTree':
+  def apply(self, l: int, r: int, f: F) -> 'PersistentLazyWBTree[T, F]':
     if l >= r:
       return self._new(self.root.copy() if self.root else None)
     s, t = self._split_node(self.root, r)
@@ -305,19 +305,19 @@ class PersistentLazyWBTree(Generic[T, F]):
     self.root = self._merge_node(self._merge_node(u, s), t)
     return res
 
-  def insert(self, k: int, key: T) -> 'PersistentLazyWBTree':
+  def insert(self, k: int, key: T) -> 'PersistentLazyWBTree[T, F]':
     s, t = self._split_node(self.root, k)
     root = self._merge_with_root(s, PersistentLazyWBTree.Node(key, self.id, self.copy_t, self.copy_f), t)
     return self._new(root)
 
-  def pop(self, k: int) -> Tuple['PersistentLazyWBTree', T]:
+  def pop(self, k: int) -> Tuple['PersistentLazyWBTree[T, F]', T]:
     s, t = self._split_node(self.root, k+1)
     assert s
     s, tmp = self._pop_right(s)
     root = self._merge_node(s, t)
     return self._new(root), tmp.key
 
-  def reverse(self, l: int, r: int) -> 'PersistentLazyWBTree':
+  def reverse(self, l: int, r: int) -> 'PersistentLazyWBTree[T, F]':
     if l >= r:
       return self._new(self.root.copy() if self.root else None)
     s, t = self._split_node(self.root, r)
