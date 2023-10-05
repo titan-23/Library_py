@@ -94,7 +94,7 @@ _____
 
 ### [`RBST`](DataStructures/RBST/RBST_.md)
 
-- [`RBST`](DataStructures/RBST/LazyRBST.md)
+- [`LazyRBST`](DataStructures/RBST/LazyRBST.md)
 
 ### [`RedBlackTree`](DataStructures/RedBlackTree/RedBlackTree.md)
 
