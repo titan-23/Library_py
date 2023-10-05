@@ -2,6 +2,15 @@ class Random():
 
   _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
 
+  x = 2463534242
+
+  @classmethod
+  def random32(cls) -> int:
+    cls.x ^= cls.x << 13 & 0xFFFFFFFF
+    cls.x ^= cls.x >> 17
+    cls.x ^= cls.x << 5  & 0xFFFFFFFF
+    return cls.x & 0xFFFFFFFF
+
   @classmethod
   def _xor128(cls) -> int:
     t = cls._x ^ (cls._x << 11) & 0xFFFFFFFF

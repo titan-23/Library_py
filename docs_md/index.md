@@ -19,6 +19,7 @@ _____
 ### [`Mo`](Algorithm/Mo/Mo.md)
 
 ### [`Sort`](Algorithm/Sort/Sort.md)
+
 - [`merge_sort`](Algorithm/Sort/merge_sort.md)
 - [`quick_sort`](Algorithm/Sort/quick_sort.md)
 
@@ -31,42 +32,52 @@ _____
 ## [`DataStructures`](DataStructures/DataStructures.md)
 
 ### [`Array`](DataStructures/Array/Array.md)
+
 - [`PartialPersistentArray`](DataStructures/Array/PartialPersistentArray.md)
 - [`PersistentArray`](DataStructures/Array/PersistentArray.md)
 
 ### [`AVLTree`](DataStructures/AVLTree/AVLTree.md)
+
 - [`PersistentAVLTreeList`](DataStructures/AVLTree/PersistentAVLTreeList.md)
 - [`PersistentLazyAVLTree`](DataStructures/AVLTree/PersistentLazyAVLTree.md)
 
 ### [`BinaryTrie`](DataStructures/BinaryTrie/BinaryTrie.md)
+
 - [`BinaryTrieSet`](DataStructures/BinaryTrie/BinaryTrieSet.md)
 - [`BinaryTrieMultiset`](DataStructures/BinaryTrie/BinaryTrieMultiset.md)
 
 ### [`BitVector`](DataStructures/BitVector/BitVector_.md)
+
 - [`BitVector`](DataStructures/BitVector/BitVector.md)
 - [`AVLTreeBitVector`](DataStructures/BitVector/AVLTreeBitVector.md)
 
 ### [`BTree`](DataStructures/BTree/BTree.md)
+
 - [`BTreeList`](DataStructures/BTree/BTreeList.md)
 - [`BTreeSet`](DataStructures/BTree/BTreeSet.md)
 
 ### [`CumulativeSum`](DataStructures/CumulativeSum/CumulativeSum_.md)
+
 - [`CumulativeOp`](DataStructures/CumulativeSum/CumulativeOp.md)
 - [`CumulativeSum`](DataStructures/CumulativeSum/CumulativeSum.md)
 - [`CumulativeSum2D`](DataStructures/CumulativeSum/CumulativeSum2D.md)
 
 ### [`Deque`](DataStructures/Deque/Deque_.md)
+
 - [`Deque`](DataStructures/Deque/Deque.md)
 
 ### [`Dict`](DataStructures/Dict/Dict.md)
+
 - [`HashDict`](DataStructures/Dict/HashDict.md)
 
 ### [`DynamicConnectivity`](DataStructures/DynamicConnectivity/DynamicConnectivity.md)
+
 - [`EulerTourTree`](DataStructures/DynamicConnectivity/EulerTourTree.md)
 - [`LinkCutTree`](DataStructures/DynamicConnectivity/LinkCutTree.md)
 - [`OfflineDynamicConnectivity`](DataStructures/DynamicConnectivity/OfflineDynamicConnectivity.md)
 
 ### [`FenwickTree`](DataStructures/FenwickTree/FenwickTree_.md)
+
 - [`DynamicFenwickTree`](DataStructures/FenwickTree/DynamicFenwickTree.md)
 - [`DynamicFenwickTree2D`](DataStructures/FenwickTree/DynamicFenwickTree2D.md)
 - [`FenwickTree`](DataStructures/FenwickTree/FenwickTree.md)
@@ -75,24 +86,33 @@ _____
 - [`FenwickTreeRAQ`](DataStructures/FenwickTree/FenwickTreeRAQ.md)
 
 ### [`Heap`](DataStructures/Heap/Heap.md)
+
 - [`DoubleEndedHeap`](DataStructures/Heap/DoubleEndedHeap.md)
 - [`MaxHeap`](DataStructures/Heap/MaxHeap.md)
 - [`MinHeap`](DataStructures/Heap/MinHeap.md)
 - [`RandomizedMeldableHeap`](DataStructures/Heap/RandomizedMeldableHeap.md)
 
+### [`RBST`](DataStructures/RBST/RBST_.md)
+
+- [`RBST`](DataStructures/RBST/LazyRBST.md)
+
 ### [`RedBlackTree`](DataStructures/RedBlackTree/RedBlackTree.md)
+
 - [`RedBlackTreeSet`](DataStructures/RedBlackTree/RedBlackTreeSet.md)
 - [`RedBlackTreeMultiset`](DataStructures/RedBlackTree/RedBlackTreeMultiset.md)
 
 ### [`ScapegoatTree`](DataStructures/ScapegoatTree/ScapegoatTree.md)
+
 - [`ScapegoatTreeSet`](DataStructures/ScapegoatTree/ScapegoatTreeSet.md)
 - [`ScapegoatTreeMultiset`](DataStructures/ScapegoatTree/ScapegoatTreeMultiset.md)
 
 ### [`SegmentQuadraticDivision`](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision_.md)
+
 - [`SegmentLazyQuadraticDivision`](DataStructures/SegmentQuadraticDivision/SegmentLazyQuadraticDivision.md)
 - [`SegmentQuadraticDivision`](DataStructures/SegmentQuadraticDivision/SegmentQuadraticDivision.md)
 
 ### [`SegmentTree`](DataStructures/SegmentTree/SegmentTree_.md)
+
 - [`DynamicSegmentTree`](DataStructures/SegmentTree/DynamicSegmentTree.md)
 - [`LazySegmentTree`](DataStructures/SegmentTree/LazySegmentTree.md)
 - [`SegmentTree`](DataStructures/SegmentTree/SegmentTree.md)
@@ -100,6 +120,7 @@ _____
 - [`SegmentTreeRSQ`](DataStructures/SegmentTree/SegmentTreeRSQ.md)
 
 ### [`Set`](DataStructures/Set/Set.md)
+
 - [`Bitset32`](DataStructures/Set/Bitset32.md)
 - [`DynamicFenwickTreeMultiset`](DataStructures/Set/DynamicFenwickTreeMultiset.md)
 - [`DynamicFenwickTreeSet`](DataStructures/Set/DynamicFenwickTreeSet.md)
@@ -120,21 +141,26 @@ _____
 ### [`SplayTree`](DataStructures/SplayTree/SplayTree.md)
 
 ### [`Stack`](DataStructures/Stack/Stack_.md)
+
 - [`PersistentStack`](DataStructures/Stack/PersistentStack.md)
 - [`Stack`](DataStructures/Stack/Stack.md)
 
 ### [`SparseTable`](DataStructures/SparseTable/SparseTable_.md)
+
 - [`SparseTable`](DataStructures/SparseTable/SparseTable.md)
 - [`SparseTableRmQ`](DataStructures/SparseTable/SparseTableRmQ.md)
 
 ### [`Treap`](DataStructures/Treap/Treap.md)
+
 - [`TreapMultiset`](DataStructures/Treap/TreapMultiset.md)
 - [`TreapSet`](DataStructures/Treap/TreapSet.md)
 
 ### [`StaticArrayQuery`](DataStructures/StaticArrayQuery/StaticArrayQuery.md)
+
 - [`StaticRmQ`](DataStructures/StaticArrayQuery/StaticRmQ.md)
 
 ### [`UnionFind`](DataStructures/UnionFind/UnionFind_.md)
+
 - [`PartialPersistentUnionFind`](DataStructures/UnionFind/PartialPersistentUnionFind.md)
 - [`PersistentUnionFind`](DataStructures/UnionFind/PersistentUnionFind.md)
 - [`UndoableUnionFind`](DataStructures/UnionFind/UndoableUnionFind.md)
@@ -142,10 +168,12 @@ _____
 - [`WeightedUnionFind`](DataStructures/UnionFind/WeightedUnionFind.md)
 
 ### [`WaveletMatrix`](DataStructures/WaveletMatrix/WaveletMatrix_.md)
+
 - [`WaveletMatrix`](DataStructures/WaveletMatrix/WaveletMatrix.md)
 - [`DynamicWaveletMatrix`](DataStructures/WaveletMatrix/DynamicWaveletMatrix.md)
 
 ### [`WBTree`](DataStructures/WBTree/WBTree.md)
+
 - [`LazyWBTree`](DataStructures/WBTree/LazyWBTree.md)
 - [`PersistentLazyWBTree`](DataStructures/WBTree/PersistentLazyWBTree.md)
 - [`PersistentWBTreeList`](DataStructures/WBTree/PersistentWBTreeList.md)
@@ -154,6 +182,7 @@ _____
 _____
 
 ## [`Graph`](Graph/Graph.md)
+
 - [`HLD`](Graph/HLD/HLD_.md)
   - [`HLD`](Graph/HLD/HLD.md)
   - [`HLDLazySegmentTree`](Graph/HLD/HLDLazySegmentTree.md)
@@ -180,6 +209,7 @@ _____
 _____
 
 ## [`Math`](Math/Math.md)
+
 - [`AffineMap`](Math/AffineMap.md)
 - [`Divisors`](Math/Divisors.md)
 - [`Fraction`](Math/Fraction.md)
@@ -189,4 +219,3 @@ _____
 - [`ModMatrix`](Math/ModMatrix.md)
 - [`Number`](Math/Number.md)
 - [`PollardRho`](Math/PollardRho.md)
-

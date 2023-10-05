@@ -21,12 +21,13 @@ class Node:
 
 class LazyAVLTree(Generic[T, F]):
 
-  def __init__(self, a: Iterable[T]=[], op: Callable[[T, T], T]=lambda x,y:None, mapping: Callable[[F, T], T]=None, composition: Callable[[F, F], F]=None, e: T=None, node: Node=None) -> None:
+  def __init__(self, a: Iterable[T]=[], op: Callable[[T, T], T]=lambda x,y:None, mapping: Callable[[F, T], T]=None, composition: Callable[[F, F], F]=None, e: T=None, id: F=None, node: Node=None) -> None:
     self.node = node
     self.op = op
     self.mapping = mapping
     self.composition = composition
     self.e = e
+    self.id = id
     if a:
       self._build(list(a))
 
@@ -207,7 +208,7 @@ class LazyAVLTree(Generic[T, F]):
 
   def split(self, k: int) -> Tuple["LazyAVLTree", "LazyAVLTree"]:
     l, r = self._split_node(self.node, k)
-    return LazyAVLTree([], self.op, self.mapping, self.composition, self.e, l), LazyAVLTree([], self.op, self.mapping, self.composition, self.e, r)
+    return LazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, l), LazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, r)
 
   def insert(self, k: int, key: T) -> None:
     s, t = self._split_node(self.node, k)
@@ -321,17 +322,5 @@ class LazyAVLTree(Generic[T, F]):
 
   def __repr__(self):
     return 'LazyAVLTree(' + str(self) + ')'
-
-
-def op(s, t):
-  return
-
-def mapping(f, s):
-  return
-
-def composition(f, g):
-  return
-
-e = None
 
 
