@@ -93,14 +93,6 @@ class LazyRBST(Generic[T, F]):
       node.size += node.right.size
       node.data = self.op(node.data, node.right.data)
 
-  def _update_left(self, l: Node, r: Node):
-    l.size += r.size
-    l.data = self.op(l.data, r.data)
-
-  def _update_right(self, l: Node, r: Node):
-    r.size += l.size
-    r.data = self.op(r.data, l.data)
-
   def _update_lr(self, l: Node, r: Node):
     l.size += r.size
     l.data = self.op(l.data, r.data)
