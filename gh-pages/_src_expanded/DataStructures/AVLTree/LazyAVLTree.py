@@ -1,25 +1,25 @@
-from typing import Generic, Iterable, TypeVar, Callable, List, Tuple
+from typing import Generic, Iterable, TypeVar, Callable, List, Tuple, Optinoal
 T = TypeVar('T')
 F = TypeVar('F')
 
-class Node:
-
-  def __init__(self, key):
-    self.key = key
-    self.data = key
-    self.left = None
-    self.right = None
-    self.lazy = None
-    self.rev = 0
-    self.height = 1
-    self.size = 1
-
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev}\n'
-    return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev},\n left:{self.left},\n right:{self.right}\n'
-
 class LazyAVLTree(Generic[T, F]):
+
+  class Node:
+
+    def __init__(self, key: T):
+      self.key: T = key
+      self.data: T = key
+      self.left: Optinoal[LazyAVLTree.Node] = None
+      self.right: Optinoal[LazyAVLTree.Node] = None
+      self.lazy: Optinoal[F] = None
+      self.rev: int = 0
+      self.height: int = 1
+      self.size: int = 1
+
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev}\n'
+      return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[], op: Callable[[T, T], T]=lambda x,y:None, mapping: Callable[[F, T], T]=None, composition: Callable[[F, F], F]=None, e: T=None, id: F=None, node: Node=None) -> None:
     self.node = node
@@ -32,6 +32,7 @@ class LazyAVLTree(Generic[T, F]):
       self._build(list(a))
 
   def _build(self, a: List[T]) -> None:
+    Node = LazyAVLTree.Node
     def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
       node = Node(a[mid])
@@ -164,7 +165,7 @@ class LazyAVLTree(Generic[T, F]):
     l, tmp = self._pop_max(l)
     return self._merge_with_root(l, tmp, r)
 
-  def merge(self, other: "LazyAVLTree") -> None:
+  def merge(self, other: 'LazyAVLTree') -> None:
     self.node = self._merge_node(self.node, other.node)
 
   def _pop_max(self, node: Node) -> Tuple[Node, Node]:
@@ -206,13 +207,13 @@ class LazyAVLTree(Generic[T, F]):
       s, t = self._split_node(node.right, tmp-1)
       return self._merge_with_root(node.left, node, s), t
 
-  def split(self, k: int) -> Tuple["LazyAVLTree", "LazyAVLTree"]:
+  def split(self, k: int) -> Tuple['LazyAVLTree', 'LazyAVLTree']:
     l, r = self._split_node(self.node, k)
     return LazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, l), LazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, r)
 
   def insert(self, k: int, key: T) -> None:
     s, t = self._split_node(self.node, k)
-    self.node = self._merge_with_root(s, Node(key), t)
+    self.node = self._merge_with_root(s, LazyAVLTree.Node(key), t)
 
   def pop(self, k: int) -> T:
     s, t = self._split_node(self.node, k+1)
@@ -261,17 +262,18 @@ class LazyAVLTree(Generic[T, F]):
     self.node = None
 
   def tolist(self) -> List[T]:
+    node = self.root
+    stack = []
     a = []
-    if self.node is None:
-      return a
-    def rec(node):
-      self._propagate(node)
-      if node.left is not None:
-        rec(node.left)
-      a.append(node.key)
-      if node.right is not None:
-        rec(node.right)
-    rec(self.node)
+    while stack or node:
+      if node:
+        self._propagate(node)
+        stack.append(node)
+        node = node.left
+      else:
+        node = stack.pop()
+        a.append(node.key)
+        node = node.right
     return a
 
   def __len__(self):

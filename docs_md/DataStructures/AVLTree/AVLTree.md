@@ -5,14 +5,15 @@ _____
 AVL木です。
 _____
 
-- [`AVLTreeSet`](https://github.com/titan-23/Library_py/blob/main/DataStructures/AVLTree/AVLTreeSet.py)
-  - 集合としての AVL 木です。 
-- [`AVLTreeSet2`](https://github.com/titan-23/Library_py/blob/main/DataStructures/AVLTree/AVLTreeSet2.py)
+- [`AVLTreeSet`](./AVLTreeSet.md)
+  - 集合としての AVL 木です。
+  - 配列を用いてノードを表現しています。
+- [`AVLTreeSet2`](./AVLTreeSet2.md)
   - 集合としての AVL木 です。
   - size を持たないので軽めです。
-- [`AVLTreeMultiSet`](https://github.com/titan-23/Library_py/blob/main/DataStructures/AVLTree/AVLTreeMultiset.py)
+- [`AVLTreeMultiSet`](./AVLTreeMultiSet.md)
   - 多重集合としての AVL 木です。
-- [`LazyAVLTree`](https://github.com/titan-23/Library_py/blob/main/DataStructures/AVLTree/LazyAVLTree.py)
+- [`LazyAVLTree`](./LazyAVLTree.md)
   - 遅延伝播反転可能平衡二分木です。
 - [`PersistentAVLTreeList`](./PersistentAVLTreeList.md)
   - 挿入削除が対数時間で行える永続AVL木です。

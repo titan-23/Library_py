@@ -13,7 +13,7 @@ try:
   result = subprocess.run(command_expaned, capture_output=True, text=True, check=True)
 except subprocess.CalledProcessError as e:
   print('Error: ExpandError')
-  print('Try: python AllExpander.py')
+  print('Try: >>> python AllExpander.py')
   exit(1)
 print('AllExpander.py Finished.')
 
@@ -23,7 +23,7 @@ try:
   result = subprocess.run(command_html, capture_output=True, text=True, check=True)
 except subprocess.CalledProcessError as e:
   print('Error: HTMLError')
-  print('Try: python HTMLMaker.py')
+  print('Try: >>> python HTMLMaker.py')
   exit(1)
 
 print('The build was successful.')

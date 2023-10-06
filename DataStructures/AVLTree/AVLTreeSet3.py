@@ -3,15 +3,15 @@ from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
 T = TypeVar('T', bound=SupportsLessThan)
 
-class AVLTreeSet(OrderedSetInterface, Generic[T]):
+class AVLTreeSet3(OrderedSetInterface, Generic[T]):
 
   class Node:
 
     def __init__(self, key: T):
       self.key: T = key
       self.size: int = 1
-      self.left: Optional['AVLTreeSet.Node'] = None
-      self.right: Optional['AVLTreeSet.Node'] = None
+      self.left: Optional['AVLTreeSet3.Node'] = None
+      self.right: Optional['AVLTreeSet3.Node'] = None
       self.balance: int = 0
 
     def __str__(self):
@@ -27,7 +27,7 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
       self._build(a)
 
   def _build(self, a: Sequence[T]) -> None:
-    Node = AVLTreeSet.Node
+    Node = AVLTreeSet3.Node
     def rec(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(a[mid])
@@ -133,7 +133,7 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
 
   def add(self, key: T) -> bool:
     if self.node is None:
-      self.node = AVLTreeSet.Node(key)
+      self.node = AVLTreeSet3.Node(key)
       return True
     pnode = self.node
     path = []
@@ -151,9 +151,9 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
         di <<= 1
         pnode = pnode.right
     if di & 1:
-      path[-1].left = AVLTreeSet.Node(key)
+      path[-1].left = AVLTreeSet3.Node(key)
     else:
-      path[-1].right = AVLTreeSet.Node(key)
+      path[-1].right = AVLTreeSet3.Node(key)
     new_node = None
     while path:
       pnode = path.pop()
@@ -408,5 +408,5 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'AVLTreeSet({str(self)})'
+    return f'AVLTreeSet3({str(self)})'
 

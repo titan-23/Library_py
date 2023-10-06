@@ -363,7 +363,7 @@ class AVLTreeSet2(Generic[T]):
     return res
 
   def pop(self) -> T:
-    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop({k}), pop({k}) from Empty {self.__class__.__name__}'
+    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop(), pop() from Empty {self.__class__.__name__}'
     path = []
     node = self.node
     while node.right is not None:
@@ -464,22 +464,12 @@ class AVLTreeSet2(Generic[T]):
     rec(self.node)
     return a
 
-  def __getitem__(self, k: int):  # 先頭と末尾しか対応していない
-    if k == -1 or k == self._len-1:
-      return self.get_max()
-    elif k == 0:
-      return self.get_min()
-    raise IndexError
-
   def __contains__(self, key: T):
     node = self.node
     while node is not None:
       if key == node.key:
         return True
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return False
 
   def __len__(self):

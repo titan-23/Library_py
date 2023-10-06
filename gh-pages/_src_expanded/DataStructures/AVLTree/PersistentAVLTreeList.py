@@ -113,21 +113,6 @@ class PersistentAVLTreeList(Generic[T]):
     u = self._rotate_right(node)
     return u
 
-  def _kth_elm(self, k: int) -> T:
-    if k < 0:
-      k += len(self)
-    node = self.root
-    while True:
-      assert node
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        return node.key
-      elif t < k:
-        k -= t + 1
-        node = node.right
-      else:
-        node = node.left
-
   def _merge_with_root(self, l: Optional[Node], root: Node, r: Optional[Node]) -> Node:
     diff = 0
     if l:
@@ -254,7 +239,19 @@ class PersistentAVLTreeList(Generic[T]):
     return a
 
   def __getitem__(self, k: int) -> T:
-    return self._kth_elm(k)
+    if k < 0:
+      k += len(self)
+    node = self.root
+    while True:
+      assert node
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        return node.key
+      elif t < k:
+        k -= t + 1
+        node = node.right
+      else:
+        node = node.left
 
   def __len__(self):
     return 0 if self.root is None else self.root.size

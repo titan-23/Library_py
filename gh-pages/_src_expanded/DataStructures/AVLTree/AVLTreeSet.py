@@ -94,388 +94,415 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
-from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
+from array import array
+from typing import Generic, Iterable, Tuple, TypeVar, Optional, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeSet(OrderedSetInterface, Generic[T]):
 
-  class Node:
+  key = [0]
+  size = array('I', bytes(4))
+  left = array('I', bytes(4))
+  right = array('I', bytes(4))
+  balance = array('i', bytes(4))
+  end = 1
 
-    def __init__(self, key: T):
-      self.key: T = key
-      self.size: int = 1
-      self.left: Optional['AVLTreeSet.Node'] = None
-      self.right: Optional['AVLTreeSet.Node'] = None
-      self.balance: int = 0
+  @classmethod
+  def reserve(cls, n: int) -> None:
+    cls.key += [0] * n
+    cls.size += array('I', [1] * n)
+    cls.left += array('I', bytes(4 * n))
+    cls.right += array('I', bytes(4 * n))
+    cls.balance += array('i', bytes(4 * n))
 
-    def __str__(self):
-      if self.left is None and self.right is None:
-        return f'key:{self.key, self.size}\n'
-      return f'key:{self.key, self.size},\n left:{self.left},\n right:{self.right}\n'
-
-  def __init__(self, a: Iterable[T]=[]) -> None:  
-    self.node = None
-    if not isinstance(a, Sequence):
+  def __init__(self, a: Iterable[T]=[]) -> None:
+    self.node = 0
+    if not isinstance(a, list):
       a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: Sequence[T]) -> None:
-    Node = AVLTreeSet.Node
-    def rec(l: int, r: int) -> Tuple[Node, int]:
+  def _build(self, a: List[T]) -> None:
+    left, right, size, balance = AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size, AVLTreeSet.balance
+    def sort(l: int, r: int) -> Tuple[int, int]:
       mid = (l + r) >> 1
-      node = Node(a[mid])
-      hl, hr = 0, 0
+      node = mid
       if l != mid:
-        node.left, hl = rec(l, mid)
-        node.size += node.left.size
-      if mid+1 != r:
-        node.right, hr = rec(mid+1, r)
-        node.size += node.right.size
-      node.balance = hl - hr
+        left[node], hl = sort(l, mid)
+        size[node] += size[left[node]]
+      else:
+        hl = 0
+      if mid + 1 != r:
+        right[node], hr = sort(mid+1, r)
+        size[node] += size[right[node]]
+      else:
+        hr = 0
+      balance[node] = hl - hr
       return node, max(hl, hr)+1
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(set(a))
-    self.node = rec(0, len(a))[0]
+    n = len(a)
+    end = AVLTreeSet.end
+    AVLTreeSet.end += n
+    AVLTreeSet.reserve(n)
+    AVLTreeSet.key[end:end+n] = a
+    self.node = sort(end, n+end)[0]
 
-  def _rotate_L(self, node: Node) -> Node:
-    u = node.left
-    u.size = node.size
-    node.size -= 1 if u.left is None else u.left.size + 1
-    node.left = u.right
-    u.right = node
-    if u.balance == 1:
-      u.balance = 0
-      node.balance = 0
+  def _rotate_L(self, node: int) -> int:
+    left, right, size, balance = AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size, AVLTreeSet.balance
+    u = left[node]
+    size[u] = size[node]
+    size[node] -= size[left[u]] + 1
+    left[node] = right[u]
+    right[u] = node
+    if balance[u] == 1:
+      balance[u] = 0
+      balance[node] = 0
     else:
-      u.balance = -1
-      node.balance = 1
+      balance[u] = -1
+      balance[node] = 1
     return u
 
-  def _rotate_R(self, node: Node) -> Node:
-    u = node.right
-    u.size = node.size
-    node.size -= 1 if u.right is None else u.right.size + 1
-    node.right = u.left
-    u.left = node
-    if u.balance == -1:
-      u.balance = 0
-      node.balance = 0
+  def _rotate_R(self, node: int) -> int:
+    left, right, size, balance = AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size, AVLTreeSet.balance
+    u = right[node]
+    size[u] = size[node]
+    size[node] -= size[right[u]] + 1
+    right[node] = left[u]
+    left[u] = node
+    if balance[u] == -1:
+      balance[u] = 0
+      balance[node] = 0
     else:
-      u.balance = 1
-      node.balance = -1
+      balance[u] = 1
+      balance[node] = -1
     return u
 
-  def _update_balance(self, node: Node) -> None:
-    if node.balance == 1:
-      node.right.balance = -1
-      node.left.balance = 0
-    elif node.balance == -1:
-      node.right.balance = 0
-      node.left.balance = 1
+  def _update_balance(self, node: int) -> None:
+    balance = AVLTreeSet.balance
+    if balance[node] == 1:
+      balance[AVLTreeSet.right[node]] = -1
+      balance[AVLTreeSet.left[node]] = 0
+    elif balance[node] == -1:
+      balance[AVLTreeSet.right[node]] = 0
+      balance[AVLTreeSet.left[node]] = 1
     else:
-      node.right.balance = 0
-      node.left.balance = 0
-    node.balance = 0
+      balance[AVLTreeSet.right[node]] = 0
+      balance[AVLTreeSet.left[node]] = 0
+    balance[node] = 0
 
-  def _rotate_LR(self, node: Node) -> Node:
-    B = node.left
-    E = B.right
-    E.size = node.size
-    if E.right is None:
-      node.size -= B.size
-      B.size -= 1
-    else:
-      node.size -= B.size - E.right.size
-      B.size -= E.right.size + 1
-    B.right = E.left
-    E.left = B
-    node.left = E.right
-    E.right = node
+  def _rotate_LR(self, node: int) -> int:
+    left, right, size = AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size
+    B = left[node]
+    E = right[B]
+    size[E] = size[node]
+    size[node] -= size[B] - size[right[E]]
+    size[B] -= size[right[E]] + 1
+    right[B] = left[E]
+    left[E] = B
+    left[node] = right[E]
+    right[E] = node
     self._update_balance(E)
     return E
 
-  def _rotate_RL(self, node: Node) -> Node:
-    C = node.right
-    D = C.left
-    D.size = node.size
-    if D.left is None:
-      node.size -= C.size
-      C.size -= 1
-    else:
-      node.size -= C.size - D.left.size
-      C.size -= D.left.size + 1
-    C.left = D.right
-    D.right = C
-    node.right = D.left
-    D.left = node
+  def _rotate_RL(self, node: int) -> int:
+    left, right, size = AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size
+    C = right[node]
+    D = left[C]
+    size[D] = size[node]
+    size[node] -= size[C] - size[left[D]]
+    size[C] -= size[left[D]] + 1
+    left[C] = right[D]
+    right[D] = C
+    right[node] = left[D]
+    left[D] = node
     self._update_balance(D)
     return D
 
-  def _kth_elm(self, k: int) -> T:
-    if k < 0: k += self.node.size
-    node = self.node
-    while True:
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        return node.key
-      elif t < k:
-        k -= t + 1
-        node = node.right
-      else:
-        node = node.left
+  def _make_node(self, key: T) -> int:
+    end = AVLTreeSet.end
+    if end >= len(AVLTreeSet.key):
+      AVLTreeSet.key.append(key)
+      AVLTreeSet.size.append(1)
+      AVLTreeSet.left.append(0)
+      AVLTreeSet.right.append(0)
+      AVLTreeSet.balance.append(0)
+    else:
+      AVLTreeSet.key[end] = key
+    AVLTreeSet.end += 1
+    return end
 
   def add(self, key: T) -> bool:
-    if self.node is None:
-      self.node = AVLTreeSet.Node(key)
+    if self.node == 0:
+      self.node = self._make_node(key)
       return True
+    left, right, size = AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size
+    balance, keys = AVLTreeSet.balance, AVLTreeSet.key
     pnode = self.node
     path = []
     di = 0
-    while pnode is not None:
-      if key == pnode.key:
+    while pnode:
+      if key == keys[pnode]:
         return False
-      elif key < pnode.key:
+      elif key < keys[pnode]:
         path.append(pnode)
         di <<= 1
         di |= 1
-        pnode = pnode.left
+        pnode = left[pnode]
       else:
         path.append(pnode)
         di <<= 1
-        pnode = pnode.right
+        pnode = right[pnode]
     if di & 1:
-      path[-1].left = AVLTreeSet.Node(key)
+      left[path[-1]] = self._make_node(key)
     else:
-      path[-1].right = AVLTreeSet.Node(key)
-    new_node = None
+      right[path[-1]] = self._make_node(key)
+    new_node = 0
     while path:
       pnode = path.pop()
-      pnode.size += 1
-      pnode.balance += 1 if di & 1 else -1
+      size[pnode] += 1
+      balance[pnode] += 1 if di & 1 else -1
       di >>= 1
-      if pnode.balance == 0:
+      if balance[pnode] == 0:
         break
-      if pnode.balance == 2:
-        new_node = self._rotate_LR(pnode) if pnode.left.balance == -1 else self._rotate_L(pnode)
+      if balance[pnode] == 2:
+        new_node = self._rotate_LR(pnode) if balance[left[pnode]] == -1 else self._rotate_L(pnode)
         break
-      elif pnode.balance == -2:
-        new_node = self._rotate_RL(pnode) if pnode.right.balance == 1 else self._rotate_R(pnode)
+      elif balance[pnode] == -2:
+        new_node = self._rotate_RL(pnode) if balance[right[pnode]] == 1 else self._rotate_R(pnode)
         break
-    if new_node is not None:
+    if new_node:
       if path:
         gnode = path.pop()
-        gnode.size += 1
+        size[gnode] += 1
         if di & 1:
-          gnode.left = new_node
+          left[gnode] = new_node
         else:
-          gnode.right = new_node
+          right[gnode] = new_node
       else:
         self.node = new_node
     for p in path:
-      p.size += 1
+      size[p] += 1
     return True
 
+  def remove(self, key: T) -> bool:
+    if self.discard(key):
+      return True
+    raise KeyError
+
   def discard(self, key: T) -> bool:
+    left, right, size = AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size
+    balance, keys = AVLTreeSet.balance, AVLTreeSet.key
     di = 0
     path = []
     node = self.node
-    while node is not None:
-      if key == node.key:
+    while node:
+      if key == keys[node]:
         break
-      elif key < node.key:
+      elif key < keys[node]:
         path.append(node)
         di <<= 1
         di |= 1
-        node = node.left
+        node = left[node]
       else:
         path.append(node)
         di <<= 1
-        node = node.right
+        node = right[node]
     else:
       return False
-    if node.left is not None and node.right is not None:
+    if left[node] and right[node]:
       path.append(node)
       di <<= 1
       di |= 1
-      lmax = node.left
-      while lmax.right is not None:
+      lmax = left[node]
+      while right[lmax]:
         path.append(lmax)
         di <<= 1
-        lmax = lmax.right
-      node.key = lmax.key
+        lmax = right[lmax]
+      keys[node] = keys[lmax]
       node = lmax
-    cnode = node.right if node.left is None else node.left
+    cnode = right[node] if left[node] == 0 else left[node]
     if path:
       if di & 1:
-        path[-1].left = cnode
+        left[path[-1]] = cnode
       else:
-        path[-1].right = cnode
+        right[path[-1]] = cnode
     else:
       self.node = cnode
       return True
     while path:
-      new_node = None
+      new_node = 0
       pnode = path.pop()
-      pnode.balance -= 1 if di & 1 else -1
+      balance[pnode] -= 1 if di & 1 else -1
       di >>= 1
-      pnode.size -= 1
-      if pnode.balance == 2:
-        new_node = self._rotate_LR(pnode) if pnode.left.balance == -1 else self._rotate_L(pnode)
-      elif pnode.balance == -2:
-        new_node = self._rotate_RL(pnode) if pnode.right.balance == 1 else self._rotate_R(pnode)
-      elif pnode.balance != 0:
+      size[pnode] -= 1
+      if balance[pnode] == 2:
+        new_node = self._rotate_LR(pnode) if balance[left[pnode]] == -1 else self._rotate_L(pnode)
+      elif balance[pnode] == -2:
+        new_node = self._rotate_RL(pnode) if balance[right[pnode]] == 1 else self._rotate_R(pnode)
+      elif balance[pnode]:
         break
-      if new_node is not None:
+      if new_node:
         if not path:
           self.node = new_node
           return True
         if di & 1:
-          path[-1].left = new_node
+          left[path[-1]] = new_node
         else:
-          path[-1].right = new_node
-        if new_node.balance != 0:
+          right[path[-1]] = new_node
+        if balance[new_node]:
           break
     for p in path:
-      p.size -= 1
+      size[p] -= 1
     return True
 
-  def remove(self, key: T) -> None:
-    if self.discard(key):
-      return
-    raise KeyError(key)
-
   def le(self, key: T) -> Optional[T]:
+    keys, left, right = AVLTreeSet.key, AVLTreeSet.left, AVLTreeSet.right
     res = None
     node = self.node
-    while node is not None:
-      if key == node.key:
+    while node:
+      if key == keys[node]:
         res = key
         break
-      elif key < node.key:
-        node = node.left
+      elif key < keys[node]:
+        node = left[node]
       else:
-        res = node.key
-        node = node.right
+        res = keys[node]
+        node = right[node]
     return res
 
   def lt(self, key: T) -> Optional[T]:
+    keys, left, right = AVLTreeSet.key, AVLTreeSet.left, AVLTreeSet.right
     res = None
     node = self.node
-    while node is not None:
-      if key <= node.key:
-        node = node.left
+    while node:
+      if key <= keys[node]:
+        node = left[node]
       else:
-        res = node.key
-        node = node.right
+        res = keys[node]
+        node = right[node]
     return res
 
   def ge(self, key: T) -> Optional[T]:
+    keys, left, right = AVLTreeSet.key, AVLTreeSet.left, AVLTreeSet.right
     res = None
     node = self.node
-    while node is not None:
-      if key == node.key:
+    while node:
+      if key == keys[node]:
         res = key
         break
-      elif key < node.key:
-        res = node.key
-        node = node.left
+      elif key < keys[node]:
+        res = keys[node]
+        node = left[node]
       else:
-        node = node.right
+        node = right[node]
     return res
 
   def gt(self, key: T) -> Optional[T]:
+    keys, left, right = AVLTreeSet.key, AVLTreeSet.left, AVLTreeSet.right
     res = None
     node = self.node
-    while node is not None:
-      if key < node.key:
-        res = node.key
-        node = node.left
+    while node:
+      if key < keys[node]:
+        res = keys[node]
+        node = left[node]
       else:
-        node = node.right
+        node = right[node]
     return res
 
   def index(self, key: T) -> int:
+    keys, left, right, size = AVLTreeSet.key, AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size
     k = 0
     node = self.node
-    while node is not None:
-      if key == node.key:
-        k += 0 if node.left is None else node.left.size
+    while node:
+      if key == keys[node]:
+        k += size[left[node]]
         break
-      elif key < node.key:
-        node = node.left
+      elif key < keys[node]:
+        node = left[node]
       else:
-        k += 1 if node.left is None else node.left.size + 1
-        node = node.right
+        k += size[left[node]] + 1
+        node = right[node]
     return k
 
   def index_right(self, key: T) -> int:
-    k = 0
-    node = self.node
-    while node is not None:
-      if key == node.key:
-        k += 1 if node.left is None else node.left.size + 1
+    keys, left, right, size = AVLTreeSet.key, AVLTreeSet.left, AVLTreeSet.right, AVLTreeSet.size
+    k, node = 0, self.node
+    while node:
+      if key == keys[node]:
+        k += size[left[node]] + 1
         break
-      elif key < node.key:
-        node = node.left
+      elif key < keys[node]:
+        node = left[node]
       else:
-        k += 1 if node.left is None else node.left.size + 1
-        node = node.right
+        k += size[left[node]] + 1
+        node = right[node]
     return k
 
+  def get_max(self) -> Optional[T]:
+    if not self:
+      return
+    return self.__getitem__(len(self)-1)
+
+  def get_min(self) -> Optional[T]:
+    if not self:
+      return
+    return self.__getitem__(0)
+
   def pop(self, k: int=-1) -> T:
-    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop({k}), pop({k}) from Empty {self.__class__.__name__}'
-    x = self._kth_elm(k)
+    x = self.__getitem__(k)
     self.discard(x)
     return x
 
   def pop_max(self) -> T:
-    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop_max(), pop_max from Empty {self.__class__.__name__}'
     return self.pop()
 
   def pop_min(self) -> T:
-    assert self.node is not None, f'IndexError: {self.__class__.__name__}.pop_min(), pop_min from Empty {self.__class__.__name__}'
     return self.pop(0)
 
-  def get_max(self) -> Optional[T]:
-    if self.node is None: return
-    return self._kth_elm(-1)
-
-  def get_min(self) -> Optional[T]:
-    if self.node is None: return
-    return self._kth_elm(0)
-
   def clear(self) -> None:
-    self.node = None
+    self.node = 0
 
   def tolist(self) -> List[T]:
     a = []
-    if self.node is None:
+    if not self.node:
       return a
     def rec(node):
-      if node.left is not None:
-        rec(node.left)  
-      a.append(node.key)
-      if node.right is not None:
-        rec(node.right)
+      if AVLTreeSet.left[node]:
+        rec(AVLTreeSet.left[node])
+      a.append(AVLTreeSet.key[node])
+      if AVLTreeSet.right[node]:
+        rec(AVLTreeSet.right[node])
     rec(self.node)
     return a
 
   def __contains__(self, key: T) -> bool:
+    keys, left, right = AVLTreeSet.key, AVLTreeSet.left, AVLTreeSet.right
     node = self.node
-    while node is not None:
-      if key == node.key:
+    while node:
+      if key == keys[node]:
         return True
-      elif key < node.key:
-        node = node.left
+      elif key < keys[node]:
+        node = left[node]
       else:
-        node = node.right
+        node = right[node]
     return False
 
   def __getitem__(self, k: int) -> T:
-    assert -len(self) <= k < len(self), \
-        f'IndexError: {self.__class__.__name__}.__getitem__({k}), len={len(self)}'
-    return self._kth_elm(k)
+    left, right = AVLTreeSet.left, AVLTreeSet.right
+    size, key = AVLTreeSet.size, AVLTreeSet.key
+    if k < 0: k += size[self.node]
+    assert 0 <= k and k < size[self.node], 'IndexError'
+    node = self.node
+    while True:
+      t = size[left[node]]
+      if t == k:
+        return key[node]
+      elif t < k:
+        k -= t + 1
+        node = right[node]
+      else:
+        node = left[node]
 
   def __iter__(self):
     self.__iter = 0
@@ -493,15 +520,15 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
       yield self.__getitem__(-i-1)
 
   def __len__(self):
-    return 0 if self.node is None else self.node.size
+    return AVLTreeSet.size[self.node]
 
   def __bool__(self):
-    return self.node is not None
+    return self.node != 0
 
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'AVLTreeSet({str(self)})'
+    return f'AVLTreeSet({self})'
 
 
