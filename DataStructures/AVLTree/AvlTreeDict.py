@@ -1,31 +1,33 @@
-from typing import Callable, Generic, Iterable, Tuple, TypeVar, Union, List, Any
-T = TypeVar('T')
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from typing import Callable, Generic, Iterable, Tuple, TypeVar, Union, List, Any, Optional
+K = TypeVar('K', bound=SupportsLessThan)
+V = TypeVar('V')
 
-class Node:
+class AVLTreeDict(Generic[K, V]):
 
-  def __init__(self, key, val: Any):
-    self.key = key
-    self.val = val
-    self.left = None
-    self.right = None
-    self.balance = 0
+  class Node:
 
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.val}\n'
-    return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
+    def __init__(self, key: K, val: V):
+      self.key: K = key
+      self.val: V = val
+      self.left: Optional[AVLTreeDict.Node] = None
+      self.right: Optional[AVLTreeDict.Node] = None
+      self.balance = 0
 
-class AVLTreeDict(Generic[T]):
+    def __str__(self):
+      if self.left is None and self.right is None:
+        return f'key:{self.key, self.val}\n'
+      return f'key:{self.key, self.val},\n left:{self.left},\n right:{self.right}\n'
 
-  def __init__(self, a: Iterable[T]=[], c: bool=False, default: Callable[[], T]=None) -> None:
+  def __init__(self, a: Iterable[K]=[], counter: bool=False, default: Callable[[], K]=None) -> None:
     self._default = default
     self.node = None
     self._len = 0
-    if c:
+    if counter:
       self._default = int
       self._build(a)
 
-  def _build(self, a: Iterable[T]) -> None:
+  def _build(self, a: Iterable[K]) -> None:
     for a_ in sorted(a):
       self.__setitem__(a_, self.__getitem__(a_)+1)
 
@@ -100,7 +102,7 @@ class AVLTreeDict(Generic[T]):
     for i in range(self.__len__()):
       yield a[i][1]
 
-  def _search_node(self, key: T) -> Union[Node, None]:
+  def _search_node(self, key: K) -> Union[Node, None]:
     node = self.node
     while node is not None:
       if key == node.key:
@@ -111,7 +113,7 @@ class AVLTreeDict(Generic[T]):
         node = node.right
     return None
 
-  def _discard(self, key: T) -> bool:
+  def _discard(self, key: K) -> bool:
     di = 0
     path = []
     node = self.node
@@ -173,7 +175,7 @@ class AVLTreeDict(Generic[T]):
           break
     return True
 
-  def tolist_items(self) -> List[Tuple[T, Any]]:
+  def tolist_items(self) -> List[Tuple[K, V]]:
     a = []
     if self.node is None:
       return a
@@ -186,10 +188,10 @@ class AVLTreeDict(Generic[T]):
     rec(self.node)
     return a
 
-  def __setitem__(self, key: T, val: Any):
+  def __setitem__(self, key: K, val: V):
     self._len += 1
     if self.node is None:
-      self.node = Node(key, val)
+      self.node = AVLTreeDict.Node(key, val)
       return True
     pnode = self.node
     path = []
@@ -208,9 +210,9 @@ class AVLTreeDict(Generic[T]):
         di <<= 1
         pnode = pnode.right
     if di & 1:
-      path[-1].left = Node(key, val)
+      path[-1].left = AVLTreeDict.Node(key, val)
     else:
-      path[-1].right = Node(key, val)
+      path[-1].right = AVLTreeDict.Node(key, val)
     new_node = None
     while path:
       pnode = path.pop()
@@ -235,17 +237,17 @@ class AVLTreeDict(Generic[T]):
         self.node = new_node
     return True
 
-  def __delitem__(self, key: T):
+  def __delitem__(self, key: K):
     if self._discard(key):
       self._len -= 1
       return
     raise KeyError(key)
 
-  def __getitem__(self, key: T):
+  def __getitem__(self, key: K):
     node = self._search_node(key)
     return self.__missing__() if node is None else node.val
 
-  def __contains__(self, key: T):
+  def __contains__(self, key: K):
     return self._search_node(key) is not None
 
   def __len__(self):

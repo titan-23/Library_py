@@ -125,22 +125,6 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
     self._update_balance(D)
     return D
 
-  def _kth_elm(self, k: int) -> T:
-    left, right = AVLTreeSet3.left, AVLTreeSet3.right
-    size, key = AVLTreeSet3.size, AVLTreeSet3.key
-    if k < 0: k += size[self.node]
-    assert 0 <= k and k < size[self.node], 'IndexError'
-    node = self.node
-    while True:
-      t = size[left[node]]
-      if t == k:
-        return key[node]
-      elif t < k:
-        k -= t + 1
-        node = right[node]
-      else:
-        node = left[node]
-
   def _make_node(self, key: T) -> int:
     end = AVLTreeSet3.end
     if end >= len(AVLTreeSet3.key):
@@ -364,15 +348,15 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
   def get_max(self) -> Optional[T]:
     if not self:
       return
-    return self._kth_elm(len(self)-1)
+    return self.__getitem__(len(self)-1)
 
   def get_min(self) -> Optional[T]:
     if not self:
       return
-    return self._kth_elm(0)
+    return self.__getitem__(0)
 
   def pop(self, k: int=-1) -> T:
-    x = self._kth_elm(k)
+    x = self.__getitem__(k)
     self.discard(x)
     return x
 
@@ -411,7 +395,20 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
     return False
 
   def __getitem__(self, k: int) -> T:
-    return self._kth_elm(k)
+    left, right = AVLTreeSet3.left, AVLTreeSet3.right
+    size, key = AVLTreeSet3.size, AVLTreeSet3.key
+    if k < 0: k += size[self.node]
+    assert 0 <= k and k < size[self.node], 'IndexError'
+    node = self.node
+    while True:
+      t = size[left[node]]
+      if t == k:
+        return key[node]
+      elif t < k:
+        k -= t + 1
+        node = right[node]
+      else:
+        node = left[node]
 
   def __iter__(self):
     self.__iter = 0
