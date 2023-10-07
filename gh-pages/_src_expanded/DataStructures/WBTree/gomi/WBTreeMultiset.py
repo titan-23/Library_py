@@ -8,38 +8,46 @@ from abc import ABC, abstractmethod
 from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
 T = TypeVar('T', bound=SupportsLessThan)
 
-class OrderedSetInterface(ABC, Generic[T]):
+class OrderedMultisetInterface(ABC, Generic[T]):
 
   @abstractmethod
   def __init__(self, a: Iterable[T]) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def add(self, key: T) -> bool:
+  def add(self, item: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def discard(self, key: T) -> bool:
+  def discard(self, item: T, cnt: int) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def remove(self, key: T) -> None:
+  def discard_all(self, item: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def le(self, key: T) -> Optional[T]:
+  def count(self, item: T) -> int:
     raise NotImplementedError
 
   @abstractmethod
-  def lt(self, key: T) -> Optional[T]:
+  def remove(self, item: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def ge(self, key: T) -> Optional[T]:
+  def le(self, item: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def gt(self, key: T) -> Optional[T]:
+  def lt(self, item: T) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def ge(self, item: T) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def gt(self, item: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
@@ -75,7 +83,7 @@ class OrderedSetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def __contains__(self, key: T) -> bool:
+  def __contains__(self, item: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod
@@ -99,7 +107,7 @@ from array import array
 from typing import Generic, Iterable, Optional, TypeVar, List, Final
 T = TypeVar('T', bound=SupportsLessThan)
 
-class WBTreeSet(OrderedSetInterface, Generic[T]):
+class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   ALPHA: Final[float] = 1 - sqrt(2) / 2
   BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
@@ -107,6 +115,8 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
   def __init__(self, a: Iterable[T]=[], e: T=0) -> None:
     self.root : int = 0
     self.key  : List[T] = [e]
+    self.val  : List[int] = [0]
+    self.valsize: List[int] = [0]
     self.size : array[int] = array('I', bytes(4))
     self.left : array[int] = array('I', bytes(4))
     self.right: array[int] = array('I', bytes(4))
@@ -119,6 +129,8 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
 
   def reserve(self, n: int) -> None:
     self.key += [self.e] * n
+    self.val += [0] * n
+    self.valsize = [0] * n
     a = array('I', bytes(4 * n))
     self.left += a
     self.right += a
@@ -140,14 +152,6 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
         size[node] += size[right[node]]
       return node
     n = len(a)
-    if n == 0: return
-    if not all(a[i] < a[i + 1] for i in range(n - 1)):
-      b = sorted(a)
-      a = [b[0]]
-      for i in range(1, n):
-        if b[i] != a[-1]:
-          a.append(b[i])
-      n = len(a)
     end = self.end
     self.end += n
     self.reserve(n)
@@ -466,7 +470,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
     return self.root != 0
 
   def __repr__(self):
-    return f'WBTreeSet({self})'
+    return f'WBTreeMultiset({self})'
 
   def isok(self):
     left, right, size, keys = self.left, self.right, self.size, self.key

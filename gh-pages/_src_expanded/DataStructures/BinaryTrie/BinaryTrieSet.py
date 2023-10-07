@@ -15,31 +15,31 @@ class OrderedSetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def add(self, item: T) -> bool:
+  def add(self, key: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def discard(self, item: T) -> bool:
+  def discard(self, key: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def remove(self, item: T) -> None:
+  def remove(self, key: T) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def le(self, item: T) -> Optional[T]:
+  def le(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def lt(self, item: T) -> Optional[T]:
+  def lt(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def ge(self, item: T) -> Optional[T]:
+  def ge(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def gt(self, item: T) -> Optional[T]:
+  def gt(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
@@ -75,7 +75,7 @@ class OrderedSetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def __contains__(self) -> bool:
+  def __contains__(self, key: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod

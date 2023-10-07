@@ -1,8 +1,6 @@
-from .is_prime import is_prime64
-from .is_prime import is_prime64
+from Library_py.Math.is_prime import is_prime64
 from functools import lru_cache
 from collections import Counter
-from random import randrange
 from math import gcd
 
 class PollardRho():

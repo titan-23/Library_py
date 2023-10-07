@@ -24,7 +24,8 @@ def modinv(a, mod):
   x %= mod
   return x
 
-def isqrt(n):
+def isqrt(n: int) -> int:
+  assert n >= 0
   if n == 0:
     return 0
   x = 1 << (n.bit_length() + 1) >> 1
@@ -35,6 +36,7 @@ def isqrt(n):
 
 
 "Return LCM % mod"
+from collections import Counter
 
 def lcm_mod(o: Osa_k, A: list, mod: int) -> int:
   cou = Counter()

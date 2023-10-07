@@ -5,7 +5,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeSet3(OrderedSetInterface, Generic[T]):
 
-  class Node:
+  class Node():
 
     def __init__(self, key: T):
       self.key: T = key

@@ -76,6 +76,7 @@ def factorization(n: int) -> List[Tuple[int, int]]:
 "Nを1回素因数分解する"
 "O(√N)"
 from collections import Counter
+
 def factorization(n: int) -> Counter:
   ret = Counter()
   if n == 1: return ret

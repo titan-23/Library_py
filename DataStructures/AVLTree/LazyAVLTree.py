@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Callable, List, Tuple, Optinoal
+from typing import Generic, Iterable, TypeVar, Callable, List, Tuple, Optional
 T = TypeVar('T')
 F = TypeVar('F')
 
@@ -9,9 +9,9 @@ class LazyAVLTree(Generic[T, F]):
     def __init__(self, key: T):
       self.key: T = key
       self.data: T = key
-      self.left: Optinoal[LazyAVLTree.Node] = None
-      self.right: Optinoal[LazyAVLTree.Node] = None
-      self.lazy: Optinoal[F] = None
+      self.left: Optional[LazyAVLTree.Node] = None
+      self.right: Optional[LazyAVLTree.Node] = None
+      self.lazy: Optional[F] = None
       self.rev: int = 0
       self.height: int = 1
       self.size: int = 1

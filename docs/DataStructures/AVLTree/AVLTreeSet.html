@@ -29,56 +29,58 @@
 
 <span class="k">class</span> <span class="nc">AVLTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
-  <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="n">size</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">left</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">balance</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
-
-  <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">key</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">left</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">right</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
       <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
+  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">+=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">+=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
   <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
       <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
       <span class="n">node</span> <span class="o">=</span> <span class="n">mid</span>
+      <span class="n">hl</span><span class="p">,</span> <span class="n">hr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
       <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
         <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">hl</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
         <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">hl</span> <span class="o">=</span> <span class="mi">0</span>
       <span class="k">if</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
         <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">hr</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
         <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">hr</span> <span class="o">=</span> <span class="mi">0</span>
       <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl</span> <span class="o">-</span> <span class="n">hr</span>
       <span class="k">return</span> <span class="n">node</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">hl</span><span class="p">,</span> <span class="n">hr</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
-      <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="n">n</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="n">end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+      <span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+          <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="n">end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">_rotate_L</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
@@ -93,7 +95,7 @@
     <span class="k">return</span> <span class="n">u</span>
 
   <span class="k">def</span> <span class="nf">_rotate_R</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-=</span> <span class="n">size</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
@@ -108,20 +110,20 @@
     <span class="k">return</span> <span class="n">u</span>
 
   <span class="k">def</span> <span class="nf">_update_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">elif</span> <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">_rotate_LR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
     <span class="n">B</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">E</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">E</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -135,7 +137,7 @@
     <span class="k">return</span> <span class="n">E</span>
 
   <span class="k">def</span> <span class="nf">_rotate_RL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">D</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">C</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">D</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -149,39 +151,36 @@
     <span class="k">return</span> <span class="n">D</span>
 
   <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span>
-    <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
+    <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">end</span>
 
   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
       <span class="k">return</span> <span class="kc">True</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span>
-    <span class="n">pnode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">pnode</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">pnode</span><span class="p">]:</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="k">return</span> <span class="kc">False</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">pnode</span><span class="p">]:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
       <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -209,7 +208,7 @@
         <span class="k">else</span><span class="p">:</span>
           <span class="n">right</span><span class="p">[</span><span class="n">gnode</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_node</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
       <span class="n">size</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="kc">True</span>
@@ -217,25 +216,22 @@
   <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
       <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
     <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">False</span>
@@ -257,7 +253,7 @@
       <span class="k">else</span><span class="p">:</span>
         <span class="n">right</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cnode</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">cnode</span>
       <span class="k">return</span> <span class="kc">True</span>
     <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
       <span class="n">new_node</span> <span class="o">=</span> <span class="mi">0</span>
@@ -273,7 +269,7 @@
         <span class="k">break</span>
       <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
-          <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
           <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
           <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_node</span>
@@ -286,9 +282,9 @@
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
@@ -301,9 +297,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -313,9 +309,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
@@ -328,9 +324,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -340,9 +336,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
@@ -355,8 +351,8 @@
     <span class="k">return</span> <span class="n">k</span>
 
   <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">k</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
@@ -379,9 +375,71 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">balance</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">],</span> <span class="s1">&#39;IndexError&#39;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="ow">and</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
+      <span class="n">lmax</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="k">while</span> <span class="n">right</span><span class="p">[</span><span class="n">lmax</span><span class="p">]:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lmax</span><span class="p">)</span>
+        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+        <span class="n">lmax</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">lmax</span><span class="p">]</span>
+      <span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">lmax</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">lmax</span>
+    <span class="n">cnode</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">right</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cnode</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="k">return</span> <span class="n">res</span>
+    <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
+      <span class="n">new_node</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">di</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+      <span class="n">size</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_LR</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span> <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">pnode</span><span class="p">]]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_L</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_RL</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span> <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">pnode</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_R</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]:</span>
+        <span class="k">break</span>
+      <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="k">return</span> <span class="n">res</span>
+        <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">right</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">new_node</span><span class="p">]:</span>
+          <span class="k">break</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+      <span class="n">size</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -390,39 +448,37 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
-      <span class="k">return</span> <span class="n">a</span>
-    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-      <span class="k">if</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">rec</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-      <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-      <span class="k">if</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">rec</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-    <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+    <span class="n">stack</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">a</span>
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="k">return</span> <span class="kc">True</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">else</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">False</span>
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
-    <span class="n">size</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
-    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">],</span> <span class="s1">&#39;IndexError&#39;</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">],</span> <span class="s1">&#39;IndexError&#39;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
       <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
       <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
@@ -449,10 +505,10 @@
       <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
@@ -477,31 +533,31 @@
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
@@ -537,7 +593,7 @@
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
-  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
   <span class="nd">@abstractmethod</span>
@@ -562,56 +618,58 @@
 
 <span class="k">class</span> <span class="nc">AVLTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
-  <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="n">size</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">left</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">balance</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-  <span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
-
-  <span class="nd">@classmethod</span>
-  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">key</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">left</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">right</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-    <span class="bp">cls</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
       <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
+  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">+=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">+=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
   <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
       <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
       <span class="n">node</span> <span class="o">=</span> <span class="n">mid</span>
+      <span class="n">hl</span><span class="p">,</span> <span class="n">hr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
       <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
         <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">hl</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
         <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">hl</span> <span class="o">=</span> <span class="mi">0</span>
       <span class="k">if</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
         <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">hr</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
         <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">hr</span> <span class="o">=</span> <span class="mi">0</span>
       <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">hl</span> <span class="o">-</span> <span class="n">hr</span>
       <span class="k">return</span> <span class="n">node</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">hl</span><span class="p">,</span> <span class="n">hr</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
-      <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="n">n</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="n">end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+      <span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+          <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="n">end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">_rotate_L</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
@@ -626,7 +684,7 @@
     <span class="k">return</span> <span class="n">u</span>
 
   <span class="k">def</span> <span class="nf">_rotate_R</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-=</span> <span class="n">size</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
@@ -641,20 +699,20 @@
     <span class="k">return</span> <span class="n">u</span>
 
   <span class="k">def</span> <span class="nf">_update_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">balance</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span>
+    <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
     <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">elif</span> <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="n">balance</span><span class="p">[</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">_rotate_LR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
     <span class="n">B</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">E</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">E</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -668,7 +726,7 @@
     <span class="k">return</span> <span class="n">E</span>
 
   <span class="k">def</span> <span class="nf">_rotate_RL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="n">D</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">C</span><span class="p">]</span>
     <span class="n">size</span><span class="p">[</span><span class="n">D</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -682,39 +740,36 @@
     <span class="k">return</span> <span class="n">D</span>
 
   <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span>
-    <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
+    <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
-    <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">end</span>
 
   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
       <span class="k">return</span> <span class="kc">True</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span>
-    <span class="n">pnode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">pnode</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">pnode</span><span class="p">]:</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="k">return</span> <span class="kc">False</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">pnode</span><span class="p">]:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
       <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -742,7 +797,7 @@
         <span class="k">else</span><span class="p">:</span>
           <span class="n">right</span><span class="p">[</span><span class="n">gnode</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_node</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
       <span class="n">size</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="kc">True</span>
@@ -750,25 +805,22 @@
   <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
       <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
     <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">False</span>
@@ -790,7 +842,7 @@
       <span class="k">else</span><span class="p">:</span>
         <span class="n">right</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cnode</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">cnode</span>
       <span class="k">return</span> <span class="kc">True</span>
     <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
       <span class="n">new_node</span> <span class="o">=</span> <span class="mi">0</span>
@@ -806,7 +858,7 @@
         <span class="k">break</span>
       <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
-          <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
           <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
           <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_node</span>
@@ -819,9 +871,9 @@
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
@@ -834,9 +886,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -846,9 +898,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
@@ -861,9 +913,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -873,9 +925,9 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
@@ -888,8 +940,8 @@
     <span class="k">return</span> <span class="n">k</span>
 
   <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">k</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span>
@@ -912,9 +964,71 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">balance</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">],</span> <span class="s1">&#39;IndexError&#39;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="ow">and</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+      <span class="n">di</span> <span class="o">|=</span> <span class="mi">1</span>
+      <span class="n">lmax</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="k">while</span> <span class="n">right</span><span class="p">[</span><span class="n">lmax</span><span class="p">]:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lmax</span><span class="p">)</span>
+        <span class="n">di</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+        <span class="n">lmax</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">lmax</span><span class="p">]</span>
+      <span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="n">lmax</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">lmax</span>
+    <span class="n">cnode</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">right</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cnode</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="k">return</span> <span class="n">res</span>
+    <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
+      <span class="n">new_node</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="n">di</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+      <span class="n">size</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_LR</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span> <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">pnode</span><span class="p">]]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_L</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_RL</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span> <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">pnode</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_R</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+      <span class="k">elif</span> <span class="n">balance</span><span class="p">[</span><span class="n">pnode</span><span class="p">]:</span>
+        <span class="k">break</span>
+      <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="k">return</span> <span class="n">res</span>
+        <span class="k">if</span> <span class="n">di</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="n">left</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">right</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">new_node</span><span class="p">]:</span>
+          <span class="k">break</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+      <span class="n">size</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -923,39 +1037,37 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
-      <span class="k">return</span> <span class="n">a</span>
-    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-      <span class="k">if</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">rec</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-      <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-      <span class="k">if</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">rec</span><span class="p">(</span><span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-    <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+    <span class="n">stack</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">a</span>
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
         <span class="k">return</span> <span class="kc">True</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">else</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">False</span>
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">right</span>
-    <span class="n">size</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">key</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
-    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">],</span> <span class="s1">&#39;IndexError&#39;</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">],</span> <span class="s1">&#39;IndexError&#39;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
       <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
       <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
@@ -982,10 +1094,10 @@
       <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">AVLTreeSet</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
@@ -996,13 +1108,16 @@
 
 </div>
 <hr />
+<p>AVL木です。集合です。</p>
 <hr />
 <h2>仕様</h2>
 <p>あとで書く</p>
 <hr />
 <h2>使用例</h2>
 <div class="code-block">
-<div class="highlight" id="codeContainer1"><pre><span></span>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.AVLTree.AVLTreeSet</span> <span class="kn">import</span> <span class="n">AVLTreeSet</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">AVLTreeSet</span><span class="p">()</span>
 </pre></div>
 
 </div>

@@ -11,6 +11,10 @@ _____
 - [`AVLTreeSet2`](./AVLTreeSet2.md)
   - 集合としての AVL木 です。
   - size を持たないので軽めです。
+- [`AVLTreeSet3`](./AVLTreeSet3.md)
+  - 集合としての AVL木 です。
+  - size を持ちます。
+  - `class Node()` を用いています。
 - [`AVLTreeMultiSet`](./AVLTreeMultiSet.md)
   - 多重集合としての AVL 木です。
 - [`LazyAVLTree`](./LazyAVLTree.md)

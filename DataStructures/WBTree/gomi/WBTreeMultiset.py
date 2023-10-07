@@ -1,11 +1,11 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
-from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from math import sqrt
 from array import array
 from typing import Generic, Iterable, Optional, TypeVar, List, Final
 T = TypeVar('T', bound=SupportsLessThan)
 
-class WBTreeSet(OrderedSetInterface, Generic[T]):
+class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   ALPHA: Final[float] = 1 - sqrt(2) / 2
   BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
@@ -13,6 +13,8 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
   def __init__(self, a: Iterable[T]=[], e: T=0) -> None:
     self.root : int = 0
     self.key  : List[T] = [e]
+    self.val  : List[int] = [0]
+    self.valsize: List[int] = [0]
     self.size : array[int] = array('I', bytes(4))
     self.left : array[int] = array('I', bytes(4))
     self.right: array[int] = array('I', bytes(4))
@@ -25,6 +27,8 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
 
   def reserve(self, n: int) -> None:
     self.key += [self.e] * n
+    self.val += [0] * n
+    self.valsize = [0] * n
     a = array('I', bytes(4 * n))
     self.left += a
     self.right += a
@@ -46,14 +50,6 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
         size[node] += size[right[node]]
       return node
     n = len(a)
-    if n == 0: return
-    if not all(a[i] < a[i + 1] for i in range(n - 1)):
-      b = sorted(a)
-      a = [b[0]]
-      for i in range(1, n):
-        if b[i] != a[-1]:
-          a.append(b[i])
-      n = len(a)
     end = self.end
     self.end += n
     self.reserve(n)
@@ -372,7 +368,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
     return self.root != 0
 
   def __repr__(self):
-    return f'WBTreeSet({self})'
+    return f'WBTreeMultiset({self})'
 
   def isok(self):
     left, right, size, keys = self.left, self.right, self.size, self.key
