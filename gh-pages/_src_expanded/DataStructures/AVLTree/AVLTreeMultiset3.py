@@ -1,9 +1,111 @@
-from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
-from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from typing import Protocol
+
+class SupportsLessThan(Protocol):
+
+  def __lt__(self, other) -> bool: ...
+
+from abc import ABC, abstractmethod
+from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+T = TypeVar('T', bound=SupportsLessThan)
+
+class OrderedMultisetInterface(ABC, Generic[T]):
+
+  @abstractmethod
+  def __init__(self, a: Iterable[T]) -> None:
+    raise NotImplementedError
+
+  @abstractmethod
+  def add(self, key: T, cnt: int) -> None:
+    raise NotImplementedError
+
+  @abstractmethod
+  def discard(self, key: T, cnt: int) -> bool:
+    raise NotImplementedError
+
+  @abstractmethod
+  def discard_all(self, key: T) -> bool:
+    raise NotImplementedError
+
+  @abstractmethod
+  def count(self, key: T) -> int:
+    raise NotImplementedError
+
+  @abstractmethod
+  def remove(self, key: T, cnt: int) -> None:
+    raise NotImplementedError
+
+  @abstractmethod
+  def le(self, key: T) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def lt(self, key: T) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def ge(self, key: T) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def gt(self, key: T) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def get_max(self) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def get_min(self) -> Optional[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def pop_max(self) -> T:
+    raise NotImplementedError
+
+  @abstractmethod
+  def pop_min(self) -> T:
+    raise NotImplementedError
+
+  @abstractmethod
+  def clear(self) -> None:
+    raise NotImplementedError
+
+  @abstractmethod
+  def tolist(self) -> List[T]:
+    raise NotImplementedError
+
+  @abstractmethod
+  def __iter__(self) -> Iterator:
+    raise NotImplementedError
+
+  @abstractmethod
+  def __next__(self) -> T:
+    raise NotImplementedError
+
+  @abstractmethod
+  def __contains__(self, key: T) -> bool:
+    raise NotImplementedError
+
+  @abstractmethod
+  def __len__(self) -> int:
+    raise NotImplementedError
+
+  @abstractmethod
+  def __bool__(self) -> bool:
+    raise NotImplementedError
+
+  @abstractmethod
+  def __str__(self) -> str:
+    raise NotImplementedError
+
+  @abstractmethod
+  def __repr__(self) -> str:
+    raise NotImplementedError
+
 from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
 T = TypeVar('T', bound=SupportsLessThan)
 
-class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
+class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
 
   class Node():
 
@@ -12,8 +114,8 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
       self.val: int = val
       self.valsize: int = val
       self.size: int = 1
-      self.left: Optional['AVLTreeMultiset.Node'] = None
-      self.right: Optional['AVLTreeMultiset.Node'] = None
+      self.left: Optional['AVLTreeMultiset3.Node'] = None
+      self.right: Optional['AVLTreeMultiset3.Node'] = None
       self.balance: int = 0
 
     def __str__(self):
@@ -22,7 +124,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
       return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):  
-    self.node: Optional['AVLTreeMultiset.Node'] = None
+    self.node: Optional['AVLTreeMultiset3.Node'] = None
     if a:
       self._build(a)
 
@@ -39,7 +141,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return x, y
 
   def _build(self, a: Iterable[T]) -> None:
-    Node = AVLTreeMultiset.Node
+    Node = AVLTreeMultiset3.Node
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
@@ -290,7 +392,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def add(self, key: T, val: int=1) -> None:
     if self.node is None:
-      self.node = AVLTreeMultiset.Node(key, val)
+      self.node = AVLTreeMultiset3.Node(key, val)
       return
     pnode = self.node
     di = 0
@@ -312,9 +414,9 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         di <<= 1
         pnode = pnode.right
     if di & 1:
-      path[-1].left = AVLTreeMultiset.Node(key, val)
+      path[-1].left = AVLTreeMultiset3.Node(key, val)
     else:
-      path[-1].right = AVLTreeMultiset.Node(key, val)
+      path[-1].right = AVLTreeMultiset3.Node(key, val)
     new_node = None
     while path:
       pnode = path.pop()
@@ -625,5 +727,6 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'AVLTreeMultiset({self.tolist()})'
+    return f'AVLTreeMultiset3({self.tolist()})'
+
 

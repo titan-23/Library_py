@@ -4,7 +4,7 @@ class SupportsLessThan(Protocol):
 
   def __lt__(self, other) -> bool: ...
 
-from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, Tuple, TypeVar, List, Optional
 from array import array
 T = TypeVar('T', bound=SupportsLessThan)
 

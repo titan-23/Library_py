@@ -620,7 +620,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         node = right[node]
     return a
 
-  def __getitem__(self, k: int):
+  def __getitem__(self, k: int) -> T:
     return self._kth_elm(k)[0]
 
   def __contains__(self, key: T):

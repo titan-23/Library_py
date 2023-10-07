@@ -1,5 +1,5 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
-from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, Tuple, TypeVar, List, Optional
 from array import array
 T = TypeVar('T', bound=SupportsLessThan)
 

@@ -1,13 +1,13 @@
 _____
 
-# `AVLTreeMultiSet`
+# `AVLTreeMultiset`
 
 _____
 
 ## コード
 
-[`AVLTreeMultiSet`](https://github.com/titan-23/Library_py/blob/main/DataStructures/AVLTree/AVLTreeMultiSet.py)
-<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\AVLTree\AVLTreeMultiSet.py -->
+[`AVLTreeMultiset`](https://github.com/titan-23/Library_py/blob/main/DataStructures/AVLTree/AVLTreeMultiset.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\AVLTree\AVLTreeMultiset.py -->
 
 _____
 

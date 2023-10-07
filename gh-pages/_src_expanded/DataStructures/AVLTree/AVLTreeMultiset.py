@@ -15,39 +15,39 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def add(self, item: T, cnt: int) -> None:
+  def add(self, key: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def discard(self, item: T, cnt: int) -> bool:
+  def discard(self, key: T, cnt: int) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def discard_all(self, item: T) -> bool:
+  def discard_all(self, key: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def count(self, item: T) -> int:
+  def count(self, key: T) -> int:
     raise NotImplementedError
 
   @abstractmethod
-  def remove(self, item: T, cnt: int) -> None:
+  def remove(self, key: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def le(self, item: T) -> Optional[T]:
+  def le(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def lt(self, item: T) -> Optional[T]:
+  def lt(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def ge(self, item: T) -> Optional[T]:
+  def ge(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def gt(self, item: T) -> Optional[T]:
+  def gt(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
@@ -83,7 +83,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def __contains__(self, item: T) -> bool:
+  def __contains__(self, key: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod
@@ -722,7 +722,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         node = right[node]
     return a
 
-  def __getitem__(self, k: int):
+  def __getitem__(self, k: int) -> T:
     return self._kth_elm(k)[0]
 
   def __contains__(self, key: T):

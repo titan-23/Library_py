@@ -3,7 +3,7 @@ from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
 T = TypeVar('T', bound=SupportsLessThan)
 
-class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
+class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
 
   class Node():
 
@@ -12,8 +12,8 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
       self.val: int = val
       self.valsize: int = val
       self.size: int = 1
-      self.left: Optional['AVLTreeMultiset.Node'] = None
-      self.right: Optional['AVLTreeMultiset.Node'] = None
+      self.left: Optional['AVLTreeMultiset3.Node'] = None
+      self.right: Optional['AVLTreeMultiset3.Node'] = None
       self.balance: int = 0
 
     def __str__(self):
@@ -22,7 +22,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
       return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):  
-    self.node: Optional['AVLTreeMultiset.Node'] = None
+    self.node: Optional['AVLTreeMultiset3.Node'] = None
     if a:
       self._build(a)
 
@@ -39,7 +39,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return x, y
 
   def _build(self, a: Iterable[T]) -> None:
-    Node = AVLTreeMultiset.Node
+    Node = AVLTreeMultiset3.Node
     def sort(l: int, r: int) -> Tuple[Node, int]:
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
@@ -290,7 +290,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def add(self, key: T, val: int=1) -> None:
     if self.node is None:
-      self.node = AVLTreeMultiset.Node(key, val)
+      self.node = AVLTreeMultiset3.Node(key, val)
       return
     pnode = self.node
     di = 0
@@ -312,9 +312,9 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         di <<= 1
         pnode = pnode.right
     if di & 1:
-      path[-1].left = AVLTreeMultiset.Node(key, val)
+      path[-1].left = AVLTreeMultiset3.Node(key, val)
     else:
-      path[-1].right = AVLTreeMultiset.Node(key, val)
+      path[-1].right = AVLTreeMultiset3.Node(key, val)
     new_node = None
     while path:
       pnode = path.pop()
@@ -625,5 +625,5 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'AVLTreeMultiset({self.tolist()})'
+    return f'AVLTreeMultiset3({self.tolist()})'
 

@@ -1,4 +1,4 @@
-from .SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from abc import ABC, abstractmethod
 from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
 T = TypeVar('T', bound=SupportsLessThan)
@@ -10,39 +10,39 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def add(self, item: T, cnt: int) -> None:
+  def add(self, key: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def discard(self, item: T, cnt: int) -> bool:
+  def discard(self, key: T, cnt: int) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def discard_all(self, item: T) -> bool:
+  def discard_all(self, key: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def count(self, item: T) -> int:
+  def count(self, key: T) -> int:
     raise NotImplementedError
 
   @abstractmethod
-  def remove(self, item: T, cnt: int) -> None:
+  def remove(self, key: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def le(self, item: T) -> Optional[T]:
+  def le(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def lt(self, item: T) -> Optional[T]:
+  def lt(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def ge(self, item: T) -> Optional[T]:
+  def ge(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
-  def gt(self, item: T) -> Optional[T]:
+  def gt(self, key: T) -> Optional[T]:
     raise NotImplementedError
 
   @abstractmethod
@@ -78,7 +78,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def __contains__(self, item: T) -> bool:
+  def __contains__(self, key: T) -> bool:
     raise NotImplementedError
 
   @abstractmethod

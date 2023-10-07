@@ -8,6 +8,7 @@ _____
 - [`AVLTreeSet`](./AVLTreeSet.md)
   - 集合としての AVL 木です。
   - 配列を用いてノードを表現しています。
+  - size を持ちます。
 - [`AVLTreeSet2`](./AVLTreeSet2.md)
   - 集合としての AVL木 です。
   - size を持たないので軽めです。
@@ -17,6 +18,15 @@ _____
   - `class Node()` を用いています。
 - [`AVLTreeMultiSet`](./AVLTreeMultiSet.md)
   - 多重集合としての AVL 木です。
+  - 配列を用いてノードを表現しています。
+  - size を持ちます。
+- [`AVLTreeMultiSet2`](./AVLTreeMultiSet2.md)
+  - 多重集合としての AVL 木です。
+  - 配列を用いてノードを表現しています。
+  - size を持たないので軽めです。
+- [`AVLTreeMultiSet3`](./AVLTreeMultiSet3.md)
+  - 多重集合としての AVL 木です。
+  - `class Node()` を用いています。
 - [`LazyAVLTree`](./LazyAVLTree.md)
   - 遅延伝播反転可能平衡二分木です。
 - [`PersistentAVLTreeList`](./PersistentAVLTreeList.md)
