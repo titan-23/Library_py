@@ -1,9 +1,4 @@
-from typing import Protocol
-
-class SupportsLessThan(Protocol):
-
-  def __lt__(self, other) -> bool: ...
-
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Callable, Generic, Iterable, Tuple, TypeVar, Union, List, Any, Optional
 K = TypeVar('K', bound=SupportsLessThan)
 V = TypeVar('V')
@@ -269,5 +264,4 @@ class AVLTreeDict(Generic[K, V]):
 
   def __missing__(self):
     return self._default()
-
 
