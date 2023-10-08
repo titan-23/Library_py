@@ -1,7 +1,6 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
 from array import array
-from __pypy__ import newlist_hint
 from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
 T = TypeVar('T', bound=SupportsLessThan)
 
@@ -11,10 +10,10 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     self.keys: List[T] = [e]
     self.child = array('I', bytes(8))
     self.end: int = 1
-    self.node: int = 0
+    self.root: int = 0
     self.len: int = 0
     self.e: T = e
-    if not isinstance(a, Sequence):
+    if not isinstance(a, list):
       a = list(a)
     if a:
       self._build(a)
@@ -40,7 +39,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     self.reserve(n-len(key)+2)
     self.end += n
     key[1:n+1] = a
-    self.node = rec(1, n+1)
+    self.root = rec(1, n+1)
     self.len = n
 
   def _make_node(self, key: T) -> int:
@@ -53,49 +52,53 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     self.end += 1
     return self.end - 1
 
+  def _rotate_left(self, node: int) -> int:
+    child = self.child
+    u = child[node<<1]
+    child[node<<1] = child[u<<1|1]
+    child[u<<1|1] = node
+    return u
+
+  def _rotate_right(self, node: int) -> int:
+    child = self.child
+    u = child[node<<1|1]
+    child[node<<1|1] = child[u<<1]
+    child[u<<1] = node
+    return u
+
   def _set_search_splay(self, key: T) -> None:
-    node = self.node
+    node = self.root
     keys, child = self.keys, self.child
     if (not node) or keys[node] == key: return
     left, right = 0, 0
     while keys[node] != key:
-      if key < keys[node]:
-        if not child[node<<1]: break
-        if key < keys[child[node<<1]]:
-          new = child[node<<1]
-          child[node<<1] = child[new<<1|1]
-          child[new<<1|1] = node
-          node = new
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
-      else:
-        if not child[node<<1|1]: break
+      f = key > keys[node]
+      if not child[node<<1|f]: break
+      if f:
         if key > keys[child[node<<1|1]]:
-          new = child[node<<1|1]
-          child[node<<1|1] = child[new<<1]
-          child[new<<1] = node
-          node = new
+          node = self._rotate_right(node)
           if not child[node<<1|1]: break
         child[left<<1|1] = node
         left = node
-        node = child[node<<1|1]
+      else:
+        if key < keys[child[node<<1]]:
+          node = self._rotate_left(node)
+          if not child[node<<1]: break
+        child[right<<1] = node
+        right = node
+      node = child[node<<1|f]
     child[right<<1] = child[node<<1|1]
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
     child[node<<1|1] = child[0]
-    self.node = node
+    self.root = node
 
   def _get_min_splay(self, node: int) -> int:
     child = self.child
     if (not node) or (not child[node<<1]): return node
     right = 0
     while child[node<<1]:
-      new = child[node<<1]
-      child[node<<1] = child[new<<1|1]
-      child[new<<1|1] = node
-      node = new
+      node = self._rotate_left(node)
       if not child[node<<1]: break
       child[right<<1] = node
       right = node
@@ -111,10 +114,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     if (not node) or (not child[node<<1|1]): return node
     left = 0
     while child[node<<1|1]:
-      new = child[node<<1|1]
-      child[node<<1|1] = child[new<<1]
-      child[new<<1] = node
-      node = new
+      node = self._rotate_right(node)
       if not child[node<<1|1]: break
       child[left<<1|1] = node
       left = node
@@ -131,36 +131,35 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     self.child += array('I', bytes(8 * n))
 
   def add(self, key: T) -> bool:
-    if not self.node:
-      self.node = self._make_node(key)
+    if not self.root:
+      self.root = self._make_node(key)
       self.len += 1
       return True
     keys, child = self.keys, self.child
     self._set_search_splay(key)
-    if keys[self.node] == key:
+    if keys[self.root] == key:
       return False
     node = self._make_node(key)
-    f = key > keys[self.node]
-    child[node<<1|f] = child[self.node<<1|f]
-    child[node<<1|f^1] = self.node
-    child[self.node<<1|f] = 0
-    self.node = node
-    self.len += 1
+    f = key > keys[self.root]
+    child[node<<1|f] = child[self.root<<1|f]
+    child[node<<1|f^1] = self.root
+    child[self.root<<1|f] = 0
+    self.root = node
     return True
 
   def discard(self, key: T) -> bool:
-    if not self.node: return False
+    if not self.root: return False
     self._set_search_splay(key)
     keys, child = self.keys, self.child
-    if keys[self.node] != key: return False
-    if not child[self.node<<1]:
-      self.node = child[self.node<<1|1]
-    elif not child[self.node<<1|1]:
-      self.node = child[self.node<<1]
+    if keys[self.root] != key: return False
+    if not child[self.root<<1]:
+      self.root = child[self.root<<1|1]
+    elif not child[self.root<<1|1]:
+      self.root = child[self.root<<1]
     else:
-      node = self._get_min_splay(child[self.node<<1|1])
-      child[node<<1] = child[self.node<<1]
-      self.node = node
+      node = self._get_min_splay(child[self.root<<1|1])
+      child[node<<1] = child[self.root<<1]
+      self.root = node
     self.len -= 1
     return True
 
@@ -170,7 +169,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     raise KeyError(key)
 
   def ge(self, key: T) -> Optional[T]:
-    node = self.node
+    node = self.root
     if not node: return None
     keys, child = self.keys, self.child
     if keys[node] == key: return key
@@ -184,10 +183,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         ge = keys[node]
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
-          new = child[node<<1]
-          child[node<<1] = child[new<<1|1]
-          child[new<<1|1] = node
-          node = new
+          node = self._rotate_left(node)
           ge = keys[node]
           if not child[node<<1]: break
         child[right<<1] = node
@@ -196,10 +192,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       else:
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          new = child[node<<1|1]
-          child[node<<1|1] = child[new<<1]
-          child[new<<1] = node
-          node = new
+          node = self._rotate_right(node)
           if not child[node<<1|1]: break
         child[left<<1|1] = node
         left = node
@@ -208,11 +201,11 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
     child[node<<1|1] = child[0]
-    self.node = node
+    self.root = node
     return ge
 
   def gt(self, key: T) -> Optional[T]:
-    node = self.node
+    node = self.root
     if not node: return None
     gt = None
     keys, child = self.keys, self.child
@@ -222,10 +215,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         gt = keys[node]
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
-          new = child[node<<1]
-          child[node<<1] = child[new<<1|1]
-          child[new<<1|1] = node
-          node = new
+          node = self._rotate_left(node)
           gt = keys[node]
           if not child[node<<1]: break
         child[right<<1] = node
@@ -234,10 +224,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       else:
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          new = child[node<<1|1]
-          child[node<<1|1] = child[new<<1]
-          child[new<<1] = node
-          node = new
+          node = self._rotate_right(node)
           if not child[node<<1|1]: break
         child[left<<1|1] = node
         left = node
@@ -246,11 +233,11 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
     child[node<<1|1] = child[0]
-    self.node = node
+    self.root = node
     return gt
 
   def le(self, key: T) -> Optional[T]:
-    node = self.node
+    node = self.root
     if not node: return None
     keys, child = self.keys, self.child
     if keys[node] == key: return key
@@ -263,10 +250,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       if key < keys[node]:
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
-          new = child[node<<1]
-          child[node<<1] = child[new<<1|1]
-          child[new<<1|1] = node
-          node = new
+          node = self._rotate_left(node)
           if not child[node<<1]: break
         child[right<<1] = node
         right = node
@@ -275,10 +259,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         le = keys[node]
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          new = child[node<<1|1]
-          child[node<<1|1] = child[new<<1]
-          child[new<<1] = node
-          node = new
+          node = self._rotate_right(node)
           le = keys[node]
           if not child[node<<1|1]: break
         child[left<<1|1] = node
@@ -288,11 +269,11 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
     child[node<<1|1] = child[0]
-    self.node = node
+    self.root = node
     return le
 
   def lt(self, key: T) -> Optional[T]:
-    node = self.node
+    node = self.root
     if not node: return None
     lt = None
     keys, child = self.keys, self.child
@@ -301,10 +282,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       if not keys[node] > key:
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
-          new = child[node<<1]
-          child[node<<1] = child[new<<1|1]
-          child[new<<1|1] = node
-          node = new
+          node = self._rotate_left(node)
           if not child[node<<1]: break
         child[right<<1] = node
         right = node
@@ -313,10 +291,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         lt = keys[node]
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          new = child[node<<1|1]
-          child[node<<1|1] = child[new<<1]
-          child[new<<1] = node
-          node = new
+          node = self._rotate_right(node)
           lt = keys[node]
           if not child[node<<1|1]: break
         child[left<<1|1] = node
@@ -326,13 +301,13 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
     child[node<<1|1] = child[0]
-    self.node = node
+    self.root = node
     return lt
 
   def tolist(self) -> List[T]:
-    node = self.node
+    node = self.root
     child, keys = self.child, self.keys
-    stack, res = [], newlist_hint(len(self))
+    stack, res = [], []
     while stack or node:
       if node:
         stack.append(node)
@@ -344,29 +319,29 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return res
 
   def get_max(self) -> T:
-    assert self.node, 'IndexError: get_max() from empty SplayTreeSetTopDown'
-    self.node = self._get_max_splay(self.node)
-    return self.keys[self.node]
+    assert self.root, 'IndexError: get_max() from empty SplayTreeSetTopDown'
+    self.root = self._get_max_splay(self.root)
+    return self.keys[self.root]
 
   def get_min(self) -> T:
-    assert self.node, 'IndexError: get_min() from empty SplayTreeSetTopDown'
-    self.node = self._get_min_splay(self.node)
-    return self.keys[self.node]
+    assert self.root, 'IndexError: get_min() from empty SplayTreeSetTopDown'
+    self.root = self._get_min_splay(self.root)
+    return self.keys[self.root]
 
   def pop_max(self) -> T:
-    assert self.node, 'IndexError: pop_max() from empty SplayTreeSetTopDown'
-    node = self._get_max_splay(self.node)
-    self.node = self.child[node<<1]
+    assert self.root, 'IndexError: pop_max() from empty SplayTreeSetTopDown'
+    node = self._get_max_splay(self.root)
+    self.root = self.child[node<<1]
     return self.keys[node]
 
   def pop_min(self) -> T:
-    assert self.node, 'IndexError: pop_min() from empty SplayTreeSetTopDown'
-    node = self._get_min_splay(self.node)
-    self.node = self.child[node<<1|1]
+    assert self.root, 'IndexError: pop_min() from empty SplayTreeSetTopDown'
+    node = self._get_min_splay(self.root)
+    self.root = self.child[node<<1|1]
     return self.keys[node]
 
   def clear(self) -> None:
-    self.node = 0
+    self.root = 0
 
   def __iter__(self):
     self.it = self.get_min()
@@ -381,13 +356,13 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
   def __contains__(self, key: T):
     self._set_search_splay(key)
-    return self.keys[self.node] == key
+    return self.keys[self.root] == key
 
   def __len__(self):
     return self.len
 
   def __bool__(self):
-    return self.node != 0
+    return self.root != 0
 
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
