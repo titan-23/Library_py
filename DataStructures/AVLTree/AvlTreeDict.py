@@ -1,5 +1,5 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
-from typing import Callable, Generic, Iterable, Tuple, TypeVar, Union, List, Any, Optional
+from typing import Callable, Generic, Iterable, Tuple, TypeVar, Union, List, Optional
 K = TypeVar('K', bound=SupportsLessThan)
 V = TypeVar('V')
 
@@ -262,6 +262,6 @@ class AVLTreeDict(Generic[K, V]):
   def __repr__(self):
     return 'AVLTreeDict(' + str(self) + ')'
 
-  def __missing__(self):
+  def __missing__(self, e):
     return self._default()
 
