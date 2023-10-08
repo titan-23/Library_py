@@ -1,6 +1,8 @@
 '''
 builder.py
 
+事前に適切なブランチからプルする
+
 >> python builder.py
 で AllExpander 、 HTMLMaker を実行
 '''
@@ -25,5 +27,6 @@ except subprocess.CalledProcessError as e:
   print('Error: HTMLError')
   print('Try: >>> python HTMLMaker.py')
   exit(1)
+print('HTMLMaker.py Finished.')
 
 print('The build was successful.')

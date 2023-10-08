@@ -8,8 +8,8 @@ class PersistentArray(Generic[T]):
     def __init__(self, key: T):
       self.key: T = key
       self.size: int = 1
-      self.left: Optional['PersistentArray.Node'] = None
-      self.right: Optional['PersistentArray.Node'] = None
+      self.left: Optional[PersistentArray.Node] = None
+      self.right: Optional[PersistentArray.Node] = None
 
     def copy(self) -> 'PersistentArray.Node':
       node = PersistentArray.Node(self.key)
