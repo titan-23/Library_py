@@ -19,10 +19,10 @@ class HTMLMaker():
     self.code_file_flag = False
 
     try:
-      self.input_file = open(f'../../Library_py/docs_md/{filename}.md', 'r', encoding='utf-8')
+      self.input_file = open(f'../../Library_py/docs/{filename}.md', 'r', encoding='utf-8')
       self.input_file_flag = True
     except FileNotFoundError:
-      print(f'<NotFound> ../../Library_py/docs_md/{filename}.md.')
+      print(f'<NotFound> ../../Library_py/docs/{filename}.md.')
       return False
 
     try:
@@ -143,12 +143,12 @@ class HTMLMaker():
 
 maker = HTMLMaker()
 
-for root, dirs, files in os.walk("../../Library_py/docs_md/"):
+for root, dirs, files in os.walk("../../Library_py/docs/"):
   for filename in files:
     filename = str(filename)
     if filename.endswith('.md'):
       filename = filename.removesuffix('.md')
-      path = os.path.join(root, filename).removeprefix('../../Library_py/docs_md/')
+      path = os.path.join(root, filename).removeprefix('../../Library_py/docs/')
       if not maker.set(path):
         continue
       maker.write(title=filename)
