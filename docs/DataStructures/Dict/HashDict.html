@@ -274,7 +274,7 @@
 <p>一応 <code>uint</code> を想定しているので、 <code>e</code> は <code>int</code> 型の <code>-1</code> を設定しています。Hash関数やrehashの基準は適当。有識者求みます。( <code>int</code> を載せるのに <code>e</code> を <code>None</code> にすると、 <code>list</code> の <code>strategy</code> の問題で有意に遅くなる。注意。)</p>
 <hr />
 <h2>仕様</h2>
-<h3><code>d = HashDict(e: int=-1, default: Any=0)</code></h3>
+<h4><code>d = HashDict(e: int=-1, default: Any=0)</code></h4>
 <ul>
 <li><code>e</code> , <code>default</code> から <code>HasiDict</code> を構築します。ここで、<ul>
 <li><code>e</code> は <code>int</code> 型で <code>key</code> として使用しない値</li>
@@ -283,38 +283,38 @@
 </ul>
 </li>
 </ul>
-<h3><code>d.reserve(n: int) -&gt; None</code></h3>
+<h4><code>d.reserve(n: int) -&gt; None</code></h4>
 <ul>
 <li><code>reserve</code> します。</li>
 <li><code>Θ(n)</code> です。</li>
 </ul>
-<h3><code>d.get(key: int, default: Any=None) -&gt; Any</code></h3>
+<h4><code>d.get(key: int, default: Any=None) -&gt; Any</code></h4>
 <ul>
 <li>キーが <code>key</code> の値を返します。存在しない場合、引数 <code>default</code> に <code>None</code> 以外を指定した場合は <code>default</code> が、そうでない場合はコンストラクタで設定した <code>default</code> が返ります。</li>
 <li>期待 <code>O(1)</code> です。</li>
 </ul>
-<h3><code>d.set(key: int, val: Any) -&gt; None</code></h3>
+<h4><code>d.set(key: int, val: Any) -&gt; None</code></h4>
 <ul>
 <li>キーを <code>key</code> として <code>val</code> を格納します。 <code>key</code> が既に存在している場合は上書きされます。</li>
 <li>期待 <code>O(1)</code> です。</li>
 </ul>
-<h3><code>key: int in d</code></h3>
+<h4><code>key: int in d</code></h4>
 <ul>
 <li><code>key</code> が存在すれば <code>True</code> を、そうでなければ <code>False</code> を返します。</li>
 <li><strong><code>key in d.keys()</code> は <code>O(N)</code> であることに注意してください。</strong></li>
 <li>期待 <code>O(1)</code> です。  </li>
 </ul>
-<h3><code>d[key] / d[key] = val</code></h3>
+<h4><code>d[key] / d[key] = val</code></h4>
 <ul>
 <li><code>getitem / setitem</code> をサポートしてます</li>
 <li>期待 <code>O(1)</code> です。</li>
 </ul>
-<h3><code>d.keys() / d.values() / d.items()</code></h3>
+<h4><code>d.keys() / d.values() / d.items()</code></h4>
 <ul>
 <li><code>Iterator</code> です。それぞれ、 <code>key 集合</code> / <code>val 集合</code> / <code>key とそれに対応する val のタプル</code> を列挙します。順序は特に決めてません。</li>
 <li><code>Θ(N)</code> です。</li>
 </ul>
-<h3><code>str(d) / len(d)</code></h3>
+<h4><code>str(d) / len(d)</code></h4>
 <ul>
 <li><code>len(d)</code> は <code>O(1)</code> です。</li>
 </ul>

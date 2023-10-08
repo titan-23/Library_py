@@ -10,4 +10,3 @@ _____
 
 - [`SegmentLazyQuadraticDivision`](./SegmentLazyQuadraticDivision.md)
 - [`SegmentQuadraticDivision`](./SegmentQuadraticDivision.md)
-

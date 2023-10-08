@@ -10,4 +10,3 @@ _____
 
 - [`PersistentStack`](./PersistentStack.md)
 - [`Stack`](./Stack.md)
-

@@ -26,59 +26,74 @@ _____
 ## 仕様
 
 #### `dc = OfflineDynamicConnectivity(n: int)`
+
 - 頂点数 `n` で初期化します。
 - `O(n)` です。
 
 #### `dc.add_edge(u: int, v: int) -> None`
+
 - 辺 `{u, v}` を追加します。
 - `O(1)` です。
 
 #### `dc.delete_edge(u: int, v: int) -> None`
+
 - 辺 `{u, v}` を削除します。呼び出し前で存在していなければなりません。
 - `O(1)` です。
 
 #### `dc.add_none() -> None`
+
 - 何もしません。内部のクエリカウントを1増加させます。
 - `O(1)` です。
 
 #### `dc.init_edge(E: List[Tuple[int, int]]) -> None`
+
 - 辺のリスト `E` を初期メンバーとします。内部のクエリカウントを1増加させます。
 - `O(|E|)` です。
 
 #### `dc.run(out: Callable[[int], None]) -> None`
+
 - 実行します。 `out` 関数はクエリ番号 `k` を引数にとります。
 - `O(q(logq)(logn))` です。
 
 #### `dc.uf: UndoableUnionFind`
+
 - `dc` 内部で管理される `UndoableUnionFind` です。戦略は (undo操作のため) Union by size のみです。
 
 #### `dc.uf.size(x: int) -> int`
+
 - 頂点 `x` を含む連結成分の頂点の総数を返します。
 - `O(logn)` です。
 
 #### `dc.uf.same(x: int, y: int) -> bool`
+
 - 頂点 `x` と `y` の連結性判定です。
 - `O(logn)` です。
 
 #### `dc.uf.add_point(x: int, v: int) -> None`
+
 - 頂点 `x` に値 `v` を加算します。
 - `O(logn)` です。
 
 #### `dc.uf.add_group(x: int, v: int) -> None`
+
 - 頂点 `x` を含む連結成分の要素それぞれに `v` を加算します。
 - `O(logn)` です。
 
 #### `dc.uf.grouop_count(x: int) -> int`
+
 - 連結成分の個数を返します。
 - `O(1)` です。
 
 #### `dc.uf.group_sum(x: int) -> int`
+
 - 頂点 `x` を含む連結成分の頂点の総和を返します。
 - `O(logn)` です。
 
 ## 使用例
 
 ```python
+from Library_py.DataStructures.DynamicConnectivity.OfflineDynamicConnectivity import OfflineDynamicConnectivity
+
 n, m = map(int, input().split())
 dc = OfflineDynamicConnectivity(n)
 E = []

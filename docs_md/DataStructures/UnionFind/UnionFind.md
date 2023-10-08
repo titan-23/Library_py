@@ -63,3 +63,10 @@ _____
 - `ΘNα(N))` です。
 
 _____
+
+## 使用例
+
+```python
+from Library_py.DataStructures.UnionFind.UnionFind import UnionFind
+
+```

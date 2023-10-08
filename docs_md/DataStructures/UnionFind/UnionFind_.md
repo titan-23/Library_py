@@ -15,4 +15,3 @@ _____
 - [`UndoableUnionFind`](UndoableUnionFind.md)
 - [`UnionFind`](UnionFind.md)
 - [`WeightedUnionFind`](WeightedUnionFind.md)
-

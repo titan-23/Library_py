@@ -38,6 +38,12 @@ _____
 
 ### [`AVLTree`](DataStructures/AVLTree/AVLTree.md)
 
+- [`AVLTreeSet`](DataStructures/AVLTree/AVLTreeSet.md)
+- [`AVLTreeSet2`](DataStructures/AVLTree/AVLTreeSet2.md)
+- [`AVLTreeSet3`](DataStructures/AVLTree/AVLTreeSet3.md)
+- [`AVLTreeMultiset`](DataStructures/AVLTree/AVLTreeMultiset.md)
+- [`AVLTreeMultiset2`](DataStructures/AVLTree/AVLTreeMultiset2.md)
+- [`AVLTreeMultiset3`](DataStructures/AVLTree/AVLTreeMultiset3.md)
 - [`PersistentAVLTreeList`](DataStructures/AVLTree/PersistentAVLTreeList.md)
 - [`PersistentLazyAVLTree`](DataStructures/AVLTree/PersistentLazyAVLTree.md)
 
@@ -139,6 +145,13 @@ _____
 - [`WordsizeTreeSet`](DataStructures/Set/WordsizeTreeSet.md)
 
 ### [`SplayTree`](DataStructures/SplayTree/SplayTree.md)
+
+- [`LazySplayTree`](DataStructures/SplayTree/LazySplayTree.md)
+- [`SplayTreeMultiset`](DataStructures/SplayTree/SplayTreeMultiset.md)
+- [`SplayTreeMultiset2`](DataStructures/SplayTree/SplayTreeMultiset2.md)
+- [`SplayTreeMultisetSum`](DataStructures/SplayTree/SplayTreeMultisetSum.md)
+- [`SplayTreeSet`](DataStructures/SplayTree/SplayTreeSet.md)
+- [`SplayTreeSetTopDown`](DataStructures/SplayTree/SplayTreeSetTopDown.md)
 
 ### [`Stack`](DataStructures/Stack/Stack_.md)
 

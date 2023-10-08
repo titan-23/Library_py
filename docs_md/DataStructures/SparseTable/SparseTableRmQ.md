@@ -20,3 +20,11 @@ _____
 
 [`SparseTable`](./SparseTable_.md) の `op` を `min` にしたものです。
 
+_____
+
+## 使用例
+
+```python
+from Library_py.DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
+
+```

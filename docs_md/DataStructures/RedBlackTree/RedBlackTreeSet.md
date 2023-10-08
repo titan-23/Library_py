@@ -62,6 +62,8 @@ _____
 ## 使用例
 
 ```python
+from Library_py.DataStructures.RedBlackTree.RedBlackTreeSet import RedBlackTreeSet
+
 s = RedBlackTreeSet([3, 1, 4, 1, 5, 9])
 it = s.get_min_iter()
 while it:

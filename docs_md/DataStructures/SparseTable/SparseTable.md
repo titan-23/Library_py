@@ -22,17 +22,29 @@ _____
 ## 仕様
 
 #### `st = SparseTable(a: Iterable[T], op: Callable[[T, T], T], e: T=None)`
+
 - `a / op / e` からスパテを構築します。
 - 時間、空間ともに `O(NlogN)` の計算量です。
 
 #### `st.prod(l: int, r: int) -> T`
+
 - `a[l,r)` の総積を返します。
 - `O(1)` です。
 
 #### `st[k: int] -> T`
+
 - `a[k]` を返します。
 - `O(1)` です。
 
 #### `len(st) / str(st) / repr(st)`
+
 - よしなです。
 
+_____
+
+## 使用例
+
+```python
+from Library_py.DataStructures.SparseTable.SparseTable import SparseTable
+
+```

@@ -14,4 +14,3 @@ _____
   - 集合としての `ScapegoatTree` です。
 - [`ScapegoatTreeMultiSet.py`](./ScapegoatTreeMultiset.md)
   - 多重集合としての `ScapegoatTree` です。
-

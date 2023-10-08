@@ -27,6 +27,4 @@ _____
 from Library_py.DataStructures.WBTree.WBTreeSet import WBTreeSet
 
 s = WBTreeSet()
-
 ```
-

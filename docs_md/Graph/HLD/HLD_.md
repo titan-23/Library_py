@@ -12,4 +12,3 @@ _____
 - [`HLDLazySegmentTree`](./HLDLazySegmentTree.md)
 - [`HLDNoncommutativeSegmentTree`](./HLDNoncommutativeSegmentTree.md)
 - [`HLDSegmentTree`](./HLDSegmentTree.md)
-

@@ -24,5 +24,6 @@ _____
 ## 使用例
 
 ```python
-```
+from Library_py.DataStructures.Set.MinMaxMultiset import MinMaxMultiset
 
+```

@@ -24,5 +24,6 @@ _____
 ## 使用例
 
 ```python
-```
+from Library_py.DataStructures.RBST.LazyRBST import LazyRBST
 
+```

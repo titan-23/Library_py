@@ -27,5 +27,6 @@ _____
 ## 使用例
 
 ```python
-```
+from Library_py.DataStructures.SegmentQuadraticDivision.SegmentQuadraticDivision import SegmentQuadraticDivision
 
+```

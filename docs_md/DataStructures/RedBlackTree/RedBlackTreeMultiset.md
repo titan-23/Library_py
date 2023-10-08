@@ -30,6 +30,8 @@ _____
 ## 使用例
 
 ```python
+from Library_py.DataStructures.RedBlackTree.RedBlackTreeMultiset import RedBlackTreeMultiset
+
 s = RedBlackTreeMultiset([3, 1, 4, 1, 5, 9])
 it = s.ge_iter(3)
 while it:

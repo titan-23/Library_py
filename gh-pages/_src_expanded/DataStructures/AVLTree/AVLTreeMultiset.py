@@ -178,7 +178,8 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         valsize[node] += valsize[right[node]]
       balance[node] = hl - hr
       return node, max(hl, hr)+1
-    a = sorted(a)
+    if not all(a[i] <= a[i + 1] for i in range(len(a) - 1)):
+      a = sorted(a)
     if not a:
       return
     x, y = self._rle(a)

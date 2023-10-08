@@ -12,4 +12,3 @@ _____
   - 普通のスパテです。
 - [`SparseTableRmQ`](./SparseTableRmQ.md)
   - RmQ のスパテです。
-

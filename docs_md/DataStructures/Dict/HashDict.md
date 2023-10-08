@@ -19,38 +19,46 @@ ____
 
 ## 仕様
 
-### `d = HashDict(e: int=-1, default: Any=0)`
+#### `d = HashDict(e: int=-1, default: Any=0)`
+
 - `e` , `default` から `HasiDict` を構築します。ここで、
   - `e` は `int` 型で `key` として使用しない値
   - `default` は存在しないキーにアクセスした値
 です。 `key` を `int` 型以外のもので指定したいときは `_hash(key) -> int` 関数をいじってください。
 
-### `d.reserve(n: int) -> None`
+#### `d.reserve(n: int) -> None`
+
 - `reserve` します。
 - `Θ(n)` です。
 
-### `d.get(key: int, default: Any=None) -> Any`
+#### `d.get(key: int, default: Any=None) -> Any`
+
 - キーが `key` の値を返します。存在しない場合、引数 `default` に `None` 以外を指定した場合は `default` が、そうでない場合はコンストラクタで設定した `default` が返ります。
 - 期待 `O(1)` です。
 
-### `d.set(key: int, val: Any) -> None`
+#### `d.set(key: int, val: Any) -> None`
+
 - キーを `key` として `val` を格納します。 `key` が既に存在している場合は上書きされます。
 - 期待 `O(1)` です。
 
-### `key: int in d`
+#### `key: int in d`
+
 - `key` が存在すれば `True` を、そうでなければ `False` を返します。
 - **`key in d.keys()` は `O(N)` であることに注意してください。**
 - 期待 `O(1)` です。  
 
-### `d[key] / d[key] = val`
+#### `d[key] / d[key] = val`
+
 - `getitem / setitem` をサポートしてます
 - 期待 `O(1)` です。
 
-### `d.keys() / d.values() / d.items()`
+#### `d.keys() / d.values() / d.items()`
+
 - `Iterator` です。それぞれ、 `key 集合` / `val 集合` / `key とそれに対応する val のタプル` を列挙します。順序は特に決めてません。
 - `Θ(N)` です。
 
-### `str(d) / len(d)`
+#### `str(d) / len(d)`
+
 - `len(d)` は `O(1)` です。
 
 ____

@@ -23,5 +23,6 @@ _____
 ## 使用例
 
 ```python
-```
+from Library_py.DataStructures.SegmentTree.SegmentTreeRSQ import SegmentTreeRSQ
 
+```

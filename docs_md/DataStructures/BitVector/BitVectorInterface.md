@@ -1,16 +1,16 @@
 _____
 
-# ``
+# `BitVectorInterface`
 
 _____
 
 ## コード
 
-[``]()
+[`BitVectorInterface`](https://github.com/titan-23/Library_py/blob/main/DataStructures/BitVector/BitVectorInterface.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\BitVector\BitVectorInterface.py -->
 
 _____
 
-説明
 
 _____
 

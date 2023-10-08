@@ -18,4 +18,3 @@ _____
   - RmQ セグ木です。
 - [`SegmentTreeRSQ`](SegmentTreeRSQ.md)
   - RSQ セグ木です。
-

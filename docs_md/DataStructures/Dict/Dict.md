@@ -8,4 +8,3 @@ _____
 
 - [`HashDict`](HashDict.md)
   - ハッシュテーブルです。
-

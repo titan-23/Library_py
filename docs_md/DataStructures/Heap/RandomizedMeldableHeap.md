@@ -15,7 +15,6 @@ _____
 - 参考です。
   - [Randomized Meldable Heap](https://trap.jp/post/1050/), traP
 
-
 _____
 
 ## 仕様
@@ -27,5 +26,6 @@ _____
 ## 使用例
 
 ```python
-```
+from Library_py.DataStructures.Heap.RandomizedMeldableHeap import RandomizedMeldableHeap
 
+```

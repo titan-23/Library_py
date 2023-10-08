@@ -23,21 +23,34 @@ _____
 ## 仕様
 
 #### `hq = DoubleEndedHeap(a: Iterable[T]=[])`
+
 - `a` から `DoubleEndedHeap` を構築します。
 - `O(N)` です。
 
 #### `hq.add(key: T) -> None`
+
 - `key` を1つ追加します。
 - `O(logN)` です。
 
 #### `hq.pop_max() / hq.pop_min() -> T`
+
 - 最大 / 最小 の値を削除し返します。
 - `O(logN)` です。
 
 #### `hq.get_max() / hq.get_min() -> T`
+
 - 最大 / 最小 の値をを返します。
 - `O(1)` です。
 
 #### `len(hq) / bool(hq) / str(hq)`
+
 - よしなに動きます。
 
+_____
+
+## 使用例
+
+```python
+from Library_py.DataStructures.Heap.DoubleEndedHeap import DoubleEndedHeap
+
+```

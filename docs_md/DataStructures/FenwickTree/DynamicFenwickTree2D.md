@@ -24,5 +24,6 @@ _____
 ## 使用例
 
 ```python
-```
+from Library_py.DataStructures.FenwickTree.DynamicFenwickTree2D import DynamicFenwickTree2D
 
+```

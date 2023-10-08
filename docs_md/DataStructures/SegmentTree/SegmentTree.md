@@ -60,6 +60,8 @@ _____
 ## 使用例
 
 ```python
+from Library_py.DataStructures.SegmentTree.SegmentTree import SegmentTree
+
 def op(s, t):
   return min(s, t)
 e = 10**9
@@ -68,4 +70,3 @@ n = int(input())
 A = list(map(int, input().split()))
 seg = SegmentTree(A, op, e)
 ```
-

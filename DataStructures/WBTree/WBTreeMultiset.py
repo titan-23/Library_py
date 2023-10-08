@@ -2,7 +2,7 @@ from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from math import sqrt
 from array import array
-from typing import Generic, Iterable, Optional, TypeVar, List, Final
+from typing import Generic, Iterable, Optional, TypeVar, List, Final, Tuple, Iterator
 T = TypeVar('T', bound=SupportsLessThan)
 
 class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
@@ -28,7 +28,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
   def reserve(self, n: int) -> None:
     self.key += [self.e] * n
     self.val += [0] * n
-    self.valsize = [0] * n
+    self.valsize += [0] * n
     a = array('I', bytes(4 * n))
     self.left += a
     self.right += a
@@ -37,39 +37,64 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
   def _balance(self, node: int) -> float:
     return (self.size[self.left[node]]+1) / (self.size[node]+1)
 
+  def _rle(self, L: List[T]) -> Tuple[List[T], List[int]]:
+    x, y = [L[0]], [1]
+    for i, a in enumerate(L):
+      if i == 0:
+        continue
+      if a == x[-1]:
+        y[-1] += 1
+        continue
+      x.append(a)
+      y.append(1)
+    return x, y
+
   def _build(self, a: List[T]) -> None:
-    left, right, size = self.left, self.right, self.size
-    def build(l: int, r: int) -> int:
+    left, right, size, valsize = self.left, self.right, self.size, self.valsize
+    def rec(l: int, r: int) -> int:
       mid = (l + r) >> 1
       node = mid
       if l != mid:
-        left[node] = build(l, mid)
+        left[node] = rec(l, mid)
         size[node] += size[left[node]]
+        valsize[node] += valsize[left[node]]
       if mid+1 != r:
-        right[node] = build(mid+1, r)
+        right[node] = rec(mid+1, r)
         size[node] += size[right[node]]
+        valsize[node] += valsize[right[node]]
       return node
-    n = len(a)
+    if not all(a[i] <= a[i + 1] for i in range(len(a) - 1)):
+      a = sorted(a)
+    if not a:
+      return
+    x, y = self._rle(a)
+    n = len(x)
     end = self.end
     self.end += n
     self.reserve(n)
-    self.key[end:end+n] = a
-    self.root = build(end, n+end)
+    self.key[end:end+n] = x
+    self.val[end:end+n] = y
+    self.valsize[end:end+n] = y
+    self.root = rec(end, n+end)
 
   def _rotate_right(self, node: int) -> int:
-    left, right, size = self.left, self.right, self.size
+    left, right, size, valsize = self.left, self.right, self.size, self.valsize
     u = left[node]
     size[u] = size[node]
+    valsize[u] = valsize[node]
     size[node] -= size[left[u]] + 1
+    valsize[node] -= valsize[left[u]] + self.val[u]
     left[node] = right[u]
     right[u] = node
     return u
 
   def _rotate_left(self, node: int) -> int:
-    left, right, size = self.left, self.right, self.size
+    left, right, size, valsize = self.left, self.right, self.size, self.valsize
     u = right[node]
     size[u] = size[node]
+    valsize[u] = valsize[node]
     size[node] -= size[right[u]] + 1
+    valsize[node] -= valsize[right[u]] + self.val[u]
     right[node] = left[u]
     left[u] = node
     return u
@@ -83,15 +108,19 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
     u = self._rotate_left(node)
     return u
 
-  def _make_node(self, key: T) -> int:
+  def _make_node(self, key: T, val: int) -> int:
     end = self.end
     if end >= len(self.key):
       self.key.append(key)
+      self.val.append(val)
+      self.valsize.append(val)
       self.size.append(1)
       self.left.append(0)
       self.right.append(0)
     else:
       self.key[end] = key
+      self.val[end] = val
+      self.valsize[end] = val
     self.end += 1
     return end
 
@@ -104,26 +133,31 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
     u = self._rotate_right(node)
     return u
 
-  def add(self, key: T) -> bool:
+  def add(self, key: T, val: int=1) -> None:
     if self.root == 0:
-      self.root = self._make_node(key)
-      return True
-    left, right, size, keys = self.left, self.right, self.size, self.key
+      self.root = self._make_node(key, val)
+      return
+    left, right, size, keys, valsize = self.left, self.right, self.size, self.key, self.valsize
     node = self.root
     path: List[int] = []
     while node:
       if key == keys[node]:
-        return False
+        self.val[node] += val
+        valsize[node] += val
+        for p in path:
+          valsize[p] += val
+        return
       path.append(node)
       node = left[node] if key < keys[node] else right[node]
     if key < keys[path[-1]]:
-      left[path[-1]] = self._make_node(key)
+      left[path[-1]] = self._make_node(key, val)
     else:
-      right[path[-1]] = self._make_node(key)
+      right[path[-1]] = self._make_node(key, val)
     while path:
       new_node = 0
       node = path.pop()
       size[node] += 1
+      valsize[node] += val
       b = self._balance(node)
       if b < self.ALPHA:
         new_node = self._balance_left(node)
@@ -138,34 +172,35 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
             right[node] = new_node
         else:
           self.root = new_node
-    return True
 
-  def remove(self, key: T) -> None:
-    if self.discard(key):
+  def count(self, key: T) -> int:
+    keys, left, right = self.key, self.left, self.right
+    node = self.root
+    while node:
+      if keys[node] == key:
+        return self.val[node]
+      node = left[node] if key < keys[node] else right[node]
+    return 0
+
+  def remove(self, key: T, val: int) -> None:
+    if self.discard(key, val):
       return
     raise KeyError(key)
 
-  def discard(self, key: T) -> bool:
-    left, right, size, keys = self.left, self.right, self.size, self.key
-    path = []
-    node = self.root
-    d = 0
-    while node:
-      if key == keys[node]:
-        break
-      path.append(node)
-      d = key < keys[node]
-      node = left[node] if d else right[node]
-    else:
-      return False
+  def _discard(self, node: int, path: List[int], d: int) -> bool:
+    left, right, size, keys, valsize = self.left, self.right, self.size, self.key, self.valsize
+    fd = 0
     if left[node] and right[node]:
       path.append(node)
       lmax = left[node]
       d = 0 if right[lmax] else 1
       while right[lmax]:
         path.append(lmax)
+        fd += 1
         lmax = right[lmax]
+      lmax_val = self.val[lmax]
       keys[node] = keys[lmax]
+      self.val[node] = lmax_val
       node = lmax
     cnode = right[node] if left[node] == 0 else left[node]
     if path:
@@ -180,6 +215,8 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
       new_node = 0
       node = path.pop()
       size[node] -= 1
+      valsize[node] -= lmax_val if fd > 0 else 1
+      fd -= 1
       b = self._balance(node)
       if b < self.ALPHA:
         new_node = self._balance_left(node)
@@ -195,34 +232,95 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
           right[path[-1]] = new_node
     return True
 
-  def _kth_elm(self, k: int) -> T:
+  def discard(self, key: T, val: int=1) -> bool:
+    keys, vals, left, right, valsize = self.key, self.val, self.left, self.right, self.valsize
+    path = []
+    node = self.root
+    d = 0
+    while node:
+      if key == keys[node]:
+        break
+      path.append(node)
+      d = key < keys[node]
+      node = left[node] if d else right[node]
+    else:
+      return False
+    if val > vals[node]:
+      val = vals[node] - 1
+      vals[node] -= val
+      valsize[node] -= val
+      for p in path:
+        valsize[p] -= val
+    if vals[node] == 1:
+      self._discard(node, path, d)
+    else:
+      vals[node] -= val
+      valsize[node] -= val
+      for p in path:
+        valsize[p] -= val
+    return True
+
+  def discard_all(self, key: T) -> None:
+    self.discard(key, self.count(key))
+
+  def _kth_elm(self, k: int) -> Tuple[T, int]:
+    left, right, vals, valsize = self.left, self.right, self.val, self.valsize
     if k < 0:
       k += len(self)
-    left, right, size, keys = self.left, self.right, self.size, self.key
     node = self.root
     while True:
-      assert node
+      t = vals[node] + valsize[left[node]]
+      if t-vals[node] <= k < t:
+        return self.key[node], vals[node]
+      if t > k:
+        node = left[node]
+      else:
+        node = right[node]
+        k -= t
+
+  def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
+    left, right, vals, size = self.left, self.right, self.val, self.size
+    if k < 0:
+      k += self.len_elm()
+    assert 0 <= k < self.len_elm()
+    node = self.root
+    while True:
       t = size[left[node]]
       if t == k:
-        return keys[node]
-      elif t < k:
-        k -= t + 1
-        node = right[node]
-      else:
+        return self.key[node], vals[node]
+      if t > k:
         node = left[node]
+      else:
+        node = right[node]
+        k -= t + 1
 
   def tolist(self) -> List[T]:
-    left, right, keys = self.left, self.right, self.key
+    left, right, keys, vals = self.left, self.right, self.key, self.val
     node = self.root
-    stack = []
-    a = []
+    stack, a = [], []
     while stack or node:
       if node:
         stack.append(node)
         node = left[node]
       else:
         node = stack.pop()
-        a.append(keys[node])
+        x = keys[node]
+        for _ in range(vals[node]):
+          a.append(x)
+        node = right[node]
+    return a
+
+  def tolist_items(self) -> List[Tuple[T, int]]:
+    left, right, keys, vals = self.left, self.right, self.key, self.val
+    node = self.root
+    stack, a = [], []
+    while stack or node:
+      if node:
+        stack.append(node)
+        node = left[node]
+      else:
+        node = stack.pop()
+        a.append((keys[node], vals[node]))
         node = right[node]
     return a
 
@@ -234,7 +332,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
       if key == keys[node]:
         res = key
         break
-      elif key < keys[node]:
+      if key < keys[node]:
         node = left[node]
       else:
         res = keys[node]
@@ -261,7 +359,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
       if key == keys[node]:
         res = key
         break
-      elif key < keys[node]:
+      if key < keys[node]:
         res = keys[node]
         node = left[node]
       else:
@@ -281,56 +379,135 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return res
 
   def index(self, key: T) -> int:
-    left, right, size, keys = self.left, self.right, self.size, self.key
+    keys, left, right, vals, valsize = self.key, self.left, self.right, self.val, self.valsize
     k = 0
     node = self.root
     while node:
       if key == keys[node]:
-        k += size[left[node]]
+        if left[node]:
+          k += valsize[left[node]]
         break
       elif key < keys[node]:
         node = left[node]
       else:
-        k += size[left[node]] + 1
+        k += valsize[left[node]] + vals[node]
         node = right[node]
     return k
 
   def index_right(self, key: T) -> int:
-    left, right, size, keys = self.left, self.right, self.size, self.key
+    keys, left, right, vals, valsize = self.key, self.left, self.right, self.val, self.valsize
     k = 0
     node = self.root
     while node:
       if key == keys[node]:
-        k += size[left[node]] + 1
+        k += valsize[left[node]] + vals[node]
         break
       elif key < keys[node]:
         node = left[node]
       else:
-        k += size[left[node]] + 1
+        k += valsize[left[node]] + vals[node]
         node = right[node]
     return k
 
+  def index_keys(self, key: T) -> int:
+    keys, left, right, vals, size = self.key, self.left, self.right, self.val, self.size
+    k = 0
+    node = self.root
+    while node:
+      if key == keys[node]:
+        if left[node]:
+          k += size[left[node]]
+        break
+      if key < keys[node]:
+        node = left[node]
+      else:
+        k += size[left[node]] + vals[node]
+        node = right[node]
+    return k
+
+  def index_right_keys(self, key: T) -> int:
+    keys, left, right, vals, size = self.key, self.left, self.right, self.val, self.size
+    k = 0
+    node = self.root
+    while node:
+      if key == keys[node]:
+        k += size[left[node]] + vals[node]
+        break
+      if key < keys[node]:
+        node = left[node]
+      else:
+        k += size[left[node]] + vals[node]
+        node = right[node]
+    return k
+
+  def get_min(self) -> Optional[T]:
+    if self.root == 0:
+      return
+    left = self.left
+    node = self.root
+    while left[node]:
+      node = left[node]
+    return self.key[node]
+
+  def get_max(self) -> Optional[T]:
+    if self.root == 0:
+      return
+    right = self.right
+    node = self.root
+    while right[node]:
+      node = right[node]
+    return self.key[node]
+
   def pop(self, k: int=-1) -> T:
-    assert self.root, f'IndexError: {self.__class__.__name__}.pop({k}), pop({k}) from Empty {self.__class__.__name__}'
-    x = self._kth_elm(k)
-    self.discard(x)
+    keys, left, right, vals, valsize = self.key, self.left, self.right, self.val, self.valsize
+    node = self.root
+    if k < 0:
+      k += len(self)
+    path = []
+    d = 0
+    while True:
+      t = vals[node] + valsize[left[node]]
+      if t-vals[node] <= k < t:
+        x = keys[node]
+        break
+      path.append(node)
+      if t > k:
+        d = 1
+        node = left[node]
+      else:
+        node = right[node]
+        k -= t
+    if vals[node] == 1:
+      self._discard(node, path, d)
+    else:
+      vals[node] -= 1
+      valsize[node] -= 1
+      for p in path:
+        valsize[p] -= 1
     return x
 
   def pop_max(self) -> T:
-    assert self.root, f'IndexError: {self.__class__.__name__}.pop_max(), pop_max from Empty {self.__class__.__name__}'
+    assert self
     return self.pop()
 
   def pop_min(self) -> T:
-    assert self.root, f'IndexError: {self.__class__.__name__}.pop_min(), pop_min from Empty {self.__class__.__name__}'
+    assert self
     return self.pop(0)
 
-  def get_max(self) -> Optional[T]:
-    if not self.root: return
-    return self._kth_elm(-1)
+  def items(self) -> Iterator[Tuple[T, int]]:
+    for i in range(self.len_elm()):
+      yield self._kth_elm_tree(i)
 
-  def get_min(self) -> Optional[T]:
-    if not self.root: return
-    return self._kth_elm(0)
+  def keys(self) -> Iterator[T]:
+    for i in range(self.len_elm()):
+      yield self._kth_elm_tree(i)[0]
+
+  def values(self) -> Iterator[int]:
+    for i in range(self.len_elm()):
+      yield self._kth_elm_tree(i)[1]
+
+  def len_elm(self) -> int:
+    return self.size[self.root]
 
   def clear(self) -> None:
     self.root = 0
@@ -359,7 +536,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return res
 
   def __len__(self):
-    return self.size[self.root]
+    return self.valsize[self.root]
 
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'

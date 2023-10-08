@@ -12,4 +12,3 @@ _____
   - 静的です。
 - [`DynamicWaveletMatrix`](./DynamicWaveletMatrix.md)
   - 動的です。
-
