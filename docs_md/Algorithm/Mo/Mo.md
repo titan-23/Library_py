@@ -19,15 +19,18 @@ _____
 ## 仕様
 
 #### `mo = Mo(n: int, q: int)`
+
 - 長さ `n` の列、クエリ数 `q` に対する `Mo's algorithm` です。
 
 #### `mo.add_query(l: int, r: int) -> None`
+
 - 区間 `[l, r)` に対するクエリを追加します。
 - `O(1)` です。
 
 #### `mo.run(add: Callable[[int], None], delete: Callable[[int], None], out: Callable[[int], None]) -> None`
+
 - 実行します。
 
 #### `mo.runrun(add_left: Callable[[int], None], add_right: Callable[[int], None], delete_left: Callable[[int], None], delete_right: Callable[[int], None], out: Callable[[int], None]) -> None`
-- 実行します。
 
+- 実行します。
