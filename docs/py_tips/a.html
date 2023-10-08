@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../style.css"></p>
+<script src="../script.js"></script>
+<p><title>Library_py-py_tips-a</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<h1><code>PyPy-tips</code></h1>
+<p><code>PyPy</code> の <code>tips</code> です。</p>
+<h2><code>Algorithm</code></h2>
+<h3>再帰</h3>
+<p>非再帰にしましょう。</p>
+<p><code>python/PyPy</code> には再帰上限があります。1000 回以上再帰する可能性のある場合は <code>sys.setlimitrecursion(10**6)</code> などとしましょう。しないと<code>RE</code>です。パスグラフなんかを想像すると良いかも。</p>
+<p><code>PyPy</code> の再帰は遅いです。代替？案として、以下のものがあります。</p>
+<ul>
+<li>非再帰にする<ul>
+<li>常勝！</li>
+<li>私はあまりしてません。</li>
+<li>再帰関数を書こうと思う -&gt; 非再帰を書く にしたくはないという</li>
+<li>逆に、 <code>stack</code> 使って <code>while</code> 回したい -&gt; よく見たら再帰 は別にある。</li>
+<li>ライブラリでは、非再帰の方が速いので非再帰です。</li>
+</ul>
+</li>
+<li><code>python</code> で提出する<ul>
+<li>(深めの)再帰は <code>python</code> の方が速いと言われています。</li>
+<li>というか、<code>PyPy</code> がおそすぎるだけです。</li>
+<li>言語アップデートでマシになったかも？</li>
+<li>そもそも <code>python</code> も遅いので、再帰の中でガチャガチャやるコードは <code>python</code> にしても遅いと思われます。</li>
+<li>私は基本 <code>PyPy</code> です。</li>
+</ul>
+</li>
+<li><code>PyPyjit</code><ul>
+<li><code>import PyPyjit; PyPyjit.set_param('max_unroll_recursion=-1')</code>みたいな</li>
+<li><code>PyPy</code> で提出するならつけましょう。基本、速くなります。</li>
+<li>メモリ使うのかな？</li>
+</ul>
+</li>
+<li><a href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py">ジェネレータ</a><ul>
+<li>基本、速くなります。というか、遅くなった例を1件しか知りません。</li>
+<li><code>PyPyjit</code> より速く、スタック非再帰よりは遅いイメージです。</li>
+<li>書き換えるのがやや面倒ですが、 <code>PyPy</code> -&gt; <code>C++</code> などと比べると圧倒的に楽です。</li>
+<li>関数の途中で <code>return</code> ができない点だけかな。 <code>if-else</code> で頑張ります。</li>
+<li>なんで皆使ってないのか、正直謎に思ってます。</li>
+<li>ホント謎です。</li>
+<li>私はこれを使うことが多いです。</li>
+</ul>
+</li>
+</ul>
+<p>こどふぉでは</p>
+<ul>
+<li><code>sys.setlimitrecursion(2*10**5)</code> をすると <code>MLE</code></li>
+<li>しないと <code>RE</code></li>
+</ul>
+<p>となるため、再帰をしてはいけないことが知られています。</p>
+<h3>メモ化</h3>
+<ul>
+<li><code>functools.lru_cache</code> は内部で辞書を使っています。配列作って自力で書いた方が速い場合が多いです。</li>
+<li>LRUキャッシュを必要とせず、全てのキャッシュを普通に使う場合は、<code>lru_cache()</code> では <code>maxsize=None</code> とするとよいでしょう。</li>
+</ul>
+<h2><code>DataStructures</code></h2>
+<h3>順序付き集合</h3>
+<p><code>PyPy</code> の標準ライブラリに順序付き集合はありません。代替手段を考えます。</p>
+<ul>
+<li><code>sortedcontainers</code><ul>
+<li>言語アップデートを介して導入されました。速いかは分かってないです。</li>
+</ul>
+</li>
+<li>平方分割木(tatyam木)<ul>
+<li>tatyam氏の <a href="https://github.com/tatyam-prime/SortedSet"><code>SortedSet/Multiset</code></a> です。</li>
+<li><code>O(√N)</code> ですが、コードが短くわりと速いです。おそらく多くの人が使っていると思います。</li>
+<li>要素を全部削除、その後全部挿入などするととても遅いです。平衡二分木の方が速いまであります。</li>
+</ul>
+</li>
+<li>平衡二分木<ul>
+<li>強いです。平方分割木と比べると遅いケースが目立ちます。</li>
+</ul>
+</li>
+<li>B木<ul>
+<li><code>k</code> 番目の値は遅めです。</li>
+<li><code>Set</code> はまずまずの速度です。</li>
+<li><code>Multiset</code> はまだ実装してません。</li>
+</ul>
+</li>
+<li>BIT/セグ木<ul>
+<li>空間 <code>Θ(U)</code> かかる点には注意です。</li>
+<li>(BIT/セグ木に限らず、)座圧できるものに限られるので汎用性は低いです。</li>
+<li>しかし、速いです。</li>
+</ul>
+</li>
+<li><code>BinaryTrie</code><ul>
+<li>全体 xor ができます。</li>
+<li>実装が簡易(かもしれない)です。</li>
+</ul>
+</li>
+<li>32分木<ul>
+<li>neighbor query に関しては最強です。</li>
+<li>空間 <code>Θ(U)</code> 、昇順 <code>k</code> 番目の値に <code>Θ(klogU)</code> かかる点には注意です。</li>
+</ul>
+</li>
+<li>亜種たち<ul>
+<li><code>van emde boas tree</code> は実装次第ではとても遅いです。自分は速い実装が分かりません。</li>
+<li>追加 / 削除 を <code>O(√U)</code> として <code>k</code> 番目取得を <code>O(1)</code> でするようにすると、<code>Mo's Algorithm</code> で強いです。</li>
+</ul>
+</li>
+</ul>
+<h2>Graph</h2>
+<ul>
+<li>基本的に隣接リスト <code>[[] for _ in range(|V|)]</code> で問題ないと思います。</li>
+<li>グラフライブラリを作るのもよいでしょう。</li>
+</ul>
+<h2>Math</h2>
+<ul>
+<li><code>ModInt</code> はとにかく遅いです。使わない方が吉です。</li>
+</ul>
+<p></body>
+</html></p>

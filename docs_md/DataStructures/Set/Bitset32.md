@@ -1,0 +1,29 @@
+_____
+
+# `Bitset32`
+
+_____
+
+## コード
+
+[`Bitset32`](https://github.com/titan-23/Library_py/blob/main/DataStructures/Set/Bitset32.py)
+<!-- code=https://github.com/titan-23/Library_py/blob/main/DataStructures\Set\Bitset32.py -->
+
+_____
+
+- なんちゃって bit set です。
+
+_____
+
+## 仕様
+
+あとで書く
+
+_____
+
+## 使用例
+
+```python
+from Library_py.DataStructures.Set.Bitset32 import Bitset32
+
+```
