@@ -14,6 +14,7 @@ _____
 ## 仕様
 
 ####  `warshall_floyd(G: List[List[Tuple[int, int]]]) -> List[List[Union[int, float]]]`
+
 - 重み付き隣接リスト `G` に対し、全点対最短経路を返します。
 - `O(N^3)` です。
 

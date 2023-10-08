@@ -2,8 +2,6 @@ _____
 
 # [Library_py](https://github.com/titan-23/Library_py)
 
-**2023/9/11 追記**
-
 **注意！ライブラリ魔改造に伴って、色々壊れています！怖すぎ！**
 
 [`titan23`](https://atcoder.jp/users/titan23) が使用している、競技プログラミング用のライブラリです。 PyPy で動きます。  
@@ -190,6 +188,7 @@ _____
 - [`LazyWBTree`](DataStructures/WBTree/LazyWBTree.md)
 - [`PersistentLazyWBTree`](DataStructures/WBTree/PersistentLazyWBTree.md)
 - [`PersistentWBTreeList`](DataStructures/WBTree/PersistentWBTreeList.md)
+- [`WBTreeMultiset`](DataStructures/WBTree/WBTreeMultiset.md)
 - [`WBTreeSet`](DataStructures/WBTree/WBTreeSet.md)
 
 _____

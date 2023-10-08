@@ -16,34 +16,46 @@
 <h3>再帰</h3>
 <p>非再帰にしましょう。</p>
 <p><code>python/PyPy</code> には再帰上限があります。1000 回以上再帰する可能性のある場合は <code>sys.setlimitrecursion(10**6)</code> などとしましょう。しないと<code>RE</code>です。パスグラフなんかを想像すると良いかも。</p>
-<p><code>PyPy</code> の再帰は遅いです。代替？案として、以下のものがあります。
-- 非再帰にする
-    - 常勝！
-    - 私はあまりしてません。
-    - 再帰関数を書こうと思う -&gt; 非再帰を書く にしたくはないという
-    - 逆に、 <code>stack</code> 使って <code>while</code> 回したい -&gt; よく見たら再帰 は別にある。
-    - ライブラリでは、非再帰の方が速いので非再帰です。
-- <code>python</code> で提出する
-    - (深めの)再帰は <code>python</code> の方が速いと言われています。
-    - というか、<code>PyPy</code> がおそすぎるだけです。
-      - 言語アップデートでマシになったかも？
-    - そもそも <code>python</code> も遅いので、再帰の中でガチャガチャやるコードは <code>python</code> にしても遅いと思われます。
-    - 私は基本 <code>PyPy</code> です。
-- <code>PyPyjit</code>
-    - <code>import PyPyjit; PyPyjit.set_param('max_unroll_recursion=-1')</code>みたいな
-    - <code>PyPy</code> で提出するならつけましょう。基本、速くなります。
-    - メモリ使うのかな？
-- <a href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py">ジェネレータ</a>
-    - 基本、速くなります。というか、遅くなった例を1件しか知りません。
-    - <code>PyPyjit</code> より速く、スタック非再帰よりは遅いイメージです。
-    - 書き換えるのがやや面倒ですが、 <code>PyPy</code> -&gt; <code>C++</code> などと比べると圧倒的に楽です。
-    - 関数の途中で <code>return</code> ができない点だけかな。 <code>if-else</code> で頑張ります。
-    - なんで皆使ってないのか、正直謎に思ってます。
-    - ホント謎です。
-    - 私はこれを使うことが多いです。</p>
-<p>こどふぉでは
-    - <code>sys.setlimitrecursion(2*10**5)</code> をすると <code>MLE</code>
-    - しないと <code>RE</code></p>
+<p><code>PyPy</code> の再帰は遅いです。代替？案として、以下のものがあります。</p>
+<ul>
+<li>非再帰にする<ul>
+<li>常勝！</li>
+<li>私はあまりしてません。</li>
+<li>再帰関数を書こうと思う -&gt; 非再帰を書く にしたくはないという</li>
+<li>逆に、 <code>stack</code> 使って <code>while</code> 回したい -&gt; よく見たら再帰 は別にある。</li>
+<li>ライブラリでは、非再帰の方が速いので非再帰です。</li>
+</ul>
+</li>
+<li><code>python</code> で提出する<ul>
+<li>(深めの)再帰は <code>python</code> の方が速いと言われています。</li>
+<li>というか、<code>PyPy</code> がおそすぎるだけです。</li>
+<li>言語アップデートでマシになったかも？</li>
+<li>そもそも <code>python</code> も遅いので、再帰の中でガチャガチャやるコードは <code>python</code> にしても遅いと思われます。</li>
+<li>私は基本 <code>PyPy</code> です。</li>
+</ul>
+</li>
+<li><code>PyPyjit</code><ul>
+<li><code>import PyPyjit; PyPyjit.set_param('max_unroll_recursion=-1')</code>みたいな</li>
+<li><code>PyPy</code> で提出するならつけましょう。基本、速くなります。</li>
+<li>メモリ使うのかな？</li>
+</ul>
+</li>
+<li><a href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py">ジェネレータ</a><ul>
+<li>基本、速くなります。というか、遅くなった例を1件しか知りません。</li>
+<li><code>PyPyjit</code> より速く、スタック非再帰よりは遅いイメージです。</li>
+<li>書き換えるのがやや面倒ですが、 <code>PyPy</code> -&gt; <code>C++</code> などと比べると圧倒的に楽です。</li>
+<li>関数の途中で <code>return</code> ができない点だけかな。 <code>if-else</code> で頑張ります。</li>
+<li>なんで皆使ってないのか、正直謎に思ってます。</li>
+<li>ホント謎です。</li>
+<li>私はこれを使うことが多いです。</li>
+</ul>
+</li>
+</ul>
+<p>こどふぉでは</p>
+<ul>
+<li><code>sys.setlimitrecursion(2*10**5)</code> をすると <code>MLE</code></li>
+<li>しないと <code>RE</code></li>
+</ul>
 <p>となるため、再帰をしてはいけないことが知られています。</p>
 <h3>メモ化</h3>
 <ul>

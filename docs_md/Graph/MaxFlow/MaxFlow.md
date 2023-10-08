@@ -10,4 +10,3 @@ _____
 
 - [`MaxFlowDinic`](./MaxFlowDinic.md)
 - [`MaxFlowFordFulkerson`](./MaxFlowFordFulkerson.md)
-

@@ -8,8 +8,6 @@ _____
 
 `>> python expander.py <input_filename> <output_filename>`
 
-
 `<output_filename>` を `"clip"` とすると、クリップボードにコピーできます。
 
 上記の expander はホントにカスです。助けてくれ
-
