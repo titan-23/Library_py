@@ -16,6 +16,11 @@ _____
 
 ### [`Mo`](Algorithm/Mo/Mo.md)
 
+### [`Random`](Algorithm/Random/Random_.md)
+
+- [`Random`](Algorithm/Random/Random.md)
+- [`RandomTree`](Algorithm/Random/RandomTree.md)
+
 ### [`Sort`](Algorithm/Sort/Sort.md)
 
 - [`merge_sort`](Algorithm/Sort/merge_sort.md)
