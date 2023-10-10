@@ -1,10 +1,11 @@
+from typing import Optional
 import random
 
 class RandomTree():
 
-  def __init__(self, n: int, seed: int=0):
+  def __init__(self, n: int, seed: Optional[int]=None):
     self.n = n
-    random.seed(0)
+    random.seed(seed)
 
   def build(self):
     Edge = []
@@ -21,7 +22,7 @@ class RandomTree():
         if D[j] == 1:
           v = j
           break
-        if D[j] < 1:
+        if D[j] < 1 and start == j-1:
           start = j
       else:
         assert False
@@ -34,4 +35,5 @@ class RandomTree():
     D[v] -= 1
     Edge.append((u, v))
     return Edge
+
 
