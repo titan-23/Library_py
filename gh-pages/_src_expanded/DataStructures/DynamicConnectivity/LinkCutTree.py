@@ -15,13 +15,14 @@ class LinkCutTree(Generic[T, F]):
   # opがいらないならupdateを即returnするように変更したり、
   # 可換opならupdateを短縮したりなど
 
-  # opをするならeは必須 <- 場合分けしてもよさそう?
-
-  def __init__(self, n_or_a: Union[int, Iterable[T]], \
-              op: Callable[[T, T], T]=lambda x, y: None, \
-              mapping: Callable[[F, T], T]=lambda x, y: None, \
-              composition: Callable[[F, F], F]=lambda x, y: None, \
-              e: T=None, id: F=None):
+  def __init__(self,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T]=lambda x, y: None,
+               mapping: Callable[[F, T], T]=lambda x, y: None,
+               composition: Callable[[F, F], F]=lambda x, y: None,
+               e: T=None,
+               id: F=None,
+               ):
     self.op = op
     self.mapping = mapping
     self.composition = composition
@@ -307,19 +308,6 @@ class LinkCutTree(Generic[T, F]):
   def __str__(self):
     return str([self.__getitem__(i) for i in range(self.n)])
 
-  def __repr__(self):
-    return str([self.__getitem__(i) for i in range(self.n)])
-
-# def op(s, t):
-#   return
-
-# def mapping(f, s):
-#   return
-
-# def composition(f, g):
-#   return
-
-# e = None
-# id = None
+  __repr__ = __str__
 
 
