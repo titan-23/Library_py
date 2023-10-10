@@ -48,7 +48,7 @@ class LCA():
       e = self._nodein[e]
       if l > e: l = e
       if r < e: r = e
-    return self._path[self._st.prod(l, r+1)]
+    return self._path[self._st.prod(l, r+1)&self._msk]
 
   def dist(self, u: int, v: int) -> int:
     # assert all costs are 1.

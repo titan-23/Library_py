@@ -403,14 +403,3 @@ class EulerTourTree(Generic[T, F]):
   def __setitem__(self, v: int, val: T) -> None:
     return self.set_vertex(v, val)
 
-# def op(s, t):
-#   return
-
-# def mapping(f, s):
-#   return
-
-# def composition(f, g):
-#   return
-
-# e = None
-# id = None
