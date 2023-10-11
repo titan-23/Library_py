@@ -17,39 +17,50 @@ _____
 
 ## 仕様
 
-#### `avl = PersistentLazyAVLTree(a: Iterable[T],  op, mapping, composition, e, id, copy_t, copy_f)`
+#### `avl = PersistentLazyAVLTree(a: Iterable[T],  op, mapping, composition, e, id)`
+
 - `PersistentLazyAVLTree` を構築します。
 - 時間・空間共に `O(N)` です。
 
 #### `avl.merge(other: PersistentLazyAVLTree) -> PersistentLazyAVLTree`
+
 - `avl` の後ろに `other` を連結？させた `PersistentLazyAVLTree` を返します。
 - 時間・空間共に `O(logN)` です。
 
 #### `avl.split(k: int) -> Tuple[PersistentLazyAVLTree, PersistentLazyAVLTree]`
+
 - 時間・空間共に `O(logN)` です。
 
 #### `avl.apply(l: int, r: int, f: F) -> PersistentLazyAVLTree`
+
 - 時間・空間共に `O(logN)` です。
 
 #### `avl.prod(l: int, r) -> T`
+
 - 時間・空間共に `O(logN)` です。
 
 #### `avl.insert(k: int, key: T) -> PersistentLazyAVLTree`
+
 - 時間・空間共に `O(logN)` です。
 
 #### `avl.pop(k: int) -> Tuple[PersistentLazyAVLTree, T]`
+
 - 時間・空間共に `O(logN)` です。
 
 #### `avl.reverse(l: int, r: int) -> PersistentLazyAVLTree`
+
 - 時間・空間共に `O(logN)` です。
 
 #### `avl.tolist() -> List[T]`
+
 - 時間・空間共に `O(N)` です。
 
 #### `avl[k: int] -> T`
+
 - 時間 `O(logN)` 、空間 `O(1)` です。
 
 #### `len(avl) / str(avl) / repr(avl)`
+
 
 _____
 
@@ -61,15 +72,13 @@ _____
 op = lambda s, t: (s[0]+t[0], s[1]+t[1])
 mapping = lambda f, s: (s[0] + f * s[1], s[1])
 composition = lambda f, g: f + g
-copy_t = lambda s: s
-copy_f = lambda f: f
 e = (0, 0)
 id = 0
 
 n, q = map(int, input().split())
 X = list(map(int, input().split()))
 X = [(x, 1) for x in X]
-avl = PersistentLazyAVLTree(X, op, mapping, composition, e, id, copy_t, copy_f)
+avl = PersistentLazyAVLTree(X, op, mapping, composition, e, id)
 for _ in range(q):
   com, *qu = list(map(int, input().split()))
   if com == 1:
@@ -91,4 +100,3 @@ for _ in range(q):
     ans = avl.prod(a, b+1)[0]
     print(ans)
 ```
-
