@@ -34,15 +34,13 @@ def not_graph():
   op = lambda s, t: (s[0]+t[0], s[1]+t[1])
   mapping = lambda f, s: (s[0] + f * s[1], s[1])
   composition = lambda f, g: f + g
-  copy_t = lambda s: s
-  copy_f = lambda f: f
   e = (0, 0)
   id = 0
 
   n, q = map(int, input().split())
   X = list(map(int, input().split()))
   X = [(x, 1) for x in X]
-  tree = PersistentLazyWBTree(X, op, mapping, composition, e, id, copy_t, copy_f)
+  tree = PersistentLazyWBTree(X, op, mapping, composition, e, id)
   for _ in range(q):
     com, *qu = list(map(int, input().split()))
     if com == 1:
