@@ -6,12 +6,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
   class Node():
 
-    def __init__(self,
-                 key: T,
-                 lazy: F,
-                 copy_t: Callable[[T], T],
-                 copy_f: Callable[[F], F],
-                 ) -> None:
+    def __init__(self, key: T, lazy: F):
       self.key: T = key
       self.data: T = key
       self.left: Optional[PersistentLazyAVLTree.Node] = None
@@ -20,12 +15,10 @@ class PersistentLazyAVLTree(Generic[T, F]):
       self.rev: int = 0
       self.height: int = 1
       self.size: int = 1
-      self.copy_t: Callable[[T], T] = copy_t
-      self.copy_f: Callable[[F], F] = copy_f
 
     def copy(self) -> 'PersistentLazyAVLTree.Node':
-      node = PersistentLazyAVLTree.Node(self.copy_t(self.key), self.copy_f(self.lazy), self.copy_t, self.copy_f)
-      node.data = self.copy_t(self.data)
+      node = PersistentLazyAVLTree.Node(self.key, self.lazy)
+      node.data = self.data
       node.left = self.left
       node.right = self.right
       node.rev = self.rev
@@ -43,16 +36,14 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
     __repr__ = __str__
 
-
-  def __init__(self, a: Iterable[T],
+  def __init__(self,
+               a: Iterable[T],
                op: Callable[[T, T], T],
                mapping: Callable[[F, T], T],
                composition: Callable[[F, F], F],
                e: T,
                id: F,
-               copy_t: Callable[[T], T] = lambda t: t,
-               copy_f: Callable[[F], F] = lambda f: f,
-               _root=None
+               _root: Optional[Node]=None
                ) -> None:
     self.root: Optional[PersistentLazyAVLTree.Node] = _root
     self.op: Callable[[T, T], T] = op
@@ -60,8 +51,6 @@ class PersistentLazyAVLTree(Generic[T, F]):
     self.composition: Callable[[F, F], F] = composition
     self.e: T = e
     self.id: F = id
-    self.copy_t: Callable[[T], T] = copy_t
-    self.copy_f: Callable[[F], F] = copy_f
     a = list(a)
     if a:
       self._build(list(a))
@@ -70,7 +59,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
     Node = PersistentLazyAVLTree.Node
     def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid], id, copy_t, copy_f)
+      node = Node(a[mid], id)
       if l != mid:
         node.left = build(l, mid)
       if mid+1 != r:
@@ -78,8 +67,6 @@ class PersistentLazyAVLTree(Generic[T, F]):
       self._update(node)
       return node
     id = self.id
-    copy_t = self.copy_t
-    copy_f = self.copy_f
     self.root = build(0, len(a))
 
   def _propagate(self, node: Node) -> None:
@@ -148,9 +135,9 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
   def _balance_left(self, node: Node) -> Node:
     assert node.right
+    self._propagate(node.right)
     node.right = node.right.copy()
     u = node.right
-    self._propagate(u)
     if u.balance() == 1:
       assert u.left
       self._propagate(u.left)
@@ -160,9 +147,9 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
   def _balance_right(self, node: Node) -> Node:
     assert node.left
+    self._propagate(node.left)
     node.left = node.left.copy()
     u = node.left
-    self._propagate(u)
     if u.balance() == -1:
       assert u.right
       self._propagate(u.right)
@@ -194,8 +181,8 @@ class PersistentLazyAVLTree(Generic[T, F]):
       diff -= r.height
     if diff > 1:
       assert l
-      l = l.copy()
       self._propagate(l)
+      l = l.copy()
       l.right = self._merge_with_root(l.right, root, r)
       self._update(l)
       if l.balance() == -2:
@@ -203,8 +190,8 @@ class PersistentLazyAVLTree(Generic[T, F]):
       return l
     if diff < -1:
       assert r
-      r = r.copy()
       self._propagate(r)
+      r = r.copy()
       r.left = self._merge_with_root(l, root, r.left)
       self._update(r)
       if r.balance() == 2:
@@ -235,14 +222,14 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
   def _pop_right(self, node: Node) -> Tuple[Node, Node]:
     path = []
-    node = node.copy()
     self._propagate(node)
+    node = node.copy()
     mx = node
-    while node.right is not None:
+    while node.right:
       path.append(node)
+      self._propagate(node.right)
       node = node.right.copy()
       mx = node
-      self._propagate(node)
     path.append(node.left.copy() if node.left else None)
     for _ in range(len(path)-1):
       node = path.pop()
@@ -288,7 +275,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
     return self._new(l), self._new(r)
 
   def _new(self, root: Optional['PersistentLazyAVLTree.Node']) -> 'PersistentLazyAVLTree':
-    return PersistentLazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, self.copy_t, self.copy_f, root)
+    return PersistentLazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, root)
 
   def apply(self, l: int, r: int, f: F) -> 'PersistentLazyAVLTree':
     if l >= r:
@@ -313,7 +300,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
   def insert(self, k: int, key: T) -> 'PersistentLazyAVLTree':
     s, t = self._split_node(self.root, k)
-    root = self._merge_with_root(s, PersistentLazyAVLTree.Node(key, self.id, self.copy_t, self.copy_f), t)
+    root = self._merge_with_root(s, PersistentLazyAVLTree.Node(key, self.id), t)
     return self._new(root)
 
   def pop(self, k: int) -> Tuple['PersistentLazyAVLTree', T]:

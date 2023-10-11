@@ -5,19 +5,15 @@ class PersistentAVLTreeList(Generic[T]):
 
   class Node():
 
-    def __init__(self,
-                 key: T,
-                 copy_t: Callable[[T], T],
-                 ) -> None:
+    def __init__(self, key: T):
       self.key: T = key
       self.left: Optional[PersistentAVLTreeList.Node] = None
       self.right: Optional[PersistentAVLTreeList.Node] = None
       self.height: int = 1
       self.size: int = 1
-      self.copy_t: Callable[[T], T] = copy_t
 
     def copy(self) -> 'PersistentAVLTreeList.Node':
-      node = PersistentAVLTreeList.Node(self.copy_t(self.key), self.copy_t)
+      node = PersistentAVLTreeList.Node(self.key)
       node.left = self.left
       node.right = self.right
       node.height = self.height
@@ -34,13 +30,11 @@ class PersistentAVLTreeList(Generic[T]):
 
     __repr__ = __str__
 
-
-  def __init__(self, a: Iterable[T] = [],
-               copy_t: Callable[[T], T] = lambda t: t,
-               _root=None
+  def __init__(self,
+               a: Iterable[T] = [],
+               _root: Optional[Node]=None
                ) -> None:
     self.root: Optional[PersistentAVLTreeList.Node] = _root
-    self.copy_t: Callable[[T], T] = copy_t
     a = list(a)
     if a:
       self._build(list(a))
@@ -49,14 +43,13 @@ class PersistentAVLTreeList(Generic[T]):
     Node = PersistentAVLTreeList.Node
     def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid], copy_t)
+      node = Node(a[mid])
       if l != mid:
         node.left = build(l, mid)
       if mid+1 != r:
         node.right = build(mid+1, r)
       self._update(node)
       return node
-    copy_t = self.copy_t
     self.root = build(0, len(a))
 
   def _update(self, node: Node) -> None:
@@ -210,11 +203,11 @@ class PersistentAVLTreeList(Generic[T]):
     return self._new(l), self._new(r)
 
   def _new(self, root: Optional['PersistentAVLTreeList.Node']) -> 'PersistentAVLTreeList':
-    return PersistentAVLTreeList([], self.copy_t, root)
+    return PersistentAVLTreeList([], root)
 
   def insert(self, k: int, key: T) -> 'PersistentAVLTreeList':
     s, t = self._split_node(self.root, k)
-    root = self._merge_with_root(s, PersistentAVLTreeList.Node(key, self.copy_t), t)
+    root = self._merge_with_root(s, PersistentAVLTreeList.Node(key), t)
     return self._new(root)
 
   def pop(self, k: int) -> Tuple['PersistentAVLTreeList', T]:

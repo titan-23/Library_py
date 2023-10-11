@@ -29,13 +29,14 @@ class LazyWBTree(Generic[T, F]):
 
     __repr__ = __str__
 
-  def __init__(self, a: Iterable[T],
+  def __init__(self,
+               a: Iterable[T],
                op: Callable[[T, T], T],
                mapping: Callable[[F, T], T],
                composition: Callable[[F, F], F],
                e: T,
                id: F,
-               _root=None
+               _root: Optional[Node]=None
                ) -> None:
     self.root: Optional[LazyWBTree.Node] = _root
     self.op: Callable[[T, T], T] = op

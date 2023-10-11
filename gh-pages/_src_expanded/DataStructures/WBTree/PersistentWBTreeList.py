@@ -9,18 +9,14 @@ class PersistentWBTreeList(Generic[T]):
 
   class Node():
 
-    def __init__(self,
-                 key: T,
-                 copy_t: Callable[[T], T],
-                 ):
+    def __init__(self, key: T):
       self.key: T = key
       self.left: Optional[PersistentWBTreeList.Node] = None
       self.right: Optional[PersistentWBTreeList.Node] = None
       self.size: int = 1
-      self.copy_t: Callable[[T], T] = copy_t
 
     def copy(self) -> 'PersistentWBTreeList.Node':
-      node = PersistentWBTreeList.Node(self.copy_t(self.key), self.copy_t)
+      node = PersistentWBTreeList.Node(self.key)
       node.left = self.left
       node.right = self.right
       node.size = self.size
@@ -36,12 +32,11 @@ class PersistentWBTreeList(Generic[T]):
 
     __repr__ = __str__
 
-  def __init__(self, a: Iterable[T],
-               copy_t: Callable[[T], T],
-               _root=None
+  def __init__(self,
+               a: Iterable[T],
+               _root: Optional[Node]=None
                ) -> None:
     self.root: Optional[PersistentWBTreeList.Node] = _root
-    self.copy_t: Callable[[T], T] = copy_t
     a = list(a)
     if a:
       self._build(list(a))
@@ -50,14 +45,13 @@ class PersistentWBTreeList(Generic[T]):
     Node = PersistentWBTreeList.Node
     def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid], copy_t)
+      node = Node(a[mid])
       if l != mid:
         node.left = build(l, mid)
       if mid+1 != r:
         node.right = build(mid+1, r)
       self._update(node)
       return node
-    copy_t = self.copy_t
     self.root = build(0, len(a))
 
   def _update(self, node: Node) -> None:
@@ -221,11 +215,11 @@ class PersistentWBTreeList(Generic[T]):
     return self._new(l), self._new(r)
 
   def _new(self, root: Optional['PersistentWBTreeList.Node']) -> 'PersistentWBTreeList':
-    return PersistentWBTreeList([], self.copy_t, root)
+    return PersistentWBTreeList([], root)
 
   def insert(self, k: int, key: T) -> 'PersistentWBTreeList':
     s, t = self._split_node(self.root, k)
-    root = self._merge_with_root(s, PersistentWBTreeList.Node(key, self.copy_t), t)
+    root = self._merge_with_root(s, PersistentWBTreeList.Node(key), t)
     return self._new(root)
 
   def pop(self, k: int) -> Tuple['PersistentWBTreeList', T]:
