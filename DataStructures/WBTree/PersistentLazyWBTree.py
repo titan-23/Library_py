@@ -5,7 +5,7 @@ F = TypeVar('F')
 
 class PersistentLazyWBTree(Generic[T, F]):
 
-  ALPHA: Final[float] = 1 - sqrt(2) / 2  # 0.2
+  ALPHA: Final[float] = 1 - sqrt(2) / 2
   BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
 
   class Node():
@@ -13,8 +13,6 @@ class PersistentLazyWBTree(Generic[T, F]):
     def __init__(self,
                  key: T,
                  lazy: F,
-                 copy_t: Callable[[T], T],
-                 copy_f: Callable[[F], F],
                  ) -> None:
       self.key: T = key
       self.data: T = key
@@ -23,15 +21,13 @@ class PersistentLazyWBTree(Generic[T, F]):
       self.lazy: F = lazy
       self.rev: int = 0
       self.size: int = 1
-      self.copy_t: Callable[[T], T] = copy_t
-      self.copy_f: Callable[[F], F] = copy_f
 
     def copy(self) -> 'PersistentLazyWBTree.Node':
-      node = PersistentLazyWBTree.Node(self.copy_t(self.key), self.copy_f(self.lazy), self.copy_t, self.copy_f)
-      node.data = self.copy_t(self.data)
+      node = PersistentLazyWBTree.Node(self.key, self.lazy)
+      node.data = self.data
       node.left = self.left
       node.right = self.right
-      node.rev = self.rev
+      # node.rev = self.rev
       node.size = self.size
       return node
 
@@ -45,15 +41,14 @@ class PersistentLazyWBTree(Generic[T, F]):
 
     __repr__ = __str__
 
-  def __init__(self, a: Iterable[T],
+  def __init__(self,
+               a: Iterable[T],
                op: Callable[[T, T], T],
                mapping: Callable[[F, T], T],
                composition: Callable[[F, F], F],
                e: T,
                id: F,
-               copy_t: Callable[[T], T],
-               copy_f: Callable[[F], F],
-               _root=None
+               _root: Optional[Node]=None
                ) -> None:
     self.root: Optional[PersistentLazyWBTree.Node] = _root
     self.op: Callable[[T, T], T] = op
@@ -61,8 +56,6 @@ class PersistentLazyWBTree(Generic[T, F]):
     self.composition: Callable[[F, F], F] = composition
     self.e: T = e
     self.id: F = id
-    self.copy_t: Callable[[T], T] = copy_t
-    self.copy_f: Callable[[F], F] = copy_f
     a = list(a)
     if a:
       self._build(list(a))
@@ -71,7 +64,7 @@ class PersistentLazyWBTree(Generic[T, F]):
     Node = PersistentLazyWBTree.Node
     def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid], id, copy_t, copy_f)
+      node = Node(a[mid], id)
       if l != mid:
         node.left = build(l, mid)
       if mid+1 != r:
@@ -79,8 +72,6 @@ class PersistentLazyWBTree(Generic[T, F]):
       self._update(node)
       return node
     id = self.id
-    copy_t = self.copy_t
-    copy_f = self.copy_f
     self.root = build(0, len(a))
 
   def _propagate(self, node: Node) -> None:
@@ -97,13 +88,13 @@ class PersistentLazyWBTree(Generic[T, F]):
       lazy = node.lazy
       if node.left:
         node.left = node.left.copy()
-        node.left.data = self.mapping(lazy, node.left.data)
         node.left.key = self.mapping(lazy, node.left.key)
+        node.left.data = self.mapping(lazy, node.left.data)
         node.left.lazy = self.composition(lazy, node.left.lazy)
       if node.right:
         node.right = node.right.copy()
-        node.right.data = self.mapping(lazy, node.right.data)
         node.right.key = self.mapping(lazy, node.right.key)
+        node.right.data = self.mapping(lazy, node.right.data)
         node.right.lazy = self.composition(lazy, node.right.lazy)
       node.lazy = self.id
 
@@ -143,9 +134,9 @@ class PersistentLazyWBTree(Generic[T, F]):
 
   def _balance_left(self, node: Node) -> Node:
     assert node.right
+    self._propagate(node.right)
     node.right = node.right.copy()
     u = node.right
-    self._propagate(u)
     if u.balance() >= self.BETA:
       assert u.left
       self._propagate(u.left)
@@ -155,9 +146,9 @@ class PersistentLazyWBTree(Generic[T, F]):
 
   def _balance_right(self, node: Node) -> Node:
     assert node.left
+    self._propagate(node.left)
     node.left = node.left.copy()
     u = node.left
-    self._propagate(u)
     if u.balance() <= 1 - self.BETA:
       assert u.right
       self._propagate(u.right)
@@ -175,7 +166,7 @@ class PersistentLazyWBTree(Generic[T, F]):
       t = 0 if node.left is None else node.left.size
       if t == k:
         return node.key
-      elif t < k:
+      if t < k:
         k -= t + 1
         node = node.right
       else:
@@ -187,8 +178,8 @@ class PersistentLazyWBTree(Generic[T, F]):
     diff = (ls+1) / (ls+rs+1+1)
     if diff > 1-self.ALPHA:
       assert l
-      l = l.copy()
       self._propagate(l)
+      l = l.copy()
       l.right = self._merge_with_root(l.right, root, r)
       self._update(l)
       if not (self.ALPHA <= l.balance() <= 1-self.ALPHA):
@@ -196,8 +187,8 @@ class PersistentLazyWBTree(Generic[T, F]):
       return l
     if diff < self.ALPHA:
       assert r
-      r = r.copy()
       self._propagate(r)
+      r = r.copy()
       r.left = self._merge_with_root(l, root, r.left)
       self._update(r)
       if not (self.ALPHA <= r.balance() <= 1-self.ALPHA):
@@ -229,14 +220,14 @@ class PersistentLazyWBTree(Generic[T, F]):
 
   def _pop_right(self, node: Node) -> Tuple[Node, Node]:
     path = []
-    node = node.copy()
     self._propagate(node)
+    node = node.copy()
     mx = node
-    while node.right is not None:
+    while node.right:
       path.append(node)
+      self._propagate(node.right)
       node = node.right.copy()
       mx = node
-      self._propagate(node)
     path.append(node.left.copy() if node.left else None)
     for _ in range(len(path)-1):
       node = path.pop()
@@ -282,7 +273,7 @@ class PersistentLazyWBTree(Generic[T, F]):
     return self._new(l), self._new(r)
 
   def _new(self, root: Optional['PersistentLazyWBTree.Node']) -> 'PersistentLazyWBTree[T, F]':
-    return PersistentLazyWBTree([], self.op, self.mapping, self.composition, self.e, self.id, self.copy_t, self.copy_f, root)
+    return PersistentLazyWBTree([], self.op, self.mapping, self.composition, self.e, self.id, root)
 
   def apply(self, l: int, r: int, f: F) -> 'PersistentLazyWBTree[T, F]':
     if l >= r:
@@ -307,7 +298,7 @@ class PersistentLazyWBTree(Generic[T, F]):
 
   def insert(self, k: int, key: T) -> 'PersistentLazyWBTree[T, F]':
     s, t = self._split_node(self.root, k)
-    root = self._merge_with_root(s, PersistentLazyWBTree.Node(key, self.id, self.copy_t, self.copy_f), t)
+    root = self._merge_with_root(s, PersistentLazyWBTree.Node(key, self.id), t)
     return self._new(root)
 
   def pop(self, k: int) -> Tuple['PersistentLazyWBTree[T, F]', T]:
