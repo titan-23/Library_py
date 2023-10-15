@@ -122,6 +122,7 @@ _____
 
 ### [`SegmentTree`](DataStructures/SegmentTree/SegmentTree_.md)
 
+- [`DualSegmentTree`](DataStructures/SegmentTree/DualSegmentTree.md)
 - [`DynamicSegmentTree`](DataStructures/SegmentTree/DynamicSegmentTree.md)
 - [`LazySegmentTree`](DataStructures/SegmentTree/LazySegmentTree.md)
 - [`SegmentTree`](DataStructures/SegmentTree/SegmentTree.md)
