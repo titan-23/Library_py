@@ -127,21 +127,6 @@
     <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">u</span>
 
-  <span class="k">def</span> <span class="nf">_kth_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="k">assert</span> <span class="n">node</span>
-      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
-      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
-      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
-        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-
   <span class="k">def</span> <span class="nf">_merge_with_root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="n">root</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
     <span class="n">ls</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="n">l</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="n">rs</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="n">r</span> <span class="k">else</span> <span class="mi">0</span>
@@ -252,6 +237,41 @@
     <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_node</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">),</span> <span class="n">tmp</span><span class="o">.</span><span class="n">key</span>
 
+  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PersistentWBTreeList&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="n">pnode</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="n">node</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+        <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PersistentWBTreeList&#39;</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
@@ -267,7 +287,19 @@
     <span class="k">return</span> <span class="n">a</span>
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="n">node</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span>
@@ -384,21 +416,6 @@
     <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">u</span>
 
-  <span class="k">def</span> <span class="nf">_kth_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="k">assert</span> <span class="n">node</span>
-      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
-      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
-      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
-        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-
   <span class="k">def</span> <span class="nf">_merge_with_root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="n">root</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Node</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
     <span class="n">ls</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="n">l</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="n">rs</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="n">r</span> <span class="k">else</span> <span class="mi">0</span>
@@ -509,6 +526,41 @@
     <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_node</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">),</span> <span class="n">tmp</span><span class="o">.</span><span class="n">key</span>
 
+  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PersistentWBTreeList&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="n">pnode</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="n">node</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+        <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;PersistentWBTreeList&#39;</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
@@ -524,7 +576,19 @@
     <span class="k">return</span> <span class="n">a</span>
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="n">node</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span>

@@ -2,7 +2,7 @@ import os
 import subprocess
 import re
 
-F = ['Algorithm', 'DataStructures', 'Graph', 'Math', 'MyClass', 'Others', 'String']
+F = ['Algorithm', 'DataStructures', 'Graph', 'IO', 'Math', 'MyClass', 'Others', 'String']
 for f in F:
   for root, dirs, files in os.walk(f"..\\..\\Library_py\\{f}\\"):
     for filename in files:

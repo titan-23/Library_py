@@ -176,8 +176,7 @@ class LazyWBTree(Generic[T, F]):
       r.left = self._merge_with_root(l, root, r.left)
       self._update(r)
       if not (self.ALPHA <= r.balance() <= 1-self.ALPHA):
-        r = self._balance_right(r)
-        return r
+        return self._balance_right(r)
       return r
     root.left = l
     root.right = r
@@ -237,7 +236,6 @@ class LazyWBTree(Generic[T, F]):
       return None, None
     self._propagate(node)
     tmp = k if node.left is None else k-node.left.size
-    l, r = None, None
     if tmp == 0:
       return node.left, self._merge_with_root(None, node, node.right)
     elif tmp < 0:
@@ -251,7 +249,7 @@ class LazyWBTree(Generic[T, F]):
     l, r = self._split_node(self.root, k)
     return self._new(l), self._new(r)
 
-  def _new(self, root: Optional['LazyWBTree.Node']) -> 'LazyWBTree':
+  def _new(self, root: Optional['Node']) -> 'LazyWBTree':
     return LazyWBTree([], self.op, self.mapping, self.composition, self.e, self.id, root)
 
   def apply(self, l: int, r: int, f: F) -> None:
