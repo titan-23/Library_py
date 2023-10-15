@@ -19,7 +19,7 @@ _____
 
 ## 使用例
 
-[Range Affine Point Get](https://judge.yosupo.jp/submission/166469)
+[Range Affine Point Get](https://judge.yosupo.jp/submission/166473)
 
 ```python
 from Library_py.DataStructures.SegmentTree.DualSegmentTree import DualSegmentTree
