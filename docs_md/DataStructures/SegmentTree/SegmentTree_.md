@@ -8,6 +8,8 @@ _____
 
 _____
 
+- [`DualSegmentTree`](DualSegmentTree.md)
+  - 双対セグ木です。
 - [`DynamicSegmentTree`](DynamicSegmentTree.md)
   - 動的セグ木です。
 - [`LazySegmentTree`](LazySegmentTree.md)
