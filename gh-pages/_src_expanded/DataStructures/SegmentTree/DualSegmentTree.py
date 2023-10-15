@@ -62,8 +62,8 @@ class DualSegmentTree(Generic[T, F]):
       data[l-self.size] = self.mapping(f, data[l-self.size])
       l += 1
     if (r-self.size) & 1:
+      data[(r-self.size)^1] = self.mapping(f, data[(r-self.size)^1])
       r ^= 1
-      data[r-self.size] = self.mapping(f, data[r-self.size])
     l >>= 1
     r >>= 1
     while l < r:
