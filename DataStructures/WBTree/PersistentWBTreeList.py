@@ -104,21 +104,6 @@ class PersistentWBTreeList(Generic[T]):
     u = self._rotate_right(node)
     return u
 
-  def _kth_elm(self, k: int) -> T:
-    if k < 0:
-      k += len(self)
-    node = self.root
-    while True:
-      assert node
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        return node.key
-      elif t < k:
-        k -= t + 1
-        node = node.right
-      else:
-        node = node.left
-
   def _merge_with_root(self, l: Optional[Node], root: Node, r: Optional[Node]) -> Node:
     ls = l.size if l else 0
     rs = r.size if r else 0
@@ -229,6 +214,41 @@ class PersistentWBTreeList(Generic[T]):
     root = self._merge_node(s, t)
     return self._new(root), tmp.key
 
+  def set(self, k: int, v: T) -> 'PersistentWBTreeList':
+    if k < 0:
+      k += len(self)
+    node = self.root.copy()
+    root = node
+    pnode = None
+    d = 0
+    while True:
+      assert node
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        node = node.copy()
+        node.key = v
+        if d:
+          pnode.left = node
+        else:
+          pnode.right = node
+        return self._new(root)
+      pnode = node
+      if t < k:
+        k -= t + 1
+        node = node.right.copy()
+        d = 0
+      else:
+        d = 1
+        node = node.left.copy()
+      if d:
+        pnode.left = node
+      else:
+        pnode.right = node
+
+  def copy(self) -> 'PersistentWBTreeList':
+    root = self.root.copy() if self.root else None
+    return self._new(root)
+
   def tolist(self) -> List[T]:
     node = self.root
     stack = []
@@ -244,7 +264,19 @@ class PersistentWBTreeList(Generic[T]):
     return a
 
   def __getitem__(self, k: int) -> T:
-    return self._kth_elm(k)
+    if k < 0:
+      k += len(self)
+    node = self.root
+    while True:
+      assert node
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        return node.key
+      elif t < k:
+        k -= t + 1
+        node = node.right
+      else:
+        node = node.left
 
   def __len__(self):
     return 0 if self.root is None else self.root.size

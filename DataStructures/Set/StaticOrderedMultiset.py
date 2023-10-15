@@ -1,4 +1,4 @@
-from ...MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Iterable, Optional, TypeVar, Generic, List
 from bisect import bisect_right, bisect_left
 from collections import Counter

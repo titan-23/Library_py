@@ -225,6 +225,12 @@ _____
 
 _____
 
+## [`IO`](IO/IO.md)
+
+- [`FastO`](IO/FastO.md)
+
+_____
+
 ## [`Math`](Math/Math.md)
 
 - [`AffineMap`](Math/AffineMap.md)

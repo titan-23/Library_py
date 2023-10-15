@@ -27,7 +27,7 @@ class PersistentLazyWBTree(Generic[T, F]):
       node.data = self.data
       node.left = self.left
       node.right = self.right
-      # node.rev = self.rev
+      node.rev = self.rev
       node.size = self.size
       return node
 
@@ -135,6 +135,7 @@ class PersistentLazyWBTree(Generic[T, F]):
   def _balance_left(self, node: Node) -> Node:
     assert node.right
     self._propagate(node.right)
+    # gyaku
     node.right = node.right.copy()
     u = node.right
     if u.balance() >= self.BETA:
@@ -156,22 +157,6 @@ class PersistentLazyWBTree(Generic[T, F]):
     u = self._rotate_right(node)
     return u
 
-  def _kth_elm(self, k: int) -> T:
-    if k < 0:
-      k += len(self)
-    node = self.root
-    while True:
-      assert node
-      self._propagate(node)
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        return node.key
-      if t < k:
-        k -= t + 1
-        node = node.right
-      else:
-        node = node.left
-
   def _merge_with_root(self, l: Optional[Node], root: Node, r: Optional[Node]) -> Node:
     ls = l.size if l else 0
     rs = r.size if r else 0
@@ -192,8 +177,7 @@ class PersistentLazyWBTree(Generic[T, F]):
       r.left = self._merge_with_root(l, root, r.left)
       self._update(r)
       if not (self.ALPHA <= r.balance() <= 1-self.ALPHA):
-        r = self._balance_right(r)
-        return r
+        return self._balance_right(r)
       return r
     root = root.copy()
     root.left = l
@@ -272,7 +256,7 @@ class PersistentLazyWBTree(Generic[T, F]):
     l, r = self._split_node(self.root, k)
     return self._new(l), self._new(r)
 
-  def _new(self, root: Optional['PersistentLazyWBTree.Node']) -> 'PersistentLazyWBTree[T, F]':
+  def _new(self, root: Optional['Node']) -> 'PersistentLazyWBTree[T, F]':
     return PersistentLazyWBTree([], self.op, self.mapping, self.composition, self.e, self.id, root)
 
   def apply(self, l: int, r: int, f: F) -> 'PersistentLazyWBTree[T, F]':
@@ -333,8 +317,62 @@ class PersistentLazyWBTree(Generic[T, F]):
         node = node.right
     return a
 
+  def copy(self) -> 'PersistentLazyWBTree':
+    root = self.root.copy() if self.root else None
+    return self._new(root)
+
+  def set(self, k: int, v: T) -> 'PersistentLazyWBTree':
+    if k < 0:
+      k += len(self)
+    node = self.root.copy()
+    root = node
+    pnode = None
+    d = 0
+    path = [node]
+    while True:
+      assert node
+      self._propagate(node)
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        node = node.copy()
+        node.key = v
+        path.append(node)
+        if d:
+          pnode.left = node
+        else:
+          pnode.right = node
+        while path:
+          self._update(path.pop())
+        return self._new(root)
+      pnode = node
+      if t < k:
+        k -= t + 1
+        node = node.right.copy()
+        d = 0
+      else:
+        d = 1
+        node = node.left.copy()
+      path.append(node)
+      if d:
+        pnode.left = node
+      else:
+        pnode.right = node
+
   def __getitem__(self, k: int) -> T:
-    return self._kth_elm(k)
+    if k < 0:
+      k += len(self)
+    node = self.root
+    while True:
+      assert node
+      self._propagate(node)
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        return node.key
+      if t < k:
+        k -= t + 1
+        node = node.right
+      else:
+        node = node.left
 
   def __len__(self):
     return 0 if self.root is None else self.root.size
@@ -368,3 +406,13 @@ class PersistentLazyWBTree(Generic[T, F]):
     _, h = rec(self.root)
     # print(f'isok.ok., height={h}')
 
+op = lambda s, t: 0
+mapping = lambda f, s: 0
+composition = lambda f, g: 0
+e = 0
+id = 0
+wb = PersistentLazyWBTree([], op, mapping, composition, e, id)
+wb = wb.insert(0, 0)
+wb = wb.insert(1, 1)
+wb = wb.insert(2, 2)
+print(wb)

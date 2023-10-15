@@ -156,8 +156,7 @@ class WaveletMatrix():
     '''a[l, r) で x 未満の要素の数を返す'''
     ans = 0
     for bit in range(self.log-1, -1, -1):
-      l0 = self.v[bit].rank0(l)
-      r0 = self.v[bit].rank0(r)
+      l0, r0 = self.v[bit].rank0(l), self.v[bit].rank0(r)
       if x >> bit & 1:
         # bit が立ってたら、区間の 0 の個数を答えに加算し、新たな区間は 1 のみ
         ans += r0 - l0
@@ -166,8 +165,7 @@ class WaveletMatrix():
         r += self.mid[bit] - r0
       else:
         # 0 が次の bit 列でどこに行くか
-        l = l0
-        r = r0
+        l, r = l0, r0
     return ans
 
   def range_freq(self, l: int, r: int, x: int, y: int) -> int:

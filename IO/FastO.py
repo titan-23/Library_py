@@ -22,6 +22,3 @@ class FastO():
     os.write(1, cls.sb.build().encode())
     cls.sb = StringBuilder()
 
-write = FastO.write
-flush = FastO.flush
-
