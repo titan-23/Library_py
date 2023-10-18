@@ -31,10 +31,13 @@ class DynamicWaveletMatrix(WaveletMatrix):
       a = zero + one
 
   def reserve(self, n: int) -> None:
+    assert n >= 0, f'ValueError: DynamicWaveletMatrix.reserve({n})'
     for v in self.v:
       v.reserve(n)
 
   def insert(self, k: int, x: int) -> None:
+    assert 0 <= k <= self.size,  f'IndexError: DynamicWaveletMatrix.insert({k}, {x}), n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix.insert({k}, {x}), LIM={1<<self.log}'
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
@@ -55,6 +58,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
     self.size += 1
 
   def pop(self, k: int) -> int:
+    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix.pop({k}), n={self.size}'
     mid = self.mid
     ans = 0
     for bit in range(self.log-1, -1, -1):
@@ -79,12 +83,16 @@ class DynamicWaveletMatrix(WaveletMatrix):
     return ans
 
   def update(self, k: int, x: int) -> None:
+    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix.update({k}, {x}), n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix.update({k}, {x}), LIM={1<<self.log}'
     self.pop(k)
     self.insert(k, x)
 
   def __setitem__(self, k: int, x: int):
+    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix[{k}] = {x}, n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix[{k}] = {x}, LIM={1<<self.log}'
     self.update(k, x)
 
   def __str__(self):
-    return f'DynamicWaveletMatrix({[self.access(i) for i in range(self.size)]})'
+    return f'DynamicWaveletMatrix({[self[i] for i in range(self.size)]})'
 
