@@ -182,7 +182,7 @@ class RootedTree():
 
   '''Return LCA of (u, v). / O(logN)'''
   def get_lca(self, u: int, v: int) -> int:
-    assert self._lca, f'RootedTree.get_lca(), `lca` must be True'
+    assert self._lca, f'Error: RootedTree.get_lca({u}, {v}), `lca` must be True'
     _doubling, _dist = self._doubling, self._dist
     if _dist[u] < _dist[v]:
       u, v = v, u
@@ -198,7 +198,7 @@ class RootedTree():
         v = _doubling[k][v]
     return _doubling[0][u]
 
-  '''Return dist(u -- v). / O(logN)'''
+  '''Return dist(u - v). / O(logN)'''
   def get_dist(self, u: int, v: int) -> int:
     return self._dist[u] + self._dist[v] - 2*self._dist[self.get_lca(u, v)] + 1
 
@@ -231,21 +231,21 @@ class RootedTree():
   def dfs_in_out(self) -> Tuple[List[int], List[int]]:
     curtime = -1
     todo = [~self._root, self._root]
-    intime = [-1] * self._n
-    outtime = [-1] * self._n
-    seen = [False] * self._n
-    seen[self._root] = True
+    nodein = [-1] * self._n
+    nodeout = [-1] * self._n
+    if not self._parents:
+      self._calc_child_parents()
+    _G, _parents = self._G, self._parents
     while todo:
       curtime += 1
       v = todo.pop()
       if v >= 0:
-        intime[v] = curtime
-        for x in self._G[v]:
-          if not seen[x]:
+        nodein[v] = curtime
+        for x in _G[v]:
+          if _parents[v] != x:
             todo.append(~x)
             todo.append(x)
-            seen[x] = True
       else:
-        outtime[~v] = curtime
-    return intime, outtime
+        nodeout[~v] = curtime
+    return nodein, nodeout
 
