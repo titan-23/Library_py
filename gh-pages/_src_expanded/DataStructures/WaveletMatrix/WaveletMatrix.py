@@ -189,8 +189,10 @@ class WaveletMatrix():
 
   def access(self, k: int) -> int:
     '''a[k] を返す'''
-    assert 0 <= k < self.size, \
+    assert -self.size <= k < self.size, \
         f'IndexError: WaveletMatrix.access({k}), size={self.size}'
+    if k < 0:
+      k += self.size
     s = 0  # 答え
     for bit in range(self.log-1, -1, -1):
       if self.v[bit].access(k):
@@ -204,8 +206,7 @@ class WaveletMatrix():
     return s
 
   def __getitem__(self, k: int) -> int:
-    assert 0 <= k < self.size, \
-        f'IndexError: WaveletMatrix.__getitem__({k}), size={self.size}'
+    assert -self.size <= k < self.size, f'IndexError: WaveletMatrix.__getitem__({k}), size={self.size}'
     return self.access(k)
 
   def rank(self, r: int, x: int) -> int:
@@ -248,10 +249,8 @@ class WaveletMatrix():
 
   def kth_smallest(self, l: int, r: int, k: int) -> int:
     '''a[l, r) の中で k 番目に小さい値'''
-    assert 0 <= l <= r <= self.size, \
-        f'IndexError: kth_smallest({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, \
-        f'IndexError: kth_smallest({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: kth_smallest({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: kth_smallest({l}, {r}, {k}), wrong k'
     s = 0
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
@@ -272,17 +271,13 @@ class WaveletMatrix():
   quantile = kth_smallest
 
   def kth_largest(self, l: int, r: int, k: int) -> int:
-    assert 0 <= l <= r <= self.size, \
-        f'IndexError: kth_largest({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, \
-        f'IndexError: kth_largest({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: kth_largest({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: kth_largest({l}, {r}, {k}), wrong k'
     return self.kth_smallest(l, r, r-l-k-1)
 
   def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:
-    assert 0 <= l <= r <= self.size, \
-        f'IndexError: topk({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, \
-        f'IndexError: topk({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: topk({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: topk({l}, {r}, {k}), wrong k'
     # heap[-length, x, l, bit]
     hq: List[Tuple[int, int, int, int]] = [(-(r-l), 0, l, self.log-1)]
     ans = []

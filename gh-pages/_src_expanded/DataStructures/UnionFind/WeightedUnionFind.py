@@ -6,8 +6,8 @@ class WeightedUnionFind():
   def __init__(self, n: int):
     self._n: int = n
     self._group_numbers: int = n
-    self._parents: List[int] = [-1]
-    self._weight: List[int] = [0]
+    self._parents: List[int] = [-1] * n
+    self._weight: List[int] = [0] * n
     self._G: List[List[int]] = [[] for _ in range(n)]
 
   def root(self, x: int) -> int:

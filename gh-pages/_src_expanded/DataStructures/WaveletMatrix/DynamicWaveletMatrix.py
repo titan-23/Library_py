@@ -822,8 +822,10 @@ class WaveletMatrix():
 
   def access(self, k: int) -> int:
     '''a[k] を返す'''
-    assert 0 <= k < self.size, \
+    assert -self.size <= k < self.size, \
         f'IndexError: WaveletMatrix.access({k}), size={self.size}'
+    if k < 0:
+      k += self.size
     s = 0  # 答え
     for bit in range(self.log-1, -1, -1):
       if self.v[bit].access(k):
@@ -837,8 +839,7 @@ class WaveletMatrix():
     return s
 
   def __getitem__(self, k: int) -> int:
-    assert 0 <= k < self.size, \
-        f'IndexError: WaveletMatrix.__getitem__({k}), size={self.size}'
+    assert -self.size <= k < self.size, f'IndexError: WaveletMatrix.__getitem__({k}), size={self.size}'
     return self.access(k)
 
   def rank(self, r: int, x: int) -> int:
@@ -881,10 +882,8 @@ class WaveletMatrix():
 
   def kth_smallest(self, l: int, r: int, k: int) -> int:
     '''a[l, r) の中で k 番目に小さい値'''
-    assert 0 <= l <= r <= self.size, \
-        f'IndexError: kth_smallest({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, \
-        f'IndexError: kth_smallest({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: kth_smallest({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: kth_smallest({l}, {r}, {k}), wrong k'
     s = 0
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
@@ -905,17 +904,13 @@ class WaveletMatrix():
   quantile = kth_smallest
 
   def kth_largest(self, l: int, r: int, k: int) -> int:
-    assert 0 <= l <= r <= self.size, \
-        f'IndexError: kth_largest({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, \
-        f'IndexError: kth_largest({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: kth_largest({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: kth_largest({l}, {r}, {k}), wrong k'
     return self.kth_smallest(l, r, r-l-k-1)
 
   def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:
-    assert 0 <= l <= r <= self.size, \
-        f'IndexError: topk({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, \
-        f'IndexError: topk({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: topk({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: topk({l}, {r}, {k}), wrong k'
     # heap[-length, x, l, bit]
     hq: List[Tuple[int, int, int, int]] = [(-(r-l), 0, l, self.log-1)]
     ans = []
@@ -1018,10 +1013,13 @@ class DynamicWaveletMatrix(WaveletMatrix):
       a = zero + one
 
   def reserve(self, n: int) -> None:
+    assert n >= 0, f'ValueError: DynamicWaveletMatrix.reserve({n})'
     for v in self.v:
       v.reserve(n)
 
   def insert(self, k: int, x: int) -> None:
+    assert 0 <= k <= self.size,  f'IndexError: DynamicWaveletMatrix.insert({k}, {x}), n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix.insert({k}, {x}), LIM={1<<self.log}'
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
@@ -1042,6 +1040,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
     self.size += 1
 
   def pop(self, k: int) -> int:
+    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix.pop({k}), n={self.size}'
     mid = self.mid
     ans = 0
     for bit in range(self.log-1, -1, -1):
@@ -1066,13 +1065,17 @@ class DynamicWaveletMatrix(WaveletMatrix):
     return ans
 
   def update(self, k: int, x: int) -> None:
+    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix.update({k}, {x}), n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix.update({k}, {x}), LIM={1<<self.log}'
     self.pop(k)
     self.insert(k, x)
 
   def __setitem__(self, k: int, x: int):
+    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix[{k}] = {x}, n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix[{k}] = {x}, LIM={1<<self.log}'
     self.update(k, x)
 
   def __str__(self):
-    return f'DynamicWaveletMatrix({[self.access(i) for i in range(self.size)]})'
+    return f'DynamicWaveletMatrix({[self[i] for i in range(self.size)]})'
 
 

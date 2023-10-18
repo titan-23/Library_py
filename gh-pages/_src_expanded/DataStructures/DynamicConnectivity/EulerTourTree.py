@@ -27,11 +27,14 @@ class EulerTourTree(Generic[T, F]):
     __repr__ = __str__
 
 
-  def __init__(self, n_or_a: Union[int, Iterable[T]], \
-              op: Callable[[T, T], T]=lambda x, y: None, \
-              mapping: Callable[[F, T], T]=lambda x, y: None, \
-              composition: Callable[[F, F], F]=lambda x, y: None, \
-              e: T=None, id: F=None):
+  def __init__(self,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T]=lambda x, y: None,
+               mapping: Callable[[F, T], T]=lambda x, y: None,
+               composition: Callable[[F, F], F]=lambda x, y: None,
+               e: T=None,
+               id: F=None
+               ) -> None:
     self.op = op
     self.mapping = mapping
     self.composition = composition
@@ -103,14 +106,12 @@ class EulerTourTree(Generic[T, F]):
       rec(0, len(a))
 
   def _popleft(self, v: Node) -> Optional[Node]:
-    assert v is not None
     v = self._left_splay(v)
     if v.right:
       v.right.par = None
     return v.right
 
   def _pop(self, v: Node) -> Optional[Node]:
-    assert v is not None
     v = self._right_splay(v)
     if v.left:
       v.left.par = None
@@ -118,10 +119,9 @@ class EulerTourTree(Generic[T, F]):
 
   def _split_left(self, v: Node) -> Tuple[Node, Optional[Node]]:
     # x, yに分割する。ただし、xはvを含む
-    assert v is not None
     self._splay(v)
     x, y = v, v.right
-    if y is not None:
+    if y:
       y.par = None
     x.right = None
     self._update(x)
@@ -129,10 +129,9 @@ class EulerTourTree(Generic[T, F]):
 
   def _split_right(self, v: Node) -> Tuple[Optional[Node], Node]:
     # x, yに分割する。ただし、yはvを含む
-    assert v is not None
     self._splay(v)
     x, y = v.left, v
-    if x is not None:
+    if x:
       x.par = None
     y.left = None
     self._update(y)
@@ -232,7 +231,6 @@ class EulerTourTree(Generic[T, F]):
     self._update(node)
 
   def _left_splay(self, node: Node) -> Node:
-    assert node is not None
     self._splay(node)
     while node.left is not None:
       node = node.left
@@ -240,7 +238,6 @@ class EulerTourTree(Generic[T, F]):
     return node
 
   def _right_splay(self, node: Node) -> Node:
-    assert node is not None
     self._splay(node)
     while node.right is not None:
       node = node.right
@@ -250,11 +247,11 @@ class EulerTourTree(Generic[T, F]):
   def _propagate(self, node: Optional[Node]) -> None:
     if node is None or node.lazy == self.id:
       return
-    if node.left is not None:
+    if node.left:
       node.left.key = self.mapping(node.lazy, node.left.key)
       node.left.data = self.mapping(node.lazy, node.left.data)
       node.left.lazy = self.composition(node.lazy, node.left.lazy)
-    if node.right is not None:
+    if node.right:
       node.right.key = self.mapping(node.lazy, node.right.key)
       node.right.data = self.mapping(node.lazy, node.right.data)
       node.right.lazy = self.composition(node.lazy, node.right.lazy)

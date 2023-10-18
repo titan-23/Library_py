@@ -205,7 +205,7 @@
 
 <span class="w">  </span><span class="sd">&#39;&#39;&#39;Return LCA of (u, v). / O(logN)&#39;&#39;&#39;</span>
   <span class="k">def</span> <span class="nf">get_lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lca</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;RootedTree.get_lca(), `lca` must be True&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lca</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Error: RootedTree.get_lca(</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">), `lca` must be True&#39;</span>
     <span class="n">_doubling</span><span class="p">,</span> <span class="n">_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_doubling</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span>
     <span class="k">if</span> <span class="n">_dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">_dist</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
       <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
@@ -221,7 +221,7 @@
         <span class="n">v</span> <span class="o">=</span> <span class="n">_doubling</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">v</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">_doubling</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">u</span><span class="p">]</span>
 
-<span class="w">  </span><span class="sd">&#39;&#39;&#39;Return dist(u -- v). / O(logN)&#39;&#39;&#39;</span>
+<span class="w">  </span><span class="sd">&#39;&#39;&#39;Return dist(u - v). / O(logN)&#39;&#39;&#39;</span>
   <span class="k">def</span> <span class="nf">get_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -254,23 +254,23 @@
   <span class="k">def</span> <span class="nf">dfs_in_out</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
     <span class="n">curtime</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">]</span>
-    <span class="n">intime</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-    <span class="n">outtime</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-    <span class="n">seen</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-    <span class="n">seen</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">nodein</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="n">nodeout</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_calc_child_parents</span><span class="p">()</span>
+    <span class="n">_G</span><span class="p">,</span> <span class="n">_parents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_G</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span>
     <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
       <span class="n">curtime</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="n">v</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
       <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">intime</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-          <span class="k">if</span> <span class="ow">not</span> <span class="n">seen</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
+        <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">_G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="k">if</span> <span class="n">_parents</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="n">x</span><span class="p">:</span>
             <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">)</span>
             <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">seen</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">outtime</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
-    <span class="k">return</span> <span class="n">intime</span><span class="p">,</span> <span class="n">outtime</span>
+        <span class="n">nodeout</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+    <span class="k">return</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">nodeout</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
@@ -456,7 +456,7 @@
 
 <span class="w">  </span><span class="sd">&#39;&#39;&#39;Return LCA of (u, v). / O(logN)&#39;&#39;&#39;</span>
   <span class="k">def</span> <span class="nf">get_lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lca</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;RootedTree.get_lca(), `lca` must be True&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lca</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Error: RootedTree.get_lca(</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">), `lca` must be True&#39;</span>
     <span class="n">_doubling</span><span class="p">,</span> <span class="n">_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_doubling</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span>
     <span class="k">if</span> <span class="n">_dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">_dist</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
       <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
@@ -472,7 +472,7 @@
         <span class="n">v</span> <span class="o">=</span> <span class="n">_doubling</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">v</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">_doubling</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">u</span><span class="p">]</span>
 
-<span class="w">  </span><span class="sd">&#39;&#39;&#39;Return dist(u -- v). / O(logN)&#39;&#39;&#39;</span>
+<span class="w">  </span><span class="sd">&#39;&#39;&#39;Return dist(u - v). / O(logN)&#39;&#39;&#39;</span>
   <span class="k">def</span> <span class="nf">get_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_dist</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -505,23 +505,23 @@
   <span class="k">def</span> <span class="nf">dfs_in_out</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
     <span class="n">curtime</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">]</span>
-    <span class="n">intime</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-    <span class="n">outtime</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-    <span class="n">seen</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-    <span class="n">seen</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">nodein</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="n">nodeout</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_calc_child_parents</span><span class="p">()</span>
+    <span class="n">_G</span><span class="p">,</span> <span class="n">_parents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_G</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span>
     <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
       <span class="n">curtime</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="n">v</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
       <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">intime</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-          <span class="k">if</span> <span class="ow">not</span> <span class="n">seen</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
+        <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">_G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="k">if</span> <span class="n">_parents</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="n">x</span><span class="p">:</span>
             <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">)</span>
             <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">seen</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
       <span class="k">else</span><span class="p">:</span>
-        <span class="n">outtime</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
-    <span class="k">return</span> <span class="n">intime</span><span class="p">,</span> <span class="n">outtime</span>
+        <span class="n">nodeout</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
+    <span class="k">return</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">nodeout</span>
 </pre></div>
 
 </div>
