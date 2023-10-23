@@ -153,9 +153,10 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return end
 
   def reserve(self, n: int) -> None:
-    self.key += [0] * n
-    self.val += [0] * n
-    self.valsize += [0] * n
+    a = [0] * n
+    self.key += a
+    self.val += a
+    self.valsize += a
     a = array('I', bytes(4*n))
     self.left += a
     self.right += a
