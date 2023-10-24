@@ -186,6 +186,7 @@ _____
 
 ### [`WaveletMatrix`](DataStructures/WaveletMatrix/WaveletMatrix_.md)
 
+- [`BITWaveletMatrix`](DataStructures/WaveletMatrix/BITWaveletMatrix.md)
 - [`WaveletMatrix`](DataStructures/WaveletMatrix/WaveletMatrix.md)
 - [`DynamicWaveletMatrix`](DataStructures/WaveletMatrix/DynamicWaveletMatrix.md)
 
