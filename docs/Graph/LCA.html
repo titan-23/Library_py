@@ -65,7 +65,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">&amp;</span><span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">lca_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span>
     <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="n">l</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
       <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodein</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
@@ -162,7 +162,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">&amp;</span><span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">lca_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span>
     <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="n">l</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
       <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodein</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>

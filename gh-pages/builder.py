@@ -12,7 +12,8 @@ import subprocess
 # expand したものを生成
 command_expaned = ["python", "./AllExpander.py"]
 try:
-  result = subprocess.run(command_expaned, capture_output=True, text=True, check=True)
+  result = subprocess.run(command_expaned, stdout=subprocess.PIPE, text=True, check=True)
+  print(result.stdout)
 except subprocess.CalledProcessError as e:
   print('Error: ExpandError')
   print('Try: >>> python AllExpander.py')

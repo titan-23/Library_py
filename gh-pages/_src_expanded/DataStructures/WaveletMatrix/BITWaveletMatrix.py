@@ -484,15 +484,15 @@ class BITWaveletMatrix(WaveletMatrix):
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.mid: array[int] = array('I', bytes(4*self.log))
-    self.xy: List[Tuple[int, int]] = self._zaatsu([(x, y) for x, y, _ in pos])
-    self.y: List[int] = self._zaatsu([y for _, y, _ in pos])
-    self.size = len(self.xy)
-    self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
-    self._build([self._index(self.y, y) for _, y in self.xy])
+    self.xy : List[Tuple[int, int]] = self._zaatsu([(x, y) for x, y, _ in pos])
+    self.y  : List[int] = self._zaatsu([y for _, y, _ in pos])
+    self.size: int = len(self.xy)
+    self.v  : List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
+    self._build([bisect_left(self.y, y) for _, y in self.xy])
     ws = [[0]*self.size for _ in range(self.log)]
     for x, y, w in pos:
-      k = self._index(self.xy, (x, y))
-      i_y = self._index(self.y, y)
+      k = bisect_left(self.xy, (x, y))
+      i_y = bisect_left(self.y, y)
       for bit in range(self.log-1, -1, -1):
         if i_y >> bit & 1:
           k = self.v[bit].rank1(k) + self.mid[bit]
@@ -512,19 +512,16 @@ class BITWaveletMatrix(WaveletMatrix):
       b.append(e)
     return b
 
-  def _index(self, a: List, val) -> int:
-    return bisect_left(a, val)
-
   def add_point(self, x: int, y: int, w: int) -> None:
-    k = self._index(self.xy, (x, y))
-    i_y = self._index(self.y, y)
+    k = bisect_left(self.xy, (x, y))
+    i_y = bisect_left(self.y, y)
     for bit in range(self.log-1, -1, -1):
       if i_y >> bit & 1:
         k = self.v[bit].rank1(k) + self.mid[bit]
       else:
         k = self.v[bit].rank0(k)
       self.bit[bit].add(k, w)
-  
+
   def _sum(self, l: int, r: int, x: int) -> int:
     ans = 0
     for bit in range(self.log-1, -1, -1):
@@ -536,11 +533,11 @@ class BITWaveletMatrix(WaveletMatrix):
       else:
         l, r = l0, r0
     return ans
-  
+
   def sum(self, w1: int, w2: int, h1: int, h2: int) -> int:
     # sum([h1, h2) x [w1, w2))
-    l = self._index(self.xy, (w1, 0))
-    r = self._index(self.xy, (w2, 0))
-    return self._sum(l, r, self._index(self.y, h2)) - self._sum(l, r, self._index(self.y, h1))
+    l = bisect_left(self.xy, (w1, 0))
+    r = bisect_left(self.xy, (w2, 0))
+    return self._sum(l, r, bisect_left(self.y, h2)) - self._sum(l, r, bisect_left(self.y, h1))
 
 

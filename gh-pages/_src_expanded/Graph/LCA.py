@@ -83,7 +83,7 @@ class LCA():
     return self._path[self._st.prod(l, r+1)&self._msk]
 
   def lca_mul(self, a: List[int]) -> int:
-    l = self._n
+    l = self._n*2+1
     r = -l
     for e in a:
       e = self._nodein[e]

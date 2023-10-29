@@ -1,12 +1,6 @@
 from heapq import heapify, heappush, heappop
 from collections import deque
 
-dx = [0, 1, 0, -1]
-dy = [1, 0, -1, 0]
-
-dx = [-1, -1, -1, 0, 0, 1, 1, 1]
-dy = [1, 0, -1, 1, -1, 1, 0, -1]
-
 #########################
 
 def grid_dijkstra(F: list, s: tuple):
@@ -26,18 +20,6 @@ def grid_dijkstra(F: list, s: tuple):
   return dijkstra(G, s)
 
 #########################
-# kiacc
-# 根からの距離distが必要
-
-todo = deque([0])
-while todo:
-  v = todo.popleft()
-  for x in G[v]:
-    if dist[x] > dist[v]:
-      acc_from_root[x] += acc_from_root[v]
-      todo.append(x)
-
-#################
 
 sys.setrecursionlimit(10**6)
 def get_articulation_points(G: list, s: int=0) -> list:
