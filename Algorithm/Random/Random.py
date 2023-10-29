@@ -1,3 +1,5 @@
+from typing import List, Any
+
 class Random():
 
   _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
@@ -31,4 +33,11 @@ class Random():
   def randrange(cls, begin: int, end: int) -> int:
     assert begin < end
     return begin + cls._xor128() % (end - begin)
+  
+  @classmethod
+  def shuffle(cls, a: List[Any]) -> None:
+    n = len(a)
+    for i in range(n-1):
+      j = cls.randrange(i, n)
+      a[i], a[j] = a[j], a[i]
 
