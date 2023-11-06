@@ -36,14 +36,27 @@
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_random</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">com</span> <span class="o">==</span> <span class="s1">&#39;path&#39;</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_path</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">com</span> <span class="o">==</span> <span class="s1">&#39;star&#39;</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_star</span><span class="p">()</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
-  
+
+  <span class="k">def</span> <span class="nf">_build_star</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">edge</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">center</span><span class="p">:</span>
+        <span class="k">continue</span>
+      <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">edge</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">center</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">edge</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">center</span><span class="p">))</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">edge</span>
+
   <span class="k">def</span> <span class="nf">_build_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
     <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
     <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="n">Edge</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-      <span class="n">Edge</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">Edge</span> <span class="o">=</span> <span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
     <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">Edge</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Edge</span>
 
@@ -55,21 +68,6 @@
       <span class="n">v</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
       <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="c1"># start = 0</span>
-    <span class="c1"># for a in A:</span>
-    <span class="c1">#   v = self.n</span>
-    <span class="c1">#   for j in range(start, self.n):</span>
-    <span class="c1">#     if D[j] == 1:</span>
-    <span class="c1">#       v = j</span>
-    <span class="c1">#       break</span>
-    <span class="c1">#     if D[j] &lt; 1 and start == j-1:</span>
-    <span class="c1">#       start = j</span>
-    <span class="c1">#   else:</span>
-    <span class="c1">#     assert False</span>
-    <span class="c1">#   Edge.append((v, a))</span>
-    <span class="c1">#   D[v] -= 1</span>
-    <span class="c1">#   D[a] -= 1</span>
-
     <span class="n">avl</span> <span class="o">=</span> <span class="n">AVLTreeMultiset</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
       <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">pop_min</span><span class="p">()</span>
@@ -867,14 +865,27 @@
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_random</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">com</span> <span class="o">==</span> <span class="s1">&#39;path&#39;</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_path</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">com</span> <span class="o">==</span> <span class="s1">&#39;star&#39;</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_star</span><span class="p">()</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
-  
+
+  <span class="k">def</span> <span class="nf">_build_star</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">edge</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">center</span><span class="p">:</span>
+        <span class="k">continue</span>
+      <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">edge</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">center</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">edge</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">center</span><span class="p">))</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">edge</span>
+
   <span class="k">def</span> <span class="nf">_build_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
     <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
     <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="n">Edge</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-      <span class="n">Edge</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">Edge</span> <span class="o">=</span> <span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
     <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">Edge</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Edge</span>
 
@@ -886,21 +897,6 @@
       <span class="n">v</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
       <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
       <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="c1"># start = 0</span>
-    <span class="c1"># for a in A:</span>
-    <span class="c1">#   v = self.n</span>
-    <span class="c1">#   for j in range(start, self.n):</span>
-    <span class="c1">#     if D[j] == 1:</span>
-    <span class="c1">#       v = j</span>
-    <span class="c1">#       break</span>
-    <span class="c1">#     if D[j] &lt; 1 and start == j-1:</span>
-    <span class="c1">#       start = j</span>
-    <span class="c1">#   else:</span>
-    <span class="c1">#     assert False</span>
-    <span class="c1">#   Edge.append((v, a))</span>
-    <span class="c1">#   D[v] -= 1</span>
-    <span class="c1">#   D[a] -= 1</span>
-
     <span class="n">avl</span> <span class="o">=</span> <span class="n">AVLTreeMultiset</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
       <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">pop_min</span><span class="p">()</span>

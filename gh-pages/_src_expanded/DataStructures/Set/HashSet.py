@@ -32,7 +32,6 @@ class HashSet():
     self._being_rebuild = False
 
   def _rebuild(self) -> None:
-    return
     old_keys, _empty = self._keys, self._empty
     self._keys = [_empty for _ in old_keys]
     self._inner_rebuild(old_keys)
@@ -120,49 +119,18 @@ class HashSet():
 
   def __iter__(self) -> Iterator[int]:
     _empty, _deleted = self._empty, self._deleted
+    cnt = len(self)
     for k in self._keys:
       if k != _empty and k != _deleted:
+        cnt -= 1
         yield k
+      if cnt == 0:
+        return
 
   def __str__(self):
     return '{' + ', '.join(map(str, self)) + '}'
 
   def __len__(self):
     return self._len
-
-#  -----------------------  #
-
-# n = 10**4
-# st = HashSet(range(n))
-# for i in range(n):
-#   assert i in st, f'{i}'
-# exit()
-
-FLAG = True
-
-from time import time
-start = time()
-import sys
-input = lambda: sys.stdin.readline().rstrip()
-
-if FLAG:
-  n = int(input())
-  A = list(map(lambda x: int(x)-1, input().split()))
-else:
-  n = 2*10**5
-  A = list(range(0, n//2)) * 2
-  random.shuffle(A)
-
-st = HashSet(range(n))
-# st = set(range(n))
-for i in range(n):
-  if i in st:
-    st.discard(A[i])
-a = list(st)
-a.sort()
-print(len(a))
-print(' '.join(map(lambda x: str(x+1), a)))
-print(time() - start, file=sys.stderr)
-exit()
 
 

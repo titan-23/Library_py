@@ -777,14 +777,27 @@ class RandomTree():
       return self._build_random()
     if com == 'path':
       return self._build_path()
+    if com == 'star':
+      return self._build_star()
     raise ValueError(com)
-  
+
+  def _build_star(self) -> List[Tuple[int, int]]:
+    center = random.randrange(0, self.n)
+    edge = []
+    for i in range(self.n):
+      if i == center:
+        continue
+      if random.random() < 0.5:
+        edge.append((center, i))
+      else:
+        edge.append((i, center))
+    random.shuffle(edge)
+    return edge
+
   def _build_path(self) -> List[Tuple[int, int]]:
     p = list(range(self.n))
     random.shuffle(p)
-    Edge = []
-    for i in range(self.n-1):
-      Edge.append((p[i], p[i+1]))
+    Edge = [(p[i], p[i+1]) for i in range(self.n-1)]
     random.shuffle(Edge)
     return Edge
 
@@ -796,21 +809,6 @@ class RandomTree():
       v = random.randrange(0, self.n)
       D[v] += 1
       A[i] = v
-    # start = 0
-    # for a in A:
-    #   v = self.n
-    #   for j in range(start, self.n):
-    #     if D[j] == 1:
-    #       v = j
-    #       break
-    #     if D[j] < 1 and start == j-1:
-    #       start = j
-    #   else:
-    #     assert False
-    #   Edge.append((v, a))
-    #   D[v] -= 1
-    #   D[a] -= 1
-
     avl = AVLTreeMultiset((D[i], i) for i in range(self.n))
     for a in A:
       d, v = avl.pop_min()
