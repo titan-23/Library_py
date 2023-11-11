@@ -1,6 +1,11 @@
+'''usage
+python3 expander.py <input_filename> <output_filename>
+'''
+
 import sys
 import pyperclip
 import re
+import io
 import sys
 
 LIB_PATH = 'C:\\Users\\titan\\source'
@@ -35,6 +40,7 @@ def get_code(now_path, input_file, need_class, is_input=False):
     if is_input:
       input_lines += 1
     if line.startswith('from Library_py'):
+      output += f'# {line}'
       _, s, _, *fs = line.split()
       s = s.replace('.', '\\')
       s = f'{LIB_PATH}\\{s}.py'
@@ -53,6 +59,7 @@ def get_code(now_path, input_file, need_class, is_input=False):
         f.close()
         added_file.add(s)
     elif line.startswith('from .'):
+      output += f'# {line}'
       _, s, _, *fs = line.split()
       cnt = 0
       while s and s[0] == '.':
