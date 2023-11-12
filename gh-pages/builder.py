@@ -1,9 +1,9 @@
-'''
+'''txt
 builder.py
 
 事前に適切なブランチからプルする
 
->> python builder.py
+>>> python builder.py
 で AllExpander 、 HTMLMaker を実行
 '''
 
