@@ -1,3 +1,4 @@
+# from Library_py.Math.is_prime import is_prime
 def is_prime64(n: int) -> bool:
   # assert 1 <= n and n <= 1<<64 # = 18446744073709551616
   if n == 1:

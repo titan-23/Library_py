@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.Treap.TreapMultiset import TreapMultiset
+# from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):
@@ -102,6 +105,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)

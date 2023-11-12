@@ -1,3 +1,4 @@
+# from Library_py.Graph.is_bipartite_graph import is_bipartite_graph
 from typing import List
 
 def is_bipartite_graph(G: List[List[int]]) -> bool:

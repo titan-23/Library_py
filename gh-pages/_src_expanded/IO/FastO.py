@@ -1,3 +1,4 @@
+# from Library_py.IO.FastO import FastO
 import os
 from __pypy__.builders import StringBuilder
 

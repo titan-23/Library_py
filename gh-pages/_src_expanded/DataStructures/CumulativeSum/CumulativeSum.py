@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.CumulativeSum.CumulativeSum import CumulativeSum
 from typing import Iterable
 
 class CumulativeSum():

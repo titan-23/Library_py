@@ -1,3 +1,5 @@
+# from Library_py.DataStructures.SegmentTree.SegmentTreeRSQ import SegmentTreeRSQ
+# from Library_py.DataStructures.SegmentTree.SegmentTreeInterface import SegmentTreeInterface
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, Union, Iterable, Callable, List
 T = TypeVar('T')
@@ -54,6 +56,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
   def __repr__(self):
     raise NotImplementedError
   
+# from Library_py.MyClass.SupportsAdd import SupportsAdd
 from typing import Protocol
 
 class SupportsAdd(Protocol):

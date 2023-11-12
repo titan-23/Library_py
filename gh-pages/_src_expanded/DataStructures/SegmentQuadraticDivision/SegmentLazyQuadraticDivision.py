@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.SegmentQuadraticDivision.SegmentLazyQuadraticDivision import SegmentLazyQuadraticDivision
 from typing import Union, Callable, TypeVar, Generic, Iterable, List
 from functools import reduce
 from itertools import chain

@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.ScapegoatTree.ScapegoatTreeMultiset import ScapegoatTreeMultiset
+# from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):
@@ -102,6 +105,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import math
 from __pypy__ import newlist_hint
 from typing import Final, List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional, Iterator

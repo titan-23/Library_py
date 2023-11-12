@@ -1,3 +1,4 @@
+# from Library_py.MyClass.SupportsAdd import SupportsAdd
 from typing import Protocol
 
 class SupportsAdd(Protocol):

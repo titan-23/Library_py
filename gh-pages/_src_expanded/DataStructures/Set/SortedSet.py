@@ -1,5 +1,7 @@
+# from Library_py.DataStructures.Set.SortedSet import SortedSet
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py
 
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):

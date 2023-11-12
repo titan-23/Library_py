@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.FenwickTree.DynamicFenwickTree2D import DynamicFenwickTree2D
 from typing import Dict, List
 
 class DynamicFenwickTree2D():

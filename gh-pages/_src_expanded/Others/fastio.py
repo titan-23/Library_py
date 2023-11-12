@@ -1,3 +1,4 @@
+# from Library_py.Others.FastIO import FastIO
 import io, os
 
 class FastIO():

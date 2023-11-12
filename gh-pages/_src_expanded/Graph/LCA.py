@@ -1,3 +1,6 @@
+# from Library_py.Graph.LCA import LCA
+# from Library_py.DataStructures.SparseTable.SparseTableRmQ import SparseTableRmQ
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):

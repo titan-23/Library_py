@@ -1,3 +1,5 @@
+# from Library_py.Algorithm.Sort.quick_sort import quick_sort
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):

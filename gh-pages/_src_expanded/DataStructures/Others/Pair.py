@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.Others.Pair import Pair
 class Pair():
 
   # pair<unsigned very long, unsigned int>

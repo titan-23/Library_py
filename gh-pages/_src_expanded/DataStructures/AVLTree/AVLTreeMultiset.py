@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.AVLTree.AVLTreeMultiset import AVLTreeMultiset
+# from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):
@@ -102,6 +105,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
 from array import array
 T = TypeVar('T', bound=SupportsLessThan)

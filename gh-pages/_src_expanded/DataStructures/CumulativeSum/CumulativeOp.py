@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.CumulativeSum.CumulativeOp import CumulativeOp
 from typing import Generic, TypeVar, Callable, Iterable
 T = TypeVar('T')
 

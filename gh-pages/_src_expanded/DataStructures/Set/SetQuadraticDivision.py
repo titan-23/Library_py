@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.Set.SetQuadraticDivision import SetQuadraticDivision
 from typing import List
 
 class SetQuadraticDivision():

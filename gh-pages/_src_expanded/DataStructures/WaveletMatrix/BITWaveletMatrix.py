@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.WaveletMatrix.BITWaveletMatrix import BITWaveletMatrix
+# from Library_py.DataStructures.BitVector.BitVector import BitVector
+# from .BitVectorInterface import BitVectorInterface
 from abc import ABC, abstractmethod
 
 class BitVectorInterface(ABC):
@@ -157,6 +160,8 @@ class BitVector(BitVectorInterface):
   def __repr__(self):
     return f'BitVector({self})'
 
+# from Library_py.DataStructures.WaveletMatrix.WaveletMatrix import WaveletMatrix
+# from Library_py.DataStructures.BitVector.BitVector import BitVector
 from typing import Sequence, List, Tuple
 from heapq import heappush, heappop
 from array import array
@@ -349,6 +354,7 @@ class WaveletMatrix():
 
   __repr__ = __str__
 
+# from Library_py.DataStructures.FenwickTree.FenwickTree import FenwickTree
 from typing import List, Union, Iterable, Optional
 
 class FenwickTree():

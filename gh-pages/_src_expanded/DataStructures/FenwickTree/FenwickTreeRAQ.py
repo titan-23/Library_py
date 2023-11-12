@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.FenwickTree.FenwickTreeRAQ import FenwickTreeRAQ
 from typing import List, Iterable, Sequence, Union
 
 class FenwickTreeRAQ():

@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.ScapegoatTree.ScapegoatTreeSet import ScapegoatTreeSet
+# from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):
@@ -94,6 +97,7 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 import math
 from typing import Final, Iterator, List, Sequence, TypeVar, Generic, Iterable, Optional
 from __pypy__ import newlist_hint

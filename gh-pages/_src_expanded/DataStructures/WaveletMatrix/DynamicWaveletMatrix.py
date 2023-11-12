@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.WaveletMatrix.DynamicWaveletMatrix import DynamicWaveletMatrix
+# from Library_py.DataStructures.BitVector.AVLTreeBitVector import AVLTreeBitVector
+# from Library_py.DataStructures.BitVector.BitVectorInterface import BitVectorInterface
 from abc import ABC, abstractmethod
 
 class BitVectorInterface(ABC):
@@ -679,6 +682,9 @@ class AVLTreeBitVector(BitVectorInterface):
   def __repr__(self):
     return f'AVLTreeBitVector({self})'
 
+# from Library_py.DataStructures.WaveletMatrix.WaveletMatrix import WaveletMatrix
+# from Library_py.DataStructures.BitVector.BitVector import BitVector
+# from .BitVectorInterface import BitVectorInterface
 from array import array
 
 class BitVector(BitVectorInterface):

@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.FenwickTree.FenwickTree2D import FenwickTree2D
 from typing import List
 
 class FenwickTree2D():

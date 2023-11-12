@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.SplayTree.SplayTreeSet import SplayTreeSet
+# from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):
@@ -94,6 +97,7 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from array import array
 from __pypy__ import newlist_hint
 from typing import Generic, Iterable, List, TypeVar, Optional

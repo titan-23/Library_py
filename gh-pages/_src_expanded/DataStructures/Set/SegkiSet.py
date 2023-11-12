@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.Set.SegkiSet import SegkiSet
 from typing import Union, Iterable
 
 class SegkiSet:

@@ -1,3 +1,6 @@
+# from Library_py.Graph.HLD.HLDSegmentTree import HLDSegmentTree
+# from Library_py.DataStructures.SegmentTree.SegmentTree import SegmentTree
+# from Library_py.DataStructures.SegmentTree.SegmentTreeInterface import SegmentTreeInterface
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, Union, Iterable, Callable, List
 T = TypeVar('T')
@@ -193,6 +196,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
   def __repr__(self):
     return f'SegmentTree({self})'
 
+# from Library_py.Graph.HLD.HLD import HLD
 from typing import Any, Iterator, List, Tuple
 
 class HLD():

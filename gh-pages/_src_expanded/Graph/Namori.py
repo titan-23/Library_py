@@ -1,3 +1,4 @@
+# from Library_py.Graph.Namori import Namori
 from typing import List
 
 class Namori():

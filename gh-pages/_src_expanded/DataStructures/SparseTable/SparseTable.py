@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.SparseTable.SparseTable import SparseTable
 from typing import Generic, TypeVar, Iterable, Callable, Sequence
 T = TypeVar('T')
 

@@ -1,3 +1,4 @@
+# from Library_py.Others.Int import Int
 import random
 
 class Int(int):

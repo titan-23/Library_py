@@ -1,3 +1,4 @@
+# from Library_py.String.HashString import HashString
 import random
 
 # HashString_MOD = 2**61-1  # MODはglobalにとる

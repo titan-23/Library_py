@@ -1,3 +1,4 @@
+# from Library_py.Math.ModComb import ModComb
 class ModComb():
 
   # nCr2のみをつかうときなどは、limit=-1とかにすると吉

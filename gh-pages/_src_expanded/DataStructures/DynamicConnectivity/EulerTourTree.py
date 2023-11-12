@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.DynamicConnectivity.EulerTourTree import EulerTourTree
 from typing import Generator, Generic, TypeVar, Callable, Iterable, Optional, Union, Tuple, List, Dict
 from types import GeneratorType
 T = TypeVar('T')

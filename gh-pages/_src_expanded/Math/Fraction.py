@@ -1,3 +1,4 @@
+# from Library_py.Math.Fraction import Fraction
 from typing import Union
 from math import gcd
 

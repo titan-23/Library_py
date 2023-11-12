@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.SegmentTree.SegmentTreeInterface import SegmentTreeInterface
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, Union, Iterable, Callable, List
 T = TypeVar('T')

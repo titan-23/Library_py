@@ -1,3 +1,4 @@
+# from Library_py.DataStructures.Set.FenwickTreeSetFast import FenwickTreeSetFast
 from typing import Union, List, Iterable, Optional
 
 class FenwickTreeSetFast():

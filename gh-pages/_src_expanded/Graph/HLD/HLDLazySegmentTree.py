@@ -1,3 +1,5 @@
+# from Library_py.Graph.HLD.HLDLazySegmentTree import HLDLazySegmentTree
+# from Library_py.DataStructures.SegmentTree.LazySegmentTree import LazySegmentTree
 from typing import Union, Callable, List, TypeVar, Generic, Iterable
 T = TypeVar('T')
 F = TypeVar('F')
@@ -205,6 +207,7 @@ class LazySegmentTree(Generic[T, F]):
   def __repr__(self):
     return f'LazySegmentTree({self})'
 
+# from Library_py.Graph.HLD.HLD import HLD
 from typing import Any, Iterator, List, Tuple
 
 class HLD():

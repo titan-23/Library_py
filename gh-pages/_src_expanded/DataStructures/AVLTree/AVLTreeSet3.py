@@ -1,3 +1,6 @@
+# from Library_py.DataStructures.AVLTree.AVLTreeSet3 import AVLTreeSet3
+# from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
 class SupportsLessThan(Protocol):
@@ -94,6 +97,7 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
 T = TypeVar('T', bound=SupportsLessThan)
 
