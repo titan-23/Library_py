@@ -4,14 +4,14 @@ F = TypeVar('F')
 
 class LazyAVLTree(Generic[T, F]):
 
-  class Node:
+  class Node():
 
-    def __init__(self, key: T):
+    def __init__(self, key: T, id: F):
       self.key: T = key
       self.data: T = key
       self.left: Optional[LazyAVLTree.Node] = None
       self.right: Optional[LazyAVLTree.Node] = None
-      self.lazy: Optional[F] = None
+      self.lazy: F = id
       self.rev: int = 0
       self.height: int = 1
       self.size: int = 1
@@ -21,68 +21,72 @@ class LazyAVLTree(Generic[T, F]):
         return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev}\n'
       return f'key:{self.key, self.height, self.size, self.data, self.lazy, self.rev},\n left:{self.left},\n right:{self.right}\n'
 
-  def __init__(self, a: Iterable[T]=[], op: Callable[[T, T], T]=lambda x,y:None, mapping: Callable[[F, T], T]=None, composition: Callable[[F, F], F]=None, e: T=None, id: F=None, node: Node=None) -> None:
-    self.node = node
-    self.op = op
-    self.mapping = mapping
-    self.composition = composition
-    self.e = e
-    self.id = id
+  def __init__(self,
+               a: Iterable[T],
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F,
+               node: Node=None,
+               ) -> None:
+    self.root: Optional[Node] = node
+    self.op: Callable[[T, T], T] = op
+    self.mapping: Callable[[F, T], T] = mapping
+    self.composition: Callable[[F, F], F] = composition
+    self.e: T = e
+    self.id: F = id
+    a = list(a)
     if a:
-      self._build(list(a))
+      self._build(a)
 
   def _build(self, a: List[T]) -> None:
     Node = LazyAVLTree.Node
+    id = self.id
     def sort(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid])
+      node = Node(a[mid], id)
       if l != mid:
         node.left = sort(l, mid)
       if mid+1 != r:
         node.right = sort(mid+1, r)
       self._update(node)
       return node
-    self.node = sort(0, len(a))
+    self.root = sort(0, len(a))
 
   def _propagate(self, node: Node) -> None:
+    l, r = node.left, node.right
     if node.rev:
-      node.left, node.right = node.right, node.left
-      if node.left is not None:
-        node.left.rev ^= 1
-      if node.right is not None:
-        node.right.rev ^= 1
+      node.left, node.right = r, l
+      if l:
+        l.rev ^= 1
+      if r:
+        r.rev ^= 1
       node.rev = 0
-    if node.lazy is not None:
+    if node.lazy != self.id:
       lazy = node.lazy
-      if node.left is not None:
-        node.left.data = self.mapping(lazy, node.left.data)
-        node.left.key = self.mapping(lazy, node.left.key)
-        node.left.lazy = lazy if node.left.lazy is None else self.composition(lazy, node.left.lazy)
-      if node.right is not None:
-        node.right.data = self.mapping(lazy, node.right.data)
-        node.right.key = self.mapping(lazy, node.right.key)
-        node.right.lazy = lazy if node.right.lazy is None else self.composition(lazy, node.right.lazy)
-      node.lazy = None
+      if l:
+        l.data = self.mapping(lazy, l.data)
+        l.key = self.mapping(lazy, l.key)
+        l.lazy = lazy if l.lazy == self.id else self.composition(lazy, l.lazy)
+      if r:
+        r.data = self.mapping(lazy, r.data)
+        r.key = self.mapping(lazy, r.key)
+        r.lazy = lazy if r.lazy == self.id else self.composition(lazy, r.lazy)
+      node.lazy = self.id
 
   def _update(self, node: Node) -> None:
-    if node.left is None:
-      if node.right is None:
-        node.size = 1
-        node.data = node.key
-        node.height = 1
-      else:
-        node.size = 1 + node.right.size
-        node.data = self.op(node.key, node.right.data)
-        node.height = node.right.height+1
-    else:
-      if node.right is None:
-        node.size = 1 + node.left.size
-        node.data = self.op(node.left.data, node.key)
-        node.height = node.left.height+1
-      else:
-        node.size = 1 + node.left.size + node.right.size
-        node.data = self.op(self.op(node.left.data, node.key), node.right.data)
-        node.height = node.left.height+1 if node.left.height > node.right.height else node.right.height+1
+    node.size = 1
+    node.data = node.key
+    node.height = 1
+    if node.left:
+      node.size += node.left.size
+      node.data = self.op(node.left.data, node.data)
+      node.height = max(node.left.height+1, 1)
+    if node.right:
+      node.size += node.right.size
+      node.data = self.op(node.data, node.right.data)
+      node.height = max(node.height, node.right.height+1)
 
   def _get_balance(self, node: Node) -> int:
     return (0 if node.right is None else -node.right.height) if node.left is None else (node.left.height if node.right is None else node.left.height-node.right.height)
@@ -124,8 +128,8 @@ class LazyAVLTree(Generic[T, F]):
     return u
 
   def _kth_elm(self, k: int) -> T:
-    if k < 0: k += self.__len__()
-    node = self.node
+    if k < 0: k += len(self)
+    node = self.root
     while True:
       self._propagate(node)
       t = 0 if node.left is None else node.left.size
@@ -166,13 +170,13 @@ class LazyAVLTree(Generic[T, F]):
     return self._merge_with_root(l, tmp, r)
 
   def merge(self, other: 'LazyAVLTree') -> None:
-    self.node = self._merge_node(self.node, other.node)
+    self.root = self._merge_node(self.root, other.node)
 
   def _pop_max(self, node: Node) -> Tuple[Node, Node]:
     self._propagate(node)
     path = []
     mx = node
-    while node.right is not None:
+    while node.right:
       path.append(node)
       mx = node.right
       node = node.right
@@ -187,7 +191,7 @@ class LazyAVLTree(Generic[T, F]):
       b = self._get_balance(node)
       path[-1].right = self._balance_left(node) if b == 2 else self._balance_right(node) if b == -2 else node
       self._update(path[-1])
-    if path[0] is not None:
+    if path[0]:
       b = self._get_balance(path[0])
       path[0] = self._balance_left(path[0]) if b == 2 else self._balance_right(path[0]) if b == -2 else path[0]
     mx.left = None
@@ -195,7 +199,7 @@ class LazyAVLTree(Generic[T, F]):
     return path[0], mx
 
   def _split_node(self, node: Node, k: int) -> Tuple[Node, Node]:
-    if node is None: return None, None
+    if not node: return None, None
     self._propagate(node)
     tmp = k if node.left is None else k-node.left.size
     if tmp == 0:
@@ -208,58 +212,84 @@ class LazyAVLTree(Generic[T, F]):
       return self._merge_with_root(node.left, node, s), t
 
   def split(self, k: int) -> Tuple['LazyAVLTree', 'LazyAVLTree']:
-    l, r = self._split_node(self.node, k)
+    l, r = self._split_node(self.root, k)
     return LazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, l), LazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, r)
 
   def insert(self, k: int, key: T) -> None:
-    s, t = self._split_node(self.node, k)
-    self.node = self._merge_with_root(s, LazyAVLTree.Node(key), t)
+    s, t = self._split_node(self.root, k)
+    self.root = self._merge_with_root(s, LazyAVLTree.Node(key, self.id), t)
 
   def pop(self, k: int) -> T:
-    s, t = self._split_node(self.node, k+1)
+    s, t = self._split_node(self.root, k+1)
     s, tmp = self._pop_max(s)
-    self.node = self._merge_node(s, t)
+    self.root = self._merge_node(s, t)
     return tmp.key
 
   def apply(self, l: int, r: int, f: F) -> None:
-    if l >= r: return
-    s, t = self._split_node(self.node, r)
-    r, s = self._split_node(s, l)
-    s.key = self.mapping(f, s.key)
-    s.data = self.mapping(f, s.data)
-    s.lazy = f if s.lazy is None else self.composition(f, s.lazy)
-    self.node = self._merge_node(self._merge_node(r, s), t)
+    if l >= r or (not self.root): return
+    stack = [(self.root), (self.root, 0, len(self))]
+    while stack:
+      if isinstance(stack[-1], tuple):
+        node, left, right = stack.pop()
+        if right <= l or r <= left: continue
+        self._propagate(node)
+        if l <= left and right < r:
+          node.key = self.mapping(f, node.key)
+          node.data = self.mapping(f, node.data)
+          node.lazy = f if node.lazy == self.id else self.composition(f, node.lazy)
+        else:
+          lsize = node.left.size if node.left else 0
+          stack.append(node)
+          if node.left:
+            stack.append((node.left, left, left+lsize))
+          if l <= left+lsize < r:
+            node.key = self.mapping(f, node.key)
+          if node.right:
+            stack.append((node.right, left+lsize+1, right))
+      else:
+        self._update(stack.pop())
 
   def all_apply(self, f: F) -> None:
-    if self.node is None: return
-    self.node.key = self.mapping(f, self.node.key)
-    self.node.data = self.mapping(f, self.node.data)
-    self.node.lazy = f if self.node.lazy is None else self.composition(f, self.node.lazy)
+    if not self.root: return
+    self.root.key = self.mapping(f, self.root.key)
+    self.root.data = self.mapping(f, self.root.data)
+    self.root.lazy = f if self.root.lazy == self.id else self.composition(f, self.root.lazy)
 
   def reverse(self, l: int, r: int) -> None:
     if l >= r: return
-    s, t = self._split_node(self.node, r)
+    s, t = self._split_node(self.root, r)
     r, s = self._split_node(s, l)
     s.rev ^= 1
-    self.node = self._merge_node(self._merge_node(r, s), t)
+    self.root = self._merge_node(self._merge_node(r, s), t)
 
   def all_reverse(self) -> None:
-    if self.node is None: return
-    self.node.rev ^= 1
+    if self.root is None: return
+    self.root.rev ^= 1
 
   def prod(self, l: int, r: int) -> T:
-    if l >= r: return self.e
-    s, t = self._split_node(self.node, r)
-    r, s = self._split_node(s, l)
-    res = s.data
-    self.node = self._merge_node(self._merge_node(r, s), t)
-    return res
+    if l >= r or (not self.root): return self.e
+    def dfs(node: LazyAVLTree.Node, left: int, right: int) -> T:
+      if right <= l or r <= left:
+        return self.e
+      self._propagate(node)
+      if l <= left and right < r:
+        return node.data
+      lsize = node.left.size if node.left else 0
+      res = self.e
+      if node.left:
+        res = dfs(node.left, left, left+lsize)
+      if l <= left+lsize < r:
+        res = self.op(res, node.key)
+      if node.right:
+        res = self.op(res, dfs(node.right, left+lsize+1, right))
+      return res
+    return dfs(self.root, 0, len(self))
 
   def all_prod(self) -> T:
-    return self.e if self.node is None else self.node.data
+    return self.root.data if self.root else self.e
 
   def clear(self) -> None:
-    self.node = None
+    self.root = None
 
   def tolist(self) -> List[T]:
     node = self.root
@@ -277,7 +307,7 @@ class LazyAVLTree(Generic[T, F]):
     return a
 
   def __len__(self):
-    return 0 if self.node is None else self.node.size
+    return 0 if self.root is None else self.root.size
 
   def __iter__(self):
     self.__iter = 0
@@ -286,23 +316,23 @@ class LazyAVLTree(Generic[T, F]):
   def __next__(self):
     if self.__iter == len(self):
       raise StopIteration
-    res = self.__getitem__(self.__iter)
+    res = self[self.__iter]
     self.__iter += 1
     return res
 
   def __reversed__(self):
     for i in range(len(self)):
-      yield self.__getitem__(-i-1)
+      yield self[-i-1]
 
   def __bool__(self):
-    return self.node is not None
+    return self.root is not None
 
   def __getitem__(self, k: int) -> T:
     return self._kth_elm(k)
 
   def __setitem__(self, k, key: T):
-    if k < 0: k += self.__len__()
-    node = self.node
+    if k < 0: k += len(self)
+    node = self.root
     path = []
     while True:
       self._propagate(node)
@@ -311,17 +341,17 @@ class LazyAVLTree(Generic[T, F]):
       if t == k:
         node.key = key
         break
-      elif t < k:
+      if t < k:
         k -= t + 1
         node = node.right
       else:
         node = node.left
-    for p in path:
-      self._update(p)
+    while path:
+      self._update(path.pop())
 
   def __str__(self):
     return '[' + ', '.join(map(str, self.tolist())) + ']'
 
   def __repr__(self):
-    return 'LazyAVLTree(' + str(self) + ')'
+    return f'LazyAVLTree({self})'
 
