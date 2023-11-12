@@ -1,3 +1,4 @@
+# from Library_py.Algorithm.Permutation import Permutation
 from typing import List, Any
 
 class Permutation():
@@ -37,4 +38,5 @@ class Permutation():
               q -= 1
             return True
     return False
+
 

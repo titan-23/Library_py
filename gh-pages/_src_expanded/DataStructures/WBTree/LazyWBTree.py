@@ -311,6 +311,25 @@ class LazyWBTree(Generic[T, F]):
   def __getitem__(self, k: int) -> T:
     return self._kth_elm(k)
 
+  def __setitem__(self, k, key: T):
+    if k < 0: k += self.__len__()
+    node = self.root
+    path = []
+    while True:
+      self._propagate(node)
+      path.append(node)
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        node.key = key
+        break
+      if t < k:
+        k -= t + 1
+        node = node.right
+      else:
+        node = node.left
+    while path:
+      self._update(path.pop())
+
   def __len__(self):
     return 0 if self.root is None else self.root.size
 

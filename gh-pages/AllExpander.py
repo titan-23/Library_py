@@ -6,6 +6,7 @@ F = ['Algorithm', 'DataStructures', 'Graph', 'IO', 'Math', 'MyClass', 'Others', 
 for f in F:
   for root, dirs, files in os.walk(f"..\\..\\Library_py\\{f}\\"):
     for filename in files:
+      print(f'{filename=}')
       filename = str(filename)
       if filename.endswith('.py'):
         input_path = os.path.join(root, filename)
