@@ -1,12 +1,12 @@
 _____
 
-# `permutation`
+# `Permutation`
 
 _____
 
 ## コード
 
-[`permutation`](https://github.com/titan-23/Library_py/blob/main/Algorithm/Permutation.py)
+[`Permutation`](https://github.com/titan-23/Library_py/blob/main/Algorithm/Permutation.py)
 <!-- code=https://github.com/titan-23/Library_py/blob/main/Algorithm\Permutation.py -->
 
 _____
