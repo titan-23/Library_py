@@ -28,7 +28,7 @@ _____
 
 ### [`Doubling`](Algorithm/Doubling.md)
 
-### [`permutation`](Algorithm/permutation.md)
+### [`Permutation`](Algorithm/Permutation.md)
 
 _____
 
