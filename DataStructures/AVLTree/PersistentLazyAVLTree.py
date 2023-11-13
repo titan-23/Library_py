@@ -96,24 +96,17 @@ class PersistentLazyAVLTree(Generic[T, F]):
         node.right = r
 
   def _update(self, node: Node) -> None:
+    node.size = 1
+    node.data = node.key
+    node.height = 1
     if node.left:
-      if node.right:
-        node.size = 1 + node.left.size + node.right.size
-        node.data = self.op(self.op(node.left.data, node.key), node.right.data)
-        node.height = node.left.height+1 if node.left.height > node.right.height else node.right.height+1
-      else:
-        node.size = 1 + node.left.size
-        node.data = self.op(node.left.data, node.key)
-        node.height = node.left.height+1
-    else:
-      if node.right:
-        node.size = 1 + node.right.size
-        node.data = self.op(node.key, node.right.data)
-        node.height = node.right.height+1
-      else:
-        node.size = 1
-        node.data = node.key
-        node.height = 1
+      node.size += node.left.size
+      node.data = self.op(node.left.data, node.data)
+      node.height = max(node.left.height+1, 1)
+    if node.right:
+      node.size += node.right.size
+      node.data = self.op(node.data, node.right.data)
+      node.height = max(node.height, node.right.height+1)
 
   def _rotate_right(self, node: Node) -> Node:
     assert node.left
@@ -278,25 +271,54 @@ class PersistentLazyAVLTree(Generic[T, F]):
     return PersistentLazyAVLTree([], self.op, self.mapping, self.composition, self.e, self.id, root)
 
   def apply(self, l: int, r: int, f: F) -> 'PersistentLazyAVLTree':
-    if l >= r:
+    if l >= r or (not self.root):
       return self._new(self.root.copy() if self.root else None)
-    s, t = self._split_node(self.root, r)
-    u, s = self._split_node(s, l)
-    assert s
-    s.key = self.mapping(f, s.key)
-    s.data = self.mapping(f, s.data)
-    s.lazy = self.composition(f, s.lazy)
-    root = self._merge_node(self._merge_node(u, s), t)
+    root = self.root.copy()
+    stack = [(root), (root, 0, len(self))]
+    while stack:
+      if isinstance(stack[-1], tuple):
+        node, left, right = stack.pop()
+        if right <= l or r <= left: continue
+        self._propagate(node)
+        if l <= left and right < r:
+          node.key = self.mapping(f, node.key)
+          node.data = self.mapping(f, node.data)
+          node.lazy = f if node.lazy == self.id else self.composition(f, node.lazy)
+        else:
+          lsize = node.left.size if node.left else 0
+          stack.append(node)
+          if node.left:
+            left_copy = node.left.copy()
+            node.left = left_copy
+            stack.append((left_copy, left, left+lsize))
+          if l <= left+lsize < r:
+            node.key = self.mapping(f, node.key)
+          if node.right:
+            r_copy = node.right.copy()
+            node.right = r_copy
+            stack.append((r_copy, left+lsize+1, right))
+      else:
+        self._update(stack.pop())
     return self._new(root)
 
   def prod(self, l: int, r) -> T:
-    if l >= r: return self.e
-    s, t = self._split_node(self.root, r)
-    u, s = self._split_node(s, l)
-    assert s
-    res = s.data
-    self.root = self._merge_node(self._merge_node(u, s), t)
-    return res
+    if l >= r or (not self.root): return self.e
+    def dfs(node: PersistentLazyAVLTree.Node, left: int, right: int) -> T:
+      if right <= l or r <= left:
+        return self.e
+      self._propagate(node)
+      if l <= left and right < r:
+        return node.data
+      lsize = node.left.size if node.left else 0
+      res = self.e
+      if node.left:
+        res = dfs(node.left, left, left+lsize)
+      if l <= left+lsize < r:
+        res = self.op(res, node.key)
+      if node.right:
+        res = self.op(res, dfs(node.right, left+lsize+1, right))
+      return res
+    return dfs(self.root, 0, len(self))
 
   def insert(self, k: int, key: T) -> 'PersistentLazyAVLTree':
     s, t = self._split_node(self.root, k)

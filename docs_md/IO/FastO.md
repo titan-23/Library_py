@@ -18,11 +18,21 @@ _____
 
 ## 仕様
 
-あとで書く
+#### `FastO.write(*args, sep: str=' ', end: str='\n', flush: bool=False)`
+標準出力します。次の`FastO.flush()`が起きるとprintします。
+
+#### `FastO.flush()`
+flushします。これを実行しないとwriteした内容が表示されないので忘れないでください。
 
 _____
 
 ## 使用例
 
 ```python
+from Library_py.IO.FastO import FastO
+write, flush = FastO.write, FastO.flush
+
+for i in range(10):
+  write(i)
+flush()
 ```

@@ -30,7 +30,7 @@ class LazyAVLTree(Generic[T, F]):
                id: F,
                node: Node=None,
                ) -> None:
-    self.root: Optional[Node] = node
+    self.root: Optional[LazyAVLTree.Node] = node
     self.op: Callable[[T, T], T] = op
     self.mapping: Callable[[F, T], T] = mapping
     self.composition: Callable[[F, F], F] = composition
