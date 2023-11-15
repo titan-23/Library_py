@@ -40,11 +40,11 @@ def get_code(now_path, input_file, need_class, is_input=False):
     if is_input:
       input_lines += 1
     if line.startswith('from Library_py'):
-      output += f'# {line}'
       _, s, _, *fs = line.split()
       s = s.replace('.', '\\')
       s = f'{LIB_PATH}\\{s}.py'
       if s not in added_file:
+        output += f'# {line}'
         try:
           f = open(s, 'r', encoding='utf-8')
         except FileNotFoundError:

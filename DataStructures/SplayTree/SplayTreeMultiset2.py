@@ -153,14 +153,14 @@ class SplayTreeMultiset2(Generic[T]):
     self._len += val
     if self.node is None:
       self._len_elm += 1
-      self.node = Node(key, val)
+      self.node = SplayTreeMultiset2.Node(key, val)
       return
     self._set_search_splay(key)
     if self.node.key == key:
       self.node.val += val
       return
     self._len_elm += 1
-    node = Node(key, val)
+    node = SplayTreeMultiset2.Node(key, val)
     if key < self.node.key:
       node.left = self.node.left
       node.right = self.node

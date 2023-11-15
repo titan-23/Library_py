@@ -1,5 +1,5 @@
 from math import sqrt
-from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple, Final
+from typing import Generic, Iterable, Optional, Union, TypeVar, Callable, List, Tuple, Final
 T = TypeVar('T')
 F = TypeVar('F')
 
@@ -260,25 +260,54 @@ class PersistentLazyWBTree(Generic[T, F]):
     return PersistentLazyWBTree([], self.op, self.mapping, self.composition, self.e, self.id, root)
 
   def apply(self, l: int, r: int, f: F) -> 'PersistentLazyWBTree[T, F]':
-    if l >= r:
+    if l >= r or (not self.root):
       return self._new(self.root.copy() if self.root else None)
-    s, t = self._split_node(self.root, r)
-    u, s = self._split_node(s, l)
-    assert s
-    s.key = self.mapping(f, s.key)
-    s.data = self.mapping(f, s.data)
-    s.lazy = self.composition(f, s.lazy)
-    root = self._merge_node(self._merge_node(u, s), t)
+    root = self.root.copy()
+    stack: List[Union[PersistentLazyWBTree.Node, Tuple[PersistentLazyWBTree.Node, int, int]]] = [(root), (root, 0, len(self))]
+    while stack:
+      if isinstance(stack[-1], tuple):
+        node, left, right = stack.pop()
+        if right <= l or r <= left: continue
+        self._propagate(node)
+        if l <= left and right < r:
+          node.key = self.mapping(f, node.key)
+          node.data = self.mapping(f, node.data)
+          node.lazy = f if node.lazy == self.id else self.composition(f, node.lazy)
+        else:
+          lsize = node.left.size if node.left else 0
+          stack.append(node)
+          if node.left:
+            left_copy = node.left.copy()
+            node.left = left_copy
+            stack.append((left_copy, left, left+lsize))
+          if l <= left+lsize < r:
+            node.key = self.mapping(f, node.key)
+          if node.right:
+            r_copy = node.right.copy()
+            node.right = r_copy
+            stack.append((r_copy, left+lsize+1, right))
+      else:
+        self._update(stack.pop())
     return self._new(root)
 
   def prod(self, l: int, r) -> T:
-    if l >= r: return self.e
-    s, t = self._split_node(self.root, r)
-    u, s = self._split_node(s, l)
-    assert s
-    res = s.data
-    self.root = self._merge_node(self._merge_node(u, s), t)
-    return res
+    if l >= r or (not self.root): return self.e
+    def dfs(node: PersistentLazyWBTree.Node, left: int, right: int) -> T:
+      if right <= l or r <= left:
+        return self.e
+      self._propagate(node)
+      if l <= left and right < r:
+        return node.data
+      lsize = node.left.size if node.left else 0
+      res = self.e
+      if node.left:
+        res = dfs(node.left, left, left+lsize)
+      if l <= left+lsize < r:
+        res = self.op(res, node.key)
+      if node.right:
+        res = self.op(res, dfs(node.right, left+lsize+1, right))
+      return res
+    return dfs(self.root, 0, len(self))
 
   def insert(self, k: int, key: T) -> 'PersistentLazyWBTree[T, F]':
     s, t = self._split_node(self.root, k)
@@ -406,13 +435,3 @@ class PersistentLazyWBTree(Generic[T, F]):
     _, h = rec(self.root)
     # print(f'isok.ok., height={h}')
 
-op = lambda s, t: 0
-mapping = lambda f, s: 0
-composition = lambda f, g: 0
-e = 0
-id = 0
-wb = PersistentLazyWBTree([], op, mapping, composition, e, id)
-wb = wb.insert(0, 0)
-wb = wb.insert(1, 1)
-wb = wb.insert(2, 2)
-print(wb)

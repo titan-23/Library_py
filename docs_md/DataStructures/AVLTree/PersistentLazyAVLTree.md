@@ -66,7 +66,7 @@ _____
 
 ## 使用例
 
-[グラフではない](https://atcoder.jp/contests/arc030/submissions/45758203)
+[ARC030-D グラフではない](https://atcoder.jp/contests/arc030/submissions/47543499)
 
 ```python
 op = lambda s, t: (s[0]+t[0], s[1]+t[1])
