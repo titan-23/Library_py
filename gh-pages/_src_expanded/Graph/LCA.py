@@ -13,7 +13,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 class SparseTableRmQ(Generic[T]):
 
   def __init__(self, a: Iterable[T], e: T):
-    if not isinstance(a, Sequence):
+    if not isinstance(a, list):
       a = list(a)
     self.size = len(a)
     log = self.size.bit_length()-1
@@ -47,55 +47,48 @@ from typing import List
 
 class LCA():
 
-  def __init__(self, G: List[List[int]], root: int):
+  # < O(NlogN), O(1) >
+  # https://github.com/cheran-senthil/PyRival/blob/master/pyrival/graphs/lca.py
+
+  def __init__(self, G: List[List[int]], root: int) -> None:
     _n = len(G)
-    bit = _n.bit_length() + 1
-    msk = (1 << bit) - 1
-    path = [-1] * (2*_n)
-    depth = [-1] * _n
+    path = [-1] * (_n-1)
     nodein = [-1] * _n
+    par = [-1] * _n
     curtime = -1
-    depth[root] = 0
-    stack = [~root, root]
+    stack = [root]
     while stack:
-      curtime += 1
       v = stack.pop()
-      if v >= 0:
-        nodein[v] = curtime
-        path[curtime] = v
-        for x in G[v]:
-          if depth[x] != -1:
-            continue
-          depth[x] = depth[v] + 1
-          stack.append(~v)
-          stack.append(x)
-      else:
-        path[curtime] = ~v
+      path[curtime] = par[v]
+      curtime += 1
+      nodein[v] = curtime
+      for x in G[v]:
+        if nodein[x] != -1:
+          continue
+        par[x] = v
+        stack.append(x)
     self._n = _n
     self._path = path
     self._nodein = nodein
-    self._depth = depth
-    self._msk = msk
-    a: List[int] = [(depth[v]<<bit)+i for i, v in enumerate(path)]
-    self._st: SparseTableRmQ = SparseTableRmQ(a, e=max(a))
+    self._st: SparseTableRmQ[int] = SparseTableRmQ((nodein[v] for v in path), e=_n)
 
   def lca(self, u: int, v: int) -> int:
+    if u == v:
+      return u
     l, r = self._nodein[u], self._nodein[v]
     if l > r:
       l, r = r, l
-    return self._path[self._st.prod(l, r+1)&self._msk]
+    return self._path[self._st.prod(l, r)]
 
   def lca_mul(self, a: List[int]) -> int:
-    l = self._n*2+1
+    if all(a[i] == a[i+1] for i in range(len(a)-1)):
+      return a[0]
+    l = self._n+1
     r = -l
     for e in a:
       e = self._nodein[e]
       if l > e: l = e
       if r < e: r = e
-    return self._path[self._st.prod(l, r+1)&self._msk]
-
-  def dist(self, u: int, v: int) -> int:
-    # assert all costs are 1.
-    return self._depth[self._nodein[u]] + self._depth[self._nodein[v]] - 2*self._depth[self._nodein[self.lca(u, v)]]
+    return self._path[self._st.prod(l, r)]
 
 
