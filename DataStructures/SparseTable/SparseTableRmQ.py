@@ -5,7 +5,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 class SparseTableRmQ(Generic[T]):
 
   def __init__(self, a: Iterable[T], e: T):
-    if not isinstance(a, Sequence):
+    if not isinstance(a, list):
       a = list(a)
     self.size = len(a)
     log = self.size.bit_length()-1

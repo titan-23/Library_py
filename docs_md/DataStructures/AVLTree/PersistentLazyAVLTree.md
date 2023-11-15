@@ -57,7 +57,7 @@ _____
 
 #### `avl[k: int] -> T`
 
-- 時間 `O(logN)` 、空間 `O(1)` です。
+- 時間・空間共に `O(logN)` です。
 
 #### `len(avl) / str(avl) / repr(avl)`
 
@@ -69,6 +69,8 @@ _____
 [ARC030-D グラフではない](https://atcoder.jp/contests/arc030/submissions/47543499)
 
 ```python
+from Library_py.DataStructures.AVLTree.PersistentLazyAVLTree import PersistentLazyAVLTree
+
 op = lambda s, t: (s[0]+t[0], s[1]+t[1])
 mapping = lambda f, s: (s[0] + f * s[1], s[1])
 composition = lambda f, g: f + g

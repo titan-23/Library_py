@@ -22,4 +22,5 @@ _____
 ## 使用例
 
 ```python
+from Library_py.DataStructures.AVLTree.LazyAVLTree import LazyAVLTree
 ```
