@@ -97,7 +97,6 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
-# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
 T = TypeVar('T', bound=SupportsLessThan)
 

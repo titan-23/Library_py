@@ -7,7 +7,6 @@ class SupportsLessThan(Protocol):
   def __lt__(self, other) -> bool: ...
 
 # from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
-# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from abc import ABC, abstractmethod
 from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
 T = TypeVar('T', bound=SupportsLessThan)
@@ -428,12 +427,14 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
   def pop_max(self) -> T:
     assert self.root, 'IndexError: pop_max() from empty SplayTreeSetTopDown'
+    self.len -= 1
     node = self._get_max_splay(self.root)
     self.root = self.child[node<<1]
     return self.keys[node]
 
   def pop_min(self) -> T:
     assert self.root, 'IndexError: pop_min() from empty SplayTreeSetTopDown'
+    self.len -= 1
     node = self._get_min_splay(self.root)
     self.root = self.child[node<<1|1]
     return self.keys[node]

@@ -161,7 +161,6 @@ class BitVector(BitVectorInterface):
     return f'BitVector({self})'
 
 # from Library_py.DataStructures.WaveletMatrix.WaveletMatrix import WaveletMatrix
-# from Library_py.DataStructures.BitVector.BitVector import BitVector
 from typing import Sequence, List, Tuple
 from heapq import heappush, heappop
 from array import array

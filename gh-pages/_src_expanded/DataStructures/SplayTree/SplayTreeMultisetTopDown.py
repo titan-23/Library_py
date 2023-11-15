@@ -1,5 +1,4 @@
-# from Library_py.DataStructures.Set.MexMultiset import MexMultiset
-# from Library_py.DataStructures.SplayTree.SplayTreeSetTopDown import SplayTreeSetTopDown
+# from Library_py.DataStructures.SplayTree.SplayTreeMultisetTopDown import SplayTreeMultisetTopDown
 # from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Protocol
 
@@ -7,27 +6,35 @@ class SupportsLessThan(Protocol):
 
   def __lt__(self, other) -> bool: ...
 
-# from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+# from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from abc import ABC, abstractmethod
 from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
 T = TypeVar('T', bound=SupportsLessThan)
 
-class OrderedSetInterface(ABC, Generic[T]):
+class OrderedMultisetInterface(ABC, Generic[T]):
 
   @abstractmethod
   def __init__(self, a: Iterable[T]) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def add(self, key: T) -> bool:
+  def add(self, key: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def discard(self, key: T) -> bool:
+  def discard(self, key: T, cnt: int) -> bool:
     raise NotImplementedError
 
   @abstractmethod
-  def remove(self, key: T) -> None:
+  def discard_all(self, key: T) -> bool:
+    raise NotImplementedError
+
+  @abstractmethod
+  def count(self, key: T) -> int:
+    raise NotImplementedError
+
+  @abstractmethod
+  def remove(self, key: T, cnt: int) -> None:
     raise NotImplementedError
 
   @abstractmethod
@@ -99,13 +106,15 @@ class OrderedSetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
 from array import array
-from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
+from typing import Optional, Generic, Iterable, List, Sequence, TypeVar, Tuple
+from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
 
-class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
+class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[], e: T=0):
     self.keys: List[T] = [e]
+    self.vals: List[int] = [0]
     self.child = array('I', bytes(8))
     self.end: int = 1
     self.root: int = 0
@@ -116,6 +125,21 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     if a:
       self._build(a)
 
+  def _rle(self, a: Sequence[T]) -> Tuple[List[T], List[int]]:
+    x = newlist_hint(len(a))
+    y = newlist_hint(len(a))
+    x.append(a[0])
+    y.append(1)
+    for i, e in enumerate(a):
+      if i == 0:
+        continue
+      if e == x[-1]:
+        y[-1] += 1
+        continue
+      x.append(e)
+      y.append(1)
+    return x, y
+
   def _build(self, a: Sequence[T]) -> None:
     def rec(l: int, r: int) -> int:
       mid = (l + r) >> 1
@@ -124,29 +148,27 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       if mid + 1 != r:
         child[mid<<1|1] = rec(mid+1, r)
       return mid
-    if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
+    if not all(a[i] <= a[i + 1] for i in range(len(a) - 1)):
       a = sorted(a)
-      b = [a[0]]
-      for e in a:
-        if b[-1] == e:
-          continue
-        b.append(e)
-      a = b
-    n = len(a)
-    key, child = self.keys, self.child
-    self.reserve(n-len(key)+2)
+    x, y = self._rle(a)
+    n = len(x)
+    keys, vals, child = self.keys, self.vals, self.child
+    self.reserve(n-len(keys)+2)
     self.end += n
-    key[1:n+1] = a
+    keys[1:n+1] = x
+    vals[1:n+1] = y
     self.root = rec(1, n+1)
-    self.len = n
+    self.len = len(a)
 
-  def _make_node(self, key: T) -> int:
+  def _make_node(self, key: T, val: int) -> int:
     if self.end >= len(self.keys):
       self.keys.append(key)
+      self.vals.append(val)
       self.child.append(0)
       self.child.append(0)
     else:
       self.keys[self.end] = key
+      self.vals[self.end] = val
     self.end += 1
     return self.end - 1
 
@@ -226,30 +248,36 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
   def reserve(self, n: int) -> None:
     assert n >= 0, f'ValueError'
     self.keys += [self.e] * n
+    self.vals += [0] * n
     self.child += array('I', bytes(8 * n))
 
-  def add(self, key: T) -> bool:
+  def add(self, key: T, val: int=1) -> bool:
+    self.len += val
     if not self.root:
-      self.root = self._make_node(key)
-      self.len += 1
-      return True
-    keys, child = self.keys, self.child
+      self.root = self._make_node(key, val)
+      return
+    keys, vals, child = self.keys, self.vals, self.child
     self._set_search_splay(key)
     if keys[self.root] == key:
-      return False
-    node = self._make_node(key)
+      vals[self.root] += val
+      return
+    node = self._make_node(key, val)
     f = key > keys[self.root]
     child[node<<1|f] = child[self.root<<1|f]
     child[node<<1|f^1] = self.root
     child[self.root<<1|f] = 0
     self.root = node
-    return True
 
-  def discard(self, key: T) -> bool:
+  def discard(self, key: T, val: int=1) -> bool:
     if not self.root: return False
     self._set_search_splay(key)
-    keys, child = self.keys, self.child
+    keys, vals, child = self.keys, self.vals, self.child
     if keys[self.root] != key: return False
+    if vals[self.root] > val:
+      vals[self.root] -= val
+      self.len -= val
+      return True
+    self.len -= vals[self.root]
     if not child[self.root<<1]:
       self.root = child[self.root<<1|1]
     elif not child[self.root<<1|1]:
@@ -258,13 +286,21 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       node = self._get_min_splay(child[self.root<<1|1])
       child[node<<1] = child[self.root<<1]
       self.root = node
-    self.len -= 1
     return True
+  
+  def discard_all(self, key: T) -> bool:
+    return self.discard(key, self.count(key))
 
-  def remove(self, key: T) -> None:
-    if self.discard(key):
-      return
-    raise KeyError(key)
+  def remove(self, key: T, val: int=1) -> None:
+    c = self.count(key)
+    if c < val:
+      raise KeyError(key)
+    self.discard(key, val)
+  
+  def count(self, key: T) -> int:
+    if not self.root: return 0
+    self._set_search_splay(key)
+    return self.vals[self.root]
 
   def ge(self, key: T) -> Optional[T]:
     node = self.root
@@ -404,7 +440,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
   def tolist(self) -> List[T]:
     node = self.root
-    child, keys = self.child, self.keys
+    child, vals, keys = self.child, self.vals, self.keys
     stack, res = [], []
     while stack or node:
       if node:
@@ -412,51 +448,56 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         node = child[node<<1]
       else:
         node = stack.pop()
-        res.append(keys[node])
+        for _ in range(vals[node]):
+          res.append(keys[node])
         node = child[node<<1|1]
     return res
 
   def get_max(self) -> T:
-    assert self.root, 'IndexError: get_max() from empty SplayTreeSetTopDown'
+    assert self.root, 'IndexError: get_max() from empty SplayTreeMultisetTopDown'
     self.root = self._get_max_splay(self.root)
     return self.keys[self.root]
 
   def get_min(self) -> T:
-    assert self.root, 'IndexError: get_min() from empty SplayTreeSetTopDown'
+    assert self.root, 'IndexError: get_min() from empty SplayTreeMultisetTopDown'
     self.root = self._get_min_splay(self.root)
     return self.keys[self.root]
 
   def pop_max(self) -> T:
-    assert self.root, 'IndexError: pop_max() from empty SplayTreeSetTopDown'
-    self.len -= 1
+    assert self.root, 'IndexError: pop_max() from empty SplayTreeMultisetTopDown'
     node = self._get_max_splay(self.root)
-    self.root = self.child[node<<1]
+    self.len -= 1
+    if self.vals[node] > 1:
+      self.vals[node] -= 1
+      self.root = node
+    else:
+      self.root = self.child[node<<1]
     return self.keys[node]
 
   def pop_min(self) -> T:
-    assert self.root, 'IndexError: pop_min() from empty SplayTreeSetTopDown'
-    self.len -= 1
+    assert self.root, 'IndexError: pop_min() from empty SplayTreeMultisetTopDown'
     node = self._get_min_splay(self.root)
-    self.root = self.child[node<<1|1]
+    self.len -= 1
+    if self.vals[node] > 1:
+      self.vals[node] -= 1
+      self.root = node
+    else:
+      self.root = self.child[node<<1|1]
     return self.keys[node]
 
   def clear(self) -> None:
     self.root = 0
-
-  def __iter__(self):
-    self.it = self.get_min()
-    return self
-  
-  def __next__(self):
-    if self.it is None:
-      raise StopIteration
-    res = self.it
-    self.it = self.gt(res)
-    return res
+    self.len = 0
 
   def __contains__(self, key: T):
     self._set_search_splay(key)
     return self.keys[self.root] == key
+
+  def __iter__(self):
+    raise NotImplementedError
+  
+  def __next__(self):
+    raise NotImplementedError
 
   def __len__(self):
     return self.len
@@ -468,79 +509,6 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'SplayTreeSetTopDown({self})'
-
-from typing import Dict, Iterable, Tuple
-
-class MexMultiset():
-
-  # MEX差分計算クラス
-  # - add(x: int) xを追加する / O(logN)
-  # - discard(x: int) xを削除する / O(logN)
-  # - contains(x) 存在判定 / O(logN) この機能いる？？
-  # - count(x) xの要素数を取得 / O(logN)この機能いる2？？
-  # - mex() mexを取得する / O(logN)
-  # 
-  # predecessor problemを高速(O(logN))に解けるデータ構造が必要
-
-  def __init__(self, a: Iterable[int]=[]):
-    self.data: SplayTreeSetTopDown[Tuple[int, int]] = SplayTreeSetTopDown()
-    self.dic: Dict[int, int] = {}
-    for a_ in sorted(a):
-      self.add(a_)
-
-  def add(self, x: int) -> None:
-    if x in self.dic:
-      self.dic[x] += 1
-      return
-    self.dic[x] = 1
-    if x < 0: return
-    t = self.data.ge((x-1, 2))
-    if t is not None and t[0] == x-1:
-      self.data.discard(t)
-      t = self.data.gt(t)
-    else:
-      self.data.add((x, 1))
-    if t is not None and t[0] == x+1:
-      self.data.discard(t)
-    else:
-      self.data.add((x, 2))
-
-  def discard(self, x: int) -> None:
-    if x not in self.dic: return
-    if self.dic[x] > 1:
-      self.dic[x] -= 1
-      return
-    del self.dic[x]
-    if x < 0: return
-    t = self.data.lt((x, 2))
-    if t[0] == x:
-      self.data.discard(t)
-    else:
-      self.data.add((x-1, 2))
-    t = self.data.ge((x, 2))
-    if t[0] == x:
-      self.data.discard(t)
-    else:
-      self.data.add((x+1, 1))
-
-  def mex(self) -> int:
-    t = self.data.ge((0, -1))
-    if t is None or t[0] != 0:
-      return 0
-    else:
-      t = self.data.gt(t)
-      return t[0] + 1
-
-  def count(self, x: int) -> int:
-    if x in self.dic:
-      return self.dic[x]
-    return 0
-
-  def __contains__(self, x: int):
-    return x in self.dic
-  
-  def __str__(self):
-    return '{' + ', '.join(map(str, sorted(k for k, v in self.dic.items() for _ in range(v)))) + '}'
+    return f'SplayTreeMultisetTopDown({self})'
 
 

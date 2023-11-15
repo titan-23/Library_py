@@ -97,7 +97,6 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
-# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
 from typing import Deque, Generic, Tuple, TypeVar, List, Optional, Iterable

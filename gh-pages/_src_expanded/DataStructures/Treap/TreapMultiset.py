@@ -105,7 +105,6 @@ class OrderedMultisetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
-# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
