@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple
+from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple, Union
 T = TypeVar('T')
 F = TypeVar('F')
 
@@ -150,22 +150,6 @@ class PersistentLazyAVLTree(Generic[T, F]):
     u = self._rotate_right(node)
     return u
 
-  def _kth_elm(self, k: int) -> T:
-    if k < 0:
-      k += len(self)
-    node = self.root
-    while True:
-      assert node
-      self._propagate(node)
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        return node.key
-      elif t < k:
-        k -= t + 1
-        node = node.right
-      else:
-        node = node.left
-
   def _merge_with_root(self, l: Optional[Node], root: Node, r: Optional[Node]) -> Node:
     diff = 0
     if l:
@@ -200,7 +184,6 @@ class PersistentLazyAVLTree(Generic[T, F]):
     if l is None and r is None:
       return None
     if l is None:
-      assert r
       return r.copy()
     if r is None:
       return l.copy()
@@ -274,7 +257,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
     if l >= r or (not self.root):
       return self._new(self.root.copy() if self.root else None)
     root = self.root.copy()
-    stack = [(root), (root, 0, len(self))]
+    stack: List[Union[PersistentLazyAVLTree.Node, Tuple[PersistentLazyAVLTree.Node, int, int]]] = [(root), (root, 0, len(self))]
     while stack:
       if isinstance(stack[-1], tuple):
         node, left, right = stack.pop()
@@ -344,8 +327,8 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
   def tolist(self) -> List[T]:
     node = self.root
-    stack = []
-    a = []
+    stack: List[PersistentLazyAVLTree.Node] = []
+    a: List[T] = []
     while stack or node:
       if node:
         self._propagate(node)
@@ -358,13 +341,26 @@ class PersistentLazyAVLTree(Generic[T, F]):
     return a
 
   def __getitem__(self, k: int) -> T:
-    return self._kth_elm(k)
+    if k < 0:
+      k += len(self)
+    node = self.root
+    while True:
+      assert node
+      self._propagate(node)
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        return node.key
+      elif t < k:
+        k -= t + 1
+        node = node.right
+      else:
+        node = node.left
 
   def __len__(self):
-    return 0 if self.root is None else self.root.size
+    return self.root.size if self.root else 0
 
   def __str__(self):
-    return '[' + ', '.join(map(str, self.tolist())) + ']'
+    return str(self.tolist())
 
   def __repr__(self):
     return f'PersistentLazyAVLTree({self})'
