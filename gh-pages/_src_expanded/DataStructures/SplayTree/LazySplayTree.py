@@ -426,16 +426,4 @@ class LazySplayTree(Generic[T, F]):
   def __repr__(self):
     return f'LazySplayTree({self})'
 
-# def op(s, t):
-#   return
-
-# def mapping(f, s):
-#   return
-
-# def composition(f, g):
-#   return
-
-# e = None
-# id = None
-
 

@@ -7,6 +7,16 @@ from typing import Tuple
 
 random.seed(0)
 
+class State():
+
+  def __init__(self):
+    pass
+
+  def copy(self) -> 'State':
+    pass
+
+  def 
+
 class SA():
 
   def __init__(self):
@@ -16,10 +26,10 @@ class SA():
   def make_ans_init(self) -> Tuple:
     return
 
-  def modify(self, ans) -> Tuple:
+  def modify(self, ans: State) -> Tuple:
     return
 
-  def rollback(self, ans, changed) -> None:
+  def rollback(self, ans: State, changed) -> None:
     return
 
   def sovle(self, TIME_LIMIT=1.8) -> Tuple:
