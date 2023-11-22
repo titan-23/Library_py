@@ -15,6 +15,24 @@ def dijkstra(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
         heappush(hq, (d + c, x))
   return dist
 
+
+def dijkstra(G: List[List[Tuple[int, int]]], s: int) -> List[Union[int, float]]:
+  dist = [inf] * len(G)
+  dist[s] = 0
+  bit = len(G).bit_length()
+  msk = (1<<bit)-1
+  hq: List[int] = [s]
+  while hq:
+    dv = heappop(hq)
+    d = dv>>bit
+    v = dv&msk
+    if dist[v] < d: continue
+    for x, c in G[v]:
+      if dist[x] > d + c:
+        dist[x] = d + c
+        heappush(hq, (d+c)<<bit|x)
+  return dist
+
 def dijkstra_path(G: List[List[Tuple[int, int]]], s: int, t: int) -> Tuple[List[int], List[Union[int, float]]]:
   '''Return (Path: from s to t, Dist: from s)'''
   prev = [-1] * len(G)

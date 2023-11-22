@@ -74,6 +74,7 @@ _____
 ### [`Deque`](DataStructures/Deque/Deque_.md)
 
 - [`Deque`](DataStructures/Deque/Deque.md)
+- [`FoldableDeque`](DataStructures/Deque/FoldableDeque.md)
 
 ### [`Dict`](DataStructures/Dict/Dict.md)
 
@@ -159,6 +160,7 @@ _____
 
 ### [`Stack`](DataStructures/Stack/Stack_.md)
 
+- [`FoldableStack`](DataStructures/Stack/FoldableStack.md)
 - [`PersistentStack`](DataStructures/Stack/PersistentStack.md)
 - [`Stack`](DataStructures/Stack/Stack.md)
 
