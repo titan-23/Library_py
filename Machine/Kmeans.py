@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import random
 
-class KmeansPlusPlus:
+class Kmeans:
 
   def __init__(self, k, max_iter=10):
     self._k = k
@@ -56,9 +56,7 @@ class KmeansPlusPlus:
             labels[i] = j
     return labels, cluster_centers
 
-
 if __name__ == '__main__':
-
   k = 9
   n = 10
   x, y = [], []
@@ -67,7 +65,7 @@ if __name__ == '__main__':
       x.extend([random.randrange(i+50, i+150) for _ in range(n)])
       y.extend([random.randrange(j+50, j+150) for _ in range(n)])
   n = len(x)
-  model = KmeansPlusPlus(k, max_iter=10)
+  model = Kmeans(k, max_iter=10)
   data = [(x[i], y[i]) for i in range(n)]
   labels, cluster_centers = model.fit(data)
 

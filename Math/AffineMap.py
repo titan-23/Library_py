@@ -7,7 +7,6 @@ class AffineMap():
   # 
   # 使い方:
   # mat = AffineMap.new()
-  # 
 
   @classmethod
   def _matmul3(cls, a: List[List[Union[int, float]]], b: List[List[Union[int, float]]]) -> List[List[Union[int, float]]]:
