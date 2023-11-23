@@ -7,17 +7,14 @@ class EulerTourTree(Generic[T, F]):
 
   class Node():
 
-    def __init__(self, index: Tuple[int, int], key: T, lazy: F):
-      self.index: Tuple[int, int] = index
+    def __init__(self, index: int, key: T, lazy: F):
+      self.index: int = index
       self.key: T = key
       self.data: T = key
       self.lazy: F = lazy
       self.par: Optional[EulerTourTree.Node] = None
       self.left: Optional[EulerTourTree.Node] = None
       self.right: Optional[EulerTourTree.Node] = None
-
-    def is_vertex(self) -> bool:
-      return self.index[0] == self.index[1]
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -41,9 +38,9 @@ class EulerTourTree(Generic[T, F]):
     self.e = e
     self.id = id
     a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
-    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), elem, id) for i, elem in enumerate(a)]
-    self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
     self.n: int = len(a)
+    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node(i*self.n+i, elem, id) for i, elem in enumerate(a)]
+    self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
     self._group_numbers: int = self.n
 
   @staticmethod
@@ -66,9 +63,9 @@ class EulerTourTree(Generic[T, F]):
     return wrappedfunc
 
   def build(self, G: List[List[int]]) -> None:
-    seen = [0] * self.n
+    n, ptr_vertex, ptr_edge, e, id = self.n, self.ptr_vertex, self.ptr_edge, self.e, self.id
+    seen = [0] * n
     Node = EulerTourTree.Node
-    ptr_vertex, ptr_edge, e, id = self.ptr_vertex, self.ptr_edge, self.e, self.id
 
     @EulerTourTree.antirec
     def dfs(v: int, p: int=-1) -> Generator:
@@ -84,11 +81,12 @@ class EulerTourTree(Generic[T, F]):
     @EulerTourTree.antirec
     def rec(l: int, r: int) -> Generator:
       mid = (l + r) >> 1
-      node = ptr_vertex[a[mid][0]] if a[mid][0] == a[mid][1] else Node(a[mid], e, id)
-      if a[mid][0] == a[mid][1]:
-        seen[a[mid][0]] = 1
+      u, v = a[mid]
+      node = ptr_vertex[u] if u == v else Node(a[mid], e, id)
+      if u == v:
+        seen[u] = 1
       else:
-        ptr_edge[a[mid]] = node
+        ptr_edge[u*n+v] = node
       if l != mid:
         node.left = yield rec(l, mid)
         node.left.par = node
@@ -268,12 +266,12 @@ class EulerTourTree(Generic[T, F]):
     # add edge{u, v}
     self.reroot(u)
     self.reroot(v)
-    assert (u, v) not in self.ptr_edge, f'EulerTourTree.link(), {(u, v)} in ptr_edge'
-    assert (v, u) not in self.ptr_edge, f'EulerTourTree.link(), {(v, u)} in ptr_edge'
-    uv_node = EulerTourTree.Node((u, v), self.e, self.id)
-    vu_node = EulerTourTree.Node((v, u), self.e, self.id)
-    self.ptr_edge[(u, v)] = uv_node
-    self.ptr_edge[(v, u)] = vu_node
+    assert u*self.n+v not in self.ptr_edge, f'EulerTourTree.link(), {(u, v)} in ptr_edge'
+    assert v*self.n+u not in self.ptr_edge, f'EulerTourTree.link(), {(v, u)} in ptr_edge'
+    uv_node = EulerTourTree.Node(u*self.n+v, self.e, self.id)
+    vu_node = EulerTourTree.Node(v*self.n+u, self.e, self.id)
+    self.ptr_edge[u*self.n+v] = uv_node
+    self.ptr_edge[v*self.n+u] = vu_node
     u_node = self.ptr_vertex[u]
     v_node = self.ptr_vertex[v]
     self._merge(u_node, uv_node)
@@ -285,10 +283,10 @@ class EulerTourTree(Generic[T, F]):
     # erace edge{u, v}
     self.reroot(v)
     self.reroot(u)
-    assert (u, v) in self.ptr_edge, f'EulerTourTree.cut(), {(u, v)} not in ptr_edge'
-    assert (v, u) in self.ptr_edge, f'EulerTourTree.cut(), {(v, u)} not in ptr_edge'
-    uv_node = self.ptr_edge.pop((u, v))
-    vu_node = self.ptr_edge.pop((v, u))
+    assert u*self.n+v in self.ptr_edge, f'EulerTourTree.cut(), {(u, v)} not in ptr_edge'
+    assert v*self.n+u in self.ptr_edge, f'EulerTourTree.cut(), {(v, u)} not in ptr_edge'
+    uv_node = self.ptr_edge.pop(u*self.n+v)
+    vu_node = self.ptr_edge.pop(v*self.n+u)
     a, _ = self._split_left(uv_node)
     _, c = self._split_right(vu_node)
     a = self._pop(a)
@@ -305,7 +303,9 @@ class EulerTourTree(Generic[T, F]):
 
   def split(self, u: int, v: int) -> bool:
     # erase edge{u, v} if both {u, v} and {v, u} in E
-    if (u, v) not in self.ptr_edge or (v, u) not in self.ptr_edge:
+    # if (u, v) not in self.ptr_edge or (v, u) not in self.ptr_edge:
+    #   return False
+    if u*self.n+v not in self.ptr_edge or v*self.n+v not in self.ptr_edge:
       return False
     self.cut(u, v)
     return True
@@ -348,11 +348,11 @@ class EulerTourTree(Generic[T, F]):
       return
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(p, v)} not in ptr_edge'
-    assert (v, p) in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(v, p)} not in ptr_edge'
+    assert p*self.n+v in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(p, v)} not in ptr_edge'
+    assert v*self.n+p in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(v, p)} not in ptr_edge'
     v_node = self.ptr_vertex[v]
-    a, b = self._split_right(self.ptr_edge[(p, v)])
-    b, d = self._split_left(self.ptr_edge[(v, p)])
+    a, b = self._split_right(self.ptr_edge[p*self.n+v])
+    b, d = self._split_left(self.ptr_edge[v*self.n+p])
     self._splay(v_node)
     v_node.key = self.mapping(f, v_node.key)
     v_node.data = self.mapping(f, v_node.data)
@@ -369,11 +369,11 @@ class EulerTourTree(Generic[T, F]):
       return v_node.data
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(p, v)} not in ptr_edge'
-    assert (v, p) in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(v, p)} not in ptr_edge'
+    assert p*self.n+v in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(p, v)} not in ptr_edge'
+    assert v*self.n+p in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(v, p)} not in ptr_edge'
     v_node = self.ptr_vertex[v]
-    a, b = self._split_right(self.ptr_edge[(p, v)])
-    b, d = self._split_left(self.ptr_edge[(v, p)])
+    a, b = self._split_right(self.ptr_edge[p*self.n+v])
+    b, d = self._split_left(self.ptr_edge[v*self.n+p])
     self._splay(v_node)
     res = v_node.data
     self._merge(a, b)
