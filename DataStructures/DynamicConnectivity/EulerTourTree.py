@@ -7,8 +7,7 @@ class EulerTourTree(Generic[T, F]):
 
   class Node():
 
-    def __init__(self, index: int, key: T, lazy: F):
-      self.index: int = index
+    def __init__(self, key: T, lazy: F):
       self.key: T = key
       self.data: T = key
       self.lazy: F = lazy
@@ -18,19 +17,19 @@ class EulerTourTree(Generic[T, F]):
 
     def __str__(self):
       if self.left is None and self.right is None:
-        return f'(index,par):{self.index,self.key,self.data,self.lazy,(self.par.index if self.par else None)}\n'
-      return f'(index,par):{self.index,self.key,self.data,self.lazy,(self.par.index if self.par else None)},\n left:{self.left},\n right:{self.right}\n'
+        return f'(key,par):{self.key,self.data,self.lazy,(self.par.key if self.par else None)}\n'
+      return f'(key,par):{self.key,self.data,self.lazy,(self.par.key if self.par else None)},\n left:{self.left},\n right:{self.right}\n'
 
     __repr__ = __str__
 
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
-               op: Callable[[T, T], T]=lambda x, y: None,
-               mapping: Callable[[F, T], T]=lambda x, y: None,
-               composition: Callable[[F, F], F]=lambda x, y: None,
-               e: T=None,
-               id: F=None
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F,
                ) -> None:
     self.op = op
     self.mapping = mapping
@@ -39,7 +38,7 @@ class EulerTourTree(Generic[T, F]):
     self.id = id
     a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
     self.n: int = len(a)
-    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node(i*self.n+i, elem, id) for i, elem in enumerate(a)]
+    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node(elem, id) for i, elem in enumerate(a)]
     self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
     self._group_numbers: int = self.n
 
@@ -69,20 +68,20 @@ class EulerTourTree(Generic[T, F]):
 
     @EulerTourTree.antirec
     def dfs(v: int, p: int=-1) -> Generator:
-      a.append((v, v))
+      a.append(v*n+v)
       for x in G[v]:
         if x == p:
           continue
-        a.append((v, x))
+        a.append(v*n+x)
         yield dfs(x, v)
-        a.append((x, v))
+        a.append(x*n+v)
       yield
 
     @EulerTourTree.antirec
     def rec(l: int, r: int) -> Generator:
       mid = (l + r) >> 1
-      u, v = a[mid]
-      node = ptr_vertex[u] if u == v else Node(a[mid], e, id)
+      u, v = divmod(a[mid], n)
+      node = ptr_vertex[u] if u == v else Node(e, id)
       if u == v:
         seen[u] = 1
       else:
@@ -99,7 +98,7 @@ class EulerTourTree(Generic[T, F]):
     for root in range(self.n):
       if seen[root]:
         continue
-      a: List[Tuple[int, int]] = []
+      a: List[int] = []
       dfs(root)
       rec(0, len(a))
 
@@ -258,9 +257,11 @@ class EulerTourTree(Generic[T, F]):
   def _update(self, node: Node) -> None:
     self._propagate(node.left)
     self._propagate(node.right)
-    left_data = self.e if node.left is None else node.left.data
-    right_data = self.e if node.right is None else node.right.data
-    node.data = self.op(self.op(left_data, node.key), right_data)
+    node.data = node.key
+    if node.left:
+      node.data = self.op(node.left.data, node.data)
+    if node.right:
+      node.data = self.op(node.data, node.right.data)
 
   def link(self, u: int, v: int) -> None:
     # add edge{u, v}
@@ -268,8 +269,8 @@ class EulerTourTree(Generic[T, F]):
     self.reroot(v)
     assert u*self.n+v not in self.ptr_edge, f'EulerTourTree.link(), {(u, v)} in ptr_edge'
     assert v*self.n+u not in self.ptr_edge, f'EulerTourTree.link(), {(v, u)} in ptr_edge'
-    uv_node = EulerTourTree.Node(u*self.n+v, self.e, self.id)
-    vu_node = EulerTourTree.Node(v*self.n+u, self.e, self.id)
+    uv_node = EulerTourTree.Node(self.e, self.id)
+    vu_node = EulerTourTree.Node(self.e, self.id)
     self.ptr_edge[u*self.n+v] = uv_node
     self.ptr_edge[v*self.n+u] = vu_node
     u_node = self.ptr_vertex[u]
