@@ -20,7 +20,7 @@ class MexMultiset():
       self.seg[key] = 0
     self.data[key] += 1
 
-  def discard(self, key: int) -> None:
+  def remove(self, key: int) -> None:
     if key > self.u: return
     if self.data[key] == 1:
       self.seg[key] = 1
