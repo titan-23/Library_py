@@ -1,69 +1,41 @@
 # from Library_py.DataStructures.Set.MexMultiset import MexMultiset
-# from Library_py.DataStructures.SplayTree.SplayTreeSetTopDown import SplayTreeSetTopDown
-# from Library_py.MyClass.SupportsLessThan import SupportsLessThan
-from typing import Protocol
-
-class SupportsLessThan(Protocol):
-
-  def __lt__(self, other) -> bool: ...
-
-# from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
+from typing import Iterable
+# from Library_py.DataStructures.SegmentTree.SegmentTree import SegmentTree
+# from Library_py.DataStructures.SegmentTree.SegmentTreeInterface import SegmentTreeInterface
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
-T = TypeVar('T', bound=SupportsLessThan)
+from typing import TypeVar, Generic, Union, Iterable, Callable, List
+T = TypeVar('T')
 
-class OrderedSetInterface(ABC, Generic[T]):
+class SegmentTreeInterface(ABC, Generic[T]):
 
   @abstractmethod
-  def __init__(self, a: Iterable[T]) -> None:
+  def __init__(self, n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T],
+               e: T):
     raise NotImplementedError
 
   @abstractmethod
-  def add(self, key: T) -> bool:
+  def set(self, k: int, v: T) -> None:
     raise NotImplementedError
 
   @abstractmethod
-  def discard(self, key: T) -> bool:
+  def get(self, k: int) -> T:
     raise NotImplementedError
 
   @abstractmethod
-  def remove(self, key: T) -> None:
+  def prod(self, l: int, r: int) -> T:
     raise NotImplementedError
 
   @abstractmethod
-  def le(self, key: T) -> Optional[T]:
+  def all_prod(self) -> T:
     raise NotImplementedError
 
   @abstractmethod
-  def lt(self, key: T) -> Optional[T]:
+  def max_right(self, l: int, f: Callable[[T], bool]) -> int:
     raise NotImplementedError
 
   @abstractmethod
-  def ge(self, key: T) -> Optional[T]:
-    raise NotImplementedError
-
-  @abstractmethod
-  def gt(self, key: T) -> Optional[T]:
-    raise NotImplementedError
-
-  @abstractmethod
-  def get_max(self) -> Optional[T]:
-    raise NotImplementedError
-
-  @abstractmethod
-  def get_min(self) -> Optional[T]:
-    raise NotImplementedError
-
-  @abstractmethod
-  def pop_max(self) -> T:
-    raise NotImplementedError
-
-  @abstractmethod
-  def pop_min(self) -> T:
-    raise NotImplementedError
-
-  @abstractmethod
-  def clear(self) -> None:
+  def min_left(self, r: int, f: Callable[[T], bool]) -> int:
     raise NotImplementedError
 
   @abstractmethod
@@ -71,476 +43,187 @@ class OrderedSetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
   @abstractmethod
-  def __iter__(self) -> Iterator:
+  def __getitem__(self, k: int) -> T:
     raise NotImplementedError
 
   @abstractmethod
-  def __next__(self) -> T:
+  def __setitem__(self, k: int, v: T) -> None:
     raise NotImplementedError
-
-  @abstractmethod
-  def __contains__(self, key: T) -> bool:
-    raise NotImplementedError
-
-  @abstractmethod
-  def __len__(self) -> int:
-    raise NotImplementedError
-
-  @abstractmethod
-  def __bool__(self) -> bool:
-    raise NotImplementedError
-
-  @abstractmethod
-  def __str__(self) -> str:
-    raise NotImplementedError
-
-  @abstractmethod
-  def __repr__(self) -> str:
-    raise NotImplementedError
-
-from array import array
-from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
-T = TypeVar('T', bound=SupportsLessThan)
-
-class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
-
-  def __init__(self, a: Iterable[T]=[], e: T=0):
-    self.keys: List[T] = [e]
-    self.child = array('I', bytes(8))
-    self.end: int = 1
-    self.root: int = 0
-    self.len: int = 0
-    self.e: T = e
-    if not isinstance(a, list):
-      a = list(a)
-    if a:
-      self._build(a)
-
-  def _build(self, a: Sequence[T]) -> None:
-    def rec(l: int, r: int) -> int:
-      mid = (l + r) >> 1
-      if l != mid:
-        child[mid<<1] = rec(l, mid)
-      if mid + 1 != r:
-        child[mid<<1|1] = rec(mid+1, r)
-      return mid
-    if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-      a = sorted(a)
-      b = [a[0]]
-      for e in a:
-        if b[-1] == e:
-          continue
-        b.append(e)
-      a = b
-    n = len(a)
-    key, child = self.keys, self.child
-    self.reserve(n-len(key)+2)
-    self.end += n
-    key[1:n+1] = a
-    self.root = rec(1, n+1)
-    self.len = n
-
-  def _make_node(self, key: T) -> int:
-    if self.end >= len(self.keys):
-      self.keys.append(key)
-      self.child.append(0)
-      self.child.append(0)
-    else:
-      self.keys[self.end] = key
-    self.end += 1
-    return self.end - 1
-
-  def _rotate_left(self, node: int) -> int:
-    child = self.child
-    u = child[node<<1]
-    child[node<<1] = child[u<<1|1]
-    child[u<<1|1] = node
-    return u
-
-  def _rotate_right(self, node: int) -> int:
-    child = self.child
-    u = child[node<<1|1]
-    child[node<<1|1] = child[u<<1]
-    child[u<<1] = node
-    return u
-
-  def _set_search_splay(self, key: T) -> None:
-    node = self.root
-    keys, child = self.keys, self.child
-    if (not node) or keys[node] == key: return
-    left, right = 0, 0
-    while keys[node] != key:
-      f = key > keys[node]
-      if not child[node<<1|f]: break
-      if f:
-        if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
-          if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-      else:
-        if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-      node = child[node<<1|f]
-    child[right<<1] = child[node<<1|1]
-    child[left<<1|1] = child[node<<1]
-    child[node<<1] = child[1]
-    child[node<<1|1] = child[0]
-    self.root = node
-
-  def _get_min_splay(self, node: int) -> int:
-    child = self.child
-    if (not node) or (not child[node<<1]): return node
-    right = 0
-    while child[node<<1]:
-      node = self._rotate_left(node)
-      if not child[node<<1]: break
-      child[right<<1] = node
-      right = node
-      node = child[node<<1]
-    child[right<<1] = child[node<<1|1]
-    child[1] = child[node<<1]
-    child[node<<1] = child[1]
-    child[node<<1|1] = child[0]
-    return node
-
-  def _get_max_splay(self, node: int) -> int:
-    child = self.child
-    if (not node) or (not child[node<<1|1]): return node
-    left = 0
-    while child[node<<1|1]:
-      node = self._rotate_right(node)
-      if not child[node<<1|1]: break
-      child[left<<1|1] = node
-      left = node
-      node = child[node<<1|1]
-    child[0] = child[node<<1|1]
-    child[left<<1|1] = child[node<<1]
-    child[node<<1] = child[1]
-    child[node<<1|1] = child[0]
-    return node
-
-  def reserve(self, n: int) -> None:
-    assert n >= 0, f'ValueError'
-    self.keys += [self.e] * n
-    self.child += array('I', bytes(8 * n))
-
-  def add(self, key: T) -> bool:
-    if not self.root:
-      self.root = self._make_node(key)
-      self.len += 1
-      return True
-    keys, child = self.keys, self.child
-    self._set_search_splay(key)
-    if keys[self.root] == key:
-      return False
-    node = self._make_node(key)
-    f = key > keys[self.root]
-    child[node<<1|f] = child[self.root<<1|f]
-    child[node<<1|f^1] = self.root
-    child[self.root<<1|f] = 0
-    self.root = node
-    return True
-
-  def discard(self, key: T) -> bool:
-    if not self.root: return False
-    self._set_search_splay(key)
-    keys, child = self.keys, self.child
-    if keys[self.root] != key: return False
-    if not child[self.root<<1]:
-      self.root = child[self.root<<1|1]
-    elif not child[self.root<<1|1]:
-      self.root = child[self.root<<1]
-    else:
-      node = self._get_min_splay(child[self.root<<1|1])
-      child[node<<1] = child[self.root<<1]
-      self.root = node
-    self.len -= 1
-    return True
-
-  def remove(self, key: T) -> None:
-    if self.discard(key):
-      return
-    raise KeyError(key)
-
-  def ge(self, key: T) -> Optional[T]:
-    node = self.root
-    if not node: return None
-    keys, child = self.keys, self.child
-    if keys[node] == key: return key
-    ge = None
-    left, right = 0, 0
-    while True:
-      if keys[node] == key:
-        ge = key
-        break
-      if key < keys[node]:
-        ge = keys[node]
-        if not child[node<<1]: break
-        if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
-          ge = keys[node]
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
-      else:
-        if not child[node<<1|1]: break
-        if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
-          if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
-    child[right<<1] = child[node<<1|1]
-    child[left<<1|1] = child[node<<1]
-    child[node<<1] = child[1]
-    child[node<<1|1] = child[0]
-    self.root = node
-    return ge
-
-  def gt(self, key: T) -> Optional[T]:
-    node = self.root
-    if not node: return None
-    gt = None
-    keys, child = self.keys, self.child
-    left, right = 0, 0
-    while True:
-      if key < keys[node]:
-        gt = keys[node]
-        if not child[node<<1]: break
-        if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
-          gt = keys[node]
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
-      else:
-        if not child[node<<1|1]: break
-        if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
-          if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
-    child[right<<1] = child[node<<1|1]
-    child[left<<1|1] = child[node<<1]
-    child[node<<1] = child[1]
-    child[node<<1|1] = child[0]
-    self.root = node
-    return gt
-
-  def le(self, key: T) -> Optional[T]:
-    node = self.root
-    if not node: return None
-    keys, child = self.keys, self.child
-    if keys[node] == key: return key
-    le = None
-    left, right = 0, 0
-    while True:
-      if keys[node] == key:
-        le = key
-        break
-      if key < keys[node]:
-        if not child[node<<1]: break
-        if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
-      else:
-        le = keys[node]
-        if not child[node<<1|1]: break
-        if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
-          le = keys[node]
-          if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
-    child[right<<1] = child[node<<1|1]
-    child[left<<1|1] = child[node<<1]
-    child[node<<1] = child[1]
-    child[node<<1|1] = child[0]
-    self.root = node
-    return le
-
-  def lt(self, key: T) -> Optional[T]:
-    node = self.root
-    if not node: return None
-    lt = None
-    keys, child = self.keys, self.child
-    left, right = 0, 0
-    while True:
-      if not keys[node] > key:
-        if not child[node<<1]: break
-        if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
-      else:
-        lt = keys[node]
-        if not child[node<<1|1]: break
-        if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
-          lt = keys[node]
-          if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
-    child[right<<1] = child[node<<1|1]
-    child[left<<1|1] = child[node<<1]
-    child[node<<1] = child[1]
-    child[node<<1|1] = child[0]
-    self.root = node
-    return lt
-
-  def tolist(self) -> List[T]:
-    node = self.root
-    child, keys = self.child, self.keys
-    stack, res = [], []
-    while stack or node:
-      if node:
-        stack.append(node)
-        node = child[node<<1]
-      else:
-        node = stack.pop()
-        res.append(keys[node])
-        node = child[node<<1|1]
-    return res
-
-  def get_max(self) -> T:
-    assert self.root, 'IndexError: get_max() from empty SplayTreeSetTopDown'
-    self.root = self._get_max_splay(self.root)
-    return self.keys[self.root]
-
-  def get_min(self) -> T:
-    assert self.root, 'IndexError: get_min() from empty SplayTreeSetTopDown'
-    self.root = self._get_min_splay(self.root)
-    return self.keys[self.root]
-
-  def pop_max(self) -> T:
-    assert self.root, 'IndexError: pop_max() from empty SplayTreeSetTopDown'
-    self.len -= 1
-    node = self._get_max_splay(self.root)
-    self.root = self.child[node<<1]
-    return self.keys[node]
-
-  def pop_min(self) -> T:
-    assert self.root, 'IndexError: pop_min() from empty SplayTreeSetTopDown'
-    self.len -= 1
-    node = self._get_min_splay(self.root)
-    self.root = self.child[node<<1|1]
-    return self.keys[node]
-
-  def clear(self) -> None:
-    self.root = 0
-
-  def __iter__(self):
-    self.it = self.get_min()
-    return self
   
-  def __next__(self):
-    if self.it is None:
-      raise StopIteration
-    res = self.it
-    self.it = self.gt(res)
-    return res
+  @abstractmethod
+  def __str__(self):
+    raise NotImplementedError
+  
+  @abstractmethod
+  def __repr__(self):
+    raise NotImplementedError
+  
+from typing import Generic, Iterable, TypeVar, Callable, Union, List
+T = TypeVar('T')
 
-  def __contains__(self, key: T):
-    self._set_search_splay(key)
-    return self.keys[self.root] == key
+class SegmentTree(SegmentTreeInterface, Generic[T]):
 
-  def __len__(self):
-    return self.len
+  def __init__(self,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T],
+               e: T) -> None:
+    self._op = op
+    self._e = e
+    if isinstance(n_or_a, int):
+      self._n = n_or_a
+      self._log  = (self._n - 1).bit_length()
+      self._size = 1 << self._log
+      self._data = [e] * (self._size << 1)
+    else:
+      n_or_a = list(n_or_a)
+      self._n = len(n_or_a)
+      self._log  = (self._n - 1).bit_length()
+      self._size = 1 << self._log
+      _data = [e] * (self._size << 1)
+      _data[self._size:self._size+self._n] = n_or_a
+      for i in range(self._size-1, 0, -1):
+        _data[i] = op(_data[i<<1], _data[i<<1|1])
+      self._data = _data
 
-  def __bool__(self):
-    return self.root != 0
+  def set(self, k: int, v: T) -> None:
+    assert -self._n <= k < self._n, \
+        f'IndexError: SegmentTree.set({k}, {v}), n={self._n}'
+    if k < 0:
+      k += self._n
+    k += self._size
+    self._data[k] = v
+    for _ in range(self._log):
+      k >>= 1
+      self._data[k] = self._op(self._data[k<<1], self._data[k<<1|1])
+
+  def get(self, k: int) -> T:
+    assert -self._n <= k < self._n, \
+        f'IndexError: SegmentTree.get({k}), n={self._n}'
+    if k < 0:
+      k += self._n
+    return self._data[k+self._size]
+
+  def prod(self, l: int, r: int) -> T:
+    assert 0 <= l <= r <= self._n, \
+        f'IndexError: SegmentTree.prod({l}, {r})'
+    l += self._size
+    r += self._size
+    lres = self._e
+    rres = self._e
+    while l < r:
+      if l & 1:
+        lres = self._op(lres, self._data[l])
+        l += 1
+      if r & 1:
+        rres = self._op(self._data[r^1], rres)
+      l >>= 1
+      r >>= 1
+    return self._op(lres, rres)
+
+  def all_prod(self) -> T:
+    return self._data[1]
+
+  def max_right(self, l: int, f: Callable[[T], bool]) -> int:
+    '''Find the largest index R s.t. f([l, R)) == True. / O(logN)'''
+    assert 0 <= l <= self._n, \
+        f'IndexError: SegmentTree.max_right({l}, f) index out of range'
+    assert f(self._e), \
+        f'SegmentTree.max_right({l}, f), f({self._e}) must be true.'
+    if l == self._n:
+      return self._n 
+    l += self._size
+    s = self._e
+    while True:
+      while l & 1 == 0:
+        l >>= 1
+      if not f(self._op(s, self._data[l])):
+        while l < self._size:
+          l <<= 1
+          if f(self._op(s, self._data[l])):
+            s = self._op(s, self._data[l])
+            l |= 1
+        return l - self._size
+      s = self._op(s, self._data[l])
+      l += 1
+      if l & -l == l:
+        break
+    return self._n
+
+  def min_left(self, r: int, f: Callable[[T], bool]) -> int:
+    '''Find the smallest index L s.t. f([L, r)) == True. / O(logN)'''
+    assert 0 <= r <= self._n, \
+        f'IndexError: SegmentTree.min_left({r}, f) index out of range'
+    assert f(self._e), \
+        f'SegmentTree.min_left({r}, f), f({self._e}) must be true.'
+    if r == 0:
+      return 0 
+    r += self._size
+    s = self._e
+    while True:
+      r -= 1
+      while r > 1 and r & 1:
+        r >>= 1
+      if not f(self._op(self._data[r], s)):
+        while r < self._size:
+          r = r << 1 | 1
+          if f(self._op(self._data[r], s)):
+            s = self._op(self._data[r], s)
+            r ^= 1
+        return r + 1 - self._size
+      s = self._op(self._data[r], s)
+      if r & -r == r:
+        break 
+    return 0
+
+  def tolist(self) -> List[T]:
+    return [self.get(i) for i in range(self._n)]
+
+  def show(self) -> None:
+    print('<SegmentTree> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
+
+  def __getitem__(self, k: int) -> T:
+    assert -self._n <= k < self._n, \
+        f'IndexError: SegmentTree.__getitem__({k}), n={self._n}'
+    return self.get(k)
+
+  def __setitem__(self, k: int, v: T):
+    assert -self._n <= k < self._n, \
+        f'IndexError: SegmentTree.__setitem__{k}, {v}), n={self._n}'
+    self.set(k, v)
 
   def __str__(self):
-    return '{' + ', '.join(map(str, self.tolist())) + '}'
+    return str(self.tolist())
 
   def __repr__(self):
-    return f'SplayTreeSetTopDown({self})'
+    return f'SegmentTree({self})'
 
-from typing import Dict, Iterable, Tuple
 
 class MexMultiset():
 
-  # MEX差分計算クラス
-  # - add(x: int) xを追加する / O(logN)
-  # - discard(x: int) xを削除する / O(logN)
-  # - contains(x) 存在判定 / O(logN) この機能いる？？
-  # - count(x) xの要素数を取得 / O(logN)この機能いる2？？
-  # - mex() mexを取得する / O(logN)
-  # 
-  # predecessor problemを高速(O(logN))に解けるデータ構造が必要
+  def __init__(self, u: int, a: Iterable[int]=[]) -> None:
+    data = [0] * (u+1)
+    init_data = [1] * (u+1)
+    for e in a:
+      if e <= u:
+        data[e] += 1
+        init_data[e] = 0
+    self.u = u
+    self.data = data
+    self.seg = SegmentTree(init_data, lambda s, t: s|t, 0)
 
-  def __init__(self, a: Iterable[int]=[]):
-    self.data: SplayTreeSetTopDown[Tuple[int, int]] = SplayTreeSetTopDown()
-    self.dic: Dict[int, int] = {}
-    for a_ in sorted(a):
-      self.add(a_)
+  def add(self, key: int) -> None:
+    if key > self.u: return
+    if self.data[key] == 0:
+      self.seg[key] = 0
+    self.data[key] += 1
 
-  def add(self, x: int) -> None:
-    if x in self.dic:
-      self.dic[x] += 1
-      return
-    self.dic[x] = 1
-    if x < 0: return
-    t = self.data.ge((x-1, 2))
-    if t is not None and t[0] == x-1:
-      self.data.discard(t)
-      t = self.data.gt(t)
-    else:
-      self.data.add((x, 1))
-    if t is not None and t[0] == x+1:
-      self.data.discard(t)
-    else:
-      self.data.add((x, 2))
-
-  def discard(self, x: int) -> None:
-    if x not in self.dic: return
-    if self.dic[x] > 1:
-      self.dic[x] -= 1
-      return
-    del self.dic[x]
-    if x < 0: return
-    t = self.data.lt((x, 2))
-    if t[0] == x:
-      self.data.discard(t)
-    else:
-      self.data.add((x-1, 2))
-    t = self.data.ge((x, 2))
-    if t[0] == x:
-      self.data.discard(t)
-    else:
-      self.data.add((x+1, 1))
+  def discard(self, key: int) -> None:
+    if key > self.u: return
+    if self.data[key] == 1:
+      self.seg[key] = 1
+    self.data[key] -= 1
 
   def mex(self) -> int:
-    t = self.data.ge((0, -1))
-    if t is None or t[0] != 0:
-      return 0
-    else:
-      t = self.data.gt(t)
-      return t[0] + 1
-
-  def count(self, x: int) -> int:
-    if x in self.dic:
-      return self.dic[x]
-    return 0
-
-  def __contains__(self, x: int):
-    return x in self.dic
-  
-  def __str__(self):
-    return '{' + ', '.join(map(str, sorted(k for k, v in self.dic.items() for _ in range(v)))) + '}'
+    return self.seg.max_right(0, lambda lr: lr==0)
 
 
