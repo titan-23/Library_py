@@ -1,5 +1,5 @@
 # from Library_py.DataStructures.Set.SegkiSet import SegkiSet
-from typing import Union, Iterable
+from typing import Optional, Iterable
 
 class SegkiSet:
 
@@ -46,7 +46,7 @@ class SegkiSet:
       self.data[k] = 0
     return True
 
-  def get_min(self) -> Union[int, None]:
+  def get_min(self) -> Optional[int]:
     if self.data[1] == 0: return None
     k = 1
     while k < self.size:
@@ -54,7 +54,7 @@ class SegkiSet:
       if self.data[k] == 0: k |= 1
     return k - self.size
 
-  def get_max(self) -> Union[int, None]:
+  def get_max(self) -> Optional[int]:
     if self.data[1] == 0: return None
     k = 1
     while k < self.size:
@@ -63,7 +63,7 @@ class SegkiSet:
     return k - self.size
 
   '''Find the largest element < key, or None if it doesn't exist. / O(logN)'''
-  def lt(self, k: int) -> Union[int, None]:
+  def lt(self, k: int) -> Optional[int]:
     if self.data[1] == 0: return None
     x = k
     k += self.size
@@ -82,7 +82,7 @@ class SegkiSet:
     return k if k < x else None
 
   '''Find the smallest element > key, or None if it doesn't exist. / O(logN)'''
-  def gt(self, k: int) -> Union[int, None]:
+  def gt(self, k: int) -> Optional[int]:
     if self.data[1] == 0: return None
     x = k
     k += self.size
@@ -99,11 +99,11 @@ class SegkiSet:
     k -= self.size
     return k if k > x and k < self.u else None
 
-  def le(self, k: int) -> Union[int, None]:
+  def le(self, k: int) -> Optional[int]:
     if self.data[k+self.size]: return k
     return self.lt(k)
 
-  def ge(self, k: int) -> Union[int, None]:
+  def ge(self, k: int) -> Optional[int]:
     if self.data[k+self.size]: return k
     return self.gt(k)
 

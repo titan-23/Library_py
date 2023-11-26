@@ -7,7 +7,7 @@ class SupportsLessThan(Protocol):
 
   def __lt__(self, other) -> bool: ...
 
-from typing import Generic, TypeVar, Iterable, Sequence
+from typing import Generic, TypeVar, Iterable
 T = TypeVar('T', bound=SupportsLessThan)
 
 class SparseTableRmQ(Generic[T]):

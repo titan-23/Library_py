@@ -18,7 +18,6 @@ class FenwickTree():
     self._s = 1 << (self._size - 1).bit_length()
 
   def pref(self, r: int) -> int:
-    '''Return sum(a[0, r)) / O(logN)'''
     assert 0 <= r <= self._size, \
         f'IndexError: FenwickTree.pref({r}), n={self._size}'
     ret, _tree = 0, self._tree
@@ -28,13 +27,11 @@ class FenwickTree():
     return ret
 
   def suff(self, l: int) -> int:
-    '''Return sum(a[l, n)). / O(logN)'''
     assert 0 <= l < self._size, \
         f'IndexError: FenwickTree.suff({l}), n={self._size}'
     return self.pref(self._size) - self.pref(l)
 
   def sum(self, l: int, r: int) -> int:
-    '''Return sum(a[l, r)]. / O(logN)'''
     assert 0 <= l <= r <= self._size, \
         f'IndexError: FenwickTree.sum({l}, {r}), n={self._size}'
     _tree = self._tree
@@ -57,7 +54,6 @@ class FenwickTree():
     return self.sum(k, k+1)
 
   def add(self, k: int, x: int) -> None:
-    '''Add x to a[k]. / O(logN)'''
     assert 0 <= k < self._size, \
         f'IndexError: FenwickTree.add({k}, {x}), n={self._size}'
     k += 1
@@ -67,7 +63,6 @@ class FenwickTree():
       k += k & -k
 
   def __setitem__(self, k: int, x: int):
-    '''Update A[k] to x. / O(logN)'''
     assert -self._size <= k < self._size, \
         f'IndexError: FenwickTree.__setitem__({k}, {x}), n={self._size}'
     if k < 0: k += self._size
@@ -75,7 +70,6 @@ class FenwickTree():
     self.add(k, x - pre)
 
   def bisect_left(self, w: int) -> Optional[int]:
-    '''bisect_left(acc) / O(logN)'''
     i, s, _size, _tree = 0, self._s, self._size, self._tree
     while s:
       if i + s <= _size and _tree[i + s] < w:
@@ -85,7 +79,6 @@ class FenwickTree():
     return i if w else None
 
   def bisect_right(self, w: int) -> int:
-    '''bisect_right(acc) / O(logN)'''
     i, s, _size, _tree = 0, self._s, self._size, self._tree
     while s:
       if i + s <= _size and _tree[i + s] <= w:
@@ -95,7 +88,6 @@ class FenwickTree():
     return i
 
   def show(self) -> None:
-    '''for debug'''
     print('[' + ', '.join(map(str, (self.pref(i) for i in range(self._size+1)))) + ']')
 
   def tolist(self) -> List[int]:

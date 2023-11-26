@@ -43,7 +43,7 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
-  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="k">return</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -271,7 +271,7 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
-  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="k">return</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -285,14 +285,56 @@
 <hr />
 <ul>
 <li><code>MexMultiset</code> です。</li>
+<li>各操作には <code>log</code> がつきますが、ANDセグ木の <code>log</code> で割と軽いです。</li>
 </ul>
 <hr />
 <h2>仕様</h2>
-<p>あとで書く</p>
+<h4><code>mx = MexMultiset(u: int, a: Iterable[int]=[])</code></h4>
+<ul>
+<li><code>[0, u)</code>の範囲のmexを計算するMexMultisetを構築します。</li>
+<li><code>a</code>の長さを<code>N</code>として、<code>Θ(N)</code> です。</li>
+</ul>
+<h4><code>mx.add(key: int) -&gt; None</code></h4>
+<ul>
+<li><code>key</code> を追加します。</li>
+<li><code>Θ(logN)</code> です。</li>
+</ul>
+<h4><code>mx.remove(key: int) -&gt; None</code></h4>
+<ul>
+<li><code>key</code> を削除します。 <code>key</code> は <code>mx</code> 内にあるとします。</li>
+<li><code>Θ(logN)</code> です。</li>
+</ul>
+<h4><code>mx.mex() -&gt; int</code></h4>
+<ul>
+<li><code>mx</code> の <code>mex</code> を返します。</li>
+<li><code>Θ(logN)</code> です。セグ木の<code>max_right()</code>関数を使用しています。</li>
+</ul>
 <hr />
 <h2>使用例</h2>
+<ul>
+<li><a href="https://atcoder.jp/contests/abc330/submissions/47972707">ABC330E Mex and Update</a></li>
+</ul>
 <div class="code-block">
 <div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.Set.MexMultiset</span> <span class="kn">import</span> <span class="n">MexMultiset</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">Library_py.IO.FastO</span> <span class="kn">import</span> <span class="n">FastO</span>
+<span class="n">write</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="n">FastO</span><span class="o">.</span><span class="n">write</span><span class="p">,</span> <span class="n">FastO</span><span class="o">.</span><span class="n">flush</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+
+<span class="c1">#  -----------------------  #</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">mx</span> <span class="o">=</span> <span class="n">MexMultiset</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+  <span class="n">mx</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+  <span class="n">mx</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="n">write</span><span class="p">(</span><span class="n">mx</span><span class="o">.</span><span class="n">mex</span><span class="p">())</span>
+<span class="n">flush</span><span class="p">()</span>
 </pre></div>
 
 </div>
