@@ -114,13 +114,6 @@
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
 
-  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>  <span class="c1"># 末尾と先頭のみ</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
-    <span class="k">raise</span> <span class="ne">IndexError</span>
-
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span>
 
@@ -335,13 +328,6 @@
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-
-  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>  <span class="c1"># 末尾と先頭のみ</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
-    <span class="k">raise</span> <span class="ne">IndexError</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span>

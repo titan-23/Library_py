@@ -204,13 +204,6 @@ class MinMaxMultiset(Generic[T]):
   def __contains__(self, key: T):
     return key in self.data
 
-  def __getitem__(self, k: int):  # 末尾と先頭のみ
-    if k == -1 or k == self.len-1:
-      return self.get_max()
-    elif k == 0:
-      return self.get_min()
-    raise IndexError
-
   def __len__(self):
     return self.len
 
