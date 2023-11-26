@@ -6,16 +6,78 @@ class ModInt998244353:
   __slots__ = ['val']
 
   @staticmethod
-  @lru_cache(maxsize=None)
+  # @lru_cache(maxsize=None)
   def _inv(a: int) -> int:
-    res = 1
-    b = 998244351
-    while b:
-      if b & 1:
-        res = res * a % 998244353
-      a = a * a % 998244353
-      b >>= 1
+    res = a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
+    a = a * a % 998244353
+    res = res * a % 998244353
     return res
+
+  # @staticmethod
+  # # @lru_cache(maxsize=None)
+  # def _inv(a: int) -> int:
+  #   res = 1
+  #   b = 998244351
+  #   while b:
+  #     if b & 1:
+  #       res = res * a % 998244353
+  #     a = a * a % 998244353
+  #     b >>= 1
+  #   return res
 
   @classmethod
   def get_mod(cls) -> int:
@@ -85,7 +147,7 @@ class ModInt998244353:
     return ModInt998244353(self.val)
 
   def __int__(self):
-    return self.val
+    return int(self.val)
 
   def __str__(self):
     return str(self.val)
@@ -184,7 +246,7 @@ class ModInt1000000007:
     return ModInt1000000007(self.val)
 
   def __int__(self):
-    return self.val
+    return int(self.val)
 
   def __str__(self):
     return str(self.val)
@@ -289,7 +351,7 @@ class ModInt:
     return ModInt(self.val)
 
   def __int__(self):
-    return self.val
+    return int(self.val)
 
   def __str__(self):
     return str(self.val)

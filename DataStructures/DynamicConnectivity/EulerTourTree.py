@@ -7,8 +7,7 @@ class EulerTourTree(Generic[T, F]):
 
   class Node():
 
-    def __init__(self, index: Tuple[int, int], key: T, lazy: F):
-      self.index: Tuple[int, int] = index
+    def __init__(self, key: T, lazy: F):
       self.key: T = key
       self.data: T = key
       self.lazy: F = lazy
@@ -16,24 +15,21 @@ class EulerTourTree(Generic[T, F]):
       self.left: Optional[EulerTourTree.Node] = None
       self.right: Optional[EulerTourTree.Node] = None
 
-    def is_vertex(self) -> bool:
-      return self.index[0] == self.index[1]
-
     def __str__(self):
       if self.left is None and self.right is None:
-        return f'(index,par):{self.index,self.key,self.data,self.lazy,(self.par.index if self.par else None)}\n'
-      return f'(index,par):{self.index,self.key,self.data,self.lazy,(self.par.index if self.par else None)},\n left:{self.left},\n right:{self.right}\n'
+        return f'(key,par):{self.key,self.data,self.lazy,(self.par.key if self.par else None)}\n'
+      return f'(key,par):{self.key,self.data,self.lazy,(self.par.key if self.par else None)},\n left:{self.left},\n right:{self.right}\n'
 
     __repr__ = __str__
 
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
-               op: Callable[[T, T], T]=lambda x, y: None,
-               mapping: Callable[[F, T], T]=lambda x, y: None,
-               composition: Callable[[F, F], F]=lambda x, y: None,
-               e: T=None,
-               id: F=None
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F,
                ) -> None:
     self.op = op
     self.mapping = mapping
@@ -41,9 +37,9 @@ class EulerTourTree(Generic[T, F]):
     self.e = e
     self.id = id
     a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
-    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node((i, i), elem, id) for i, elem in enumerate(a)]
-    self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
     self.n: int = len(a)
+    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node(elem, id) for i, elem in enumerate(a)]
+    self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
     self._group_numbers: int = self.n
 
   @staticmethod
@@ -66,29 +62,30 @@ class EulerTourTree(Generic[T, F]):
     return wrappedfunc
 
   def build(self, G: List[List[int]]) -> None:
-    seen = [0] * self.n
+    n, ptr_vertex, ptr_edge, e, id = self.n, self.ptr_vertex, self.ptr_edge, self.e, self.id
+    seen = [0] * n
     Node = EulerTourTree.Node
-    ptr_vertex, ptr_edge, e, id = self.ptr_vertex, self.ptr_edge, self.e, self.id
 
     @EulerTourTree.antirec
     def dfs(v: int, p: int=-1) -> Generator:
-      a.append((v, v))
+      a.append(v*n+v)
       for x in G[v]:
         if x == p:
           continue
-        a.append((v, x))
+        a.append(v*n+x)
         yield dfs(x, v)
-        a.append((x, v))
+        a.append(x*n+v)
       yield
 
     @EulerTourTree.antirec
     def rec(l: int, r: int) -> Generator:
       mid = (l + r) >> 1
-      node = ptr_vertex[a[mid][0]] if a[mid][0] == a[mid][1] else Node(a[mid], e, id)
-      if a[mid][0] == a[mid][1]:
-        seen[a[mid][0]] = 1
+      u, v = divmod(a[mid], n)
+      node = ptr_vertex[u] if u == v else Node(e, id)
+      if u == v:
+        seen[u] = 1
       else:
-        ptr_edge[a[mid]] = node
+        ptr_edge[u*n+v] = node
       if l != mid:
         node.left = yield rec(l, mid)
         node.left.par = node
@@ -101,7 +98,7 @@ class EulerTourTree(Generic[T, F]):
     for root in range(self.n):
       if seen[root]:
         continue
-      a: List[Tuple[int, int]] = []
+      a: List[int] = []
       dfs(root)
       rec(0, len(a))
 
@@ -260,20 +257,22 @@ class EulerTourTree(Generic[T, F]):
   def _update(self, node: Node) -> None:
     self._propagate(node.left)
     self._propagate(node.right)
-    left_data = self.e if node.left is None else node.left.data
-    right_data = self.e if node.right is None else node.right.data
-    node.data = self.op(self.op(left_data, node.key), right_data)
+    node.data = node.key
+    if node.left:
+      node.data = self.op(node.left.data, node.data)
+    if node.right:
+      node.data = self.op(node.data, node.right.data)
 
   def link(self, u: int, v: int) -> None:
     # add edge{u, v}
     self.reroot(u)
     self.reroot(v)
-    assert (u, v) not in self.ptr_edge, f'EulerTourTree.link(), {(u, v)} in ptr_edge'
-    assert (v, u) not in self.ptr_edge, f'EulerTourTree.link(), {(v, u)} in ptr_edge'
-    uv_node = EulerTourTree.Node((u, v), self.e, self.id)
-    vu_node = EulerTourTree.Node((v, u), self.e, self.id)
-    self.ptr_edge[(u, v)] = uv_node
-    self.ptr_edge[(v, u)] = vu_node
+    assert u*self.n+v not in self.ptr_edge, f'EulerTourTree.link(), {(u, v)} in ptr_edge'
+    assert v*self.n+u not in self.ptr_edge, f'EulerTourTree.link(), {(v, u)} in ptr_edge'
+    uv_node = EulerTourTree.Node(self.e, self.id)
+    vu_node = EulerTourTree.Node(self.e, self.id)
+    self.ptr_edge[u*self.n+v] = uv_node
+    self.ptr_edge[v*self.n+u] = vu_node
     u_node = self.ptr_vertex[u]
     v_node = self.ptr_vertex[v]
     self._merge(u_node, uv_node)
@@ -285,10 +284,10 @@ class EulerTourTree(Generic[T, F]):
     # erace edge{u, v}
     self.reroot(v)
     self.reroot(u)
-    assert (u, v) in self.ptr_edge, f'EulerTourTree.cut(), {(u, v)} not in ptr_edge'
-    assert (v, u) in self.ptr_edge, f'EulerTourTree.cut(), {(v, u)} not in ptr_edge'
-    uv_node = self.ptr_edge.pop((u, v))
-    vu_node = self.ptr_edge.pop((v, u))
+    assert u*self.n+v in self.ptr_edge, f'EulerTourTree.cut(), {(u, v)} not in ptr_edge'
+    assert v*self.n+u in self.ptr_edge, f'EulerTourTree.cut(), {(v, u)} not in ptr_edge'
+    uv_node = self.ptr_edge.pop(u*self.n+v)
+    vu_node = self.ptr_edge.pop(v*self.n+u)
     a, _ = self._split_left(uv_node)
     _, c = self._split_right(vu_node)
     a = self._pop(a)
@@ -305,7 +304,9 @@ class EulerTourTree(Generic[T, F]):
 
   def split(self, u: int, v: int) -> bool:
     # erase edge{u, v} if both {u, v} and {v, u} in E
-    if (u, v) not in self.ptr_edge or (v, u) not in self.ptr_edge:
+    # if (u, v) not in self.ptr_edge or (v, u) not in self.ptr_edge:
+    #   return False
+    if u*self.n+v not in self.ptr_edge or v*self.n+v not in self.ptr_edge:
       return False
     self.cut(u, v)
     return True
@@ -348,11 +349,11 @@ class EulerTourTree(Generic[T, F]):
       return
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(p, v)} not in ptr_edge'
-    assert (v, p) in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(v, p)} not in ptr_edge'
+    assert p*self.n+v in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(p, v)} not in ptr_edge'
+    assert v*self.n+p in self.ptr_edge, f'EulerTourTree.subtree_apply(), {(v, p)} not in ptr_edge'
     v_node = self.ptr_vertex[v]
-    a, b = self._split_right(self.ptr_edge[(p, v)])
-    b, d = self._split_left(self.ptr_edge[(v, p)])
+    a, b = self._split_right(self.ptr_edge[p*self.n+v])
+    b, d = self._split_left(self.ptr_edge[v*self.n+p])
     self._splay(v_node)
     v_node.key = self.mapping(f, v_node.key)
     v_node.data = self.mapping(f, v_node.data)
@@ -369,11 +370,11 @@ class EulerTourTree(Generic[T, F]):
       return v_node.data
     self.reroot(v)
     self.reroot(p)
-    assert (p, v) in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(p, v)} not in ptr_edge'
-    assert (v, p) in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(v, p)} not in ptr_edge'
+    assert p*self.n+v in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(p, v)} not in ptr_edge'
+    assert v*self.n+p in self.ptr_edge, f'EulerTourTree.subtree_sum(), {(v, p)} not in ptr_edge'
     v_node = self.ptr_vertex[v]
-    a, b = self._split_right(self.ptr_edge[(p, v)])
-    b, d = self._split_left(self.ptr_edge[(v, p)])
+    a, b = self._split_right(self.ptr_edge[p*self.n+v])
+    b, d = self._split_left(self.ptr_edge[v*self.n+p])
     self._splay(v_node)
     res = v_node.data
     self._merge(a, b)
