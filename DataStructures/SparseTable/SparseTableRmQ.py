@@ -1,5 +1,5 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
-from typing import Generic, TypeVar, Iterable, Sequence
+from typing import Generic, TypeVar, Iterable
 T = TypeVar('T', bound=SupportsLessThan)
 
 class SparseTableRmQ(Generic[T]):
