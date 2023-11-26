@@ -4,6 +4,8 @@ from array import array
 from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
 T = TypeVar('T', bound=SupportsLessThan)
 
+raise NotImplementedError
+
 class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[], e: T=0):
@@ -275,11 +277,12 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
   def lt(self, key: T) -> Optional[T]:
     node = self.root
     if not node: return None
-    lt = None
     keys, child = self.keys, self.child
+    if keys[node] == key: return key
+    lt = None
     left, right = 0, 0
     while True:
-      if not keys[node] > key:
+      if key <= keys[node]:
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
           node = self._rotate_left(node)
