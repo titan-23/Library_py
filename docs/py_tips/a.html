@@ -40,10 +40,10 @@
 <li>メモリ使うのかな？</li>
 </ul>
 </li>
-<li><a href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py">ジェネレータ</a><ul>
+<li><a href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py">デコレータ</a><ul>
 <li>基本、速くなります。というか、遅くなった例を1件しか知りません。</li>
 <li><code>PyPyjit</code> より速く、スタック非再帰よりは遅いイメージです。</li>
-<li>書き換えるのがやや面倒ですが、 <code>PyPy</code> -&gt; <code>C++</code> などと比べると圧倒的に楽です。</li>
+<li>書き換えるのがやや面倒ですが、 <code>PyPy -&gt; c++</code> などと比べると圧倒的に楽です。</li>
 <li>関数の途中で <code>return</code> ができない点だけかな。 <code>if-else</code> で頑張ります。</li>
 <li>なんで皆使ってないのか、正直謎に思ってます。</li>
 <li>ホント謎です。</li>
@@ -94,12 +94,11 @@
 </li>
 <li><code>BinaryTrie</code><ul>
 <li>全体 xor ができます。</li>
-<li>実装が簡易(かもしれない)です。</li>
 </ul>
 </li>
 <li>32分木<ul>
-<li>neighbor query に関しては最強です。</li>
 <li>空間 <code>Θ(U)</code> 、昇順 <code>k</code> 番目の値に <code>Θ(klogU)</code> かかる点には注意です。</li>
+<li>neighbor query に関しては最強です。</li>
 </ul>
 </li>
 <li>亜種たち<ul>
@@ -111,7 +110,7 @@
 <h2>Graph</h2>
 <ul>
 <li>基本的に隣接リスト <code>[[] for _ in range(|V|)]</code> で問題ないと思います。</li>
-<li>グラフライブラリを作るのもよいでしょう。</li>
+<li>グラフライブラリを作るのもよいでしょう。CSR形式がどれくらい速いのかよく分からん。</li>
 </ul>
 <h2>Math</h2>
 <ul>

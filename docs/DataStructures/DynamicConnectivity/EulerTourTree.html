@@ -875,6 +875,7 @@
 <p>計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 <code>O(logN)</code> です。この実装ではsplay木とハッシュテーブルで管理するので償却 <code>O(logN)</code> +期待 <code>O(1)</code> です(もとのグラフの頂点数に対してオイラーツアーすると <code>(元の頂点数)+(辺数)*2?</code> の頂点ができるので、たしかに <code>O(元のグラフの頂点数)</code> ではありますが、定数倍がバカです)。<br />
 オイラーツアーがあれば、部分木クエリは簡単に処理できます。</p>
 <h2>仕様</h2>
+<p>計算量はだいたい償却です。</p>
 <h4><code>ett = EulerTourTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)</code></h4>
 <ul>
 <li><code>n / len(a)</code> 個の頂点からなる <code>EulerTourTree</code> を作成します。 <code>n_or_a</code> が <code>a</code> のとき、頂点の重みとみなします。</li>
@@ -918,10 +919,6 @@
 <ul>
 <li>頂点 <code>u</code> と <code>v</code> が同じ連結成分にいれば <code>True</code> を、そうでなければ <code>False</code> を返します。</li>
 <li><code>O(logN)</code> です。</li>
-</ul>
-<h4><code>ett.show() -&gt; None</code></h4>
-<ul>
-<li>デバッグ用です。</li>
 </ul>
 <h4><code>ett.subtree_apply(v: int, p: int, f: F) -&gt; None</code></h4>
 <ul>

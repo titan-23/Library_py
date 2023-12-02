@@ -1353,39 +1353,39 @@
 <h4><code>avl.reserve(n: int) -&gt; None</code></h4>
 <ul>
 <li>メモリを確保します。</li>
-<li><code>Θ(n)</code> です。</li>
+<li><code>O(n)</code> です。</li>
 </ul>
 <h4><code>avl.insert(k: int, v: int) -&gt; None</code></h4>
 <ul>
 <li><code>k</code> 番目に <code>v</code> を挿入します。</li>
-<li><code>Θ(logn)</code> です。</li>
+<li><code>O(logn)</code> です。</li>
 </ul>
 <h4><code>avl.pop(k: int) -&gt; int</code></h4>
 <ul>
 <li><code>k</code> 番目の要素を削除し、その値を返します。</li>
-<li><code>Θ(logn)</code> です。</li>
+<li><code>O(logn)</code> です。</li>
 </ul>
 <h4><code>avl.set(k: int, v: int=1) -&gt; None / avl[k] = v</code></h4>
 <ul>
 <li><code>k</code> 番目の bit を <code>v</code> にします。</li>
 <li><code>__setitem__</code> メソッドをサポートしています。</li>
-<li><code>Θ(logn)</code> です。</li>
+<li><code>O(logn)</code> です。</li>
 </ul>
 <h4><code>avl.access(k: int) / a[k: int] -&gt; int</code></h4>
 <ul>
 <li><code>k</code> 番目の bit の値を返します。</li>
 <li><code>__getitem__</code> メソッドをサポートしています。</li>
-<li><code>Θ(logn)</code> です。</li>
+<li><code>O(logn)</code> です。</li>
 </ul>
 <h4><code>avl.rank0(r: int) -&gt; int, avl.rank1(r: int) -&gt; int, avl.rank(r: int, v: int) -&gt; int</code></h4>
 <ul>
 <li><code>a[0, r)</code> に含まれる <code>0 / 1 / v</code> の個数を返します。</li>
-<li><code>Θ(logn)</code> です。</li>
+<li><code>O(logn)</code> です。</li>
 </ul>
 <h4><code>avl.select0(r: int) -&gt; int, avl.select1(r: int) -&gt; int, avl.select(r: int, v: int) -&gt; int</code></h4>
 <ul>
 <li><code>k</code> 番目の <code>0 / 1 / v</code> のインデックスを返します。</li>
-<li><code>Θ(log^2 N)</code> です。logは1つにできるはずですが、めんどくて妥協してます。おそくてごめん</li>
+<li><code>O(log^2 N)</code> です。logは1つにできるはずですが、めんどくて妥協してます。おそくてごめん</li>
 </ul>
 <h4><code>len(avl) / str(avl) / repr(avl)</code></h4>
 <ul>
