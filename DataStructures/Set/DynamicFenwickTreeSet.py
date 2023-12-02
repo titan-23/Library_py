@@ -4,7 +4,7 @@ from typing import Dict, Iterable, Optional
 class DynamicFenwickTreeSet():
 
   # 整数[0, u)を、空間O(qlogu)/時間O(qlogu)
-  
+
   def __init__(self, u: int, a: Iterable[int]=[]):
     # Build a new FenwickTreeSet. / O(1)
     self._size: int = u
