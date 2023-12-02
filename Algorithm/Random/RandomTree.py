@@ -1,6 +1,15 @@
-from Library_py.DataStructures.AVLTree.AVLTreeMultiset import AVLTreeMultiset
+from Library_py.DataStructures.AVLTree.AVLTreeSet2 import AVLTreeSet2
+import enum
+from enum import Enum
 from typing import Optional, List, Tuple
 import random
+
+class RandomTreeType(Enum):
+
+  random = enum.auto()
+  path = enum.auto()
+  star = enum.auto()
+
 
 class RandomTree():
 
@@ -8,14 +17,14 @@ class RandomTree():
     self.n = n
     random.seed(seed)
 
-  def build(self, com='') -> List[Tuple[int, int]]:
-    if com == '' or com == 'random':
+  def build(self, typ: RandomTreeType=RandomTreeType.random) -> List[Tuple[int, int]]:
+    if typ == RandomTreeType.random:
       return self._build_random()
-    if com == 'path':
+    if typ == RandomTreeType.path:
       return self._build_path()
-    if com == 'star':
+    if typ == RandomTreeType.star:
       return self._build_star()
-    raise ValueError(com)
+    raise ValueError(typ)
 
   def _build_star(self) -> List[Tuple[int, int]]:
     center = random.randrange(0, self.n)
@@ -33,33 +42,33 @@ class RandomTree():
   def _build_path(self) -> List[Tuple[int, int]]:
     p = list(range(self.n))
     random.shuffle(p)
-    Edge = [(p[i], p[i+1]) for i in range(self.n-1)]
-    random.shuffle(Edge)
-    return Edge
+    edges = [(p[i], p[i+1]) for i in range(self.n-1)]
+    random.shuffle(edges)
+    return edges
 
   def _build_random(self) -> List[Tuple[int, int]]:
-    Edge = []
+    edges = []
     D = [1] * self.n
     A = [0] * (self.n-2)
     for i in range(self.n-2):
       v = random.randrange(0, self.n)
       D[v] += 1
       A[i] = v
-    avl = AVLTreeMultiset((D[i], i) for i in range(self.n))
+    avl: AVLTreeSet2[Tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(self.n))
     for a in A:
       d, v = avl.pop_min()
       assert d == 1
-      Edge.append((v, a))
+      edges.append((v, a))
       D[v] -= 1
       avl.remove((D[a], a))
       D[a] -= 1
       if D[a] >= 1:
         avl.add((D[a], a))
-
     u = D.index(1)
     D[u] -= 1
     v = D.index(1)
     D[v] -= 1
-    Edge.append((u, v))
-    return Edge
+    edges.append((u, v))
+    random.shuffle(edges)
+    return edges
 
