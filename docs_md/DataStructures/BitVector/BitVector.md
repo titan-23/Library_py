@@ -13,7 +13,7 @@ _____
 
 - `BitVector` です。
 - コンパクトのつもりでいます。
-- `select` は `Θ(logN)` です。
+- `select` は `O(logN)` です。
 
 _____
 
@@ -52,7 +52,7 @@ _____
 #### `v.select0(r: int) / v.select1(r: int) / v.select(r: int, v: int) -> int`
 
 - `k` 番目の `0 / 1 / v` のインデックスを返します。
-- `Θ(logN)` です。
+- `O(logN)` です。
 
 ___
 

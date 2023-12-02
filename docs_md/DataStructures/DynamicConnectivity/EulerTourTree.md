@@ -52,6 +52,8 @@ _____
 
 ## 仕様
 
+計算量はだいたい償却です。
+
 #### `ett = EulerTourTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)`
 - `n / len(a)` 個の頂点からなる `EulerTourTree` を作成します。 `n_or_a` が `a` のとき、頂点の重みとみなします。
 
@@ -86,9 +88,6 @@ _____
 #### `ett.same(u: int, v: int) -> bool`
 - 頂点 `u` と `v` が同じ連結成分にいれば `True` を、そうでなければ `False` を返します。
 - `O(logN)` です。
-
-#### `ett.show() -> None`
-- デバッグ用です。
 
 #### `ett.subtree_apply(v: int, p: int, f: F) -> None`
 - 頂点 `v` を根としたときの部分木に `f` を適用します。ただし、 `v` の親は `p` です。 `v` の親が存在しないときは `p=-1` として下さい。
