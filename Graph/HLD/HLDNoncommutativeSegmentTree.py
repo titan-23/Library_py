@@ -1,6 +1,6 @@
 from Library_py.DataStructures.SegmentTree.SegmentTree import SegmentTree
 from Library_py.Graph.HLD.HLD import HLD
-from typing import Union, Iterable, Callable, TypeVar, Generic, List
+from typing import Union, Iterable, Callable, TypeVar, Generic
 T = TypeVar('T')
 
 class HLDNoncommutativeSegmentTree(Generic[T]):
