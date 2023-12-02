@@ -41,6 +41,7 @@ def get_code(now_path, input_file, need_class, is_input=False):
       input_lines += 1
     if line.startswith('from Library_py'):
       _, s, _, *fs = line.split()
+      fs = [x.rstrip(', ') for x in fs]
       s = s.replace('.', '\\')
       s = f'{LIB_PATH}\\{s}.py'
       if s not in added_file:
@@ -61,6 +62,7 @@ def get_code(now_path, input_file, need_class, is_input=False):
     elif line.startswith('from .'):
       output += f'# {line}'
       _, s, _, *fs = line.split()
+      fs = [x.rstrip(', ') for x in fs]
       cnt = 0
       while s and s[0] == '.':
         s = s[1:]

@@ -246,3 +246,10 @@ _____
 - [`ModMatrix`](Math/ModMatrix.md)
 - [`Number`](Math/Number.md)
 - [`PollardRho`](Math/PollardRho.md)
+
+_____
+
+## [`String`](String/String.md)
+
+- [`HashString`](String/HashString.md)
+
