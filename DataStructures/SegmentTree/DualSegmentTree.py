@@ -26,7 +26,7 @@ class DualSegmentTree(Generic[T, F]):
       self.lazy[k] = self.composition(f, self.lazy[k])
       return
     k -= self.size
-    if k < len(self.data):
+    if k < self.n:
       self.data[k] = self.mapping(f, self.data[k])
 
   def _propagate(self, k: int) -> None:
@@ -49,13 +49,12 @@ class DualSegmentTree(Generic[T, F]):
     if f == self.id: return
     l += self.size
     r += self.size
-    lazy = self.lazy
+    data, lazy = self.data, self.lazy
     for i in range(self.log, 0, -1):
       if l >> i << i != l and lazy[l>>i] != self.id:
         self._propagate(l>>i)
       if r >> i << i != r and lazy[(r-1)>>i] != self.id:
         self._propagate((r-1)>>i)
-    data, lazy = self.data, self.lazy
     if (l-self.size) & 1:
       data[l-self.size] = self.mapping(f, data[l-self.size])
       l += 1
