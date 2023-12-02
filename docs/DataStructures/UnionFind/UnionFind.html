@@ -27,13 +27,11 @@
 <span class="k">class</span> <span class="nc">UnionFind</span><span class="p">():</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Build a new UnionFind. / O(N)&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 
   <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return root of x, compressing path. / O(α(N))&#39;&#39;&#39;</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">x</span>
     <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
@@ -44,7 +42,6 @@
     <span class="k">return</span> <span class="n">a</span>
 
   <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Untie x and y. / O(α(N))&#39;&#39;&#39;</span>
     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
@@ -76,35 +73,28 @@
     <span class="k">return</span> <span class="n">x</span>
 
   <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return xが属する集合の要素数. / O(α(N))&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
 
   <span class="k">def</span> <span class="nf">same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return True if &#39;same&#39; else False. / O(α(N))&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">members</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return set(the members of x). / O(size(x))&#39;&#39;&#39;</span>
     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">all_roots</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return all roots. / O(N)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">group_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return the number of groups. / O(1)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span>
 
   <span class="k">def</span> <span class="nf">all_group_members</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">defaultdict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return all_group_members. / O(Nα(N))&#39;&#39;&#39;</span>
     <span class="n">group_members</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
       <span class="n">group_members</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">member</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">member</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">group_members</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Clear. / O(N)&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -119,13 +109,11 @@
 <span class="k">class</span> <span class="nc">UnionFind</span><span class="p">():</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Build a new UnionFind. / O(N)&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 
   <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return root of x, compressing path. / O(α(N))&#39;&#39;&#39;</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">x</span>
     <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
@@ -136,7 +124,6 @@
     <span class="k">return</span> <span class="n">a</span>
 
   <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Untie x and y. / O(α(N))&#39;&#39;&#39;</span>
     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
@@ -168,35 +155,28 @@
     <span class="k">return</span> <span class="n">x</span>
 
   <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return xが属する集合の要素数. / O(α(N))&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
 
   <span class="k">def</span> <span class="nf">same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return True if &#39;same&#39; else False. / O(α(N))&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">members</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return set(the members of x). / O(size(x))&#39;&#39;&#39;</span>
     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">all_roots</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return all roots. / O(N)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">group_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return the number of groups. / O(1)&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span>
 
   <span class="k">def</span> <span class="nf">all_group_members</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">defaultdict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Return all_group_members. / O(Nα(N))&#39;&#39;&#39;</span>
     <span class="n">group_members</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
       <span class="n">group_members</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">member</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">member</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">group_members</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;Clear. / O(N)&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -216,61 +196,75 @@
 <h4><code>uf = UnionFind(n: int)</code></h4>
 <ul>
 <li><code>n</code> 個の要素からなる <code>UnionFind</code> を構築します。</li>
-<li>時間計算量 <code>Θ(N)</code> です。</li>
+<li>時間計算量 <code>O(N)</code> です。</li>
 </ul>
 <h4><code>uf.root(x: int) -&gt; int</code></h4>
 <ul>
 <li>要素 <code>x</code> を含む集合の代表元を返します。</li>
 </ul>
-<h4><code>uf.unite(x: int, y: int) -&gt; int</code></h4>
+<h4><code>uf.unite(x: int, y: int) -&gt; bool</code></h4>
 <ul>
-<li>要素 <code>x</code> を含む集合と要素 <code>y</code> を含む集合を併合し、併合後の集合の代表元を返します。</li>
-<li><code>Θ(α(N))</code> です。</li>
+<li>要素 <code>x</code> を含む集合と要素 <code>y</code> を含む集合を併合します。</li>
+<li>もともと同じ集合であれば <code>False</code>、そうでなければ <code>True</code> を返します。</li>
+<li><code>O(α(N))</code> です。</li>
+</ul>
+<h4><code>uf.unite_right(x: int, y: int) -&gt; int</code></h4>
+<ul>
+<li><code>x -&gt; y</code></li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>uf.unite_left(x: int, y: int) -&gt; int</code></h4>
+<ul>
+<li><code>x &lt;- y</code></li>
+<li><code>O(logN)</code> です。</li>
 </ul>
 <h4><code>uf.same(x: int, y: int) -&gt; bool</code></h4>
 <ul>
 <li>要素 <code>x</code> と <code>y</code> が同じ集合に属するなら <code>True</code> を、そうでないなら <code>False</code> を返します。</li>
-<li><code>Θ(α(N))</code> です。</li>
+<li><code>O(α(N))</code> です。</li>
 </ul>
 <h4><code>uf.size(x: int) -&gt; int</code></h4>
 <ul>
 <li>要素<code>x</code> を含む集合の要素数を返します。</li>
-<li><code>Θ(α(N))</code> です。</li>
+<li><code>O(α(N))</code> です。</li>
 </ul>
 <h4><code>uf.members(x: int) -&gt; Set[int]</code></h4>
 <ul>
 <li>要素<code>x</code> を含む集合を返します。</li>
-<li><code>Θ(n)</code></li>
+<li><code>O(n)</code></li>
 </ul>
 <h4><code>uf.all_roots() -&gt; List[int]</code></h4>
 <ul>
 <li>全ての集合の代表元からなるリストを返します。</li>
-<li><code>Θ(N)</code> です。</li>
+<li><code>O(N)</code> です。</li>
 </ul>
 <h4><code>uf.group_count() -&gt; int</code></h4>
 <ul>
 <li><code>uf</code> の集合の総数を返します。</li>
-<li><code>Θ(1)</code> です。</li>
+<li><code>O(1)</code> です。</li>
 </ul>
 <h4><code>uf.all_group_members() -&gt; defaultdict[int, List[int]]</code></h4>
 <ul>
 <li><code>key</code> に代表元、 <code>value</code> に <code>key</code> を代表元とする集合のリストをもつ <code>defaultdict</code> を返します。</li>
-<li><code>Θ(Nα(N))</code> です。</li>
+<li><code>O(Nα(N))</code> です。</li>
 </ul>
 <h4><code>uf.claer() -&gt; None</code></h4>
 <ul>
-<li>集合を工場出荷状態に戻します。</li>
-<li><code>Θ(N)</code> です。</li>
+<li>集合の連結状態をなくします(初期化状態に戻します)。</li>
+<li><code>O(N)</code> です。</li>
 </ul>
 <h4><code>str(uf)</code></h4>
 <ul>
 <li>よしなにします。</li>
-<li><code>ΘNα(N))</code> です。</li>
+<li><code>O(Nα(N))</code> です。</li>
 </ul>
 <hr />
 <h2>使用例</h2>
 <div class="code-block">
 <div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.UnionFind.UnionFind</span> <span class="kn">import</span> <span class="n">UnionFind</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">uf</span> <span class="o">=</span> <span class="n">UnionFind</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 
 </div>

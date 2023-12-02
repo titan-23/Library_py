@@ -52,7 +52,7 @@ class LCA():
 
   def __init__(self, G: List[List[int]], root: int) -> None:
     _n = len(G)
-    path = [-1] * (_n-1)
+    path = [-1] * _n
     nodein = [-1] * _n
     par = [-1] * _n
     curtime = -1

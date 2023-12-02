@@ -304,7 +304,7 @@ class HLD():
         return u
       v = par[head[v]]
 
-from typing import Union, Iterable, Callable, TypeVar, Generic, List
+from typing import Union, Iterable, Callable, TypeVar, Generic
 T = TypeVar('T')
 
 class HLDNoncommutativeSegmentTree(Generic[T]):

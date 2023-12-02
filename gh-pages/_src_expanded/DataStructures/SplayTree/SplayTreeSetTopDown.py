@@ -101,7 +101,7 @@ from array import array
 from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
 T = TypeVar('T', bound=SupportsLessThan)
 
-raise NotImplementedError
+# raise NotImplementedError
 
 class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 

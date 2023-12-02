@@ -111,9 +111,26 @@
 
 </div>
 <hr />
+<p>乱数系のライブラリです。標準ライブラリより高速なつもりでいます。</p>
 <hr />
 <h2>仕様</h2>
-<p>あとで書く</p>
+<h4><code>Random.random() -&gt; float</code></h4>
+<ul>
+<li>0以上1以下の一様ランダムな値を1つ生成して返すはずです。</li>
+</ul>
+<h4><code>Random.randint(begin: int, end: int) -&gt; int</code></h4>
+<ul>
+<li><code>begin</code> 以上 <code>end</code> <strong>以下</strong>のランダムな整数を返します。</li>
+</ul>
+<h4><code>Random.randrange(begin: int, end: int) -&gt; int</code></h4>
+<ul>
+<li><code>begin</code> 以上 <code>end</code> <strong>未満</strong>のランダムな整数を返します。</li>
+</ul>
+<h4><code>Random.shuffle(a: List[Any]) -&gt; None</code></h4>
+<ul>
+<li><code>a</code> をインプレースにシャッフルします。</li>
+<li><code>O(N)</code> です。</li>
+</ul>
 <hr />
 <h2>使用例</h2>
 <div class="code-block">
