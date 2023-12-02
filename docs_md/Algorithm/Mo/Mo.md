@@ -39,6 +39,44 @@ _____
 
 ## 使用例
 
+[Range Set Query](https://atcoder.jp/contests/abc174/submissions/48086746)
+
 ```python
 from Library_py.Algorithm.Mo.Mo import Mo
+
+from Library_py.IO.FastO import FastO
+write = FastO.write
+flush = FastO.flush
+
+import sys
+from array import array
+input = lambda: sys.stdin.buffer.readline().rstrip()
+
+#  -----------------------  #
+
+n, q = map(int, input().split())
+C = array('I', map(int, input().split()))
+mo = Mo(n, q)
+for i in range(q):
+  l, r = map(int, input().split())
+  mo.add_query(l-1, r)
+res = 0
+cnt = array('I', bytes(4*(n+1)))
+ans = array('I', bytes(4*q))
+def add(k):
+  ck = C[k]
+  if not cnt[ck]:
+    global res
+    res += 1
+  cnt[ck] += 1
+def delete(k):
+  ck = C[k]
+  cnt[ck] -= 1
+  if not cnt[ck]:
+    global res
+    res -= 1
+def out(k):
+  ans[k] = res
+mo.run(add, delete, out)
+print('\n'.join(map(str, ans)))
 ```
