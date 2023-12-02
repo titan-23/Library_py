@@ -7,4 +7,6 @@ _____
 _____
 
 - [`Deque`](./Deque.md)
-  - ランダムアクセス可能な `Deque` です。
+  - ランダムアクセスが `O(1)` で可能な `Deque` です。
+- [`FoldableDeque`](./FoldableDeque.md)
+  - 全体の総積が取得可能な `Deque` です。

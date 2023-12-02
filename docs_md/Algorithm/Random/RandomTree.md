@@ -31,7 +31,7 @@ _____
   - `RandomTreeType.star` のとき、ランダムなスターグラフです。
   - そうでないとき、`ValueError` を出します。
 - 辺のインデックスは 0-indexed です。
-- `O(n)` です。
+- `O(nlogn)` です。
 
 _____
 

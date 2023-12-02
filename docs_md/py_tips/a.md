@@ -28,10 +28,10 @@
   - `import PyPyjit; PyPyjit.set_param('max_unroll_recursion=-1')`みたいな
   - `PyPy` で提出するならつけましょう。基本、速くなります。
   - メモリ使うのかな？
-- [ジェネレータ](https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py)
+- [デコレータ](https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py)
   - 基本、速くなります。というか、遅くなった例を1件しか知りません。
     - `PyPyjit` より速く、スタック非再帰よりは遅いイメージです。
-  - 書き換えるのがやや面倒ですが、 `PyPy` -> `C++` などと比べると圧倒的に楽です。
+  - 書き換えるのがやや面倒ですが、 `PyPy -> c++` などと比べると圧倒的に楽です。
     - 関数の途中で `return` ができない点だけかな。 `if-else` で頑張ります。
   - なんで皆使ってないのか、正直謎に思ってます。
     - ホント謎です。
@@ -73,10 +73,9 @@
   - しかし、速いです。
 - `BinaryTrie`
   - 全体 xor ができます。
-  - 実装が簡易(かもしれない)です。
 - 32分木
-  - neighbor query に関しては最強です。
   - 空間 `Θ(U)` 、昇順 `k` 番目の値に `Θ(klogU)` かかる点には注意です。
+  - neighbor query に関しては最強です。
 - 亜種たち
   - `van emde boas tree` は実装次第ではとても遅いです。自分は速い実装が分かりません。
   - 追加 / 削除 を `O(√U)` として `k` 番目取得を `O(1)` でするようにすると、`Mo's Algorithm` で強いです。
@@ -84,7 +83,7 @@
 ## Graph
 
 - 基本的に隣接リスト `[[] for _ in range(|V|)]` で問題ないと思います。
-- グラフライブラリを作るのもよいでしょう。
+- グラフライブラリを作るのもよいでしょう。CSR形式がどれくらい速いのかよく分からん。
 
 ## Math
 
