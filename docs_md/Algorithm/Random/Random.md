@@ -11,12 +11,24 @@ _____
 
 _____
 
+乱数系のライブラリです。標準ライブラリより高速なつもりでいます。
+
 _____
 
 ## 仕様
 
-あとで書く
+#### `Random.random() -> float`
+- 0以上1以下の一様ランダムな値を1つ生成して返すはずです。
 
+#### `Random.randint(begin: int, end: int) -> int`
+- `begin` 以上 `end` **以下**のランダムな整数を返します。
+
+#### `Random.randrange(begin: int, end: int) -> int`
+- `begin` 以上 `end` **未満**のランダムな整数を返します。
+
+#### `Random.shuffle(a: List[Any]) -> None`
+- `a` をインプレースにシャッフルします。
+- `O(N)` です。
 _____
 
 ## 使用例
