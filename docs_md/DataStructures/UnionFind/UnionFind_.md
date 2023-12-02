@@ -9,9 +9,10 @@ _____
 _____
 
 - [`PartialPersistentUnionFind`](./PartialPersistentUnionFind.md)
-  - 部分永続 UnionFind です。
+  - 部分永続 `UnionFind` です。
 - [`PersistentUnionFind`](./PersistentUnionFind.md)
-  - 永続 UnionFind です。
+  - 永続 `UnionFind` です。
 - [`UndoableUnionFind`](UndoableUnionFind.md)
 - [`UnionFind`](UnionFind.md)
+  - 普通の `UnionFind` です。
 - [`WeightedUnionFind`](WeightedUnionFind.md)

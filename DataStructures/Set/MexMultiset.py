@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, List
 from Library_py.DataStructures.SegmentTree.SegmentTree import SegmentTree
 
 class MexMultiset():
@@ -10,9 +10,9 @@ class MexMultiset():
       if e <= u:
         data[e] += 1
         init_data[e] = 0
-    self.u = u
-    self.data = data
-    self.seg = SegmentTree(init_data, lambda s, t: s|t, 0)
+    self.u: int = u
+    self.data: List[int] = data
+    self.seg: SegmentTree[int] = SegmentTree(init_data, op=lambda s, t: s|t, e=0)
 
   def add(self, key: int) -> None:
     if key > self.u: return
