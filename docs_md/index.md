@@ -143,7 +143,6 @@ _____
 - [`MinMaxMultiset`](DataStructures/Set/MinMaxMultiset.md)
 - [`MinMaxSet`](DataStructures/Set/MinMaxSet.md)
 - [`MultisetQuadraticDivision`](DataStructures/Set/MultisetQuadraticDivision.md)
-- [`RangeSet`](DataStructures/Set/RangeSet.md)
 - [`SetQuadraticDivision`](DataStructures/Set/SetQuadraticDivision.md)
 - [`StaticOrderedMultiset`](DataStructures/Set/StaticOrderedMultiset.md)
 - [`StaticOrderedSet`](DataStructures/Set/StaticOrderedSet.md)
