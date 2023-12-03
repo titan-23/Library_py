@@ -220,29 +220,28 @@ def is_prime64(n: int) -> bool:
       return False
   return True
 
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Final
 import random
 import string
-_titan23_HashString_MOD: int = (1<<61)-1
-_titan23_HashString_Dic: Dict[str, int] = {c: i for i, c in enumerate(string.ascii_lowercase)}
-
-_titan23_HashString_MASK30 = (1 << 30) - 1
-_titan23_HashString_MASK31 = (1 << 31) - 1
-_titan23_HashString_MASK61 = _titan23_HashString_MOD
+_titan23_HashString_MOD: Final[int] = (1 << 61) - 1
+_titan23_HashString_DIC: Final[Dict[str, int]] = {c: i for i, c in enumerate(string.ascii_lowercase, 1)}
+_titan23_HashString_MASK30: Final[int] = (1 << 30) - 1
+_titan23_HashString_MASK31: Final[int] = (1 << 31) - 1
+_titan23_HashString_MASK61: Final[int] = _titan23_HashString_MOD
 
 class HashStringBase():
 
-  def __init__(self, n: int, seed: Optional[int]=None):
+  def __init__(self, n: int, base: int=-1, seed: Optional[int]=None) -> None:
     random.seed(seed)
-    base = random.randint(37, 10**9)
+    base = random.randint(37, 10**9) if base < 0 else base
     while not is_prime64(base):
       base = random.randint(37, 10**9)
     powb = [1] * (n+1)
     invb = [1] * (n+1)
     invbpow = pow(base, -1, _titan23_HashString_MOD)
     for i in range(1, n+1):
-      powb[i] = HashStringBase.get_mod(HashStringBase.get_mul(powb[i-1], base))
-      invb[i] = HashStringBase.get_mod(HashStringBase.get_mul(invb[i-1], invbpow))
+      powb[i] = HashStringBase.get_mul(powb[i-1], base)
+      invb[i] = HashStringBase.get_mul(invb[i-1], invbpow)
     self.n = n
     self.powb = powb
     self.invb = invb
@@ -280,7 +279,7 @@ class HashString():
     acc = [0] * (n+1)
     powb = hsb.powb
     for i, c in enumerate(s):
-      data[i] = hsb.get_mod(hsb.get_mul(powb[n-i-1], _titan23_HashString_Dic[c]))
+      data[i] = hsb.get_mul(powb[n-i-1], _titan23_HashString_DIC[c])
       acc[i+1] = hsb.get_mod(acc[i] + data[i])
     self.hsb = hsb
     self.n = n
@@ -291,7 +290,7 @@ class HashString():
 
   def get(self, l: int, r: int) -> int:
     if self.used_seg:
-      return self.hsb.get_mod(self.hsb.get_mul(self.seg.prod(l, r), self.hsb.invb[self.n-r]))
+      return self.hsb.get_mul(self.seg.prod(l, r), self.hsb.invb[self.n-r])
     return self.hsb.get_mul(self.hsb.get_mod(self.acc[r]-self.acc[l]), self.hsb.invb[self.n-r])
 
   def __getitem__(self, k: int) -> int:
@@ -299,7 +298,7 @@ class HashString():
 
   def set(self, k: int, c: str) -> None:
     self.used_seg = True
-    self.seg[k] = self.hsb.get_mod(self.hsb.get_mul(self.hsb.powb[self.n-k-1], _titan23_HashString_Dic[c]))
+    self.seg[k] = self.hsb.get_mul(self.hsb.powb[self.n-k-1], _titan23_HashString_DIC[c])
 
   def __setitem__(self, k: int, c: str) -> None:
     return self.set(k, c)
