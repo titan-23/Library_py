@@ -12,7 +12,9 @@ _____
 _____
 
 - ロリハです。
-- `mod=(1<<61)-1`、`base=random.randint(37, 100000)`です。
+- `mod=(1<<61)-1`(固定)、`base=random.randint(37, 10**9)`です。
+- 参考
+  - [https://qiita.com/keymoon/items/11fac5627672a6d6a9f6](https://qiita.com/keymoon/items/11fac5627672a6d6a9f6)
 
 _____
 
@@ -41,11 +43,15 @@ _____
 - `k` 番目の文字を `c` に更新します。
 - `O(logn)` です。また、今後の `get()` が `O(logn)` になります。
 
+#### `hs.get_lcp() -> List[int]`
+- lcp配列を返します。
+- `O(nlogn)` です。
+
 _____
 
 ## 使用例
 
-[ABC331F Palindrome Query](https://atcoder.jp/contests/abc331/submissions/48153238)
+[ABC331F Palindrome Query]()
 
 ```python
 from Library_py.String.HashString import HashStringBase, HashString
@@ -59,7 +65,7 @@ input = lambda: sys.stdin.readline().rstrip()
 
 n, q = map(int, input().split())
 s = input()
-hsb = HashStringBase(n)
+hsb = HashStringBase(n, 2)
 hs  = HashString(hsb, s, update=True)
 rhs = HashString(hsb, s[::-1], update=True)
 for _ in range(q):
