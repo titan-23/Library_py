@@ -5,14 +5,13 @@ python3 expander.py <input_filename> <output_filename>
 import sys
 import pyperclip
 import re
-import io
 import sys
 
 LIB_PATH = 'C:\\Users\\titan\\source'
 TO_LIB_PATH = '../'
 
 input_filename = sys.argv[1]
-output_filename = sys.argv[2] if len(sys.argv) == 3 else 'aa.py'
+output_filename = sys.argv[2] if len(sys.argv) == 3 else 'clip'
 input_file = open(input_filename, 'r', encoding='utf-8')
 
 added_file = set()
