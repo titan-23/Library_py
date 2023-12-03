@@ -4,7 +4,7 @@ from Library_py.Math.is_prime import is_prime64
 from typing import Optional, List, Dict, Final
 import random
 import string
-_titan23_HashString_MOD: Final[int] = (1<<61)-1
+_titan23_HashString_MOD: Final[int] = (1 << 61) - 1
 _titan23_HashString_DIC: Final[Dict[str, int]] = {c: i for i, c in enumerate(string.ascii_lowercase, 1)}
 _titan23_HashString_MASK30: Final[int] = (1 << 30) - 1
 _titan23_HashString_MASK31: Final[int] = (1 << 31) - 1
@@ -12,7 +12,7 @@ _titan23_HashString_MASK61: Final[int] = _titan23_HashString_MOD
 
 class HashStringBase():
 
-  def __init__(self, n: int, base: int=-1, seed: Optional[int]=None):
+  def __init__(self, n: int, base: int=-1, seed: Optional[int]=None) -> None:
     random.seed(seed)
     base = random.randint(37, 10**9) if base < 0 else base
     while not is_prime64(base):

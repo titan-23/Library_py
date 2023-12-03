@@ -1,16 +1,15 @@
 from Library_py.String.HashString import HashStringBase, HashString
-from typing import Optional, Tuple
-from functools import reduce
+from typing import Optional, Tuple, List
 import random
 
 class MultiHashStringBase():
 
-  def __init__(self, n: int, base_cnt: int=1, seed: Optional[int]=None):
+  def __init__(self, n: int, base_cnt: int=1, base_list: List[int]=[], seed: Optional[int]=None) -> None:
     if seed is None:
       seed = random.randint(0, 10**9)
     assert base_cnt > 0, f'ValueError: MultiHashString base_cnt must be > 0'
-    hsb = tuple(HashStringBase(n, seed+i) for i in range(base_cnt))
-    self.base_cnt = base_cnt
+    base_list = base_list if len(base_list) == base_cnt else [random.randint(37, 10**9) for _ in range(base_cnt)]
+    hsb = tuple(HashStringBase(n, base_list[i]) for i in range(base_cnt))
     self.hsb = hsb
 
 class MultiHashString():
