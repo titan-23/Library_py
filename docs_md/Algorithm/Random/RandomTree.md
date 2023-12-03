@@ -11,6 +11,9 @@ _____
 
 _____
 
+- ランダムな木を作ります。
+- 作問作業にどうぞ
+
 _____
 
 ## 仕様
@@ -20,12 +23,8 @@ _____
 
 ### `RandomTree`
 
-#### `tree = RandomTree(n: int, seed: Optional[int]=None)`
-- 頂点数 `n` として初期化します。
-- `seed` を指定可能です。デフォルトは `Nown` です。
-
-#### `tree.build(typ: RandomTreeType=RandomTreeType.random) -> List[Tuple[int, int]]`
-- `typ` をもとにランダムな木を生成し、辺を返します。
+#### `RandomTree.build(n: int, typ: RandomTreeType=RandomTreeType.random, seed: Optional[int]=None)`
+- 頂点数 `n` 、木の形 `typ` をもとにランダムな木を生成し、辺を返します。
   - `RandomTreeType.random` もしくは指定しないとき、ただのランダムです。
   - `RandomTreeType.path` のとき、ランダムなパスグラフです。
   - `RandomTreeType.star` のとき、ランダムなスターグラフです。
@@ -41,8 +40,7 @@ _____
 from Library_py.Algorithm.Random.RandomTree import RandomTreeType
 from Library_py.Algorithm.Random.RandomTree import RandomTree
 
-tree = RandomTree(5, seed=10)
-edges = tree.build(RandomTreeType.random)
+edges = RandomTree.build(5, RandomTreeType.random, seed=10)
 for u, v in edges:
   print(u, v)
   # 2 0

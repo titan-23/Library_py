@@ -5,7 +5,6 @@ from typing import Optional, List, Tuple
 import random
 
 class RandomTreeType(Enum):
-
   random = enum.auto()
   path = enum.auto()
   star = enum.auto()
@@ -13,23 +12,22 @@ class RandomTreeType(Enum):
 
 class RandomTree():
 
-  def __init__(self, n: int, seed: Optional[int]=None):
-    self.n = n
+  @classmethod
+  def build(cls, n: int, typ: RandomTreeType=RandomTreeType.random, seed: Optional[int]=None) -> List[Tuple[int, int]]:
     random.seed(seed)
-
-  def build(self, typ: RandomTreeType=RandomTreeType.random) -> List[Tuple[int, int]]:
     if typ == RandomTreeType.random:
-      return self._build_random()
+      return cls._build_random(n)
     if typ == RandomTreeType.path:
-      return self._build_path()
+      return cls._build_path(n)
     if typ == RandomTreeType.star:
-      return self._build_star()
+      return cls._build_star(n)
     raise ValueError(typ)
 
-  def _build_star(self) -> List[Tuple[int, int]]:
-    center = random.randrange(0, self.n)
+  @classmethod
+  def _build_star(cls, n: int) -> List[Tuple[int, int]]:
+    center = random.randrange(0, n)
     edge = []
-    for i in range(self.n):
+    for i in range(n):
       if i == center:
         continue
       if random.random() < 0.5:
@@ -39,22 +37,24 @@ class RandomTree():
     random.shuffle(edge)
     return edge
 
-  def _build_path(self) -> List[Tuple[int, int]]:
-    p = list(range(self.n))
+  @classmethod
+  def _build_path(cls, n: int) -> List[Tuple[int, int]]:
+    p = list(range(n))
     random.shuffle(p)
-    edges = [(p[i], p[i+1]) for i in range(self.n-1)]
+    edges = [(p[i], p[i+1]) for i in range(n-1)]
     random.shuffle(edges)
     return edges
 
-  def _build_random(self) -> List[Tuple[int, int]]:
+  @classmethod
+  def _build_random(cls, n: int) -> List[Tuple[int, int]]:
     edges = []
-    D = [1] * self.n
-    A = [0] * (self.n-2)
-    for i in range(self.n-2):
-      v = random.randrange(0, self.n)
+    D = [1] * n
+    A = [0] * (n-2)
+    for i in range(n-2):
+      v = random.randrange(0, n)
       D[v] += 1
       A[i] = v
-    avl: AVLTreeSet2[Tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(self.n))
+    avl: AVLTreeSet2[Tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(n))
     for a in A:
       d, v = avl.pop_min()
       assert d == 1
