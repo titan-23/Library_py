@@ -118,11 +118,12 @@ class FenwickTree():
     return f'FenwickTree({self})'
 
 from typing import List, Dict
+import string
 
 class StringCount():
 
-  alp: str = 'abcdefghijklmnopqrstuvwxyz'
-  # alp: str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  alp: str = string.ascii_lowercase
+  # alp: str = string.ascii_uppercase
   DIC: Dict[str, int] = {c: i for i, c in enumerate(alp)}
 
   def __init__(self, s: str):

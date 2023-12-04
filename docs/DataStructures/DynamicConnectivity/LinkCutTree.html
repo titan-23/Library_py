@@ -198,8 +198,9 @@
     <span class="n">_update</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pre</span>
 
-  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">evert</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">evert</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">expose</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expose</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
@@ -266,9 +267,8 @@
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39; 辺[u - v]を削除する 一応assertつけてるけど意味無さそう</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; 辺[u - v]を削除する</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">same</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span> <span class="k">return</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">evert</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>
@@ -511,8 +511,9 @@
     <span class="n">_update</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pre</span>
 
-  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">evert</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">evert</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">expose</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expose</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
@@ -579,9 +580,8 @@
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39; 辺[u - v]を削除する 一応assertつけてるけど意味無さそう</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; 辺[u - v]を削除する</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">same</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span> <span class="k">return</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">evert</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>
@@ -650,13 +650,17 @@
 </div>
 <hr />
 <ul>
-<li><code>LinkCutTree</code> です。森を管理します。パスクエリの強さに定評があります。</li>
+<li><code>LinkCutTree</code> です。</li>
+<li>森を管理します。パスクエリの強さに定評があります。</li>
 </ul>
 <hr />
 <h2>仕様</h2>
 <h4><code>lct = LinkCutTree(n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T]=lambda x, y: None, mapping: Callable[[F, T], T]=lambda x, y: None, composition: Callable[[F, F], F]=lambda x, y: None, e: T=None, id: F=None)</code></h4>
 <ul>
-<li><code>n_or_a</code>が <code>int</code> のとき、頂点数 <code>n</code> の <code>LinkCutTree</code> を構築します。<code>Iterable</code> のとき、頂点数はその長さとなります。<code>op, mapping, composition, e, id</code> は遅延セグ木のアレです。よしなに。</li>
+<li><code>n_or_a</code>が <code>int</code> のとき、頂点数 <code>n</code> の <code>LinkCutTree</code> を構築します。<code>Iterable</code> のとき、頂点数はその長さとなります。<code>op, mapping, composition, e, id</code> は遅延セグ木のアレです。よしなに。<ul>
+<li><code>op</code> は非可換でもよいです。</li>
+</ul>
+</li>
 </ul>
 <h4><code>lct.expose(v: int) -&gt; int</code></h4>
 <ul>
@@ -669,21 +673,79 @@
 </ul>
 <h4><code>lct.link(c: int, p: int) -&gt; None</code></h4>
 <ul>
-<li>辺 <code>{c, p}</code> を追加します。</li>
+<li>辺 <code>{c -&gt; p}</code> を追加します。</li>
 <li><code>O(logN)</code> です。</li>
 </ul>
 <h4><code>lct.cut(c: int) -&gt; None</code></h4>
+<ul>
+<li>辺 <code>{c -&gt; cの親}</code> を削除します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct.group_count() -&gt; int</code></h4>
+<ul>
+<li>連結成分数を返します。</li>
+<li><code>O(1)</code> です。</li>
+</ul>
 <h4><code>lct.root(v: int) -&gt; int</code></h4>
-<h4><code>lct.lca(u: int, v: int) -&gt; int</code></h4>
+<ul>
+<li><code>v</code> が属する木の根を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>lct.lca(u: int, v: int, root: int=-1) -&gt; int</code></h4>
+<ul>
+<li><code>u</code>, <code>v</code> の LCA を返します。<code>root</code> で根を指定することもできます。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct.same(u: int, v: int) -&gt; bool</code></h4>
+<ul>
+<li><code>u</code>, <code>v</code> が同じ連結成分であれば <code>True</code> を、そうでなければ <code>False</code> を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct.merge(u: int, v: int) -&gt; bool</code></h4>
+<ul>
+<li><code>u</code>, <code>v</code> が同じ連結成分なら <code>False</code> を返します。そうでなければ辺 <code>{u -&gt; v}</code> を追加して <code>True</code> を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct.split(u: int, v: int) -&gt; bool</code></h4>
+<ul>
+<li>辺 <code>{u - v}</code> があれば削除し <code>True</code> を返します。そうでなければ何もせず <code>False</code> を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct.path_prod(u: int, v: int) -&gt; T</code></h4>
-<h4><code>lct.path_apply(u: int, v: int) -&gt; None</code></h4>
+<ul>
+<li><code>u</code> から <code>v</code> へのパスの総積を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
+<h4><code>lct.path_apply(u: int, v: int, f: F) -&gt; None</code></h4>
+<ul>
+<li><code>u</code> から <code>v</code> へのパスに <code>f</code> を作用させます。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct.path_length(u: int, v: int) -&gt; int</code></h4>
+<ul>
+<li><code>u-v</code> パスの辺の個数を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct.path_kth_elm(s: int, t: int, k: int) -&gt; int</code></h4>
+<ul>
+<li><code>u</code> から <code>v</code> へ <code>k</code> 個進んだ頂点を返します。存在しないときは <code>-1</code> を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>lct[k] / lct[k] = v</code></h4>
+<ul>
+<li>頂点 <code>k</code> の値を返します。</li>
+<li><code>O(logN)</code> です。</li>
+</ul>
 <h4><code>str(lct) / repr(lct)</code></h4>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.DynamicConnectivity.LinkCutTree</span> <span class="kn">import</span> <span class="n">LinkCutTree</span>
+
+<span class="n">lct</span> <span class="o">=</span> <span class="n">LinkCutTree</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
 <p></body>
 </html></p>

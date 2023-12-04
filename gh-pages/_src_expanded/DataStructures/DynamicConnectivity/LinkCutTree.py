@@ -176,8 +176,9 @@ class LinkCutTree(Generic[T, F]):
     _update(v)
     return pre
 
-  def lca(self, root: int, u: int, v: int) -> int:
-    self.evert(root)
+  def lca(self, u: int, v: int, root: int=-1) -> int:
+    if root != -1:
+      self.evert(root)
     self.expose(u)
     return self.expose(v)
 
@@ -244,9 +245,8 @@ class LinkCutTree(Generic[T, F]):
     return True
 
   def split(self, u: int, v: int) -> bool:
-    ''' 辺[u - v]を削除する 一応assertつけてるけど意味無さそう
+    ''' 辺[u - v]を削除する
     '''
-    if not self.same(v, u): return False
     self.evert(u)
     self.cut(v)
     return True
