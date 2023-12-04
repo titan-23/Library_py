@@ -251,5 +251,7 @@ _____
 
 ## [`String`](String/String.md)
 
+- [`DynamicHashString`](String/DynamicHashString.md)
+- [`MultiHashString`](String/MultiHashString.md)
 - [`HashString`](String/HashString.md)
 

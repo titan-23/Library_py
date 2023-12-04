@@ -1,6 +1,5 @@
 # ref: https://qiita.com/keymoon/items/11fac5627672a6d6a9f6
 from Library_py.DataStructures.SegmentTree.SegmentTree import SegmentTree
-from Library_py.Math.is_prime import is_prime64
 from typing import Optional, List, Dict, Final
 import random
 import string
@@ -15,8 +14,6 @@ class HashStringBase():
   def __init__(self, n: int, base: int=-1, seed: Optional[int]=None) -> None:
     random.seed(seed)
     base = random.randint(37, 10**9) if base < 0 else base
-    while not is_prime64(base):
-      base = random.randint(37, 10**9)
     powb = [1] * (n+1)
     invb = [1] * (n+1)
     invbpow = pow(base, -1, _titan23_HashString_MOD)
