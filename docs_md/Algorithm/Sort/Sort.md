@@ -2,7 +2,7 @@ _____
 
 # [`Sort`](https://github.com/titan-23/Library_py/blob/main/Algorithm/Sort)
 
-- 列を sort します。
+- 列をソートします。
 - 2項演算の式を引数に渡せます。
 
 _____
