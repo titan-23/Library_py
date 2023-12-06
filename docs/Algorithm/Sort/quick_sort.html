@@ -91,13 +91,23 @@
 <h4><code>quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s &lt; t) -&gt; List[T]:</code></h4>
 <ul>
 <li>列 <code>a</code> をクイックソートします。</li>
-<li>比較関数 <code>key</code> にしたがって比較演算をします。</li>
-<li>時間計算量 <code>Θ(nlogn)</code> です。</li>
+<li>非破壊的です。</li>
+<li>比較関数 <code>key</code> にしたがって比較演算をします。<ul>
+<li><code>key: Callable[[T, T], bool]</code> です。</li>
+<li><code>(第1引数)&lt;(第2引数)</code> のとき、 <code>True</code> を返すようにしてください。</li>
+</ul>
+</li>
+<li>時間計算量は期待 <code>O(nlogn)</code> です。</li>
+<li>空間計算量は <code>O(n)</code> です。</li>
 </ul>
 <hr />
 <h2>使用例</h2>
 <div class="code-block">
-<div class="highlight" id="codeContainer1"><pre><span></span>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.Algorithm.Sort.quick_sort</span> <span class="kn">import</span> <span class="n">quick_sort</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># [1, 2, 3, 3, 5, 5, 8]</span>
 </pre></div>
 
 </div>

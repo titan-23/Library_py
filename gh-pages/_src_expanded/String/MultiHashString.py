@@ -279,6 +279,9 @@ class HashString():
   def __setitem__(self, k: int, c: str) -> None:
     return self.set(k, c)
 
+  def __len__(self):
+    return self.n
+
   def get_lcp(self) -> List[int]:
     a = [0] * self.n
     memo = [-1] * (self.n+1)
