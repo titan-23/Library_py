@@ -252,6 +252,7 @@ _____
 ## [`String`](String/String.md)
 
 - [`DynamicHashString`](String/DynamicHashString.md)
+- [`get_suffix_array`](String/get_suffix_array.md)
 - [`MultiHashString`](String/MultiHashString.md)
 - [`HashString`](String/HashString.md)
 
