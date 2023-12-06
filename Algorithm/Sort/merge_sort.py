@@ -9,9 +9,8 @@ def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
     if n <= 1:
       return a
     if n == 2:
-      if key(a[0], a[1]):
-        return a
-      a[0], a[1] = a[1], a[0]
+      if not key(a[0], a[1]):
+        a[0], a[1] = a[1], a[0]
       return a
     left = _sort(a[:n//2])
     right = _sort(a[n//2:])
@@ -24,12 +23,10 @@ def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
       else:
         res.append(right[j])
         j += 1
-    while i < l:
+    for i in range(i, l):
       res.append(left[i])
-      i += 1
-    while j < r:
+    for j in range(j, r):
       res.append(right[j])
-      j += 1
     return res
   return _sort(list(a))
 
