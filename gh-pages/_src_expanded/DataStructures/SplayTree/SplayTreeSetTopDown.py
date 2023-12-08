@@ -101,8 +101,6 @@ from array import array
 from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
 T = TypeVar('T', bound=SupportsLessThan)
 
-# raise NotImplementedError
-
 class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[], e: T=0):
@@ -117,7 +115,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     if a:
       self._build(a)
 
-  def _build(self, a: Sequence[T]) -> None:
+  def _build(self, a: List[T]) -> None:
     def rec(l: int, r: int) -> int:
       mid = (l + r) >> 1
       if l != mid:
@@ -151,14 +149,14 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     self.end += 1
     return self.end - 1
 
-  def _rotate_left(self, node: int) -> int:
+  def _rotate_right(self, node: int) -> int:
     child = self.child
     u = child[node<<1]
     child[node<<1] = child[u<<1|1]
     child[u<<1|1] = node
     return u
 
-  def _rotate_right(self, node: int) -> int:
+  def _rotate_left(self, node: int) -> int:
     child = self.child
     u = child[node<<1|1]
     child[node<<1|1] = child[u<<1]
@@ -166,26 +164,43 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return u
 
   def _set_search_splay(self, key: T) -> None:
+    def set_left(node: int) -> int:
+      nonlocal left
+      child[left<<1|1] = node
+      left = node
+      return child[node<<1|1]
+    def set_right(node: int) -> int:
+      nonlocal right
+      child[right<<1] = node
+      right = node
+      return child[node<<1]
     node = self.root
     keys, child = self.keys, self.child
     if (not node) or keys[node] == key: return
     left, right = 0, 0
     while keys[node] != key:
-      f = key > keys[node]
-      if not child[node<<1|f]: break
-      if f:
+      if key > keys[node]:
+        if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
-          if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-      else:
-        if key < keys[child[node<<1]]:
           node = self._rotate_left(node)
+          if not child[node<<1|1]: break
+          node = set_left(node)
+        elif child[child[node<<1|1]<<1] and key < keys[child[child[node<<1|1]<<1]]:
+          node = set_left(node)
+          node = set_right(node)
+        else:
+          node = set_left(node)
+      else:
+        if not child[node<<1]: break
+        if key < keys[child[node<<1]]:
+          node = self._rotate_right(node)
           if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-      node = child[node<<1|f]
+          node = set_right(node)
+        elif child[child[node<<1]<<1|1] and key > keys[child[child[node<<1]<<1|1]]:
+          node = set_right(node)
+          node = set_left(node)
+        else:
+          node = set_right(node)
     child[right<<1] = child[node<<1|1]
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
@@ -197,7 +212,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     if (not node) or (not child[node<<1]): return node
     right = 0
     while child[node<<1]:
-      node = self._rotate_left(node)
+      node = self._rotate_right(node)
       if not child[node<<1]: break
       child[right<<1] = node
       right = node
@@ -213,7 +228,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     if (not node) or (not child[node<<1|1]): return node
     left = 0
     while child[node<<1|1]:
-      node = self._rotate_right(node)
+      node = self._rotate_left(node)
       if not child[node<<1|1]: break
       child[left<<1|1] = node
       left = node
@@ -268,6 +283,16 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     raise KeyError(key)
 
   def ge(self, key: T) -> Optional[T]:
+    def set_left(node: int) -> int:
+      nonlocal left
+      child[left<<1|1] = node
+      left = node
+      return child[node<<1|1]
+    def set_right(node: int) -> int:
+      nonlocal right
+      child[right<<1] = node
+      right = node
+      return child[node<<1]
     node = self.root
     if not node: return None
     keys, child = self.keys, self.child
@@ -282,20 +307,26 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         ge = keys[node]
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
+          node = self._rotate_right(node)
           ge = keys[node]
           if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
+          node = set_right(node)
+        elif child[child[node<<1]<<1|1] and key > keys[child[child[node<<1]<<1|1]]:
+          node = set_right(node)
+          node = set_left(node)
+        else:
+          node = set_right(node)
       else:
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
+          node = self._rotate_left(node)
           if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
+          node = set_left(node)
+        elif child[child[node<<1|1]<<1] and key < keys[child[child[node<<1|1]<<1]]:
+          node = set_left(node)
+          node = set_right(node)
+        else:
+          node = set_left(node)
     child[right<<1] = child[node<<1|1]
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
@@ -304,30 +335,46 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return ge
 
   def gt(self, key: T) -> Optional[T]:
+    def set_left(node: int) -> int:
+      nonlocal left
+      child[left<<1|1] = node
+      left = node
+      return child[node<<1|1]
+    def set_right(node: int) -> int:
+      nonlocal right
+      child[right<<1] = node
+      right = node
+      return child[node<<1]
     node = self.root
     if not node: return None
-    gt = None
     keys, child = self.keys, self.child
+    gt = None
     left, right = 0, 0
     while True:
       if key < keys[node]:
         gt = keys[node]
         if not child[node<<1]: break
         if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
+          node = self._rotate_right(node)
           gt = keys[node]
           if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
+          node = set_right(node)
+        elif child[child[node<<1]<<1|1] and key > keys[child[child[node<<1]<<1|1]]:
+          node = set_right(node)
+          node = set_left(node)
+        else:
+          node = set_right(node)
       else:
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
+          node = self._rotate_left(node)
           if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
+          node = set_left(node)
+        elif child[child[node<<1|1]<<1] and key < keys[child[child[node<<1|1]<<1]]:
+          node = set_left(node)
+          node = set_right(node)
+        else:
+          node = set_left(node)
     child[right<<1] = child[node<<1|1]
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
@@ -336,6 +383,16 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return gt
 
   def le(self, key: T) -> Optional[T]:
+    def set_left(node: int) -> int:
+      nonlocal left
+      child[left<<1|1] = node
+      left = node
+      return child[node<<1|1]
+    def set_right(node: int) -> int:
+      nonlocal right
+      child[right<<1] = node
+      right = node
+      return child[node<<1]
     node = self.root
     if not node: return None
     keys, child = self.keys, self.child
@@ -346,24 +403,30 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
       if keys[node] == key:
         le = key
         break
-      if key < keys[node]:
-        if not child[node<<1]: break
-        if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
-      else:
+      if key > keys[node]:
         le = keys[node]
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
+          node = self._rotate_left(node)
           le = keys[node]
           if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
+          node = set_left(node)
+        elif child[child[node<<1|1]<<1] and key < keys[child[child[node<<1|1]<<1]]:
+          node = set_left(node)
+          node = set_right(node)
+        else:
+          node = set_left(node)
+      else:
+        if not child[node<<1]: break
+        if key < keys[child[node<<1]]:
+          node = self._rotate_right(node)
+          if not child[node<<1]: break
+          node = set_right(node)
+        elif child[child[node<<1]<<1|1] and key > keys[child[child[node<<1]<<1|1]]:
+          node = set_right(node)
+          node = set_left(node)
+        else:
+          node = set_right(node)
     child[right<<1] = child[node<<1|1]
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
@@ -372,31 +435,46 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return le
 
   def lt(self, key: T) -> Optional[T]:
+    def set_left(node: int) -> int:
+      nonlocal left
+      child[left<<1|1] = node
+      left = node
+      return child[node<<1|1]
+    def set_right(node: int) -> int:
+      nonlocal right
+      child[right<<1] = node
+      right = node
+      return child[node<<1]
     node = self.root
     if not node: return None
     keys, child = self.keys, self.child
-    if keys[node] == key: return key
     lt = None
     left, right = 0, 0
     while True:
-      if key <= keys[node]:
-        if not child[node<<1]: break
-        if key < keys[child[node<<1]]:
-          node = self._rotate_left(node)
-          if not child[node<<1]: break
-        child[right<<1] = node
-        right = node
-        node = child[node<<1]
-      else:
+      if key > keys[node]:
         lt = keys[node]
         if not child[node<<1|1]: break
         if key > keys[child[node<<1|1]]:
-          node = self._rotate_right(node)
+          node = self._rotate_left(node)
           lt = keys[node]
           if not child[node<<1|1]: break
-        child[left<<1|1] = node
-        left = node
-        node = child[node<<1|1]
+          node = set_left(node)
+        elif child[child[node<<1|1]<<1] and key < keys[child[child[node<<1|1]<<1]]:
+          node = set_left(node)
+          node = set_right(node)
+        else:
+          node = set_left(node)
+      else:
+        if not child[node<<1]: break
+        if key < keys[child[node<<1]]:
+          node = self._rotate_right(node)
+          if not child[node<<1]: break
+          node = set_right(node)
+        elif child[child[node<<1]<<1|1] and key > keys[child[child[node<<1]<<1|1]]:
+          node = set_right(node)
+          node = set_left(node)
+        else:
+          node = set_right(node)
     child[right<<1] = child[node<<1|1]
     child[left<<1|1] = child[node<<1]
     child[node<<1] = child[1]
