@@ -1,13 +1,10 @@
-from Library_py.DataStructures.AVLTree.AVLTreeSet2 import AVLTreeSet2
-# from Library_py.DataStructures.SplayTree.SplayTreeSetTopDown import SplayTreeSetTopDown
+from Library_py.DataStructures.SplayTree.SplayTreeSetTopDown import SplayTreeSetTopDown
 from typing import Dict, Iterable, Tuple
 
 class RangeSet():
 
-  # SplayTreeがバグって困った
-
   def __init__(self, a: Iterable[int]=[]):
-    self.data: AVLTreeSet2[Tuple[int, int]] = AVLTreeSet2()
+    self.data: SplayTreeSetTopDown[Tuple[int, int]] = SplayTreeSetTopDown()
     self.dic: Dict[int, int] = {}
     for a_ in sorted(a):
       self.add(a_)
