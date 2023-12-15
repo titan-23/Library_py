@@ -100,7 +100,7 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         size[node] -= cnt
         node = par[node]
     return True
-  
+
   def discard_all(self, key: int) -> bool:
     return self.discard(key, self.count(key))
 
@@ -162,8 +162,8 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         f'ValueError: BinaryTrieMultiset.all_xor({x}), lim={self.lim}'
     self.xor ^= x
 
-  def get_min(self) -> int:
-    assert self, f'IndexError: BinaryTrieMultiset.get_min()'
+  def get_min(self) -> Optional[int]:
+    if not self: return None
     left, right = self.left, self.right
     key = self.xor
     ans = 0
@@ -184,8 +184,8 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
           ans |= 1
     return ans ^ self.xor
 
-  def get_max(self) -> int:
-    assert self, f'IndexError: BinaryTrieMultiset.get_max()'
+  def get_max(self) -> Optional[int]:
+    if not self: return None
     left, right = self.left, self.right
     key = self.xor
     ans = 0

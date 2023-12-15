@@ -45,12 +45,12 @@ class SegmentTreeInterface(ABC, Generic[T]):
   @abstractmethod
   def __setitem__(self, k: int, v: T) -> None:
     raise NotImplementedError
-  
+
   @abstractmethod
   def __str__(self):
     raise NotImplementedError
-  
+
   @abstractmethod
   def __repr__(self):
     raise NotImplementedError
-  
+

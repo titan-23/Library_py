@@ -9,7 +9,6 @@ def fastpow(a, b):
     b >>= 1
   return res
 
-
 # 拡張ユークリッド非再帰
 def modinv(a, mod):
   b = mod
@@ -70,8 +69,8 @@ def large_pow(a, b, c, mod):
 
 def mat_mul(A: list, B: list, mod: int) -> list:
   l, m = len(A), len(A[0])
-  m_,n = len(B), len(B[0])
-  assert m == m_
+  n = len(B[0])
+  assert m == len(B)
   return [[sum([A[i][k]*B[k][j] for k in range(m)]) % mod for j in range(n)] for i in range(l)]
 
 def mat_powmod(A: list, n: int, mod: int) -> list:

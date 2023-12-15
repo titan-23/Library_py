@@ -31,9 +31,9 @@ class RootedTree():
     self._calc_child_parents()
     ret = ["<RootedTree> ["]
     ret.extend(
-      [f'  dist:{str(d).zfill(2)} - v:{str(i).zfill(2)} - p:{str(self._parents[i]).zfill(2)} - child:{sorted(self._child[i])}'
-       for i,d in sorted(enumerate(self._dist), key=lambda x: x[1])]
-      )
+        [f'  dist:{str(d).zfill(2)} - v:{str(i).zfill(2)} - p:{str(self._parents[i]).zfill(2)} - child:{sorted(self._child[i])}'
+         for i, d in sorted(enumerate(self._dist), key=lambda x: x[1])]
+    )
     ret.append(']')
     return '\n'.join(ret)
 
@@ -208,7 +208,7 @@ class RootedTree():
 
   '''Return path (u -> v). / O(logN + |path|)'''
   def get_path(self, u: int, v: int) -> List[int]:
-    assert self._lca, f'RootedTree, `lca` must be True'
+    assert self._lca, 'RootedTree, `lca` must be True'
     if u == v: return [u]
     self.get_parents()
     def get_path_lca(u: int, v: int) -> List[int]:

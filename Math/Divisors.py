@@ -49,7 +49,6 @@ class Divs():
       dfs(0, 1)
       return ret
 
-
   '''約数全列挙. / O(√N)'''
   @staticmethod
   def get_divisors(n: int) -> List[int]:
@@ -143,7 +142,7 @@ class Divs():
   @staticmethod
   def get_prime_count(limit: int) -> int:
     ret = 0
-    for i in range(2,limit):
+    for i in range(2, limit):
       for j in range(2, int(limit**0.5)+1):
         if i % j == 0:
           break

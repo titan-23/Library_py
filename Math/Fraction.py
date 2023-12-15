@@ -173,12 +173,12 @@ class Fraction():
     return a // gcd(a, b) * b
 
   def __add__(self, other):
-    if not isinstance(other, Fraction): 
+    if not isinstance(other, Fraction):
       other = Fraction(other)
     return Fraction(self.n*other.d+self.d*other.n, self.d*other.d)
 
   def __sub__(self, other):
-    if not isinstance(other, Fraction): 
+    if not isinstance(other, Fraction):
       other = Fraction(other)
     l = Fraction._lcm(self.d, other.d)
     return Fraction(self.n*l//self.d-other.n*l//other.d, l)

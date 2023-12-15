@@ -84,7 +84,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       return f'(key,col,par.key):{self.key, self.col, self.par.key},\n left:{self.left},\n right:{self.right}\n'
 
   class NILNode():
-    
+
     key = None
     left = None
     right = None

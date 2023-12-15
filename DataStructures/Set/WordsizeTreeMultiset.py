@@ -5,6 +5,7 @@ class WordsizeTreeMultiset():
 
   def __init__(self, u: int, a: Iterable[int]=[]):
     assert u >= 0
+    self.u = u
     self.len: int = 0
     self.st: WordsizeTreeSet = WordsizeTreeSet(u, a)
     cnt = [0] * (u+1)
@@ -103,6 +104,9 @@ class WordsizeTreeMultiset():
       self.st.discard(e)
     self.len = 0
     self.cnt = [0] * (self.u+1)
+
+  def tolist(self) -> List[int]:
+    return [x for x in self]
 
   def __contains__(self, x: int):
     return self.cnt[x] > 0

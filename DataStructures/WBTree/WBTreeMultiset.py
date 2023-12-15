@@ -8,18 +8,18 @@ T = TypeVar('T', bound=SupportsLessThan)
 class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   ALPHA: Final[float] = 1 - sqrt(2) / 2
-  BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
+  BETA: Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
 
   def __init__(self, a: Iterable[T]=[], e: T=0) -> None:
-    self.root : int = 0
-    self.key  : List[T] = [e]
-    self.val  : List[int] = [0]
+    self.root: int = 0
+    self.key: List[T] = [e]
+    self.val: List[int] = [0]
     self.valsize: List[int] = [0]
-    self.size : array[int] = array('I', bytes(4))
-    self.left : array[int] = array('I', bytes(4))
+    self.size: array[int] = array('I', bytes(4))
+    self.left: array[int] = array('I', bytes(4))
     self.right: array[int] = array('I', bytes(4))
-    self.end  : int = 1
-    self.e    : T = e
+    self.end: int = 1
+    self.e: T = e
     if not isinstance(a, list):
       a = list(a)
     if a:

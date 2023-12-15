@@ -8,11 +8,12 @@ class SparseTable(Generic[T]):
       a = list(a)
     self.size = len(a)
     log = self.size.bit_length()-1
-    self.data = [a] + [[]] * log
+    data = [a] + [[]] * log
     for i in range(log):
-      pre = self.data[i]
+      pre = data[i]
       l = 1 << i
-      self.data[i+1] = [op(pre[j], pre[j+l]) for j in range(len(pre)-l)]
+      data[i+1] = [op(pre[j], pre[j+l]) for j in range(len(pre)-l)]
+    self.data = data
     self.op = op
     self.e = e
 

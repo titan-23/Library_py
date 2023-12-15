@@ -11,10 +11,10 @@ class BITWaveletMatrix(WaveletMatrix):
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.mid: array[int] = array('I', bytes(4*self.log))
-    self.xy : List[Tuple[int, int]] = self._zaatsu([(x, y) for x, y, _ in pos])
-    self.y  : List[int] = self._zaatsu([y for _, y, _ in pos])
+    self.xy: List[Tuple[int, int]] = self._zaatsu([(x, y) for x, y, _ in pos])
+    self.y: List[int] = self._zaatsu([y for _, y, _ in pos])
     self.size: int = len(self.xy)
-    self.v  : List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
+    self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
     self._build([bisect_left(self.y, y) for _, y in self.xy])
     ws = [[0]*self.size for _ in range(self.log)]
     for x, y, w in pos:

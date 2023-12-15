@@ -321,7 +321,7 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     return res
 
   def pop_max(self) -> T:
-    assert self, f'IndexError'
+    assert self, 'IndexError'
     self._len -= 1
     node = self.root
     pnode = None
@@ -346,7 +346,7 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     self._it = self.get_min()
     self._cnt = 1
     return self
-  
+
   def __next__(self):
     if self._it is None:
       raise StopIteration

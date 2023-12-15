@@ -58,9 +58,9 @@ class EulerTour():
     self._path = path
 
     self._vcost_subtree = FenwickTree(vcost1)
-    self._vcost_path    = FenwickTree(vcost2)
+    self._vcost_path = FenwickTree(vcost2)
     self._ecost_subtree = FenwickTree(ecost1)
-    self._ecost_path    = FenwickTree(ecost2)
+    self._ecost_path = FenwickTree(ecost2)
 
     bit = len(path).bit_length()
     self.msk = (1 << bit) - 1

@@ -5,7 +5,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeMultiset2(Generic[T]):
 
-  def __init__(self, a: Iterable[T]=[]):  
+  def __init__(self, a: Iterable[T]=[]):
     self.root = 0
     self._len = 0
     self.key = [0]
@@ -176,7 +176,7 @@ class AVLTreeMultiset2(Generic[T]):
       if new_node:
         if not path:
           self.root = new_node
-          return    
+          return
         if di & 1:
           left[path[-1]] = new_node
         else:

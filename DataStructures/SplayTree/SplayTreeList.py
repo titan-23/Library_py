@@ -1,5 +1,5 @@
 from array import array
-from typing import Generic, List, TypeVar, Tuple, Iterable, Union, Sequence
+from typing import Generic, List, TypeVar, Tuple, Iterable, Union
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 
@@ -239,7 +239,7 @@ class SplayTreeList(Generic[T]):
     return res
 
   def popleft(self) -> T:
-    assert self, f'IndexError: SplayTreeList.popleft()'
+    assert self, 'IndexError: SplayTreeList.popleft()'
     node = self._left_splay(self.root)
     self.root = self.data.arr[node<<2|1]
     return self.data.keys[node]

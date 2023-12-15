@@ -4,7 +4,7 @@ from math import sin, cos, radians
 class AffineMap():
 
   # 平面のアフィン変換クラス
-  # 
+  #
   # 使い方:
   # mat = AffineMap.new()
 

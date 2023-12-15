@@ -11,13 +11,13 @@ class DualSegmentTree(Generic[T, F]):
                e: T,
                id: F
                ) -> None:
-    self.mapping    : Callable[[F, T], T] = mapping
+    self.mapping: Callable[[F, T], T] = mapping
     self.composition: Callable[[F, F], F] = composition
-    self.e:  T = e
+    self.e: T = e
     self.id: F = id
     self.data: List[T] = [e]*n_or_a if isinstance(n_or_a, int) else list(n_or_a)
-    self.n   : int = len(self.data)
-    self.log : int = (self.n - 1).bit_length()
+    self.n: int = len(self.data)
+    self.log: int = (self.n - 1).bit_length()
     self.size: int = 1 << self.log
     self.lazy: List[F] = [id] * self.size
 
@@ -35,16 +35,16 @@ class DualSegmentTree(Generic[T, F]):
     self.lazy[k] = self.id
 
   def apply_point(self, k: int, f: F) -> None:
-    assert 0 <= k < self.n,\
-        f'IndexError: DualSegmentTree.apply_point({k}, {f}), n={self.n}'
+    assert 0 <= k < self.n, \
+        f'IndexError: {self.__class__.__name__}.apply_point({k}, {f}), n={self.n}'
     k += self.size
     for i in range(self.log, 0, -1):
       self._propagate(k >> i)
     self.data[k-self.size] = self.mapping(f, self.data[k-self.size])
 
   def apply(self, l: int, r: int, f: F) -> None:
-    assert 0 <= l <= r <= self.n,\
-        f'IndexError: DualSegmentTree.apply({l}, {r}, {f}), n={self.n}'
+    assert 0 <= l <= r <= self.n, \
+        f'IndexError: {self.__class__.__name__}.apply({l}, {r}, {f}), n={self.n}'
     if l == r: return
     if f == self.id: return
     l += self.size
@@ -85,8 +85,8 @@ class DualSegmentTree(Generic[T, F]):
     return self.data[:]
 
   def __getitem__(self, k: int) -> T:
-    assert -self.n <= k < self.n,\
-        f'IndexError: DualSegmentTree[{k}], n={self.n}'
+    assert -self.n <= k < self.n, \
+        f'IndexError: {self.__class__.__name__}[{k}], n={self.n}'
     if k < 0:
       k += self.n
     k += self.size
@@ -95,8 +95,8 @@ class DualSegmentTree(Generic[T, F]):
     return self.data[k-self.size]
 
   def __setitem__(self, k: int, v: T) -> None:
-    assert -self.n <= k < self.n,\
-        f'IndexError: DualSegmentTree[{k}] = {v}, n={self.n}'
+    assert -self.n <= k < self.n, \
+        f'IndexError: {self.__class__.__name__}[{k}] = {v}, n={self.n}'
     if k < 0:
       k += self.n
     k += self.size

@@ -141,7 +141,7 @@ class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
     return node
 
   def reserve(self, n: int) -> None:
-    assert n >= 0, f'ValueError'
+    assert n >= 0, 'ValueError'
     self.keys += [self.e] * n
     self.vals += [0] * n
     self.child += array('I', bytes(8 * n))
@@ -182,7 +182,7 @@ class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
       child[node<<1] = child[self.root<<1]
       self.root = node
     return True
-  
+
   def discard_all(self, key: T) -> bool:
     return self.discard(key, self.count(key))
 
@@ -191,7 +191,7 @@ class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
     if c < val:
       raise KeyError(key)
     self.discard(key, val)
-  
+
   def count(self, key: T) -> int:
     if not self.root: return 0
     self._set_search_splay(key)
@@ -390,7 +390,7 @@ class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
 
   def __iter__(self):
     raise NotImplementedError
-  
+
   def __next__(self):
     raise NotImplementedError
 

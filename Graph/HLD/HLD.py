@@ -39,7 +39,7 @@ class HLD():
           size[v] += size[x]
           if size[x] > size[G_v[0]]:
             G_v[0], G_v[i] = G_v[i], G_v[0]
-    
+
     head, nodein, nodeout, hld = self.head, self.nodein, self.nodeout, self.hld
     curtime = 0
     stack = [~root, root]
