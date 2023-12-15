@@ -312,7 +312,7 @@ class SplayTreeSet(OrderedSetInterface, Generic[T]):
     return self.pop()
 
   def pop_min(self) -> T:
-    assert self.node, f'IndexError: SplayTreeSet.popleft()'
+    assert self.node, 'IndexError: SplayTreeSet.pop_min()'
     node = self._get_min_splay(self.node)
     self.node = self.child[node<<1|1]
     return self.keys[node]

@@ -36,6 +36,7 @@ _____
 
 ### [`Array`](DataStructures/Array/Array.md)
 
+- [`CSRArray`](DataStructures/Array/CSRArray.md)
 - [`PartialPersistentArray`](DataStructures/Array/PartialPersistentArray.md)
 - [`PersistentArray`](DataStructures/Array/PersistentArray.md)
 
@@ -97,10 +98,15 @@ _____
 
 ### [`Heap`](DataStructures/Heap/Heap.md)
 
+- [`BinomialHeap`](DataStructures/Heap/BinomialHeap.md)
 - [`DoubleEndedHeap`](DataStructures/Heap/DoubleEndedHeap.md)
 - [`MaxHeap`](DataStructures/Heap/MaxHeap.md)
 - [`MinHeap`](DataStructures/Heap/MinHeap.md)
 - [`RandomizedMeldableHeap`](DataStructures/Heap/RandomizedMeldableHeap.md)
+
+### [`List`](DataStructures/List/List.md)
+
+- [`LinkedList`](DataStructures/List/LinkedList.md)
 
 ### [`RBST`](DataStructures/RBST/RBST_.md)
 
@@ -218,11 +224,13 @@ _____
 - [`cartesian_tree`](Graph/cartesian_tree.md)
 - [`dijkstra`](Graph/dijkstra.md)
 - [`EulerTour`](Graph/EulerTour.md)
+- [`get_bridge`](Graph/get_bridge.md)
+- [`get_articulation_points`](Graph/get_articulation_points.md)
 - [`LCA`](Graph/LCA.md)
 - [`Namori`](Graph/Namori.md)
 - [`rerooting_dp`](Graph/rerooting_dp.md)
 - [`RootedTree`](Graph/RootedTree.md)
-- [`scc`](Graph/scc.md)
+- [`get_scc`](Graph/get_scc.md)
 - [`topological_sort`](Graph/topological_sort.md)
 - [`warshall_floyd`](Graph/warshall_floyd.md)
 - [`WeightedRootedTree`](Graph/WeightedRootedTree.md)

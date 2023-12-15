@@ -1,40 +1,49 @@
 from Library_py.DataStructures.Array.PersistentArray import PersistentArray
+from typing import Optional
 
 class PersistentUnionFind():
 
-  def __init__(self, n: int, init_t: int=0, max_t: int=-1):
+  def __init__(self, n: int, _parents: Optional[PersistentArray[int]]=None):
     self._n: int = n
-    self._parents: PersistentArray[int] = PersistentArray([-1]*n, init_t=init_t, max_t=max_t)
+    self._parents: PersistentArray[int] = PersistentArray([-1] * n) if _parents is None else _parents
 
-  def root(self, x: int, t: int) -> int:
+  def _new(self, _parents: PersistentArray[int]) -> 'PersistentUnionFind':
+    return PersistentUnionFind(self._n, _parents)
+
+  def copy(self) -> 'PersistentUnionFind':
+    return self._new(self._parents.copy())
+
+  def root(self, x: int) -> int:
     stack = []
+    _parents = self._parents
     while True:
-      p = self._parents.get(x, t)
+      p = _parents.get(x)
       if p < 0:
         break
       stack.append(x)
       x = p
     while stack:
       v = stack.pop()
-      self._parents.set(v, x, t, t)
+      _parents = _parents.set(v, x)
+    self._parents = _parents
     return x
 
-  def unite(self, x: int, y: int, pre_t: int, new_t: int) -> bool:
-    x = self.root(x, pre_t)
-    y = self.root(y, pre_t)
+  def unite(self, x: int, y: int, update: bool=False) -> 'PersistentUnionFind':
+    x = self.root(x)
+    y = self.root(y)
+    res_parents = self._parents.copy() if update else self._parents
     if x == y:
-      self._parents.copy(pre_t, new_t)
-      return False
-    px, py = self._parents.get(x, pre_t), self._parents.get(y, pre_t)
+      return self._new(res_parents)
+    px, py = res_parents.get(x), res_parents.get(y)
     if px > py:
       x, y = y, x
-    self._parents.set(x, px + py, pre_t, new_t)
-    self._parents.set(y, x, pre_t, new_t)
-    return True
+    res_parents = res_parents.set(x, px + py)
+    res_parents = res_parents.set(y, x)
+    return self._new(res_parents)
 
-  def size(self, x: int, t: int) -> int:
-    return -self._parents.get(self.root(x, t), t)
+  def size(self, x: int) -> int:
+    return -self._parents.get(self.root(x))
 
-  def same(self, x: int, y: int, t: int) -> bool:
-    return self.root(x, t) == self.root(y, t)
+  def same(self, x: int, y: int) -> bool:
+    return self.root(x) == self.root(y)
 

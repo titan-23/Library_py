@@ -262,26 +262,26 @@ class BinaryTrieSet(OrderedSetInterface):
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.gt({key}), lim={self.lim}'
     i = self.index_right(key)
-    return None if i >= self.size[self.root] else self.__getitem__(i)
+    return None if i >= self.size[self.root] else self[i]
 
   def lt(self, key: int) -> Optional[int]:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.lt({key}), lim={self.lim}'
     i = self.index(key) - 1
-    return None if i < 0 else self.__getitem__(i)
+    return None if i < 0 else self[i]
 
   def ge(self, key: int) -> Optional[int]:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.ge({key}), lim={self.lim}'
     if key == 0: return self.get_min() if self else None
     i = self.index_right(key - 1)
-    return None if i >= self.size[self.root] else self.__getitem__(i)
+    return None if i >= self.size[self.root] else self[i]
 
   def le(self, key: int) -> Optional[int]:
     assert 0 <= key < self.lim, \
         f'ValueError: BinaryTrieSet.le({key}), lim={self.lim}'
     i = self.index(key + 1) - 1
-    return None if i < 0 else self.__getitem__(i)
+    return None if i < 0 else self[i]
 
   def tolist(self) -> List[int]:
     a = newlist_hint(len(self))
@@ -294,36 +294,27 @@ class BinaryTrieSet(OrderedSetInterface):
 
   def __contains__(self, key: int):
     assert 0 <= key < self.lim, \
-        f'ValueError: BinaryTrieSet.__contains__({key}), lim={self.lim}'
+        f'ValueError: {key} in BinaryTrieSet, lim={self.lim}'
     return self._find(key) != -1
 
   def __getitem__(self, k: int):
     assert -len(self) <= k < len(self), \
-        f'IndexError: BinaryTrieSet.__getitem__({k}), len={len(self)}'
+        f'IndexError: BinaryTrieSet[{k}], len={len(self)}'
     if k < 0: k += len(self)
     left, right, size = self.left, self.right, self.size
     node = self.root
     res = 0
-    for i in range(self.bit - 1, -1, -1):
-      b = self.xor >> i & 1
-      if b:
+    for i in range(self.bit-1, -1, -1):
+      if self.xor >> i & 1:
         left, right = right, left
       t = size[left[node]]
-      res <<= 1
-      if not left[node]:
+      if t <= k:
+        k -= t
         node = right[node]
-        res |= 1
-      elif not right[node]:
-        node = left[node]
+        res |= 1 << i
       else:
-        t = size[left[node]]
-        if t <= k:
-          k -= t
-          res |= 1
-          node = right[node]
-        else:
-          node = left[node]
-      if b:
+        node = left[node]
+      if self.xor >> i & 1:
         left, right = right, left
     return res
 
