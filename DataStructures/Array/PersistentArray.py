@@ -1,4 +1,4 @@
-from typing import Dict, List, Sequence, Iterable, TypeVar, Generic, Optional, Union
+from typing import List, Iterable, TypeVar, Generic, Optional
 T = TypeVar('T')
 
 class PersistentArray(Generic[T]):
@@ -7,102 +7,91 @@ class PersistentArray(Generic[T]):
 
     def __init__(self, key: T):
       self.key: T = key
-      self.size: int = 1
       self.left: Optional[PersistentArray.Node] = None
       self.right: Optional[PersistentArray.Node] = None
 
     def copy(self) -> 'PersistentArray.Node':
       node = PersistentArray.Node(self.key)
-      node.size = self.size
       node.left = self.left
       node.right = self.right
       return node
 
-  def __init__(self, a: Iterable[T], init_t: int=0, max_t: int=-1):
-    root = self._build(a)
-    if max_t == -1:
-      self.a: Union[Dict[int, Optional[PersistentArray.Node]], List[Optional[PersistentArray.Node]]] = {init_t: root}
-    else:
-      assert max_t >= 0 and init_t >= 0
-      b: List[Optional[PersistentArray.Node]] = [None] * (max_t+1)
-      self.a: Union[Dict[int, Optional[PersistentArray.Node]], List[Optional[PersistentArray.Node]]] = b
-      self.a[init_t] = root
+  def __init__(self, a: Iterable[T]=[], _root: Optional['PersistentArray.Node']=None):
+    self.root = self._build(a) if _root is None else _root
 
-  def _build(self, a: Iterable[T]) -> Optional[Node]:
-    Node = PersistentArray.Node
-    if not isinstance(a, Sequence):
-      a = list(a)
-    def rec(l: int, r: int) -> Node:
-      mid = (l + r) >> 1
-      node = Node(a[mid])
-      if l != mid:
-        node.left = rec(l, mid)
-        node.size += node.left.size
-      if mid + 1 != r:
-        node.right = rec(mid+1, r)
-        node.size += node.right.size
-      return node
-    if not a:
+  def _build(self, a: Iterable[T]) -> Optional['PersistentArray.Node']:
+    pool = [PersistentArray.Node(e) for e in a]
+    self.n = len(pool)
+    if not pool:
       return None
-    root = rec(0, len(a))
-    return root
+    n = len(pool)
+    for i in range(1, n+1):
+      if 2*i-1 < n:
+        pool[i-1].left = pool[2*i-1]
+      if 2*i < n:
+        pool[i-1].right = pool[2*i]
+    return pool[0]
 
-  def set(self, k: int, v: T, pre_t: int, new_t: int) -> None:
-    node = self.a[pre_t]
+  def _new(self, root: Optional['PersistentArray.Node']) -> 'PersistentArray[T]':
+    res = PersistentArray(_root=root)
+    res.n = self.n
+    return res
+
+  def set(self, k: int, v: T) -> 'PersistentArray[T]':
+    node = self.root
     if node is None:
-      self.a[new_t] = None
-      return
+      return self._new(None)
     new_node = node.copy()
-    self.a[new_t] = new_node
-    while node:
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        new_node.key = v
-        return
-      if t < k:
-        k -= t + 1
-        assert node.right
-        new_node.right = node.right.copy()
+    res = self._new(new_node)
+    k += 1
+    b = k.bit_length()
+    for i in range(b-2, -1, -1):
+      if k >> i & 1:
+        node = node.right
+        new_node.right = node.copy()
         new_node = new_node.right
-        node = node.right
       else:
-        assert node.left
-        new_node.left = node.left.copy()
+        node = node.left
+        new_node.left = node.copy()
         new_node = new_node.left
-        node = node.left
+    new_node.key = v
+    return res
 
-  def get(self, k: int, t: int) -> T:
-    node = self.a[t]
-    while node:
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        return node.key
-      if t < k:
-        k -= t + 1
+  def get(self, k: int) -> T:
+    node = self.root
+    k += 1
+    b = k.bit_length()
+    for i in range(b-2, -1, -1):
+      if k >> i & 1:
         node = node.right
       else:
         node = node.left
-    assert False, f'IndexError'
+    return node.key
 
-  def copy(self, pre_t: int, new_t: int) -> None:
-    node = self.a[pre_t]
-    if node is None:
-      self.a[new_t] = None
-      return
-    new_node = node.copy()
-    self.a[new_t] = new_node
+  __getitem__ = get
 
-  def tolist(self, t: int) -> List[T]:
-    node = self.a[t]
-    stack = []
+  def copy(self) -> 'PersistentArray[T]':
+    return self._new(None if self.root is None else self.root.copy())
+
+  def tolist(self) -> List[T]:
+    node = self.root
+    q = [node]
     a: List[T] = []
-    while stack or node:
-      if node:
-        stack.append(node)
-        node = node.left
-      else:
-        node = stack.pop()
-        a.append(node.key)
-        node = node.right
+    if not node: return a
+    for node in q:
+      a.append(node.key)
+      if node.left:
+        q.append(node.left)
+      if node.right:
+        q.append(node.right)
     return a
+
+  def __len__(self):
+    return self.n
+
+  def __str__(self):
+    return str(self)
+
+  def __repr__(self):
+    return f'PersistentArray({self})'
 
