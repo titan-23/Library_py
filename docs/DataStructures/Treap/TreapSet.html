@@ -34,9 +34,9 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-      <span class="n">t</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">^</span> <span class="p">((</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
       <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span>
-      <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&gt;&gt;</span> <span class="mi">19</span><span class="p">))</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+      <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&gt;&gt;</span> <span class="mi">19</span><span class="p">))</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">^</span> <span class="p">((</span><span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span><span class="o">&amp;</span><span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
       <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span>
 
   <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
@@ -145,12 +145,8 @@
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="mi">1</span>
@@ -197,7 +193,7 @@
   <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
       <span class="k">return</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -217,7 +213,7 @@
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
@@ -229,9 +225,8 @@
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
-        <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
       <span class="k">else</span><span class="p">:</span>
@@ -266,7 +261,7 @@
     <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min() from Empty TreapSet.&#39;</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">pnode</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
@@ -281,7 +276,7 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max() from Empty TreapSet.&#39;</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">pnode</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
@@ -304,7 +299,7 @@
       <span class="k">return</span> <span class="n">a</span>
     <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
       <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-        <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>  
+        <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
       <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
         <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
@@ -314,7 +309,7 @@
   <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span>
-  
+
   <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_it</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">StopIteration</span>
@@ -327,10 +322,7 @@
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">return</span> <span class="kc">False</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -455,9 +447,9 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-      <span class="n">t</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">^</span> <span class="p">((</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
       <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span>
-      <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&gt;&gt;</span> <span class="mi">19</span><span class="p">))</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+      <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&gt;&gt;</span> <span class="mi">19</span><span class="p">))</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">^</span> <span class="p">((</span><span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span><span class="o">&amp;</span><span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
       <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span>
 
   <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
@@ -566,12 +558,8 @@
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="mi">1</span>
@@ -618,7 +606,7 @@
   <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
       <span class="k">return</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -638,7 +626,7 @@
     <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
-      <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
@@ -650,9 +638,8 @@
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
-        <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
       <span class="k">else</span><span class="p">:</span>
@@ -687,7 +674,7 @@
     <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min() from Empty TreapSet.&#39;</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">pnode</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
@@ -702,7 +689,7 @@
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max() from Empty TreapSet.&#39;</span>
     <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">pnode</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
@@ -725,7 +712,7 @@
       <span class="k">return</span> <span class="n">a</span>
     <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
       <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-        <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>  
+        <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
       <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
         <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
@@ -735,7 +722,7 @@
   <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span>
-  
+
   <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_it</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">raise</span> <span class="ne">StopIteration</span>
@@ -748,10 +735,7 @@
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">return</span> <span class="kc">False</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

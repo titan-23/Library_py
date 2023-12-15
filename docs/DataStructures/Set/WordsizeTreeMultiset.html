@@ -21,126 +21,114 @@
 <button id="ShowFullCodeButton">全表示</button>
 <button id="toggleCodeButton">展開</button>
 </div>
-<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">.WordsizeTreeSet</span> <span class="kn">import</span> <span class="n">WordsizeTreeSet</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.Set.WordsizeTreeSet</span> <span class="kn">import</span> <span class="n">WordsizeTreeSet</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="k">class</span> <span class="nc">WordsizeTreeMultiset</span><span class="p">():</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="k">assert</span> <span class="n">u</span> <span class="o">&gt;=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">:</span> <span class="n">WordsizeTreeSet</span> <span class="o">=</span> <span class="n">WordsizeTreeSet</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-    <span class="n">cnt</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="p">:</span> <span class="n">WordsizeTreeSet</span> <span class="o">=</span> <span class="n">WordsizeTreeSet</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">a_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="k">if</span> <span class="n">a_</span> <span class="ow">in</span> <span class="n">cnt</span><span class="p">:</span>
-        <span class="n">cnt</span><span class="p">[</span><span class="n">a_</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">cnt</span><span class="p">[</span><span class="n">a_</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span>
+      <span class="n">cnt</span><span class="p">[</span><span class="n">a_</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span>
 
   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.add(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="n">val</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.discard(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
     <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="n">val</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-=</span> <span class="n">val</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-=</span> <span class="n">val</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-=</span> <span class="n">v</span>
-      <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.count(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.ge(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.gt(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.le(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.lt(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">u</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">u</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min from empty WordsizeTreeMultiset.&#39;</span>
-    <span class="n">d</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-    <span class="n">ssd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">data</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="n">m</span> <span class="o">=</span> <span class="n">ssd</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">((</span><span class="o">~</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">))</span>
-      <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">m</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">break</span>
-        <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">5</span>
-        <span class="n">d</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min() from empty WordsizeTreeMultiset.&#39;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max from empty WordsizeTreeMultiset.&#39;</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">ssd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">data</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">u</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="n">m</span> <span class="o">=</span> <span class="n">ssd</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="p">((</span><span class="o">~</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">))</span>
-      <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">break</span>
-        <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">5</span>
-        <span class="n">x</span> <span class="o">+=</span> <span class="mi">31</span>
-        <span class="n">d</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max() from empty WordsizeTreeMultiset.&#39;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span>
 
-  <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">yield</span> <span class="n">v</span>
-      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">yield</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
-      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">&gt;</span> <span class="mi">0</span>
@@ -149,7 +137,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span>
 
   <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__valcnt</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="bp">self</span>
 
@@ -167,17 +155,17 @@
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s1">&#39;WordsizeTreeMultiset([&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;])&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;WordsizeTreeMultiset(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">, [&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;])&#39;</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.Set.WordsizeTreeMultiset import WordsizeTreeMultiset</span>
-<span class="c1"># from .WordsizeTreeSet import WordsizeTreeSet</span>
+<span class="c1"># from Library_py.DataStructures.Set.WordsizeTreeSet import WordsizeTreeSet</span>
 <span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="k">class</span> <span class="nc">WordsizeTreeSet</span><span class="p">():</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="k">assert</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="mi">0</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">len_</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
@@ -200,19 +188,24 @@
       <span class="k">while</span> <span class="n">u</span><span class="p">:</span>
         <span class="n">u</span> <span class="o">&gt;&gt;=</span> <span class="mi">5</span>
         <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">))))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">u</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">array</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">len_</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len_data</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.add(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
       <span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span>
       <span class="n">x</span> <span class="o">&gt;&gt;=</span> <span class="mi">5</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.discard(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
@@ -222,8 +215,10 @@
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.ge(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_data</span> <span class="ow">or</span> <span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">d</span><span class="p">]):</span> <span class="k">return</span> <span class="kc">None</span>
       <span class="n">m</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">((</span><span class="o">~</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">))</span>
@@ -238,11 +233,16 @@
     <span class="k">return</span> <span class="n">x</span>
 
   <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.gt(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="k">return</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.le(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">d</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_data</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
       <span class="n">m</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="p">((</span><span class="o">~</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">))</span>
@@ -258,6 +258,9 @@
     <span class="k">return</span> <span class="n">x</span>
 
   <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.lt(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
@@ -268,13 +271,15 @@
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min() from empty WordsizeTreeSet.&#39;</span>
+    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> \
+        <span class="s1">&#39;IndexError: pop_min() from empty WordsizeTreeSet.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">v</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max() from empty WordsizeTreeSet.&#39;</span>
+    <span class="k">assert</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> \
+        <span class="s1">&#39;IndexError: pop_max() from empty WordsizeTreeSet.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">v</span>
 
@@ -283,6 +288,9 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span>
 
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+
   <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
@@ -290,6 +298,8 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span>
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> in WordsizeTreeSet, u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span>
 
   <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -307,127 +317,115 @@
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;WordsizeTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;WordsizeTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="k">class</span> <span class="nc">WordsizeTreeMultiset</span><span class="p">():</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="k">assert</span> <span class="n">u</span> <span class="o">&gt;=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">:</span> <span class="n">WordsizeTreeSet</span> <span class="o">=</span> <span class="n">WordsizeTreeSet</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-    <span class="n">cnt</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="p">:</span> <span class="n">WordsizeTreeSet</span> <span class="o">=</span> <span class="n">WordsizeTreeSet</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">a_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="k">if</span> <span class="n">a_</span> <span class="ow">in</span> <span class="n">cnt</span><span class="p">:</span>
-        <span class="n">cnt</span><span class="p">[</span><span class="n">a_</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">cnt</span><span class="p">[</span><span class="n">a_</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span>
+      <span class="n">cnt</span><span class="p">[</span><span class="n">a_</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span>
 
   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.add(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="n">val</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.discard(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
     <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="n">val</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-=</span> <span class="n">val</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-=</span> <span class="n">val</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-=</span> <span class="n">v</span>
-      <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>
 
   <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.count(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.ge(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.gt(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.le(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeMultiset.lt(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), u=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">u</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">u</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min from empty WordsizeTreeMultiset.&#39;</span>
-    <span class="n">d</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-    <span class="n">ssd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">data</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="n">m</span> <span class="o">=</span> <span class="n">ssd</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">((</span><span class="o">~</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">))</span>
-      <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">m</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">break</span>
-        <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">5</span>
-        <span class="n">d</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min() from empty WordsizeTreeMultiset.&#39;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max from empty WordsizeTreeMultiset.&#39;</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">ssd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">data</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">u</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-      <span class="n">m</span> <span class="o">=</span> <span class="n">ssd</span><span class="p">[</span><span class="n">d</span><span class="p">][</span><span class="n">x</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="p">((</span><span class="o">~</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">))</span>
-      <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">break</span>
-        <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">5</span>
-        <span class="n">x</span> <span class="o">+=</span> <span class="mi">31</span>
-        <span class="n">d</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max() from empty WordsizeTreeMultiset.&#39;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span>
 
-  <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">yield</span> <span class="n">v</span>
-      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
-  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">yield</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
-      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">&gt;</span> <span class="mi">0</span>
@@ -436,7 +434,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span>
 
   <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">st</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__valcnt</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="bp">self</span>
 
@@ -454,7 +452,7 @@
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s1">&#39;WordsizeTreeMultiset([&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;])&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;WordsizeTreeMultiset(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="si">}</span><span class="s1">, [&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;])&#39;</span>
 </pre></div>
 
 </div>

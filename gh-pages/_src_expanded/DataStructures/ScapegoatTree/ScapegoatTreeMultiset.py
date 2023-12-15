@@ -149,7 +149,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       x.append(a)
       y.append(1)
     return x, y
- 
+
   def _build(self, a: Sequence[T]) -> None:
     Node = ScapegoatTreeMultiset.Node
     def rec(l: int, r: int) -> 'Node':
@@ -247,7 +247,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
         node.val += val
         for p in path:
           p.valsize += val
-        return        
+        return
       elif key < node.key:
         node = node.left
       else:
