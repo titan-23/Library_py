@@ -13,6 +13,9 @@ class CSRArray(Generic[T]):
     self.csr = list(chain(*a))
     self.start = start
 
+  def set(self, i: int, j: int, val: int) -> None:
+    self.csr[self.start[i]+j] = val
+
   def iter(self, k: int) -> Iterator[T]:
     csr = self.csr
     for i in range(self.start[k], self.start[k+1]):
