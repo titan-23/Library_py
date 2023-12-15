@@ -11,9 +11,9 @@ class TreapSet(OrderedSetInterface, Generic[T]):
 
     @classmethod
     def random(cls) -> int:
-      t = cls._x ^ (cls._x << 11) & 0xFFFFFFFF
+      t = (cls._x ^ ((cls._x << 11) & 0xFFFFFFFF)) & 0xFFFFFFFF
       cls._x, cls._y, cls._z = cls._y, cls._z, cls._w
-      cls._w = (cls._w ^ (cls._w >> 19)) ^ (t ^ (t >> 8)) & 0xFFFFFFFF
+      cls._w = (cls._w ^ (cls._w >> 19)) ^ (t ^ ((t >> 8))&0xFFFFFFFF) & 0xFFFFFFFF
       return cls._w
 
   class Node():
@@ -122,12 +122,8 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     while node:
       if key == node.key:
         break
-      elif key < node.key:
-        pnode = node
-        node = node.left
-      else:
-        pnode = node
-        node = node.right
+      pnode = node
+      node = node.left if key < node.key else node.right
     else:
       return False
     self._len -= 1
@@ -174,7 +170,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
   def remove(self, key: T) -> None:
     if self.discard(key):
       return
-    raise KeyError
+    raise KeyError(key)
 
   def le(self, key: T) -> Optional[T]:
     res = None
@@ -194,7 +190,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     res = None
     node = self.root
     while node:
-      if key == node.key or key < node.key:
+      if key <= node.key:
         node = node.left
       else:
         res = node.key
@@ -206,9 +202,8 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     node = self.root
     while node:
       if key == node.key:
-        res = key
-        break
-      elif key < node.key:
+        return node.key
+      if key < node.key:
         res = node.key
         node = node.left
       else:
@@ -243,7 +238,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     return node.key
 
   def pop_min(self) -> T:
-    assert self.root is not None, f'IndexError'
+    assert self.root is not None, 'IndexError: pop_min() from Empty TreapSet.'
     node = self.root
     pnode = None
     while node.left:
@@ -258,7 +253,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     return res
 
   def pop_max(self) -> T:
-    assert self.root is not None, f'IndexError'
+    assert self.root is not None, 'IndexError: pop_max() from Empty TreapSet.'
     node = self.root
     pnode = None
     while node.right:
@@ -281,7 +276,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
       return a
     def rec(node):
       if node.left:
-        rec(node.left)  
+        rec(node.left)
       a.append(node.key)
       if node.right:
         rec(node.right)
@@ -291,7 +286,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
   def __iter__(self):
     self._it = self.get_min()
     return self
-  
+
   def __next__(self):
     if self._it is None:
       raise StopIteration
@@ -304,10 +299,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     while node:
       if key == node.key:
         return True
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     return False
 
   def __len__(self):

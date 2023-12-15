@@ -4,7 +4,7 @@ from typing import Iterable, Optional, List
 class WordsizeTreeSet():
 
   def __init__(self, u: int, a: Iterable[int]=[]):
-    self.u = u
+    assert u > 0
     data = []
     len_ = 0
     if a:
@@ -27,19 +27,24 @@ class WordsizeTreeSet():
       while u:
         u >>= 5
         data.append(array('I', bytes(4*(u+1))))
+    self.u = u
     self.data: List[array[int]] = data
     self.len: int = len_
     self.len_data: int = len(data)
 
   def add(self, x: int) -> bool:
+    assert 0 <= x < self.u, \
+        f'ValueError: WordsizeTreeSet.add({x}), u={self.u}'
     if self.data[0][x>>5] >> (x&31) & 1: return False
+    self.len += 1
     for a in self.data:
       a[x>>5] |= 1 << (x&31)
       x >>= 5
-    self.len += 1
     return True
 
   def discard(self, x: int) -> bool:
+    assert 0 <= x < self.u, \
+        f'ValueError: WordsizeTreeSet.discard({x}), u={self.u}'
     if self.data[0][x>>5] >> (x&31) & 1 == 0: return False
     self.len -= 1
     for a in self.data:
@@ -49,8 +54,10 @@ class WordsizeTreeSet():
     return True
 
   def ge(self, x: int) -> Optional[int]:
-    d = 0
+    assert 0 <= x < self.u, \
+        f'ValueError: WordsizeTreeSet.ge({x}), u={self.u}'
     data = self.data
+    d = 0
     while True:
       if d >= self.len_data or x>>5 >= len(data[d]): return None
       m = data[d][x>>5] & ((~0) << (x&31))
@@ -65,11 +72,16 @@ class WordsizeTreeSet():
     return x
 
   def gt(self, x: int) -> Optional[int]:
+    assert 0 <= x < self.u, \
+        f'ValueError: WordsizeTreeSet.gt({x}), u={self.u}'
+    if x + 1 == self.u: return
     return self.ge(x + 1)
 
   def le(self, x: int) -> Optional[int]:
-    d = 0
+    assert 0 <= x < self.u, \
+        f'ValueError: WordsizeTreeSet.le({x}), u={self.u}'
     data = self.data
+    d = 0
     while True:
       if x < 0 or d >= self.len_data: return None
       m = data[d][x>>5] & ~((~1) << (x&31))
@@ -85,6 +97,9 @@ class WordsizeTreeSet():
     return x
 
   def lt(self, x: int) -> Optional[int]:
+    assert 0 <= x < self.u, \
+        f'ValueError: WordsizeTreeSet.lt({x}), u={self.u}'
+    if x - 1 == 0: return
     return self.le(x - 1)
 
   def get_min(self) -> Optional[int]:
@@ -95,13 +110,15 @@ class WordsizeTreeSet():
 
   def pop_min(self) -> int:
     v = self.get_min()
-    assert v is not None, 'IndexError: pop_min() from empty WordsizeTreeSet.'
+    assert v is not None, \
+        'IndexError: pop_min() from empty WordsizeTreeSet.'
     self.discard(v)
     return v
 
   def pop_max(self) -> int:
     v = self.get_max()
-    assert v is not None, 'IndexError: pop_max() from empty WordsizeTreeSet.'
+    assert v is not None, \
+        'IndexError: pop_max() from empty WordsizeTreeSet.'
     self.discard(v)
     return v
 
@@ -110,6 +127,9 @@ class WordsizeTreeSet():
       self.discard(e)
     self.len = 0
 
+  def tolist(self) -> List[int]:
+    return [x for x in self]
+
   def __bool__(self):
     return self.len > 0
 
@@ -117,6 +137,8 @@ class WordsizeTreeSet():
     return self.len
 
   def __contains__(self, x: int):
+    assert 0 <= x < self.u, \
+        f'ValueError: {x} in WordsizeTreeSet, u={self.u}'
     return self.data[0][x>>5] >> (x&31) & 1 == 1
 
   def __iter__(self):
@@ -134,5 +156,5 @@ class WordsizeTreeSet():
     return '{' + ', '.join(map(str, self)) + '}'
 
   def __repr__(self):
-    return f'WordsizeTreeSet({self})'
+    return f'WordsizeTreeSet({self.u}, {self})'
 
