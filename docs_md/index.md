@@ -251,6 +251,8 @@ _____
 - [`ModArray`](Math/ModArray.md)
 - [`ModComb`](Math/ModComb.md)
 - [`ModInt`](Math/ModInt.md)
+- [`ModInt998244353`](Math/ModInt998244353.md)
+- [`ModInt1000000007`](Math/ModInt1000000007.md)
 - [`ModMatrix`](Math/ModMatrix.md)
 - [`Number`](Math/Number.md)
 - [`PollardRho`](Math/PollardRho.md)
