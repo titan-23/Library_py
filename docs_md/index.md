@@ -142,6 +142,7 @@ _____
 - [`DynamicFenwickTreeMultiset`](DataStructures/Set/DynamicFenwickTreeMultiset.md)
 - [`DynamicFenwickTreeSet`](DataStructures/Set/DynamicFenwickTreeSet.md)
 - [`FenwickTreeSet`](DataStructures/Set/FenwickTreeSet.md)
+- [`FenwickTreeMultiset`](DataStructures/Set/FenwickTreeMultiset.md)
 - [`FenwickTreeSetFast`](DataStructures/Set/FenwickTreeSetFast.md)
 - [`HashedMultiset`](DataStructures/Set/HashedMultiset.md)
 - [`HashSet`](DataStructures/Set/HashSet.md)

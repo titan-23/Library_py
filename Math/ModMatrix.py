@@ -239,7 +239,7 @@ class ModMatrix:
     else:
       raise TypeError
     return self
-  
+
   def __isub__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
       other %= ModMatrix.mod

@@ -4,7 +4,7 @@ class SegkiSet:
 
   # 0以上u未満の整数が載る集合
   # セグ木的な構造、各Nodeはその子孫のOR値を保持(ORではなくSUMならBITと同じ感じ)
-  # 
+  #
   # 空間: O(u)
   # add, discard, predecessor, successor: O(logu)
   # contains, len: O(1)

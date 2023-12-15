@@ -8,8 +8,8 @@ class MaxFlowDinic():
     self.G: List[List[List[int]]] = [[] for _ in range(n)]
 
   def add_edge(self, u: int, v: int, w: int) -> None:
-    assert 0 <= u < self.n, f'Indexerror'
-    assert 0 <= v < self.n, f'Indexerror'
+    assert 0 <= u < self.n, f'Indexerror: {self.__class__.__name__}.add_edge({u}, {v})'
+    assert 0 <= v < self.n, f'Indexerror: {self.__class__.__name__}.add_edge({u}, {v})'
     G_u = len(self.G[u])
     G_v = len(self.G[v])
     self.G[u].append([v, w, G_v])
@@ -42,8 +42,8 @@ class MaxFlowDinic():
     return 0
 
   def max_flow(self, s: int, g: int, INF: int=10**18) -> int:
-    assert 0 <= s < self.n, f'Indexerror'
-    assert 0 <= g < self.n, f'Indexerror'
+    assert 0 <= s < self.n, f'Indexerror: {self.__class__.__class__}.max_flow(), {s=}'
+    assert 0 <= g < self.n, f'Indexerror: {self.__class__.__class__}.max_flow(), {g=}'
     ans = 0
     while True:
       self._bfs(s)

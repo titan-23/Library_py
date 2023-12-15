@@ -8,7 +8,7 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
     self._op = op
     self._e = e
     self._u = u
-    self._log  = (self._u-1).bit_length()
+    self._log = (self._u-1).bit_length()
     self._size = 1 << self._log
     self._data: Dict[int, T] = {}
 
@@ -57,7 +57,7 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
     assert f(self._e), \
         f'DynamicSegmentTree.max_right({l}, f), f({self._e}) must be true.'
     if l == self._u:
-      return self._u 
+      return self._u
     l += self._size
     e = self._e
     s = e
@@ -84,7 +84,7 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
     assert f(self._e), \
         f'DynamicSegmentTree.min_left({r}, f), f({self._e}) must be true.'
     if r == 0:
-      return 0 
+      return 0
     r += self._size
     e = self._e
     s = e
@@ -101,7 +101,7 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
         return r + 1 - self._size
       s = self._op(self._data.get(r, e), s)
       if r & -r == r:
-        break 
+        break
     return 0
 
   def tolist(self) -> List[T]:

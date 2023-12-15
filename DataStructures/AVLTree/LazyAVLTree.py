@@ -142,7 +142,7 @@ class LazyAVLTree(Generic[T, F]):
         node = node.left
 
   def _merge_with_root(self, l: Node, root: Node, r: Node) -> Node:
-    diff = (0 if r is None else -r.height) if l is None else (l.height if r is None else l.height-r.height) 
+    diff = (0 if r is None else -r.height) if l is None else (l.height if r is None else l.height-r.height)
     if diff > 1:
       self._propagate(l)
       l.right = self._merge_with_root(l.right, root, r)

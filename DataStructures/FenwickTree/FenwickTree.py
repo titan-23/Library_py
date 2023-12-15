@@ -85,6 +85,19 @@ class FenwickTree():
       s >>= 1
     return i
 
+  def _pop(self, k: int) -> int:
+    assert k >= 0
+    i, acc, s, _size, _tree = 0, 0, self._s, self._size, self._tree
+    while s:
+      if i+s <= _size:
+        if acc + _tree[i+s] <= k:
+          acc += _tree[i+s]
+          i += s
+        else:
+          _tree[i+s] -= 1
+      s >>= 1
+    return i
+
   def show(self) -> None:
     print('[' + ', '.join(map(str, (self.pref(i) for i in range(self._size+1)))) + ']')
 

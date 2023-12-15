@@ -11,7 +11,7 @@ class FoldableDeque(Generic[T]):
     self._op = op
     self._e = e
     self.front: FoldableStack[T] = FoldableStack(0, op, e)
-    self.back : FoldableStack[T] = FoldableStack(n_or_a, op, e)
+    self.back: FoldableStack[T] = FoldableStack(n_or_a, op, e)
 
   def _rebuild(self) -> None:
     new = self.front.tolist()[::-1] + self.back.tolist()

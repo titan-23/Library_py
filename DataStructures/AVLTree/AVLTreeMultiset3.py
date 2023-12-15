@@ -21,7 +21,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
         return f'key:{self.key, self.val, self.size, self.valsize}\n'
       return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
-  def __init__(self, a: Iterable[T]=[]):  
+  def __init__(self, a: Iterable[T]=[]):
     self.node: Optional['AVLTreeMultiset3.Node'] = None
     if a:
       self._build(a)
@@ -233,7 +233,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
       if new_node is not None:
         if not path:
           self.node = new_node
-          return    
+          return
         if di & 1:
           path[-1].left = new_node
         else:

@@ -9,7 +9,6 @@ class RandomTreeType(Enum):
   path = enum.auto()
   star = enum.auto()
 
-
 class RandomTree():
 
   @classmethod

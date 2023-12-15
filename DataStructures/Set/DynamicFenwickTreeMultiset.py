@@ -1,4 +1,4 @@
-from .DynamicFenwickTreeSet import DynamicFenwickTreeSet
+from Library_py.DataStructures.Set.DynamicFenwickTreeSet import DynamicFenwickTreeSet
 from typing import Iterable, Tuple
 
 class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet):

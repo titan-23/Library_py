@@ -12,7 +12,7 @@ class LazyRBST(Generic[T, F]):
     def random32(cls) -> int:
       cls.x ^= cls.x << 13 & 0xFFFFFFFF
       cls.x ^= cls.x >> 17
-      cls.x ^= cls.x << 5  & 0xFFFFFFFF
+      cls.x ^= cls.x << 5 & 0xFFFFFFFF
       return cls.x & 0xFFFFFFFF
 
   class Node():
@@ -21,8 +21,8 @@ class LazyRBST(Generic[T, F]):
       self.key: T = key
       self.data: T = key
       self.lazy: F = id
-      self.left: Optional['LazyRBST.Node'] = None
-      self.right: Optional['LazyRBST.Node'] = None
+      self.left: Optional[LazyRBST.Node] = None
+      self.right: Optional[LazyRBST.Node] = None
       self.size: int = 1
       self.rev: int = 0
 
@@ -157,8 +157,8 @@ class LazyRBST(Generic[T, F]):
   def split(self, k: int) -> Tuple['LazyRBST', 'LazyRBST']:
     left, right = self._split_node(self.root, k)
     return (
-      LazyRBST(self.op, self.mapping, self.composition, self.e, self.id, _root=left),
-      LazyRBST(self.op, self.mapping, self.composition, self.e, self.id, _root=right)
+        LazyRBST(self.op, self.mapping, self.composition, self.e, self.id, _root=left),
+        LazyRBST(self.op, self.mapping, self.composition, self.e, self.id, _root=right)
     )
 
   def apply(self, l: int, r: int, f) -> None:
@@ -194,7 +194,7 @@ class LazyRBST(Generic[T, F]):
 
   def reverse(self, l: int, r: int) -> None:
     if l >= r:
-      return 
+      return
     s, t = self._split_node(self.root, r)
     u, s = self._split_node(s, l)
     assert s

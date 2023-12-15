@@ -16,7 +16,7 @@ class HLDLazySegmentTree(Generic[T, F]):
                composition: Callable[[F, F], F],
                e: T,
                id: F,
-               ):
+               ) -> None:
     self.hld: HLD = hld
     n_or_a = n_or_a if isinstance(n_or_a, int) else self.hld.build_list(list(n_or_a))
     self.seg: LazySegmentTree[T, F] = LazySegmentTree(n_or_a, op, mapping, composition, e, id)

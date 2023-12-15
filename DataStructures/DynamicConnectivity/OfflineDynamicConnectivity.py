@@ -14,7 +14,7 @@ class OfflineDynamicConnectivity():
       self._group_count: int = n
 
     def undo(self) -> None:
-      assert self._history, f'UndoableUnionFind.undo() with non history'
+      assert self._history, 'UndoableUnionFind.undo() with non history'
       y, py, all_sum_y = self._history.pop()
       x, px, all_sum_x = self._history.pop()
       if y == -1:
@@ -81,7 +81,6 @@ class OfflineDynamicConnectivity():
     def __str__(self):
       return '<offline-dc.uf> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
 
-
   def __init__(self, n: int):
     self._n = n
     self._bit = n.bit_length() + 1
@@ -119,7 +118,7 @@ class OfflineDynamicConnectivity():
   def run(self, out: Callable[[int], None]) -> None:
     # O(qlogqlogn)
     uf, bit, msk, q = self.uf, self._bit, self._msk, self._query_count
-    log  = (q - 1).bit_length()
+    log = (q - 1).bit_length()
     size = 1 << log
     data = [[] for _ in range(size<<1)]
     size2 = size * 2
@@ -137,7 +136,7 @@ class OfflineDynamicConnectivity():
             if v[i] & 1 == 0:
               cnt += 1
             else:
-              assert cnt >= 0, f'Edge Error: minus edge.'
+              assert cnt >= 0, 'Edge Error: minus edge.'
               cnt -= 1
               if cnt == 0:
                 LR.append(v[i]>>1)

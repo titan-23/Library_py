@@ -59,7 +59,7 @@ class RangeSet():
 
   def __contains__(self, x: int):
     return x in self.dic
-  
+
   def __str__(self):
     return '{' + ', '.join(map(str, sorted(k for k, v in self.dic.items() for _ in range(v)))) + '}'
 

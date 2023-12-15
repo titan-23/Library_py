@@ -7,13 +7,13 @@ class MultiHashStringBase():
   def __init__(self, n: int, base_cnt: int=1, base_list: List[int]=[], seed: Optional[int]=None) -> None:
     if seed is None:
       seed = random.randint(0, 10**9)
-    assert base_cnt > 0, f'ValueError: MultiHashString base_cnt must be > 0'
+    assert base_cnt > 0, f'ValueError: {self.__class__.__name__} base_cnt must be > 0'
     base_list = base_list if len(base_list) == base_cnt else [random.randint(37, 10**9) for _ in range(base_cnt)]
     hsb = tuple(HashStringBase(n, base_list[i]) for i in range(base_cnt))
     self.hsb = hsb
 
 class MultiHashString():
-  
+
   def __init__(self, hsb: MultiHashStringBase, s: str, update: bool=False) -> None:
     self.hsb = hsb
     self.hs = tuple(HashString(hsb, s, update=update) for hsb in self.hsb.hsb)

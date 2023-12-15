@@ -31,14 +31,14 @@ class LinkCutTree(Generic[T, F]):
     self.key: List[T] = [e] * (n_or_a) if isinstance(n_or_a, int) else list(n_or_a)
     self.n = len(self.key)
     self.key.append(e)
-    self.data : List[T] = [x for x in self.key for _ in range(2)]
-    self.lazy : List[F] = [id] * (self.n+1)
-    self.arr  : array[int] = array('I', [self.n, self.n, self.n, 0] * (self.n+1))
+    self.data: List[T] = [x for x in self.key for _ in range(2)]
+    self.lazy: List[F] = [id] * (self.n+1)
+    self.arr: array[int] = array('I', [self.n, self.n, self.n, 0] * (self.n+1))
     # node.left  : arr[node<<2|0]
     # node.right : arr[node<<2|1]
     # node.par   : arr[node<<2|2]
     # node.rev   : arr[node<<2|3]
-    self.size : array[int] = array('I', [1] * (self.n+1))
+    self.size: array[int] = array('I', [1] * (self.n+1))
     self.size[-1] = 0
     self.group_cnt = self.n
 
