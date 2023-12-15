@@ -5,7 +5,6 @@ python3 expander.py <input_filename> <output_filename>
 import sys
 import pyperclip
 import re
-import sys
 
 LIB_PATH = 'C:\\Users\\titan\\source'
 TO_LIB_PATH = '../'
@@ -104,5 +103,5 @@ else:
   output_file.close()
 
 print()
-print(f'The process completed successfully.')
+print('The process completed successfully.')
 print(f'Output file: \"{output_filename}\" .')
