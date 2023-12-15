@@ -28,12 +28,16 @@
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
     <span class="k">assert</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">u</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">len_</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
       <span class="n">u</span> <span class="o">&gt;&gt;=</span> <span class="mi">5</span>
       <span class="n">A</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span>
       <span class="k">for</span> <span class="n">a_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">a_</span> <span class="o">&lt;</span> <span class="n">u</span><span class="p">,</span> \
+            <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.__init__, </span><span class="si">{</span><span class="n">a_</span><span class="si">}</span><span class="s1">, u=</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">if</span> <span class="n">A</span><span class="p">[</span><span class="n">a_</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">a_</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
           <span class="n">len_</span> <span class="o">+=</span> <span class="mi">1</span>
           <span class="n">A</span><span class="p">[</span><span class="n">a_</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">a_</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span>
@@ -50,7 +54,6 @@
       <span class="k">while</span> <span class="n">u</span><span class="p">:</span>
         <span class="n">u</span> <span class="o">&gt;&gt;=</span> <span class="mi">5</span>
         <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">))))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">u</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">array</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">len_</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len_data</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -189,12 +192,16 @@
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
     <span class="k">assert</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">u</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">len_</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
       <span class="n">u</span> <span class="o">&gt;&gt;=</span> <span class="mi">5</span>
       <span class="n">A</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span>
       <span class="k">for</span> <span class="n">a_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">a_</span> <span class="o">&lt;</span> <span class="n">u</span><span class="p">,</span> \
+            <span class="sa">f</span><span class="s1">&#39;ValueError: WordsizeTreeSet.__init__, </span><span class="si">{</span><span class="n">a_</span><span class="si">}</span><span class="s1">, u=</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">if</span> <span class="n">A</span><span class="p">[</span><span class="n">a_</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">a_</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
           <span class="n">len_</span> <span class="o">+=</span> <span class="mi">1</span>
           <span class="n">A</span><span class="p">[</span><span class="n">a_</span><span class="o">&gt;&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">a_</span><span class="o">&amp;</span><span class="mi">31</span><span class="p">)</span>
@@ -211,7 +218,6 @@
       <span class="k">while</span> <span class="n">u</span><span class="p">:</span>
         <span class="n">u</span> <span class="o">&gt;&gt;=</span> <span class="mi">5</span>
         <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">))))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">u</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">array</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">len_</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">len_data</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -346,15 +352,34 @@
 </div>
 <hr />
 <ul>
-<li><code>WordsizeTreeSet</code> です。</li>
+<li>32分木です。</li>
+<li>空間 <code>O(u)</code> であることに注意してください。</li>
 </ul>
 <hr />
 <h2>仕様</h2>
-<p>あとで書く</p>
+<h4><code>wst = WordsizeTreeSet(u: int, a: Iterable[int]=[])</code></h4>
+<ul>
+<li><code>[0, u)</code> の範囲の整数を管理する <code>WordsizeTreeSet</code> を構築します。</li>
+<li><code>a</code> から構築します。</li>
+</ul>
+<h4><code>wst.add(x: int) -&gt; bool</code></h4>
+<h4><code>wst.discard(x: int) -&gt; bool</code></h4>
+<h4><code>wst.ge / gt / le / lt -&gt; Optional[int]</code></h4>
+<h4><code>wst.get_min / get_max / pop_min / pop_max</code></h4>
+<h4><code>wst.clear() -&gt; None</code></h4>
+<h4><code>wst.tolist() -&gt; List[int]</code></h4>
+<h4><code>x in wst</code></h4>
+<h4><code>len / bool / iter / next / str / repr</code></h4>
 <hr />
 <h2>使用例</h2>
 <div class="code-block">
 <div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.Set.WordsizeTreeSet</span> <span class="kn">import</span> <span class="n">WordsizeTreeSet</span>
+
+<span class="n">u</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
+<span class="n">wst</span> <span class="o">=</span> <span class="n">WordsizeTreeSet</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+  <span class="n">wst</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wst</span><span class="p">)</span>  <span class="c1"># {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}</span>
 </pre></div>
 
 </div>

@@ -21,7 +21,7 @@
 <button id="ShowFullCodeButton">全表示</button>
 <button id="toggleCodeButton">展開</button>
 </div>
-<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">.DynamicFenwickTreeSet</span> <span class="kn">import</span> <span class="n">DynamicFenwickTreeSet</span>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.Set.DynamicFenwickTreeSet</span> <span class="kn">import</span> <span class="n">DynamicFenwickTreeSet</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="k">class</span> <span class="nc">DynamicFenwickTreeMultiset</span><span class="p">(</span><span class="n">DynamicFenwickTreeSet</span><span class="p">):</span>
@@ -72,7 +72,7 @@
     <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;DynamicFenwickTreeMultiset(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.Set.DynamicFenwickTreeMultiset import DynamicFenwickTreeMultiset</span>
-<span class="c1"># from .DynamicFenwickTreeSet import DynamicFenwickTreeSet</span>
+<span class="c1"># from Library_py.DataStructures.Set.DynamicFenwickTreeSet import DynamicFenwickTreeSet</span>
 <span class="c1"># from Library_py.DataStructures.FenwickTree.DynamicFenwickTree import DynamicFenwickTree</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Dict</span>
 
@@ -154,7 +154,6 @@
   <span class="c1"># 整数[0, u)を、空間O(qlogu)/時間O(qlogu)</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="c1"># Build a new FenwickTreeSet. / O(1)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">u</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -212,11 +211,11 @@
     <span class="k">return</span> <span class="n">x</span>
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_max() from empty DynamicFenwickTreeSet.&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;IndexError: pop_min() from empty DynamicFenwickTreeSet.&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>

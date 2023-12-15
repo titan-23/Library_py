@@ -153,7 +153,7 @@ class BitVector(BitVectorInterface):
 
   def __len__(self):
     return self.N
-  
+
   def __str__(self):
     return str([self.access(i) for i in range(self.N)])
 
@@ -305,7 +305,7 @@ class WaveletMatrix():
     return ans
 
   def sum(self, l: int, r: int) -> int:
-    assert False, f'Yabai Keisanryo Error'
+    assert False, 'Yabai Keisanryo Error'
     return sum(k*v for k, v in self.topk(l, r, r-l))
 
   def _range_freq(self, l: int, r: int, x: int) -> int:

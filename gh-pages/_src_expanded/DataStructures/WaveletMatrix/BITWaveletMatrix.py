@@ -153,7 +153,7 @@ class BitVector(BitVectorInterface):
 
   def __len__(self):
     return self.N
-  
+
   def __str__(self):
     return str([self.access(i) for i in range(self.N)])
 
@@ -306,7 +306,7 @@ class WaveletMatrix():
     return ans
 
   def sum(self, l: int, r: int) -> int:
-    assert False, f'Yabai Keisanryo Error'
+    assert False, 'Yabai Keisanryo Error'
     return sum(k*v for k, v in self.topk(l, r, r-l))
 
   def _range_freq(self, l: int, r: int, x: int) -> int:
@@ -441,6 +441,19 @@ class FenwickTree():
       s >>= 1
     return i
 
+  def _pop(self, k: int) -> int:
+    assert k >= 0
+    i, acc, s, _size, _tree = 0, 0, self._s, self._size, self._tree
+    while s:
+      if i+s <= _size:
+        if acc + _tree[i+s] <= k:
+          acc += _tree[i+s]
+          i += s
+        else:
+          _tree[i+s] -= 1
+      s >>= 1
+    return i
+
   def show(self) -> None:
     print('[' + ', '.join(map(str, (self.pref(i) for i in range(self._size+1)))) + ']')
 
@@ -481,10 +494,10 @@ class BITWaveletMatrix(WaveletMatrix):
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.mid: array[int] = array('I', bytes(4*self.log))
-    self.xy : List[Tuple[int, int]] = self._zaatsu([(x, y) for x, y, _ in pos])
-    self.y  : List[int] = self._zaatsu([y for _, y, _ in pos])
+    self.xy: List[Tuple[int, int]] = self._zaatsu([(x, y) for x, y, _ in pos])
+    self.y: List[int] = self._zaatsu([y for _, y, _ in pos])
     self.size: int = len(self.xy)
-    self.v  : List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
+    self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
     self._build([bisect_left(self.y, y) for _, y in self.xy])
     ws = [[0]*self.size for _ in range(self.log)]
     for x, y, w in pos:

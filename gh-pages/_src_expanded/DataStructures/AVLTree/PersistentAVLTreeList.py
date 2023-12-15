@@ -1,5 +1,5 @@
 # from Library_py.DataStructures.AVLTree.PersistentAVLTreeList import PersistentAVLTreeList
-from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple
+from typing import Generic, Iterable, Optional, TypeVar, List, Tuple
 T = TypeVar('T')
 
 class PersistentAVLTreeList(Generic[T]):

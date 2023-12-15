@@ -35,9 +35,9 @@ class WeightedRootedTree():
     self._calc_child_parents()
     ret = ["<WeightedRootedTree> ["]
     ret.extend(
-      [f'  dist:{str(d).zfill(2)} - v:{str(i).zfill(2)} - p:{str(self._parents[i]).zfill(2)} - child:{sorted(self._child[i])}'
-       for i,d in sorted(enumerate(self._dist), key=lambda x: x[1])]
-      )
+        [f'  dist:{str(d).zfill(2)} - v:{str(i).zfill(2)} - p:{str(self._parents[i]).zfill(2)} - child:{sorted(self._child[i])}'
+         for i, d in sorted(enumerate(self._dist), key=lambda x: x[1])]
+    )
     ret.append(']')
     return '\n'.join(ret)
 
@@ -169,7 +169,7 @@ class WeightedRootedTree():
     while todo:
       v = todo.pop()
       nc = 0 if self._bipartite_graph[v] else 1
-      for x,_ in self._G[v]:
+      for x, _ in self._G[v]:
         if self._bipartite_graph[x] != -1:
           continue
         self._bipartite_graph[x] = nc
@@ -191,7 +191,7 @@ class WeightedRootedTree():
 
   '''Return LCA of (u, v). / O(logN)'''
   def get_lca(self, u: int, v: int) -> int:
-    assert self._lca, f'WeightedRootedTree.get_lca(), `lca` must be True'
+    assert self._lca, f'{self.__class__.__name__}.get_lca(), `lca` must be True'
     _doubling, _rank = self._doubling, self._rank
     if _rank[u] < _rank[v]:
       u, v = v, u
@@ -217,7 +217,7 @@ class WeightedRootedTree():
 
   '''Return path (u -> v). / O(logN + |path|)'''
   def get_path(self, u: int, v: int) -> List[int]:
-    assert self._lca, f'WeightedRootedTree, `lca` must be True'
+    assert self._lca, f'{self.__class__.__name__}, `lca` must be True'
     if u == v: return [u]
     self.get_parents()
     def get_path_lca(u: int, v: int) -> List[int]:
@@ -249,7 +249,7 @@ class WeightedRootedTree():
       v = todo.pop()
       if v >= 0:
         intime[v] = curtime
-        for x,_ in self._G[v]:
+        for x, _ in self._G[v]:
           if not seen[x]:
             todo.append(~x)
             todo.append(x)

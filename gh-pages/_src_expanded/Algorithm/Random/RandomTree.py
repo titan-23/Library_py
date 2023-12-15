@@ -509,7 +509,7 @@ class AVLTreeSet2(OrderedSetInterface, Generic[T]):
   def __iter__(self):
     self.it = self.get_min()
     return self
-  
+
   def __next__(self):
     if self.it is None:
       raise StopIteration
@@ -538,7 +538,6 @@ class RandomTreeType(Enum):
   random = enum.auto()
   path = enum.auto()
   star = enum.auto()
-
 
 class RandomTree():
 

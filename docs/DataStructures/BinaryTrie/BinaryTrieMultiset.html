@@ -123,7 +123,7 @@
         <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-=</span> <span class="n">cnt</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">True</span>
-  
+
   <span class="k">def</span> <span class="nf">discard_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
@@ -185,8 +185,8 @@
         <span class="sa">f</span><span class="s1">&#39;ValueError: BinaryTrieMultiset.all_xor(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">xor</span> <span class="o">^=</span> <span class="n">x</span>
 
-  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: BinaryTrieMultiset.get_min()&#39;</span>
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
     <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xor</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
@@ -207,8 +207,8 @@
           <span class="n">ans</span> <span class="o">|=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">ans</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">xor</span>
 
-  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: BinaryTrieMultiset.get_max()&#39;</span>
+  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
     <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xor</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
@@ -566,7 +566,7 @@
         <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-=</span> <span class="n">cnt</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">True</span>
-  
+
   <span class="k">def</span> <span class="nf">discard_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
@@ -628,8 +628,8 @@
         <span class="sa">f</span><span class="s1">&#39;ValueError: BinaryTrieMultiset.all_xor(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">xor</span> <span class="o">^=</span> <span class="n">x</span>
 
-  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: BinaryTrieMultiset.get_min()&#39;</span>
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
     <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xor</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
@@ -650,8 +650,8 @@
           <span class="n">ans</span> <span class="o">|=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">ans</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">xor</span>
 
-  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: BinaryTrieMultiset.get_max()&#39;</span>
+  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
     <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xor</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>

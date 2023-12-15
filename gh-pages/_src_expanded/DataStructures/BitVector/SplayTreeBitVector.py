@@ -324,7 +324,7 @@ class SplayTreeBitVector(BitVectorInterface):
     return (self.key[self.root] >> (self.bit_len[self.root] - k - 1)) & 1
 
   def debug(self):
-    print(f'### debug')
+    print('### debug')
     print(f'{self.root=}')
     print(f'{self.key=}')
     print(f'{self.bit_len=}')

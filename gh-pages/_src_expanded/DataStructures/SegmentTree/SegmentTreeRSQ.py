@@ -47,15 +47,15 @@ class SegmentTreeInterface(ABC, Generic[T]):
   @abstractmethod
   def __setitem__(self, k: int, v: T) -> None:
     raise NotImplementedError
-  
+
   @abstractmethod
   def __str__(self):
     raise NotImplementedError
-  
+
   @abstractmethod
   def __repr__(self):
     raise NotImplementedError
-  
+
 # from Library_py.MyClass.SupportsAdd import SupportsAdd
 from typing import Protocol
 
@@ -74,13 +74,13 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
     self._e = e
     if isinstance(_n_or_a, int):
       self._n = _n_or_a
-      self._log  = (self._n - 1).bit_length()
+      self._log = (self._n - 1).bit_length()
       self._size = 1 << self._log
       self._data = [self._e] * (self._size << 1)
     else:
       _n_or_a = list(_n_or_a)
       self._n = len(_n_or_a)
-      self._log  = (self._n - 1).bit_length()
+      self._log = (self._n - 1).bit_length()
       self._size = 1 << self._log
       _data = [self._e] * (self._size << 1)
       _data[self._size:self._size+self._n] = _n_or_a
@@ -89,9 +89,8 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
       self._data = _data
 
   def set(self, k: int, v: T) -> None:
-    '''Update a[k] <- x. / O(logN)'''
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRSQ.set({k}: int, {v}: T), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.set({k}: int, {v}: T), n={self._n}'
     if k < 0: k += self._n
     k += self._size
     self._data[k] = v
@@ -100,16 +99,14 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
       self._data[k] = self._data[k<<1] + self._data[k<<1|1]
 
   def get(self, k: int) -> T:
-    '''Return a[k]. / O(1)'''
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRSQ.get({k}: int), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.get({k}: int), n={self._n}'
     if k < 0: k += self._n
     return self._data[k+self._size]
 
   def prod(self, l: int, r: int):
-    '''Return op([l, r)). / O(logN)'''
     assert 0 <= l <= r <= self._n, \
-        f'IndexError: SegmentTreeRSQ.prod({l}: int, {r}: int)'
+        f'IndexError: {self.__class__.__name__}.prod({l}: int, {r}: int)'
     l += self._size
     r += self._size
     res = self._e
@@ -124,17 +121,15 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
     return res
 
   def all_prod(self):
-    '''Return sum([0, n)). / O(1)'''
     return self._data[1]
 
   def max_right(self, l: int, f=lambda lr: lr):
-    '''Find the largest index R s.t. f([l, R)) == True. / O(logN)'''
     assert 0 <= l <= self._n, \
-        f'IndexError: SegmentTreeRSQ.max_right({l}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.max_right({l}, f) index out of range'
     assert f(self._e), \
-        f'SegmentTreeRSQ.max_right({l}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.max_right({l}, f), f({self._e}) must be true.'
     if l == self._n:
-      return self._n 
+      return self._n
     l += self._size
     s = self._e
     while True:
@@ -154,13 +149,12 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
     return self._n
 
   def min_left(self, r: int, f=lambda lr: lr):
-    '''Find the smallest index L s.t. f([L, r)) == True. / O(logN)'''
     assert 0 <= r <= self._n, \
-        f'IndexError: SegmentTreeRSQ.min_left({r}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.min_left({r}, f) index out of range'
     assert f(self._e), \
-        f'SegmentTreeRSQ.min_left({r}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.min_left({r}, f), f({self._e}) must be true.'
     if r == 0:
-      return 0 
+      return 0
     r += self._size
     s = self._e
     while True:
@@ -176,25 +170,23 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
         return r + 1 - self._size
       s += self._data[r]
       if r & -r == r:
-        break 
+        break
     return 0
 
   def tolist(self) -> List[T]:
-    '''Return List[self]. / O(NlogN)'''
     return [self.get(i) for i in range(self._n)]
 
   def show(self) -> None:
-    '''Debug. / O(N)'''
     print('<SegmentTreeRSQ> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
 
   def __getitem__(self, k: int) -> T:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRSQ.__getitem__({k}: int), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.__getitem__({k}: int), n={self._n}'
     return self.get(k)
 
   def __setitem__(self, k: int, v: T):
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRSQ.__setitem__{k}: int, {v}: T), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.__setitem__{k}: int, {v}: T), n={self._n}'
     self.set(k, v)
 
   def __str__(self):

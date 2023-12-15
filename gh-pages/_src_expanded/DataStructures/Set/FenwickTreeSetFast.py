@@ -118,7 +118,7 @@ class FenwickTreeSetFast():
     self._len -= 1
     i, s, _size, _tree = 0, self._fw._s, self._fw._size, self._fw._tree
     while s:
-      if i+s <= self._size:
+      if i+s <= _size:
         if _tree[i+s] <= k:
           k -= _tree[i+s]
           i += s
@@ -127,7 +127,7 @@ class FenwickTreeSetFast():
       s >>= 1
     self._cnt[i] = 0
     return i
-  
+
   def pop_max(self) -> int:
     return self.pop()
 

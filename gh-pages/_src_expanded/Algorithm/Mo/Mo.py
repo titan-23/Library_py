@@ -19,7 +19,7 @@ class Mo():
 
   def add_query(self, l: int, r: int) -> None:
     assert 0 <= l <= r <= self.n, \
-        f'IndexError: Mo.add_query({l}, {r}), self.n={self.n}'
+        f'IndexError: {self.__class__.__name__}.add_query({l}, {r}), self.n={self.n}'
     self.bucket[l//self.bucket_size].append((((r<<self.bit)|l)<<self.bit)|self.cnt)
     self.cnt += 1
 
@@ -46,9 +46,15 @@ class Mo():
         delete(nr)
       out(rli & msk)
 
-  def runrun(self, add_left: Callable[[int], None], add_right: Callable[[int], None], \
-          delete_left: Callable[[int], None], delete_right: Callable[[int], None], out: Callable[[int], None]) -> None:
-    assert self.cnt == self.q
+  def runrun(self,
+             add_left: Callable[[int], None],
+             add_right: Callable[[int], None],
+             delete_left: Callable[[int], None],
+             delete_right: Callable[[int], None],
+             out: Callable[[int], None]
+             ) -> None:
+    assert self.cnt == self.q, \
+        f'Not Enough Queries, now:{self.cnt}, expected:{self.q}'
     bucket, bit, msk = self.bucket, self.bit, self.msk
     for i, b in enumerate(bucket):
       b.sort(reverse=i & 1)

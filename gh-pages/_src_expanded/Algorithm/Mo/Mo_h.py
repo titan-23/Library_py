@@ -5,7 +5,7 @@ from typing import Callable
 class Mo_h():
 
   # https://take44444.github.io/Algorithm-Book/range/mo/main.html
-  
+
   def __init__(self, n: int, q: int):
     self.n = n
     self.q = q

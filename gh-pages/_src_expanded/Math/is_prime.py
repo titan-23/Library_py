@@ -6,7 +6,7 @@ def is_prime64(n: int) -> bool:
   if n == 2:
     return True
   if not n & 1:
-    return False  
+    return False
   p = [2, 7, 61] if n < 1<<30 else [2, 325, 9375, 28178, 450775, 9780504, 1795265022]
   d = n - 1
   d >>= (d & -d).bit_length() - 1

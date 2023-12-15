@@ -99,7 +99,7 @@ class OrderedSetInterface(ABC, Generic[T]):
     raise NotImplementedError
 
 from array import array
-from typing import Optional, Generic, Iterable, List, Sequence, TypeVar
+from typing import Optional, Generic, Iterable, List, TypeVar
 T = TypeVar('T', bound=SupportsLessThan)
 
 class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
@@ -241,7 +241,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
     return node
 
   def reserve(self, n: int) -> None:
-    assert n >= 0, f'ValueError'
+    assert n >= 0, 'ValueError'
     self.keys += [self.e] * n
     self.child += array('I', bytes(8 * n))
 
@@ -527,7 +527,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
   def __iter__(self):
     self.it = self.get_min()
     return self
-  
+
   def __next__(self):
     if self.it is None:
       raise StopIteration
@@ -611,7 +611,7 @@ class RangeSet():
 
   def __contains__(self, x: int):
     return x in self.dic
-  
+
   def __str__(self):
     return '{' + ', '.join(map(str, sorted(k for k, v in self.dic.items() for _ in range(v)))) + '}'
 

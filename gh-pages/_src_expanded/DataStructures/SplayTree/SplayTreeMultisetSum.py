@@ -559,6 +559,4 @@ class SplayTreeMultisetSum(Generic[T]):
   def __repr__(self):
     return 'SplayTreeMultisetSum(' + str(self) + ')'
 
-  __repr__ = __str__
-
 

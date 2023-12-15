@@ -117,7 +117,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
       self.key: T = key
       self.left = RedBlackTreeMultiset.NIL
       self.right = RedBlackTreeMultiset.NIL
-      self.par  = RedBlackTreeMultiset.NIL
+      self.par = RedBlackTreeMultiset.NIL
       self.col: int = 0
       self.cnt: int = cnt
 

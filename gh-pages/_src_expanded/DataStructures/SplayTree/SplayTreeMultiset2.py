@@ -323,7 +323,7 @@ class SplayTreeMultiset2(Generic[T]):
     if self.node is None: return
     self.node = self._get_min_splay(self.node)
     return self.node.key
- 
+
   def get_max(self) -> Optional[T]:
     if self.node is None: return
     self.node = self._get_max_splay(self.node)

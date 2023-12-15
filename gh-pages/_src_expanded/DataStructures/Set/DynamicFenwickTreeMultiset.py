@@ -1,5 +1,5 @@
 # from Library_py.DataStructures.Set.DynamicFenwickTreeMultiset import DynamicFenwickTreeMultiset
-# from .DynamicFenwickTreeSet import DynamicFenwickTreeSet
+# from Library_py.DataStructures.Set.DynamicFenwickTreeSet import DynamicFenwickTreeSet
 # from Library_py.DataStructures.FenwickTree.DynamicFenwickTree import DynamicFenwickTree
 from typing import Optional, Final, Dict
 
@@ -81,7 +81,6 @@ class DynamicFenwickTreeSet():
   # 整数[0, u)を、空間O(qlogu)/時間O(qlogu)
 
   def __init__(self, u: int, a: Iterable[int]=[]):
-    # Build a new FenwickTreeSet. / O(1)
     self._size: int = u
     self._len: int = 0
     self._cnt: Dict[int, int] = {}
@@ -139,11 +138,11 @@ class DynamicFenwickTreeSet():
     return x
 
   def pop_max(self) -> int:
-    assert self, f'IndexError'
+    assert self, 'IndexError: pop_max() from empty DynamicFenwickTreeSet.'
     return self.pop()
 
   def pop_min(self) -> int:
-    assert self, f'IndexError'
+    assert self, 'IndexError: pop_min() from empty DynamicFenwickTreeSet.'
     return self.pop(0)
 
   def __getitem__(self, k: int) -> int:

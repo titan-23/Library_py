@@ -7,12 +7,16 @@ class WordsizeTreeSet():
 
   def __init__(self, u: int, a: Iterable[int]=[]):
     assert u > 0
+    self.u = u
     data = []
     len_ = 0
     if a:
       u >>= 5
       A = array('I', bytes(4*(u+1)))
       for a_ in a:
+        print(a)
+        assert 0 <= a_ < u, \
+            f'ValueError: WordsizeTreeSet.__init__, {a_}, u={u}'
         if A[a_>>5] >> (a_&31) & 1 == 0:
           len_ += 1
           A[a_>>5] |= 1 << (a_&31)
@@ -29,7 +33,6 @@ class WordsizeTreeSet():
       while u:
         u >>= 5
         data.append(array('I', bytes(4*(u+1))))
-    self.u = u
     self.data: List[array[int]] = data
     self.len: int = len_
     self.len_data: int = len(data)
@@ -166,6 +169,7 @@ class WordsizeTreeMultiset():
 
   def __init__(self, u: int, a: Iterable[int]=[]):
     assert u >= 0
+    self.u = u
     self.len: int = 0
     self.st: WordsizeTreeSet = WordsizeTreeSet(u, a)
     cnt = [0] * (u+1)
@@ -264,6 +268,9 @@ class WordsizeTreeMultiset():
       self.st.discard(e)
     self.len = 0
     self.cnt = [0] * (self.u+1)
+
+  def tolist(self) -> List[int]:
+    return [x for x in self]
 
   def __contains__(self, x: int):
     return self.cnt[x] > 0

@@ -398,7 +398,7 @@ class AVLTreeBitVector(BitVectorInterface):
   def pop(self, k: int) -> int:
     assert 0 <= k < len(self)
     left, right, size = self.left, self.right, self.size
-    bit_len, balance, keys, total = self.bit_len, self.balance, self.key, self.total
+    bit_len, keys, total = self.bit_len, self.key, self.total
     node = self.root
     d = 0
     path = []
@@ -605,7 +605,7 @@ class AVLTreeBitVector(BitVectorInterface):
   def _access_pop_and_rank1(self, k: int) -> int:
     assert 0 <= k < len(self)
     left, right, size = self.left, self.right, self.size
-    bit_len, balance, keys, total = self.bit_len, self.balance, self.key, self.total
+    bit_len, keys, total = self.bit_len, self.key, self.total
     s = 0
     node = self.root
     d = 0
@@ -656,7 +656,7 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def __setitem__(self, k: int, v: int):
     left, right, bit_len, size, key = self.left, self.right, self.bit_len, self.size, self.key
-    assert v == 0 or v == 1, f'ValueError'
+    assert v == 0 or v == 1, 'ValueError'
     node = self.root
     while True:
       t = size[left[node]] + bit_len[node]
@@ -789,7 +789,7 @@ class BitVector(BitVectorInterface):
 
   def __len__(self):
     return self.N
-  
+
   def __str__(self):
     return str([self.access(i) for i in range(self.N)])
 
@@ -941,7 +941,7 @@ class WaveletMatrix():
     return ans
 
   def sum(self, l: int, r: int) -> int:
-    assert False, f'Yabai Keisanryo Error'
+    assert False, 'Yabai Keisanryo Error'
     return sum(k*v for k, v in self.topk(l, r, r-l))
 
   def _range_freq(self, l: int, r: int, x: int) -> int:
@@ -1002,7 +1002,6 @@ class DynamicWaveletMatrix(WaveletMatrix):
     self._build(a)
 
   def _build(self, a: Sequence[int]) -> None:
-    '''列 a から Dwm を構築する'''
     v = array('B', bytes(self.size))
     for bit in range(self.log-1, -1, -1):
       # bit目の0/1に応じてvを構築 + aを安定ソート
@@ -1019,13 +1018,13 @@ class DynamicWaveletMatrix(WaveletMatrix):
       a = zero + one
 
   def reserve(self, n: int) -> None:
-    assert n >= 0, f'ValueError: DynamicWaveletMatrix.reserve({n})'
+    assert n >= 0, f'ValueError: {self.__class__.__name__}.reserve({n})'
     for v in self.v:
       v.reserve(n)
 
   def insert(self, k: int, x: int) -> None:
-    assert 0 <= k <= self.size,  f'IndexError: DynamicWaveletMatrix.insert({k}, {x}), n={self.size}'
-    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix.insert({k}, {x}), LIM={1<<self.log}'
+    assert 0 <= k <= self.size, f'IndexError: {self.__class__.__name__}.insert({k}, {x}), n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.insert({k}, {x}), LIM={1<<self.log}'
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
       v = self.v[bit]
@@ -1046,7 +1045,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
     self.size += 1
 
   def pop(self, k: int) -> int:
-    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix.pop({k}), n={self.size}'
+    assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.pop({k}), n={self.size}'
     mid = self.mid
     ans = 0
     for bit in range(self.log-1, -1, -1):
@@ -1071,17 +1070,17 @@ class DynamicWaveletMatrix(WaveletMatrix):
     return ans
 
   def update(self, k: int, x: int) -> None:
-    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix.update({k}, {x}), n={self.size}'
-    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix.update({k}, {x}), LIM={1<<self.log}'
+    assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.update({k}, {x}), n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.update({k}, {x}), LIM={1<<self.log}'
     self.pop(k)
     self.insert(k, x)
 
   def __setitem__(self, k: int, x: int):
-    assert 0 <= k < self.size,  f'IndexError: DynamicWaveletMatrix[{k}] = {x}, n={self.size}'
-    assert 0 <= x < 1<<self.log, f'ValueError: DynamicWaveletMatrix[{k}] = {x}, LIM={1<<self.log}'
+    assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}[{k}] = {x}, n={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}[{k}] = {x}, LIM={1<<self.log}'
     self.update(k, x)
 
   def __str__(self):
-    return f'DynamicWaveletMatrix({[self[i] for i in range(self.size)]})'
+    return f'{self.__class__.__name__}({[self[i] for i in range(self.size)]})'
 
 

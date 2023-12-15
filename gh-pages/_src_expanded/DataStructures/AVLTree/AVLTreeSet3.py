@@ -116,7 +116,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
         return f'key:{self.key, self.size}\n'
       return f'key:{self.key, self.size},\n left:{self.left},\n right:{self.right}\n'
 
-  def __init__(self, a: Iterable[T]=[]) -> None:  
+  def __init__(self, a: Iterable[T]=[]) -> None:
     self.node = None
     if not isinstance(a, Sequence):
       a = list(a)
@@ -457,7 +457,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
       return a
     def rec(node):
       if node.left is not None:
-        rec(node.left)  
+        rec(node.left)
       a.append(node.key)
       if node.right is not None:
         rec(node.right)

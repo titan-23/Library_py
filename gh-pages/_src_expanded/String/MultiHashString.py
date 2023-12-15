@@ -50,15 +50,15 @@ class SegmentTreeInterface(ABC, Generic[T]):
   @abstractmethod
   def __setitem__(self, k: int, v: T) -> None:
     raise NotImplementedError
-  
+
   @abstractmethod
   def __str__(self):
     raise NotImplementedError
-  
+
   @abstractmethod
   def __repr__(self):
     raise NotImplementedError
-  
+
 from typing import Generic, Iterable, TypeVar, Callable, Union, List
 T = TypeVar('T')
 
@@ -72,13 +72,13 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     self._e = e
     if isinstance(n_or_a, int):
       self._n = n_or_a
-      self._log  = (self._n - 1).bit_length()
+      self._log = (self._n - 1).bit_length()
       self._size = 1 << self._log
       self._data = [e] * (self._size << 1)
     else:
       n_or_a = list(n_or_a)
       self._n = len(n_or_a)
-      self._log  = (self._n - 1).bit_length()
+      self._log = (self._n - 1).bit_length()
       self._size = 1 << self._log
       _data = [e] * (self._size << 1)
       _data[self._size:self._size+self._n] = n_or_a
@@ -131,7 +131,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     assert f(self._e), \
         f'SegmentTree.max_right({l}, f), f({self._e}) must be true.'
     if l == self._n:
-      return self._n 
+      return self._n
     l += self._size
     s = self._e
     while True:
@@ -157,7 +157,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     assert f(self._e), \
         f'SegmentTree.min_left({r}, f), f({self._e}) must be true.'
     if r == 0:
-      return 0 
+      return 0
     r += self._size
     s = self._e
     while True:
@@ -173,7 +173,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         return r + 1 - self._size
       s = self._op(self._data[r], s)
       if r & -r == r:
-        break 
+        break
     return 0
 
   def tolist(self) -> List[T]:
@@ -306,13 +306,13 @@ class MultiHashStringBase():
   def __init__(self, n: int, base_cnt: int=1, base_list: List[int]=[], seed: Optional[int]=None) -> None:
     if seed is None:
       seed = random.randint(0, 10**9)
-    assert base_cnt > 0, f'ValueError: MultiHashString base_cnt must be > 0'
+    assert base_cnt > 0, f'ValueError: {self.__class__.__name__} base_cnt must be > 0'
     base_list = base_list if len(base_list) == base_cnt else [random.randint(37, 10**9) for _ in range(base_cnt)]
     hsb = tuple(HashStringBase(n, base_list[i]) for i in range(base_cnt))
     self.hsb = hsb
 
 class MultiHashString():
-  
+
   def __init__(self, hsb: MultiHashStringBase, s: str, update: bool=False) -> None:
     self.hsb = hsb
     self.hs = tuple(HashString(hsb, s, update=update) for hsb in self.hsb.hsb)

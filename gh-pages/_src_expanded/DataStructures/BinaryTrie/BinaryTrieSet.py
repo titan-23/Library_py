@@ -275,8 +275,8 @@ class BinaryTrieSet(OrderedSetInterface):
         f'ValueError: BinaryTrieSet.all_xor({x}), lim={self.lim}'
     self.xor ^= x
 
-  def get_min(self) -> int:
-    assert self, f'IndexError: BinaryTrieSet.get_min()'
+  def get_min(self) -> Optional[int]:
+    if not self: return None
     left, right = self.left, self.right
     key = self.xor
     ans = 0
@@ -297,8 +297,8 @@ class BinaryTrieSet(OrderedSetInterface):
           ans |= 1
     return ans ^ self.xor
 
-  def get_max(self) -> int:
-    assert self, f'IndexError: BinaryTrieSet.get_max()'
+  def get_max(self) -> Optional[int]:
+    if not self: return None
     left, right = self.left, self.right
     key = self.xor
     ans = 0

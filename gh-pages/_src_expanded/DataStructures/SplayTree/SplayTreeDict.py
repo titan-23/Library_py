@@ -7,7 +7,7 @@ class SupportsLessThan(Protocol):
   def __lt__(self, other) -> bool: ...
 
 from array import array
-from typing import Generic, Iterator, List, TypeVar, Any, Tuple, Callable
+from typing import Generic, Iterator, List, TypeVar, Any, Tuple
 T = TypeVar('T', bound=SupportsLessThan)
 
 class SplayTreeDict(Generic[T]):
@@ -27,7 +27,7 @@ class SplayTreeDict(Generic[T]):
     self._e: T = e
 
   def reserve(self, n: int) -> None:
-    assert n >= 0, f'ValueError'
+    assert n >= 0, 'ValueError'
     self._keys += [self._e] * n
     self._vals += [0] * n
     self._child += array('I', bytes(8 * n))

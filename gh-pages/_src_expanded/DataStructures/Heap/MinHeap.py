@@ -76,7 +76,7 @@ class MinHeap(Generic[T]):
 
   def __len__(self):
     return len(self.a)
-  
+
   def __str__(self):
     return str(self.a)
 

@@ -397,7 +397,7 @@ class AVLTreeBitVector(BitVectorInterface):
   def pop(self, k: int) -> int:
     assert 0 <= k < len(self)
     left, right, size = self.left, self.right, self.size
-    bit_len, balance, keys, total = self.bit_len, self.balance, self.key, self.total
+    bit_len, keys, total = self.bit_len, self.key, self.total
     node = self.root
     d = 0
     path = []
@@ -604,7 +604,7 @@ class AVLTreeBitVector(BitVectorInterface):
   def _access_pop_and_rank1(self, k: int) -> int:
     assert 0 <= k < len(self)
     left, right, size = self.left, self.right, self.size
-    bit_len, balance, keys, total = self.bit_len, self.balance, self.key, self.total
+    bit_len, keys, total = self.bit_len, self.key, self.total
     s = 0
     node = self.root
     d = 0
@@ -655,7 +655,7 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def __setitem__(self, k: int, v: int):
     left, right, bit_len, size, key = self.left, self.right, self.bit_len, self.size, self.key
-    assert v == 0 or v == 1, f'ValueError'
+    assert v == 0 or v == 1, 'ValueError'
     node = self.root
     while True:
       t = size[left[node]] + bit_len[node]

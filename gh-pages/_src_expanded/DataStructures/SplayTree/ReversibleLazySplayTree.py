@@ -7,10 +7,12 @@ F = TypeVar('F')
 
 class ReversibleLazySplayTreeData(Generic[T, F]):
 
-  def __init__(self, op: Optional[Callable[[T, T], T]]=None, \
-              mapping: Optional[Callable[[F, T], T]]=None, \
-              composition: Optional[Callable[[F, F], F]]=None, \
-              e: T=None, id: F=None):
+  def __init__(self, op: Optional[Callable[[T, T], T]]=None,
+               mapping: Optional[Callable[[F, T], T]]=None,
+               composition: Optional[Callable[[F, F], F]]=None,
+               e: T=None,
+               id: F=None
+               ):
     self.op: Callable[[T, T], T] = (lambda s, t: e) if op is None else op
     self.mapping: Callable[[F, T], T] = (lambda f, s: e) if op is None else mapping
     self.composition: Callable[[F, F], F] = (lambda f, g: id) if op is None else composition
@@ -388,7 +390,7 @@ class ReversibleLazySplayTree(Generic[T, F]):
     return res
 
   def popleft(self) -> T:
-    assert self, f'IndexError: ReversibleLazySplayTree.popleft()'
+    assert self, 'IndexError: ReversibleLazySplayTree.popleft()'
     node = self._left_splay(self.root)
     self.root = self.data.arr[node<<2|1]
     return self.data.keydata[node*3+0]

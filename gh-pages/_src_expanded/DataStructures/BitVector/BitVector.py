@@ -152,7 +152,7 @@ class BitVector(BitVectorInterface):
 
   def __len__(self):
     return self.N
-  
+
   def __str__(self):
     return str([self.access(i) for i in range(self.N)])
 

@@ -105,9 +105,10 @@ class OrderedMultisetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+from DataStructures.BSTBase.BSTMultisetNodeBase import BSTMultisetNodeBase
 import math
 from __pypy__ import newlist_hint
-from typing import Final, List, Sequence, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
+from typing import Final, List, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
 T = TypeVar('T', bound=SupportsLessThan)
 
 class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
@@ -122,8 +123,8 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       self.val: int = val
       self.size: int = 1
       self.valsize: int = val
-      self.left: Optional['ScapegoatTreeMultiset.Node'] = None
-      self.right: Optional['ScapegoatTreeMultiset.Node'] = None
+      self.left: Optional[ScapegoatTreeMultiset.Node] = None
+      self.right: Optional[ScapegoatTreeMultiset.Node] = None
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -132,25 +133,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]):
     self.node = None
-    if not isinstance(a, Sequence):
+    if not isinstance(a, list):
       a = list(a)
     self._build(a)
 
-  def _rle(self, L: Sequence[T]) -> Tuple[List[T], List[int]]:
-    x, y = newlist_hint(len(L)), newlist_hint(len(L))
-    x.append(L[0])
-    y.append(1)
-    for i, a in enumerate(L):
-      if i == 0:
-        continue
-      if a == x[-1]:
-        y[-1] += 1
-        continue
-      x.append(a)
-      y.append(1)
-    return x, y
-
-  def _build(self, a: Sequence[T]) -> None:
+  def _build(self, a: List[T]) -> None:
     Node = ScapegoatTreeMultiset.Node
     def rec(l: int, r: int) -> 'Node':
       mid = (l + r) >> 1
@@ -168,11 +155,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       a = sorted(a)
     if not a:
       return
-    x, y = self._rle(a)
+    x, y = BSTMultisetNodeBase._rle(a)
     self.node = rec(0, len(x))
 
   def _rebuild(self, node: Node) -> Node:
-    def rec(l: int, r: int) -> 'ScapegoatTreeMultiset.Node':
+    def rec(l: int, r: int) -> ScapegoatTreeMultiset.Node:
       mid = (l + r) >> 1
       node = a[mid]
       node.size = 1
@@ -215,7 +202,6 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       else:
         node = node.right
         k -= t
-    assert False, f'IndexError'
 
   def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
     if k < 0:
@@ -225,12 +211,12 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       t = node.left.size if node.left else 0
       if t == k:
         return node.key, node.val
-      elif t > k:
+      if t > k:
         node = node.left
       else:
         node = node.right
         k -= t + 1
-    assert False, f'IndexError'
+    assert False, 'IndexError'
 
   def add(self, key: T, val: int=1) -> None:
     if val <= 0:
@@ -277,7 +263,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       p.valsize += val
 
   def _discard(self, key: T) -> bool:
-    path = newlist_hint(self.len_elm().bit_length())
+    path = []
     node = self.node
     di, cnt = 1, 0
     while node:
@@ -368,81 +354,22 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return self.discard(key, self.count(key))
 
   def le(self, key: T) -> Optional[T]:
-    res = None
-    node = self.node
-    while node:
-      if key == node.key:
-        return key
-      elif key < node.key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTMultisetNodeBase.le(self.root, key)
 
   def lt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.node
-    while node:
-      if key <= node.key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTMultisetNodeBase.lt(self.root, key)
 
   def ge(self, key: T) -> Optional[T]:
-    res = None
-    node = self.node
-    while node:
-      if key == node.key:
-        return key
-      elif key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTMultisetNodeBase.ge(self.root, key)
 
   def gt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.node
-    while node:
-      if key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTMultisetNodeBase.gt(self.root, key)
 
   def index(self, key: T) -> int:
-    k = 0
-    node = self.node
-    while node:
-      if key == node.key:
-        if node.left:
-          k += node.left.valsize
-        break
-      elif key < node.key:
-        node = node.left
-      else:
-        k += node.val if node.left is None else node.left.valsize + node.val
-        node = node.right
-    return k
+    return BSTMultisetNodeBase.index(self.root, key)
 
   def index_right(self, key: T) -> int:
-    k = 0
-    node = self.node
-    while node:
-      if key == node.key:
-        k += node.val if node.left is None else node.left.valsize + node.val
-        break
-      elif key < node.key:
-        node = node.left
-      else:
-        k += node.val if node.left is None else node.left.valsize + node.val
-        node = node.right
-    return k
+    return BSTMultisetNodeBase.index_right(self.root, key)
 
   def index_keys(self, key: T) -> int:
     k = 0
@@ -475,12 +402,15 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def pop(self, k: int=-1) -> T:
     if k < 0: k += self.node.valsize
-    x = self.__getitem__(k)
+    x = self[k]
     self.discard(x)
     return x
 
   def pop_min(self) -> T:
     return self.pop(0)
+
+  def pop_max(self) -> T:
+    return self.pop(-1)
 
   def items(self) -> Iterator[Tuple[T, int]]:
     for i in range(self.len_elm()):
@@ -499,38 +429,17 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def get_elm(self, k: int) -> T:
     assert -self.len_elm() <= k < self.len_elm(), \
-        f'IndexError: ScapegoatTreeMultiset.get_elm({k}), len_elm=({self.len_elm()})'
+        f'IndexError: {self.__class__.__name__}.get_elm({k}), len_elm=({self.len_elm()})'
     return self._kth_elm_tree(k)[0]
 
   def len_elm(self) -> int:
     return self.node.size if self.node else 0
 
   def tolist(self) -> List[T]:
-    a = newlist_hint(len(self))
-    if not self.node:
-      return a
-    def rec(node: 'ScapegoatTreeMultiset.Node') -> None:
-      if node.left:
-        rec(node.left)
-      for _ in range(node.val):
-        a.append(node.key)
-      if node.right:
-        rec(node.right)
-    rec(self.node)
-    return a
+    return BSTMultisetNodeBase.tolist(self.root, len(self))
 
   def tolist_items(self) -> List[Tuple[T, int]]:
-    a = newlist_hint(len(self))
-    if self.node is None:
-      return a
-    def rec(node: 'ScapegoatTreeMultiset.Node') -> None:
-      if node.left:
-        rec(node.left)
-      a.append((node.key, node.val))
-      if node.right:
-        rec(node.right)
-    rec(self.node)
-    return a
+    return BSTMultisetNodeBase.tolist_items(self.root, self.len_elm())
 
   def clear(self) -> None:
     self.node = None
@@ -540,9 +449,6 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def get_min(self) -> T:
     return self._kth_elm_tree(0)[0]
-
-  def pop_max(self) -> T:
-    return self.pop()
 
   def __contains__(self, key: T):
     node = self.node
@@ -554,7 +460,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def __getitem__(self, k: int) -> T:
     assert -len(self) <= k < len(self), \
-        f'IndexError: ScapegoatTreeMultiset.__getitem__({k}), len={len(self)}'
+        f'IndexError: {self.__class__.__name__}[{k}], len={len(self)}'
     return self._kth_elm(k)[0]
 
   def __iter__(self):
@@ -562,14 +468,14 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return self
 
   def __next__(self):
-    if self.__iter == self.__len__():
+    if self.__iter == len(self):
       raise StopIteration
     res = self._kth_elm(self.__iter)[0]
     self.__iter += 1
     return res
 
   def __reversed__(self):
-    for i in range(self.__len__()):
+    for i in range(len(self)):
       yield self._kth_elm(-i-1)[0]
 
   def __len__(self):
@@ -582,6 +488,6 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'ScapegoatTreeMultiset({self.tolist})'
+    return f'{self.__class__.__name__}({self.tolist})'
 
 

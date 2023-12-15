@@ -7,7 +7,7 @@ F = TypeVar('F')
 class LazyWBTree(Generic[T, F]):
 
   ALPHA: Final[float] = 1 - sqrt(2) / 2
-  BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
+  BETA: Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
 
   class Node():
 
@@ -286,7 +286,7 @@ class LazyWBTree(Generic[T, F]):
 
   def reverse(self, l: int, r: int) -> None:
     if l >= r:
-      return 
+      return
     s, t = self._split_node(self.root, r)
     u, s = self._split_node(s, l)
     assert s

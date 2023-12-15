@@ -49,15 +49,15 @@ class SegmentTreeInterface(ABC, Generic[T]):
   @abstractmethod
   def __setitem__(self, k: int, v: T) -> None:
     raise NotImplementedError
-  
+
   @abstractmethod
   def __str__(self):
     raise NotImplementedError
-  
+
   @abstractmethod
   def __repr__(self):
     raise NotImplementedError
-  
+
 from typing import Generic, Iterable, TypeVar, Callable, Union, List
 T = TypeVar('T')
 
@@ -71,13 +71,13 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     self._e = e
     if isinstance(n_or_a, int):
       self._n = n_or_a
-      self._log  = (self._n - 1).bit_length()
+      self._log = (self._n - 1).bit_length()
       self._size = 1 << self._log
       self._data = [e] * (self._size << 1)
     else:
       n_or_a = list(n_or_a)
       self._n = len(n_or_a)
-      self._log  = (self._n - 1).bit_length()
+      self._log = (self._n - 1).bit_length()
       self._size = 1 << self._log
       _data = [e] * (self._size << 1)
       _data[self._size:self._size+self._n] = n_or_a
@@ -130,7 +130,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     assert f(self._e), \
         f'SegmentTree.max_right({l}, f), f({self._e}) must be true.'
     if l == self._n:
-      return self._n 
+      return self._n
     l += self._size
     s = self._e
     while True:
@@ -156,7 +156,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     assert f(self._e), \
         f'SegmentTree.min_left({r}, f), f({self._e}) must be true.'
     if r == 0:
-      return 0 
+      return 0
     r += self._size
     s = self._e
     while True:
@@ -172,7 +172,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         return r + 1 - self._size
       s = self._op(self._data[r], s)
       if r & -r == r:
-        break 
+        break
     return 0
 
   def tolist(self) -> List[T]:

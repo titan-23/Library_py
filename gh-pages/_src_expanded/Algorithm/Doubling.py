@@ -13,7 +13,7 @@ class Doubling(Generic[T]):
 
   def _build(self):
     db = [[0]*self.n for _ in range(self.log+1)]
-    for i in range(n):
+    for i in range(self.n):
       db[0][i] = self.move_to(i)
     for k in range(self.log):
       for i in range(self.n):

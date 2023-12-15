@@ -7,7 +7,7 @@ F = TypeVar('F')
 class PersistentLazyWBTree(Generic[T, F]):
 
   ALPHA: Final[float] = 1 - sqrt(2) / 2
-  BETA : Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
+  BETA: Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
 
   class Node():
 

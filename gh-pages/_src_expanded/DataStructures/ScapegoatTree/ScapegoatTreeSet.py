@@ -97,8 +97,9 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
+from DataStructures.BSTBase.BSTSetNodeBase import BSTSetNodeBase
 import math
-from typing import Final, Iterator, List, Sequence, TypeVar, Generic, Iterable, Optional
+from typing import Final, Iterator, List, TypeVar, Generic, Iterable, Optional
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
 
@@ -122,12 +123,12 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]):
     self.root: Optional['ScapegoatTreeSet.Node'] = None
-    if not isinstance(a, Sequence):
+    if not isinstance(a, list):
       a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: Sequence[T]) -> None:
+  def _build(self, a: List[T]) -> None:
     Node = ScapegoatTreeSet.Node
     def rec(l: int, r: int) -> Node:
       mid = (l + r) >> 1
@@ -139,15 +140,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
         node.right = rec(mid+1, r)
         node.size += node.right.size
       return node
-    if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-      a = sorted(a)
-      b = newlist_hint(len(a))
-      b.append(a[0])
-      for e in a:
-        if b[-1] == e:
-          continue
-        b.append(e)
-      a = b
+    a = BSTSetNodeBase.sort_unique(a)
     self.root = rec(0, len(a))
 
   def _rebuild(self, node: Node) -> Node:
@@ -189,10 +182,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       path.append(node)
       if key == node.key:
         return False
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     if key < path[-1].key:
       path[-1].left = Node(key)
     else:
@@ -218,26 +208,21 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     return True
 
   def discard(self, key: T) -> bool:
-    di = 1
+    d = 1
     node = self.root
     path = []
     while node is not None:
       if key == node.key:
         break
-      elif key < node.key:
-        path.append(node)
-        di = 1
-        node = node.left
-      else:
-        path.append(node)
-        di = 0
-        node = node.right
+      path.append(node)
+      d = key < node.key
+      node = node.left if d else node.right
     else:
       return False
     if node.left is not None and node.right is not None:
       path.append(node)
       lmax = node.left
-      di = 1 if lmax.right is None else 0
+      d = 1 if lmax.right is None else 0
       while lmax.right is not None:
         path.append(lmax)
         lmax = lmax.right
@@ -245,7 +230,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       node = lmax
     cnode = node.right if node.left is None else node.left
     if path:
-      if di == 1:
+      if d == 1:
         path[-1].left = cnode
       else:
         path[-1].right = cnode
@@ -261,88 +246,27 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     raise KeyError
 
   def le(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if key == node.key:
-        res = key
-        break
-      elif key < node.key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTSetNodeBase.le(self.root, key)
 
   def lt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if key <= node.key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTSetNodeBase.lt(self.root, key)
 
   def ge(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if key == node.key:
-        res = key
-        break
-      elif key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTSetNodeBase.ge(self.root, key)
 
   def gt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTSetNodeBase.gt(self.root, key)
 
   def index(self, key: T) -> int:
-    k = 0
-    node = self.root
-    while node is not None:
-      if key == node.key:
-        if node.left is not None:
-          k += node.left.size
-        break
-      elif key < node.key:
-        node = node.left
-      else:
-        k += 1 if node.left is None else node.left.size + 1
-        node = node.right
-    return k
+    return BSTSetNodeBase.index(self.root, key)
 
   def index_right(self, key: T) -> int:
-    k = 0
-    node = self.root
-    while node is not None:
-      if key == node.key:
-        k += 1 if node.left is None else node.left.size + 1
-        break
-      elif key < node.key:
-        node = node.left
-      else:
-        k += 1 if node.left is None else node.left.size + 1
-        node = node.right
-    return k
+    return BSTSetNodeBase.index_right(self.root, key)
 
   def pop(self, k: int=-1) -> T:
     if k < 0:
       k += len(self)
-    di = 1
+    d = 1
     node = self.root
     path = []
     while True:
@@ -353,15 +277,15 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       if t < k:
         node = node.right
         k -= t + 1
-        di = 0
+        d = 0
       elif t > k:
-        di = 1
+        d = 1
         node = node.left
     res = node.key
     if node.left is not None and node.right is not None:
       path.append(node)
       lmax = node.left
-      di = 1 if lmax.right is None else 0
+      d = 1 if lmax.right is None else 0
       while lmax.right is not None:
         path.append(lmax)
         lmax = lmax.right
@@ -369,7 +293,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       node = lmax
     cnode = node.right if node.left is None else node.left
     if path:
-      if di == 1:
+      if d == 1:
         path[-1].left = cnode
       else:
         path[-1].right = cnode
@@ -383,29 +307,19 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     return self.pop(0)
 
   def pop_max(self) -> T:
-    return self.pop()
+    return self.pop(-1)
 
   def clear(self) -> None:
     self.root = None
 
   def tolist(self) -> List[T]:
-    a = newlist_hint(len(self))
-    if self.root is None:
-      return a
-    def rec(node):
-      if node.left is not None:
-        rec(node.left)
-      a.append(node.key)
-      if node.right is not None:
-        rec(node.right)
-    rec(self.root)
-    return a
+    return BSTSetNodeBase.tolist(self.root, len(self))
 
   def get_min(self) -> T:
-    return self.__getitem__(0)
+    return self[0]
 
   def get_max(self) -> T:
-    return self.__getitem__(-1)
+    return self[-1]
 
   def __contains__(self, key: T):
     node = self.root
@@ -416,33 +330,22 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     return False
 
   def __getitem__(self, k: int) -> T:
-    if k < 0:
-      k += len(self)
-    node = self.root
-    while True:
-      t = 0 if node.left is None else node.left.size
-      if t == k:
-        return node.key
-      elif t > k:
-        node = node.left
-      else:
-        node = node.right
-        k -= t + 1
+    return BSTSetNodeBase.kth_elm(self.root, k, len(self))
 
-  def __iter__(self) -> Iterator:
+  def __iter__(self) -> Iterator[T]:
     self.__iter = 0
     return self
 
   def __next__(self) -> T:
     if self.__iter == self.__len__():
       raise StopIteration
-    res = self.__getitem__(self.__iter)
+    res = self[self.__iter]
     self.__iter += 1
     return res
 
   def __reversed__(self):
     for i in range(self.__len__()):
-      yield self.__getitem__(-i-1)
+      yield self[-i-1]
 
   def __len__(self):
     return 0 if self.root is None else self.root.size
@@ -454,6 +357,6 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'ScapegoatTreeSet({self})'
+    return f'{self.__class__.__name__}({self})'
 
 

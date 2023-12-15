@@ -23,7 +23,6 @@ class EulerTourTree(Generic[T, F]):
 
     __repr__ = __str__
 
-
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
                op: Callable[[T, T], T],

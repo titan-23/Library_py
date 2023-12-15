@@ -7,7 +7,6 @@ import random
 class RandomGraphType(Enum):
   random_undir = enum.auto()
 
-
 class RandomGraph():
 
   @classmethod
