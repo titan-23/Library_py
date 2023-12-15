@@ -1,4 +1,4 @@
-# from Library_py.Graph.get_bridge import get_bridge
+# from Library_py.Graph.get_biconnected_components import get_biconnected_components
 # from Library_py.Others.antirec import antirec
 from types import GeneratorType
 # ref: https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py
@@ -51,43 +51,52 @@ def antirec_cache(func):
   return wrappedfunc
 from typing import List, Tuple
 
-def get_bridge(G: List[List[int]]) -> Tuple[List[int], List[Tuple[int, int]]]:
-  # ref: https://algo-logic.info/bridge-lowlink/
-
+def get_biconnected_components(G: List[List[int]]) -> Tuple[List[List[int]], List[List[Tuple[int, int]]]]:
   n = len(G)
-  bridges = []
-  articulation_points = []
   order = [-1] * n
-  lowlink = [0] * n
+  lowlink = [-1] * n
   cur_time = 0
+  stack = []
+  edge_ans = []
+  vertex_ans = []
 
   @antirec
-  def dfs(v: int, p: int=-1) -> None:
+  def dfs_rec(v: int, p: int=-1) -> None:
     nonlocal cur_time
     order[v] = cur_time
     lowlink[v] = cur_time
     cur_time += 1
-    cnt = 0
-    flag = False
     for x in G[v]:
-      if x == p: continue
+      if x == p:
+        continue
+      if order[x] < order[v]:
+        stack.append((min(v, x), max(v, x)))
       if order[x] == -1:
-        cnt += 1
-        yield dfs(x, v)
-        if p != -1 and order[v] <= lowlink[x]:
-          flag = True
+        yield dfs_rec(x, v)
         lowlink[v] = min(lowlink[v], lowlink[x])
-        if lowlink[x] > order[v]:
-          bridges.append((x, v))
+        if lowlink[x] >= order[v]:
+          vx = (min(x, v), max(x, v))
+          this_edge_ans = []
+          this_vertex_ans = set()
+          while True:
+            a, b = stack.pop()
+            this_edge_ans.append((a, b))
+            this_vertex_ans.add(a)
+            this_vertex_ans.add(b)
+            if vx == this_edge_ans[-1]:
+              break
+          edge_ans.append(this_edge_ans)
+          vertex_ans.append(list(this_vertex_ans))
       else:
         lowlink[v] = min(lowlink[v], order[x])
-    if p == -1 and cnt >= 2:
-      flag = True
-    if flag:
-      articulation_points.append(v)
     yield
-  for v in range(n):
-    if order[v] == -1:
-      dfs(v)
-  return articulation_points, bridges
+
+  for root in range(n):
+    if order[root] == -1:
+      pre_len = len(vertex_ans)
+      dfs_rec(root)
+      if len(vertex_ans) == pre_len:
+        vertex_ans.append([root])
+        edge_ans.append([])
+  return vertex_ans, edge_ans
 

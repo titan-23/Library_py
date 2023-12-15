@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../../style.css"></p>
+<script src="../../script.js"></script>
+<p><title>Library_py-DataStructures-Heap-BinomialHeap</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>BinomialHeap</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titan-23/Library_py/blob/main/DataStructures/Heap/BinomialHeap.py"><code>BinomialHeap</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">BinomialHeap</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+
+  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;BinomialHeap.Node&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">child</span><span class="p">:</span>
+          <span class="n">dfs</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+      <span class="n">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">a</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Node(</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">_link</span><span class="p">(</span><span class="n">node1</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">node2</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">node1</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">node2</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="n">node2</span><span class="p">,</span> <span class="n">node1</span>
+    <span class="n">node1</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node1</span>
+
+  <span class="k">def</span> <span class="nf">_set_min_node</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="n">node</span>
+
+  <span class="c1"># O(logN)</span>
+  <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">ptr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="n">new_node</span>
+    <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ptr</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="k">return</span>
+      <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+      <span class="n">ptr</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ptr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span>
+
+  <span class="c1"># O(1)</span>
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="p">,</span> <span class="s1">&#39;IndexError: find_min from empty BinomialHeap&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="c1"># O(logN)</span>
+  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="n">_len</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span>
+    <span class="n">new_bheap</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="p">()</span>
+    <span class="n">new_bheap</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">new_bheap</span><span class="o">.</span><span class="n">_set_min_node</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">rank</span><span class="p">()]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_min_node</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">meld</span><span class="p">(</span><span class="n">new_bheap</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">=</span> <span class="n">_len</span>
+
+  <span class="c1"># O(logN)</span>
+  <span class="k">def</span> <span class="nf">meld</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;BinomialHeap&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">len</span>
+    <span class="n">h0</span><span class="p">,</span> <span class="n">h1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">ptr</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">h0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">h1</span><span class="p">):</span>
+      <span class="n">h0</span><span class="p">,</span> <span class="n">h1</span> <span class="o">=</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h0</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">min_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">ptr_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">min_node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">min_node</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+      <span class="n">min_node</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">ptr_min</span>
+    <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">rank</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">h0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">new_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+      <span class="n">cnt</span> <span class="o">=</span> <span class="p">(</span><span class="n">rank</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">h0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">],</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">elif</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="p">(</span><span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="k">if</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="k">else</span> <span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">]))</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">],</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
+      <span class="n">h1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">h1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="n">min_node</span>
+
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="k">if</span> <span class="n">node</span><span class="p">]))</span>
+
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;BinomialHeap(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+</pre></div>
+<div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.Heap.BinomialHeap import BinomialHeap</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">BinomialHeap</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+
+  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;BinomialHeap.Node&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">child</span><span class="p">:</span>
+          <span class="n">dfs</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+      <span class="n">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">a</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Node(</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">_link</span><span class="p">(</span><span class="n">node1</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">node2</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">node1</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">node2</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="n">node2</span><span class="p">,</span> <span class="n">node1</span>
+    <span class="n">node1</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node1</span>
+
+  <span class="k">def</span> <span class="nf">_set_min_node</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="n">node</span>
+
+  <span class="c1"># O(logN)</span>
+  <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">ptr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="n">new_node</span>
+    <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ptr</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="k">return</span>
+      <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+      <span class="n">ptr</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ptr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span>
+
+  <span class="c1"># O(1)</span>
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="p">,</span> <span class="s1">&#39;IndexError: find_min from empty BinomialHeap&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span>
+
+  <span class="c1"># O(logN)</span>
+  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="n">_len</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span>
+    <span class="n">new_bheap</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="p">()</span>
+    <span class="n">new_bheap</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">new_bheap</span><span class="o">.</span><span class="n">_set_min_node</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">rank</span><span class="p">()]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_min_node</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">meld</span><span class="p">(</span><span class="n">new_bheap</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">=</span> <span class="n">_len</span>
+
+  <span class="c1"># O(logN)</span>
+  <span class="k">def</span> <span class="nf">meld</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;BinomialHeap&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">len</span>
+    <span class="n">h0</span><span class="p">,</span> <span class="n">h1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">ptr</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">h0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">h1</span><span class="p">):</span>
+      <span class="n">h0</span><span class="p">,</span> <span class="n">h1</span> <span class="o">=</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h0</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">min_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">ptr_min</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">min_node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">min_node</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
+      <span class="n">min_node</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">ptr_min</span>
+    <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">rank</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">h0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">new_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">break</span>
+      <span class="n">cnt</span> <span class="o">=</span> <span class="p">(</span><span class="n">rank</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">h0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">],</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">elif</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="p">(</span><span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="k">if</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="k">else</span> <span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">]))</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_node</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_link</span><span class="p">(</span><span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">],</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span>
+          <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">cnt</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">h1</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">new_node</span><span class="p">:</span>
+      <span class="n">h1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">h1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="n">min_node</span>
+
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="k">if</span> <span class="n">node</span><span class="p">]))</span>
+
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">len</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;BinomialHeap(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+</pre></div>
+
+</div>
+<hr />
+<ul>
+<li>2項ヒープです。</li>
+<li>計算量はメチャクチャさぼってます。<ul>
+<li>あらゆる操作が <code>θ(logn)</code> です。</li>
+</ul>
+</li>
+<li><code>List</code> の代わりに <code>LinkedList</code> を使用し、<code>push,meld</code> では <code>O(1)</code> で連結させ、 <code>delete_min</code> にすべてを押し付けると <code>push,meld</code> が <code>O(1)</code> 、<code>delete_min</code> が償却 <code>O(logn)</code> になるはずです。 </li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.Heap.BinomialHeap</span> <span class="kn">import</span> <span class="n">BinomialHeap</span>
+</pre></div>
+
+</div>
+
+<p></body>
+</html></p>

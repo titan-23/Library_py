@@ -1,4 +1,4 @@
-# from Library_py.Graph.get_bridge import get_bridge
+# from Library_py.Graph.get_scc_lowlink import get_scc_lowlink
 # from Library_py.Others.antirec import antirec
 from types import GeneratorType
 # ref: https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py
@@ -49,45 +49,47 @@ def antirec_cache(func):
         to = stack[-1].send(to)
     return to
   return wrappedfunc
-from typing import List, Tuple
+from typing import List
 
-def get_bridge(G: List[List[int]]) -> Tuple[List[int], List[Tuple[int, int]]]:
-  # ref: https://algo-logic.info/bridge-lowlink/
-
+def get_scc_lowlink(G: List[List[int]]) -> List[List[int]]:
   n = len(G)
-  bridges = []
-  articulation_points = []
+  stack = [0] * n
+  ptr = 0
+  lowlink = [-1] * n
   order = [-1] * n
-  lowlink = [0] * n
+  ids = [0] * n
   cur_time = 0
+  group_cnt = 0
 
   @antirec
-  def dfs(v: int, p: int=-1) -> None:
-    nonlocal cur_time
+  def dfs(v: int) -> None:
+    nonlocal cur_time, ptr
     order[v] = cur_time
     lowlink[v] = cur_time
     cur_time += 1
-    cnt = 0
-    flag = False
+    stack[ptr] = v; ptr += 1
     for x in G[v]:
-      if x == p: continue
       if order[x] == -1:
-        cnt += 1
-        yield dfs(x, v)
-        if p != -1 and order[v] <= lowlink[x]:
-          flag = True
+        yield dfs(x)
         lowlink[v] = min(lowlink[v], lowlink[x])
-        if lowlink[x] > order[v]:
-          bridges.append((x, v))
       else:
         lowlink[v] = min(lowlink[v], order[x])
-    if p == -1 and cnt >= 2:
-      flag = True
-    if flag:
-      articulation_points.append(v)
+    if lowlink[v] == order[v]:
+      nonlocal group_cnt
+      while True:
+        u = stack[ptr-1]; ptr -= 1
+        order[u] = n
+        ids[u] = group_cnt
+        if u == v: break
+      group_cnt += 1
     yield
+
   for v in range(n):
     if order[v] == -1:
       dfs(v)
-  return articulation_points, bridges
+  groups = [[] for _ in range(group_cnt)]
+  for v in range(n):
+    groups[group_cnt-1-ids[v]].append(v)
+  return groups
+
 

@@ -1,36 +1,40 @@
 # from Library_py.DataStructures.Dict.HashDict import HashDict
 import random
 from typing import List, Iterator, Tuple, Any
+random.seed(0)
+_titan23_HashDict_K: int = 0x517cc1b727220a95
 
 class HashDict():
 
-  def __init__(self, e: int=-1, default: Any=0):
+  def __init__(self, e: int=-1, default: Any=0, reserve: int=-1):
     # e: keyとして使わない値
     # default: valのdefault値
     self._keys: List[int] = [e]
     self._vals: List[Any] = [default]
-    self._e: int = e
-    self._default: Any = default
-    self._len: int = 0
+    self._msk: int = 0
     self._xor: int = random.getrandbits(1)
-
-  def reserve(self, n: int) -> None:
-    self._keys += [self._e] * (2*n)
-    self._vals += [self._default] * (2*n)
-    self._xor = random.getrandbits(len(self._keys).bit_length())
+    if reserve > 0:
+      self._keys: List[int] = [e] * (1<<(reserve.bit_length()))
+      self._vals: List[Any] = [default] * (1<<(reserve.bit_length()))
+      self._msk = (1<<(len(self._keys)-1).bit_length())-1
+      self._xor = random.getrandbits((len(self._keys)-1).bit_length())
+    self._e: int = e
+    self._len: int = 0
+    self._default: Any = default
 
   def _rebuild(self) -> None:
     old_keys, old_vals, _e = self._keys, self._vals, self._e
-    self._keys = [_e] * (2*(len(old_keys)+3))
+    self._keys = [_e] * (2*len(old_keys))
     self._vals = [self._default] * len(self._keys)
     self._len = 0
-    self._xor = random.getrandbits(len(self._keys).bit_length())
+    self._msk = (1<<(len(self._keys)-1).bit_length())-1
+    self._xor = random.getrandbits((len(self._keys)-1).bit_length())
     for i in range(len(old_keys)):
       if old_keys[i] != _e:
         self.set(old_keys[i], old_vals[i])
 
   def _hash(self, key: int) -> int:
-    return (key ^ self._xor) % len(self._keys)
+    return (((((key>>32)&self._msk) ^ (key&self._msk) ^ self._xor)) * (_titan23_HashDict_K & self._msk)) & self._msk
 
   def get(self, key: int, default: Any=None) -> Any:
     assert key != self._e, \
