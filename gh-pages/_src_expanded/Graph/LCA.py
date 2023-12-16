@@ -42,7 +42,7 @@ class SparseTableRmQ(Generic[T]):
     return str(self.data[0])
 
   def __repr__(self):
-    return f'SparseTableRmQ({self.data[0]}, {self.e})'
+    return f'{self.__class__.__name__}({self.data[0]}, {self.e})'
 
 from typing import List
 

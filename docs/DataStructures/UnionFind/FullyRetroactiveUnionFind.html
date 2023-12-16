@@ -409,7 +409,10 @@
 <h2>仕様</h2>
 <h4><code>ruf = FullyRetroactiveUnionFind(n: int, m: int)</code></h4>
 <ul>
-<li>頂点数 <code>n</code> 、クエリ列の長さ <code>m</code> の <code>FullyRetroactiveUnionFind</code> を作ります。</li>
+<li>頂点数 <code>n</code> 、クエリ列の長さ <code>m</code> の <code>FullyRetroactiveUnionFind</code> を作ります。<ul>
+<li>ここで、クエリは <code>unite</code> のみです。</li>
+</ul>
+</li>
 <li><code>O(n+m)</code> です。</li>
 </ul>
 <h4><code>ruf.unite(u: int, v: int, t: int) -&gt; None</code></h4>
@@ -420,7 +423,10 @@
 </ul>
 <h4><code>ruf.disconnect(t: int) -&gt; None</code></h4>
 <ul>
-<li>時刻 <code>t</code> の連結クエリをなくして、そのクエリの2頂点を非連結にします。</li>
+<li>時刻 <code>t</code> の連結クエリをなくして、そのクエリの2頂点を非連結にします。<ul>
+<li>時刻 <code>t</code> のクエリは連結クエリでないといけません。</li>
+</ul>
+</li>
 <li>償却 <code>O(log(n+m))</code> です。</li>
 </ul>
 <h4><code>ruf.same(u: int, v: int, t: int) -&gt; bool</code></h4>

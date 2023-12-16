@@ -71,7 +71,7 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
 
   def set(self, k: int, v: T) -> None:
     assert -self._u <= k < self._u, \
-        f'IndexError: DynamicSegmentTree.set({k}: int, {v}: T), n={self._u}'
+        f'IndexError: {self.__class__.__name__}.set({k}: int, {v}: T), n={self._u}'
     if k < 0: k += self._u
     k += self._size
     self._data[k] = v
@@ -82,13 +82,13 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
 
   def get(self, k: int) -> T:
     assert -self._u <= k < self._u, \
-        f'IndexError: DynamicSegmentTree.get({k}: int), n={self._u}'
+        f'IndexError: {self.__class__.__name__}.get({k}: int), n={self._u}'
     if k < 0: k += self._u
     return self._data.get(k+self._size, self._e)
 
   def prod(self, l: int, r: int) -> T:
     assert 0 <= l <= r <= self._u, \
-        f'IndexError: DynamicSegmentTree.prod({l}: int, {r}: int)'
+        f'IndexError: {self.__class__.__name__}.prod({l}: int, {r}: int)'
     l += self._size
     r += self._size
     e = self._e
@@ -110,9 +110,9 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
   def max_right(self, l: int, f: Callable[[T], bool]) -> int:
     '''Find the largest index R s.t. f([l, R)) == True. / O(logU)'''
     assert 0 <= l <= self._u, \
-        f'IndexError: DynamicSegmentTree.max_right({l}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.max_right({l}, f) index out of range'
     assert f(self._e), \
-        f'DynamicSegmentTree.max_right({l}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.max_right({l}, f), f({self._e}) must be true.'
     if l == self._u:
       return self._u
     l += self._size
@@ -137,9 +137,9 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
   def min_left(self, r: int, f: Callable[[T], bool]) -> int:
     '''Find the smallest index L s.t. f([L, r)) == True. / O(logU)'''
     assert 0 <= r <= self._u, \
-        f'IndexError: DynamicSegmentTree.min_left({r}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.min_left({r}, f) index out of range'
     assert f(self._e), \
-        f'DynamicSegmentTree.min_left({r}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.min_left({r}, f), f({self._e}) must be true.'
     if r == 0:
       return 0
     r += self._size
@@ -166,18 +166,18 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
 
   def __getitem__(self, k: int) -> T:
     assert -self._u <= k < self._u, \
-        f'IndexError: DynamicSegmentTree.__getitem__({k}: int), n={self._u}'
+        f'IndexError: {self.__class__.__name__}[{k}]: int), n={self._u}'
     return self.get(k)
 
   def __setitem__(self, k: int, v: T) -> None:
     assert -self._u <= k < self._u, \
-        f'IndexError: DynamicSegmentTree.__setitem__{k}: int, {v}: T), n={self._u}'
+        f'IndexError: {self.__class__.__name__}.__setitem__{k}: int, {v}: T), n={self._u}'
     self.set(k, v)
 
   def __str__(self) -> str:
     return str(self.tolist())
 
   def __repr__(self) -> str:
-    return f'DynamicSegmentTree({self})'
+    return f'{self.__class__.__name__}({self})'
 
 

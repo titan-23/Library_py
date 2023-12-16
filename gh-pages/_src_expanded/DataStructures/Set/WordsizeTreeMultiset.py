@@ -15,7 +15,7 @@ class WordsizeTreeSet():
       A = array('I', bytes(4*(u+1)))
       for a_ in a:
         assert 0 <= a_ < u, \
-            f'ValueError: WordsizeTreeSet.__init__, {a_}, u={u}'
+            f'ValueError: {self.__class__.__name__}.__init__, {a_}, u={u}'
         if A[a_>>5] >> (a_&31) & 1 == 0:
           len_ += 1
           A[a_>>5] |= 1 << (a_&31)
@@ -38,7 +38,7 @@ class WordsizeTreeSet():
 
   def add(self, x: int) -> bool:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeSet.add({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.add({x}), u={self.u}'
     if self.data[0][x>>5] >> (x&31) & 1: return False
     self.len += 1
     for a in self.data:
@@ -48,7 +48,7 @@ class WordsizeTreeSet():
 
   def discard(self, x: int) -> bool:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeSet.discard({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.discard({x}), u={self.u}'
     if self.data[0][x>>5] >> (x&31) & 1 == 0: return False
     self.len -= 1
     for a in self.data:
@@ -59,7 +59,7 @@ class WordsizeTreeSet():
 
   def ge(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeSet.ge({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.ge({x}), u={self.u}'
     data = self.data
     d = 0
     while True:
@@ -77,13 +77,13 @@ class WordsizeTreeSet():
 
   def gt(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeSet.gt({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.gt({x}), u={self.u}'
     if x + 1 == self.u: return
     return self.ge(x + 1)
 
   def le(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeSet.le({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.le({x}), u={self.u}'
     data = self.data
     d = 0
     while True:
@@ -102,7 +102,7 @@ class WordsizeTreeSet():
 
   def lt(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeSet.lt({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.lt({x}), u={self.u}'
     if x - 1 == 0: return
     return self.le(x - 1)
 
@@ -115,14 +115,14 @@ class WordsizeTreeSet():
   def pop_min(self) -> int:
     v = self.get_min()
     assert v is not None, \
-        'IndexError: pop_min() from empty WordsizeTreeSet.'
+        f'IndexError: pop_min() from empty {self.__class__.__name__}.'
     self.discard(v)
     return v
 
   def pop_max(self) -> int:
     v = self.get_max()
     assert v is not None, \
-        'IndexError: pop_max() from empty WordsizeTreeSet.'
+        f'IndexError: pop_max() from empty {self.__class__.__name__}.'
     self.discard(v)
     return v
 
@@ -142,7 +142,7 @@ class WordsizeTreeSet():
 
   def __contains__(self, x: int):
     assert 0 <= x < self.u, \
-        f'ValueError: {x} in WordsizeTreeSet, u={self.u}'
+        f'ValueError: {x} in {self.__class__.__name__}, u={self.u}'
     return self.data[0][x>>5] >> (x&31) & 1 == 1
 
   def __iter__(self):
@@ -160,7 +160,7 @@ class WordsizeTreeSet():
     return '{' + ', '.join(map(str, self)) + '}'
 
   def __repr__(self):
-    return f'WordsizeTreeSet({self.u}, {self})'
+    return f'{self.__class__.__name__}({self.u}, {self})'
 
 from typing import List, Iterable, Optional, Iterator, Tuple
 
@@ -179,7 +179,7 @@ class WordsizeTreeMultiset():
 
   def add(self, x: int, val: int=1) -> None:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.add({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.add({x}), u={self.u}'
     self.len += val
     if self.cnt[x]:
       self.cnt[x] += val
@@ -189,7 +189,7 @@ class WordsizeTreeMultiset():
 
   def discard(self, x: int, val: int=1) -> bool:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.discard({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.discard({x}), u={self.u}'
     if self.cnt[x] == 0: return False
     v = self.cnt[x]
     if v > val:
@@ -203,27 +203,27 @@ class WordsizeTreeMultiset():
 
   def count(self, x: int) -> int:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.count({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.count({x}), u={self.u}'
     return self.cnt[x]
 
   def ge(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.ge({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.ge({x}), u={self.u}'
     return self.st.ge(x)
 
   def gt(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.gt({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.gt({x}), u={self.u}'
     return self.ge(x + 1)
 
   def le(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.le({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.le({x}), u={self.u}'
     return self.st.le(x)
 
   def lt(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.lt({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.lt({x}), u={self.u}'
     return self.le(x - 1)
 
   def get_min(self) -> Optional[int]:
@@ -233,13 +233,13 @@ class WordsizeTreeMultiset():
     return self.st.le(self.st.u - 1)
 
   def pop_min(self) -> int:
-    assert self, 'IndexError: pop_min() from empty WordsizeTreeMultiset.'
+    assert self, f'IndexError: pop_min() from empty {self.__class__.__name__}.'
     x = self.st.get_min()
     self.discard(x)
     return x
 
   def pop_max(self) -> int:
-    assert self, 'IndexError: pop_max() from empty WordsizeTreeMultiset.'
+    assert self, f'IndexError: pop_max() from empty {self.__class__.__name__}.'
     x = self.st.get_max()
     self.discard(x)
     return x
@@ -299,6 +299,6 @@ class WordsizeTreeMultiset():
     return '{' + ', '.join(map(str, self)) + '}'
 
   def __repr__(self):
-    return f'WordsizeTreeMultiset({self.u}, [' + ', '.join(map(str, self)) + '])'
+    return f'{self.__class__.__name__}({self.u}, [' + ', '.join(map(str, self)) + '])'
 
 

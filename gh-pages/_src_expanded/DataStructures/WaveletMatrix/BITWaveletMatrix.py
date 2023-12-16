@@ -194,7 +194,7 @@ class WaveletMatrix():
   def access(self, k: int) -> int:
     '''a[k] を返す'''
     assert -self.size <= k < self.size, \
-        f'IndexError: WaveletMatrix.access({k}), size={self.size}'
+        f'IndexError: {self.__class__.__name__}.access({k}), size={self.size}'
     if k < 0:
       k += self.size
     s = 0  # 答え
@@ -210,13 +210,13 @@ class WaveletMatrix():
     return s
 
   def __getitem__(self, k: int) -> int:
-    assert -self.size <= k < self.size, f'IndexError: WaveletMatrix.__getitem__({k}), size={self.size}'
+    assert -self.size <= k < self.size, f'IndexError: {self.__class__.__name__}[{k}], size={self.size}'
     return self.access(k)
 
   def rank(self, r: int, x: int) -> int:
     '''a[0, r) に含まれる x の個数'''
-    assert 0 <= r <= self.size, f'IndexError: r={r}, size={self.size}'
-    assert 0 <= x < 1<<self.log, f'ValueError: x={x}, LIM={1<<self.log}'
+    assert 0 <= r <= self.size, f'IndexError: {self.__class__.__name__}.rank(), r={r}, size={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.rank(), x={x}, LIM={1<<self.log}'
     l = 0
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
@@ -234,8 +234,8 @@ class WaveletMatrix():
 
   def select(self, k: int, x: int) -> int:
     '''k 番目の v のindex'''
-    assert 0 <= k < self.size, f'IndexError: select({k}, {x}), k={k}, size={self.size}'
-    assert 0 <= x < 1<<self.log, f'ValueError: select({k}, {x}), x={x}, LIM={1<<self.log}'
+    assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.select({k}, {x}), k={k}, size={self.size}'
+    assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.select({k}, {x}), x={x}, LIM={1<<self.log}'
     # x の開始位置 s を探す
     s = 0
     for bit in range(self.log-1, -1, -1):
@@ -253,8 +253,8 @@ class WaveletMatrix():
 
   def kth_smallest(self, l: int, r: int, k: int) -> int:
     '''a[l, r) の中で k 番目に小さい値'''
-    assert 0 <= l <= r <= self.size, f'IndexError: kth_smallest({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, f'IndexError: kth_smallest({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.kth_smallest({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: {self.__class__.__name__}.kth_smallest({l}, {r}, {k}), wrong k'
     s = 0
     mid = self.mid
     for bit in range(self.log-1, -1, -1):
@@ -275,13 +275,13 @@ class WaveletMatrix():
   quantile = kth_smallest
 
   def kth_largest(self, l: int, r: int, k: int) -> int:
-    assert 0 <= l <= r <= self.size, f'IndexError: kth_largest({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, f'IndexError: kth_largest({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.kth_largest({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: {self.__class__.__name__}.kth_largest({l}, {r}, {k}), wrong k'
     return self.kth_smallest(l, r, r-l-k-1)
 
   def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:
-    assert 0 <= l <= r <= self.size, f'IndexError: topk({l}, {r}, {k}), size={self.size}'
-    assert 0 <= k < r-l, f'IndexError: topk({l}, {r}, {k}), wrong k'
+    assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.topk({l}, {r}, {k}), size={self.size}'
+    assert 0 <= k < r-l, f'IndexError: {self.__class__.__name__}.topk({l}, {r}, {k}), wrong k'
     # heap[-length, x, l, bit]
     hq: List[Tuple[int, int, int, int]] = [(-(r-l), 0, l, self.log-1)]
     ans = []
@@ -327,29 +327,29 @@ class WaveletMatrix():
 
   def range_freq(self, l: int, r: int, x: int, y: int) -> int:
     assert 0 <= l <= r <= self.size, \
-        f'IndexError: range_freq({l}, {r}, {x}, {y})'
+        f'IndexError: {self.__class__.__name__}.range_freq({l}, {r}, {x}, {y})'
     return self._range_freq(l, r, y) - self._range_freq(l, r, x)
 
   def prev_value(self, l: int, r: int, x: int) -> int:
     assert 0 <= l <= r <= self.size, \
-        f'IndexError: prev_value({l}, {r}, {x})'
+        f'IndexError: {self.__class__.__name__}.prev_value({l}, {r}, {x})'
     return self.kth_smallest(l, r, self._range_freq(l, r, x)-1)
 
   def next_value(self, l: int, r: int, x: int) -> int:
     assert 0 <= l <= r <= self.size, \
-        f'IndexError: next_value({l}, {r}, {x})'
+        f'IndexError: {self.__class__.__name__}.next_value({l}, {r}, {x})'
     return self.kth_smallest(l, r, self._range_freq(l, r, x))
 
   def range_count(self, l: int, r: int, x: int) -> int:
     assert 0 <= l <= r <= self.size, \
-        f'IndexError: range_count({l}, {r}, {x})'
+        f'IndexError: {self.__class__.__name__}.range_count({l}, {r}, {x})'
     return self.rank(r, x) - self.rank(l, x)
 
   def __len__(self):
     return self.size
 
   def __str__(self):
-    return f'WaveletMatrix({[self.access(i) for i in range(self.size)]})'
+    return f'{self.__class__.__name__}({[self.access(i) for i in range(self.size)]})'
 
   __repr__ = __str__
 
