@@ -132,7 +132,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       return f'key:{self.key, self.val, self.size, self.valsize},\n left:{self.left},\n right:{self.right}\n'
 
   def __init__(self, a: Iterable[T]=[]):
-    self.node = None
+    self.root = None
     if not isinstance(a, list):
       a = list(a)
     self._build(a)
@@ -156,7 +156,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     if not a:
       return
     x, y = BSTMultisetNodeBase._rle(a)
-    self.node = rec(0, len(x))
+    self.root = rec(0, len(x))
 
   def _rebuild(self, node: Node) -> Node:
     def rec(l: int, r: int) -> ScapegoatTreeMultiset.Node:
@@ -192,7 +192,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
   def _kth_elm(self, k: int) -> Tuple[T, int]:
     if k < 0:
       k += len(self)
-    node = self.node
+    node = self.root
     while node:
       t = (node.val + node.left.valsize) if node.left else node.val
       if t-node.val <= k and k < t:
@@ -206,7 +206,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
   def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
     if k < 0:
       k += self.len_elm()
-    node = self.node
+    node = self.root
     while node:
       t = node.left.size if node.left else 0
       if t == k:
@@ -219,13 +219,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     assert False, 'IndexError'
 
   def add(self, key: T, val: int=1) -> None:
-    if val <= 0:
+    if val <= 0: return
+    if not self.root:
+      self.root = ScapegoatTreeMultiset.Node(key, val)
       return
-    Node = ScapegoatTreeMultiset.Node
-    if not self.node:
-      self.node = Node(key, val)
-      return
-    node = self.node
+    node = self.root
     path = []
     while node:
       path.append(node)
@@ -234,14 +232,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
         for p in path:
           p.valsize += val
         return
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     if key < path[-1].key:
-      path[-1].left = Node(key, val)
+      path[-1].left = ScapegoatTreeMultiset.Node(key, val)
     else:
-      path[-1].right = Node(key, val)
+      path[-1].right = ScapegoatTreeMultiset.Node(key, val)
     if len(path)*ScapegoatTreeMultiset.BETA > math.log(self.len_elm()):
       node_size = 1
       while path:
@@ -252,7 +247,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
         node_size = pnode_size
       new_node = self._rebuild(pnode)
       if not path:
-        self.node = new_node
+        self.root = new_node
         return
       if new_node.key < path[-1].key:
         path[-1].left = new_node
@@ -264,19 +259,14 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def _discard(self, key: T) -> bool:
     path = []
-    node = self.node
+    node = self.root
     di, cnt = 1, 0
     while node:
       if key == node.key:
         break
-      elif key < node.key:
-        path.append(node)
-        node = node.left
-        di = 1
-      else:
-        path.append(node)
-        node = node.right
-        di = 0
+      path.append(node)
+      di = key < node.key
+      node = node.left if di else node.right
     if node.left and node.right:
       path.append(node)
       lmax = node.left
@@ -296,7 +286,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       else:
         path[-1].right = cnode
     else:
-      self.node = cnode
+      self.root = cnode
       return True
     for _ in range(cnt):
       p = path.pop()
@@ -311,15 +301,12 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     if val <= 0:
       return True
     path = []
-    node = self.node
+    node = self.root
     while node:
       path.append(node)
       if key == node.key:
         break
-      elif key < node.key:
-        node = node.left
-      else:
-        node = node.right
+      node = node.left if key < node.key else node.right
     else:
       return False
     if val > node.val:
@@ -343,7 +330,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     self.discard(key, val)
 
   def count(self, key: T) -> int:
-    node = self.node
+    node = self.root
     while node:
       if key == node.key:
         return node.val
@@ -373,7 +360,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def index_keys(self, key: T) -> int:
     k = 0
-    node = self.node
+    node = self.root
     while node:
       if key == node.key:
         if node.left:
@@ -388,12 +375,12 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def index_right_keys(self, key: T) -> int:
     k = 0
-    node = self.node
+    node = self.root
     while node:
       if key == node.key:
         k += node.val if node.left is None else node.left.size + node.val
         break
-      elif key < node.key:
+      if key < node.key:
         node = node.left
       else:
         k += node.val if node.left is None else node.left.size + node.val
@@ -401,7 +388,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return k
 
   def pop(self, k: int=-1) -> T:
-    if k < 0: k += self.node.valsize
+    if k < 0: k += self.root.valsize
     x = self[k]
     self.discard(x)
     return x
@@ -433,7 +420,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return self._kth_elm_tree(k)[0]
 
   def len_elm(self) -> int:
-    return self.node.size if self.node else 0
+    return self.root.size if self.root else 0
 
   def tolist(self) -> List[T]:
     return BSTMultisetNodeBase.tolist(self.root, len(self))
@@ -442,7 +429,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return BSTMultisetNodeBase.tolist_items(self.root, self.len_elm())
 
   def clear(self) -> None:
-    self.node = None
+    self.root = None
 
   def get_max(self) -> T:
     return self._kth_elm_tree(-1)[0]
@@ -451,7 +438,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return self._kth_elm_tree(0)[0]
 
   def __contains__(self, key: T):
-    node = self.node
+    node = self.root
     while node:
       if key == node.key:
         return True
@@ -479,10 +466,10 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
       yield self._kth_elm(-i-1)[0]
 
   def __len__(self):
-    return self.node.valsize if self.node else 0
+    return self.root.valsize if self.root else 0
 
   def __bool__(self):
-    return self.node is not None
+    return self.root is not None
 
   def __str__(self):
     return '{' + ', '.join(map(str, self.tolist())) + '}'

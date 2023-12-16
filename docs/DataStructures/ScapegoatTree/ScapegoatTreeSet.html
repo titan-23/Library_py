@@ -31,8 +31,8 @@
 
 <span class="k">class</span> <span class="nc">ScapegoatTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
-  <span class="n">alpha</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.75</span>
-  <span class="n">beta</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">alpha</span><span class="p">)</span>
+  <span class="n">ALPHA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.75</span>
+  <span class="n">BETA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">ALPHA</span><span class="p">)</span>
 
   <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
 
@@ -113,12 +113,12 @@
       <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">*</span><span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">beta</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">*</span><span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">BETA</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
       <span class="n">node_size</span> <span class="o">=</span> <span class="mi">1</span>
       <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
         <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
         <span class="n">pnode_size</span> <span class="o">=</span> <span class="n">pnode</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">pnode_size</span> <span class="o">&lt;</span> <span class="n">node_size</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">*</span> <span class="n">pnode_size</span> <span class="o">&lt;</span> <span class="n">node_size</span><span class="p">:</span>
           <span class="k">break</span>
         <span class="n">node_size</span> <span class="o">=</span> <span class="n">pnode_size</span>
       <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
@@ -392,8 +392,8 @@
 
 <span class="k">class</span> <span class="nc">ScapegoatTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
-  <span class="n">alpha</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.75</span>
-  <span class="n">beta</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">alpha</span><span class="p">)</span>
+  <span class="n">ALPHA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.75</span>
+  <span class="n">BETA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">ALPHA</span><span class="p">)</span>
 
   <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
 
@@ -474,12 +474,12 @@
       <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">*</span><span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">beta</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">*</span><span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">BETA</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
       <span class="n">node_size</span> <span class="o">=</span> <span class="mi">1</span>
       <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
         <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
         <span class="n">pnode_size</span> <span class="o">=</span> <span class="n">pnode</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">pnode_size</span> <span class="o">&lt;</span> <span class="n">node_size</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ScapegoatTreeSet</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">*</span> <span class="n">pnode_size</span> <span class="o">&lt;</span> <span class="n">node_size</span><span class="p">:</span>
           <span class="k">break</span>
         <span class="n">node_size</span> <span class="o">=</span> <span class="n">pnode_size</span>
       <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>

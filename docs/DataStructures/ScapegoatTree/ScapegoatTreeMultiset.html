@@ -50,7 +50,7 @@
       <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;key:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">valsize</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> left:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> right:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
       <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -74,7 +74,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="p">:</span>
       <span class="k">return</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">BSTMultisetNodeBase</span><span class="o">.</span><span class="n">_rle</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
   <span class="k">def</span> <span class="nf">_rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
@@ -110,7 +110,7 @@
   <span class="k">def</span> <span class="nf">_kth_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">valsize</span><span class="p">)</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
       <span class="k">if</span> <span class="n">t</span><span class="o">-</span><span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">:</span>
@@ -124,7 +124,7 @@
   <span class="k">def</span> <span class="nf">_kth_elm_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">t</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="mi">0</span>
       <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
@@ -137,13 +137,11 @@
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;IndexError&#39;</span>
 
   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
       <span class="k">return</span>
-    <span class="n">Node</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-      <span class="k">return</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
@@ -152,14 +150,11 @@
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
           <span class="n">p</span><span class="o">.</span><span class="n">valsize</span> <span class="o">+=</span> <span class="n">val</span>
         <span class="k">return</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">*</span><span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">BETA</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
       <span class="n">node_size</span> <span class="o">=</span> <span class="mi">1</span>
       <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
@@ -170,7 +165,7 @@
         <span class="n">node_size</span> <span class="o">=</span> <span class="n">pnode_size</span>
       <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
       <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
         <span class="k">return</span>
       <span class="k">if</span> <span class="n">new_node</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">new_node</span>
@@ -182,19 +177,14 @@
 
   <span class="k">def</span> <span class="nf">_discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">di</span><span class="p">,</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-        <span class="n">di</span> <span class="o">=</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-        <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">di</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
       <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
       <span class="n">lmax</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
@@ -214,7 +204,7 @@
       <span class="k">else</span><span class="p">:</span>
         <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">cnode</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">cnode</span>
       <span class="k">return</span> <span class="kc">True</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cnt</span><span class="p">):</span>
       <span class="n">p</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -229,15 +219,12 @@
     <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">True</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
@@ -261,7 +248,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
@@ -291,7 +278,7 @@
 
   <span class="k">def</span> <span class="nf">index_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
@@ -306,12 +293,12 @@
 
   <span class="k">def</span> <span class="nf">index_right_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
@@ -319,7 +306,7 @@
     <span class="k">return</span> <span class="n">k</span>
 
   <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">valsize</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">valsize</span>
     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span>
@@ -351,7 +338,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="n">k</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">len_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">BSTMultisetNodeBase</span><span class="o">.</span><span class="n">tolist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
@@ -360,7 +347,7 @@
     <span class="k">return</span> <span class="n">BSTMultisetNodeBase</span><span class="o">.</span><span class="n">tolist_items</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">())</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="kc">None</span>
 
   <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -369,7 +356,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
@@ -397,10 +384,10 @@
       <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">valsize</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">valsize</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
@@ -542,7 +529,7 @@
       <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;key:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">valsize</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> left:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> right:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
       <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -566,7 +553,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="p">:</span>
       <span class="k">return</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">BSTMultisetNodeBase</span><span class="o">.</span><span class="n">_rle</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
   <span class="k">def</span> <span class="nf">_rebuild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
@@ -602,7 +589,7 @@
   <span class="k">def</span> <span class="nf">_kth_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">valsize</span><span class="p">)</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
       <span class="k">if</span> <span class="n">t</span><span class="o">-</span><span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">:</span>
@@ -616,7 +603,7 @@
   <span class="k">def</span> <span class="nf">_kth_elm_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
       <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">t</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="mi">0</span>
       <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
@@ -629,13 +616,11 @@
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;IndexError&#39;</span>
 
   <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
       <span class="k">return</span>
-    <span class="n">Node</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-      <span class="k">return</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
@@ -644,14 +629,11 @@
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
           <span class="n">p</span><span class="o">.</span><span class="n">valsize</span> <span class="o">+=</span> <span class="n">val</span>
         <span class="k">return</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+      <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">*</span><span class="n">ScapegoatTreeMultiset</span><span class="o">.</span><span class="n">BETA</span> <span class="o">&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
       <span class="n">node_size</span> <span class="o">=</span> <span class="mi">1</span>
       <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
@@ -662,7 +644,7 @@
         <span class="n">node_size</span> <span class="o">=</span> <span class="n">pnode_size</span>
       <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rebuild</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
       <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
         <span class="k">return</span>
       <span class="k">if</span> <span class="n">new_node</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">new_node</span>
@@ -674,19 +656,14 @@
 
   <span class="k">def</span> <span class="nf">_discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="n">di</span><span class="p">,</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-        <span class="n">di</span> <span class="o">=</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-        <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">di</span> <span class="o">=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">di</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
       <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
       <span class="n">lmax</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
@@ -706,7 +683,7 @@
       <span class="k">else</span><span class="p">:</span>
         <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">cnode</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">cnode</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">cnode</span>
       <span class="k">return</span> <span class="kc">True</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cnt</span><span class="p">):</span>
       <span class="n">p</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -721,15 +698,12 @@
     <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">True</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
@@ -753,7 +727,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
@@ -783,7 +757,7 @@
 
   <span class="k">def</span> <span class="nf">index_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
@@ -798,12 +772,12 @@
 
   <span class="k">def</span> <span class="nf">index_right_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
         <span class="k">break</span>
-      <span class="k">elif</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
       <span class="k">else</span><span class="p">:</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">val</span>
@@ -811,7 +785,7 @@
     <span class="k">return</span> <span class="n">k</span>
 
   <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">valsize</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">valsize</span>
     <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span>
@@ -843,7 +817,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="n">k</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">len_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
     <span class="k">return</span> <span class="n">BSTMultisetNodeBase</span><span class="o">.</span><span class="n">tolist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
@@ -852,7 +826,7 @@
     <span class="k">return</span> <span class="n">BSTMultisetNodeBase</span><span class="o">.</span><span class="n">tolist_items</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">())</span>
 
   <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="kc">None</span>
 
   <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -861,7 +835,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
     <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
@@ -889,10 +863,10 @@
       <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">valsize</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">valsize</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="mi">0</span>
 
   <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>

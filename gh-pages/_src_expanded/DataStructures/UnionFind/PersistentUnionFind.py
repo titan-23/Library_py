@@ -112,6 +112,12 @@ class PersistentUnionFind():
     return self._new(self._parents.copy())
 
   def root(self, x: int) -> int:
+    _parents = self._parents
+    while True:
+      p = _parents.get(x)
+      if p < 0:
+        return x
+      x = p
     stack = []
     _parents = self._parents
     while True:
