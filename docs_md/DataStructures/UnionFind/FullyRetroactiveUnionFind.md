@@ -20,6 +20,7 @@ _____
 
 #### `ruf = FullyRetroactiveUnionFind(n: int, m: int)`
 - 頂点数 `n` 、クエリ列の長さ `m` の `FullyRetroactiveUnionFind` を作ります。
+  - ここで、クエリは `unite` のみです。
 - `O(n+m)` です。
 
 #### `ruf.unite(u: int, v: int, t: int) -> None`
@@ -29,6 +30,7 @@ _____
 
 #### `ruf.disconnect(t: int) -> None`
 - 時刻 `t` の連結クエリをなくして、そのクエリの2頂点を非連結にします。
+  - 時刻 `t` のクエリは連結クエリでないといけません。
 - 償却 `O(log(n+m))` です。
 
 #### `ruf.same(u: int, v: int, t: int) -> bool`

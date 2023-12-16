@@ -57,7 +57,7 @@ class LazySegmentTree(Generic[T, F]):
 
   def apply(self, l: int, r: int, f: F) -> None:
     assert 0 <= l <= r <= self.n, \
-        f'IndexError: LazySegmentTree.apply({l}, {r}, {f}), n={self.n}'
+        f'IndexError: {self.__class__.__name__}.apply({l}, {r}, {f}), n={self.n}'
     if l == r: return
     if f == self.id: return
     l += self.size
@@ -91,7 +91,7 @@ class LazySegmentTree(Generic[T, F]):
 
   def prod(self, l: int, r: int) -> T:
     assert 0 <= l <= r <= self.n, \
-        f'IndexError: LazySegmentTree.prod({l}, {r}), n={self.n}'
+        f'IndexError: {self.__class__.__name__}.prod({l}, {r}), n={self.n}'
     if l == r: return self.e
     l += self.size
     r += self.size
@@ -179,7 +179,7 @@ class LazySegmentTree(Generic[T, F]):
 
   def __getitem__(self, k: int) -> T:
     assert -self.n <= k < self.n, \
-        f'IndexError: LazySegmentTree[{k}], n={self.n}'
+        f'IndexError: {self.__class__.__name__}[{k}], n={self.n}'
     if k < 0:
       k += self.n
     k += self.size
@@ -189,7 +189,7 @@ class LazySegmentTree(Generic[T, F]):
 
   def __setitem__(self, k: int, v: T):
     assert -self.n <= k < self.n, \
-        f'IndexError: LazySegmentTree[{k}] = {v}, n={self.n}'
+        f'IndexError: {self.__class__.__name__}[{k}] = {v}, n={self.n}'
     if k < 0:
       k += self.n
     k += self.size
@@ -203,5 +203,5 @@ class LazySegmentTree(Generic[T, F]):
     return '[' + ', '.join(map(str, (self.__getitem__(i) for i in range(self.n)))) + ']'
 
   def __repr__(self):
-    return f'LazySegmentTree({self})'
+    return f'{self.__class__.__name__}({self})'
 

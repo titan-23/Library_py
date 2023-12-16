@@ -112,7 +112,7 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
     return [self.get(i) for i in range(self._n)]
 
   def show(self) -> None:
-    print('<SegmentTreeRSQ> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
+    print(f'<{self.__class__.__name__}> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
 
   def __getitem__(self, k: int) -> T:
     assert -self._n <= k < self._n, \
@@ -128,5 +128,5 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
     return '[' + ', '.join(map(str, (self.get(i) for i in range(self._n)))) + ']'
 
   def __repr__(self):
-    return f'SegmentTreeRSQ({self})'
+    return f'{self.__class__.__name__}({self})'
 

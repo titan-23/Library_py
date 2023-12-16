@@ -26,7 +26,7 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
   def set(self, k: int, v: T) -> None:
     if k < 0: k += self._n
     assert 0 <= k < self._n, \
-        f'IndexError: SegmentTreeRmQ.set({k}: int, {v}: T), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.set({k}: int, {v}: T), n={self._n}'
     k += self._size
     self._data[k] = v
     for _ in range(self._log):
@@ -36,12 +36,12 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
   def get(self, k: int) -> T:
     if k < 0: k += self._n
     assert 0 <= k < self._n, \
-        f'IndexError: SegmentTreeRmQ.get({k}: int), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.get({k}: int), n={self._n}'
     return self._data[k+self._size]
 
   def prod(self, l: int, r: int) -> T:
     assert 0 <= l <= r <= self._n, \
-        f'IndexError: SegmentTreeRmQ.prod({l}: int, {r}: int)'
+        f'IndexError: {self.__class__.__name__}.prod({l}: int, {r}: int)'
     l += self._size
     r += self._size
     res = self._e
@@ -63,9 +63,9 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
 
   def max_right(self, l: int, f=lambda lr: lr):
     assert 0 <= l <= self._n, \
-        f'IndexError: SegmentTreeRmQ.max_right({l}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.max_right({l}, f) index out of range'
     assert f(self._e), \
-        f'SegmentTreeRmQ.max_right({l}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.max_right({l}, f), f({self._e}) must be true.'
     if l == self._n: return self._n
     l += self._size
     s = self._e
@@ -88,9 +88,9 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
 
   def min_left(self, r: int, f=lambda lr: lr):
     assert 0 <= r <= self._n, \
-        f'IndexError: SegmentTreeRmQ.min_left({r}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.min_left({r}, f) index out of range'
     assert f(self._e), \
-        f'SegmentTreeRmQ.min_left({r}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.min_left({r}, f), f({self._e}) must be true.'
     if r == 0: return 0
     r += self._size
     s = self._e
@@ -115,21 +115,21 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
     return [self.get(i) for i in range(self._n)]
 
   def show(self) -> None:
-    print('<SegmentTreeRmQ> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
+    print(f'<{self.__class__.__name__}> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
 
   def __getitem__(self, k: int) -> T:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRmQ.__getitem__({k}: int), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.__getitem__({k}: int), n={self._n}'
     return self.get(k)
 
   def __setitem__(self, k: int, v: T):
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTreeRmQ.__setitem__{k}: int, {v}: T), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.__setitem__{k}: int, {v}: T), n={self._n}'
     self.set(k, v)
 
   def __str__(self):
     return '[' + ', '.join(map(str, (self.get(i) for i in range(self._n)))) + ']'
 
   def __repr__(self):
-    return f'SegmentTreeRmQ({self})'
+    return f'{self.__class__.__name__}({self})'
 
