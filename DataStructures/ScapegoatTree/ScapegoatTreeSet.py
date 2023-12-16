@@ -8,8 +8,8 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
 
-  alpha: Final[float] = 0.75
-  beta: Final[float] = math.log2(1 / alpha)
+  ALPHA: Final[float] = 0.75
+  BETA: Final[float] = math.log2(1 / ALPHA)
 
   class Node():
 
@@ -90,12 +90,12 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
       path[-1].left = Node(key)
     else:
       path[-1].right = Node(key)
-    if len(path)*ScapegoatTreeSet.beta > math.log(self.root.size):
+    if len(path)*ScapegoatTreeSet.BETA > math.log(self.root.size):
       node_size = 1
       while path:
         pnode = path.pop()
         pnode_size = pnode.size + 1
-        if ScapegoatTreeSet.alpha * pnode_size < node_size:
+        if ScapegoatTreeSet.ALPHA * pnode_size < node_size:
           break
         node_size = pnode_size
       new_node = self._rebuild(pnode)
