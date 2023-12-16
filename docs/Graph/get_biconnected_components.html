@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../style.css"></p>
+<script src="../script.js"></script>
+<p><title>Library_py-Graph-get_biconnected_components</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>get_biconnected_components</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titan-23/Library_py/blob/main/Graph/get_biconnected_components.py"><code>get_biconnected_components</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="k">def</span> <span class="nf">get_biconnected_components</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]]:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+  <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+  <span class="n">lowlink</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+  <span class="n">indx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+  <span class="n">cur_time</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">edge_ans</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">vertex_ans</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">nonlocal</span> <span class="n">cur_time</span>
+    <span class="n">dfs_stack</span> <span class="o">=</span> <span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="k">while</span> <span class="n">dfs_stack</span><span class="p">:</span>
+      <span class="n">v</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">dfs_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+          <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">order</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_time</span>
+          <span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_time</span>
+          <span class="n">cur_time</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span>
+          <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+          <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">p</span><span class="p">:</span>
+            <span class="k">continue</span>
+          <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">order</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
+          <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+              <span class="n">dfs_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+            <span class="n">dfs_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">~</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+            <span class="n">dfs_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+            <span class="k">break</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">order</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="o">~</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span>
+        <span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">lowlink</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">lowlink</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">order</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="n">min_vx</span><span class="p">,</span> <span class="n">max_vx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+          <span class="n">this_edge_ans</span><span class="p">,</span> <span class="n">this_vertex_ans</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+          <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">this_edge_ans</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+            <span class="n">this_vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="n">this_vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">min_vx</span> <span class="o">==</span> <span class="n">a</span> <span class="ow">and</span> <span class="n">max_vx</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+              <span class="k">break</span>
+          <span class="n">edge_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_edge_ans</span><span class="p">)</span>
+          <span class="n">vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">this_vertex_ans</span><span class="p">)))</span>
+  <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">pre_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_ans</span><span class="p">)</span>
+      <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_ans</span><span class="p">)</span> <span class="o">==</span> <span class="n">pre_len</span><span class="p">:</span>
+        <span class="n">vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">root</span><span class="p">])</span>
+        <span class="n">edge_ans</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+  <span class="k">return</span> <span class="n">vertex_ans</span><span class="p">,</span> <span class="n">edge_ans</span>
+</pre></div>
+<div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.Graph.get_biconnected_components import get_biconnected_components</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="k">def</span> <span class="nf">get_biconnected_components</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]]:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+  <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+  <span class="n">lowlink</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+  <span class="n">indx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+  <span class="n">cur_time</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">edge_ans</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">vertex_ans</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">nonlocal</span> <span class="n">cur_time</span>
+    <span class="n">dfs_stack</span> <span class="o">=</span> <span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="k">while</span> <span class="n">dfs_stack</span><span class="p">:</span>
+      <span class="n">v</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">dfs_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+          <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">order</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_time</span>
+          <span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_time</span>
+          <span class="n">cur_time</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+          <span class="n">x</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span>
+          <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+          <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">p</span><span class="p">:</span>
+            <span class="k">continue</span>
+          <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">order</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
+          <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">indx</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+              <span class="n">dfs_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+            <span class="n">dfs_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">~</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+            <span class="n">dfs_stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+            <span class="k">break</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">order</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="o">~</span><span class="n">v</span><span class="p">,</span> <span class="n">p</span>
+        <span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">lowlink</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">lowlink</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">lowlink</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">order</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+          <span class="n">min_vx</span><span class="p">,</span> <span class="n">max_vx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+          <span class="n">this_edge_ans</span><span class="p">,</span> <span class="n">this_vertex_ans</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+          <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">this_edge_ans</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+            <span class="n">this_vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="n">this_vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">min_vx</span> <span class="o">==</span> <span class="n">a</span> <span class="ow">and</span> <span class="n">max_vx</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+              <span class="k">break</span>
+          <span class="n">edge_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_edge_ans</span><span class="p">)</span>
+          <span class="n">vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">this_vertex_ans</span><span class="p">)))</span>
+  <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">order</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">pre_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_ans</span><span class="p">)</span>
+      <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_ans</span><span class="p">)</span> <span class="o">==</span> <span class="n">pre_len</span><span class="p">:</span>
+        <span class="n">vertex_ans</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">root</span><span class="p">])</span>
+        <span class="n">edge_ans</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+  <span class="k">return</span> <span class="n">vertex_ans</span><span class="p">,</span> <span class="n">edge_ans</span>
+</pre></div>
+
+</div>
+<hr />
+<ul>
+<li>二重頂点連結分解します。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>vertex_ans, edge_ans = get_biconnected_components(G: List[List[int]])</code></h4>
+<ul>
+<li><code>G</code> を二重頂点連結分解します。</li>
+<li><code>vertex_ans: List[List[int]]</code><ul>
+<li>頂点集合です。</li>
+</ul>
+</li>
+<li><code>edge_ans: List[List[Tuple[int, int]]]</code><ul>
+<li>辺集合です。</li>
+</ul>
+</li>
+<li><code>O(n+m)</code> です。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<ul>
+<li><a href="https://judge.yosupo.jp/problem/biconnected_components">https://judge.yosupo.jp/problem/biconnected_components</a></li>
+</ul>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.Graph.get_biconnected_components</span> <span class="kn">import</span> <span class="n">get_biconnected_components</span>
+
+<span class="c1">#  -----------------------  #</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">Library_py.IO.FastO</span> <span class="kn">import</span> <span class="n">FastO</span>
+<span class="n">write</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="n">FastO</span><span class="o">.</span><span class="n">write</span><span class="p">,</span> <span class="n">FastO</span><span class="o">.</span><span class="n">flush</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">G</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+  <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="n">G</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+  <span class="n">G</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">ans</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_biconnected_components</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">write</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ans</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ans</span><span class="p">:</span>
+  <span class="n">write</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+  <span class="n">write</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">v</span><span class="p">)))</span>
+<span class="n">flush</span><span class="p">()</span>
+</pre></div>
+
+</div>
+
+<p></body>
+</html></p>
