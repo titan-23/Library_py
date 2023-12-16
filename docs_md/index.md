@@ -187,6 +187,7 @@ _____
 
 ### [`UnionFind`](DataStructures/UnionFind/UnionFind_.md)
 
+- [`FullyRetroactiveUnionFind`](DataStructures/UnionFind/FullyRetroactiveUnionFind.md)
 - [`PartialPersistentUnionFind`](DataStructures/UnionFind/PartialPersistentUnionFind.md)
 - [`PersistentUnionFind`](DataStructures/UnionFind/PersistentUnionFind.md)
 - [`UndoableUnionFind`](DataStructures/UnionFind/UndoableUnionFind.md)
