@@ -20,19 +20,6 @@ class PersistentUnionFind():
       if p < 0:
         return x
       x = p
-    stack = []
-    _parents = self._parents
-    while True:
-      p = _parents.get(x)
-      if p < 0:
-        break
-      stack.append(x)
-      x = p
-    while stack:
-      v = stack.pop()
-      _parents = _parents.set(v, x)
-    self._parents = _parents
-    return x
 
   def unite(self, x: int, y: int, update: bool=False) -> 'PersistentUnionFind':
     x = self.root(x)
