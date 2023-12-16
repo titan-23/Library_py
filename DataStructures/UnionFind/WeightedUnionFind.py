@@ -1,4 +1,4 @@
-from typing import List, Set, Optional
+from typing import List, Optional
 from collections import defaultdict
 
 class WeightedUnionFind():
@@ -7,7 +7,6 @@ class WeightedUnionFind():
     self._n: int = n
     self._group_numbers: int = n
     self._parents: List[int] = [-1] * n
-    # self._G: List[List[int]] = [[] for _ in range(n)]
     self._weight: List[int] = [0] * n
 
   def root(self, x: int) -> int:
@@ -29,8 +28,6 @@ class WeightedUnionFind():
     if rx == ry:
       return rx if self.diff(x, y) == w else None
     w += self._weight[x] - self._weight[y]
-    # self._G[rx].append(ry)
-    # self._G[ry].append(rx)
     self._group_numbers -= 1
     if self._parents[rx] > self._parents[ry]:
       rx, ry = ry, rx
@@ -46,17 +43,9 @@ class WeightedUnionFind():
   def same(self, x: int, y: int) -> bool:
     return self.root(x) == self.root(y)
 
-  def members(self, x: int) -> Set[int]:
-    seen = set([x])
-    todo = [x]
-    while todo:
-      v = todo.pop()
-      for vv in self._G[v]:
-        if vv in seen:
-          continue
-        todo.append(vv)
-        seen.add(vv)
-    return seen
+  def members(self, x: int) -> List[int]:
+    x = self.root(x)
+    return [i for i in range(self._n) if self.root(i) == x]
 
   def all_roots(self) -> List[int]:
     return [i for i, x in enumerate(self._parents) if x < 0]
@@ -77,7 +66,7 @@ class WeightedUnionFind():
       self._parents[i] = -1
 
   def diff(self, x: int, y: int) -> Optional[int]:
-    '''weight[y] - weight[x] / O(α(N))'''
+    '''weight[y] - weight[x]'''
     if not self.same(x, y):
       return None
     return self._weight[y] - self._weight[x]

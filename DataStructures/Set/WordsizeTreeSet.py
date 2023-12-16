@@ -12,7 +12,6 @@ class WordsizeTreeSet():
       u >>= 5
       A = array('I', bytes(4*(u+1)))
       for a_ in a:
-        print(a)
         assert 0 <= a_ < u, \
             f'ValueError: WordsizeTreeSet.__init__, {a_}, u={u}'
         if A[a_>>5] >> (a_&31) & 1 == 0:
