@@ -16,7 +16,7 @@ class WordsizeTreeMultiset():
 
   def add(self, x: int, val: int=1) -> None:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.add({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.add({x}), u={self.u}'
     self.len += val
     if self.cnt[x]:
       self.cnt[x] += val
@@ -26,7 +26,7 @@ class WordsizeTreeMultiset():
 
   def discard(self, x: int, val: int=1) -> bool:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.discard({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.discard({x}), u={self.u}'
     if self.cnt[x] == 0: return False
     v = self.cnt[x]
     if v > val:
@@ -40,27 +40,27 @@ class WordsizeTreeMultiset():
 
   def count(self, x: int) -> int:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.count({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.count({x}), u={self.u}'
     return self.cnt[x]
 
   def ge(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.ge({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.ge({x}), u={self.u}'
     return self.st.ge(x)
 
   def gt(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.gt({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.gt({x}), u={self.u}'
     return self.ge(x + 1)
 
   def le(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.le({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.le({x}), u={self.u}'
     return self.st.le(x)
 
   def lt(self, x: int) -> Optional[int]:
     assert 0 <= x < self.u, \
-        f'ValueError: WordsizeTreeMultiset.lt({x}), u={self.u}'
+        f'ValueError: {self.__class__.__name__}.lt({x}), u={self.u}'
     return self.le(x - 1)
 
   def get_min(self) -> Optional[int]:
@@ -70,13 +70,13 @@ class WordsizeTreeMultiset():
     return self.st.le(self.st.u - 1)
 
   def pop_min(self) -> int:
-    assert self, 'IndexError: pop_min() from empty WordsizeTreeMultiset.'
+    assert self, f'IndexError: pop_min() from empty {self.__class__.__name__}.'
     x = self.st.get_min()
     self.discard(x)
     return x
 
   def pop_max(self) -> int:
-    assert self, 'IndexError: pop_max() from empty WordsizeTreeMultiset.'
+    assert self, f'IndexError: pop_max() from empty {self.__class__.__name__}.'
     x = self.st.get_max()
     self.discard(x)
     return x
@@ -136,5 +136,5 @@ class WordsizeTreeMultiset():
     return '{' + ', '.join(map(str, self)) + '}'
 
   def __repr__(self):
-    return f'WordsizeTreeMultiset({self.u}, [' + ', '.join(map(str, self)) + '])'
+    return f'{self.__class__.__name__}({self.u}, [' + ', '.join(map(str, self)) + '])'
 
