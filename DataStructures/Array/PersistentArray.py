@@ -75,9 +75,9 @@ class PersistentArray(Generic[T]):
 
   def tolist(self) -> List[T]:
     node = self.root
-    q = [node]
     a: List[T] = []
     if not node: return a
+    q = [node]
     for node in q:
       a.append(node.key)
       if node.left:
