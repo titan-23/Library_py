@@ -28,7 +28,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def set(self, k: int, v: T) -> None:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.set({k}, {v}), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.set({k}, {v}), n={self._n}'
     if k < 0:
       k += self._n
     k += self._size
@@ -39,14 +39,14 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def get(self, k: int) -> T:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.get({k}), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.get({k}), n={self._n}'
     if k < 0:
       k += self._n
     return self._data[k+self._size]
 
   def prod(self, l: int, r: int) -> T:
     assert 0 <= l <= r <= self._n, \
-        f'IndexError: SegmentTree.prod({l}, {r})'
+        f'IndexError: {self.__class__.__name__}.prod({l}, {r})'
     l += self._size
     r += self._size
     lres = self._e
@@ -67,9 +67,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
   def max_right(self, l: int, f: Callable[[T], bool]) -> int:
     '''Find the largest index R s.t. f([l, R)) == True. / O(logN)'''
     assert 0 <= l <= self._n, \
-        f'IndexError: SegmentTree.max_right({l}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.max_right({l}, f) index out of range'
     assert f(self._e), \
-        f'SegmentTree.max_right({l}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.max_right({l}, f), f({self._e}) must be true.'
     if l == self._n:
       return self._n
     l += self._size
@@ -93,9 +93,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
   def min_left(self, r: int, f: Callable[[T], bool]) -> int:
     '''Find the smallest index L s.t. f([L, r)) == True. / O(logN)'''
     assert 0 <= r <= self._n, \
-        f'IndexError: SegmentTree.min_left({r}, f) index out of range'
+        f'IndexError: {self.__class__.__name__}.min_left({r}, f) index out of range'
     assert f(self._e), \
-        f'SegmentTree.min_left({r}, f), f({self._e}) must be true.'
+        f'{self.__class__.__name__}.min_left({r}, f), f({self._e}) must be true.'
     if r == 0:
       return 0
     r += self._size
@@ -120,21 +120,21 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return [self.get(i) for i in range(self._n)]
 
   def show(self) -> None:
-    print('<SegmentTree> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
+    print(f'<{self.__class__.__name__}> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
 
   def __getitem__(self, k: int) -> T:
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.__getitem__({k}), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.__getitem__({k}), n={self._n}'
     return self.get(k)
 
   def __setitem__(self, k: int, v: T):
     assert -self._n <= k < self._n, \
-        f'IndexError: SegmentTree.__setitem__{k}, {v}), n={self._n}'
+        f'IndexError: {self.__class__.__name__}.__setitem__{k}, {v}), n={self._n}'
     self.set(k, v)
 
   def __str__(self):
     return str(self.tolist())
 
   def __repr__(self):
-    return f'SegmentTree({self})'
+    return f'{self.__class__.__name__}({self})'
 

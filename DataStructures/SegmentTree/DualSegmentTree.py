@@ -108,5 +108,5 @@ class DualSegmentTree(Generic[T, F]):
     return str([self[i] for i in range(self.n)])
 
   def __repr__(self):
-    return f'DualSegmentTree({self})'
+    return f'{self.__class__.__name__}({self})'
 
