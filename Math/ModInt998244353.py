@@ -115,6 +115,7 @@ class ModInt998244353:
 
   def __itruediv__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
     self.val *= self._inv(int(other))
+    self.val %= _titan23_ModInt998244353_MOD
     return self
 
   __radd__ = __add__
