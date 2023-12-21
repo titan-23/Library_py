@@ -1,430 +1,374 @@
-from array import array
-from typing import Generic, List, TypeVar, Tuple, Callable, Iterable, Optional, Union, Sequence
+from typing import Generic, List, Union, TypeVar, Tuple, Callable, Iterable, Optional
 from __pypy__ import newlist_hint
 T = TypeVar('T')
 F = TypeVar('F')
 
-class LazySplayTreeData(Generic[T, F]):
-
-  def __init__(self,
-               op: Optional[Callable[[T, T], T]]=None,
-               mapping: Optional[Callable[[F, T], T]]=None,
-               composition: Optional[Callable[[F, F], F]]=None,
-               e: T=None,
-               id: F=None
-               ):
-    self.op: Callable[[T, T], T] = (lambda s, t: e) if op is None else op
-    self.mapping: Callable[[F, T], T] = (lambda f, s: e) if op is None else mapping
-    self.composition: Callable[[F, F], F] = (lambda f, g: id) if op is None else composition
-    self.e: T = e
-    self.id: F = id
-    self.keydata: List[T] = [e, e]
-    self.lazy: List[F] = [id]
-    self.arr: array[int] = array('I', bytes(16))
-    # left:  arr[node<<2]
-    # right: arr[node<<2|1]
-    # size:  arr[node<<2|2]
-    # rev:   arr[node<<2|3]
-    self.end: int = 1
-
-  def reserve(self, n: int) -> None:
-    if n <= 0:
-      return
-    self.keydata += [self.e] * (2 * n)
-    self.lazy += [self.id] * n
-    self.arr += array('I', bytes(16 * n))
-
 class LazySplayTree(Generic[T, F]):
 
-  def __init__(self, data: 'LazySplayTreeData', n_or_a: Union[int, Iterable[T]]=0, _root: int=0):
-    self.data = data
+  class Node():
+
+    def __init__(self, key: T, lazy: F):
+      self.key: T = key
+      self.data: T = key
+      self.rdata: T = key
+      self.lazy: F = lazy
+      self.left: Optional['LazySplayTree.Node'] = None
+      self.right: Optional['LazySplayTree.Node'] = None
+      self.par: Optional['LazySplayTree.Node'] = None
+      self.size: int = 1
+      self.rev: int = 0
+
+  def __init__(self,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F,
+               _root: Node=None):
+    self.op = op
+    self.mapping = mapping
+    self.composition = composition
+    self.e = e
+    self.id = id
     self.root = _root
-    if not n_or_a:
+    if _root:
       return
-    if isinstance(n_or_a, int):
-      a = [data.e for _ in range(n_or_a)]
-    elif not isinstance(n_or_a, Sequence):
-      a = list(n_or_a)
-    else:
-      a = n_or_a
+    a = n_or_a
+    if isinstance(a, int):
+      if a > 0:
+        a = [e for _ in range(a)]
+    elif not isinstance(a, list):
+      a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: Sequence[T]) -> None:
-    def rec(l: int, r: int) -> int:
+  def _build(self, a: List[T]) -> None:
+    Node = self.Node
+    id = self.id
+    def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
+      node = Node(a[mid], id)
       if l != mid:
-        arr[mid<<2] = rec(l, mid)
-      if mid + 1 != r:
-        arr[mid<<2|1] = rec(mid+1, r)
-      self._update(mid)
-      return mid
-    n = len(a)
-    keydata, arr = self.data.keydata, self.data.arr
-    end = self.data.end
-    self.data.reserve(n+end-len(keydata)//2+1)
-    self.data.end += n
-    for i, e in enumerate(a):
-      keydata[end+i<<1] = e
-      keydata[end+i<<1|1] = e
-    self.root = rec(end, n+end)
+        node.left = build(l, mid)
+        node.left.par = node
+      if mid+1 != r:
+        node.right = build(mid+1, r)
+        node.right.par = node
+      self._update(node)
+      return node
+    self.root = build(0, len(a))
 
-  def _make_node(self, key: T) -> int:
-    data = self.data
-    if data.end >= len(data.arr)//4:
-      data.keydata.append(key)
-      data.keydata.append(key)
-      data.lazy.append(data.id)
-      data.arr.append(0)
-      data.arr.append(0)
-      data.arr.append(1)
-      data.arr.append(0)
+  def _rotate(self, node: Node) -> None:
+    pnode = node.par
+    gnode = pnode.par
+    if gnode:
+      if gnode.left is pnode:
+        gnode.left = node
+      else:
+        gnode.right = node
+    node.par = gnode
+    if pnode.left is node:
+      pnode.left = node.right
+      if node.right:
+        node.right.par = pnode
+      node.right = pnode
     else:
-      data.keydata[data.end<<1] = key
-      data.keydata[data.end<<1|1] = key
-    data.end += 1
-    return data.end - 1
+      pnode.right = node.left
+      if node.left:
+        node.left.par = pnode
+      node.left = pnode
+    pnode.par = node
+    self._update(pnode)
+    self._update(node)
 
-  def _propagate(self, node: int) -> None:
-    data = self.data
-    arr = data.arr
-    if arr[node<<2|3]:
-      arr[node<<2], arr[node<<2|1] = arr[node<<2|1], arr[node<<2]
-      arr[node<<2|3] = 0
-      arr[arr[node<<2]<<2|3] ^= 1
-      arr[arr[node<<2|1]<<2|3] ^= 1
-    nlazy = data.lazy[node]
-    if nlazy == data.id:
-      return
-    lnode, rnode = arr[node<<2], arr[node<<2|1]
-    keydata, lazy = data.keydata, data.lazy
-    lazy[node] = data.id
-    if lnode:
-      lazy[lnode] = data.composition(nlazy, lazy[lnode])
-      lnode <<= 1
-      keydata[lnode] = data.mapping(nlazy, keydata[lnode])
-      keydata[lnode|1] = data.mapping(nlazy, keydata[lnode|1])
-    if rnode:
-      lazy[rnode] = data.composition(nlazy, lazy[rnode])
-      rnode <<= 1
-      keydata[rnode] = data.mapping(nlazy, keydata[rnode])
-      keydata[rnode|1] = data.mapping(nlazy, keydata[rnode|1])
+  def _propagate_rev(self, node: Optional[Node]) -> None:
+    if not node: return
+    node.rev ^= 1
 
-  def _update_triple(self, x: int, y: int, z: int) -> None:
-    data = self.data
-    keydata, arr = data.keydata, data.arr
-    lx, rx = arr[x<<2], arr[x<<2|1]
-    ly, ry = arr[y<<2], arr[y<<2|1]
-    arr[z<<2|2] = arr[x<<2|2]
-    arr[x<<2|2] = 1 + arr[lx<<2|2] + arr[rx<<2|2]
-    arr[y<<2|2] = 1 + arr[ly<<2|2] + arr[ry<<2|2]
-    keydata[z<<1|1] = keydata[x<<1|1]
-    keydata[x<<1|1] = data.op(data.op(keydata[lx<<1|1], keydata[x<<1]), keydata[rx<<1|1])
-    keydata[y<<1|1] = data.op(data.op(keydata[ly<<1|1], keydata[y<<1]), keydata[ry<<1|1])
+  def _propagate_lazy(self, node: Optional[Node], f: F) -> None:
+    if not node: return
+    node.key = self.mapping(f, node.key)
+    node.data = self.mapping(f, node.data)
+    node.rdata = self.mapping(f, node.rdata)
+    node.lazy = f if node.lazy == self.id else self.composition(f, node.lazy)
 
-  def _update_double(self, x: int, y: int) -> None:
-    data = self.data
-    keydata, arr = data.keydata, data.arr
-    lx, rx = arr[x<<2], arr[x<<2|1]
-    arr[y<<2|2] = arr[x<<2|2]
-    arr[x<<2|2] = 1 + arr[lx<<2|2] + arr[rx<<2|2]
-    keydata[y<<1|1] = keydata[x<<1|1]
-    keydata[x<<1|1] = data.op(data.op(keydata[lx<<1|1], keydata[x<<1]), keydata[rx<<1|1])
+  def _propagate(self, node: Optional[Node]) -> None:
+    if not node: return
+    if node.rev:
+      node.data, node.rdata = node.rdata, node.data
+      node.left, node.right = node.right, node.left
+      self._propagate_rev(node.left)
+      self._propagate_rev(node.right)
+      node.rev = 0
+    if node.lazy != self.id:
+      self._propagate_lazy(node.left, node.lazy)
+      self._propagate_lazy(node.right, node.lazy)
+      node.lazy = self.id
 
-  def _update(self, node: int) -> None:
-    data = self.data
-    keydata, arr = data.keydata, data.arr
-    lnode, rnode = arr[node<<2], arr[node<<2|1]
-    arr[node<<2|2] = 1 + arr[lnode<<2|2] + arr[rnode<<2|2]
-    keydata[node<<1|1] = data.op(data.op(keydata[lnode<<1|1], keydata[node<<1]), keydata[rnode<<1|1])
+  def _update(self, node: Node) -> None:
+    node.data = node.key
+    node.rdata = node.key
+    node.size = 1
+    if node.left:
+      node.data = self.op(node.left.data, node.data)
+      node.rdata = self.op(node.rdata, node.left.rdata)
+      node.size += node.left.size
+    if node.right:
+      node.data = self.op(node.data, node.right.data)
+      node.rdata = self.op(node.right.rdata, node.rdata)
+      node.size += node.right.size
 
-  def _splay(self, path: List[int], d: int) -> None:
-    arr = self.data.arr
-    g = d & 1
-    while len(path) > 1:
-      pnode = path.pop()
-      gnode = path.pop()
-      f = d >> 1 & 1
-      node = arr[pnode<<2|g^1]
-      nnode = (pnode if g == f else node) << 2 | f
-      arr[pnode<<2|g^1] = arr[node<<2|g]
-      arr[node<<2|g] = pnode
-      arr[gnode<<2|f^1] = arr[nnode]
-      arr[nnode] = gnode
-      self._update_triple(gnode, pnode, node)
-      if not path:
-        return
-      d >>= 2
-      g = d & 1
-      arr[path[-1]<<2|g^1] = node
-    pnode = path.pop()
-    node = arr[pnode<<2|g^1]
-    arr[pnode<<2|g^1] = arr[node<<2|g]
-    arr[node<<2|g] = pnode
-    self._update_double(pnode, node)
+  def _splay(self, node: Node) -> None:
+    while node.par and node.par.par:
+      pnode = node.par
+      self._rotate(pnode if (pnode.par.left is pnode) == (pnode.left is node) else node)
+      self._rotate(node)
+    if node.par:
+      self._rotate(node)
 
-  def _kth_elm_splay(self, node: int, k: int) -> int:
-    arr = self.data.arr
-    if k < 0: k += arr[node<<2|2]
-    d = 0
-    path = []
+  def _get_kth_elm_splay(self, node: Optional[Node], k: int) -> None:
+    if k < 0:
+      k += len(self)
     while True:
       self._propagate(node)
-      t = arr[arr[node<<2]<<2|2]
+      t = node.left.size if node.left else 0
       if t == k:
-        if path:
-          self._splay(path, d)
-        return node
-      d = d << 1 | (t > k)
-      path.append(node)
-      node = arr[node<<2|(t<k)]
-      if t < k:
+        break
+      if t > k:
+        node = node.left
+      else:
+        node = node.right
         k -= t + 1
-
-  def _left_splay(self, node: int) -> int:
-    if not node: return 0
-    self._propagate(node)
-    arr = self.data.arr
-    if not arr[node<<2]: return node
-    path = []
-    while arr[node<<2]:
-      path.append(node)
-      node = arr[node<<2]
-      self._propagate(node)
-    self._splay(path, (1<<len(path))-1)
+    self._splay(node)
     return node
 
-  def _right_splay(self, node: int) -> int:
-    if not node: return 0
+  def _get_left_splay(self, node: Optional[Node]) -> Optional[Node]:
     self._propagate(node)
-    arr = self.data.arr
-    if not arr[node<<2|1]: return node
-    path = []
-    while arr[node<<2|1]:
-      path.append(node)
-      node = arr[node<<2|1]
+    if not node or not node.left:
+      return node
+    while node.left:
+      node = node.left
       self._propagate(node)
-    self._splay(path, 0)
+    self._splay(node)
     return node
 
-  def reserve(self, n: int) -> None:
-    self.data.reserve(n)
+  def _get_right_splay(self, node: Optional[Node]) -> Optional[Node]:
+    self._propagate(node)
+    if not node or not node.right:
+      return node
+    while node.right:
+      node = node.right
+      self._propagate(node)
+    self._splay(node)
+    return node
 
   def merge(self, other: 'LazySplayTree') -> None:
-    assert self.data is other.data
-    if not other.root: return
     if not self.root:
       self.root = other.root
       return
-    self.root = self._right_splay(self.root)
-    self.data.arr[self.root<<2|1] = other.root
+    if not other.root:
+      return
+    self.root = self._get_right_splay(self.root)
+    self.root.right = other.root
+    other.root.par = self.root
     self._update(self.root)
 
   def split(self, k: int) -> Tuple['LazySplayTree', 'LazySplayTree']:
-    assert -len(self) < k <= len(self), \
-        f'IndexError: LazySplayTree.split({k}), len={len(self)}'
-    if k < 0: k += len(self)
-    if k >= self.data.arr[self.root<<2|2]:
-      return self, LazySplayTree(self.data, _root=0)
-    self.root = self._kth_elm_splay(self.root, k)
-    left = LazySplayTree(self.data, _root=self.data.arr[self.root<<2])
-    self.data.arr[self.root<<2] = 0
-    self._update(self.root)
-    return left, self
+    left, right = self._internal_split(self.root, k)
+    left_splay = LazySplayTree(0, self.op, self.mapping, self.composition, self.e, self.id, left)
+    right_splay = LazySplayTree(0, self.op, self.mapping, self.composition, self.e, self.id, right)
+    return left_splay, right_splay
 
-  def _internal_split(self, k: int) -> Tuple[int, int]:
-    if k >= self.data.arr[self.root<<2|2]:
-      return self.root, 0
-    self.root = self._kth_elm_splay(self.root, k)
-    left = self.data.arr[self.root<<2]
-    self.data.arr[self.root<<2] = 0
-    self._update(self.root)
-    return left, self.root
+  def _internal_split(self, k: int) -> Tuple[Node, Node]:
+    # self.root will be broken
+    if k >= len(self):
+      return self.root, None
+    right = self._get_kth_elm_splay(self.root, k)
+    left = right.left
+    if left:
+      left.par = None
+    right.left = None
+    self._update(right)
+    return left, right
+
+  def _internal_merge(self, left: Optional[Node], right: Optional[Node]) -> Optional[Node]:
+    # need (not right) or (not right.left)
+    if not right:
+      return left
+    assert right.left is None
+    right.left = left
+    if left:
+      left.par = right
+    self._update(right)
+    return right
 
   def reverse(self, l: int, r: int) -> None:
     assert 0 <= l <= r <= len(self), \
-        f'IndexError: LazySplayTree.reverse({l}, {r}), len={len(self)}'
-    if l == r: return
-    data = self.data
+        f'IndexError: {self.__class__.__name__}.reverse({l}, {r}), len={len(self)}'
     left, right = self._internal_split(r)
-    if l:
-      left = self._kth_elm_splay(left, l-1)
-    data.arr[(data.arr[left<<2|1] if l else left)<<2|3] ^= 1
-    if right:
-      data.arr[right<<2] = left
-      self._update(right)
-    self.root = right if right else left
+    if l == 0:
+      self._propagate_rev(left)
+    else:
+      left = self._get_kth_elm_splay(left, l-1)
+      self._propagate_rev(left.right)
+    self.root = self._internal_merge(left, right)
 
   def all_reverse(self) -> None:
-    self.data.arr[self.root<<2|3] ^= 1
+    self._propagate_rev(self.root)
 
   def apply(self, l: int, r: int, f: F) -> None:
     assert 0 <= l <= r <= len(self), \
-        f'IndexError: LazySplayTree.apply({l}, {r}), len={len(self)}'
-    data = self.data
+        f'IndexError: {self.__class__.__name__}.apply({l}, {r}, {f}), len={len(self)}'
     left, right = self._internal_split(r)
-    keydata, lazy = data.keydata, data.lazy
-    if l:
-      left = self._kth_elm_splay(left, l-1)
-    node = data.arr[left<<2|1] if l else left
-    keydata[node<<1] = data.mapping(f, keydata[node<<1])
-    keydata[node<<1|1] = data.mapping(f, keydata[node<<1|1])
-    lazy[node] = data.composition(f, lazy[node])
-    if l:
+    if l == 0:
+      self._propagate_lazy(left, f)
+    else:
+      left = self._get_kth_elm_splay(left, l-1)
+      self._propagate_lazy(left.right, f)
       self._update(left)
-    if right:
-      data.arr[right<<2] = left
-      self._update(right)
-    self.root = right if right else left
+    self.root = self._internal_merge(left, right)
 
   def all_apply(self, f: F) -> None:
-    if not self.root: return
-    data, node = self.data, self.root
-    data.keydata[node<<1] = data.mapping(f, data.keydata[node<<1])
-    data.keydata[node<<1|1] = data.mapping(f, data.keydata[node<<1|1])
-    data.lazy[node] = data.composition(f, data.lazy[node])
+    self._propagate_lazy(self.root, f)
 
   def prod(self, l: int, r: int) -> T:
     assert 0 <= l <= r <= len(self), \
-        f'IndexError: LazySplayTree.prod({l}, {r}), len={len(self)}'
-    data = self.data
+        f'IndexError: {self.__class__.__name__}.prod({l}, {r}), len={len(self)}'
+    if l == r:
+      return self.e
     left, right = self._internal_split(r)
-    if l:
-      left = self._kth_elm_splay(left, l-1)
-    res = data.keydata[(data.arr[left<<2|1] if l else left)<<1|1]
-    if right:
-      data.arr[right<<2] = left
-      self._update(right)
-    self.root = right if right else left
+    if l == 0:
+      res = left.data
+    else:
+      left = self._get_kth_elm_splay(left, l-1)
+      res = left.right.data
+    self.root = self._internal_merge(left, right)
     return res
 
   def all_prod(self) -> T:
-    return self.data.keydata[self.root<<1|1]
+    self._propagate(self.root)
+    return self.root.data if self.root else self.e
 
   def insert(self, k: int, key: T) -> None:
-    assert -len(self) <= k <= len(self), \
-        f'IndexError: LazySplayTree.insert({k}, {key}), len={len(self)}'
-    if k < 0: k += len(self)
-    data = self.data
-    node = self._make_node(key)
+    node = self.Node(key, self.id)
     if not self.root:
-      self._update(node)
       self.root = node
       return
-    arr = data.arr
-    if k == data.arr[self.root<<2|2]:
-      arr[node<<2] = self._right_splay(self.root)
+    if k >= len(self):
+      root = self._get_kth_elm_splay(self.root, len(self)-1)
+      node.left = root
     else:
-      node_ = self._kth_elm_splay(self.root, k)
-      if arr[node_<<2]:
-        arr[node<<2] = arr[node_<<2]
-        arr[node_<<2] = 0
-        self._update(node_)
-      arr[node<<2|1] = node_
-    self._update(node)
+      root = self._get_kth_elm_splay(self.root, k)
+      if root.left:
+        node.left = root.left
+        root.left.par = node
+        root.left = None
+        self._update(root)
+      node.right = root
+    root.par = node
     self.root = node
+    self._update(self.root)
 
   def append(self, key: T) -> None:
-    data = self.data
-    node = self._right_splay(self.root)
-    self.root = self._make_node(key)
-    data.arr[self.root<<2] = node
+    node = self._get_right_splay(self.root)
+    self.root = self.Node(key, self.id)
+    self.root.left = node
+    if node:
+      node.par = self.root
     self._update(self.root)
 
   def appendleft(self, key: T) -> None:
-    node = self._left_splay(self.root)
-    self.root = self._make_node(key)
-    self.data.arr[self.root<<2|1] = node
+    node = self._get_left_splay(self.root)
+    self.root = self.Node(key, self.id)
+    self.root.right = node
+    if node:
+      node.par = self.root
     self._update(self.root)
 
   def pop(self, k: int=-1) -> T:
-    assert -len(self) <= k < len(self), \
-        f'IndexError: LazySplayTree.pop({k})'
-    data = self.data
     if k == -1:
-      node = self._right_splay(self.root)
-      self._propagate(node)
-      self.root = data.arr[node<<2]
-      return data.keydata[node<<1]
-    self.root = self._kth_elm_splay(self.root, k)
-    res = data.keydata[self.root<<1]
-    if not data.arr[self.root<<2]:
-      self.root = data.arr[self.root<<2|1]
-    elif not data.arr[self.root<<2|1]:
-      self.root = data.arr[self.root<<2]
-    else:
-      node = self._right_splay(data.arr[self.root<<2])
-      data.arr[node<<2|1] = data.arr[self.root<<2|1]
+      node = self._get_right_splay(self.root)
+      if node.left:
+        node.left.par = None
+      self.root = node.left
+      return node.key
+    root = self._get_kth_elm_splay(self.root, k)
+    res = root.key
+    if root.left and root.right:
+      node = self._get_right_splay(root.left)
+      node.par = None
+      node.right = root.right
+      if node.right:
+        node.right.par = node
+      self._update(node)
       self.root = node
-      self._update(self.root)
+    else:
+      self.root = root.right if root.right else root.left
+      if self.root:
+        self.root.par = None
     return res
 
   def popleft(self) -> T:
-    assert self, 'IndexError: LazySplayTree.popleft()'
-    node = self._left_splay(self.root)
-    self.root = self.data.arr[node<<2|1]
-    return self.data.keydata[node<<1]
+    node = self._get_left_splay(self.root)
+    self.root = node.right
+    if node.right:
+      node.right.par = None
+    return node.key
 
-  def rotate(self, x: int) -> None:
-    # 「末尾をを削除し先頭に挿入」をx回
-    n = self.data.arr[self.root<<2|2]
-    l, self = self.split(n-(x%n))
-    self.merge(l)
+  def copy(self) -> 'LazySplayTree':
+    return LazySplayTree(self.tolist(), self.op, self.mapping, self.composition, self.e)
+
+  def clear(self) -> None:
+    self.root = None
 
   def tolist(self) -> List[T]:
     node = self.root
-    arr, keydata = self.data.arr, self.data.keydata
-    stack = newlist_hint(len(self))
-    res = newlist_hint(len(self))
+    stack, res = [], newlist_hint(len(self))
     while stack or node:
       if node:
         self._propagate(node)
         stack.append(node)
-        node = arr[node<<2]
+        node = node.left
       else:
         node = stack.pop()
-        res.append(keydata[node<<1])
-        node = arr[node<<2|1]
+        res.append(node.key)
+        node = node.right
     return res
 
-  def clear(self) -> None:
-    self.root = 0
-
   def __setitem__(self, k: int, key: T):
-    assert -len(self) <= k < len(self), f'IndexError: LazySplayTree.__setitem__({k})'
-    self.root = self._kth_elm_splay(self.root, k)
-    self.data.keydata[self.root<<1] = key
+    self.root = self._get_kth_elm_splay(self.root, k)
+    self.root.key = key
     self._update(self.root)
 
   def __getitem__(self, k: int) -> T:
-    assert -len(self) <= k < len(self), f'IndexError: LazySplayTree.__getitem__({k})'
-    self.root = self._kth_elm_splay(self.root, k)
-    return self.data.keydata[self.root<<1]
+    self.root = self._get_kth_elm_splay(self.root, k)
+    return self.root.key
 
   def __iter__(self):
     self.__iter = 0
     return self
 
   def __next__(self):
-    if self.__iter == self.data.arr[self.root<<2|2]:
+    if self.__iter == len(self):
       raise StopIteration
-    res = self.__getitem__(self.__iter)
+    res = self[self.__iter]
     self.__iter += 1
     return res
 
   def __reversed__(self):
     for i in range(len(self)):
-      yield self.__getitem__(-i-1)
+      yield self[-i-1]
 
   def __len__(self):
-    return self.data.arr[self.root<<2|2]
+    return self.root.size if self.root else 0
 
   def __str__(self):
     return str(self.tolist())
 
   def __bool__(self):
-    return self.root != 0
+    return self.root is not None
 
   def __repr__(self):
-    return f'LazySplayTree({self})'
+    return f'{self.__class__.__name__}({self})'
 
