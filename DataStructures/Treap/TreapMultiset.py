@@ -1,7 +1,7 @@
 from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.DataStructures.BSTBase.BSTMultisetNodeBase import BSTMultisetNodeBase
 from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
-from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
 
 class TreapMultiset(OrderedMultisetInterface, Generic[T]):
@@ -40,21 +40,6 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     if a:
       self._build(a)
 
-  def _rle(self, a: Sequence[T]) -> Tuple[List[T], List[int]]:
-    x = newlist_hint(len(a))
-    y = newlist_hint(len(a))
-    x.append(a[0])
-    y.append(1)
-    for i, e in enumerate(a):
-      if i == 0:
-        continue
-      if e == x[-1]:
-        y[-1] += 1
-        continue
-      x.append(e)
-      y.append(1)
-    return x, y
-
   def _build(self, a: Iterable[T]) -> None:
     Node = TreapMultiset.Node
     def sort(l: int, r: int) -> Node:
@@ -66,11 +51,10 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
         node.right = sort(mid+1, r)
       return node
     a = sorted(a)
+    key, val = BSTMultisetNodeBase[T, TreapMultiset.Node]._rle(a)
     self._len = len(a)
-    key, val = self._rle(a)
     self._len_elm = len(key)
-    rand = [TreapMultiset.Random.random() for _ in range(self._len_elm)]
-    rand.sort()
+    rand = sorted(TreapMultiset.Random.random() for _ in range(self._len_elm))
     self.root = sort(0, len(key))
 
   def _rotate_L(self, node: Node) -> Node:
@@ -98,13 +82,12 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
       if key == node.key:
         node.val += val
         return
-      elif key < node.key:
-        path.append(node)
+      path.append(node)
+      if key < node.key:
         di <<= 1
         di |= 1
         node = node.left
       else:
-        path.append(node)
         di <<= 1
         node = node.right
     self._len_elm += 1
@@ -196,62 +179,19 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     raise KeyError(key)
 
   def count(self, key: T) -> int:
-    node = self.root
-    while node is not None:
-      if node.key == key:
-        return node.val
-      node = node.left if key < node.key else node.right
-    return 0
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].count(self.root)
 
   def le(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if key == node.key:
-        res = key
-        break
-      elif key < node.key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].le(self.root, key)
 
   def lt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if node.key > key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].lt(self.root, key)
 
   def ge(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if key == node.key:
-        res = key
-        break
-      elif key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].ge(self.root, key)
 
   def gt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node is not None:
-      if key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].gt(self.root, key)
 
   def len_elm(self) -> int:
     return self._len_elm
@@ -260,46 +200,16 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     print('{' + ', '.join(map(lambda x: f'{x[0]}: {x[1]}', self.tolist_items())) + '}')
 
   def tolist(self) -> List[T]:
-    a = []
-    if self.root is None:
-      return a
-    def rec(node):
-      if node.left is not None:
-        rec(node.left)
-      a.extend([node.key]*node.val)
-      if node.right is not None:
-        rec(node.right)
-    rec(self.root)
-    return a
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist(self.root, len(self))
 
   def tolist_items(self) -> List[Tuple[T, int]]:
-    a = []
-    if self.root is None:
-      return a
-    def rec(node):
-      if node.left is not None:
-        rec(node.left)
-      a.append((node.key, node.val))
-      if node.right is not None:
-        rec(node.right)
-    rec(self.root)
-    return a
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist_items(self.root, self._len_elm)
 
   def get_min(self) -> Optional[T]:
-    if self.root is None:
-      return
-    node = self.root
-    while node.left is not None:
-      node = node.left
-    return node.key
+    return BSTMultisetNodeBase[T, TreapMultiset.Node][T, TreapMultiset.Node].get_min(self.root)
 
   def get_max(self) -> Optional[T]:
-    if self.root is None:
-      return
-    node = self.root
-    while node.right is not None:
-      node = node.right
-    return node.key
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].get_max(self.root)
 
   def pop_min(self) -> T:
     assert self
@@ -359,15 +269,7 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     return res
 
   def __contains__(self, key: T):
-    node = self.root
-    while node is not None:
-      if key == node.key:
-        return True
-      if key < node.key:
-        node = node.left
-      else:
-        node = node.right
-    return False
+    return BSTMultisetNodeBase[T, TreapMultiset.Node].contains(self.root, key)
 
   def __bool__(self):
     return self.root is not None
