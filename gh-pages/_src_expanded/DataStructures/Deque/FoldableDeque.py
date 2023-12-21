@@ -53,7 +53,8 @@ class FoldableDeque(Generic[T]):
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
                op: Callable[[T, T], T],
-               e: T) -> None:
+               e: T
+               ) -> None:
     self._op = op
     self._e = e
     self.front: FoldableStack[T] = FoldableStack(0, op, e)

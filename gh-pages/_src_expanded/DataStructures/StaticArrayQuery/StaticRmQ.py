@@ -7,20 +7,22 @@ class StaticRmQ():
   class SparseTableRmQ():
 
     def __init__(self, a: List[int], INF: int):
-      self.size = len(a)
-      log = self.size.bit_length()-1
-      self.data = [a] + [[]] * log
+      size = len(a)
+      log = size.bit_length()-1
+      data = [a] + [[]] * log
       for i in range(log):
-        pre = self.data[i]
+        pre = data[i]
         l = 1 << i
-        self.data[i+1] = [min(pre[j], pre[j+l]) for j in range(len(pre)-l)]
+        data[i+1] = [min(pre[j], pre[j+l]) for j in range(len(pre)-l)]
+      self.size = size
+      self.data = data
       self.INF = INF
 
     def prod(self, l: int, r: int) -> int:
       if l >= r: return self.INF
       u = (r-l).bit_length()-1
       return min(self.data[u][l], self.data[u][r-(1<<u)])
-  
+
   def __init__(self, a: Iterable[int], INF=10**9):
     a = list(a)
     n = len(a)
@@ -51,7 +53,7 @@ class StaticRmQ():
 
   def prod(self, l: int, r: int) -> int:
     assert 0 <= l <= r <= self.n, \
-        f'IndexError: StaticRmQ.prod({l}, {r}), n={self.n}'
+        f'IndexError: {self.__class__.__name__}.prod({l}, {r}), n={self.n}'
     if l == r:
       return self.INF
     k1 = l // self.bucket_size

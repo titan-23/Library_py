@@ -37,7 +37,7 @@
 
   <span class="k">def</span> <span class="nf">pref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> \
-        <span class="sa">f</span><span class="s1">&#39;IndexError: CumulativeSum.pref(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.pref(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -45,7 +45,7 @@
 
   <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> \
-        <span class="sa">f</span><span class="s1">&#39;IndexError: CumulativeSum.sum(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
 
   <span class="n">prod</span> <span class="o">=</span> <span class="nb">sum</span>
@@ -53,7 +53,7 @@
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> \
-        <span class="sa">f</span><span class="s1">&#39;IndexError: CumulativeSum[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">], n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">], n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -61,7 +61,7 @@
 
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">)</span>
-  
+
   <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.CumulativeSum.CumulativeSum import CumulativeSum</span>
@@ -81,7 +81,7 @@
 
   <span class="k">def</span> <span class="nf">pref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> \
-        <span class="sa">f</span><span class="s1">&#39;IndexError: CumulativeSum.pref(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.pref(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -89,7 +89,7 @@
 
   <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> \
-        <span class="sa">f</span><span class="s1">&#39;IndexError: CumulativeSum.sum(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
 
   <span class="n">prod</span> <span class="o">=</span> <span class="nb">sum</span>
@@ -97,7 +97,7 @@
 
   <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> \
-        <span class="sa">f</span><span class="s1">&#39;IndexError: CumulativeSum[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">], n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">], n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -105,7 +105,7 @@
 
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">)</span>
-  
+
   <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
 </pre></div>
 

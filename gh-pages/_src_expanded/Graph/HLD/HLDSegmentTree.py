@@ -309,7 +309,12 @@ T = TypeVar('T')
 
 class HLDSegmentTree(Generic[T]):
 
-  def __init__(self, hld: HLD, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T):
+  def __init__(self,
+               hld: HLD,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T],
+               e: T
+               ) -> None:
     self.hld: HLD = hld
     n_or_a = n_or_a if isinstance(n_or_a, int) else self.hld.build_list(list(n_or_a))
     self.seg: SegmentTree[T] = SegmentTree(n_or_a, op, e)

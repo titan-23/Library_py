@@ -172,18 +172,19 @@ class RootedTree():
     "Calc doubling if self._lca. / O(NlogN)"
     if not self._parents:
       self._calc_child_parents()
+    _doubling = self._doubling
     for i in range(self._n):
-      self._doubling[0][i] = self._parents[i]
+      _doubling[0][i] = self._parents[i]
     for k in range(self._K-1):
       for v in range(self._n):
-        if self._doubling[k][v] < 0:
-          self._doubling[k+1][v] = -1
+        if _doubling[k][v] < 0:
+          _doubling[k+1][v] = -1
         else:
-          self._doubling[k+1][v] = self._doubling[k][self._doubling[k][v]]
+          _doubling[k+1][v] = _doubling[k][_doubling[k][v]]
 
   '''Return LCA of (u, v). / O(logN)'''
   def get_lca(self, u: int, v: int) -> int:
-    assert self._lca, f'Error: RootedTree.get_lca({u}, {v}), `lca` must be True'
+    assert self._lca, f'Error: {self.__class__.__name__}.get_lca({u}, {v}), `lca` must be True'
     _doubling, _dist = self._doubling, self._dist
     if _dist[u] < _dist[v]:
       u, v = v, u
@@ -199,17 +200,17 @@ class RootedTree():
         v = _doubling[k][v]
     return _doubling[0][u]
 
-  '''Return dist(u - v). / O(logN)'''
-  def get_dist(self, u: int, v: int) -> int:
-    return self._dist[u] + self._dist[v] - 2*self._dist[self.get_lca(u, v)] + 1
+  '''Return dist(u -> v). / O(logN)'''
+  def get_dist(self, u: int, v: int, vertex: bool=False) -> int:
+    return self._dist[u] + self._dist[v] - 2*self._dist[self.get_lca(u, v)] + vertex
 
   '''Return True if (a is on path(u - v)) else False. / O(logN)'''
   def is_on_path(self, u: int, v: int, a: int) -> bool:
-    return self.get_dist(u, a) + self.get_dist(a, v) == self.get_dist(u, v)  # rank??
+    return self.get_dist(u, a) + self.get_dist(a, v) == self.get_dist(u, v)
 
   '''Return path (u -> v). / O(logN + |path|)'''
   def get_path(self, u: int, v: int) -> List[int]:
-    assert self._lca, 'RootedTree, `lca` must be True'
+    assert self._lca, f'{self.__class__.__name__}.get_path(), `lca` must be True'
     if u == v: return [u]
     self.get_parents()
     def get_path_lca(u: int, v: int) -> List[int]:

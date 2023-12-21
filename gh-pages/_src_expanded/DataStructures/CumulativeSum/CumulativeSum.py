@@ -15,7 +15,7 @@ class CumulativeSum():
 
   def pref(self, r: int) -> int:
     assert 0 <= r <= self.n, \
-        f'IndexError: CumulativeSum.pref({r}), n={self.n}'
+        f'IndexError: {self.__class__.__name__}.pref({r}), n={self.n}'
     return self.acc[r]
 
   def all_sum(self) -> int:
@@ -23,7 +23,7 @@ class CumulativeSum():
 
   def sum(self, l: int, r: int) -> int:
     assert 0 <= l <= r <= self.n, \
-        f'IndexError: CumulativeSum.sum({l}, {r}), n={self.n}'
+        f'IndexError: {self.__class__.__name__}.sum({l}, {r}), n={self.n}'
     return self.acc[r] - self.acc[l]
 
   prod = sum
@@ -31,7 +31,7 @@ class CumulativeSum():
 
   def __getitem__(self, k: int) -> int:
     assert -self.n <= k < self.n, \
-        f'IndexError: CumulativeSum[{k}], n={self.n}'
+        f'IndexError: {self.__class__.__name__}[{k}], n={self.n}'
     return self.a[k]
 
   def __len__(self):
@@ -39,7 +39,7 @@ class CumulativeSum():
 
   def __str__(self):
     return str(self.acc)
-  
+
   __repr__ = __str__
 
 

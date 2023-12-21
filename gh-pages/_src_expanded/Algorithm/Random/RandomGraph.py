@@ -1,23 +1,42 @@
 # from Library_py.Algorithm.Random.RandomGraph import RandomGraph
 import enum
-from enum import Enum
 from typing import Optional, List, Tuple
 import random
 
-class RandomGraphType(Enum):
-  random_undir = enum.auto()
+class RandomGraphType(enum.Enum):
+  random = enum.auto()
+  cycle = enum.auto()
 
 class RandomGraph():
 
   @classmethod
-  def build(cls, n: int, m: int, typ: RandomGraphType=RandomGraphType.random_undir, seed: Optional[int]=None) -> List[Tuple[int, int]]:
+  def build(cls, n: int, m: int, typ: RandomGraphType=RandomGraphType.random, seed: Optional[int]=None) -> List[Tuple[int, int]]:
     random.seed(seed)
-    if typ == RandomGraphType.random_undir:
-      return cls._build_random_undir(n, m)
+    if typ == RandomGraphType.random:
+      return cls._build_random(n, m)
+    if typ == RandomGraphType.cycle:
+      return cls._build_cycle(n, m)
     raise ValueError(typ)
 
   @classmethod
-  def _build_random_undir(cls, n: int, m: int) -> List[Tuple[int, int]]:
+  def _build_cycle(cls, n: int, m: int) -> List[Tuple[int, int]]:
+    assert m == n
+    cycle = list(range(n))
+    random.shuffle(cycle)
+    cycle.append(cycle[-1])
+    edges = [None] * n
+    for i in range(n):
+      u, v = cycle[i], cycle[i+1]
+      if random.random() < 0.5:
+        edges[i] = (v, u)
+      else:
+        edges[i] = (u, v)
+    random.shuffle(edges)
+    assert len(edges) == m
+    return edges
+
+  @classmethod
+  def _build_random(cls, n: int, m: int) -> List[Tuple[int, int]]:
     assert m <= n*(n-1)//2
     edges = set()
     while len(edges) < m:

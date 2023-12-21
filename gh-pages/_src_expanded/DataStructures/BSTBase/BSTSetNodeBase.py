@@ -1,23 +1,50 @@
 # from Library_py.DataStructures.BSTBase.BSTSetNodeBase import BSTSetNodeBase
 from __pypy__ import newlist_hint
-from typing import List
+from typing import List, TypeVar, Generic, Optional
+T = TypeVar('T')
+Node = TypeVar('Node')
+# protcolで、key,left,right を規定
 
-class BSTSetNodeBase():
+class BSTSetNodeBase(Generic[T, Node]):
 
   @staticmethod
-  def sort_unique(a: List) -> List:
+  def sort_unique(a: List[T]) -> List[T]:
     if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
       a = sorted(a)
-      b = [a[0]]
-      for e in a:
-        if b[-1] == e:
+      new_a = [a[0]]
+      for elm in a:
+        if new_a[-1] == elm:
           continue
-        b.append(e)
-      a = b
+        new_a.append(elm)
+      a = new_a
     return a
 
   @staticmethod
-  def le(node, key):
+  def contains(node: Node, key: T) -> bool:
+    while node:
+      if key == node.key:
+        return True
+      node = node.left if key < node.key else node.right
+    return False
+
+  @staticmethod
+  def get_min(node: Node) -> Optional[T]:
+    if not node:
+      return None
+    while node.left:
+      node = node.left
+    return node.key
+
+  @staticmethod
+  def get_max(node: Node) -> Optional[T]:
+    if not node:
+      return None
+    while node.right:
+      node = node.right
+    return node.key
+
+  @staticmethod
+  def le(node: Node, key: T) -> Optional[T]:
     res = None
     while node is not None:
       if key == node.key:
@@ -31,7 +58,7 @@ class BSTSetNodeBase():
     return res
 
   @staticmethod
-  def lt(node, key):
+  def lt(node: Node, key: T) -> Optional[T]:
     res = None
     while node is not None:
       if key <= node.key:
@@ -42,7 +69,7 @@ class BSTSetNodeBase():
     return res
 
   @staticmethod
-  def ge(node, key):
+  def ge(node: Node, key: T) -> Optional[T]:
     res = None
     while node is not None:
       if key == node.key:
@@ -56,7 +83,7 @@ class BSTSetNodeBase():
     return res
 
   @staticmethod
-  def gt(node, key):
+  def gt(node: Node, key: T) -> Optional[T]:
     res = None
     while node is not None:
       if key < node.key:
@@ -67,7 +94,7 @@ class BSTSetNodeBase():
     return res
 
   @staticmethod
-  def index(node, key) -> int:
+  def index(node: Node, key: T) -> int:
     k = 0
     while node is not None:
       if key == node.key:
@@ -82,7 +109,7 @@ class BSTSetNodeBase():
     return k
 
   @staticmethod
-  def index_right(node, key) -> int:
+  def index_right(node: Node, key: T) -> int:
     k = 0
     while node is not None:
       if key == node.key:
@@ -96,8 +123,8 @@ class BSTSetNodeBase():
     return k
 
   @staticmethod
-  def tolist(node, _len=0) -> List:
-    stack = newlist_hint(_len)
+  def tolist(node: Node, _len: int=0) -> List[T]:
+    stack = []
     res = newlist_hint(_len)
     while stack or node:
       if node:
@@ -110,7 +137,7 @@ class BSTSetNodeBase():
     return res
 
   @staticmethod
-  def kth_elm(node, k: int, _len: int):
+  def kth_elm(node: Node, k: int, _len: int) -> T:
     if k < 0:
       k += _len
     while True:
@@ -122,6 +149,5 @@ class BSTSetNodeBase():
       else:
         node = node.right
         k -= t + 1
-
 
 

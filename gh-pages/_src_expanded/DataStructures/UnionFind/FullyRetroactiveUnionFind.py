@@ -19,12 +19,12 @@ class LinkCutTree(Generic[T, F]):
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
-               op: Callable[[T, T], T]=lambda x, y: None,
-               mapping: Callable[[F, T], T]=lambda x, y: None,
-               composition: Callable[[F, F], F]=lambda x, y: None,
-               e: T=None,
-               id: F=None,
-               ):
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F,
+               ) -> None:
     self.op = op
     self.mapping = mapping
     self.composition = composition
@@ -308,19 +308,25 @@ class LinkCutTree(Generic[T, F]):
     return self.key[k]
 
   def __str__(self):
-    return str([self.__getitem__(i) for i in range(self.n)])
+    return str([self[i] for i in range(self.n)])
 
   __repr__ = __str__
 
+from typing import List, Tuple, Set
 
 class FullyRetroactiveUnionFind():
 
   def __init__(self, n: int, m: int):
     m += 1
-    self.n = n
-    self.edge = [None] * m
-    self.node_pool = set(range(n, n+m))
-    self.lct = LinkCutTree(n+m, op=lambda s, t: s if s > t else t, e=-1)
+    self.n: int = n
+    self.edge: List[Tuple[int, int, int]] = [()] * m
+    self.node_pool: Set[int] = set(range(n, n+m))
+    self.lct: LinkCutTree[int, None] = LinkCutTree(n+m,
+                                                   op=lambda s, t: s if s > t else t,
+                                                   mapping=lambda f, s: -1,
+                                                   composition=lambda f, g: None,
+                                                   e=-1,
+                                                   id=None)
 
   def unite(self, u: int, v: int, t: int) -> None:
     node = self.node_pool.pop()

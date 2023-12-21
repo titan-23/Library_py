@@ -1,399 +1,374 @@
-# 2023/4/8
-# arciveに移植
-# 配列型の方がだいたい速いので
-
-import sys
-from typing import Generic, List, TypeVar, Tuple, Callable, Iterable, Any
+from typing import Generic, List, Union, TypeVar, Tuple, Callable, Iterable, Optional
+from __pypy__ import newlist_hint
 T = TypeVar('T')
 F = TypeVar('F')
 
-class Node:
-
-  def __init__(self, key: Any):
-    self.key = key
-    self.data = key
-    self.lazy = None
-    self.left = None
-    self.right = None
-    self.size = 1
-    self.rev = 0
-
-  def __str__(self):
-    if self.left is None and self.right is None:
-      return f'key:{self.key, self.data, self.lazy, self.rev, self.size}\n'
-    return f'key:{self.key, self.data, self.lazy, self.rev, self.size},\n left:{self.left},\n right:{self.right}\n'
-
 class LazySplayTree(Generic[T, F]):
 
-  def __init__(self, a: Iterable[T]=[], op: Callable[[T, T], T]=lambda x,y: None, mapping: Callable[[F, T], T]=None, composition: Callable[[F, F], F]=None, e: T=None, node: Node=None):
-    self.node = node
+  class Node():
+
+    def __init__(self, key: T, lazy: F):
+      self.key: T = key
+      self.data: T = key
+      self.rdata: T = key
+      self.lazy: F = lazy
+      self.left: Optional['LazySplayTree.Node'] = None
+      self.right: Optional['LazySplayTree.Node'] = None
+      self.par: Optional['LazySplayTree.Node'] = None
+      self.size: int = 1
+      self.rev: int = 0
+
+  def __init__(self,
+               n_or_a: Union[int, Iterable[T]],
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F,
+               _root: Node=None):
     self.op = op
     self.mapping = mapping
     self.composition = composition
     self.e = e
-    if not (hasattr(a, '__getitem__') and hasattr(a, '__len__')):
+    self.id = id
+    self.root = _root
+    if _root:
+      return
+    a = n_or_a
+    if isinstance(a, int):
+      if a > 0:
+        a = [e for _ in range(a)]
+    elif not isinstance(a, list):
       a = list(a)
     if a:
       self._build(a)
- 
+
   def _build(self, a: List[T]) -> None:
-    def sort(l: int, r: int) -> Node:
+    Node = self.Node
+    id = self.id
+    def build(l: int, r: int) -> Node:
       mid = (l + r) >> 1
-      node = Node(a[mid])
+      node = Node(a[mid], id)
       if l != mid:
-        node.left = sort(l, mid)
+        node.left = build(l, mid)
+        node.left.par = node
       if mid+1 != r:
-        node.right = sort(mid+1, r)
+        node.right = build(mid+1, r)
+        node.right.par = node
       self._update(node)
       return node
-    self.node = sort(0, len(a))
+    self.root = build(0, len(a))
 
-  def _propagate(self, node: Node) -> None:
+  def _rotate(self, node: Node) -> None:
+    pnode = node.par
+    gnode = pnode.par
+    if gnode:
+      if gnode.left is pnode:
+        gnode.left = node
+      else:
+        gnode.right = node
+    node.par = gnode
+    if pnode.left is node:
+      pnode.left = node.right
+      if node.right:
+        node.right.par = pnode
+      node.right = pnode
+    else:
+      pnode.right = node.left
+      if node.left:
+        node.left.par = pnode
+      node.left = pnode
+    pnode.par = node
+    self._update(pnode)
+    self._update(node)
+
+  def _propagate_rev(self, node: Optional[Node]) -> None:
+    if not node: return
+    node.rev ^= 1
+
+  def _propagate_lazy(self, node: Optional[Node], f: F) -> None:
+    if not node: return
+    node.key = self.mapping(f, node.key)
+    node.data = self.mapping(f, node.data)
+    node.rdata = self.mapping(f, node.rdata)
+    node.lazy = f if node.lazy == self.id else self.composition(f, node.lazy)
+
+  def _propagate(self, node: Optional[Node]) -> None:
+    if not node: return
     if node.rev:
+      node.data, node.rdata = node.rdata, node.data
       node.left, node.right = node.right, node.left
-      if node.left is not None:
-        node.left.rev ^= 1
-      if node.right is not None:
-        node.right.rev ^= 1
+      self._propagate_rev(node.left)
+      self._propagate_rev(node.right)
       node.rev = 0
-    if node.lazy is not None:
-      lazy = node.lazy
-      if node.left is not None:
-        node.left.data = self.mapping(lazy, node.left.data)
-        node.left.key = self.mapping(lazy, node.left.key)
-        node.left.lazy = lazy if node.left.lazy is None else self.composition(lazy, node.left.lazy)
-      if node.right is not None:
-        node.right.data = self.mapping(lazy, node.right.data)
-        node.right.key = self.mapping(lazy, node.right.key)
-        node.right.lazy = lazy if node.right.lazy is None else self.composition(lazy, node.right.lazy)
-      node.lazy = None
+    if node.lazy != self.id:
+      self._propagate_lazy(node.left, node.lazy)
+      self._propagate_lazy(node.right, node.lazy)
+      node.lazy = self.id
 
   def _update(self, node: Node) -> None:
-    if node.left is None:
-      if node.right is None:
-        node.size = 1
-        node.data = node.key
-      else:
-        node.size = 1 + node.right.size
-        node.data = self.op(node.key, node.right.data)
-    else:
-      if node.right is None:
-        node.size = 1 + node.left.size
-        node.data = self.op(node.left.data, node.key)
-      else:
-        node.size = 1 + node.left.size + node.right.size
-        node.data = self.op(self.op(node.left.data, node.key), node.right.data)
+    node.data = node.key
+    node.rdata = node.key
+    node.size = 1
+    if node.left:
+      node.data = self.op(node.left.data, node.data)
+      node.rdata = self.op(node.rdata, node.left.rdata)
+      node.size += node.left.size
+    if node.right:
+      node.data = self.op(node.data, node.right.data)
+      node.rdata = self.op(node.right.rdata, node.rdata)
+      node.size += node.right.size
 
-  def _splay(self, path: List[Node], di: int) -> Node:
-    for _ in range(len(path)>>1):
-      node = path.pop()
-      pnode = path.pop()
-      if di&1 == di>>1&1:
-        if di&1:
-          tmp = node.left
-          node.left = tmp.right
-          tmp.right = node
-          pnode.left = node.right
-          node.right = pnode
-        else:
-          tmp = node.right
-          node.right = tmp.left
-          tmp.left = node
-          pnode.right = node.left
-          node.left = pnode
-      else:
-        if di&1:
-          tmp = node.left
-          node.left = tmp.right
-          pnode.right = tmp.left
-          tmp.right = node
-          tmp.left = pnode
-        else:
-          tmp = node.right
-          node.right = tmp.left
-          pnode.left = tmp.right
-          tmp.left = node
-          tmp.right = pnode
-      self._update(pnode)
-      self._update(node)
-      self._update(tmp)
-      if not path:
-        return tmp
-      di >>= 2
-      if di&1:
-        path[-1].left = tmp
-      else:
-        path[-1].right = tmp
-    gnode = path[0]
-    if di&1:
-      node = gnode.left
-      gnode.left = node.right
-      node.right = gnode
-    else:
-      node = gnode.right
-      gnode.right = node.left
-      node.left = gnode
-    self._update(gnode)
-    self._update(node)
-    return node
+  def _splay(self, node: Node) -> None:
+    while node.par and node.par.par:
+      pnode = node.par
+      self._rotate(pnode if (pnode.par.left is pnode) == (pnode.left is node) else node)
+      self._rotate(node)
+    if node.par:
+      self._rotate(node)
 
-  def _set_kth_elm_splay(self, k: int) -> None:
-    if k < 0: k += self.__len__()
-    di = 0
-    node = self.node
-    path = []
+  def _get_kth_elm_splay(self, node: Optional[Node], k: int) -> None:
+    if k < 0:
+      k += len(self)
     while True:
       self._propagate(node)
-      t = 0 if node.left is None else node.left.size
+      t = node.left.size if node.left else 0
       if t == k:
-        if path:
-          self.node = self._splay(path, di)
-        return
-      elif t > k:
-        path.append(node)
-        di <<= 1
-        di |= 1
+        break
+      if t > k:
         node = node.left
       else:
-        path.append(node)
-        di <<= 1
         node = node.right
         k -= t + 1
+    self._splay(node)
+    return node
 
-  def _get_min_splay(self, node: Node) -> Node:
-    if node is None: return None
+  def _get_left_splay(self, node: Optional[Node]) -> Optional[Node]:
     self._propagate(node)
-    if node.left is None: return node
-    path = []
-    while node.left is not None:
-      path.append(node)
+    if not node or not node.left:
+      return node
+    while node.left:
       node = node.left
       self._propagate(node)
-    return self._splay(path, (1<<len(path))-1)
+    self._splay(node)
+    return node
 
-  def _get_max_splay(self, node: Node) -> Node:
-    if node is None: return None
+  def _get_right_splay(self, node: Optional[Node]) -> Optional[Node]:
     self._propagate(node)
-    if node.right is None: return node
-    path = []
-    while node.right is not None:
-      path.append(node)
+    if not node or not node.right:
+      return node
+    while node.right:
       node = node.right
       self._propagate(node)
-    return self._splay(path, 0)
+    self._splay(node)
+    return node
 
-  def merge(self, other: "LazySplayTree") -> None:
-    if self.node is None:
-      self.node = other.node
+  def merge(self, other: 'LazySplayTree') -> None:
+    if not self.root:
+      self.root = other.root
       return
-    if other.node is None:
+    if not other.root:
       return
-    self.node = self._get_max_splay(self.node)
-    self.node.right = other.node
-    self._update(self.node)
+    self.root = self._get_right_splay(self.root)
+    self.root.right = other.root
+    other.root.par = self.root
+    self._update(self.root)
 
-  def split(self, k: int) -> Tuple["LazySplayTree", "LazySplayTree"]:
-    if k >= self.__len__():
-      return self, LazySplayTree(op=self.op, mapping=self.mapping, composition=self.composition, e=self.e)
-    self._set_kth_elm_splay(k)
-    left = LazySplayTree(op=self.op, mapping=self.mapping, composition=self.composition, e=self.e, node=self.node.left)
-    self.node.left, right = None, self
-    self._update(right.node)
+  def split(self, k: int) -> Tuple['LazySplayTree', 'LazySplayTree']:
+    left, right = self._internal_split(self.root, k)
+    left_splay = LazySplayTree(0, self.op, self.mapping, self.composition, self.e, self.id, left)
+    right_splay = LazySplayTree(0, self.op, self.mapping, self.composition, self.e, self.id, right)
+    return left_splay, right_splay
+
+  def _internal_split(self, k: int) -> Tuple[Node, Node]:
+    # self.root will be broken
+    if k >= len(self):
+      return self.root, None
+    right = self._get_kth_elm_splay(self.root, k)
+    left = right.left
+    if left:
+      left.par = None
+    right.left = None
+    self._update(right)
     return left, right
 
+  def _internal_merge(self, left: Optional[Node], right: Optional[Node]) -> Optional[Node]:
+    # need (not right) or (not right.left)
+    if not right:
+      return left
+    assert right.left is None
+    right.left = left
+    if left:
+      left.par = right
+    self._update(right)
+    return right
+
   def reverse(self, l: int, r: int) -> None:
-    if l >= r: return
-    left, right = self.split(r)
+    assert 0 <= l <= r <= len(self), \
+        f'IndexError: {self.__class__.__name__}.reverse({l}, {r}), len={len(self)}'
+    left, right = self._internal_split(r)
     if l == 0:
-      left.node.rev ^= 1
+      self._propagate_rev(left)
     else:
-      left._set_kth_elm_splay(l-1)
-      left.node.right.rev ^= 1
-    if right.node is None:
-      right.node = left.node
-    else:
-      right.node.left = left.node
-      self._update(right.node)
-    self.node = right.node
+      left = self._get_kth_elm_splay(left, l-1)
+      self._propagate_rev(left.right)
+    self.root = self._internal_merge(left, right)
 
   def all_reverse(self) -> None:
-    if self.node is None: return
-    self.node.rev ^= 1
+    self._propagate_rev(self.root)
 
   def apply(self, l: int, r: int, f: F) -> None:
-    if l >= r: return
-    left, right = self.split(r)
+    assert 0 <= l <= r <= len(self), \
+        f'IndexError: {self.__class__.__name__}.apply({l}, {r}, {f}), len={len(self)}'
+    left, right = self._internal_split(r)
     if l == 0:
-      left.node.key = self.mapping(f, left.node.key)
-      left.node.data = self.mapping(f, left.node.data)
-      left.node.lazy = f if left.node.lazy is None else self.composition(f, left.node.lazy)
+      self._propagate_lazy(left, f)
     else:
-      left._set_kth_elm_splay(l-1)
-      node = left.node.right
-      node.key = self.mapping(f, node.key)
-      node.data = self.mapping(f, node.data)
-      node.lazy = f if node.lazy is None else self.composition(f, node.lazy)
-      self._update(left.node)
-    if right.node is None:
-      right.node = left.node
-    else:
-      right.node.left = left.node
-      self._update(right.node)
-    self.node = right.node
+      left = self._get_kth_elm_splay(left, l-1)
+      self._propagate_lazy(left.right, f)
+      self._update(left)
+    self.root = self._internal_merge(left, right)
 
   def all_apply(self, f: F) -> None:
-    self.node.key = self.mapping(f, self.node.key)
-    self.node.data = self.mapping(f, self.node.data)
-    self.node.lazy = f if self.node.lazy is None else self.composition(f, self.node.lazy)
+    self._propagate_lazy(self.root, f)
 
   def prod(self, l: int, r: int) -> T:
-    if l >= r: return self.e
-    left, right = self.split(r)
+    assert 0 <= l <= r <= len(self), \
+        f'IndexError: {self.__class__.__name__}.prod({l}, {r}), len={len(self)}'
+    if l == r:
+      return self.e
+    left, right = self._internal_split(r)
     if l == 0:
-      res = left.node.data
+      res = left.data
     else:
-      left._set_kth_elm_splay(l-1)
-      res = left.node.right.data
-    if right.node is None:
-      right.node = left.node
-    else:
-      right.node.left = left.node
-      self._update(right.node)
-    self.node = right.node
+      left = self._get_kth_elm_splay(left, l-1)
+      res = left.right.data
+    self.root = self._internal_merge(left, right)
     return res
 
   def all_prod(self) -> T:
-    return self.e if self.node is None else self.node.data
+    self._propagate(self.root)
+    return self.root.data if self.root else self.e
 
   def insert(self, k: int, key: T) -> None:
-    node = Node(key)
-    if self.node is None:
-      self.node = node
+    node = self.Node(key, self.id)
+    if not self.root:
+      self.root = node
       return
-    if k >= self.__len__():
-      self._set_kth_elm_splay(self.__len__()-1)
-      node.left = self.node
-      self.node = node
+    if k >= len(self):
+      root = self._get_kth_elm_splay(self.root, len(self)-1)
+      node.left = root
     else:
-      self._set_kth_elm_splay(k)
-      if self.node.left is not None:
-        node.left = self.node.left
-        self.node.left = None
-        self._update(self.node)
-      node.right = self.node
-      self.node = node
-    self._update(self.node)
+      root = self._get_kth_elm_splay(self.root, k)
+      if root.left:
+        node.left = root.left
+        root.left.par = node
+        root.left = None
+        self._update(root)
+      node.right = root
+    root.par = node
+    self.root = node
+    self._update(self.root)
 
   def append(self, key: T) -> None:
-    node = self._get_max_splay(self.node)
-    self.node = Node(key)
-    self.node.left = node
-    self._update(self.node)
+    node = self._get_right_splay(self.root)
+    self.root = self.Node(key, self.id)
+    self.root.left = node
+    if node:
+      node.par = self.root
+    self._update(self.root)
 
   def appendleft(self, key: T) -> None:
-    node = self._get_min_splay(self.node)
-    self.node = Node(key)
-    self.node.right = node
-    self._update(self.node)
+    node = self._get_left_splay(self.root)
+    self.root = self.Node(key, self.id)
+    self.root.right = node
+    if node:
+      node.par = self.root
+    self._update(self.root)
 
   def pop(self, k: int=-1) -> T:
     if k == -1:
-      node = self._get_max_splay(self.node)
-      self._propagate(node)
-      self.node = node.left
+      node = self._get_right_splay(self.root)
+      if node.left:
+        node.left.par = None
+      self.root = node.left
       return node.key
-    self._set_kth_elm_splay(k)
-    res = self.node.key
-    if self.node.left is None:
-      self.node = self.node.right
-    elif self.node.right is None:
-      self.node = self.node.left
+    root = self._get_kth_elm_splay(self.root, k)
+    res = root.key
+    if root.left and root.right:
+      node = self._get_right_splay(root.left)
+      node.par = None
+      node.right = root.right
+      if node.right:
+        node.right.par = node
+      self._update(node)
+      self.root = node
     else:
-      node = self._get_max_splay(self.node.left)
-      node.right = self.node.right
-      self.node = node
-      self._update(self.node)
+      self.root = root.right if root.right else root.left
+      if self.root:
+        self.root.par = None
     return res
 
   def popleft(self) -> T:
-    node = self._get_min_splay(self.node)
-    self._propagate(node)
-    self.node = node.right
+    node = self._get_left_splay(self.root)
+    self.root = node.right
+    if node.right:
+      node.right.par = None
     return node.key
 
-  # 「末尾をを削除し先頭に挿入」をx回
-  def rotate(self, x: int) -> None:
-    n = len(self)
-    x %= n
-    l, self = self.split(n-x)
-    self.merge(l)
-
-  def copy(self) -> "LazySplayTree":
+  def copy(self) -> 'LazySplayTree':
     return LazySplayTree(self.tolist(), self.op, self.mapping, self.composition, self.e)
 
   def clear(self) -> None:
-    self.node = None
+    self.root = None
 
   def tolist(self) -> List[T]:
-    a = []
-    if self.node is None:
-      return a
-    if sys.getrecursionlimit() < self.node.size:
-      sys.setrecursionlimit(self.node.size+1)
-    def rec(node):
-      self._propagate(node)
-      if node.left is not None:
-        rec(node.left)  
-      a.append(node.key)
-      if node.right is not None:
-        rec(node.right)
-    rec(self.node)
-    return a
+    node = self.root
+    stack, res = [], newlist_hint(len(self))
+    while stack or node:
+      if node:
+        self._propagate(node)
+        stack.append(node)
+        node = node.left
+      else:
+        node = stack.pop()
+        res.append(node.key)
+        node = node.right
+    return res
 
   def __setitem__(self, k: int, key: T):
-    self._set_kth_elm_splay(k)
-    self.node.key = key
-    self._update(self.node)
+    self.root = self._get_kth_elm_splay(self.root, k)
+    self.root.key = key
+    self._update(self.root)
 
   def __getitem__(self, k: int) -> T:
-    self._set_kth_elm_splay(k)
-    return self.node.key
+    self.root = self._get_kth_elm_splay(self.root, k)
+    return self.root.key
 
   def __iter__(self):
     self.__iter = 0
     return self
 
   def __next__(self):
-    if self.__iter == self.__len__():
+    if self.__iter == len(self):
       raise StopIteration
-    res = self.__getitem__(self.__iter)
+    res = self[self.__iter]
     self.__iter += 1
     return res
 
   def __reversed__(self):
-    for i in range(self.__len__()):
-      yield self.__getitem__(-i-1)
+    for i in range(len(self)):
+      yield self[-i-1]
 
   def __len__(self):
-    return 0 if self.node is None else self.node.size
+    return self.root.size if self.root else 0
 
   def __str__(self):
-    return '[' + ', '.join(map(str, self.tolist())) + ']'
+    return str(self.tolist())
 
   def __bool__(self):
-    return self.node is not None
+    return self.root is not None
 
   def __repr__(self):
-    return 'LazySplayTree' + str(self)
-
-def op(s, t):
-  return
-
-def mapping(f, s):
-  return
-
-def composition(f, g):
-  return
-
-e = None
+    return f'{self.__class__.__name__}({self})'
 

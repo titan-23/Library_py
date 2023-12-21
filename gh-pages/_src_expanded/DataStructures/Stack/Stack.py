@@ -11,6 +11,7 @@ class Stack(Generic[T]):
     self.back: int = len(self.data)
 
   def pop(self) -> T:
+    assert self, f'IndexError: pop() from empty {self.__class__.__name__}.'
     self.back -= 1
     return self.data[self.back]
 
@@ -29,9 +30,6 @@ class Stack(Generic[T]):
       k += self.back
     return self.data[k]
 
-  def __contains__(self, val: T):
-    return val in self.data
-
   def __iter__(self):
     self.__iter = -1
     return self
@@ -45,10 +43,13 @@ class Stack(Generic[T]):
   def __len__(self):
     return self.back
 
+  def __bool__(self):
+    return self.back > 0
+
   def __str__(self):
     return '[' + ', '.join(map(str, self)) + ']'
 
   def __repr__(self):
-    return f'Stack({self})'
+    return f'{self.__class__.__name__}({self})'
 
 

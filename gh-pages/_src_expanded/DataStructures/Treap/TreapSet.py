@@ -97,7 +97,159 @@ class OrderedSetInterface(ABC, Generic[T]):
   def __repr__(self) -> str:
     raise NotImplementedError
 
-from typing import Generic, Iterable, TypeVar, Optional, List, Sequence
+# from Library_py.DataStructures.BSTBase.BSTSetNodeBase import BSTSetNodeBase
+from __pypy__ import newlist_hint
+from typing import List, TypeVar, Generic, Optional
+T = TypeVar('T')
+Node = TypeVar('Node')
+# protcolで、key,left,right を規定
+
+class BSTSetNodeBase(Generic[T, Node]):
+
+  @staticmethod
+  def sort_unique(a: List[T]) -> List[T]:
+    if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
+      a = sorted(a)
+      new_a = [a[0]]
+      for elm in a:
+        if new_a[-1] == elm:
+          continue
+        new_a.append(elm)
+      a = new_a
+    return a
+
+  @staticmethod
+  def contains(node: Node, key: T) -> bool:
+    while node:
+      if key == node.key:
+        return True
+      node = node.left if key < node.key else node.right
+    return False
+
+  @staticmethod
+  def get_min(node: Node) -> Optional[T]:
+    if not node:
+      return None
+    while node.left:
+      node = node.left
+    return node.key
+
+  @staticmethod
+  def get_max(node: Node) -> Optional[T]:
+    if not node:
+      return None
+    while node.right:
+      node = node.right
+    return node.key
+
+  @staticmethod
+  def le(node: Node, key: T) -> Optional[T]:
+    res = None
+    while node is not None:
+      if key == node.key:
+        res = key
+        break
+      if key < node.key:
+        node = node.left
+      else:
+        res = node.key
+        node = node.right
+    return res
+
+  @staticmethod
+  def lt(node: Node, key: T) -> Optional[T]:
+    res = None
+    while node is not None:
+      if key <= node.key:
+        node = node.left
+      else:
+        res = node.key
+        node = node.right
+    return res
+
+  @staticmethod
+  def ge(node: Node, key: T) -> Optional[T]:
+    res = None
+    while node is not None:
+      if key == node.key:
+        res = key
+        break
+      if key < node.key:
+        res = node.key
+        node = node.left
+      else:
+        node = node.right
+    return res
+
+  @staticmethod
+  def gt(node: Node, key: T) -> Optional[T]:
+    res = None
+    while node is not None:
+      if key < node.key:
+        res = node.key
+        node = node.left
+      else:
+        node = node.right
+    return res
+
+  @staticmethod
+  def index(node: Node, key: T) -> int:
+    k = 0
+    while node is not None:
+      if key == node.key:
+        if node.left is not None:
+          k += node.left.size
+        break
+      if key < node.key:
+        node = node.left
+      else:
+        k += 1 if node.left is None else node.left.size + 1
+        node = node.right
+    return k
+
+  @staticmethod
+  def index_right(node: Node, key: T) -> int:
+    k = 0
+    while node is not None:
+      if key == node.key:
+        k += 1 if node.left is None else node.left.size + 1
+        break
+      if key < node.key:
+        node = node.left
+      else:
+        k += 1 if node.left is None else node.left.size + 1
+        node = node.right
+    return k
+
+  @staticmethod
+  def tolist(node: Node, _len: int=0) -> List[T]:
+    stack = []
+    res = newlist_hint(_len)
+    while stack or node:
+      if node:
+        stack.append(node)
+        node = node.left
+      else:
+        node = stack.pop()
+        res.append(node.key)
+        node = node.right
+    return res
+
+  @staticmethod
+  def kth_elm(node: Node, k: int, _len: int) -> T:
+    if k < 0:
+      k += _len
+    while True:
+      t = 0 if node.left is None else node.left.size
+      if t == k:
+        return node.key
+      if t > k:
+        node = node.left
+      else:
+        node = node.right
+        k -= t + 1
+
+from typing import Generic, Iterable, TypeVar, Optional, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 class TreapSet(OrderedSetInterface, Generic[T]):
@@ -129,12 +281,12 @@ class TreapSet(OrderedSetInterface, Generic[T]):
   def __init__(self, a: Iterable[T]=[]):
     self.root: Optional['TreapSet.Node'] = None
     self._len: int = 0
-    if not isinstance(a, Sequence):
+    if not isinstance(a, list):
       a = list(a)
     if a:
       self._build(a)
 
-  def _build(self, a: Sequence[T]) -> None:
+  def _build(self, a: List[T]) -> None:
     Node = TreapSet.Node
     def rec(l: int, r: int) -> Node:
       mid = (l + r) >> 1
@@ -144,14 +296,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
       if mid+1 != r:
         node.right = rec(mid+1, r)
       return node
-    if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-      a = sorted(a)
-      b = [a[0]]
-      for e in a:
-        if b[-1] == e:
-          continue
-        b.append(e)
-      a = b
+    a = BSTSetNodeBase[T, TreapSet.Node].sort_unique(a)
     self._len = len(a)
     rand = sorted(TreapSet.Random.random() for _ in range(self._len))
     self.root = rec(0, self._len)
@@ -171,7 +316,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
   def add(self, key: T) -> bool:
     if not self.root:
       self.root = TreapSet.Node(key)
-      self._len += 1
+      self._len = 1
       return True
     node = self.root
     path = []
@@ -179,13 +324,12 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     while node:
       if key == node.key:
         return False
-      elif key < node.key:
-        path.append(node)
+      path.append(node)
+      if key < node.key:
         di <<= 1
         di |= 1
         node = node.left
       else:
-        path.append(node)
         di <<= 1
         node = node.right
     if di & 1:
@@ -270,72 +414,25 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     raise KeyError(key)
 
   def le(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node:
-      if key == node.key:
-        res = key
-        break
-      elif key < node.key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTSetNodeBase[T, TreapSet.Node].le(self.root, key)
 
   def lt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node:
-      if key <= node.key:
-        node = node.left
-      else:
-        res = node.key
-        node = node.right
-    return res
+    return BSTSetNodeBase[T, TreapSet.Node].lt(self.root, key)
 
   def ge(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node:
-      if key == node.key:
-        return node.key
-      if key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTSetNodeBase[T, TreapSet.Node].ge(self.root, key)
 
   def gt(self, key: T) -> Optional[T]:
-    res = None
-    node = self.root
-    while node:
-      if key < node.key:
-        res = node.key
-        node = node.left
-      else:
-        node = node.right
-    return res
+    return BSTSetNodeBase[T, TreapSet.Node].gt(self.root, key)
 
   def get_min(self) -> Optional[T]:
-    node = self.root
-    if not node:
-      return None
-    while node.left:
-      node = node.left
-    return node.key
+    return BSTSetNodeBase[T, TreapSet.Node].get_min(self.root)
 
   def get_max(self) -> Optional[T]:
-    node = self.root
-    if not node:
-      return None
-    while node.right:
-      node = node.right
-    return node.key
+    return BSTSetNodeBase[T, TreapSet.Node].get_max(self.root)
 
   def pop_min(self) -> T:
-    assert self.root is not None, 'IndexError: pop_min() from Empty TreapSet.'
+    assert self.root, f'IndexError: pop_min() from Empty {self.__class__.__name__}.'
     node = self.root
     pnode = None
     while node.left:
@@ -350,7 +447,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     return res
 
   def pop_max(self) -> T:
-    assert self.root is not None, 'IndexError: pop_max() from Empty TreapSet.'
+    assert self.root, f'IndexError: pop_max() from Empty {self.__class__.__name__}.'
     node = self.root
     pnode = None
     while node.right:
@@ -368,17 +465,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     self.root = None
 
   def tolist(self) -> List[T]:
-    a = []
-    if not self.root:
-      return a
-    def rec(node):
-      if node.left:
-        rec(node.left)
-      a.append(node.key)
-      if node.right:
-        rec(node.right)
-    rec(self.root)
-    return a
+    return BSTSetNodeBase[T, TreapSet.Node].tolist(self.root, len(self))
 
   def __iter__(self):
     self._it = self.get_min()
@@ -392,12 +479,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     return res
 
   def __contains__(self, key: T):
-    node = self.root
-    while node:
-      if key == node.key:
-        return True
-      node = node.left if key < node.key else node.right
-    return False
+    return BSTSetNodeBase[T, TreapSet.Node].contains(self.root, key)
 
   def __len__(self):
     return self._len
@@ -409,6 +491,6 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'TreapSet({self.tolist()})'
+    return f'{self.__class__.__name__}({self.tolist()})'
 
 

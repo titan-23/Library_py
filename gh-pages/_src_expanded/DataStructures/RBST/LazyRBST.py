@@ -35,6 +35,7 @@ class LazyRBST(Generic[T, F]):
     __repr__ = __str__
 
   def __init__(self,
+               a: Iterable[T],
                op: Callable[[T, T], T],
                mapping: Callable[[F, T], T],
                composition: Callable[[F, F], F],
@@ -48,6 +49,8 @@ class LazyRBST(Generic[T, F]):
     self.composition = composition
     self.e = e
     self.id = id
+    if a:
+      self.build(a)
 
   def build(self, a: Iterable[T]) -> None:
     Node = LazyRBST.Node
@@ -61,6 +64,7 @@ class LazyRBST(Generic[T, F]):
       self._update(node)
       return node
     a = list(a)
+    if not a: return
     id = self.id
     self.root = rec(0, len(a))
 
@@ -158,8 +162,8 @@ class LazyRBST(Generic[T, F]):
   def split(self, k: int) -> Tuple['LazyRBST', 'LazyRBST']:
     left, right = self._split_node(self.root, k)
     return (
-        LazyRBST(self.op, self.mapping, self.composition, self.e, self.id, _root=left),
-        LazyRBST(self.op, self.mapping, self.composition, self.e, self.id, _root=right)
+        LazyRBST([], self.op, self.mapping, self.composition, self.e, self.id, _root=left),
+        LazyRBST([], self.op, self.mapping, self.composition, self.e, self.id, _root=right)
     )
 
   def apply(self, l: int, r: int, f) -> None:

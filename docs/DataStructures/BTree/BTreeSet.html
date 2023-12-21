@@ -296,13 +296,13 @@
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: pop_max from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: pop_min from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span>
 
@@ -378,7 +378,7 @@
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;BTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.BTree.BTreeSet import BTreeSet</span>
 <span class="c1"># from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface</span>
@@ -752,13 +752,13 @@
 
   <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: pop_max from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span>
 
   <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
     <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError&#39;</span>
+    <span class="k">assert</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: pop_min from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span>
 
@@ -834,7 +834,7 @@
     <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;BTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 
 </div>

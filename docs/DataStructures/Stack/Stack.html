@@ -33,6 +33,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">back</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: pop() from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">back</span> <span class="o">-=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">back</span><span class="p">]</span>
 
@@ -51,9 +52,6 @@
       <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">back</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 
-  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-
   <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">return</span> <span class="bp">self</span>
@@ -67,11 +65,14 @@
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">back</span>
 
+  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">back</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Stack(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 <div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.Stack.Stack import Stack</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span>
@@ -86,6 +87,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">back</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: pop() from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">back</span> <span class="o">-=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">back</span><span class="p">]</span>
 
@@ -104,9 +106,6 @@
       <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">back</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 
-  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-
   <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="k">return</span> <span class="bp">self</span>
@@ -120,11 +119,14 @@
   <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">back</span>
 
+  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">back</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span>
 
   <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Stack(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
 </pre></div>
 
 </div>
@@ -136,6 +138,8 @@
 <h2>使用例</h2>
 <div class="code-block">
 <div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.DataStructures.Stack.Stack</span> <span class="kn">import</span> <span class="n">Stack</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">()</span>
 </pre></div>
 
 </div>

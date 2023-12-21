@@ -18,12 +18,12 @@ class LinkCutTree(Generic[T, F]):
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
-               op: Callable[[T, T], T]=lambda x, y: None,
-               mapping: Callable[[F, T], T]=lambda x, y: None,
-               composition: Callable[[F, F], F]=lambda x, y: None,
-               e: T=None,
-               id: F=None,
-               ):
+               op: Callable[[T, T], T],
+               mapping: Callable[[F, T], T],
+               composition: Callable[[F, F], F],
+               e: T,
+               id: F,
+               ) -> None:
     self.op = op
     self.mapping = mapping
     self.composition = composition
@@ -307,7 +307,7 @@ class LinkCutTree(Generic[T, F]):
     return self.key[k]
 
   def __str__(self):
-    return str([self.__getitem__(i) for i in range(self.n)])
+    return str([self[i] for i in range(self.n)])
 
   __repr__ = __str__
 
