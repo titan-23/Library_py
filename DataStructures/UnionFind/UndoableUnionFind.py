@@ -29,7 +29,7 @@ class UndoableUnionFind():
     return True
 
   def undo(self) -> None:
-    assert self._history, 'Error: UndoableUnionFind.undo() with non history.'
+    assert self._history, f'Error: {self.__class__.__name__}.undo() with non history.'
     y, py = self._history.pop()
     x, px = self._history.pop()
     if y == -1:
@@ -57,5 +57,5 @@ class UndoableUnionFind():
       self._parents[i] = -1
 
   def __str__(self) -> str:
-    return '<UndoableUnionFind> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
+    return f'<{self.__class__.__name__}> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
 
