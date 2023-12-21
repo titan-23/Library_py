@@ -1,10 +1,9 @@
 from Library_py.DataStructures.AVLTree.AVLTreeSet2 import AVLTreeSet2
 import enum
-from enum import Enum
 from typing import Optional, List, Tuple
 import random
 
-class RandomTreeType(Enum):
+class RandomTreeType(enum.Enum):
   random = enum.auto()
   path = enum.auto()
   star = enum.auto()
@@ -14,34 +13,36 @@ class RandomTree():
   @classmethod
   def build(cls, n: int, typ: RandomTreeType=RandomTreeType.random, seed: Optional[int]=None) -> List[Tuple[int, int]]:
     random.seed(seed)
+    edges = None
     if typ == RandomTreeType.random:
-      return cls._build_random(n)
-    if typ == RandomTreeType.path:
-      return cls._build_path(n)
-    if typ == RandomTreeType.star:
-      return cls._build_star(n)
-    raise ValueError(typ)
+      edges = cls._build_random(n)
+    elif typ == RandomTreeType.path:
+      edges = cls._build_path(n)
+    elif typ == RandomTreeType.star:
+      edges = cls._build_star(n)
+    assert edges is not None, \
+        f'{cls.__class__.__name__}.build({typ}), typ is not defined.'
+    random.shuffle(edges)
+    return edges
 
   @classmethod
   def _build_star(cls, n: int) -> List[Tuple[int, int]]:
     center = random.randrange(0, n)
-    edge = []
+    edges = []
     for i in range(n):
       if i == center:
         continue
       if random.random() < 0.5:
-        edge.append((center, i))
+        edges.append((center, i))
       else:
-        edge.append((i, center))
-    random.shuffle(edge)
-    return edge
+        edges.append((i, center))
+    return edges
 
   @classmethod
   def _build_path(cls, n: int) -> List[Tuple[int, int]]:
     p = list(range(n))
     random.shuffle(p)
-    edges = [(p[i], p[i+1]) for i in range(n-1)]
-    random.shuffle(edges)
+    edges = [(p[i], p[i+1]) if random.random() < 0.5 else (p[i+1], p[i]) for i in range(n-1)]
     return edges
 
   @classmethod
@@ -68,6 +69,5 @@ class RandomTree():
     v = D.index(1)
     D[v] -= 1
     edges.append((u, v))
-    random.shuffle(edges)
     return edges
 
