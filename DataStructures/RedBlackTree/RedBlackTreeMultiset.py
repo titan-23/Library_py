@@ -1,6 +1,7 @@
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from Library_py.MyClass.OrderedMultisetInterface import OrderedMultisetInterface
-from typing import Iterable, Optional, Sequence, TypeVar, Generic, List, Tuple
+from Library_py.DataStructures.BSTBase.BSTMultisetNodeBase import BSTMultisetNodeBase
+from typing import Iterable, Optional, TypeVar, Generic, List
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
 
@@ -99,27 +100,12 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
     self.size = 0
     self.min_node = None
     self.max_node = None
-    if not isinstance(a, Sequence):
+    if not isinstance(a, list):
       a = list(a)
     if a:
       self._build(a)
 
-  def _rle(self, a: Sequence[T]) -> Tuple[List[T], List[int]]:
-    x = newlist_hint(len(a))
-    y = newlist_hint(len(a))
-    x.append(a[0])
-    y.append(1)
-    for i, e in enumerate(a):
-      if i == 0:
-        continue
-      if e == x[-1]:
-        y[-1] += 1
-        continue
-      x.append(e)
-      y.append(1)
-    return x, y
-
-  def _build(self, a: Sequence[T]) -> None:
+  def _build(self, a: List[T]) -> None:
     def sort(l: int, r: int, d: int):
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
@@ -134,7 +120,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
     if not all(a[i] <= a[i+1] for i in range(len(a)-1)):
       a = sorted(a)
     Node = RedBlackTreeMultiset.Node
-    x, y = self._rle(a)
+    x, y = BSTMultisetNodeBase[T, RedBlackTreeMultiset.Node]._rle(a)
     flag = len(x).bit_length() & 1
     self.node = sort(0, len(x), 0)
     self.min_node = self.node._min()
