@@ -77,5 +77,5 @@ class UnionFind():
       self._parents[i] = -1
 
   def __str__(self) -> str:
-    return '<UnionFind> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
+    return f'<{self.__class__.__name__}> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
 
