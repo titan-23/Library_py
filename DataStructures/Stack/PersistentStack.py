@@ -18,7 +18,7 @@ class PersistentStack(Generic[T]):
 
   def top(self, t: int) -> T:
     res = self.a[t].key
-    assert res is not None, 'IndexError: top() from empty PersistentStack.'
+    assert res is not None, f'IndexError: top() from empty {self.__class__.__name__}.'
     return res
 
   def append(self, key: T, pre_t: int, new_t: int) -> None:
@@ -28,7 +28,7 @@ class PersistentStack(Generic[T]):
 
   def pop(self, pre_t: int, new_t: int) -> T:
     s = self.a[pre_t]
-    assert s.key is not None, 'IndexError: pop() from empty PersistentStack.'
+    assert s.key is not None, f'IndexError: pop() from empty {self.__class__.__name__}.'
     self.a[new_t] = PersistentStack.Node(None) if s.prev is None else s.prev
     return s.key
 
