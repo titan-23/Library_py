@@ -273,13 +273,13 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
   def pop_max(self) -> T:
     res = self.get_max()
-    assert res is not None, f'IndexError'
+    assert res is not None, f'IndexError: pop_max from empty {self.__class__.__name__}.'
     self.discard(res)
     return res
 
   def pop_min(self) -> T:
     res = self.get_min()
-    assert res is not None, f'IndexError'
+    assert res is not None, f'IndexError: pop_min from empty {self.__class__.__name__}.'
     self.discard(res)
     return res
 
@@ -355,5 +355,5 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'BTreeSet({self.tolist()})'
+    return f'{self.__class__.__name__}({self.tolist()})'
 
