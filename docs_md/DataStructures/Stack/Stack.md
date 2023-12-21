@@ -25,4 +25,5 @@ _____
 ```python
 from Library_py.DataStructures.Stack.Stack import Stack
 
+s = Stack()
 ```

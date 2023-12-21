@@ -9,4 +9,5 @@ _____
 _____
 
 - [`PersistentStack`](./PersistentStack.md)
+- [`FoldableStack`](./FoldableStack.md)
 - [`Stack`](./Stack.md)
