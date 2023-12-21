@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar, Callable, Iterable, Any, Optional, Union
+from typing import Generic, TypeVar, Callable, Iterable, Optional, Union
 T = TypeVar('T')
 F = TypeVar('F')
 
@@ -298,60 +298,3 @@ class LinkCutTree(Generic[T, F]):
   def __repr__(self):
     return 'LinkCutTree'
 
-#  -----------------------  #
-
-import sys
-input = lambda: sys.stdin.buffer.readline().rstrip()
-
-import os
-from __pypy__.builders import StringBuilder
-
-class FastO():
-
-  sb = StringBuilder()
-
-  @classmethod
-  def write(cls, *args, sep: str=' ', end: str='\n', flush: bool=False) -> None:
-    append = cls.sb.append
-    for i in range(len(args)-1):
-      append(str(args[i]))
-      append(sep)
-    if args:
-      append(str(args[-1]))
-    append(end)
-    if flush:
-      cls.flush()
-
-  @classmethod
-  def flush(cls) -> None:
-    os.write(1, cls.sb.build().encode())
-    cls.sb = StringBuilder()
-
-write = FastO.write
-flush = FastO.flush
-
-n = int(input())
-P = [None] + [int(input())-1 for _ in range(n-1)]
-C = [int(input()) for _ in range(n)]
-lct = LinkCutTree(n)
-for i in range(1, n):
-  if C[i] != C[P[i]]:
-    lct.link(i, P[i])
-q = int(input())
-for _ in range(q):
-  qu = list(map(int, input().split()))
-  if qu[0] == 1:
-    u = qu[1]
-    u -= 1
-    if u == 0:
-      continue
-    if lct.same(u, P[u]):
-      lct.cut(u)
-    else:
-      lct.link(u, P[u])
-  else:
-    u, v = qu[1:]
-    u -= 1
-    v -= 1
-    write('YES' if lct.same(u, v) else 'NO')
-flush()

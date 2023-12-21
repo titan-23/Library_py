@@ -66,6 +66,7 @@ class ModInt:
 
   def __itruediv__(self, other: Union[int, 'ModInt']) -> 'ModInt':
     self.val *= self._inv(int(other))
+    self.val %= self.mod
     return self
 
   __radd__ = __add__

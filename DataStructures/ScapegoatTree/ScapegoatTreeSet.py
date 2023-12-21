@@ -43,7 +43,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
         node.right = rec(mid+1, r)
         node.size += node.right.size
       return node
-    a = BSTSetNodeBase.sort_unique(a)
+    a = BSTSetNodeBase[T, ScapegoatTreeSet.Node].sort_unique(a)
     self.root = rec(0, len(a))
 
   def _rebuild(self, node: Node) -> Node:
@@ -149,22 +149,22 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     raise KeyError
 
   def le(self, key: T) -> Optional[T]:
-    return BSTSetNodeBase.le(self.root, key)
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].le(self.root, key)
 
   def lt(self, key: T) -> Optional[T]:
-    return BSTSetNodeBase.lt(self.root, key)
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].lt(self.root, key)
 
   def ge(self, key: T) -> Optional[T]:
-    return BSTSetNodeBase.ge(self.root, key)
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].ge(self.root, key)
 
   def gt(self, key: T) -> Optional[T]:
-    return BSTSetNodeBase.gt(self.root, key)
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].gt(self.root, key)
 
   def index(self, key: T) -> int:
-    return BSTSetNodeBase.index(self.root, key)
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].index(self.root, key)
 
   def index_right(self, key: T) -> int:
-    return BSTSetNodeBase.index_right(self.root, key)
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].index_right(self.root, key)
 
   def pop(self, k: int=-1) -> T:
     if k < 0:
@@ -216,7 +216,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     self.root = None
 
   def tolist(self) -> List[T]:
-    return BSTSetNodeBase.tolist(self.root, len(self))
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].tolist(self.root, len(self))
 
   def get_min(self) -> T:
     return self[0]
@@ -233,7 +233,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     return False
 
   def __getitem__(self, k: int) -> T:
-    return BSTSetNodeBase.kth_elm(self.root, k, len(self))
+    return BSTSetNodeBase[T, ScapegoatTreeSet.Node].kth_elm(self.root, k, len(self))
 
   def __iter__(self) -> Iterator[T]:
     self.__iter = 0

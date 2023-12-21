@@ -1,5 +1,6 @@
 from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from Library_py.DataStructures.BSTBase.BSTSetNodeBase import BSTSetNodeBase
 from typing import Iterable, Optional, TypeVar, Generic, List, Sequence
 from __pypy__ import newlist_hint
 T = TypeVar('T', bound=SupportsLessThan)
@@ -128,15 +129,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
         node.right = rec(mid+1, r, d+1)
         node.right.par = node
       return node
-    if not all(a[i] < a[i+1] for i in range(len(a)-1)):
-      a = sorted(a)
-      b = newlist_hint(len(a))
-      b.append(a[0])
-      for e in a:
-        if b[-1] == e:
-          continue
-        b.append(e)
-      a = b
+    a = BSTSetNodeBase[T, RedBlackTreeSet.Node].sort_unique(a)
     flag = len(a).bit_length() & 1
     self.node = rec(0, len(a), 0)
     self.min_node = self.node._min()
@@ -440,27 +433,16 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     return None
 
   def tolist(self) -> List[T]:
-    node = self.node
-    stack = newlist_hint(len(self))
-    res = newlist_hint(len(self))
-    while stack or node:
-      if node:
-        stack.append(node)
-        node = node.left
-      else:
-        node = stack.pop()
-        res.append(node.key)
-        node = node.right
-    return res
+    return BSTSetNodeBase[T, RedBlackTreeSet.Node].tolist(self.node, len(self))
 
   def pop_max(self) -> T:
-    assert self.node, 'IndexError: pop_max() from empty RedBlackTreeSet'
+    assert self.node, f'IndexError: pop_max() from empty {self.__class__.__name__}.'
     node = self.max_node
     self.discard_iter(node)
     return node.key
 
   def pop_min(self) -> T:
-    assert self.node, 'IndexError: pop_min() from empty RedBlackTreeSet'
+    assert self.node, f'IndexError: pop_min() from empty {self.__class__.__name__}.'
     node = self.min_node
     self.discard_iter(node)
     return node.key
@@ -500,5 +482,5 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     return '{' + ', '.join(map(str, self.tolist())) + '}'
 
   def __repr__(self):
-    return f'RedBlackTreeSet({self})'
+    return f'{self.__class__.__name__}({self})'
 

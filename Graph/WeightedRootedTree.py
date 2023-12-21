@@ -163,17 +163,18 @@ class WeightedRootedTree():
     if self._bipartite_graph:
       return self._bipartite_graph
     self._bipartite_graph = [-1] * self._n
-    self._bipartite_graph[self._root] = 1
+    _bipartite_graph = self._bipartite_graph
+    _bipartite_graph[self._root] = 1
     todo = [self._root]
     while todo:
       v = todo.pop()
-      nc = 0 if self._bipartite_graph[v] else 1
+      nc = 0 if _bipartite_graph[v] else 1
       for x, _ in self._G[v]:
-        if self._bipartite_graph[x] != -1:
+        if _bipartite_graph[x] != -1:
           continue
-        self._bipartite_graph[x] = nc
+        _bipartite_graph[x] = nc
         todo.append(x)
-    return self._bipartite_graph
+    return _bipartite_graph
 
   def _calc_doubling(self) -> None:
     "Calc doubling if self._lca. / O(NlogN)"
@@ -208,7 +209,7 @@ class WeightedRootedTree():
 
   '''Return dist(u -- v). / O(logN)'''
   def get_dist(self, u: int, v: int) -> int:
-    return self._dist[u] + self._dist[v] - 2*self._dist[self.get_lca(u, v)] + 1
+    return self._dist[u] + self._dist[v] - 2*self._dist[self.get_lca(u, v)]
 
   '''Return True if (a is on path(u - v)) else False. / O(logN)'''
   def is_on_path(self, u: int, v: int, a: int) -> bool:

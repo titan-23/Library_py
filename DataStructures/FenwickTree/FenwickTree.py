@@ -8,16 +8,18 @@ class FenwickTree():
       self._tree = [0] * (self._size + 1)
     else:
       a = n_or_a if isinstance(n_or_a, list) else list(n_or_a)
-      self._size = len(a)
-      self._tree = [0] + a
-      for i in range(1, self._size):
-        if i + (i & -i) <= self._size:
-          self._tree[i + (i & -i)] += self._tree[i]
+      _size = len(a)
+      _tree = [0] + a
+      for i in range(1, _size):
+        if i + (i & -i) <= _size:
+          _tree[i + (i & -i)] += _tree[i]
+      self._size = _size
+      self._tree = _tree
     self._s = 1 << (self._size - 1).bit_length()
 
   def pref(self, r: int) -> int:
     assert 0 <= r <= self._size, \
-        f'IndexError: FenwickTree.pref({r}), n={self._size}'
+        f'IndexError: {self.__class__.__name__}.pref({r}), n={self._size}'
     ret, _tree = 0, self._tree
     while r > 0:
       ret += _tree[r]
@@ -26,12 +28,12 @@ class FenwickTree():
 
   def suff(self, l: int) -> int:
     assert 0 <= l < self._size, \
-        f'IndexError: FenwickTree.suff({l}), n={self._size}'
+        f'IndexError: {self.__class__.__name__}.suff({l}), n={self._size}'
     return self.pref(self._size) - self.pref(l)
 
   def sum(self, l: int, r: int) -> int:
     assert 0 <= l <= r <= self._size, \
-        f'IndexError: FenwickTree.sum({l}, {r}), n={self._size}'
+        f'IndexError: {self.__class__.__name__}.sum({l}, {r}), n={self._size}'
     _tree = self._tree
     res = 0
     while r > l:
@@ -46,14 +48,14 @@ class FenwickTree():
 
   def __getitem__(self, k: int) -> int:
     assert -self._size <= k < self._size, \
-        f'IndexError: FenwickTree.__getitem__({k}), n={self._size}'
+        f'IndexError: {self.__class__.__name__}[{k}], n={self._size}'
     if k < 0:
       k += self._size
     return self.sum(k, k+1)
 
   def add(self, k: int, x: int) -> None:
     assert 0 <= k < self._size, \
-        f'IndexError: FenwickTree.add({k}, {x}), n={self._size}'
+        f'IndexError: {self.__class__.__name__}.add({k}, {x}), n={self._size}'
     k += 1
     _tree = self._tree
     while k <= self._size:
@@ -62,9 +64,9 @@ class FenwickTree():
 
   def __setitem__(self, k: int, x: int):
     assert -self._size <= k < self._size, \
-        f'IndexError: FenwickTree.__setitem__({k}, {x}), n={self._size}'
+        f'IndexError: {self.__class__.__name__}[{k}] = {x}, n={self._size}'
     if k < 0: k += self._size
-    pre = self.__getitem__(k)
+    pre = self[k]
     self.add(k, x - pre)
 
   def bisect_left(self, w: int) -> Optional[int]:
@@ -126,5 +128,5 @@ class FenwickTree():
     return str(self.tolist())
 
   def __repr__(self):
-    return f'FenwickTree({self})'
+    return f'{self.__class__.__name__}({self})'
 
