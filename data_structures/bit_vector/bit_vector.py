@@ -1,4 +1,4 @@
-from .BitVectorInterface import BitVectorInterface
+from Library_py.data_structures.bit_vector_interface import BitVectorInterface
 from array import array
 
 class BitVector(BitVectorInterface):

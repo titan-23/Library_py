@@ -1,4 +1,4 @@
-from Library_py.DataStructures.Stack.FoldableStack import FoldableStack
+from Library_py.data_structures.stack.foldable_stack import FoldableStack
 from typing import Generic, Iterable, TypeVar, Callable, Union, List
 T = TypeVar('T')
 

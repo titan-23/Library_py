@@ -1,7 +1,10 @@
-from Library_py.DataStructures.BitVector.BitVectorInterface import BitVectorInterface
+from Library_py.data_structures.bit_vector.bit_vector_interface import BitVectorInterface
 from array import array
 from typing import Iterable, List, Sequence
-from __pypy__ import newlist_hint
+try:
+  from __pypy__ import newlist_hint
+except ImportError:
+  pass
 
 class AVLTreeBitVector(BitVectorInterface):
 

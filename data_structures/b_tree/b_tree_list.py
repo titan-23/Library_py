@@ -1,6 +1,9 @@
 from collections import deque
 from typing import Generic, TypeVar, List, Iterable
-from __pypy__ import newlist_hint
+try:
+  from __pypy__ import newlist_hint
+except ImportError:
+  pass
 T = TypeVar('T')
 
 class BTreeList(Generic[T]):
