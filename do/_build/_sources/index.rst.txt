@@ -12,7 +12,7 @@ Welcome to titanlib's documentation!
 
    segment_tree
 
-   avltree_dict
+   avltree
 
 
 Indices and tables
