@@ -1,0 +1,101 @@
+avltree package
+===============
+
+Submodules
+----------
+
+avltree.avltree\_dict module
+----------------------------
+
+.. automodule:: avltree.avltree_dict
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.avltree\_multiset module
+--------------------------------
+
+.. automodule:: avltree.avltree_multiset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.avltree\_multiset2 module
+---------------------------------
+
+.. automodule:: avltree.avltree_multiset2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.avltree\_multiset3 module
+---------------------------------
+
+.. automodule:: avltree.avltree_multiset3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.avltree\_set module
+---------------------------
+
+.. automodule:: avltree.avltree_set
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.avltree\_set2 module
+----------------------------
+
+.. automodule:: avltree.avltree_set2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.avltree\_set3 module
+----------------------------
+
+.. automodule:: avltree.avltree_set3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.lazy\_avltree module
+----------------------------
+
+.. automodule:: avltree.lazy_avltree
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.persistent\_avltree\_list module
+----------------------------------------
+
+.. automodule:: avltree.persistent_avltree_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.persistent\_lazy\_avltree module
+----------------------------------------
+
+.. automodule:: avltree.persistent_lazy_avltree
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+avltree.reversible\_lazy\_avltree module
+----------------------------------------
+
+.. automodule:: avltree.reversible_lazy_avltree
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: avltree
+   :members:
+   :undoc-members:
+   :show-inheritance:

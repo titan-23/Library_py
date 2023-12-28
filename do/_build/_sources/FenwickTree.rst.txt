@@ -1,0 +1,7 @@
+FenwickTree module
+==================
+
+.. automodule:: FenwickTree
+   :members:
+   :undoc-members:
+   :show-inheritance:

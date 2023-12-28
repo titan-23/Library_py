@@ -1,0 +1,7 @@
+FenwickTree2D module
+====================
+
+.. automodule:: FenwickTree2D
+   :members:
+   :undoc-members:
+   :show-inheritance:

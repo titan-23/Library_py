@@ -1,0 +1,7 @@
+CSRArray module
+===============
+
+.. automodule:: CSRArray
+   :members:
+   :undoc-members:
+   :show-inheritance:

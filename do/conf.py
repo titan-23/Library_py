@@ -8,7 +8,6 @@ import sys
 sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../../'))
 sys.path.insert(0, os.path.abspath('../data_structures/'))
-sys.path.insert(0, os.path.abspath('../data_structures/avltree/'))
 autodoc_typehints = 'description'  # 型ヒントを有効
 autoclass_content = 'both'         # __init__()も出力
 autodoc_default_options = {'private-members': False,   # プライベートメソッドも出力
@@ -24,7 +23,15 @@ author = 'titan'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.todo',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
+]
+viewcode_line_numbers = True
+
 # Napoleon settings
 napoleon_google_docstring = True
 napoleon_include_init_with_doc = False

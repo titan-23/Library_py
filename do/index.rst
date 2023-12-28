@@ -10,9 +10,7 @@ Welcome to titanlib's documentation!
    :maxdepth: 10
    :caption: Contents:
 
-   segment_tree
-
-   avltree
+   data_structures
 
 
 Indices and tables

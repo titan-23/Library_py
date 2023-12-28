@@ -1,8 +1,7 @@
-Library_py
-==========
+data_structures
+===============
 
 .. toctree::
    :maxdepth: 4
 
-   expander
-   segment_tree
+   data_structures

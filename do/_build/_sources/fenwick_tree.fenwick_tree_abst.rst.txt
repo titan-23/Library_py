@@ -1,0 +1,7 @@
+fenwick\_tree.fenwick\_tree\_abst module
+========================================
+
+.. automodule:: fenwick_tree.fenwick_tree_abst
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,23 @@
+fenwick\_tree package
+=====================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   fenwick_tree.dynamic_fenwick_tree
+   fenwick_tree.dynamic_fenwick_tree2_D
+   fenwick_tree.fenwick_tree
+   fenwick_tree.fenwick_tree_2D
+   fenwick_tree.fenwick_tree_RAQ
+   fenwick_tree.fenwick_tree_abst
+
+Module contents
+---------------
+
+.. automodule:: fenwick_tree
+   :members:
+   :undoc-members:
+   :show-inheritance:

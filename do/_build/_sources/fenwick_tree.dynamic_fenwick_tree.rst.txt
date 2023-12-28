@@ -1,0 +1,7 @@
+fenwick\_tree.dynamic\_fenwick\_tree module
+===========================================
+
+.. automodule:: fenwick_tree.dynamic_fenwick_tree
+   :members:
+   :undoc-members:
+   :show-inheritance:

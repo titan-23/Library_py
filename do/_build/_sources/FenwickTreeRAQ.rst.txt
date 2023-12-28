@@ -1,0 +1,7 @@
+FenwickTreeRAQ module
+=====================
+
+.. automodule:: FenwickTreeRAQ
+   :members:
+   :undoc-members:
+   :show-inheritance:

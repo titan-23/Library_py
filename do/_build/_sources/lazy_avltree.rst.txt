@@ -1,0 +1,7 @@
+lazy\_avltree module
+====================
+
+.. automodule:: lazy_avltree
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>segment_tree &mdash; titanlib  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=c033477b"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=4dbe4bdc"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            titanlib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../segment_tree.html">segment_tree module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avltree.html">avltree package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_structures.html">data_structures package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">titanlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">モジュールコード</a></li>
+      <li class="breadcrumb-item active">segment_tree</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>segment_tree のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">Library_py.data_structures.SegmentTree.SegmentTreeInterface</span> <span class="kn">import</span> <span class="n">SegmentTreeInterface</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SegmentTree">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree">[ドキュメント]</a>
+<span class="k">class</span> <span class="nc">SegmentTree</span><span class="p">:</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;SegmentTree</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      n_or_a (Union[int, Iterable[T]]): 要素数または列です</span>
+
+<span class="sd">      op (Callable[[T, T], T]): 二項演算の関数です</span>
+
+<span class="sd">      e (T): 単位元です</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">      長さ `n` の区間 `min` セグ木を作るときは以下のようにします</span>
+
+<span class="sd">      &gt;&gt;&gt; n = int(input())</span>
+<span class="sd">      &gt;&gt;&gt; op = lambda s, t: min(s, t)</span>
+<span class="sd">      &gt;&gt;&gt; e = INF</span>
+<span class="sd">      &gt;&gt;&gt; seg = SegmentTree(n, op, e)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">      :math:`O(n)` です</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<div class="viewcode-block" id="SegmentTree.set">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.set">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;set</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        k (int): k番目の値をvに更新します。</span>
+
+<span class="sd">        v (T): k番目の値をvに更新します。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SegmentTree.get">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.get">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.get(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="SegmentTree.prod">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.prod">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.prod(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="n">l</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+    <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+    <span class="n">lres</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="n">rres</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">lres</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">lres</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+        <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">r</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">rres</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">r</span><span class="o">^</span><span class="mi">1</span><span class="p">],</span> <span class="n">rres</span><span class="p">)</span>
+      <span class="n">l</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+      <span class="n">r</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">lres</span><span class="p">,</span> <span class="n">rres</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SegmentTree.all_prod">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.all_prod">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="SegmentTree.max_right">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.max_right">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Find the largest index R s.t. f([l, R)) == True. / O(logN)&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.max_right(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, f) index out of range&#39;</span>
+    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.max_right(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, f), f(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">) must be true.&#39;</span>
+    <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+    <span class="n">l</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">while</span> <span class="n">l</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">l</span><span class="p">])):</span>
+        <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">:</span>
+          <span class="n">l</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+          <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">l</span><span class="p">])):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+            <span class="n">l</span> <span class="o">|=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">l</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">l</span><span class="p">])</span>
+      <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">l</span> <span class="o">==</span> <span class="n">l</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
+
+
+<div class="viewcode-block" id="SegmentTree.min_left">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.min_left">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">min_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Find the smallest index L s.t. f([L, r)) == True. / O(logN)&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.min_left(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, f) index out of range&#39;</span>
+    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.min_left(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, f), f(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">) must be true.&#39;</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">r</span> <span class="o">-=</span> <span class="mi">1</span>
+      <span class="k">while</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">s</span><span class="p">)):</span>
+        <span class="k">while</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">:</span>
+          <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span>
+          <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">s</span><span class="p">)):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">^=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">r</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">r</span> <span class="o">==</span> <span class="n">r</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="SegmentTree.tolist">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.tolist">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="SegmentTree.show">
+<a class="viewcode-back" href="../segment_tree.html#segment_tree.SegmentTree.show">[ドキュメント]</a>
+  <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&gt; [</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;  &#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">i</span><span class="p">)]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">]&#39;</span><span class="p">)</span></div>
+
+
+  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.__getitem__(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
+        <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.__setitem__</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, titan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

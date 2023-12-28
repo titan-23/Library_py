@@ -1,0 +1,7 @@
+PersistentArray module
+======================
+
+.. automodule:: PersistentArray
+   :members:
+   :undoc-members:
+   :show-inheritance:
