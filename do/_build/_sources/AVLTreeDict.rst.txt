@@ -1,0 +1,7 @@
+AVLTreeDict module
+==================
+
+.. automodule:: AVLTreeDict
+   :members:
+   :undoc-members:
+   :show-inheritance:

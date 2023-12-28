@@ -11,104 +11,96 @@ _____
 
 _____
 
-遅延伝播反転可能平衡二分木です。
 _____
 
 ## 仕様
 
-### `LazySplayTreeData`
-
-モノイドのデータや作用、左右の子などを保持するクラスです。 `LazySplayTree` をインスタンス化する際に渡してください。  
-`merge / split` する場合はそれらが同一の `LazySplayTreeData` を持つ必要があります。
-
 ### `LazySplayTree`
 
-親へのポインタ持たせて～～
+#### `splay = LazySplayTree(n_or_a: Union[int, Iterable[T]], op, mapping, composition, e, id)`
 
-#### `st = LazySplayTree(data: LazySplayTreeData, n_or_a: Union[int, Iterable[T]]=0)`
-
-- `data` から `LazySplayTree` を構築します。
-- `n_or_a` が `int` のとき、`data.e` から長さ `n` の `st` が作られます。
-`n_or_a` が `Iterable` のとき、`a` から `st` が作られます。
+- `n_or_a` から `LazySplayTree` を構築します。
+  - `n_or_a` が `int` のとき、`data.e` から長さ `n` の `splay` が作られます。
+  - `n_or_a` が `Iterable` のとき、`a` から `splay` が作られます。
 - `O(N)` です。
 
-#### `st.merge(other: LazySplayTree) -> None`
+#### `splay.merge(other: LazySplayTree) -> None`
 
-- `st` の後ろに `other` を連結します。
+- `splay` の後ろに `other` を連結します。
 - 償却 `O(logN)` です。
 
-#### `st.split(k: int) -> Tuple[LazySplayTree, LazySplayTree]`
+#### `splay.split(k: int) -> Tuple[LazySplayTree, LazySplayTree]`
 
 - 2つの `LazySplayTree` を要素に持つタプルを返します。
-  - 1要素目は `st` の `0` 番目から `k-1` 番目までを、2要素目は `k` 番目以降を要素に持ちます。
+  - 1要素目は `splay` の `0` 番目から `k-1` 番目までを、2要素目は `k` 番目以降を要素に持ちます。
 - 償却 `O(logN)` です。
 
-#### `st.insert(k: int, key: T) -> None`
+#### `splay.insert(k: int, key: T) -> None`
 
 - 位置 `k` に `key` を挿入します。
 - 償却 `O(logN)` です。
 
-#### `st.append(key: T) / .appendleft(key: T) -> None`
+#### `splay.append(key: T) / .appendleft(key: T) -> None`
 
 - 末尾 / 先頭 に `key` を追加します。
 - 償却 `O(logN)` です。
 
-#### `st.pop(k: int=-1) / .popleft() -> T`
+#### `splay.pop(k: int=-1) / .popleft() -> T`
 
 - `k` 番目 / 末尾 / 先頭 を削除しその値を返します。
 - 償却 `O(logN)` です。
 
-#### `st[k] -> T`
+#### `splay[k] -> T`
 
 - `k` 番目を返します。
 - 償却 `O(logN)` です。
 
-#### `st[k] = key: T`
+#### `splay[k] = key: T`
 
 - `k` 番目を `key` に更新します。
 - 償却 `O(logN)` です。
 
-#### `st.copy() -> LazySplayTree`
+#### `splay.copy() -> LazySplayTree`
 
 - コピーします。
 - `O(N)` です。
 
-#### `st.reverse(l: int, r: int) -> None`
+#### `splay.reverse(l: int, r: int) -> None`
 
-- 区間 `[l, r)` を反転します。 `reverse()` メソッドを一度でも使用するなら `op` には可換性が求められます(可換性がない場合、嘘の動作をします)。
+- 区間 `[l, r)` を反転します。
 - 償却 `O(logN)` です。
 
-#### `st.all_reverse() -> None`
+#### `splay.all_reverse() -> None`
 
 - 区間 `[0, N)` を反転します。
 - `O(1)` です。
 
-#### `st.apply(l: int, r: int, f: F) -> None`
+#### `splay.apply(l: int, r: int, f: F) -> None`
 
 - 区間 `[l, r)` に作用 `f` を適用します。
 - 償却 `O(logN)` です。
 
-#### `st.all_apply(f: F) -> None`
+#### `splay.all_apply(f: F) -> None`
 
 - 区間 `[0, N)` に作用 `f` を適用します。
 - `O(1)` です。
 
-#### `st.prod(l: int, r: int) -> T`
+#### `splay.prod(l: int, r: int) -> T`
 
 - 区間 `[l, r)` に `op` を適用した結果を返します。
 - 償却 `O(logN)` です。
 
-#### `st.all_prod() -> T`
+#### `splay.all_prod() -> T`
 
 - 区間 `[0, N)` の総積を返します。
 - `O(1)` です。
 
-#### `st.tolist() -> List[T]`
+#### `splay.tolisplay() -> List[T]`
 
 - `List` に変換します。非再帰です。
 - `O(N)` です。
 
-#### `iter(st) / next(st) / len(st) / str(st) / repr(st)`
+#### `iter(splay) / next(splay) / len(splay) / str(splay) / repr(splay)`
 
 _____
 
@@ -120,11 +112,10 @@ mapping = lambda f, s: f
 composition = lambda f, g: f
 e = 0
 id = 0
-data = LazySplayTreeData(op, mapping, composition, e, id)
 
 n, q = map(int, input().split())
 A = list(map(int, input().split()))
-splay = LazySplayTree(data, A)
+splay = LazySplayTree(A, op, mapping, composition, e, id))
 for _ in range(q):
   qu = map(int, input().split())
 ```

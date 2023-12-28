@@ -1,0 +1,7 @@
+PersistentLazyAVLTree module
+============================
+
+.. automodule:: PersistentLazyAVLTree
+   :members:
+   :undoc-members:
+   :show-inheritance:

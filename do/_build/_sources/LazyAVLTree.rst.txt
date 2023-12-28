@@ -1,0 +1,7 @@
+LazyAVLTree module
+==================
+
+.. automodule:: LazyAVLTree
+   :members:
+   :undoc-members:
+   :show-inheritance:

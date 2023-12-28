@@ -1,0 +1,7 @@
+AVLTreeMultiset module
+======================
+
+.. automodule:: AVLTreeMultiset
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+SegmentTree module
+==================
+
+.. automodule:: SegmentTree
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+AVLTreeSet module
+=================
+
+.. automodule:: AVLTreeSet
+   :members:
+   :undoc-members:
+   :show-inheritance:

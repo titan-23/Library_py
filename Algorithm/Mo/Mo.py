@@ -1,6 +1,5 @@
 from typing import Callable
 from itertools import chain
-from __pypy__ import newlist_hint
 from math import sqrt, ceil
 
 class Mo():
@@ -13,7 +12,7 @@ class Mo():
       self.bucket_size = 1
     self.bit = max(n, q).bit_length()
     self.msk = (1 << self.bit) - 1
-    self.bucket = [newlist_hint(self.bucket_size//10) for _ in range(n//self.bucket_size+1)]
+    self.bucket = [[] for _ in range(n//self.bucket_size+1)]
     self.cnt = 0
 
   def add_query(self, l: int, r: int) -> None:
