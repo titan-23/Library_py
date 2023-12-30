@@ -10,6 +10,10 @@ _titan_pylib_DynamicHashString_MASK31: Final[int] = (1 << 31) - 1
 _titan_pylib_DynamicHashString_MASK61: Final[int] = _titan_pylib_DynamicHashString_MOD
 
 class DynamicHashStringBase():
+  """動的な文字列に対するロリハです。
+
+  平衡二分木にモノイドを載せてるだけです。こんなライブラリ必要ないです。
+  """
 
   def __init__(self, n: int, base: int=-1, seed: Optional[int]=None) -> None:
     random.seed(seed)

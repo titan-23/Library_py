@@ -10,8 +10,18 @@ _titan_pylib_HashString_MASK31: Final[int] = (1 << 31) - 1
 _titan_pylib_HashString_MASK61: Final[int] = _titan_pylib_HashString_MOD
 
 class HashStringBase():
+  """HashStringのベースクラスです。
+  """
 
   def __init__(self, n: int, base: int=-1, seed: Optional[int]=None) -> None:
+    """
+    :math:`O(n)` です。
+
+    Args:
+        n (int): 文字列の長さの上限です。
+        base (int, optional): Defaults to -1.
+        seed (Optional[int], optional): Defaults to None.
+    """
     random.seed(seed)
     base = random.randint(37, 10**9) if base < 0 else base
     powb = [1] * (n+1)
@@ -52,6 +62,15 @@ class HashStringBase():
 class HashString():
 
   def __init__(self, hsb: HashStringBase, s: str, update: bool=False) -> None:
+    """ロリハを構築します。
+
+    :math:`O(n)` です。
+
+    Args:
+        hsb (HashStringBase): ベースクラスです。
+        s (str): ロリハを構築する文字列です。
+        update (bool, optional): ``update=True`` のとき、1点更新が可能になります。
+    """
     n = len(s)
     data = [0] * n
     acc = [0] * (n+1)
@@ -67,14 +86,43 @@ class HashString():
       self.seg = SegmentTree(data, lambda s, t: (s+t)%_titan_pylib_HashString_MOD, 0)
 
   def get(self, l: int, r: int) -> int:
+    """``s[l, r)`` のハッシュ値を返します。
+
+    1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。
+
+    Args:
+      l (int): インデックスです。
+      r (int): インデックスです。
+
+    Returns:
+      int: ハッシュ値です。
+    """
     if self.used_seg:
       return self.hsb.get_mul(self.seg.prod(l, r), self.hsb.invb[self.n-r])
     return self.hsb.get_mul(self.hsb.get_mod(self.acc[r]-self.acc[l]), self.hsb.invb[self.n-r])
 
   def __getitem__(self, k: int) -> int:
+    """``s[k]`` のハッシュ値を返します。
+
+    1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。
+
+    Args:
+      k (int): インデックスです。
+
+    Returns:
+      int: ハッシュ値です。
+    """
     return self.get(k, k+1)
 
   def set(self, k: int, c: str) -> None:
+    """`k` 番目の文字を `c` に更新します。
+
+    :math:`O(\\log{n})` です。また、今後の ``get()`` が :math:`O(\\log{n})` になります。
+
+    Args:
+      k (int): インデックスです。
+      c (str): 更新する文字です。
+    """
     self.used_seg = True
     self.seg[k] = self.hsb.get_mul(self.hsb.powb[self.n-k-1], _titan_pylib_HashString_DIC[c])
 
@@ -85,6 +133,10 @@ class HashString():
     return self.n
 
   def get_lcp(self) -> List[int]:
+    """lcp配列を返します。
+
+    :math:`O(n\\log{n})` です。
+    """
     a = [0] * self.n
     memo = [-1] * (self.n+1)
     for i in range(self.n):
