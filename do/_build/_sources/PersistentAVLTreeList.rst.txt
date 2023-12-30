@@ -1,7 +1,0 @@
-PersistentAVLTreeList module
-============================
-
-.. automodule:: PersistentAVLTreeList
-   :members:
-   :undoc-members:
-   :show-inheritance:

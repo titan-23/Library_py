@@ -1,7 +1,0 @@
-avltree\_set2 module
-====================
-
-.. automodule:: avltree_set2
-   :members:
-   :undoc-members:
-   :show-inheritance:

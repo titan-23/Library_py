@@ -1,7 +1,0 @@
-FenwickTreeAbst module
-======================
-
-.. automodule:: FenwickTreeAbst
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,0 @@
-ReversibleLazyAVLTree module
-============================
-
-.. automodule:: ReversibleLazyAVLTree
-   :members:
-   :undoc-members:
-   :show-inheritance:

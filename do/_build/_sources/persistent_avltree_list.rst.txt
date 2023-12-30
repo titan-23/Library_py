@@ -1,7 +1,0 @@
-persistent\_avltree\_list module
-================================
-
-.. automodule:: persistent_avltree_list
-   :members:
-   :undoc-members:
-   :show-inheritance:

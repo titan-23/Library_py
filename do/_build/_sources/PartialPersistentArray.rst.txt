@@ -1,7 +1,0 @@
-PartialPersistentArray module
-=============================
-
-.. automodule:: PartialPersistentArray
-   :members:
-   :undoc-members:
-   :show-inheritance:

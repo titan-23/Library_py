@@ -1,7 +1,0 @@
-avltree\_dict module
-====================
-
-.. automodule:: avltree_dict
-   :members:
-   :undoc-members:
-   :show-inheritance:

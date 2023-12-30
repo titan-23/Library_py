@@ -1,7 +1,0 @@
-DynamicFenwickTree2D module
-===========================
-
-.. automodule:: DynamicFenwickTree2D
-   :members:
-   :undoc-members:
-   :show-inheritance:

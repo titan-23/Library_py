@@ -1,7 +1,0 @@
-avltree\_multiset3 module
-=========================
-
-.. automodule:: avltree_multiset3
-   :members:
-   :undoc-members:
-   :show-inheritance:
