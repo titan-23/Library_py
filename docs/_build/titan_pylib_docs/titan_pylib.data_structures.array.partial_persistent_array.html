@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -61,7 +62,7 @@
 <li class="toctree-l4"><a class="reference internal" href="titan_pylib.data_structures.array.html#module-titan_pylib.data_structures.array">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avltree.html">titan_pylib.data_structures.avltree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.html">titan_pylib.data_structures.avl_tree package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">titan_pylib.data_structures.b_tree package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.html">titan_pylib.data_structures.binary_trie package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.html">titan_pylib.data_structures.bit_vector package</a></li>
@@ -131,6 +132,8 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.array.partial_persistent_array.</span></span><span class="sig-name descname"><span class="pre">PartialPersistentArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/partial_persistent_array.html#PartialPersistentArray"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>部分永続配列です。
+最新版の更新と、過去へのアクセスが可能です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>
@@ -139,11 +142,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/partial_persistent_array.html#PartialPersistentArray.get"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.get" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>位置 <code class="docutils literal notranslate"><span class="pre">k</span></code> 、バージョン <code class="docutils literal notranslate"><span class="pre">t</span></code> の要素を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>k</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>t</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>k</strong> (<em>int</em>) -- インデックスです。</p></li>
+<li><p><strong>t</strong> (<em>int</em><em>, </em><em>optional</em>) -- バージョンです。デフォルトは最新バージョンです。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
@@ -155,12 +160,14 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.set">
 <span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/partial_persistent_array.html#PartialPersistentArray.set"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.set" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>位置 <code class="docutils literal notranslate"><span class="pre">k</span></code> を <code class="docutils literal notranslate"><span class="pre">v</span></code> に更新します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>k</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>T</em>) -- </p></li>
-<li><p><strong>t</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>k</strong> (<em>int</em>) -- インデックスです。</p></li>
+<li><p><strong>v</strong> (<em>T</em>) -- 更新する値です。</p></li>
+<li><p><strong>t</strong> (<em>int</em>) -- 新たな配列のバージョンです。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
@@ -185,7 +192,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.show_all">
 <span class="sig-name descname"><span class="pre">show_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/partial_persistent_array.html#PartialPersistentArray.show_all"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.show_all" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>すべてのバージョンの配列を表示します。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
@@ -195,7 +203,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.tolist">
 <span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/partial_persistent_array.html#PartialPersistentArray.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.partial_persistent_array.PartialPersistentArray.tolist" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>バージョン <code class="docutils literal notranslate"><span class="pre">t</span></code> の配列を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(n\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>t</strong> (<em>int</em>) -- </p>
 </dd>

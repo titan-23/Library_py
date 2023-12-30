@@ -25,7 +25,7 @@ class Random():
   @classmethod
   def randint(cls, begin: int, end: int) -> int:
     """randint
-    ``begin`` 以上 ``end`` **以下**のランダムな整数を返します。
+    ``begin`` 以上 ``end`` **以下** のランダムな整数を返します。
     """
     assert begin <= end
     return begin + cls._xor() % (end - begin + 1)
@@ -33,7 +33,7 @@ class Random():
   @classmethod
   def randrange(cls, begin: int, end: int) -> int:
     """randint
-    ``begin`` 以上 ``end`` **未満**のランダムな整数を返します。
+    ``begin`` 以上 ``end`` **未満** のランダムな整数を返します。
     """
     assert begin < end
     return begin + cls._xor() % (end - begin)

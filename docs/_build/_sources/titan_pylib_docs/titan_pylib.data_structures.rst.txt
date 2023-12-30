@@ -8,7 +8,7 @@ Subpackages
    :maxdepth: 1
 
    titan_pylib.data_structures.array
-   titan_pylib.data_structures.avltree
+   titan_pylib.data_structures.avl_tree
    titan_pylib.data_structures.b_tree
    titan_pylib.data_structures.binary_trie
    titan_pylib.data_structures.bit_vector

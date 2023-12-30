@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -105,15 +106,22 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.string.get_suffix_array.get_suffix_array">
 <span class="sig-prename descclassname"><span class="pre">titan_pylib.string.get_suffix_array.</span></span><span class="sig-name descname"><span class="pre">get_suffix_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/string/get_suffix_array.html#get_suffix_array"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.string.get_suffix_array.get_suffix_array" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>suffix_arrayを求めます。</p>
+<p>ロリハで大小比較をするため、比較関数に <span class="math notranslate nohighlight">\(O(logn)\)</span> 、
+ソートが <span class="math notranslate nohighlight">\(O(nlogn*(比較関数の計算慮))\)</span> で、
+全体 <span class="math notranslate nohighlight">\(O(nlog^2n)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>s</strong> (<em>str</em>) -- </p></li>
-<li><p><strong>hs</strong> (<a class="reference internal" href="titan_pylib.string.hash_string.html#titan_pylib.string.hash_string.HashString" title="titan_pylib.string.hash_string.HashString"><em>HashString</em></a>) -- </p></li>
+<li><p><strong>s</strong> (<em>str</em>) -- 文字列です。</p></li>
+<li><p><strong>hs</strong> (<a class="reference internal" href="titan_pylib.string.hash_string.html#titan_pylib.string.hash_string.HashString" title="titan_pylib.string.hash_string.HashString"><em>HashString</em></a>) -- <code class="docutils literal notranslate"><span class="pre">HashString</span></code> です。</p></li>
 </ul>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>List</em>[int]</p>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>suffix_array です。</p>
+</dd>
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
 </dd>
 </dl>
 </dd></dl>

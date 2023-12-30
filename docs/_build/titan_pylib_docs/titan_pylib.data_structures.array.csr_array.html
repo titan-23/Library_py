@@ -61,7 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="titan_pylib.data_structures.array.html#module-titan_pylib.data_structures.array">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avltree.html">titan_pylib.data_structures.avltree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.html">titan_pylib.data_structures.avl_tree package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">titan_pylib.data_structures.b_tree package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.html">titan_pylib.data_structures.binary_trie package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.html">titan_pylib.data_structures.bit_vector package</a></li>
@@ -139,12 +139,13 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.csr_array.CSRArray.iter">
-<span class="sig-name descname"><span class="pre">iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/csr_array.html#CSRArray.iter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.csr_array.CSRArray.iter" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/csr_array.html#CSRArray.iter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.csr_array.CSRArray.iter" title="Link to this definition"></a></dt>
+<dd><p>行を指定してイテレートします。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>k</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>start</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>i</strong> (<em>int</em>) -- 行のインデックスです。</p></li>
+<li><p><strong>j</strong> (<em>int</em><em>, </em><em>optional</em>) -- 列のインデックスです。デフォルトは <code class="docutils literal notranslate"><span class="pre">0</span></code> です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
@@ -157,13 +158,12 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.csr_array.CSRArray.set">
 <span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/csr_array.html#CSRArray.set"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.csr_array.CSRArray.set" title="Link to this definition"></a></dt>
 <dd><p>インデックスを指定して値を更新します。</p>
-<p><code class="docutils literal notranslate"><span class="pre">a[i][j]</span></code> 要素を <code class="docutils literal notranslate"><span class="pre">val</span></code> に更新します。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>i</strong> (<em>int</em><em>)</em><em>, </em><em>j</em><em> (</em><em>int</em><em>)</em><em>, </em><em>val</em><em> (</em><em>T</em>) -- aa</p></li>
-<li><p><strong>j</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>val</strong> (<em>T</em>) -- </p></li>
+<li><p><strong>i</strong> (<em>int</em>) -- 行のインデックスです。</p></li>
+<li><p><strong>j</strong> (<em>int</em>) -- 列のインデックスです。</p></li>
+<li><p><strong>val</strong> (<em>T</em>) -- a[i][j] 要素を更新する値です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
