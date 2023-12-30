@@ -2,12 +2,16 @@ import os
 from __pypy__.builders import StringBuilder
 
 class FastO():
+  """標準出力高速化ライブラリです。
+  """
 
-  sb = StringBuilder()
+  _sb = StringBuilder()
 
   @classmethod
   def write(cls, *args, sep: str=' ', end: str='\n', flush: bool=False) -> None:
-    append = cls.sb.append
+    """標準出力します。次の ``FastO.flush()`` が起きると print します。
+    """
+    append = cls._sb.append
     for i in range(len(args)-1):
       append(str(args[i]))
       append(sep)
@@ -19,6 +23,8 @@ class FastO():
 
   @classmethod
   def flush(cls) -> None:
-    os.write(1, cls.sb.build().encode())
-    cls.sb = StringBuilder()
+    """``flush`` します。これを実行しないと ``write`` した内容が表示されないので忘れないでください。
+    """
+    os.write(1, cls._sb.build().encode())
+    cls._sb = StringBuilder()
 
