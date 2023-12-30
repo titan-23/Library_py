@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>titan_pylib.data_structures.heap.double_ended_heap module &mdash; titan_pylib  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/_static/style.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=c033477b"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=4ea706d9"></script>
+        <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script src="../_static/_static/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="titan_pylib.data_structures.heap.max_heap module" href="titan_pylib.data_structures.heap.max_heap.html" />
+    <link rel="prev" title="titan_pylib.data_structures.heap.binomial_heap module" href="titan_pylib.data_structures.heap.binomial_heap.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            titan_pylib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.algorithm.html">titan_pylib.algorithm package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="titan_pylib.data_structures.html">titan_pylib.data_structures package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="titan_pylib.data_structures.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.html">titan_pylib.data_structures.array package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avltree.html">titan_pylib.data_structures.avltree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">titan_pylib.data_structures.b_tree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.html">titan_pylib.data_structures.binary_trie package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.html">titan_pylib.data_structures.bit_vector package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bst_base.html">titan_pylib.data_structures.bst_base package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.html">titan_pylib.data_structures.cumulative_sum package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.deque.html">titan_pylib.data_structures.deque package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dict.html">titan_pylib.data_structures.dict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.html">titan_pylib.data_structures.dynamic_connectivity package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.html">titan_pylib.data_structures.fenwick_tree package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="titan_pylib.data_structures.heap.html">titan_pylib.data_structures.heap package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="titan_pylib.data_structures.heap.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan_pylib.data_structures.heap.html#module-titan_pylib.data_structures.heap">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.list.html">titan_pylib.data_structures.list package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">titan_pylib.data_structures.others package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">titan_pylib.data_structures.rbst package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">titan_pylib.data_structures.red_black_tree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">titan_pylib.data_structures.scapegoat_tree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">titan_pylib.data_structures.segment_quadratic_division package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">titan_pylib.data_structures.segment_tree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.html">titan_pylib.data_structures.set package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.sparse_table.html">titan_pylib.data_structures.sparse_table package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.html">titan_pylib.data_structures.splay_tree package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.stack.html">titan_pylib.data_structures.stack package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.static_array_query.html">titan_pylib.data_structures.static_array_query package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.treap.html">titan_pylib.data_structures.treap package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.html">titan_pylib.data_structures.union_find package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.html">titan_pylib.data_structures.wavelet_matrix package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.html">titan_pylib.data_structures.wb_Tree package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.data_structures.html#module-titan_pylib.data_structures">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.graph.html">titan_pylib.graph package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.io.html">titan_pylib.io package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.math.html">titan_pylib.math package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.string.html">titan_pylib.string package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">titan_pylib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="titan_pylib.data_structures.html">titan_pylib.data_structures package</a></li>
+          <li class="breadcrumb-item"><a href="titan_pylib.data_structures.heap.html">titan_pylib.data_structures.heap package</a></li>
+      <li class="breadcrumb-item active">titan_pylib.data_structures.heap.double_ended_heap module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/titan_pylib_docs/titan_pylib.data_structures.heap.double_ended_heap.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-titan_pylib.data_structures.heap.double_ended_heap">
+<span id="titan-pylib-data-structures-heap-double-ended-heap-module"></span><h1>titan_pylib.data_structures.heap.double_ended_heap module<a class="headerlink" href="#module-titan_pylib.data_structures.heap.double_ended_heap" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.heap.double_ended_heap.</span></span><span class="sig-name descname"><span class="pre">DoubleEndedHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.add" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_max">
+<span class="sig-name descname"><span class="pre">get_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.get_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_max" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>T</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_min">
+<span class="sig-name descname"><span class="pre">get_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.get_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_min" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>T</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_max">
+<span class="sig-name descname"><span class="pre">pop_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.pop_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_max" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>T</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_min">
+<span class="sig-name descname"><span class="pre">pop_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.pop_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_min" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>T</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.tolist">
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.tolist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="titan_pylib.data_structures.heap.binomial_heap.html" class="btn btn-neutral float-left" title="titan_pylib.data_structures.heap.binomial_heap module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="titan_pylib.data_structures.heap.max_heap.html" class="btn btn-neutral float-right" title="titan_pylib.data_structures.heap.max_heap module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, titan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- <link rel="stylesheet" type="text/css" href="../_static/style.css"> -->
+    <script type="text/javascript" src="../_static/script.js"></script>
+
+    <!-- <button id="copyButton">Copy</button>
+    <button id="ShowFullCodeButton">Show Full Code</button>
+    <button id="toggleCodeButton">Toggle Code</button> -->
+
+
+</body>
+</html>

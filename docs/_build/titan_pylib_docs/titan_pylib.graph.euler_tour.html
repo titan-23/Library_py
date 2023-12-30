@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>titan_pylib.graph.euler_tour module &mdash; titan_pylib  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/_static/style.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=c033477b"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=4ea706d9"></script>
+        <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script src="../_static/_static/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="titan_pylib.graph.get_articulation_points module" href="titan_pylib.graph.get_articulation_points.html" />
+    <link rel="prev" title="titan_pylib.graph.dijkstra module" href="titan_pylib.graph.dijkstra.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            titan_pylib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.algorithm.html">titan_pylib.algorithm package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.html">titan_pylib.data_structures package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="titan_pylib.graph.html">titan_pylib.graph package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="titan_pylib.graph.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">titan_pylib.graph.bellman_ford module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.bfs.html">titan_pylib.graph.bfs module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.cartesian_tree.html">titan_pylib.graph.cartesian_tree module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">titan_pylib.graph.dijkstra module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">titan_pylib.graph.euler_tour module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#titan_pylib.graph.euler_tour.EulerTour"><code class="docutils literal notranslate"><span class="pre">EulerTour</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">titan_pylib.graph.get_articulation_points module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">titan_pylib.graph.get_biconnected_components module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">titan_pylib.graph.get_bridge module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_scc.html">titan_pylib.graph.get_scc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">titan_pylib.graph.get_scc_lowlink module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.graph.html">titan_pylib.graph.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">titan_pylib.graph.grid_bfs module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">titan_pylib.graph.is_bipartite_graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.lca.html">titan_pylib.graph.lca module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.namori.html">titan_pylib.graph.namori module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.rerooting_dp.html">titan_pylib.graph.rerooting_dp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.rooted_tree.html">titan_pylib.graph.rooted_tree module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.spfa.html">titan_pylib.graph.spfa module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.topological_sort.html">titan_pylib.graph.topological_sort module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.warshall_floyd.html">titan_pylib.graph.warshall_floyd module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.weighted_rooted_tree.html">titan_pylib.graph.weighted_rooted_tree module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.html#module-titan_pylib.graph">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.io.html">titan_pylib.io package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.math.html">titan_pylib.math package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.string.html">titan_pylib.string package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">titan_pylib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="titan_pylib.graph.html">titan_pylib.graph package</a></li>
+      <li class="breadcrumb-item active">titan_pylib.graph.euler_tour module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/titan_pylib_docs/titan_pylib.graph.euler_tour.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-titan_pylib.graph.euler_tour">
+<span id="titan-pylib-graph-euler-tour-module"></span><h1>titan_pylib.graph.euler_tour module<a class="headerlink" href="#module-titan_pylib.graph.euler_tour" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.graph.euler_tour.</span></span><span class="sig-name descname"><span class="pre">EulerTour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertexcost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>]</em>) -- </p></li>
+<li><p><strong>root</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>vertexcost</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.add_edge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.add_edge" title="Link to this definition"></a></dt>
+<dd><p>Add w to edge([u - v]). / O(logN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>w</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.add_vertex">
+<span class="sig-name descname"><span class="pre">add_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.add_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.add_vertex" title="Link to this definition"></a></dt>
+<dd><p>Add w to vertex x. / O(logN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>w</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.lca">
+<span class="sig-name descname"><span class="pre">lca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.lca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.lca" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.lca_mul">
+<span class="sig-name descname"><span class="pre">lca_mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.lca_mul"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.lca_mul" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>a</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- </p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.path_ecost">
+<span class="sig-name descname"><span class="pre">path_ecost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.path_ecost"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.path_ecost" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.path_vcost">
+<span class="sig-name descname"><span class="pre">path_vcost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.path_vcost"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.path_vcost" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.set_edge">
+<span class="sig-name descname"><span class="pre">set_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.set_edge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.set_edge" title="Link to this definition"></a></dt>
+<dd><p>Set w to edge([u - v]). / O(logN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>w</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.set_vertex">
+<span class="sig-name descname"><span class="pre">set_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.set_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.set_vertex" title="Link to this definition"></a></dt>
+<dd><p>Set w to vertex v. / O(logN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>w</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.subtree_ecost">
+<span class="sig-name descname"><span class="pre">subtree_ecost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.subtree_ecost"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.subtree_ecost" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.euler_tour.EulerTour.subtree_vcost">
+<span class="sig-name descname"><span class="pre">subtree_vcost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/euler_tour.html#EulerTour.subtree_vcost"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.euler_tour.EulerTour.subtree_vcost" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="titan_pylib.graph.dijkstra.html" class="btn btn-neutral float-left" title="titan_pylib.graph.dijkstra module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="titan_pylib.graph.get_articulation_points.html" class="btn btn-neutral float-right" title="titan_pylib.graph.get_articulation_points module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, titan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- <link rel="stylesheet" type="text/css" href="../_static/style.css"> -->
+    <script type="text/javascript" src="../_static/script.js"></script>
+
+    <!-- <button id="copyButton">Copy</button>
+    <button id="ShowFullCodeButton">Show Full Code</button>
+    <button id="toggleCodeButton">Toggle Code</button> -->
+
+
+</body>
+</html>

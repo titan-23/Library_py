@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>titan_pylib.data_structures.set.fenwick_tree_multiset &mdash; titanlib  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            titanlib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">titanlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">モジュールコード</a></li>
+      <li class="breadcrumb-item active">titan_pylib.data_structures.set.fenwick_tree_multiset</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>titan_pylib.data_structures.set.fenwick_tree_multiset のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">titan_pylib.data_structures.set.fenwick_tree_set</span> <span class="kn">import</span> <span class="n">FenwickTreeSet</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="linenos"> 3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<div class="viewcode-block" id="FenwickTreeMultiset">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset">[ドキュメント]</a>
+<span class="linenos"> 5</span><span class="k">class</span> <span class="nc">FenwickTreeMultiset</span><span class="p">(</span><span class="n">FenwickTreeSet</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">used</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">compress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 8</span>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">used</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="n">compress</span><span class="p">,</span> <span class="n">_multi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.add">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.add">[ドキュメント]</a>
+<span class="linenos">10</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">11</span>    <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span>
+<span class="linenos">12</span>    <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_zaatsu</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="linenos">13</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">+=</span> <span class="n">num</span>
+<span class="linenos">14</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">num</span>
+<span class="linenos">15</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_fw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
+
+<span class="linenos">16</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.discard">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.discard">[ドキュメント]</a>
+<span class="linenos">17</span>  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">18</span>    <span class="n">cnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="n">cnt</span><span class="p">:</span>
+<span class="linenos">20</span>      <span class="n">num</span> <span class="o">=</span> <span class="n">cnt</span>
+<span class="linenos">21</span>    <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos">22</span>    <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_zaatsu</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="linenos">23</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="n">num</span>
+<span class="linenos">24</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">num</span>
+<span class="linenos">25</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_fw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="n">num</span><span class="p">)</span>
+<span class="linenos">26</span>    <span class="k">return</span> <span class="kc">True</span></div>
+
+<span class="linenos">27</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.discard_all">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.discard_all">[ドキュメント]</a>
+<span class="linenos">28</span>  <span class="k">def</span> <span class="nf">discard_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">29</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
+
+<span class="linenos">30</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.count">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.count">[ドキュメント]</a>
+<span class="linenos">31</span>  <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">32</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_zaatsu</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span></div>
+
+<span class="linenos">33</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.pop">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.pop">[ドキュメント]</a>
+<span class="linenos">34</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">35</span>    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">,</span> \
+<span class="linenos">36</span>        <span class="sa">f</span><span class="s1">&#39;IndexError: FenwickTreeMultiset.pop(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), len=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos">37</span>    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+<span class="linenos">38</span>    <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos">39</span>    <span class="k">return</span> <span class="n">x</span></div>
+
+<span class="linenos">40</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.pop_min">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.pop_min">[ドキュメント]</a>
+<span class="linenos">41</span>  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">42</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> \
+<span class="linenos">43</span>        <span class="sa">f</span><span class="s1">&#39;IndexError: pop_min() from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
+<span class="linenos">44</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+<span class="linenos">45</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.pop_max">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.pop_max">[ドキュメント]</a>
+<span class="linenos">46</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">47</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> \
+<span class="linenos">48</span>        <span class="sa">f</span><span class="s1">&#39;IndexError: pop_max() from empty </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.&#39;</span>
+<span class="linenos">49</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+<span class="linenos">50</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.items">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.items">[ドキュメント]</a>
+<span class="linenos">51</span>  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">52</span>    <span class="n">_iter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">53</span>    <span class="k">while</span> <span class="n">_iter</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span>
+<span class="linenos">54</span>      <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_origin</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bisect_right</span><span class="p">(</span><span class="n">_iter</span><span class="p">)]</span>
+<span class="linenos">55</span>      <span class="n">cnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="linenos">56</span>      <span class="n">_iter</span> <span class="o">+=</span> <span class="n">cnt</span>
+<span class="linenos">57</span>      <span class="k">yield</span> <span class="n">res</span><span class="p">,</span> <span class="n">cnt</span></div>
+
+<span class="linenos">58</span>
+<div class="viewcode-block" id="FenwickTreeMultiset.show">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html#titan_pylib.data_structures.set.fenwick_tree_multiset.FenwickTreeMultiset.show">[ドキュメント]</a>
+<span class="linenos">59</span>  <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">60</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span><span class="p">)</span></div>
+</div>
+
+<span class="linenos">61</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, titan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
