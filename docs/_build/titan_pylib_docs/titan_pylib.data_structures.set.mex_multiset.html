@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,8 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.set.mex_multiset.</span></span><span class="sig-name descname"><span class="pre">MexMultiset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">MexMultiset</span></code> です。</p>
+<p>各操作は <cite>log</cite> がつきますが、ANDセグ木の <code class="docutils literal notranslate"><span class="pre">log</span></code> で割と軽いです。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -142,7 +145,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.add" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> を追加します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> (<em>int</em>) -- </p>
 </dd>
@@ -155,7 +160,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset.mex">
 <span class="sig-name descname"><span class="pre">mex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.mex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.mex" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>mex を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
@@ -165,7 +172,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset.remove">
 <span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.remove"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.remove" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> を削除します。 <code class="docutils literal notranslate"><span class="pre">key</span></code> は存在していなければなりません。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> (<em>int</em>) -- </p>
 </dd>

@@ -3,6 +3,13 @@ from itertools import chain
 T = TypeVar('T')
 
 class BinomialHeap(Generic[T]):
+  """二項ヒープです。
+
+  計算量はメチャクチャさぼってます。
+  あらゆる操作が :math:`\\theta{(\\log{n})}` です。
+
+  ``List`` の代わりに ``LinkedList`` を使用し、``push,meld`` では ``O(1)`` で連結させ、 ``delete_min`` にすべてを押し付けると ``push,meld`` が ``O(1)`` 、``delete_min`` が償却 ``O(logn)`` になるはずです。
+  """
 
   class Node():
 

@@ -130,5 +130,4 @@ dmypy.json
 .pyre/
 
 # my file
-/bench
-/.vscode
+.vscode/

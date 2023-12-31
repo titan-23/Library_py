@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" data-content_root="../../../">
 <head>
@@ -6,6 +7,8 @@
   <title>titan_pylib.graph.bellman_ford &mdash; titan_pylib  ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/_static/style.css" />
 
   
   <!--[if lt IE 9]>
@@ -17,7 +20,10 @@
         <script src="../../../_static/documentation_options.js?v=c033477b"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../../../_static/translations.js?v=4dbe4bdc"></script>
+        <script src="../../../_static/_static/script.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="検索" href="../../../search.html" /> 
@@ -82,7 +88,7 @@
 <div class="viewcode-block" id="bellman_ford">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.graph.bellman_ford.html#titan_pylib.graph.bellman_ford.bellman_ford">[ドキュメント]</a>
 <span class="linenos"> 3</span><span class="k">def</span> <span class="nf">bellman_ford</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">inf</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
-<span class="linenos"> 4</span><span class="w">  </span><span class="sd">&#39;&#39;&#39;Return dist from s. / O(|V||E|)&#39;&#39;&#39;</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="sd">&#39;&#39;&#39;Return dist from s. / O(nm)&#39;&#39;&#39;</span>
 <span class="linenos"> 5</span>  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="linenos"> 6</span>  <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">inf</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 <span class="linenos"> 7</span>  <span class="n">dist</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -126,7 +132,15 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+     
+    <!-- <link rel="stylesheet" type="text/css" href="../../../_static/style.css"> -->
+    <script type="text/javascript" src="../../../_static/script.js"></script>
+
+    <!-- <button id="copyButton">Copy</button>
+    <button id="ShowFullCodeButton">Show Full Code</button>
+    <button id="toggleCodeButton">Toggle Code</button> -->
+
 
 </body>
 </html>

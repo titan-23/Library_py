@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,10 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.heap.double_ended_heap.</span></span><span class="sig-name descname"><span class="pre">DoubleEndedHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<ul class="simple">
+<li><p>[両端優先度付きキューのInterval-Heap実装](<a class="reference external" href="https://natsugiri.hatenablog.com/entry/2016/10/10/035445">https://natsugiri.hatenablog.com/entry/2016/10/10/035445</a>)</p></li>
+<li><p>[Double-ended priority queue(wikipedia)](<a class="reference external" href="https://en.wikipedia.org/wiki/Double-ended_priority_queue">https://en.wikipedia.org/wiki/Double-ended_priority_queue</a>)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>
@@ -139,7 +144,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.add" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> を1つ追加します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
 </dd>
@@ -152,7 +159,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_max">
 <span class="sig-name descname"><span class="pre">get_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.get_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_max" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>最大の要素を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>T</em></p>
 </dd>
@@ -162,7 +171,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_min">
 <span class="sig-name descname"><span class="pre">get_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.get_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.get_min" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>最小の要素を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>T</em></p>
 </dd>
@@ -172,7 +183,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_max">
 <span class="sig-name descname"><span class="pre">pop_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.pop_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_max" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>最大の要素を <strong>削除して</strong> 返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>T</em></p>
 </dd>
@@ -182,7 +195,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_min">
 <span class="sig-name descname"><span class="pre">pop_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/double_ended_heap.html#DoubleEndedHeap.pop_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_min" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>最小の要素を <strong>削除して</strong> 返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>T</em></p>
 </dd>

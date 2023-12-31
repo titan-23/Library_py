@@ -4,6 +4,8 @@ from typing import Generic, Iterable, TypeVar, Union, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
+  """RmQ セグ木です。
+  """
 
   def __init__(self, _n_or_a: Union[int, Iterable[T]], e: T) -> None:
     self._e = e

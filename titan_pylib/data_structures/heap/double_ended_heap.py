@@ -3,8 +3,18 @@ from typing import Generic, Iterable, TypeVar
 T = TypeVar('T', bound=SupportsLessThan)
 
 class DoubleEndedHeap(Generic[T]):
+  """
+  - [両端優先度付きキューのInterval-Heap実装](https://natsugiri.hatenablog.com/entry/2016/10/10/035445)
+  - [Double-ended priority queue(wikipedia)](https://en.wikipedia.org/wiki/Double-ended_priority_queue)
+  """
 
   def __init__(self, a: Iterable[T]=[]):
+    """
+    :math:`O(n)` です。
+
+    Args:
+      a (Iterable[T], optional): 構築する配列です。
+    """
     self._data = list(a)
     self._heapify()
 
@@ -17,10 +27,18 @@ class DoubleEndedHeap(Generic[T]):
       self._up(k, i)
 
   def add(self, key: T) -> None:
+    """``key`` を1つ追加します。
+
+    :math:`O(\\log{n})` です。
+    """
     self._data.append(key)
     self._up(len(self._data)-1)
 
   def pop_min(self) -> T:
+    """最小の要素を **削除して** 返します。
+
+    :math:`O(\\log{n})` です。
+    """
     if len(self._data) < 3:
       res = self._data.pop()
     else:
@@ -31,6 +49,10 @@ class DoubleEndedHeap(Generic[T]):
     return res
 
   def pop_max(self) -> T:
+    """最大の要素を **削除して** 返します。
+
+    :math:`O(\\log{n})` です。
+    """
     if len(self._data) < 2:
       res = self._data.pop()
     else:
@@ -40,9 +62,17 @@ class DoubleEndedHeap(Generic[T]):
     return res
 
   def get_min(self) -> T:
+    """最小の要素を返します。
+
+    :math:`O(1)` です。
+    """
     return self._data[0] if len(self._data) < 2 else self._data[1]
 
   def get_max(self) -> T:
+    """最大の要素を返します。
+
+    :math:`O(1)` です。
+    """
     return self._data[0]
 
   def __len__(self):

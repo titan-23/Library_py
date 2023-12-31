@@ -4,8 +4,17 @@ random.seed(0)
 _titan_pylib_HashDict_K: int = 0x517cc1b727220a95
 
 class HashDict():
+  """ハッシュテーブルです。
+  組み込み辞書の ``dict`` よりやや遅いです。
+  """
 
   def __init__(self, e: int=-1, default: Any=0, reserve: int=-1):
+    """
+    Args:
+        e (int, optional): ``int`` 型で ``key`` として使用しない値です。
+                           ``key`` を ``int`` 型以外のもので指定したいときは ``_hash(key) -> int`` 関数をいじってください。
+        default (Any, optional): 存在しないキーにアクセスしたときの値です。
+    """
     # e: keyとして使わない値
     # default: valのdefault値
     self._keys: List[int] = [e]
@@ -36,6 +45,13 @@ class HashDict():
     return (((((key>>32)&self._msk) ^ (key&self._msk) ^ self._xor)) * (_titan_pylib_HashDict_K & self._msk)) & self._msk
 
   def get(self, key: int, default: Any=None) -> Any:
+    """
+    キーが ``key`` の値を返します。
+    存在しない場合、引数 ``default`` に ``None`` 以外を指定した場合は ``default`` が、
+    そうでない場合はコンストラクタで設定した ``default`` が返ります。
+
+    期待 :math:`O(1)` です。
+    """
     assert key != self._e, \
         f'KeyError: HashDict.get({key}, {default}), {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
@@ -64,6 +80,11 @@ class HashDict():
       h = 0 if h == l-1 else h+1
 
   def set(self, key: int, val: Any) -> None:
+    """キーを ``key`` として ``val`` を格納します。
+    ``key`` が既に存在している場合は上書きされます。
+
+    期待 :math:`O(1)` です。
+    """
     assert key != self._e, \
         f'KeyError: HashDict.set({key}, {val}), {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
@@ -83,7 +104,14 @@ class HashDict():
         return
       h = 0 if h == l else h+1
 
-  def __contains__(self, key: int):
+  def __contains__(self, key: int) -> bool:
+    """存在判定です。
+
+    期待 :math:`O(1)` です。
+
+    Returns:
+      bool: ``key`` が存在すれば ``True`` を、そうでなければ ``False`` を返します。
+    """
     assert key != self._e, \
         f'KeyError: {key} in HashDict, {key} cannot be equal to {self._e}'
     l, _keys, _e = len(self._keys), self._keys, self._e
@@ -102,18 +130,24 @@ class HashDict():
   __setitem__ = set
 
   def keys(self) -> Iterator[int]:
+    """``key 集合`` を列挙するイテレータです。
+    """
     _keys, _e = self._keys, self._e
     for i in range(len(_keys)):
       if _keys[i] != _e:
         yield _keys[i]
 
   def values(self) -> Iterator[Any]:
+    """``val 集合`` を列挙するイテレータです。
+    """
     _keys, _vals, _e = self._keys, self._vals, self._e
     for i in range(len(_keys)):
       if _keys[i] != _e:
         yield _vals[i]
 
   def items(self) -> Iterator[Tuple[int, Any]]:
+    """``key とそれに対応する val のタプル`` を列挙するイテレータです。
+    """
     _keys, _vals, _e = self._keys, self._vals, self._e
     for i in range(len(_keys)):
       if _keys[i] != _e:

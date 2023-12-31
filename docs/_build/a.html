@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyPy-tips &mdash; titan_pylib  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/_static/style.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c033477b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=4ea706d9"></script>
+        <script src="_static/translations.js?v=4dbe4bdc"></script>
+        <script src="_static/_static/script.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            titan_pylib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.algorithm.html">titan_pylib.algorithm package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.data_structures.html">titan_pylib.data_structures package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.html">titan_pylib.graph package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.io.html">titan_pylib.io package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.html">titan_pylib.math package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.html">titan_pylib.string package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">titan_pylib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">PyPy-tips</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/a.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pypy-tips">
+<h1><code class="docutils literal notranslate"><span class="pre">PyPy-tips</span></code><a class="headerlink" href="#pypy-tips" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">PyPy</span></code> の <code class="docutils literal notranslate"><span class="pre">tips</span></code> です。</p>
+<section id="algorithm">
+<h2><code class="docutils literal notranslate"><span class="pre">Algorithm</span></code><a class="headerlink" href="#algorithm" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>再帰<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>非再帰にしましょう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">python/PyPy</span></code> には再帰上限があります。1000 回以上再帰する可能性のある場合は <code class="docutils literal notranslate"><span class="pre">sys.setlimitrecursion(10**6)</span></code> などとしましょう。しないと<code class="docutils literal notranslate"><span class="pre">RE</span></code>です。パスグラフなんかを想像すると良いかも。</p>
+<p><code class="docutils literal notranslate"><span class="pre">PyPy</span></code> の再帰は遅いです。代替？案として、以下のものがあります。</p>
+<ul class="simple">
+<li><p>非再帰にする</p>
+<ul>
+<li><p>常勝！</p></li>
+<li><p>私はあまりしてません。</p></li>
+<li><p>再帰関数を書こうと思う -&gt; 非再帰を書く にしたくはないという</p></li>
+<li><p>逆に、 <code class="docutils literal notranslate"><span class="pre">stack</span></code> 使って <code class="docutils literal notranslate"><span class="pre">while</span></code> 回したい -&gt; よく見たら再帰 は別にある。</p></li>
+<li><p>ライブラリでは、非再帰の方が速いので非再帰です。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span></code> で提出する</p>
+<ul>
+<li><p>(深めの)再帰は <code class="docutils literal notranslate"><span class="pre">python</span></code> の方が速いと言われています。</p>
+<ul>
+<li><p>というか、<code class="docutils literal notranslate"><span class="pre">PyPy</span></code> がおそすぎるだけです。</p>
+<ul>
+<li><p>言語アップデートでマシになったかも？</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>そもそも <code class="docutils literal notranslate"><span class="pre">python</span></code> も遅いので、再帰の中でガチャガチャやるコードは <code class="docutils literal notranslate"><span class="pre">python</span></code> にしても遅いと思われます。</p></li>
+<li><p>私は基本 <code class="docutils literal notranslate"><span class="pre">PyPy</span></code> です。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PyPyjit</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">PyPyjit;</span> <span class="pre">PyPyjit.set_param('max_unroll_recursion=-1')</span></code>みたいな</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PyPy</span></code> で提出するならつけましょう。基本、速くなります。</p></li>
+<li><p>メモリ使うのかな？</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py">デコレータ</a></p>
+<ul>
+<li><p>基本、速くなります。というか、遅くなった例を1件しか知りません。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PyPyjit</span></code> より速く、スタック非再帰よりは遅いイメージです。</p></li>
+</ul>
+</li>
+<li><p>書き換えるのがやや面倒ですが、 <code class="docutils literal notranslate"><span class="pre">PyPy</span> <span class="pre">-&gt;</span> <span class="pre">c++</span></code> などと比べると圧倒的に楽です。</p>
+<ul>
+<li><p>関数の途中で <code class="docutils literal notranslate"><span class="pre">return</span></code> ができない点だけかな。 <code class="docutils literal notranslate"><span class="pre">if-else</span></code> で頑張ります。</p></li>
+</ul>
+</li>
+<li><p>なんで皆使ってないのか、正直謎に思ってます。</p>
+<ul>
+<li><p>ホント謎です。</p></li>
+</ul>
+</li>
+<li><p>私はこれを使うことが多いです。</p></li>
+</ul>
+</li>
+</ul>
+<p>こどふぉでは</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sys.setlimitrecursion(2*10**5)</span></code> をすると <code class="docutils literal notranslate"><span class="pre">MLE</span></code></p></li>
+<li><p>しないと <code class="docutils literal notranslate"><span class="pre">RE</span></code></p></li>
+</ul>
+<p>となるため、再帰をしてはいけないことが知られています。</p>
+</section>
+<section id="id2">
+<h3>メモ化<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">functools.lru_cache</span></code> は内部で辞書を使っています。配列作って自力で書いた方が速い場合が多いです。</p></li>
+<li><p>LRUキャッシュを必要とせず、全てのキャッシュを普通に使う場合は、<code class="docutils literal notranslate"><span class="pre">lru_cache()</span></code> では <code class="docutils literal notranslate"><span class="pre">maxsize=None</span></code> とするとよいでしょう。</p></li>
+</ul>
+</section>
+</section>
+<section id="datastructures">
+<h2><code class="docutils literal notranslate"><span class="pre">DataStructures</span></code><a class="headerlink" href="#datastructures" title="Link to this heading"></a></h2>
+<section id="id3">
+<h3>順序付き集合<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">PyPy</span></code> の標準ライブラリに順序付き集合はありません。代替手段を考えます。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sortedcontainers</span></code></p>
+<ul>
+<li><p>言語アップデートを介して導入されました。速いかは分かってないです。</p></li>
+</ul>
+</li>
+<li><p>平方分割木(tatyam木)</p>
+<ul>
+<li><p>tatyam氏の <a class="reference external" href="https://github.com/tatyam-prime/SortedSet"><code class="docutils literal notranslate"><span class="pre">SortedSet/Multiset</span></code></a> です。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O(√N)</span></code> ですが、コードが短くわりと速いです。おそらく多くの人が使っていると思います。</p></li>
+<li><p>要素を全部削除、その後全部挿入などするととても遅いです。平衡二分木の方が速いまであります。</p></li>
+</ul>
+</li>
+<li><p>平衡二分木</p>
+<ul>
+<li><p>強いです。平方分割木と比べると遅いケースが目立ちます。</p></li>
+</ul>
+</li>
+<li><p>B木</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code> 番目の値は遅めです。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Set</span></code> はまずまずの速度です。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Multiset</span></code> はまだ実装してません。</p></li>
+</ul>
+</li>
+<li><p>BIT/セグ木</p>
+<ul>
+<li><p>空間 <code class="docutils literal notranslate"><span class="pre">Θ(U)</span></code> かかる点には注意です。</p></li>
+<li><p>(BIT/セグ木に限らず、)座圧できるものに限られるので汎用性は低いです。</p></li>
+<li><p>しかし、速いです。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BinaryTrie</span></code></p>
+<ul>
+<li><p>全体 xor ができます。</p></li>
+</ul>
+</li>
+<li><p>32分木</p>
+<ul>
+<li><p>空間 <code class="docutils literal notranslate"><span class="pre">Θ(U)</span></code> 、昇順 <code class="docutils literal notranslate"><span class="pre">k</span></code> 番目の値に <code class="docutils literal notranslate"><span class="pre">Θ(klogU)</span></code> かかる点には注意です。</p></li>
+<li><p>neighbor query に関しては最強です。</p></li>
+</ul>
+</li>
+<li><p>亜種たち</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">van</span> <span class="pre">emde</span> <span class="pre">boas</span> <span class="pre">tree</span></code> は実装次第ではとても遅いです。自分は速い実装が分かりません。</p></li>
+<li><p>追加 / 削除 を <code class="docutils literal notranslate"><span class="pre">O(√U)</span></code> として <code class="docutils literal notranslate"><span class="pre">k</span></code> 番目取得を <code class="docutils literal notranslate"><span class="pre">O(1)</span></code> でするようにすると、<code class="docutils literal notranslate"><span class="pre">Mo's</span> <span class="pre">Algorithm</span></code> で強いです。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="graph">
+<h2>Graph<a class="headerlink" href="#graph" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>基本的に隣接リスト <code class="docutils literal notranslate"><span class="pre">[[]</span> <span class="pre">for</span> <span class="pre">_</span> <span class="pre">in</span> <span class="pre">range(|V|)]</span></code> で問題ないと思います。</p></li>
+<li><p>グラフライブラリを作るのもよいでしょう。CSR形式がどれくらい速いのかよく分からん。</p></li>
+</ul>
+</section>
+<section id="math">
+<h2>Math<a class="headerlink" href="#math" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ModInt</span></code> はとにかく遅いです。使わない方が吉です。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, titan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- <link rel="stylesheet" type="text/css" href="_static/style.css"> -->
+    <script type="text/javascript" src="_static/script.js"></script>
+
+    <!-- <button id="copyButton">Copy</button>
+    <button id="ShowFullCodeButton">Show Full Code</button>
+    <button id="toggleCodeButton">Toggle Code</button> -->
+
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 from typing import List
 
 class FenwickTree2D():
+  """2次元です。
+  """
 
   def __init__(self, h: int, w: int, a: List[List[int]]=[]):
     '''O(HWlogHlogW)'''

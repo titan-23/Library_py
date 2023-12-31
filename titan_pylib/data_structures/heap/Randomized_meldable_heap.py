@@ -4,6 +4,10 @@ from typing import TypeVar, Generic, List, Iterable
 T = TypeVar('T')
 
 class RandomizedMeldableHeap(Generic[T]):
+  """併合可能ヒープです。
+
+  [Randomized Meldable Heap](https://trap.jp/post/1050/), traP
+  """
 
   _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
   keys: List[T] = [0]

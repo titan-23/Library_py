@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,8 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.dict.hash_dict.</span></span><span class="sig-name descname"><span class="pre">HashDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>ハッシュテーブルです。
+組み込み辞書の <code class="docutils literal notranslate"><span class="pre">dict</span></code> よりやや遅いです。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -140,6 +143,63 @@
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.__contains__">
+<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.__contains__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__contains__" title="Link to this definition"></a></dt>
+<dd><p>存在判定です。</p>
+<p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
+<dt class="field-odd">戻り値<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">key</span></code> が存在すれば <code class="docutils literal notranslate"><span class="pre">True</span></code> を、そうでなければ <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。</p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>int</em>) -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>キーが <code class="docutils literal notranslate"><span class="pre">key</span></code> の値を返します。
+存在しない場合、引数 <code class="docutils literal notranslate"><span class="pre">default</span></code> に <code class="docutils literal notranslate"><span class="pre">None</span></code> 以外を指定した場合は <code class="docutils literal notranslate"><span class="pre">default</span></code> が、
+そうでない場合はコンストラクタで設定した <code class="docutils literal notranslate"><span class="pre">default</span></code> が返ります。</p>
+<p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>default</strong> (<em>Any</em><em> | </em><em>None</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__setitem__" title="Link to this definition"></a></dt>
+<dd><p>キーを <code class="docutils literal notranslate"><span class="pre">key</span></code> として <code class="docutils literal notranslate"><span class="pre">val</span></code> を格納します。
+<code class="docutils literal notranslate"><span class="pre">key</span></code> が既に存在している場合は上書きされます。</p>
+<p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>val</strong> (<em>Any</em>) -- </p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.add" title="Link to this definition"></a></dt>
@@ -160,7 +220,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.get"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.get" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>キーが <code class="docutils literal notranslate"><span class="pre">key</span></code> の値を返します。
+存在しない場合、引数 <code class="docutils literal notranslate"><span class="pre">default</span></code> に <code class="docutils literal notranslate"><span class="pre">None</span></code> 以外を指定した場合は <code class="docutils literal notranslate"><span class="pre">default</span></code> が、
+そうでない場合はコンストラクタで設定した <code class="docutils literal notranslate"><span class="pre">default</span></code> が返ります。</p>
+<p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key</strong> (<em>int</em>) -- </p></li>
@@ -176,7 +240,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.items">
 <span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.items"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.items" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">とそれに対応する</span> <span class="pre">val</span> <span class="pre">のタプル</span></code> を列挙するイテレータです。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Iterator</em>[<em>Tuple</em>[int, <em>Any</em>]]</p>
 </dd>
@@ -186,7 +251,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.keys">
 <span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.keys"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.keys" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">集合</span></code> を列挙するイテレータです。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Iterator</em>[int]</p>
 </dd>
@@ -196,7 +262,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.set">
 <span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.set"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.set" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>キーを <code class="docutils literal notranslate"><span class="pre">key</span></code> として <code class="docutils literal notranslate"><span class="pre">val</span></code> を格納します。
+<code class="docutils literal notranslate"><span class="pre">key</span></code> が既に存在している場合は上書きされます。</p>
+<p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key</strong> (<em>int</em>) -- </p></li>
@@ -212,7 +281,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.values">
 <span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.values"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.values" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">val</span> <span class="pre">集合</span></code> を列挙するイテレータです。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>Iterator</em>[<em>Any</em>]</p>
 </dd>

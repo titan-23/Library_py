@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,8 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.red_black_tree.red_black_tree_set.</span></span><span class="sig-name descname"><span class="pre">RedBlackTreeSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <a class="reference internal" href="titan_pylib.my_class.ordered_set_interface.html#titan_pylib.my_class.ordered_set_interface.OrderedSetInterface" title="titan_pylib.my_class.ordered_set_interface.OrderedSetInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrderedSetInterface</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>赤黒木です。集合です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">std::set</span></code> も怖くない。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>
@@ -138,53 +141,72 @@
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NIL">
-<span class="sig-name descname"><span class="pre">NIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NIL" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">NIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet._NILNode</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NIL" title="Link to this definition"></a></dt>
 <dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NILNode</span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.NILNode"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode" title="Link to this definition"></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.col">
-<span class="sig-name descname"><span class="pre">col</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.col" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.key">
-<span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.key" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.left">
-<span class="sig-name descname"><span class="pre">left</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.left" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.par">
-<span class="sig-name descname"><span class="pre">par</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.par" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.right">
-<span class="sig-name descname"><span class="pre">right</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.NILNode.right" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.Node"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">RedBlackTreeSet</span></code> で使用される節点クラスです。</p>
+<p>双方向に進められます。
+<code class="docutils literal notranslate"><span class="pre">1</span></code> だけ進める場合、計算量は平均 <code class="docutils literal notranslate"><span class="pre">O(1)</span></code> 、最悪 <code class="docutils literal notranslate"><span class="pre">O(logN)</span></code> です。
+<code class="docutils literal notranslate"><span class="pre">k</span></code> だけ進める場合、だいたい <code class="docutils literal notranslate"><span class="pre">k</span></code> 倍になります(ホント?)。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__add__">
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.Node.__add__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__add__" title="Link to this definition"></a></dt>
+<dd><p>次の <code class="docutils literal notranslate"><span class="pre">node</span></code> を返します。存在しないときは <code class="docutils literal notranslate"><span class="pre">None</span></code> を返します。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>int</em>) -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__iadd__">
+<span class="sig-name descname"><span class="pre">__iadd__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.Node.__iadd__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__iadd__" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">node</span></code> を次 <code class="docutils literal notranslate"><span class="pre">node</span></code> にします。存在しないときは <code class="docutils literal notranslate"><span class="pre">None</span></code> になります。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>int</em>) -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__isub__">
+<span class="sig-name descname"><span class="pre">__isub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.Node.__isub__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__isub__" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">node</span></code> を前の <code class="docutils literal notranslate"><span class="pre">node</span></code> にします。存在しないときは <code class="docutils literal notranslate"><span class="pre">None</span></code> になります。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>int</em>) -- </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__sub__">
+<span class="sig-name descname"><span class="pre">__sub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.Node.__sub__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.__sub__" title="Link to this definition"></a></dt>
+<dd><p>前の <code class="docutils literal notranslate"><span class="pre">node</span></code> を返します。存在しないときは <code class="docutils literal notranslate"><span class="pre">None</span></code> を返します。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>int</em>) -- </p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.count">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node.count" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>保持している <cite>key</cite> の個数です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">1</span></code> を返します。</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -240,9 +262,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.discard_iter">
 <span class="sig-name descname"><span class="pre">discard_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.discard_iter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.discard_iter" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">node</span></code> を削除します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(1)\)</span> らしいです。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node" title="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node"><em>Node</em></a>) -- </p>
+<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node" title="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node"><em>Node</em></a>) -- 削除する <code class="docutils literal notranslate"><span class="pre">node</span></code> です。</p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -253,7 +277,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.find">
 <span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.find"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.find" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> が存在すれば <code class="docutils literal notranslate"><span class="pre">key</span></code> を指す <code class="docutils literal notranslate"><span class="pre">Node</span></code> を返します。存在しなければ <code class="docutils literal notranslate"><span class="pre">None</span></code> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
 </dd>
@@ -302,7 +328,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.get_max_iter">
 <span class="sig-name descname"><span class="pre">get_max_iter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.get_max_iter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.get_max_iter" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>最大値を指す <cite>Node</cite> を返します。空であれば <cite>None</cite> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node" title="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node"><em>Node</em></a> | None</p>
 </dd>
@@ -322,7 +350,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.get_min_iter">
 <span class="sig-name descname"><span class="pre">get_min_iter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/red_black_tree/red_black_tree_set.html#RedBlackTreeSet.get_min_iter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.get_min_iter" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>最小値を指す <cite>Node</cite> を返します。空であれば <cite>None</cite> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node" title="titan_pylib.data_structures.red_black_tree.red_black_tree_set.RedBlackTreeSet.Node"><em>Node</em></a> | None</p>
 </dd>

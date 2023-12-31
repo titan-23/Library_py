@@ -2,15 +2,18 @@ from typing import Iterable, List, Generic, TypeVar
 T = TypeVar('T')
 
 class Deque(Generic[T]):
+  """Deque です。
 
-  # コンセプト: ランダムアクセスO(1)でできるDeque
-  # pop / popleft: O(1)
-  # append / appendleft: O(1)
-  # tolist: O(N)
-  # getitem / setitem: O(1)
-  # contains: O(N)
+  ランダムアクセスが :math:`O(1)` で可能です。
+  """
 
   def __init__(self, a: Iterable[T]=[]):
+    """
+    :math:`O(n)` です。
+
+    Args:
+      a (Iterable[T], optional): ``Deque`` を構築する配列です。
+    """
     self.front: List[T] = []
     self.back: List[T] = list(a)
 
@@ -20,22 +23,48 @@ class Deque(Generic[T]):
     self.back = new[len(new)//2:]
 
   def append(self, v: T) -> None:
+    """要素 ``v`` を末尾に追加します。
+
+    :math:`O(1)` です。
+
+    Args:
+      v (T): 追加する要素です。
+    """
     self.back.append(v)
 
   def appendleft(self, v: T) -> None:
+    """要素 ``v`` を先頭に追加します。
+
+    :math:`O(1)` です。
+
+    Args:
+      v (T): 追加する要素です。
+    """
     self.front.append(v)
 
   def pop(self) -> T:
+    """末尾の要素を削除し、その値を返します。
+
+    :math:`O(1)` です。
+    """
     if not self.back:
       self._rebuild()
     return self.back.pop() if self.back else self.front.pop()
 
   def popleft(self) -> T:
+    """先頭の要素を削除し、その値を返します。
+
+    :math:`O(1)` です。
+    """
     if not self.front:
       self._rebuild()
     return self.front.pop() if self.front else self.back.pop()
 
   def tolist(self) -> List[T]:
+    """``list`` に変換します。
+
+    :math:`O(n)` です。
+    """
     return self.front[::-1] + self.back
 
   def __getitem__(self, k: int) -> T:

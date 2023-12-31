@@ -2,6 +2,8 @@ from typing import Generic, TypeVar, List, Optional, Iterator, Iterable
 T = TypeVar('T')
 
 class LinkedList(Generic[T]):
+  """双方向連結リストです。
+  """
 
   ___slots__ = ('top', 'tail', 'it', '_len')
 

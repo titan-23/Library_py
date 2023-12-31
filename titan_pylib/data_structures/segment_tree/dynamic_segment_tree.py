@@ -3,6 +3,8 @@ from typing import Generic, TypeVar, Callable, List, Dict
 T = TypeVar('T')
 
 class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
+  """動的セグ木です。
+  """
 
   def __init__(self, u: int, op: Callable[[T, T], T], e: T):
     self._op = op

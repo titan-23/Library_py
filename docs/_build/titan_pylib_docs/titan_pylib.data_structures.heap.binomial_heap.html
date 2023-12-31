@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,10 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.heap.binomial_heap.BinomialHeap">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.heap.binomial_heap.</span></span><span class="sig-name descname"><span class="pre">BinomialHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/binomial_heap.html#BinomialHeap"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.binomial_heap.BinomialHeap" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>二項ヒープです。</p>
+<p>計算量はメチャクチャさぼってます。
+あらゆる操作が <span class="math notranslate nohighlight">\(\theta{(\log{n})}\)</span> です。</p>
+<p><code class="docutils literal notranslate"><span class="pre">List</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">LinkedList</span></code> を使用し、<code class="docutils literal notranslate"><span class="pre">push,meld</span></code> では <code class="docutils literal notranslate"><span class="pre">O(1)</span></code> で連結させ、 <code class="docutils literal notranslate"><span class="pre">delete_min</span></code> にすべてを押し付けると <code class="docutils literal notranslate"><span class="pre">push,meld</span></code> が <code class="docutils literal notranslate"><span class="pre">O(1)</span></code> 、<code class="docutils literal notranslate"><span class="pre">delete_min</span></code> が償却 <code class="docutils literal notranslate"><span class="pre">O(logn)</span></code> になるはずです。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>

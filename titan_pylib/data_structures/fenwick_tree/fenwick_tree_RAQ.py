@@ -1,6 +1,8 @@
 from typing import List, Iterable, Sequence, Union
 
 class FenwickTreeRAQ():
+  """区間加算ができます。
+  """
 
   def __init__(self, n_or_a: Union[Iterable[int], int]):
     if isinstance(n_or_a, int):

@@ -3,6 +3,8 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class LazySegmentTree(Generic[T, F]):
+  """遅延セグ木です。
+  """
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],

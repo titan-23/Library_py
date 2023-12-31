@@ -2,6 +2,8 @@ from typing import List, Union, Iterable, TypeVar, Generic, Callable
 T = TypeVar('T')
 
 class FenwickTreeAbst(Generic[T]):
+  """和や逆元をこちらで定義できます。
+  """
 
   def __init__(self, n_or_a: Union[Iterable[T], T], op: Callable[[T, T], T], inv: Callable[[T], T], e: T):
     if isinstance(n_or_a, int):

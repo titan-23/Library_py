@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,8 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.deque.deque.Deque">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.deque.deque.</span></span><span class="sig-name descname"><span class="pre">Deque</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/deque/deque.html#Deque"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.deque.deque.Deque" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>Deque です。</p>
+<p>ランダムアクセスが <span class="math notranslate nohighlight">\(O(1)\)</span> で可能です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>
@@ -139,9 +142,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.deque.deque.Deque.append">
 <span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/deque/deque.html#Deque.append"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.deque.deque.Deque.append" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">v</span></code> を末尾に追加します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>T</em>) -- </p>
+<dd class="field-odd"><p><strong>v</strong> (<em>T</em>) -- 追加する要素です。</p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -152,9 +157,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.deque.deque.Deque.appendleft">
 <span class="sig-name descname"><span class="pre">appendleft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/deque/deque.html#Deque.appendleft"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.deque.deque.Deque.appendleft" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">v</span></code> を先頭に追加します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>T</em>) -- </p>
+<dd class="field-odd"><p><strong>v</strong> (<em>T</em>) -- 追加する要素です。</p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -165,7 +172,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.deque.deque.Deque.pop">
 <span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/deque/deque.html#Deque.pop"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.deque.deque.Deque.pop" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>末尾の要素を削除し、その値を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>T</em></p>
 </dd>
@@ -175,7 +184,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.deque.deque.Deque.popleft">
 <span class="sig-name descname"><span class="pre">popleft</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/deque/deque.html#Deque.popleft"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.deque.deque.Deque.popleft" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>先頭の要素を削除し、その値を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>T</em></p>
 </dd>
@@ -185,7 +196,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.deque.deque.Deque.tolist">
 <span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/deque/deque.html#Deque.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.deque.deque.Deque.tolist" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">list</span></code> に変換します。</p>
+<p><span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>List</em>[<em>T</em>]</p>
 </dd>

@@ -1,9 +1,14 @@
-from titan_pylib.data_structures.bit_vector.avltree_bit_vector import AVLTreeBitVector
+from titan_pylib.data_structures.bit_vector.avl_tree_bit_vector import AVLTreeBitVector
 from titan_pylib.data_structures.wavelet_matrix.wavelet_matrix import WaveletMatrix
 from typing import Sequence, List
 from array import array
 
 class DynamicWaveletMatrix(WaveletMatrix):
+  """動的ウェーブレット行列です。
+
+  (静的)ウェーブレット行列でできる操作に加えて ``insert / pop / update`` 等ができます。
+    - ``BitVector`` を平衡二分木にしています(``AVLTreeBitVector``)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
+  """
 
   def __init__(self, sigma: int, a: Sequence[int]=[]):
     self.sigma: int = sigma
@@ -30,11 +35,19 @@ class DynamicWaveletMatrix(WaveletMatrix):
       a = zero + one
 
   def reserve(self, n: int) -> None:
+    """``n`` 要素分のメモリを確保します。
+
+    :math:`O(n)` です。
+    """
     assert n >= 0, f'ValueError: {self.__class__.__name__}.reserve({n})'
     for v in self.v:
       v.reserve(n)
 
   def insert(self, k: int, x: int) -> None:
+    """位置 ``k`` に ``x`` を挿入します。
+
+    :math:`O(\\log{n}\\log{sigma})` です。
+    """
     assert 0 <= k <= self.size, f'IndexError: {self.__class__.__name__}.insert({k}, {x}), n={self.size}'
     assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.insert({k}, {x}), LIM={1<<self.log}'
     mid = self.mid
@@ -57,6 +70,10 @@ class DynamicWaveletMatrix(WaveletMatrix):
     self.size += 1
 
   def pop(self, k: int) -> int:
+    """位置 ``k`` の要素を削除し、その値を返します。
+
+    :math:`O(\\log{n}\\log{sigma})` です。
+    """
     assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.pop({k}), n={self.size}'
     mid = self.mid
     ans = 0
@@ -82,6 +99,10 @@ class DynamicWaveletMatrix(WaveletMatrix):
     return ans
 
   def update(self, k: int, x: int) -> None:
+    """位置 ``k`` の要素を ``x`` に更新します。
+
+    :math:`O(\\log{n}\\log{sigma})` です。
+    """
     assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.update({k}, {x}), n={self.size}'
     assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.update({k}, {x}), LIM={1<<self.log}'
     self.pop(k)

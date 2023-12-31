@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,7 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.</span></span><span class="sig-name descname"><span class="pre">LinkCutTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">F</span></code>]</p>
+<p>LinkCutTree です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -144,9 +146,44 @@
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.__getitem__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">k</span></code> の値を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) -- </p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>T</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.__setitem__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.__setitem__" title="Link to this definition"></a></dt>
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">k</span></code> の値を <code class="docutils literal notranslate"><span class="pre">v</span></code> に更新します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>T</em>) -- </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.cut">
 <span class="sig-name descname"><span class="pre">cut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.cut"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.cut" title="Link to this definition"></a></dt>
-<dd><p>cとpar[c]の間の辺を削除する / cは元の木の根であってはいけない</p>
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{c</span> <span class="pre">-&gt;</span> <span class="pre">cの親}</span></code> を削除します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="simple">
+<dt>制約:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">c</span></code> は元の木の根であってはいけないです。</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>c</strong> (<em>int</em>) -- </p>
@@ -160,9 +197,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.evert">
 <span class="sig-name descname"><span class="pre">evert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.evert"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.evert" title="Link to this definition"></a></dt>
-<dd><p>vが属する元の木の根をvにする
-expose→一番右→反転フラグ
-evert後、vは遅延伝播済み(何かと便利なので)</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">v</span></code> を根にします。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
@@ -176,7 +212,8 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.expose">
 <span class="sig-name descname"><span class="pre">expose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.expose"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.expose" title="Link to this definition"></a></dt>
-<dd><p>vが属する木において、その木の根-&gt;vのパスを構築</p>
+<dd><p><cite>v</cite> が属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
@@ -190,7 +227,9 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.group_count">
 <span class="sig-name descname"><span class="pre">group_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.group_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.group_count" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>連結成分数を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
@@ -200,7 +239,9 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.lca">
 <span class="sig-name descname"><span class="pre">lca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.lca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.lca" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">root</span></code> を根としたときの、 <code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">v</span></code> の LCA を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -217,7 +258,12 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.link">
 <span class="sig-name descname"><span class="pre">link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.link"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.link" title="Link to this definition"></a></dt>
-<dd><p>c-&gt;pの辺を追加する / cは元の木の根でなければならない</p>
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{c</span> <span class="pre">-&gt;</span> <span class="pre">p}</span></code> を追加します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="simple">
+<dt>制約:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">c</span></code> は元の木の根でなければならないです。</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -234,7 +280,9 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.merge">
 <span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.merge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.merge" title="Link to this definition"></a></dt>
-<dd><p>辺[u - v]を追加する 既に同じ連結成分にいた場合はreturn</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分なら <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。
+そうでなければ辺 <code class="docutils literal notranslate"><span class="pre">{u</span> <span class="pre">-&gt;</span> <span class="pre">v}</span></code> を追加して <code class="docutils literal notranslate"><span class="pre">True</span></code> を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -251,7 +299,9 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_apply">
 <span class="sig-name descname"><span class="pre">path_apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.path_apply"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_apply" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">u</span></code> から <code class="docutils literal notranslate"><span class="pre">v</span></code> へのパスに <code class="docutils literal notranslate"><span class="pre">f</span></code> を作用させます。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -268,7 +318,9 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_kth_elm">
 <span class="sig-name descname"><span class="pre">path_kth_elm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.path_kth_elm"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_kth_elm" title="Link to this definition"></a></dt>
-<dd><p>path[s -&gt; t]のk番目の頂点番号を取得する</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">u</span></code> から <code class="docutils literal notranslate"><span class="pre">v</span></code> へ <code class="docutils literal notranslate"><span class="pre">k</span></code> 個進んだ頂点を返します。
+存在しないときは <code class="docutils literal notranslate"><span class="pre">-1</span></code> を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -286,7 +338,9 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_length">
 <span class="sig-name descname"><span class="pre">path_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.path_length"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_length" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">u</span></code> から <code class="docutils literal notranslate"><span class="pre">v</span></code> へのパスに含まれる頂点の数を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -300,44 +354,10 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_max_right">
-<span class="sig-name descname"><span class="pre">path_max_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.path_max_right"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_max_right" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>s</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>t</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_min_left">
-<span class="sig-name descname"><span class="pre">path_min_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.path_min_left"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_min_left" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>s</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>t</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_prod">
 <span class="sig-name descname"><span class="pre">path_prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.path_prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.path_prod" title="Link to this definition"></a></dt>
-<dd><p>パス[u -&gt; v]間の総積を返す
-非可換に対応</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">u</span></code> から <code class="docutils literal notranslate"><span class="pre">v</span></code> へのパスの総積を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -354,7 +374,8 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.root">
 <span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.root"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.root" title="Link to this definition"></a></dt>
-<dd><p>vが属する木の根を返す</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">v</span></code> が属する木の根を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
@@ -368,16 +389,20 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.same">
 <span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.same" title="Link to this definition"></a></dt>
-<dd><p>uとvが同じ連結成分であるかを返す</p>
+<dd><p>連結判定です。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
+<dt class="field-odd">戻り値<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分であれば <code class="docutils literal notranslate"><span class="pre">True</span></code> を、そうでなければ <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。</p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
 <li><p><strong>v</strong> (<em>int</em>) -- </p></li>
 </ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -385,7 +410,9 @@ evert後、vは遅延伝播済み(何かと便利なので)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.split">
 <span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/link_cut_tree.html#LinkCutTree.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.LinkCutTree.split" title="Link to this definition"></a></dt>
-<dd><p>辺[u - v]を削除する</p>
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u</span> <span class="pre">-&gt;</span> <span class="pre">v}</span></code> があれば削除し <code class="docutils literal notranslate"><span class="pre">True</span></code> を返します。
+そうでなければ何もせず <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

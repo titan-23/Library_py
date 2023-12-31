@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,15 +132,48 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.fenwick_tree.fenwick_tree.</span></span><span class="sig-name descname"><span class="pre">FenwickTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/fenwick_tree/fenwick_tree.html#FenwickTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>FenwickTreeです。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>n_or_a</strong> (<em>Iterable</em><em>[</em><em>int</em><em>] </em><em>| </em><em>int</em>) -- </p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/fenwick_tree/fenwick_tree.html#FenwickTree.__getitem__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>位置 <code class="docutils literal notranslate"><span class="pre">k</span></code> の要素を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) -- </p>
+</dd>
+<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/fenwick_tree/fenwick_tree.html#FenwickTree.__setitem__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.__setitem__" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">k</span></code> 番目の値を <code class="docutils literal notranslate"><span class="pre">x</span></code> に更新します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/fenwick_tree/fenwick_tree.html#FenwickTree.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.add" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">k</span></code> 番目の値に <code class="docutils literal notranslate"><span class="pre">x</span></code> を加えます。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>k</strong> (<em>int</em>) -- </p></li>
@@ -197,7 +231,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.pref">
 <span class="sig-name descname"><span class="pre">pref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/fenwick_tree/fenwick_tree.html#FenwickTree.pref"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.pref" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>区間 <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">r)</span></code> の総和を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>r</strong> (<em>int</em>) -- </p>
 </dd>
@@ -210,7 +246,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.prod">
 <span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.prod" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>区間 <code class="docutils literal notranslate"><span class="pre">[l,</span> <span class="pre">r)</span></code> の総和を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>l</strong> (<em>int</em>) -- </p></li>
@@ -236,7 +274,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.suff">
 <span class="sig-name descname"><span class="pre">suff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/fenwick_tree/fenwick_tree.html#FenwickTree.suff"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.suff" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>区間 <code class="docutils literal notranslate"><span class="pre">[l,</span> <span class="pre">n)</span></code> の総和を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>l</strong> (<em>int</em>) -- </p>
 </dd>
@@ -249,7 +289,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.sum">
 <span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/fenwick_tree/fenwick_tree.html#FenwickTree.sum"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.fenwick_tree.fenwick_tree.FenwickTree.sum" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>区間 <code class="docutils literal notranslate"><span class="pre">[l,</span> <span class="pre">r)</span></code> の総和を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>l</strong> (<em>int</em>) -- </p></li>

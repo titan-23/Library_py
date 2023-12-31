@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -142,25 +143,33 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.fully_retroactive_union_find.FullyRetroactiveUnionFind.disconnect">
 <span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/fully_retroactive_union_find.html#FullyRetroactiveUnionFind.disconnect"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.fully_retroactive_union_find.FullyRetroactiveUnionFind.disconnect" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>時刻 <code class="docutils literal notranslate"><span class="pre">t</span></code> の連結クエリをなくして、そのクエリの2頂点を非連結にします。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n+m})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>t</strong> (<em>int</em>) -- </p>
+<dd class="field-odd"><p><strong>t</strong> (<em>int</em>) -- 時刻です。</p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>時刻 <code class="docutils literal notranslate"><span class="pre">t</span></code> のクエリは連結クエリでないといけません。</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.fully_retroactive_union_find.FullyRetroactiveUnionFind.same">
 <span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/fully_retroactive_union_find.html#FullyRetroactiveUnionFind.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.fully_retroactive_union_find.FullyRetroactiveUnionFind.same" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>時刻 <code class="docutils literal notranslate"><span class="pre">t</span></code> で <code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">v</span></code> の連結判定をします。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n+m})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>t</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>u</strong> (<em>int</em>) -- 集合の要素です。</p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- 集合の要素です。</p></li>
+<li><p><strong>t</strong> (<em>int</em>) -- 時刻です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
@@ -172,18 +181,24 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.fully_retroactive_union_find.FullyRetroactiveUnionFind.unite">
 <span class="sig-name descname"><span class="pre">unite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/fully_retroactive_union_find.html#FullyRetroactiveUnionFind.unite"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.fully_retroactive_union_find.FullyRetroactiveUnionFind.unite" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>時刻 <code class="docutils literal notranslate"><span class="pre">t</span></code> のクエリを <code class="docutils literal notranslate"><span class="pre">unite(u,</span> <span class="pre">v)</span></code> にします。</p>
+<p>償却 <span class="math notranslate nohighlight">\(O(\log{n+m})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>t</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>u</strong> (<em>int</em>) -- 集合の要素です。</p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- 集合の要素です。</p></li>
+<li><p><strong>t</strong> (<em>int</em>) -- 時刻です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><code class="docutils literal notranslate"><span class="pre">disconnect</span></code> を使用する場合、 <code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">v</span></code> が連結されていてはいけません。</p>
+</div>
 </dd></dl>
 
 </dd></dl>

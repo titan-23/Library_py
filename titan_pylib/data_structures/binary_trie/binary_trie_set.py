@@ -1,14 +1,20 @@
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from typing import Optional, List, Iterable, Sequence
 from array import array
-try:
-  from __pypy__ import newlist_hint
-except ImportError:
-  pass
+from __pypy__ import newlist_hint
 
 class BinaryTrieSet(OrderedSetInterface):
+  """
+  0以上u未満の整数からなる集合を管理できます。
+  """
 
   def __init__(self, u: int, a: Iterable[int]=[]):
+    """構築します。
+
+    :math:`O(n\\log{u})` です。
+
+    各操作は :math:`O(\\log{u})` です。
+    """
     self.left = array('I', bytes(8))
     self.right = array('I', bytes(8))
     self.par = array('I', bytes(8))
@@ -79,6 +85,10 @@ class BinaryTrieSet(OrderedSetInterface):
     return node
 
   def reserve(self, n: int) -> None:
+    """``n`` 要素分のメモリを確保します。
+
+    :math:`O(n)` です。
+    """
     assert n >= 0, f'ValueError: BinaryTrieSet.reserve({n})'
     a = array('I', bytes(4*n))
     self.left += a
@@ -176,6 +186,10 @@ class BinaryTrieSet(OrderedSetInterface):
     return self.pop()
 
   def all_xor(self, x: int) -> None:
+    """すべての要素に ``x`` で ``xor`` をかけます。
+
+    :math:`O(1)` です。
+    """
     assert 0 <= x < self.lim, \
         f'ValueError: BinaryTrieSet.all_xor({x}), lim={self.lim}'
     self.xor ^= x

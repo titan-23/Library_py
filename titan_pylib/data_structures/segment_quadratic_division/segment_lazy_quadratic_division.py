@@ -5,6 +5,10 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class SegmentLazyQuadraticDivision(Generic[T, F]):
+  """
+  区間の総積取得・区間への作用適用クエリをそれぞれ時間計算量 :math:`O(\\sqrt{n})` で処理できるデータ構造です。
+  定数倍が軽いのでそこまで遅くはないはずです。
+  """
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
@@ -12,7 +16,12 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
                mapping: Callable[[F, T], T],
                composition: Callable[[F, F], F],
                e: T,
-               id: F):
+               id: F) -> None:
+    """
+    引数は遅延セグ木のアレです。
+
+    :math:`O(n)` です。
+    """
     if isinstance(n_or_a, int):
       self.n = n_or_a
       a = [e] * self.n
@@ -34,6 +43,10 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
     self.bucket_lazy = [id] * self.bucket_cnt
 
   def apply(self, l: int, r: int, f: F) -> None:
+    """区間 ``[l, r)`` に ``f`` を作用します。
+
+    :math:`O(\\sqrt{n})` です。
+    """
     assert 0 <= l <= r <= self.n
     def _change_data(k: int, l: int, r: int) -> None:
       self._propagate(k)
@@ -66,6 +79,10 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
           _change_data(k2, 0, r)
 
   def all_apply(self, f: F) -> None:
+    """区間 ``[0, n)`` に ``f`` を作用します。
+
+    :math:`O(\\sqrt{n})` です。
+    """
     self.bucket_lazy = [f if bl == self.id else self.composition(f, bl) for bl in self.bucket_lazy]
 
   def _propagate(self, k: int) -> None:
@@ -83,6 +100,14 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
       self.bucket_lazy[i] = self.id
 
   def prod(self, l: int, r: int) -> T:
+    """区間 ``[l, r)`` の総積を返します。
+
+    :math:`O(\\sqrt{n})` です。
+
+    Args:
+      l (int): インデックスです。
+      r (int): インデックスです。
+    """
     assert 0 <= l <= r <= self.n
     if l == r: return self.e
     k1 = l // self.bucket_size
@@ -109,6 +134,10 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
     return s
 
   def all_prod(self) -> T:
+    """区間 ``[0, n)`` の総積を返します。
+
+    :math:`O(\\sqrt{n})` です。
+    """
     return reduce(self.op, self.bucket_data)
 
   def tolist(self) -> List[T]:

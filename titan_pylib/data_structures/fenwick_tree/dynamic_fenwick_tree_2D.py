@@ -1,6 +1,8 @@
 from typing import Dict, List
 
 class DynamicFenwickTree2D():
+  """必要なところだけノードを作ります。2次元です。
+  """
 
   def __init__(self, h: int, w: int, a: List[List[int]]=[]):
     '''O(HWlogHlogW)'''

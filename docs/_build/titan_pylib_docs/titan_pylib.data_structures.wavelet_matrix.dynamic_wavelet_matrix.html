@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,13 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.</span></span><span class="sig-name descname"><span class="pre">DynamicWaveletMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.html#DynamicWaveletMatrix"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix" title="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">WaveletMatrix</span></code></a></p>
+<p>動的ウェーブレット行列です。</p>
+<dl class="simple">
+<dt>(静的)ウェーブレット行列でできる操作に加えて <code class="docutils literal notranslate"><span class="pre">insert</span> <span class="pre">/</span> <span class="pre">pop</span> <span class="pre">/</span> <span class="pre">update</span></code> 等ができます。</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BitVector</span></code> を平衡二分木にしています(<code class="docutils literal notranslate"><span class="pre">AVLTreeBitVector</span></code>)。あらゆる操作に平衡二分木の log がつきます。これヤバくね</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -142,7 +150,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.html#DynamicWaveletMatrix.insert"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.insert" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>位置 <code class="docutils literal notranslate"><span class="pre">k</span></code> に <code class="docutils literal notranslate"><span class="pre">x</span></code> を挿入します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n}\log{sigma})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>k</strong> (<em>int</em>) -- </p></li>
@@ -158,7 +168,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.pop">
 <span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.html#DynamicWaveletMatrix.pop"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.pop" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>位置 <code class="docutils literal notranslate"><span class="pre">k</span></code> の要素を削除し、その値を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n}\log{sigma})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>k</strong> (<em>int</em>) -- </p>
 </dd>
@@ -171,7 +183,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.reserve">
 <span class="sig-name descname"><span class="pre">reserve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.html#DynamicWaveletMatrix.reserve"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.reserve" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 要素分のメモリを確保します。</p>
+<p><span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>n</strong> (<em>int</em>) -- </p>
 </dd>
@@ -184,7 +198,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.html#DynamicWaveletMatrix.update"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix.update" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>位置 <code class="docutils literal notranslate"><span class="pre">k</span></code> の要素を <code class="docutils literal notranslate"><span class="pre">x</span></code> に更新します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n}\log{sigma})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>k</strong> (<em>int</em>) -- </p></li>

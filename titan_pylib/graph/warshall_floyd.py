@@ -1,7 +1,17 @@
 from typing import List, Tuple, Union
 
-'''Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)'''
 def warshall_floyd(G: List[List[Tuple[int, int]]], INF: Union[int, float]=float('inf')) -> List[List[Union[int, float]]]:
+  """重み付き隣接リスト ``G`` に対し、全点対最短経路を返します。
+
+  :math:`O(n^3)` です。
+
+  Args:
+      G (List[List[Tuple[int, int]]]): 重み付き隣接リストです。
+      INF (Union[int, float], optional): 無限大です。
+
+  Returns:
+      List[List[Union[int, float]]]: dist[a][b] -> a to b
+  """
   n = len(G)
   dist = [[INF]*n for _ in range(n)]
   for v in range(n):

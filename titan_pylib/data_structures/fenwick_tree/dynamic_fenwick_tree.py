@@ -1,6 +1,8 @@
 from typing import Optional, Final, Dict
 
 class DynamicFenwickTree():
+  """必要なところだけノードを作ります。
+  """
 
   def __init__(self, u: int):
     '''Build DynamicFenwickTree [0, u).'''

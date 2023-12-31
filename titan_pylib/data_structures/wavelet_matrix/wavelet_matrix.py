@@ -4,8 +4,26 @@ from heapq import heappush, heappop
 from array import array
 
 class WaveletMatrix():
+  """``WaveletMatrix`` です。
+  静的であることに注意してください。
+
+  以下の仕様の計算量には嘘があるかもしれません。import 元の ``BitVector`` の計算量も参考にしてください。
+
+  - 参考:
+    - [https://miti-7.hatenablog.com/entry/2018/04/28/152259](https://miti-7.hatenablog.com/entry/2018/04/28/152259)
+    - [https://www.slideshare.net/pfi/ss-15916040](https://www.slideshare.net/pfi/ss-15916040)
+    - [デwiki](https://scrapbox.io/data-structures/Wavelet_Matrix)
+  """
 
   def __init__(self, sigma: int, a: Sequence[int]=[]):
+    """``[0, sigma)`` の整数列を管理する ``WaveletMatrix`` を構築します。
+
+    :math:`O(n\\log{sigma})` です。
+
+    Args:
+      sigma (int): 扱う整数の上限です。
+      a (Sequence[int], optional): 構築する配列です。
+    """
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.mid: array[int] = array('I', bytes(4*self.log))
@@ -14,7 +32,7 @@ class WaveletMatrix():
     self._build(a)
 
   def _build(self, a: Sequence[int]) -> None:
-    '''列 a から wm を構築する'''
+    # 列 a から wm を構築する
     for bit in range(self.log-1, -1, -1):
       # bit目の0/1に応じてvを構築 + aを安定ソート
       v = self.v[bit]
@@ -30,7 +48,13 @@ class WaveletMatrix():
       a = zero + one
 
   def access(self, k: int) -> int:
-    '''a[k] を返す'''
+    """k番目の値を返します。
+
+    :math:`O(\\log{sigma})` です。
+
+    Args:
+      k (int): インデックスです。
+    """
     assert -self.size <= k < self.size, \
         f'IndexError: {self.__class__.__name__}.access({k}), size={self.size}'
     if k < 0:
@@ -52,7 +76,10 @@ class WaveletMatrix():
     return self.access(k)
 
   def rank(self, r: int, x: int) -> int:
-    '''a[0, r) に含まれる x の個数'''
+    """``a[0, r)`` に含まれる ``x`` の個数を返します。
+
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= r <= self.size, f'IndexError: {self.__class__.__name__}.rank(), r={r}, size={self.size}'
     assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.rank(), x={x}, LIM={1<<self.log}'
     l = 0
@@ -71,7 +98,10 @@ class WaveletMatrix():
     return r - l
 
   def select(self, k: int, x: int) -> int:
-    '''k 番目の v のindex'''
+    """``k`` 番目の ``v`` のインデックスを返します。
+
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.select({k}, {x}), k={k}, size={self.size}'
     assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.select({k}, {x}), x={x}, LIM={1<<self.log}'
     # x の開始位置 s を探す
@@ -90,7 +120,10 @@ class WaveletMatrix():
     return s
 
   def kth_smallest(self, l: int, r: int, k: int) -> int:
-    '''a[l, r) の中で k 番目に小さい値'''
+    """``a[l, r)`` の中で k 番目に **小さい** 値を返します。
+
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.kth_smallest({l}, {r}, {k}), size={self.size}'
     assert 0 <= k < r-l, f'IndexError: {self.__class__.__name__}.kth_smallest({l}, {r}, {k}), wrong k'
     s = 0
@@ -113,11 +146,23 @@ class WaveletMatrix():
   quantile = kth_smallest
 
   def kth_largest(self, l: int, r: int, k: int) -> int:
+    """``a[l, r)`` の中で k 番目に **大きい値** を返します。
+
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.kth_largest({l}, {r}, {k}), size={self.size}'
     assert 0 <= k < r-l, f'IndexError: {self.__class__.__name__}.kth_largest({l}, {r}, {k}), wrong k'
     return self.kth_smallest(l, r, r-l-k-1)
 
   def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:
+    """``a[l, r)`` の中で、要素を出現回数が多い順にその頻度とともに ``k`` 個返します。
+
+    :math:`O(min(r-l, sigam) log(sigam))` です。
+    :math:`sigma` が大きい場合、計算量に注意です。
+
+    Returns:
+      List[Tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。
+    """
     assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.topk({l}, {r}, {k}), size={self.size}'
     assert 0 <= k < r-l, f'IndexError: {self.__class__.__name__}.topk({l}, {r}, {k}), wrong k'
     # heap[-length, x, l, bit]
@@ -144,6 +189,10 @@ class WaveletMatrix():
     return ans
 
   def sum(self, l: int, r: int) -> int:
+    """``topk`` メソッドを用いて ``a[l, r)`` の総和を返します。
+
+    計算量に注意です。
+    """
     assert False, 'Yabai Keisanryo Error'
     return sum(k*v for k, v in self.topk(l, r, r-l))
 
@@ -164,21 +213,36 @@ class WaveletMatrix():
     return ans
 
   def range_freq(self, l: int, r: int, x: int, y: int) -> int:
+    """``a[l, r)`` に含まれる、 ``x`` 以上 ``y`` 未満である要素の個数を返します。
+
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= l <= r <= self.size, \
         f'IndexError: {self.__class__.__name__}.range_freq({l}, {r}, {x}, {y})'
     return self._range_freq(l, r, y) - self._range_freq(l, r, x)
 
   def prev_value(self, l: int, r: int, x: int) -> int:
+    """``a[l, r)`` で、``x`` 以上 ``y`` 未満であるような要素のうち最大の要素を返します。
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= l <= r <= self.size, \
         f'IndexError: {self.__class__.__name__}.prev_value({l}, {r}, {x})'
     return self.kth_smallest(l, r, self._range_freq(l, r, x)-1)
 
   def next_value(self, l: int, r: int, x: int) -> int:
+    """``a[l, r)`` で、``x`` 以上 ``y`` 未満であるような要素のうち最小の要素を返します。
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= l <= r <= self.size, \
         f'IndexError: {self.__class__.__name__}.next_value({l}, {r}, {x})'
     return self.kth_smallest(l, r, self._range_freq(l, r, x))
 
   def range_count(self, l: int, r: int, x: int) -> int:
+    """``a[l, r)`` に含まれる ``x`` の個数を返します。
+    ``wm.rank(r, x) - wm.rank(l, x)`` と等価です。
+
+    :math:`O(\\log{sigma})` です。
+    """
     assert 0 <= l <= r <= self.size, \
         f'IndexError: {self.__class__.__name__}.range_count({l}, {r}, {x})'
     return self.rank(r, x) - self.rank(l, x)

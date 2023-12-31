@@ -3,6 +3,9 @@ from typing import Generic, TypeVar, Iterable
 T = TypeVar('T', bound=SupportsLessThan)
 
 class SparseTableRmQ(Generic[T]):
+  """
+  2項演算を :math:`\\min` にしたものです。
+  """
 
   def __init__(self, a: Iterable[T], e: T):
     if not isinstance(a, list):

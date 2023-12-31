@@ -5,8 +5,18 @@ from typing import Iterable, Optional, TypeVar, Generic, List, Sequence
 T = TypeVar('T', bound=SupportsLessThan)
 
 class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
+  """赤黒木です。集合です。
+
+  ``std::set`` も怖くない。
+  """
 
   class Node():
+    """``RedBlackTreeSet`` で使用される節点クラスです。
+
+    双方向に進められます。
+    ``1`` だけ進める場合、計算量は平均 ``O(1)`` 、最悪 ``O(logN)`` です。
+    ``k`` だけ進める場合、だいたい ``k`` 倍になります(ホント?)。
+    """
 
     def __init__(self, key: T):
       self.key = key
@@ -17,6 +27,10 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
 
     @property
     def count(self) -> int:
+      """保持している `key` の個数です。
+
+      ``1`` を返します。
+      """
       return 1
 
     def _min(self):
@@ -51,6 +65,8 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       return now if flag and pre is now.right else now.left._max()
 
     def __iadd__(self, other: int):
+      """``node`` を次 ``node`` にします。存在しないときは ``None`` になります。
+      """
       res = self
       for _ in range(other):
         assert res is not None, 'RedBlackTreeSet Node.__iadd__() Error'
@@ -58,6 +74,8 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       return res
 
     def __isub__(self, other: int):
+      """``node`` を前の ``node`` にします。存在しないときは ``None`` になります。
+      """
       res = self
       for _ in range(other):
         assert res is not None, 'RedBlackTreeSet Node.__isub__() Error'
@@ -65,6 +83,8 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       return res
 
     def __add__(self, other: int):
+      """次の ``node`` を返します。存在しないときは ``None`` を返します。
+      """
       res = self
       for _ in range(other):
         assert res is not None, 'RedBlackTreeSet Node.__add__() Error'
@@ -72,6 +92,8 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
       return res
 
     def __sub__(self, other: int):
+      """前の ``node`` を返します。存在しないときは ``None`` を返します。
+      """
       res = self
       for _ in range(other):
         assert res is not None, 'RedBlackTreeSet Node.__add__() Error'
@@ -83,7 +105,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
         return f'(key,col,par.key):{self.key, self.col, self.par.key}\n'
       return f'(key,col,par.key):{self.key, self.col, self.par.key},\n left:{self.left},\n right:{self.right}\n'
 
-  class NILNode():
+  class _NILNode():
 
     key = None
     left = None
@@ -103,9 +125,13 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     def __str__(self):
       return 'NIL'
 
-  NIL = NILNode()
+  NIL = _NILNode()
 
   def __init__(self, a: Iterable[T]=[]):
+    """``a`` から ``RedBlackTreeSet`` を再帰的に構築します。
+
+    重複無くソート済みなら :math:`O(N)` 、そうでないなら :math:`O(NlogN)` です。
+    """
     self.node = RedBlackTreeSet.NIL
     self.size = 0
     self.min_node = None
@@ -251,6 +277,13 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     return True
 
   def discard_iter(self, node: Node) -> None:
+    """``node`` を削除します。
+
+    償却 :math:`O(1)` らしいです。
+
+    Args:
+      node (Node): 削除する ``node`` です。
+    """
     assert isinstance(node, RedBlackTreeSet.Node)
     self.size -= 1
     if node.key == self.min_node.key:
@@ -356,9 +389,17 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     return self.min_node.key
 
   def get_max_iter(self) -> Optional[Node]:
+    """最大値を指す `Node` を返します。空であれば `None` を返します。
+
+    :math:`O(1)` です。
+    """
     return self.max_node
 
   def get_min_iter(self) -> Optional[Node]:
+    """最小値を指す `Node` を返します。空であれば `None` を返します。
+
+    :math:`O(1)` です。
+    """
     return self.min_node
 
   def le(self, key: T) -> Optional[T]:
@@ -424,6 +465,10 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     return res
 
   def find(self, key: T) -> Optional[Node]:
+    """``key`` が存在すれば ``key`` を指す ``Node`` を返します。存在しなければ ``None`` を返します。
+
+    :math:`O(\\log{n})` です。
+    """
     node = self.node
     while node:
       if key == node.key:

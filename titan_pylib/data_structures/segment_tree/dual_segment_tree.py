@@ -3,6 +3,8 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class DualSegmentTree(Generic[T, F]):
+  """双対セグ木です。
+  """
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],

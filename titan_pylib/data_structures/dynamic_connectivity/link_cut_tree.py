@@ -4,8 +4,10 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class LinkCutTree(Generic[T, F]):
+  """LinkCutTree です。
+  """
 
-  # パスクエリ全部載せLinkCutTree
+  # パスクエリ全部載せ
   # - link / cut / merge / split
   # - prod / apply / getitem / setitem
   # - root / same
@@ -23,6 +25,12 @@ class LinkCutTree(Generic[T, F]):
                e: T,
                id: F,
                ) -> None:
+    """
+    各引数は遅延セグ木のアレです。よしなに。
+
+    Args:
+      op (Callable[[T, T], T]): 非可換でも構いません。
+    """
     self.op = op
     self.mapping = mapping
     self.composition = composition
@@ -157,8 +165,10 @@ class LinkCutTree(Generic[T, F]):
     self._update_double(pnode, node)
 
   def expose(self, v: int) -> int:
-    ''' vが属する木において、その木の根->vのパスを構築
-    '''
+    """`v` が属する木において、その木を管理しているsplay木の根からvまでのパスを作ります。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     arr, n, _splay, _update = self.arr, self.n, self._splay, self._update
     pre = v
     while arr[v<<2|2] != n:
@@ -176,14 +186,23 @@ class LinkCutTree(Generic[T, F]):
     return pre
 
   def lca(self, u: int, v: int, root: int=-1) -> int:
+    """``root`` を根としたときの、 ``u``, ``v`` の LCA を返します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     if root != -1:
       self.evert(root)
     self.expose(u)
     return self.expose(v)
 
   def link(self, c: int, p: int) -> None:
-    ''' c->pの辺を追加する / cは元の木の根でなければならない
-    '''
+    """辺 ``{c -> p}`` を追加します。
+
+    償却 :math:`O(\\log{n})` です。
+
+    制約:
+      ``c`` は元の木の根でなければならないです。
+    """
     assert not self.same(c, p)
     self.expose(c)
     self.expose(p)
@@ -193,8 +212,13 @@ class LinkCutTree(Generic[T, F]):
     self.group_cnt -= 1
 
   def cut(self, c: int) -> None:
-    ''' cとpar[c]の間の辺を削除する / cは元の木の根であってはいけない
-    '''
+    """辺 ``{c -> cの親}`` を削除します。
+
+    償却 :math:`O(\\log{n})` です。
+
+    制約:
+      ``c`` は元の木の根であってはいけないです。
+    """
     arr = self.arr
     self.expose(c)
     assert arr[c<<2] != self.n
@@ -204,11 +228,17 @@ class LinkCutTree(Generic[T, F]):
     self.group_cnt += 1
 
   def group_count(self) -> int:
+    """連結成分数を返します。
+
+    :math:`O(1)` です。
+    """
     return self.group_cnt
 
   def root(self, v: int) -> int:
-    ''' vが属する木の根を返す
-    '''
+    """``v`` が属する木の根を返します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self.expose(v)
     arr, n = self.arr, self.n
     while arr[v<<2] != n:
@@ -218,22 +248,32 @@ class LinkCutTree(Generic[T, F]):
     return v
 
   def same(self, u: int, v: int) -> bool:
-    ''' uとvが同じ連結成分であるかを返す
-    '''
+    """連結判定です。
+
+    償却 :math:`O(\\log{n})` です。
+
+    Returns:
+      bool: ``u``, ``v`` が同じ連結成分であれば ``True`` を、そうでなければ ``False`` を返します。
+    """
     return self.root(u) == self.root(v)
 
   def evert(self, v: int) -> None:
-    ''' vが属する元の木の根をvにする
-    expose→一番右→反転フラグ
-    evert後、vは遅延伝播済み(何かと便利なので)
-    '''
+    """``v`` を根にします。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self.expose(v)
     self.arr[v<<2|3] ^= 1
     self._propagate(v)
 
   def merge(self, u: int, v: int) -> bool:
-    ''' 辺[u - v]を追加する 既に同じ連結成分にいた場合はreturn
-    '''
+    """
+    ``u``, ``v`` が同じ連結成分なら ``False`` を返します。
+    そうでなければ辺 ``{u -> v}`` を追加して ``True`` を返します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
+
     if self.same(u, v): return False
     self.evert(u)
     self.expose(v)
@@ -244,21 +284,30 @@ class LinkCutTree(Generic[T, F]):
     return True
 
   def split(self, u: int, v: int) -> bool:
-    ''' 辺[u - v]を削除する
-    '''
+    """
+    辺 ``{u -> v}`` があれば削除し ``True`` を返します。
+    そうでなければ何もせず ``False`` を返します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self.evert(u)
     self.cut(v)
     return True
 
   def path_prod(self, u: int, v: int) -> T:
-    ''' パス[u -> v]間の総積を返す
-    非可換に対応
-    '''
+    """``u`` から ``v`` へのパスの総積を返します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self.evert(u)
     self.expose(v)
     return self.data[v<<1]
 
   def path_apply(self, u: int, v: int, f: F) -> None:
+    """``u`` から ``v`` へのパスに ``f`` を作用させます。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self.evert(u)
     self.expose(v)
     self.key[v] = self.mapping(f, self.key[v])
@@ -268,12 +317,19 @@ class LinkCutTree(Generic[T, F]):
     self._propagate(v)
 
   def path_length(self, u: int, v: int) -> int:
+    """``u`` から ``v`` へのパスに含まれる頂点の数を返します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self.evert(u)
     self.expose(v)
     return self.size[v]
 
   def path_kth_elm(self, s: int, t: int, k: int) -> int:
-    ''' path[s -> t]のk番目の頂点番号を取得する
+    '''``u`` から ``v`` へ ``k`` 個進んだ頂点を返します。
+    存在しないときは ``-1`` を返します。
+
+    償却 :math:`O(\\log{n})` です。
     '''
     self.evert(s)
     self.expose(t)
@@ -290,18 +346,20 @@ class LinkCutTree(Generic[T, F]):
       if s < k:
         k -= s + 1
 
-  def path_max_right(self, s: int, t: int, f: Callable[[T], bool]) -> int:
-    return -1
-
-  def path_min_left(self, s: int, t: int, f: Callable[[T], bool]) -> int:
-    return -1
-
   def __setitem__(self, k: int, v: T):
+    """頂点 ``k`` の値を ``v`` に更新します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self._splay(k)
     self.key[k] = v
     self._update(k)
 
   def __getitem__(self, k: int) -> T:
+    """頂点 ``k`` の値を返します。
+
+    償却 :math:`O(\\log{n})` です。
+    """
     self._splay(k)
     return self.key[k]
 

@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,7 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.binary_trie.binary_trie_set.BinaryTrieSet">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.binary_trie.binary_trie_set.</span></span><span class="sig-name descname"><span class="pre">BinaryTrieSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/binary_trie/binary_trie_set.html#BinaryTrieSet"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.binary_trie.binary_trie_set.BinaryTrieSet" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <a class="reference internal" href="titan_pylib.my_class.ordered_set_interface.html#titan_pylib.my_class.ordered_set_interface.OrderedSetInterface" title="titan_pylib.my_class.ordered_set_interface.OrderedSetInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrderedSetInterface</span></code></a></p>
+<p>0以上u未満の整数からなる集合を管理できます。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -155,7 +157,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.binary_trie.binary_trie_set.BinaryTrieSet.all_xor">
 <span class="sig-name descname"><span class="pre">all_xor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/binary_trie/binary_trie_set.html#BinaryTrieSet.all_xor"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.binary_trie.binary_trie_set.BinaryTrieSet.all_xor" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>すべての要素に <code class="docutils literal notranslate"><span class="pre">x</span></code> で <code class="docutils literal notranslate"><span class="pre">xor</span></code> をかけます。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> (<em>int</em>) -- </p>
 </dd>
@@ -335,7 +339,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.binary_trie.binary_trie_set.BinaryTrieSet.reserve">
 <span class="sig-name descname"><span class="pre">reserve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/binary_trie/binary_trie_set.html#BinaryTrieSet.reserve"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.binary_trie.binary_trie_set.BinaryTrieSet.reserve" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">n</span></code> 要素分のメモリを確保します。</p>
+<p><span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>n</strong> (<em>int</em>) -- </p>
 </dd>

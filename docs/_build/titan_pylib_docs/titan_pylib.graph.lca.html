@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -123,6 +124,9 @@
 <dt class="sig sig-object py" id="titan_pylib.graph.lca.LCA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.graph.lca.</span></span><span class="sig-name descname"><span class="pre">LCA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/lca.html#LCA"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.lca.LCA" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>LCA を定数倍良く求めます。</p>
+<p>&lt; O(NlogN), O(1) &gt;
+<a class="reference external" href="https://github.com/cheran-senthil/PyRival/blob/master/pyrival/graphs/lca.py">https://github.com/cheran-senthil/PyRival/blob/master/pyrival/graphs/lca.py</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -134,7 +138,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.lca.LCA.lca">
 <span class="sig-name descname"><span class="pre">lca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/lca.html#LCA.lca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.lca.LCA.lca" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">u</span></code> と頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> の <code class="docutils literal notranslate"><span class="pre">lca</span></code> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>

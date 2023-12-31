@@ -5,6 +5,10 @@ from typing import Generic, Iterable, TypeVar, Optional, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 class TreapSet(OrderedSetInterface, Generic[T]):
+  """treap です。
+
+  乱数を使用して平衡を保っています。Hackされることなんてあるんですかね。今のところ集合と多重集合しかないです。
+  """
 
   class Random():
 

@@ -3,11 +3,23 @@ from typing import Generic, Iterable, TypeVar, Callable, Union, List
 T = TypeVar('T')
 
 class SegmentTree(SegmentTreeInterface, Generic[T]):
+  """セグ木です。非再帰です。
+  """
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
                op: Callable[[T, T], T],
                e: T) -> None:
+    """``SegmentTree`` を構築します。
+
+    :math:`O(n)` です。
+
+    Args:
+        n_or_a (Union[int, Iterable[T]]): ``n: int`` のとき、 ``e`` を初期値として長さ ``n`` の ``SegmentTree`` を構築します。
+                                          ``a: Iterable[T]`` のとき、 ``a`` から ``SegmentTree`` を構築します。
+        op (Callable[[T, T], T]): 2項演算の関数です。
+        e (T): 単位元です。
+    """
     self._op = op
     self._e = e
     if isinstance(n_or_a, int):
@@ -27,6 +39,14 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
       self._data = _data
 
   def set(self, k: int, v: T) -> None:
+    """一点更新です。
+
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): 更新するインデックスです。
+      v (T): 更新する値です。
+    """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.set({k}, {v}), n={self._n}'
     if k < 0:
@@ -38,6 +58,13 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
       self._data[k] = self._op(self._data[k<<1], self._data[k<<1|1])
 
   def get(self, k: int) -> T:
+    """一点取得です。
+
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): インデックスです。
+    """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.get({k}), n={self._n}'
     if k < 0:
@@ -45,6 +72,14 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return self._data[k+self._size]
 
   def prod(self, l: int, r: int) -> T:
+    """区間 ``[l, r)`` の総積を返します。
+
+    :math:`O(\\log{n})` です。
+
+    Args:
+      l (int): インデックスです。
+      r (int): インデックスです。
+    """
     assert 0 <= l <= r <= self._n, \
         f'IndexError: {self.__class__.__name__}.prod({l}, {r})'
     l += self._size
@@ -62,6 +97,10 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return self._op(lres, rres)
 
   def all_prod(self) -> T:
+    """区間 ``[0, n)`` の総積を返します。
+
+    :math:`O(1)` です。
+    """
     return self._data[1]
 
   def max_right(self, l: int, f: Callable[[T], bool]) -> int:
@@ -117,9 +156,14 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return 0
 
   def tolist(self) -> List[T]:
+    """
+    :math:`O(n)` です。
+    """
     return [self.get(i) for i in range(self._n)]
 
   def show(self) -> None:
+    """デバッグ用のメソッドです。
+    """
     print(f'<{self.__class__.__name__}> [\n' + '\n'.join(['  ' + ' '.join(map(str, [self._data[(1<<i)+j] for j in range(1<<i)])) for i in range(self._log+1)]) + '\n]')
 
   def __getitem__(self, k: int) -> T:
