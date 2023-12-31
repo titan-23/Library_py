@@ -2,6 +2,9 @@ from titan_pylib.data_structures.splay_tree.splay_tree_set_top_down import Splay
 from typing import Dict, Iterable, Tuple
 
 class RangeSet():
+  """
+  1点追加/削除/mex取得機能しかないです、あの
+  """
 
   def __init__(self, a: Iterable[int]=[]):
     self.data: SplayTreeSetTopDown[Tuple[int, int]] = SplayTreeSetTopDown()

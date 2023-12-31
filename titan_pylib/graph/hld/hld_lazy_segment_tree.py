@@ -5,8 +5,8 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class HLDLazySegmentTree(Generic[T, F]):
-
-  # セグ木バージョンあればすぐ書けるが、その手間を省くのがライブラリ
+  """遅延セグ木搭載HLDです。
+  """
 
   def __init__(self,
                hld: HLD,

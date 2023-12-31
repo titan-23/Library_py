@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -117,12 +118,18 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.build_list">
 <span class="sig-name descname"><span class="pre">build_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.build_list"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.build_list" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">hld配列</span></code> を基にインデックスを振りなおします。
+非破壊的です。</p>
+<p><span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>a</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) -- </p>
+<dd class="field-odd"><p><strong>a</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) -- 元の配列です。</p>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>List</em>[<em>Any</em>]</p>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>振りなおし後の配列です。</p>
+</dd>
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Any]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -130,7 +137,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.for_each_vertex">
 <span class="sig-name descname"><span class="pre">for_each_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.for_each_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.for_each_vertex" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">u-v</span></code> パスに対応する区間のインデックスを返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -146,7 +155,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.for_each_vertex_subtree">
 <span class="sig-name descname"><span class="pre">for_each_vertex_subtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.for_each_vertex_subtree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.for_each_vertex_subtree" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> の部分木に対応する区間のインデックスを返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
 </dd>
@@ -159,7 +170,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.lca">
 <span class="sig-name descname"><span class="pre">lca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.lca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.lca" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">v</span></code> の LCA を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -175,7 +188,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.path_kth_elm">
 <span class="sig-name descname"><span class="pre">path_kth_elm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.path_kth_elm"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.path_kth_elm" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">s</span></code> から <code class="docutils literal notranslate"><span class="pre">t</span></code> に向かって <code class="docutils literal notranslate"><span class="pre">k</span></code> 個進んだ頂点のインデックスを返します。
+存在しないときは <code class="docutils literal notranslate"><span class="pre">-1</span></code> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>s</strong> (<em>int</em>) -- </p></li>
@@ -224,11 +240,7 @@
   </script>
      
     <!-- <link rel="stylesheet" type="text/css" href="../_static/style.css"> -->
-    <script type="text/javascript" src="../_static/script.js"></script>
-
-    <!-- <button id="copyButton">Copy</button>
-    <button id="ShowFullCodeButton">Show Full Code</button>
-    <button id="toggleCodeButton">Toggle Code</button> -->
+    <!-- <script type="text/javascript" src="../_static/script.js"></script> -->
 
 
 </body>

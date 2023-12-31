@@ -4,6 +4,11 @@ from typing import Union, Iterable, Callable, TypeVar, Generic
 T = TypeVar('T')
 
 class HLDNoncommutativeSegmentTree(Generic[T]):
+  """セグ木搭載HLDです。
+
+  Note:
+    **非可換に対応してます。**
+  """
 
   def __init__(self, hld: HLD, n_or_a: Union[int, Iterable[T]], op: Callable[[T, T], T], e: T):
     self.hld: HLD = hld

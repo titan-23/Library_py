@@ -6,9 +6,12 @@ from typing import Generic, Iterable, Optional, TypeVar, List, Final
 T = TypeVar('T', bound=SupportsLessThan)
 
 class WBTreeSet(OrderedSetInterface, Generic[T]):
+  """
+  [BINARY SEARCH TREES OF BOUNDED BALANCE](https://dl.acm.org/doi/pdf/10.1145/800152.804906)
+  """
 
-  ALPHA: Final[float] = 1 - sqrt(2) / 2
-  BETA: Final[float] = (1 - 2*ALPHA) / (1 - ALPHA)
+  _ALPHA: Final[float] = 1 - sqrt(2) / 2
+  _BETA: Final[float] = (1 - 2*_ALPHA) / (1 - _ALPHA)
 
   def __init__(self, a: Iterable[T]=[], e: T=0) -> None:
     self.root: int = 0
@@ -82,7 +85,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
     right = self.right
     right[node] = right[node]
     u = right[node]
-    if self._balance(u) >= self.BETA:
+    if self._balance(u) >= self._BETA:
       right[node] = self._rotate_right(u)
     u = self._rotate_left(node)
     return u
@@ -103,7 +106,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
     left = self.left
     left[node] = left[node]
     u = left[node]
-    if self._balance(u) <= 1 - self.BETA:
+    if self._balance(u) <= 1 - self._BETA:
       left[node] = self._rotate_left(u)
     u = self._rotate_right(node)
     return u
@@ -129,9 +132,9 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
       node = path.pop()
       size[node] += 1
       b = self._balance(node)
-      if b < self.ALPHA:
+      if b < self._ALPHA:
         new_node = self._balance_left(node)
-      elif b > 1 - self.ALPHA:
+      elif b > 1 - self._ALPHA:
         new_node = self._balance_right(node)
       if new_node:
         if path:
@@ -185,9 +188,9 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
       node = path.pop()
       size[node] -= 1
       b = self._balance(node)
-      if b < self.ALPHA:
+      if b < self._ALPHA:
         new_node = self._balance_left(node)
-      elif b > 1 - self.ALPHA:
+      elif b > 1 - self._ALPHA:
         new_node = self._balance_right(node)
       if new_node:
         if not path:
@@ -388,10 +391,10 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
       s = ls + rs + 1
       b = (ls+1) / (s+1)
       assert s == size[node]
-      if not (self.ALPHA <= b <= 1-self.ALPHA):
+      if not (self._ALPHA <= b <= 1-self._ALPHA):
         print('NG!')
         print(f'{keys[node]=}, {ls=}, {rs=}, {s=}, {b=}')
-        print(f'{self.ALPHA=}, {1-self.ALPHA=}')
+        print(f'{self._ALPHA=}, {1-self._ALPHA=}')
         assert False
       return s, height+1
     if not self.root: return

@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -122,12 +123,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.graph.get_biconnected_components.get_biconnected_components">
 <span class="sig-prename descclassname"><span class="pre">titan_pylib.graph.get_biconnected_components.</span></span><span class="sig-name descname"><span class="pre">get_biconnected_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/get_biconnected_components.html#get_biconnected_components"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.get_biconnected_components.get_biconnected_components" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p><code class="docutils literal notranslate"><span class="pre">G</span></code> を二重頂点連結分解します。</p>
+<p><span class="math notranslate nohighlight">\(O(n+m)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>G</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) -- </p>
+<dd class="field-odd"><p><strong>G</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) -- 隣接リストです。</p>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>Tuple</em>[<em>List</em>[<em>List</em>[int]], <em>List</em>[<em>List</em>[<em>Tuple</em>[int, int]]]]</p>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(頂点集合),</span> <span class="pre">(辺集合)</span></code> のタプルです。</p>
+</dd>
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[List[List[int]], List[List[Tuple[int, int]]]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,11 +171,7 @@
   </script>
      
     <!-- <link rel="stylesheet" type="text/css" href="../_static/style.css"> -->
-    <script type="text/javascript" src="../_static/script.js"></script>
-
-    <!-- <button id="copyButton">Copy</button>
-    <button id="ShowFullCodeButton">Show Full Code</button>
-    <button id="toggleCodeButton">Toggle Code</button> -->
+    <!-- <script type="text/javascript" src="../_static/script.js"></script> -->
 
 
 </body>

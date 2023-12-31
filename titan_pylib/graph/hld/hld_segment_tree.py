@@ -4,6 +4,11 @@ from typing import Union, Iterable, Callable, TypeVar, Generic
 T = TypeVar('T')
 
 class HLDSegmentTree(Generic[T]):
+  """セグ木搭載HLDです。
+
+  Note:
+    **非可換に対応していません。**
+  """
 
   def __init__(self,
                hld: HLD,

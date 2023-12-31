@@ -4,6 +4,38 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class EulerTourTree(Generic[T, F]):
+  """``Euler Tour Tree`` です。部分木クエリの強さに定評があります。
+
+  森です。各連結成分(木)は独立なのでそれごとに見ていきます。
+
+  基本戦術はオイラーツアー(Euler tour technique)です。これはググってください。
+  実は、ある木をオイラーツアーした列と、その木に対して 根の変更 / 辺の追加 / 辺の削除 をした木のオイラーツアーした列との差分は多くはありません。実際に紙に書くとよいでしょう。これをうまいこと管理します。
+
+  列を平衡二分木で管理します。ここで、オイラーツアーの列はでは頂点ではなく辺の列とします。例えば、
+  `[0, 1, 0, 2, 0]`
+  の頂点列は辺列
+  `[{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 2}, {2, 2}, {2, 0}]`
+  などとなります。
+  また、補助データ構造として辺からノードのポインタをたどれる辞書を保持します。
+  各処理の流れは以下のようになります。
+
+  - 根の変更: `reroot(v)`
+    - 辺 `{v, v}` の頂点の直前で `split` し、それを順に `A, B` とする
+    - `B` と `A` をこの順にマージする
+  - 辺の追加: `link(u, v)`
+    - `reroot(u); reroot(v)`
+    - `u, v` が属する木(のオイラーツアーした辺の列)をそれぞれ `E1, E2` とする
+    - `E1, [{u, v}], E2, [{v, u}]` をこの順にマージする
+  - 辺の削除: `cut(u, v)`
+    - `reroot(v); reroot(u)`
+    - `{u, v}, {v, u}` で `split` してできたものを順に `A, B, C` とする。ただし、 `{u, v}` は `A` に含まれ、 `{v, u}` は `C` に含まれる。
+    - `A` の末尾と `C` の先頭を削除し、 `A` と `C` をこの順にマージする
+  - 連結性判定: `same(u, v)`
+    - `u, v` を `splay` して、 `u` の親が `None` じゃなければ連結。 `u == v` のときは別途処理をする。
+
+  計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 `O(logN)` です。この実装ではsplay木とハッシュテーブルで管理するので償却 `O(logN)` +期待 `O(1)` です(もとのグラフの頂点数に対してオイラーツアーすると `(元の頂点数)+(辺数)*2?` の頂点ができるので、たしかに `O(元のグラフの頂点数)` ではありますが、定数倍がバカです)。
+  オイラーツアーがあれば、部分木クエリは簡単に処理できます。
+  """
 
   class Node():
 
@@ -61,6 +93,16 @@ class EulerTourTree(Generic[T, F]):
     return wrappedfunc
 
   def build(self, G: List[List[int]]) -> None:
+    """隣接リスト `G` をもとにして、辺を張ります。
+
+    :math:`O(n)` です。
+
+    Args:
+      G (List[List[int]]): 隣接リストです。
+
+    Note:
+      ``build`` メソッドを使用する場合は他のメソッドより前に使用しなければなりません。
+    """
     n, ptr_vertex, ptr_edge, e, id = self.n, self.ptr_vertex, self.ptr_edge, self.e, self.id
     seen = [0] * n
     Node = EulerTourTree.Node
@@ -263,6 +305,13 @@ class EulerTourTree(Generic[T, F]):
       node.data = self.op(node.data, node.right.data)
 
   def link(self, u: int, v: int) -> None:
+    """辺 ``{u, v}`` を追加します。
+
+    :math:`O(\\log{n})` です。
+
+    Note:
+      ``u`` と ``v`` が同じ連結成分であってはいけません。
+    """
     # add edge{u, v}
     self.reroot(u)
     self.reroot(v)
@@ -280,6 +329,13 @@ class EulerTourTree(Generic[T, F]):
     self._group_numbers -= 1
 
   def cut(self, u: int, v: int) -> None:
+    """辺 ``{u, v}`` を削除します。
+
+    :math:`O(\\log{n})` です。
+
+    Note:
+      辺 ``{u, v}`` が存在してなければいけません。
+    """
     # erace edge{u, v}
     self.reroot(v)
     self.reroot(u)
@@ -295,40 +351,65 @@ class EulerTourTree(Generic[T, F]):
     self._group_numbers += 1
 
   def merge(self, u: int, v: int) -> bool:
-    # add edge{u, v} unless same(u, v)
+    """
+    頂点 ``u`` と ``v`` が同じ連結成分にいる場合はなにもせず ``False`` を返します。
+    そうでない場合は辺 ``{u, v}`` を追加し ``True`` を返します。
+
+    :math:`O(\\log{n})` です。
+    """
     if self.same(u, v):
       return False
     self.link(u, v)
     return True
 
   def split(self, u: int, v: int) -> bool:
-    # erase edge{u, v} if both {u, v} and {v, u} in E
-    # if (u, v) not in self.ptr_edge or (v, u) not in self.ptr_edge:
-    #   return False
+    """
+    辺 ``{u, v}`` が存在しない場合はなにもせず ``False`` を返します。
+    そうでない場合は辺 ``{u, v}`` を削除し ``True`` を返します。
+
+    :math:`O(\\log{n})` です。
+    """
     if u*self.n+v not in self.ptr_edge or v*self.n+v not in self.ptr_edge:
       return False
     self.cut(u, v)
     return True
 
   def leader(self, v: int) -> Node:
+    """頂点 ``v`` を含む木の代表元を返します。
+
+    :math:`O(\\log{n})` です。
+
+    Note:
+      ``reroot`` すると変わるので注意です。
+    """
     # vを含む木の代表元
     # rerootすると変わるので注意
     return self._left_splay(self.ptr_vertex[v])
 
   def reroot(self, v: int) -> None:
+    """頂点 ``v`` を含む木の根を ``v`` にします。
+
+    :math:`O(\\log{n})` です。
+    """
     node = self.ptr_vertex[v]
     x, y = self._split_right(node)
     self._merge(y, x)
     self._splay(node)
 
   def same(self, u: int, v: int) -> bool:
+    """
+    頂点 ``u`` と ``v`` が同じ連結成分にいれば ``True`` を、
+    そうでなければ ``False`` を返します。
+
+    :math:`O(\\log{n})` です。
+    """
     u_node = self.ptr_vertex[u]
     v_node = self.ptr_vertex[v]
     self._splay(u_node)
     self._splay(v_node)
     return u_node.par is not None or u_node is v_node
 
-  def show(self) -> None:
+  def _show(self) -> None:
     # for debug
     print('+++++++++++++++++++++++++++')
     for i, v in enumerate(self.ptr_vertex):
@@ -338,7 +419,18 @@ class EulerTourTree(Generic[T, F]):
     print('+++++++++++++++++++++++++++')
 
   def subtree_apply(self, v: int, p: int, f: F) -> None:
-    # 頂点pを親としたときの頂点vの部分木にfを作用
+    """頂点 ``v`` を根としたときの部分木に ``f`` を作用します。
+
+    ``v`` の親は ``p`` です。
+    ``v`` の親が存在しないときは ``p=-1`` として下さい。
+
+    :math:`O(\\log{n})` です。
+
+    Args:
+      v (int): 根です。
+      p (int): ``v`` の親です。
+      f (F): 作用素です。
+    """
     if p == -1:
       v_node = self.ptr_vertex[v]
       self._splay(v_node)
@@ -362,7 +454,17 @@ class EulerTourTree(Generic[T, F]):
     self._merge(b, d)
 
   def subtree_sum(self, v: int, p: int) -> T:
-    # 頂点pを親としたときの頂点vの部分木に含まれる総和
+    """頂点 ``v`` を根としたときの部分木の総和を返します。
+
+    ``v`` の親は ``p`` です。
+    ``v`` の親が存在しないときは ``p=-1`` として下さい。
+
+    :math:`O(\\log{n})` です。
+
+    Args:
+      v (int): 根です。
+      p (int): ``v`` の親です。
+    """
     if p == -1:
       v_node = self.ptr_vertex[v]
       self._splay(v_node)
@@ -381,14 +483,26 @@ class EulerTourTree(Generic[T, F]):
     return res
 
   def group_count(self) -> int:
+    """連結成分の個数を返します。
+
+    :math:`O(1)` です。
+    """
     return self._group_numbers
 
   def get_vertex(self, v: int) -> T:
+    """頂点 ``v`` の ``key`` を返します。
+
+    :math:`O(\\log{n})` です。
+    """
     node = self.ptr_vertex[v]
     self._splay(node)
     return node.key
 
   def set_vertex(self, v: int, val: T) -> None:
+    """頂点 ``v`` の ``key`` を ``val`` に更新します。
+
+    :math:`O(\\log{n})` です。
+    """
     node = self.ptr_vertex[v]
     self._splay(node)
     node.key = val

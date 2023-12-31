@@ -2,6 +2,10 @@ from array import array
 from typing import Iterable, Optional, List
 
 class WordsizeTreeSet():
+  """32分木です。
+
+  空間 :math:`O(u)` であることに注意してください。
+  """
 
   def __init__(self, u: int, a: Iterable[int]=[]):
     assert u > 0

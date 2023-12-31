@@ -9,16 +9,6 @@ ____
 
 計算量は償却だったり最悪だったりします。詳しくは各READMEを読んでください。  
 
-以下の木があります。  
-
-- [`AVLTree`](../AVLTree/AVLTree.md)
-- [`RedBlackTree`](../RedBlackTree/RedBlackTree.md)
-  - [`RedBlackTreeSet`](../RedBlackTree/RedBlackTreeSet.md)
-  - [`RedBlackTreeMultiset`](../RedBlackTree/RedBlackTreeMultiset.md)
-- [`ScapegoatTree`](../ScapegoatTree/ScapegoatTree.md)
-- [`SplayTree`](../SplayTree/SplayTree.md)
-- [`Treap`](../Treap/Treap.md)
-
 _____
 
 ## 集合としてのBBST

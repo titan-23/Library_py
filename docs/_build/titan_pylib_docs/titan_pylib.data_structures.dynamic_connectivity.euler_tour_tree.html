@@ -24,6 +24,7 @@
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=4ea706d9"></script>
         <script src="../_static/translations.js?v=4dbe4bdc"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../_static/_static/script.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
@@ -131,6 +132,34 @@
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.</span></span><span class="sig-name descname"><span class="pre">EulerTourTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">F</span></code>]</p>
+<p><code class="docutils literal notranslate"><span class="pre">Euler</span> <span class="pre">Tour</span> <span class="pre">Tree</span></code> です。部分木クエリの強さに定評があります。</p>
+<p>森です。各連結成分(木)は独立なのでそれごとに見ていきます。</p>
+<p>基本戦術はオイラーツアー(Euler tour technique)です。これはググってください。
+実は、ある木をオイラーツアーした列と、その木に対して 根の変更 / 辺の追加 / 辺の削除 をした木のオイラーツアーした列との差分は多くはありません。実際に紙に書くとよいでしょう。これをうまいこと管理します。</p>
+<p>列を平衡二分木で管理します。ここで、オイラーツアーの列はでは頂点ではなく辺の列とします。例えば、
+<cite>[0, 1, 0, 2, 0]</cite>
+の頂点列は辺列
+<cite>[{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 2}, {2, 2}, {2, 0}]</cite>
+などとなります。
+また、補助データ構造として辺からノードのポインタをたどれる辞書を保持します。
+各処理の流れは以下のようになります。</p>
+<ul class="simple">
+<li><p>根の変更: <cite>reroot(v)</cite>
+- 辺 <cite>{v, v}</cite> の頂点の直前で <cite>split</cite> し、それを順に <cite>A, B</cite> とする
+- <cite>B</cite> と <cite>A</cite> をこの順にマージする</p></li>
+<li><p>辺の追加: <cite>link(u, v)</cite>
+- <cite>reroot(u); reroot(v)</cite>
+- <cite>u, v</cite> が属する木(のオイラーツアーした辺の列)をそれぞれ <cite>E1, E2</cite> とする
+- <cite>E1, [{u, v}], E2, [{v, u}]</cite> をこの順にマージする</p></li>
+<li><p>辺の削除: <cite>cut(u, v)</cite>
+- <cite>reroot(v); reroot(u)</cite>
+- <cite>{u, v}, {v, u}</cite> で <cite>split</cite> してできたものを順に <cite>A, B, C</cite> とする。ただし、 <cite>{u, v}</cite> は <cite>A</cite> に含まれ、 <cite>{v, u}</cite> は <cite>C</cite> に含まれる。
+- <cite>A</cite> の末尾と <cite>C</cite> の先頭を削除し、 <cite>A</cite> と <cite>C</cite> をこの順にマージする</p></li>
+<li><p>連結性判定: <cite>same(u, v)</cite>
+- <cite>u, v</cite> を <cite>splay</cite> して、 <cite>u</cite> の親が <cite>None</cite> じゃなければ連結。 <cite>u == v</cite> のときは別途処理をする。</p></li>
+</ul>
+<p>計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 <cite>O(logN)</cite> です。この実装ではsplay木とハッシュテーブルで管理するので償却 <cite>O(logN)</cite> +期待 <cite>O(1)</cite> です(もとのグラフの頂点数に対してオイラーツアーすると <cite>(元の頂点数)+(辺数)*2?</cite> の頂点ができるので、たしかに <cite>O(元のグラフの頂点数)</cite> ではありますが、定数倍がバカです)。
+オイラーツアーがあれば、部分木クエリは簡単に処理できます。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -165,20 +194,32 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.build">
 <span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.build"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.build" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>隣接リスト <cite>G</cite> をもとにして、辺を張ります。</p>
+<p><span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>G</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) -- </p>
+<dd class="field-odd"><p><strong>G</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) -- 隣接リストです。</p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><code class="docutils literal notranslate"><span class="pre">build</span></code> メソッドを使用する場合は他のメソッドより前に使用しなければなりません。</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.cut">
 <span class="sig-name descname"><span class="pre">cut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.cut"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.cut" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を削除します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> が存在してなければいけません。</p>
+</div>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -194,7 +235,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.get_vertex">
 <span class="sig-name descname"><span class="pre">get_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.get_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.get_vertex" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> の <code class="docutils literal notranslate"><span class="pre">key</span></code> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
 </dd>
@@ -207,7 +250,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.group_count">
 <span class="sig-name descname"><span class="pre">group_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.group_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.group_count" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>連結成分の個数を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
@@ -217,7 +262,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.leader">
 <span class="sig-name descname"><span class="pre">leader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.leader"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.leader" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を含む木の代表元を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><code class="docutils literal notranslate"><span class="pre">reroot</span></code> すると変わるので注意です。</p>
+</div>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
 </dd>
@@ -230,7 +281,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.link">
 <span class="sig-name descname"><span class="pre">link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.link"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.link" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を追加します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分であってはいけません。</p>
+</div>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -246,7 +303,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.merge">
 <span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.merge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.merge" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分にいる場合はなにもせず <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。
+そうでない場合は辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を追加し <code class="docutils literal notranslate"><span class="pre">True</span></code> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -262,7 +322,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.reroot">
 <span class="sig-name descname"><span class="pre">reroot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.reroot"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.reroot" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を含む木の根を <code class="docutils literal notranslate"><span class="pre">v</span></code> にします。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
 </dd>
@@ -275,7 +337,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.same">
 <span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.same" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分にいれば <code class="docutils literal notranslate"><span class="pre">True</span></code> を、
+そうでなければ <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -291,7 +356,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.set_vertex">
 <span class="sig-name descname"><span class="pre">set_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.set_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.set_vertex" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> の <code class="docutils literal notranslate"><span class="pre">key</span></code> を <code class="docutils literal notranslate"><span class="pre">val</span></code> に更新します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>v</strong> (<em>int</em>) -- </p></li>
@@ -305,19 +372,12 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.show">
-<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.show"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.show" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.split">
 <span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.split" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> が存在しない場合はなにもせず <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。
+そうでない場合は辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を削除し <code class="docutils literal notranslate"><span class="pre">True</span></code> を返します。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u</strong> (<em>int</em>) -- </p></li>
@@ -333,12 +393,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_apply">
 <span class="sig-name descname"><span class="pre">subtree_apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.subtree_apply"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_apply" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を根としたときの部分木に <code class="docutils literal notranslate"><span class="pre">f</span></code> を作用します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span></code> の親は <code class="docutils literal notranslate"><span class="pre">p</span></code> です。
+<code class="docutils literal notranslate"><span class="pre">v</span></code> の親が存在しないときは <code class="docutils literal notranslate"><span class="pre">p=-1</span></code> として下さい。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>p</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>f</strong> (<em>F</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- 根です。</p></li>
+<li><p><strong>p</strong> (<em>int</em>) -- <code class="docutils literal notranslate"><span class="pre">v</span></code> の親です。</p></li>
+<li><p><strong>f</strong> (<em>F</em>) -- 作用素です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
@@ -350,11 +414,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_sum">
 <span class="sig-name descname"><span class="pre">subtree_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.subtree_sum"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_sum" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を根としたときの部分木の総和を返します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">v</span></code> の親は <code class="docutils literal notranslate"><span class="pre">p</span></code> です。
+<code class="docutils literal notranslate"><span class="pre">v</span></code> の親が存在しないときは <code class="docutils literal notranslate"><span class="pre">p=-1</span></code> として下さい。</p>
+<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>p</strong> (<em>int</em>) -- </p></li>
+<li><p><strong>v</strong> (<em>int</em>) -- 根です。</p></li>
+<li><p><strong>p</strong> (<em>int</em>) -- <code class="docutils literal notranslate"><span class="pre">v</span></code> の親です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
@@ -398,11 +466,7 @@
   </script>
      
     <!-- <link rel="stylesheet" type="text/css" href="../_static/style.css"> -->
-    <script type="text/javascript" src="../_static/script.js"></script>
-
-    <!-- <button id="copyButton">Copy</button>
-    <button id="ShowFullCodeButton">Show Full Code</button>
-    <button id="toggleCodeButton">Toggle Code</button> -->
+    <!-- <script type="text/javascript" src="../_static/script.js"></script> -->
 
 
 </body>
