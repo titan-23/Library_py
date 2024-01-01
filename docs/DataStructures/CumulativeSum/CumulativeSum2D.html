@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../../style.css"></p>
+<script src="../../script.js"></script>
+<p><title>Library_py-DataStructures-CumulativeSum-CumulativeSum2D</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>CumulativeSum2D</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titan-23/Library_py/blob/main/DataStructures/CumulativeSum/CumulativeSum2D.py"><code>CumulativeSum2D</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="k">class</span> <span class="nc">CumulativeSum2D</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">((</span><span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ij</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">w</span><span class="p">):</span>
+      <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">ij</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+      <span class="n">acc</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">acc</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span>
+
+  <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">h1</span> <span class="o">&lt;=</span> <span class="n">h2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">h1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">h2</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w2</span><span class="si">}</span><span class="s1">), h=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">assert</span> <span class="n">w1</span> <span class="o">&lt;=</span> <span class="n">w2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">h1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">h2</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w2</span><span class="si">}</span><span class="s1">), w=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w2</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w1</span><span class="p">]</span>
+</pre></div>
+<div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.CumulativeSum.CumulativeSum2D import CumulativeSum2D</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="k">class</span> <span class="nc">CumulativeSum2D</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">((</span><span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ij</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">w</span><span class="p">):</span>
+      <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">ij</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+      <span class="n">acc</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">acc</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span>
+
+  <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">h1</span> <span class="o">&lt;=</span> <span class="n">h2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">h1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">h2</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w2</span><span class="si">}</span><span class="s1">), h=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">assert</span> <span class="n">w1</span> <span class="o">&lt;=</span> <span class="n">w2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">h1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">h2</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w2</span><span class="si">}</span><span class="s1">), w=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w2</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w1</span><span class="p">]</span>
+</pre></div>
+
+</div>
+<hr />
+<ul>
+<li>2次元累積和です。 <code>int</code> 型を想定しています。</li>
+<li>内部では、(2次元ではなく)1次元配列で累積和を管理しています。</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<h4><code>acc = CumulativeSum2D(h: int, w: int, a: List[List[int]])</code></h4>
+<ul>
+<li><code>h × w</code> のリスト <code>a</code> から2次元累積和の前計算をします。</li>
+<li><code>Θ(hw)</code> です。</li>
+</ul>
+<h4><code>acc.sum(h1: int, w1: int, h2: int, w2: int) -&gt; int</code></h4>
+<ul>
+<li>長方形領域 <code>[h1, h2) x [w1, w2)</code> の総和を返します。</li>
+<li><code>Θ(1)</code> です。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span>
+</pre></div>
+
+</div>
+
+<p></body>
+</html></p>

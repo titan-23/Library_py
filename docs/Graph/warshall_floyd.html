@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../style.css"></p>
+<script src="../script.js"></script>
+<p><title>Library_py-Graph-warshall_floyd</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>warshall_floyd</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titan-23/Library_py/blob/main/Graph/warshall_floyd.py"><code>warshall_floyd</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="sd">&#39;&#39;&#39;Return min dist s.t. dist[a][b] -&gt; a to b. / O(|n|^3)&#39;&#39;&#39;</span>
+<span class="k">def</span> <span class="nf">warshall_floyd</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span> <span class="n">INF</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+  <span class="n">dist</span> <span class="o">=</span> <span class="p">[[</span><span class="n">INF</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+  <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dist_v_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="n">dist_v_</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="n">dist_v_</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dist_k_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+      <span class="n">dist_i_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">dist_i_k_</span> <span class="o">=</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">dist_i_k_</span> <span class="o">==</span> <span class="n">INF</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">dist_k_j_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dist_k_</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span><span class="p">:</span>
+          <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span>
+  <span class="k">return</span> <span class="n">dist</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="sd">&#39;&#39;&#39;Return min dist s.t. dist[a][b] -&gt; a to b. / O(|n|^3)&#39;&#39;&#39;</span>
+<span class="k">def</span> <span class="nf">warshall_floyd</span><span class="p">(</span><span class="n">D</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">INF</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+  <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[:]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">D</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dist_k_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+      <span class="n">dist_i_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">dist_i_k_</span> <span class="o">=</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">dist_i_k_</span> <span class="o">==</span> <span class="n">INF</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">dist_k_j_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dist_k_</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span><span class="p">:</span>
+          <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span>
+  <span class="k">return</span> <span class="n">dist</span>
+
+
+<span class="c1"># from typing import List, Tuple, Union</span>
+<span class="c1"># &#39;&#39;&#39;Return min dist s.t. dist[a][b] -&gt; a to b. / O(|n|^3)&#39;&#39;&#39;</span>
+<span class="c1"># def warshall_floyd(G: List[List[Tuple[int, int]]], INF: Union[int, float]=float(&#39;inf&#39;)) -&gt; List[List[Union[int, float]]]:</span>
+<span class="c1">#   n = len(G)</span>
+<span class="c1">#   # dist = [dijkstra(G, s, INF) for s in range(n)]</span>
+<span class="c1">#   dist = [[INF]*n for _ in range(n)]</span>
+<span class="c1">#   for v in range(n):</span>
+<span class="c1">#     for x, c in G[v]:</span>
+<span class="c1">#       dist[v][x] = c</span>
+<span class="c1">#     dist[v][v] = 0</span>
+<span class="c1">#   for k in range(n):</span>
+<span class="c1">#     for i in range(n):</span>
+<span class="c1">#       if dist[i][k] == INF: continue</span>
+<span class="c1">#       for j in range(n):</span>
+<span class="c1">#         if dist[i][j] &gt; dist[i][k] + dist[k][j]:</span>
+<span class="c1">#           dist[i][j] = dist[i][k] + dist[k][j]</span>
+<span class="c1">#         # elif dist[i][j] == dist[i][k] + dist[k][j]:</span>
+<span class="c1">#         #   dist[i][j] = dist[i][k] + dist[k][j]</span>
+<span class="c1">#   &#39;&#39;&#39;</span>
+<span class="c1">#   for i in range(n):</span>
+<span class="c1">#     if dist[i][i] &lt; 0:</span>
+<span class="c1">#       return &#39;NEGATIVE CYCLE&#39;</span>
+<span class="c1">#   &#39;&#39;&#39;</span>
+<span class="c1">#   return dist</span>
+</pre></div>
+<div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.Graph.warshall_floyd import warshall_floyd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="sd">&#39;&#39;&#39;Return min dist s.t. dist[a][b] -&gt; a to b. / O(|n|^3)&#39;&#39;&#39;</span>
+<span class="k">def</span> <span class="nf">warshall_floyd</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span> <span class="n">INF</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+  <span class="n">dist</span> <span class="o">=</span> <span class="p">[[</span><span class="n">INF</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+  <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dist_v_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+      <span class="n">dist_v_</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="n">dist_v_</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dist_k_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+      <span class="n">dist_i_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">dist_i_k_</span> <span class="o">=</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">dist_i_k_</span> <span class="o">==</span> <span class="n">INF</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">dist_k_j_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dist_k_</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span><span class="p">:</span>
+          <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span>
+  <span class="k">return</span> <span class="n">dist</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="sd">&#39;&#39;&#39;Return min dist s.t. dist[a][b] -&gt; a to b. / O(|n|^3)&#39;&#39;&#39;</span>
+<span class="k">def</span> <span class="nf">warshall_floyd</span><span class="p">(</span><span class="n">D</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">INF</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+  <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[:]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">D</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dist_k_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+      <span class="n">dist_i_</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">dist_i_k_</span> <span class="o">=</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">dist_i_k_</span> <span class="o">==</span> <span class="n">INF</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">dist_k_j_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dist_k_</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span><span class="p">:</span>
+          <span class="n">dist_i_</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_i_k_</span> <span class="o">+</span> <span class="n">dist_k_j_</span>
+  <span class="k">return</span> <span class="n">dist</span>
+
+
+<span class="c1"># from typing import List, Tuple, Union</span>
+<span class="c1"># &#39;&#39;&#39;Return min dist s.t. dist[a][b] -&gt; a to b. / O(|n|^3)&#39;&#39;&#39;</span>
+<span class="c1"># def warshall_floyd(G: List[List[Tuple[int, int]]], INF: Union[int, float]=float(&#39;inf&#39;)) -&gt; List[List[Union[int, float]]]:</span>
+<span class="c1">#   n = len(G)</span>
+<span class="c1">#   # dist = [dijkstra(G, s, INF) for s in range(n)]</span>
+<span class="c1">#   dist = [[INF]*n for _ in range(n)]</span>
+<span class="c1">#   for v in range(n):</span>
+<span class="c1">#     for x, c in G[v]:</span>
+<span class="c1">#       dist[v][x] = c</span>
+<span class="c1">#     dist[v][v] = 0</span>
+<span class="c1">#   for k in range(n):</span>
+<span class="c1">#     for i in range(n):</span>
+<span class="c1">#       if dist[i][k] == INF: continue</span>
+<span class="c1">#       for j in range(n):</span>
+<span class="c1">#         if dist[i][j] &gt; dist[i][k] + dist[k][j]:</span>
+<span class="c1">#           dist[i][j] = dist[i][k] + dist[k][j]</span>
+<span class="c1">#         # elif dist[i][j] == dist[i][k] + dist[k][j]:</span>
+<span class="c1">#         #   dist[i][j] = dist[i][k] + dist[k][j]</span>
+<span class="c1">#   &#39;&#39;&#39;</span>
+<span class="c1">#   for i in range(n):</span>
+<span class="c1">#     if dist[i][i] &lt; 0:</span>
+<span class="c1">#       return &#39;NEGATIVE CYCLE&#39;</span>
+<span class="c1">#   &#39;&#39;&#39;</span>
+<span class="c1">#   return dist</span>
+</pre></div>
+
+</div>
+<hr />
+<h2>仕様</h2>
+<h4><code>warshall_floyd(G: List[List[Tuple[int, int]]]) -&gt; List[List[Union[int, float]]]</code></h4>
+<ul>
+<li>重み付き隣接リスト <code>G</code> に対し、全点対最短経路を返します。</li>
+<li><code>O(N^3)</code> です。</li>
+</ul>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">G</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+  <span class="c1"># u -&gt; v の無向辺, 距離c</span>
+  <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+  <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">warshall_floyd</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1"># dist[i][j]:= (i -&gt; j)の最短距離</span>
+</pre></div>
+
+</div>
+
+<p></body>
+</html></p>

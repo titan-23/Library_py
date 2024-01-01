@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../style.css"></p>
+<script src="../script.js"></script>
+<p><title>Library_py-Math-ModInt1000000007</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>ModInt1000000007</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titan-23/Library_py/blob/main/Math/ModInt1000000007.py"><code>ModInt1000000007</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="n">_titan23_ModInt1000000007_MOD</span> <span class="o">=</span> <span class="mi">1000000007</span>
+
+<span class="k">class</span> <span class="nc">ModInt1000000007</span><span class="p">:</span>
+
+  <span class="vm">__slots__</span> <span class="o">=</span> <span class="s1">&#39;val&#39;</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">_inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">_titan23_ModInt1000000007_MOD</span> <span class="o">-</span> <span class="mi">2</span>
+    <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+      <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_mod</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span> <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">_titan23_ModInt1000000007_MOD</span> <span class="k">else</span> <span class="n">val</span> <span class="o">%</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+
+  <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="n">_titan23_ModInt1000000007_MOD</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))))</span>
+
+  <span class="c1"># __iadd__ = __add__</span>
+  <span class="c1"># __isub__ = __sub__</span>
+  <span class="c1"># __imul__ = __mul__</span>
+  <span class="c1"># __ipow__ = __pow__</span>
+  <span class="c1"># __itruediv__ = __truediv__</span>
+
+  <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">-=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__imul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__ipow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="n">_titan23_ModInt1000000007_MOD</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__itruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
+  <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
+
+  <span class="k">def</span> <span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">_titan23_ModInt1000000007_MOD</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__pos__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># return f&#39;ModInt1000000007({self})&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+<div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.Math.ModInt1000000007 import ModInt1000000007</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="n">_titan23_ModInt1000000007_MOD</span> <span class="o">=</span> <span class="mi">1000000007</span>
+
+<span class="k">class</span> <span class="nc">ModInt1000000007</span><span class="p">:</span>
+
+  <span class="vm">__slots__</span> <span class="o">=</span> <span class="s1">&#39;val&#39;</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">_inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">_titan23_ModInt1000000007_MOD</span> <span class="o">-</span> <span class="mi">2</span>
+    <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+      <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_mod</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span> <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">_titan23_ModInt1000000007_MOD</span> <span class="k">else</span> <span class="n">val</span> <span class="o">%</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+
+  <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="n">_titan23_ModInt1000000007_MOD</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))))</span>
+
+  <span class="c1"># __iadd__ = __add__</span>
+  <span class="c1"># __isub__ = __sub__</span>
+  <span class="c1"># __imul__ = __mul__</span>
+  <span class="c1"># __ipow__ = __pow__</span>
+  <span class="c1"># __itruediv__ = __truediv__</span>
+
+  <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">-=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__imul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__ipow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="n">_titan23_ModInt1000000007_MOD</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__itruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan23_ModInt1000000007_MOD</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
+  <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
+
+  <span class="k">def</span> <span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">_titan23_ModInt1000000007_MOD</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__pos__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ModInt1000000007&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">ModInt1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># return f&#39;ModInt1000000007({self})&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+
+</div>
+<hr />
+<hr />
+<h2>仕様</h2>
+<p>あとで書く</p>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span>
+</pre></div>
+
+</div>
+
+<p></body>
+</html></p>

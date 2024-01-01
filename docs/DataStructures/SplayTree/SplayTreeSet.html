@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../../style.css"></p>
+<script src="../../script.js"></script>
+<p><title>Library_py-DataStructures-SplayTree-SplayTreeSet</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>SplayTreeSet</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titan-23/Library_py/blob/main/DataStructures/SplayTree/SplayTreeSet.py"><code>SplayTreeSet</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="kn">from</span> <span class="nn">Library_py.MyClass.OrderedSetInterface</span> <span class="kn">import</span> <span class="n">OrderedSetInterface</span>
+<span class="kn">from</span> <span class="nn">Library_py.MyClass.SupportsLessThan</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
+<span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">SplayTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+      <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
+        <span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+      <span class="n">size</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+      <span class="k">return</span> <span class="n">mid</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">key</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="n">n</span>
+    <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
+    <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">end</span>
+
+  <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+
+  <span class="k">def</span> <span class="nf">_update_triple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">size</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">size</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">x</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">x</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">size</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">y</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">y</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+
+  <span class="k">def</span> <span class="nf">_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&amp;</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span> <span class="o">&amp;</span> <span class="mi">1</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">tmp</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="p">]</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">tmp</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="p">(</span><span class="n">g</span> <span class="o">!=</span> <span class="n">f</span><span class="p">)]</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">pnode</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[(</span><span class="n">node</span> <span class="k">if</span> <span class="n">g</span> <span class="o">==</span> <span class="n">f</span> <span class="k">else</span> <span class="n">tmp</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span>
+      <span class="n">child</span><span class="p">[(</span><span class="n">node</span> <span class="k">if</span> <span class="n">g</span> <span class="o">==</span> <span class="n">f</span> <span class="k">else</span> <span class="n">tmp</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">pnode</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update_triple</span><span class="p">(</span><span class="n">pnode</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tmp</span>
+      <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">2</span>
+      <span class="n">g</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&amp;</span> <span class="mi">1</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+    <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">pnode</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">pnode</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">pnode</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">_set_search_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">node</span><span class="p">)</span> <span class="ow">or</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span>
+      <span class="n">nxt</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">nxt</span><span class="p">:</span> <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]),</span> <span class="n">nxt</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_set_kth_elm_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">size</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="k">return</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">),</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">t</span><span class="o">&lt;</span><span class="n">k</span><span class="p">)]</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">_get_min_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span> <span class="k">return</span> <span class="n">node</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_get_max_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span> <span class="k">return</span> <span class="n">node</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;ValueError: SplayTreeSet.reserve(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+      <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="mi">1</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_splay</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+      <span class="k">return</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;=</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span><span class="o">&lt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;=</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">key</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">key</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: SplayTreeSet.pop(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_max_splay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">return</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_splay</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_splay</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;IndexError: SplayTreeSet.pop_min()&#39;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_splay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">child</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span>
+    <span class="n">stack</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+    <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
+      <span class="k">raise</span> <span class="ne">StopIteration</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()):</span>
+      <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span>
+
+  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_splay</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">!=</span> <span class="mi">0</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;SplayTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+</pre></div>
+<div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># from Library_py.DataStructures.SplayTree.SplayTreeSet import SplayTreeSet</span>
+<span class="c1"># from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface</span>
+<span class="c1"># from Library_py.MyClass.SupportsLessThan import SupportsLessThan</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="k">class</span> <span class="nc">SupportsLessThan</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">List</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">OrderedSetInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+  <span class="nd">@abstractmethod</span>
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">SplayTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+      <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
+        <span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+      <span class="n">size</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">mid</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+      <span class="k">return</span> <span class="n">mid</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">key</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="n">n</span>
+    <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
+    <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">end</span>
+
+  <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+
+  <span class="k">def</span> <span class="nf">_update_triple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">size</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">size</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="n">size</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">x</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">x</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">size</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">y</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">y</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]]</span>
+
+  <span class="k">def</span> <span class="nf">_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&amp;</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span> <span class="o">&amp;</span> <span class="mi">1</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">tmp</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="p">]</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">tmp</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="p">(</span><span class="n">g</span> <span class="o">!=</span> <span class="n">f</span><span class="p">)]</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">pnode</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[(</span><span class="n">node</span> <span class="k">if</span> <span class="n">g</span> <span class="o">==</span> <span class="n">f</span> <span class="k">else</span> <span class="n">tmp</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span>
+      <span class="n">child</span><span class="p">[(</span><span class="n">node</span> <span class="k">if</span> <span class="n">g</span> <span class="o">==</span> <span class="n">f</span> <span class="k">else</span> <span class="n">tmp</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">pnode</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update_triple</span><span class="p">(</span><span class="n">pnode</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tmp</span>
+      <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">2</span>
+      <span class="n">g</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&amp;</span> <span class="mi">1</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+    <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">pnode</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">pnode</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">pnode</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">pnode</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node</span>
+
+  <span class="k">def</span> <span class="nf">_set_search_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">node</span><span class="p">)</span> <span class="ow">or</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span>
+      <span class="n">nxt</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">nxt</span><span class="p">:</span> <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]),</span> <span class="n">nxt</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_set_kth_elm_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">size</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="k">return</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">),</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">t</span><span class="o">&lt;</span><span class="n">k</span><span class="p">)]</span>
+      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+
+  <span class="k">def</span> <span class="nf">_get_min_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span> <span class="k">return</span> <span class="n">node</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_get_max_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span> <span class="k">return</span> <span class="n">node</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;ValueError: SplayTreeSet.reserve(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+      <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span>
+    <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="n">f</span><span class="o">^</span><span class="mi">1</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_splay</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+      <span class="k">return</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        <span class="k">break</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;=</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="p">(</span><span class="n">key</span><span class="o">&lt;</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+      <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="p">(</span><span class="n">key</span><span class="o">&gt;=</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">key</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">key</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;IndexError: SplayTreeSet.pop(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="n">keys</span><span class="p">,</span> <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_max_splay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">return</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_splay</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_splay</span><span class="p">(</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;IndexError: SplayTreeSet.pop_min()&#39;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_splay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
+    <span class="n">child</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span>
+    <span class="n">stack</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+    <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">node</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
+      <span class="k">raise</span> <span class="ne">StopIteration</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()):</span>
+      <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span>
+
+  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_splay</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">!=</span> <span class="mi">0</span>
+
+  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;SplayTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)&#39;</span>
+</pre></div>
+
+</div>
+<hr />
+<hr />
+<h2>仕様</h2>
+<p>後で書く</p>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span>
+</pre></div>
+
+</div>
+
+<p></body>
+</html></p>

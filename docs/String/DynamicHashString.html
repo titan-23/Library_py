@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p><link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"></p>
+<p><link rel="stylesheet" type="text/css" href="../style.css"></p>
+<script src="../script.js"></script>
+<p><title>Library_py-String-DynamicHashString</title>
+</head></p>
+<body>
+<h3><a href="https://titan-23.github.io/Library_py/">Home</a></h3>
+<hr />
+<hr />
+<h1><code>DynamicHashString</code></h1>
+<hr />
+<h2>コード</h2>
+<p><a href="https://github.com/titan-23/Library_py/blob/main/String/DynamicHashString.py"><code>DynamicHashString</code></a></p>
+<div class="code-block">
+<div class="button-group">
+<button id="copyButton">コピー</button>
+<button id="ShowFullCodeButton">全表示</button>
+<button id="toggleCodeButton">展開</button>
+</div>
+<div class="highlight" id="codeContainer1"><pre><span></span><span class="c1"># ref: https://qiita.com/keymoon/items/11fac5627672a6d6a9f6</span>
+<span class="kn">from</span> <span class="nn">Library_py.DataStructures.SplayTree.ReversibleLazySplayTree</span> <span class="kn">import</span> <span class="n">ReversibleLazySplayTreeData</span><span class="p">,</span> <span class="n">ReversibleLazySplayTree</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Final</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="n">_titan23_DynamicHashString_MOD</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">61</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">_titan23_DynamicHashString_DIC</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+<span class="n">_titan23_DynamicHashString_MASK30</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">_titan23_DynamicHashString_MASK31</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">_titan23_DynamicHashString_MASK61</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">_titan23_DynamicHashString_MOD</span>
+
+<span class="k">class</span> <span class="nc">DynamicHashStringBase</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span> <span class="k">if</span> <span class="n">base</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">base</span>
+    <span class="n">powb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+      <span class="n">powb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">powb</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">base</span><span class="p">)</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unite</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ReversibleLazySplayTreeData</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">op</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">powb</span> <span class="o">=</span> <span class="n">powb</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_mul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">au</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span>
+    <span class="n">ad</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK31</span>
+    <span class="n">bu</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span>
+    <span class="n">bd</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK31</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="n">ad</span> <span class="o">*</span> <span class="n">bu</span> <span class="o">+</span> <span class="n">au</span> <span class="o">*</span> <span class="n">bd</span>
+    <span class="n">midu</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">&gt;&gt;</span> <span class="mi">30</span>
+    <span class="n">midd</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK30</span>
+    <span class="k">return</span> <span class="n">DynamicHashStringBase</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="n">au</span> <span class="o">*</span> <span class="n">bu</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">midu</span> <span class="o">+</span> <span class="p">(</span><span class="n">midd</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">+</span> <span class="n">ad</span> <span class="o">*</span> <span class="n">bd</span><span class="p">)</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_mod</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="c1"># 商と余りを計算して足す-&gt;割る</span>
+    <span class="n">xu</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">61</span>
+    <span class="n">xd</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK61</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">xu</span> <span class="o">+</span> <span class="n">xd</span>
+    <span class="k">if</span> <span class="n">res</span> <span class="o">&gt;=</span> <span class="n">_titan23_DynamicHashString_MOD</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">-=</span> <span class="n">_titan23_DynamicHashString_MOD</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="c1"># h1, h2, k</span>
+    <span class="c1"># len(h2) == k</span>
+    <span class="c1"># h1 &lt;- h2</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">powb</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">+</span> <span class="n">h2</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">DynamicHashString</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hsb</span><span class="p">:</span> <span class="n">DynamicHashStringBase</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span> <span class="o">=</span> <span class="n">hsb</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span> <span class="o">=</span> <span class="n">ReversibleLazySplayTree</span><span class="p">(</span><span class="n">hsb</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">((</span><span class="n">_titan23_DynamicHashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">_titan23_DynamicHashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_titan23_DynamicHashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+<div class="highlight" id="codeContainer2" style="display: none;"><pre><span></span><span class="c1"># ref: https://qiita.com/keymoon/items/11fac5627672a6d6a9f6</span>
+<span class="kn">from</span> <span class="nn">Library_py.DataStructures.SplayTree.ReversibleLazySplayTree</span> <span class="kn">import</span> <span class="n">ReversibleLazySplayTreeData</span><span class="p">,</span> <span class="n">ReversibleLazySplayTree</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Final</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="n">_titan23_DynamicHashString_MOD</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">61</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">_titan23_DynamicHashString_DIC</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+<span class="n">_titan23_DynamicHashString_MASK30</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">_titan23_DynamicHashString_MASK31</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">_titan23_DynamicHashString_MASK61</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">_titan23_DynamicHashString_MOD</span>
+
+<span class="k">class</span> <span class="nc">DynamicHashStringBase</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span> <span class="k">if</span> <span class="n">base</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">base</span>
+    <span class="n">powb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+      <span class="n">powb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">powb</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">base</span><span class="p">)</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unite</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ReversibleLazySplayTreeData</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">op</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">powb</span> <span class="o">=</span> <span class="n">powb</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_mul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">au</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span>
+    <span class="n">ad</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK31</span>
+    <span class="n">bu</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span>
+    <span class="n">bd</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK31</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="n">ad</span> <span class="o">*</span> <span class="n">bu</span> <span class="o">+</span> <span class="n">au</span> <span class="o">*</span> <span class="n">bd</span>
+    <span class="n">midu</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">&gt;&gt;</span> <span class="mi">30</span>
+    <span class="n">midd</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK30</span>
+    <span class="k">return</span> <span class="n">DynamicHashStringBase</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="n">au</span> <span class="o">*</span> <span class="n">bu</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">midu</span> <span class="o">+</span> <span class="p">(</span><span class="n">midd</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">+</span> <span class="n">ad</span> <span class="o">*</span> <span class="n">bd</span><span class="p">)</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_mod</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="c1"># 商と余りを計算して足す-&gt;割る</span>
+    <span class="n">xu</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">61</span>
+    <span class="n">xd</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">_titan23_DynamicHashString_MASK61</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">xu</span> <span class="o">+</span> <span class="n">xd</span>
+    <span class="k">if</span> <span class="n">res</span> <span class="o">&gt;=</span> <span class="n">_titan23_DynamicHashString_MOD</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">-=</span> <span class="n">_titan23_DynamicHashString_MOD</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+  <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="c1"># h1, h2, k</span>
+    <span class="c1"># len(h2) == k</span>
+    <span class="c1"># h1 &lt;- h2</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">powb</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">+</span> <span class="n">h2</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">DynamicHashString</span><span class="p">():</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hsb</span><span class="p">:</span> <span class="n">DynamicHashStringBase</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span> <span class="o">=</span> <span class="n">hsb</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span> <span class="o">=</span> <span class="n">ReversibleLazySplayTree</span><span class="p">(</span><span class="n">hsb</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">((</span><span class="n">_titan23_DynamicHashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">_titan23_DynamicHashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">splay</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">_titan23_DynamicHashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+
+</div>
+<hr />
+<ul>
+<li>動的な文字列に対するロリハです。</li>
+<li>平衡二分木にモノイドを載せてるだけです。<ul>
+<li>こんなライブラリ必要ないです。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>仕様</h2>
+<hr />
+<h2>使用例</h2>
+<div class="code-block">
+<div class="highlight" id="codeContainer1"><pre><span></span>
+</pre></div>
+
+</div>
+
+<p></body>
+</html></p>
