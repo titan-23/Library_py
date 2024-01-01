@@ -1,7 +1,0 @@
-string.string\_count
-========================================
-
-.. automodule:: string.string_count
-   :members:
-   :undoc-members:
-   :show-inheritance:
