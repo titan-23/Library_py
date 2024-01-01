@@ -3,6 +3,8 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class ReversibleLazyAVLTree(Generic[T, F]):
+  """♰完全永続遅延伝播反転可能抽象化平衡二分探索木♰です。
+  """
 
   class Node():
 

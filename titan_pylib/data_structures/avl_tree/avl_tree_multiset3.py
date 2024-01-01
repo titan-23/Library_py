@@ -4,6 +4,10 @@ from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
 T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
+  """
+  多重集合としての AVL 木です。
+  ``class Node()`` を用いています。
+  """
 
   class Node():
 

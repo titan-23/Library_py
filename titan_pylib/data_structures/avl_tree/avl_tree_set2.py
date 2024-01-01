@@ -5,6 +5,11 @@ from typing import Generic, Iterable, Tuple, TypeVar, Optional, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeSet2(OrderedSetInterface, Generic[T]):
+  """AVLTreeSet2
+  集合としての AVL 木です。
+  配列を用いてノードを表現しています。
+  size を持たないので軽めです。
+  """
 
   def __init__(self, a: Iterable[T]=[]) -> None:
     self.root = 0

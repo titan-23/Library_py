@@ -4,6 +4,11 @@ from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
 T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeSet3(OrderedSetInterface, Generic[T]):
+  """
+  集合としての AVL木 です。
+  size を持ちます。
+  ``class Node()`` を用いています。
+  """
 
   class Node():
 

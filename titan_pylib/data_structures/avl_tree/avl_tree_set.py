@@ -6,6 +6,9 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class AVLTreeSet(OrderedSetInterface, Generic[T]):
   """AVLTreeSet
+  集合としての AVL 木です。
+  配列を用いてノードを表現しています。
+  size を持ちます。
   """
 
   def __init__(self, a: Iterable[T]=[]) -> None:

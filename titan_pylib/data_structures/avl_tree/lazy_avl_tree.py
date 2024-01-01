@@ -3,6 +3,8 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class LazyAVLTree(Generic[T, F]):
+  """遅延伝播反転可能平衡二分木です。
+  """
 
   class Node():
 

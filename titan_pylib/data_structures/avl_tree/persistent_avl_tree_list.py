@@ -2,6 +2,8 @@ from typing import Generic, Iterable, Optional, TypeVar, List, Tuple
 T = TypeVar('T')
 
 class PersistentAVLTreeList(Generic[T]):
+  """挿入削除が対数時間で行える永続AVL木です。
+  """
 
   class Node():
 
