@@ -75,4 +75,4 @@ language = 'ja'
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 html_js_files = ['_static/script.js']
-html_css_files = ['_static/style.css']
+html_css_files = ['_static/style.css', '_static/codeblock.css', '_static/dammy.css']

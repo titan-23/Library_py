@@ -10,6 +10,8 @@
 <link href="../_static/css/theme.css?v=19f00094" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="../_static/_static/style.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/_static/codeblock.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/_static/dammy.css" rel="stylesheet" type="text/css"/>
 <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -72,8 +74,71 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
+<section id="titan-pylib-others-sa-module">
+<h1>SA<a class="headerlink" href="#titan-pylib-others-sa-module" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.others.SA import SA</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="linenos"> 4</span><span class="kn">import</span> <span class="nn">random</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">exp</span>
+<span class="linenos"> 6</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="k">class</span> <span class="nc">State</span><span class="p">():</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">13</span>    <span class="k">pass</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>  <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'State'</span><span class="p">:</span>
+<span class="linenos">16</span>    <span class="k">pass</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="k">class</span> <span class="nc">SA</span><span class="p">():</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">21</span>    <span class="bp">self</span><span class="o">.</span><span class="n">END_TEMP</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="linenos">22</span>    <span class="bp">self</span><span class="o">.</span><span class="n">START_TEMP</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>  <span class="k">def</span> <span class="nf">make_ans_init</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<span class="linenos">25</span>    <span class="k">return</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span>  <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ans</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<span class="linenos">28</span>    <span class="k">return</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span>  <span class="k">def</span> <span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ans</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">changed</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">31</span>    <span class="k">return</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>  <span class="k">def</span> <span class="nf">sovle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">TIME_LIMIT</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<span class="linenos">34</span>    <span class="n">START_TIME</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="linenos">35</span>    <span class="n">START_TEMP</span><span class="p">,</span> <span class="n">END_TEMP</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">START_TEMP</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">END_TEMP</span>
+<span class="linenos">36</span>    <span class="n">ans</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ans_init</span><span class="p">()</span>
+<span class="linenos">37</span>    <span class="n">vest_ans</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+<span class="linenos">38</span>    <span class="n">vest_score</span> <span class="o">=</span> <span class="n">score</span>
+<span class="linenos">39</span>    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">40</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="linenos">41</span>      <span class="n">now_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">START_TIME</span>
+<span class="linenos">42</span>      <span class="k">if</span> <span class="n">now_time</span> <span class="o">&gt;</span> <span class="n">TIME_LIMIT</span><span class="p">:</span> <span class="k">break</span>
+<span class="linenos">43</span>      <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">44</span>      <span class="n">diff_score</span><span class="p">,</span> <span class="n">changed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+<span class="linenos">45</span>      <span class="n">new_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="n">diff_score</span>
+<span class="linenos">46</span>      <span class="n">temp</span> <span class="o">=</span> <span class="n">START_TEMP</span> <span class="o">+</span> <span class="p">(</span><span class="n">END_TEMP</span> <span class="o">-</span> <span class="n">START_TEMP</span><span class="p">)</span> <span class="o">*</span> <span class="n">now_time</span> <span class="o">/</span> <span class="n">TIME_LIMIT</span>
+<span class="linenos">47</span>      <span class="n">arg</span> <span class="o">=</span> <span class="n">new_score</span> <span class="o">-</span> <span class="n">score</span>
+<span class="linenos">48</span>      <span class="k">if</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">arg</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">exp</span><span class="p">(</span><span class="n">arg</span><span class="o">/</span><span class="n">temp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">():</span>
+<span class="linenos">49</span>        <span class="n">score</span> <span class="o">=</span> <span class="n">new_score</span>
+<span class="linenos">50</span>        <span class="k">if</span> <span class="n">new_score</span> <span class="o">&gt;</span> <span class="n">vest_score</span><span class="p">:</span>
+<span class="linenos">51</span>          <span class="n">vest_score</span> <span class="o">=</span> <span class="n">new_score</span>
+<span class="linenos">52</span>          <span class="n">vest_ans</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+<span class="linenos">53</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">54</span>        <span class="bp">self</span><span class="o">.</span><span class="n">rollback</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">changed</span><span class="p">)</span>
+<span class="linenos">55</span>    <span class="k">return</span> <span class="n">vest_ans</span><span class="p">,</span> <span class="n">vest_score</span><span class="p">,</span> <span class="n">cnt</span>
+<span class="linenos">56</span>
+</pre></div>
+</div>
+</section>
 <section id="module-titan_pylib.others.SA">
-<span id="titan-pylib-others-sa-module"></span><h1>SA<a class="headerlink" href="#module-titan_pylib.others.SA" title="Link to this heading"></a></h1>
+<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.others.SA" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.others.SA.SA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">SA</span></span><a class="reference internal" href="../_modules/titan_pylib/others/SA.html#SA"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.others.SA.SA" title="Link to this definition"></a></dt>
@@ -136,6 +201,7 @@
 </dd></dl>
 </dd></dl>
 </section>
+</section>
 </div>
 </div>
 <footer>
@@ -159,7 +225,7 @@
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-<!-- <link rel="stylesheet" type="text/css" href="../_static/style.css"> -->
+<link href="../_static/codeblock.css" rel="stylesheet" type="text/css"/>
 <!-- <script type="text/javascript" src="../_static/script.js"></script> -->
 </body>
 </html>
