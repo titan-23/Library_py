@@ -57,8 +57,8 @@ if __name__ == '__main__':
         continue
       input_path = os.path.join(cur_dir, file)
       output_dir = os.path.join(cur_dir)
-      output_dir = "./docs/_build/_expanded/" + output_dir[len("./titan_pylib/"):]
-      output_path = "./docs/_build/_expanded/" + input_path[len("./titan_pylib/"):]
+      output_dir = "./_docs/_build/_expanded/" + output_dir[len("./titan_pylib/"):]
+      output_path = "./_docs/_build/_expanded/" + input_path[len("./titan_pylib/"):]
       if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 

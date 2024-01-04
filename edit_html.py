@@ -33,7 +33,7 @@ def func(cur_dir, file):
 if __name__ == '__main__':
   print('edit HTML.')
 
-  path = "./docs/_build/"
+  path = "./_docs/_build/"
   for cur_dir, dirs, files in os.walk(path):
     for file in files:
       if not file.endswith('.html'):
