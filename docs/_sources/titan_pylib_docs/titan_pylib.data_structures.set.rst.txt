@@ -26,7 +26,7 @@ Submodules
    titan_pylib.data_structures.set.sorted_set
    titan_pylib.data_structures.set.static_ordered_multiset
    titan_pylib.data_structures.set.static_ordered_set
-   titan_pylib.data_structures.set.wordsize_tee_multiset
+   titan_pylib.data_structures.set.wordsize_tree_multiset
    titan_pylib.data_structures.set.wordsize_tree_set
 
 Module contents
