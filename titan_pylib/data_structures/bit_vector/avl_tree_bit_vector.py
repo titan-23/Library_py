@@ -1,7 +1,8 @@
 from titan_pylib.data_structures.bit_vector.bit_vector_interface import BitVectorInterface
 from array import array
-from typing import Iterable, List, Sequence
+from typing import Iterable, List, Final, Sequence
 from __pypy__ import newlist_hint
+titan_pylib_AVLTreeBitVector_W: Final[int] = 32
 
 class AVLTreeBitVector(BitVectorInterface):
 
@@ -30,7 +31,6 @@ class AVLTreeBitVector(BitVectorInterface):
     self.right = array('I', bytes(4))
     self.balance = array('b', bytes(1))
     self.end = 1
-    self.w = 32
     if a:
       self._build(a)
 
@@ -39,7 +39,7 @@ class AVLTreeBitVector(BitVectorInterface):
 
     :math:`O(n)` です。
     """
-    n = n // self.w + 1
+    n = n // titan_pylib_AVLTreeBitVector_W + 1
     a = array('I', bytes(4 * n))
     self.bit_len += array('B', bytes(n))
     self.key += a
@@ -77,10 +77,10 @@ class AVLTreeBitVector(BitVectorInterface):
     self.reserve(n)
     i = 0
     indx = end
-    for i in range(0, n, self.w):
+    for i in range(0, n, titan_pylib_AVLTreeBitVector_W):
       j = 0
       v = 0
-      while j < self.w and i + j < n:
+      while j < titan_pylib_AVLTreeBitVector_W and i + j < n:
         v <<= 1
         v |= a[i+j]
         j += 1
@@ -239,7 +239,7 @@ class AVLTreeBitVector(BitVectorInterface):
       else:
         k -= t
     k -= size[left[node]]
-    if bit_len[node] < self.w:
+    if bit_len[node] < titan_pylib_AVLTreeBitVector_W:
       v = keys[node]
       bl = bit_len[node] - k
       keys[node] = (((v >> bl) << 1 | key) << bl) | (v & ((1<<bl)-1))
@@ -251,16 +251,16 @@ class AVLTreeBitVector(BitVectorInterface):
     size[node] += 1
     total[node] += key
     v = keys[node]
-    bl = self.w - k
+    bl = titan_pylib_AVLTreeBitVector_W - k
     v = (((v >> bl) << 1 | key) << bl) | (v & ((1<<bl)-1))
-    left_key = v >> self.w
+    left_key = v >> titan_pylib_AVLTreeBitVector_W
     left_key_popcount = left_key & 1
-    keys[node] = v & ((1 << self.w) - 1)
+    keys[node] = v & ((1 << titan_pylib_AVLTreeBitVector_W) - 1)
     node = left[node]
     d <<= 1
     d |= 1
     if not node:
-      if bit_len[path[-1]] < self.w:
+      if bit_len[path[-1]] < titan_pylib_AVLTreeBitVector_W:
         bit_len[path[-1]] += 1
         keys[path[-1]] = (keys[path[-1]] << 1) | left_key
         return
@@ -277,7 +277,7 @@ class AVLTreeBitVector(BitVectorInterface):
         size[node] += 1
         total[node] += left_key_popcount
         d <<= 1
-      if bit_len[node] < self.w:
+      if bit_len[node] < titan_pylib_AVLTreeBitVector_W:
         bit_len[node] += 1
         keys[node] = (keys[node] << 1) | left_key
         return
@@ -443,6 +443,7 @@ class AVLTreeBitVector(BitVectorInterface):
         assert False, 'acc Error'
       return acc
     rec(self.root)
+    print('debug_acc ok.')
 
   def access(self, k: int) -> int:
     """``k`` 番目の値を返します。
@@ -540,7 +541,7 @@ class AVLTreeBitVector(BitVectorInterface):
         k -= t
     k -= size[left[node]]
     s += total[left[node]] + AVLTreeBitVector._popcount(keys[node] >> (bit_len[node] - k))
-    if bit_len[node] < self.w:
+    if bit_len[node] < titan_pylib_AVLTreeBitVector_W:
       v = keys[node]
       bl = bit_len[node] - k
       keys[node] = (((v >> bl) << 1 | key) << bl) | (v & ((1<<bl)-1))
@@ -552,16 +553,16 @@ class AVLTreeBitVector(BitVectorInterface):
     size[node] += 1
     total[node] += key
     v = keys[node]
-    bl = self.w - k
+    bl = titan_pylib_AVLTreeBitVector_W - k
     v = (((v >> bl) << 1 | key) << bl) | (v & ((1<<bl)-1))
-    left_key = v >> self.w
+    left_key = v >> titan_pylib_AVLTreeBitVector_W
     left_key_popcount = left_key & 1
-    keys[node] = v & ((1 << self.w) - 1)
+    keys[node] = v & ((1 << titan_pylib_AVLTreeBitVector_W) - 1)
     node = left[node]
     d <<= 1
     d |= 1
     if not node:
-      if bit_len[path[-1]] < self.w:
+      if bit_len[path[-1]] < titan_pylib_AVLTreeBitVector_W:
         bit_len[path[-1]] += 1
         keys[path[-1]] = (keys[path[-1]] << 1) | left_key
         return s
@@ -578,7 +579,7 @@ class AVLTreeBitVector(BitVectorInterface):
         size[node] += 1
         total[node] += left_key_popcount
         d <<= 1
-      if bit_len[node] < self.w:
+      if bit_len[node] < titan_pylib_AVLTreeBitVector_W:
         bit_len[node] += 1
         keys[node] = (keys[node] << 1) | left_key
         return s
@@ -653,7 +654,7 @@ class AVLTreeBitVector(BitVectorInterface):
       if t - bit_len[node] <= k < t:
         k -= size[left[node]]
         return key[node] >> (bit_len[node] - k - 1) & 1
-      elif t > k:
+      if t > k:
         node = left[node]
       else:
         node = right[node]
@@ -685,5 +686,5 @@ class AVLTreeBitVector(BitVectorInterface):
     return self.size[self.root]
 
   def __repr__(self):
-    return f'AVLTreeBitVector({self})'
+    return f'{self.__class__.__name__}({self})'
 

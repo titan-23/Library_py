@@ -67,7 +67,7 @@ class HashDict():
     return ((k^HashDict._xor, v) for k, v in self._data.items())
 
   def __str__(self):
-    return '{' + ', '.join(f'{k}: {v}' for k,v in self.items()) + '}'
+    return '{' + ', '.join(f'{k}: {v}' for k, v in self.items()) + '}'
 
 from typing import Iterable
 import random
@@ -122,7 +122,7 @@ from collections import defaultdict
 import random
 
 class HashDefaultDict():
-  
+
   _xor = random.randrange(10000000, 1000000000)
 
   def __init__(self, missing):
@@ -157,5 +157,5 @@ class HashDefaultDict():
     return ((k^HashDefaultDict._xor, v) for k, v in self._data.items())
 
   def __str__(self):
-    return 'HashDefaultDict({' + ', '.join(f'{k}: {v}' for k,v in self.items()) + '})'
+    return 'HashDefaultDict({' + ', '.join(f'{k}: {v}' for k, v in self.items()) + '})'
 

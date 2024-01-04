@@ -1,5 +1,5 @@
 # ref: https://qiita.com/keymoon/items/11fac5627672a6d6a9f6
-from titan_pylib.data_structures.splay_tree.reversible_lazy_splay_tree_array import ReversibleLazySplayTreeData, ReversibleLazySplayTree
+from titan_pylib.data_structures.splay_tree.reversible_lazy_splay_tree_array import ReversibleLazySplayTreeArrayData, ReversibleLazySplayTreeArray
 from typing import Optional, Dict, Final
 import random
 import string
@@ -23,7 +23,7 @@ class DynamicHashStringBase():
       powb[i] = self.get_mul(powb[i-1], base)
     op = lambda s, t: (self.unite(s[0], t[0], t[1]), s[1]+t[1])
     e = (0, 0)
-    self.data = ReversibleLazySplayTreeData(op=op, e=e)
+    self.data = ReversibleLazySplayTreeArrayData(op=op, e=e)
     self.n = n
     self.powb = powb
 
@@ -58,7 +58,7 @@ class DynamicHashString():
 
   def __init__(self, hsb: DynamicHashStringBase, s: str) -> None:
     self.hsb = hsb
-    self.splay = ReversibleLazySplayTree(hsb.data, ((_titan_pylib_DynamicHashString_DIC[c], 1) for c in s))
+    self.splay = ReversibleLazySplayTreeArray(hsb.data, ((_titan_pylib_DynamicHashString_DIC[c], 1) for c in s))
 
   def insert(self, k: int, c: str) -> None:
     self.splay.insert(k, (_titan_pylib_DynamicHashString_DIC[c], 1))

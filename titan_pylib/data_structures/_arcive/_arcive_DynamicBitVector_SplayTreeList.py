@@ -1,5 +1,5 @@
 from array import array
-from typing import List, Tuple, Iterable, Optional, Union, Sequence
+from typing import List, Tuple, Iterable, Union, Sequence
 from __pypy__ import newlist_hint
 # uppdatenomi
 class DynamicBitVector_SplayTreeList_Data():

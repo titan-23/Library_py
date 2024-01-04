@@ -1,4 +1,4 @@
-raise NotImplementedError
+# raise NotImplementedError
 
 from collections import deque
 from bisect import bisect_left, bisect_right, insort

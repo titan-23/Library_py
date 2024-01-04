@@ -4,7 +4,7 @@ from __pypy__ import newlist_hint
 T = TypeVar('T')
 F = TypeVar('F')
 
-class LazySplayTreeData(Generic[T, F]):
+class LazySplayTreeArrayData(Generic[T, F]):
 
   def __init__(self,
                op: Optional[Callable[[T, T], T]]=None,
@@ -34,9 +34,9 @@ class LazySplayTreeData(Generic[T, F]):
     self.lazy += [self.id] * n
     self.arr += array('I', bytes(16 * n))
 
-class LazySplayTree(Generic[T, F]):
+class LazySplayTreeArray(Generic[T, F]):
 
-  def __init__(self, data: 'LazySplayTreeData', n_or_a: Union[int, Iterable[T]]=0, _root: int=0):
+  def __init__(self, data: 'LazySplayTreeArrayData', n_or_a: Union[int, Iterable[T]]=0, _root: int=0):
     self.data = data
     self.root = _root
     if not n_or_a:
@@ -210,7 +210,7 @@ class LazySplayTree(Generic[T, F]):
   def reserve(self, n: int) -> None:
     self.data.reserve(n)
 
-  def merge(self, other: 'LazySplayTree') -> None:
+  def merge(self, other: 'LazySplayTreeArray') -> None:
     assert self.data is other.data
     if not other.root: return
     if not self.root:
@@ -220,14 +220,14 @@ class LazySplayTree(Generic[T, F]):
     self.data.arr[self.root<<2|1] = other.root
     self._update(self.root)
 
-  def split(self, k: int) -> Tuple['LazySplayTree', 'LazySplayTree']:
+  def split(self, k: int) -> Tuple['LazySplayTreeArray', 'LazySplayTreeArray']:
     assert -len(self) < k <= len(self), \
-        f'IndexError: LazySplayTree.split({k}), len={len(self)}'
+        f'IndexError: LazySplayTreeArray.split({k}), len={len(self)}'
     if k < 0: k += len(self)
     if k >= self.data.arr[self.root<<2|2]:
-      return self, LazySplayTree(self.data, _root=0)
+      return self, LazySplayTreeArray(self.data, _root=0)
     self.root = self._kth_elm_splay(self.root, k)
-    left = LazySplayTree(self.data, _root=self.data.arr[self.root<<2])
+    left = LazySplayTreeArray(self.data, _root=self.data.arr[self.root<<2])
     self.data.arr[self.root<<2] = 0
     self._update(self.root)
     return left, self
@@ -243,7 +243,7 @@ class LazySplayTree(Generic[T, F]):
 
   def reverse(self, l: int, r: int) -> None:
     assert 0 <= l <= r <= len(self), \
-        f'IndexError: LazySplayTree.reverse({l}, {r}), len={len(self)}'
+        f'IndexError: LazySplayTreeArray.reverse({l}, {r}), len={len(self)}'
     if l == r: return
     data = self.data
     left, right = self._internal_split(r)
@@ -260,7 +260,7 @@ class LazySplayTree(Generic[T, F]):
 
   def apply(self, l: int, r: int, f: F) -> None:
     assert 0 <= l <= r <= len(self), \
-        f'IndexError: LazySplayTree.apply({l}, {r}), len={len(self)}'
+        f'IndexError: LazySplayTreeArray.apply({l}, {r}), len={len(self)}'
     data = self.data
     left, right = self._internal_split(r)
     keydata, lazy = data.keydata, data.lazy
@@ -286,7 +286,7 @@ class LazySplayTree(Generic[T, F]):
 
   def prod(self, l: int, r: int) -> T:
     assert 0 <= l <= r <= len(self), \
-        f'IndexError: LazySplayTree.prod({l}, {r}), len={len(self)}'
+        f'IndexError: LazySplayTreeArray.prod({l}, {r}), len={len(self)}'
     data = self.data
     left, right = self._internal_split(r)
     if l:
@@ -303,7 +303,7 @@ class LazySplayTree(Generic[T, F]):
 
   def insert(self, k: int, key: T) -> None:
     assert -len(self) <= k <= len(self), \
-        f'IndexError: LazySplayTree.insert({k}, {key}), len={len(self)}'
+        f'IndexError: LazySplayTreeArray.insert({k}, {key}), len={len(self)}'
     if k < 0: k += len(self)
     data = self.data
     node = self._make_node(key)
@@ -339,7 +339,7 @@ class LazySplayTree(Generic[T, F]):
 
   def pop(self, k: int=-1) -> T:
     assert -len(self) <= k < len(self), \
-        f'IndexError: LazySplayTree.pop({k})'
+        f'IndexError: LazySplayTreeArray.pop({k})'
     data = self.data
     if k == -1:
       node = self._right_splay(self.root)
@@ -360,7 +360,7 @@ class LazySplayTree(Generic[T, F]):
     return res
 
   def popleft(self) -> T:
-    assert self, 'IndexError: LazySplayTree.popleft()'
+    assert self, 'IndexError: LazySplayTreeArray.popleft()'
     node = self._left_splay(self.root)
     self.root = self.data.arr[node<<2|1]
     return self.data.keydata[node<<1]
@@ -391,13 +391,13 @@ class LazySplayTree(Generic[T, F]):
     self.root = 0
 
   def __setitem__(self, k: int, key: T):
-    assert -len(self) <= k < len(self), f'IndexError: LazySplayTree.__setitem__({k})'
+    assert -len(self) <= k < len(self), f'IndexError: LazySplayTreeArray.__setitem__({k})'
     self.root = self._kth_elm_splay(self.root, k)
     self.data.keydata[self.root<<1] = key
     self._update(self.root)
 
   def __getitem__(self, k: int) -> T:
-    assert -len(self) <= k < len(self), f'IndexError: LazySplayTree.__getitem__({k})'
+    assert -len(self) <= k < len(self), f'IndexError: LazySplayTreeArray.__getitem__({k})'
     self.root = self._kth_elm_splay(self.root, k)
     return self.data.keydata[self.root<<1]
 
@@ -426,5 +426,5 @@ class LazySplayTree(Generic[T, F]):
     return self.root != 0
 
   def __repr__(self):
-    return f'LazySplayTree({self})'
+    return f'LazySplayTreeArray({self})'
 

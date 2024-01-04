@@ -8,6 +8,8 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   (静的)ウェーブレット行列でできる操作に加えて ``insert / pop / update`` 等ができます。
     - ``BitVector`` を平衡二分木にしています(``AVLTreeBitVector``)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
+
+  :math:`O(n\\log{(\\sigma)})` です。
   """
 
   def __init__(self, sigma: int, a: Sequence[int]=[]):
@@ -36,7 +38,6 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def reserve(self, n: int) -> None:
     """``n`` 要素分のメモリを確保します。
-
     :math:`O(n)` です。
     """
     assert n >= 0, f'ValueError: {self.__class__.__name__}.reserve({n})'
@@ -45,8 +46,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def insert(self, k: int, x: int) -> None:
     """位置 ``k`` に ``x`` を挿入します。
-
-    :math:`O(\\log{n}\\log{sigma})` です。
+    :math:`O(\\log{(n)}\\log{(\\sigma)})` です。
     """
     assert 0 <= k <= self.size, f'IndexError: {self.__class__.__name__}.insert({k}, {x}), n={self.size}'
     assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.insert({k}, {x}), LIM={1<<self.log}'
@@ -71,8 +71,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def pop(self, k: int) -> int:
     """位置 ``k`` の要素を削除し、その値を返します。
-
-    :math:`O(\\log{n}\\log{sigma})` です。
+    :math:`O(\\log{(n)}\\log{(\\sigma)})` です。
     """
     assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.pop({k}), n={self.size}'
     mid = self.mid
@@ -100,8 +99,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def update(self, k: int, x: int) -> None:
     """位置 ``k`` の要素を ``x`` に更新します。
-
-    :math:`O(\\log{n}\\log{sigma})` です。
+    :math:`O(\\log{(n)}\\log{(\\sigma)})` です。
     """
     assert 0 <= k < self.size, f'IndexError: {self.__class__.__name__}.update({k}, {x}), n={self.size}'
     assert 0 <= x < 1<<self.log, f'ValueError: {self.__class__.__name__}.update({k}, {x}), LIM={1<<self.log}'

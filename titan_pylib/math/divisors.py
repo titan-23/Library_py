@@ -1,7 +1,7 @@
 from collections import Counter
 from typing import List, Tuple
 
-class Divs():
+class Divisors():
 
   # 高速素因数分解
   # init: O(NloglogN)

@@ -28,7 +28,7 @@ class FullyRetroactiveUnionFind():
   def unite(self, u: int, v: int, t: int) -> None:
     """時刻 ``t`` のクエリを ``unite(u, v)`` にします。
 
-    償却 :math:`O(\\log{n+m})` です。
+    償却 :math:`O(\\log{(n+m)})` です。
 
     Args:
       u (int): 集合の要素です。
@@ -47,7 +47,7 @@ class FullyRetroactiveUnionFind():
   def disconnect(self, t: int) -> None:
     """時刻 ``t`` の連結クエリをなくして、そのクエリの2頂点を非連結にします。
 
-    償却 :math:`O(\\log{n+m})` です。
+    償却 :math:`O(\\log{(n+m)})` です。
 
     Args:
       t (int): 時刻です。
@@ -65,7 +65,7 @@ class FullyRetroactiveUnionFind():
   def same(self, u: int, v: int, t: int) -> bool:
     """時刻 ``t`` で ``u``, ``v`` の連結判定をします。
 
-    償却 :math:`O(\\log{n+m})` です。
+    償却 :math:`O(\\log{(n+m)})` です。
 
     Args:
       u (int): 集合の要素です。

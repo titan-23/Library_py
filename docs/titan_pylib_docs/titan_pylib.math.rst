@@ -13,10 +13,10 @@ Submodules
    titan_pylib.math.is_prime
    titan_pylib.math.mod_array
    titan_pylib.math.mod_comb
-   titan_pylib.math.modint
-   titan_pylib.math.modint1000000007
-   titan_pylib.math.modint998244353
-   titan_pylib.math.modmatrix
+   titan_pylib.math.mod_int
+   titan_pylib.math.mod_int_1000000007
+   titan_pylib.math.mod_int_998244353
+   titan_pylib.math.mod_matrix
    titan_pylib.math.number
    titan_pylib.math.pollard_rho
 

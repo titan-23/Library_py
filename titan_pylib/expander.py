@@ -1,3 +1,10 @@
+# user settings --------------------------------------------------
+SLASH = '/'
+LIB_PATH = '/mnt/c/Users/titan/source/Library_py'
+# LIB_PATH = 'C:\\Users\\titan\\source\\Library_py'
+TO_LIB_PATH = '.'
+#  ----------------------------------------------------------------
+
 import sys
 import pyperclip
 import re
@@ -25,14 +32,15 @@ def get_code(now_path, input_file, need_class, is_input=False):
     if line.startswith('from titan_pylib'):
       _, s, _, *fs = line.split()
       fs = [x.rstrip(', ') for x in fs]
-      s = s.replace('.', '\\')
-      s = f'{LIB_PATH}\\{s}.py'
+      s = s.replace('.', SLASH)
+      s = f'{LIB_PATH}{SLASH}{s}.py'
       if s not in added_file:
         output += f'# {line}'
         try:
           f = open(s, 'r', encoding='utf-8')
         except FileNotFoundError:
-          print(f'  File \"{input_filename}\", line {input_lines}')
+          print(s)
+          print(f'File \"{input_filename}\", line {input_lines}')
           error_line = line.rstrip()
           error_underline = '^' * len(error_line)
           print(f'    {error_line}')
@@ -50,14 +58,14 @@ def get_code(now_path, input_file, need_class, is_input=False):
       while s and s[0] == '.':
         s = s[1:]
         cnt += 1
-      s = s.replace('.', '\\')
+      s = s.replace('.', SLASH)
       t = now_path
       for _ in range(cnt):
         i = len(t)-1
-        while i >= 0 and t[i] != '\\':
+        while i >= 0 and t[i] != SLASH:
           i -= 1
         t = t[:i]
-      s = f'{t}\\{s}.py'
+      s = f'{t}{SLASH}{s}.py'
       if s not in added_file:
         try:
           f = open(s, 'r', encoding='utf-8')
@@ -72,18 +80,14 @@ def get_code(now_path, input_file, need_class, is_input=False):
       output += line
       # print(line, end='', file=output_file)
   if need_class:
+    error_msg = ''
     for e in need_class:
-      print(f'  {e}')
-    print('ImportError: class not found.')
+      error_msg += f'  {e}\n'
+    error_msg += 'ImportError: class not found.'
+    print(error_msg)
     exit(1)
 
 if __name__ == '__main__':
-
-  # titan_pylib のパス
-  LIB_PATH = 'C:\\Users\\titan\\source\\Library_py\\'
-
-  # 現在地点から↑への相対パス
-  TO_LIB_PATH = '../'
 
   input_filename = sys.argv[1]
   output_filename = sys.argv[2] if len(sys.argv) == 3 else 'clip'
