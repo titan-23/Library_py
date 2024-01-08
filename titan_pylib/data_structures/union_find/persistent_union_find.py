@@ -5,7 +5,6 @@ class PersistentUnionFind():
 
   def __init__(self, n: int, _parents: Optional[PersistentArray[int]]=None):
     """``n`` 個の要素からなる ``PersistentUnionFind`` を構築します。
-
     :math:`O(n)` です。
     """
     self._n: int = n
@@ -16,15 +15,13 @@ class PersistentUnionFind():
 
   def copy(self) -> 'PersistentUnionFind':
     """コピーします。
-
     :math:`O(1)` です。
     """
     return self._new(self._parents.copy())
 
   def root(self, x: int) -> int:
     """要素 ``x`` を含む集合の代表元を返します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
     """
     _parents = self._parents
     while True:
@@ -33,10 +30,9 @@ class PersistentUnionFind():
         return x
       x = p
 
-  def unite(self, x: int, y: int, update: bool=False) -> 'PersistentUnionFind':
+  def unite(self, x: int, y: int, update: bool=True) -> 'PersistentUnionFind':
     """要素 ``x`` を含む集合と要素 ``y`` を含む集合を併合します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
 
     Args:
       x (int): 集合の要素です。
@@ -60,8 +56,7 @@ class PersistentUnionFind():
 
   def size(self, x: int) -> int:
     """要素 ``x`` を含む集合の要素数を返します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
     """
     return -self._parents.get(self.root(x))
 
@@ -69,8 +64,7 @@ class PersistentUnionFind():
     """
     要素 ``x`` と ``y`` が同じ集合に属するなら ``True`` を、
     そうでないなら ``False`` を返します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
     """
     return self.root(x) == self.root(y)
 
