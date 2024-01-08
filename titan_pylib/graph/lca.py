@@ -4,13 +4,12 @@ from typing import List
 class LCA():
   """LCA を定数倍良く求めます。
 
-  < O(NlogN), O(1) >
+  :math:`O(< O(NlogN), O(1) >)`
   https://github.com/cheran-senthil/PyRival/blob/master/pyrival/graphs/lca.py
   """
 
   def __init__(self, G: List[List[int]], root: int) -> None:
     """根が ``root`` の重み無し隣接リスト ``G`` で表されるグラフに対して LCA を求めます。
-
     時間・空間 :math:`O(n\\log{n})` です。
 
     Args:
@@ -40,7 +39,6 @@ class LCA():
 
   def lca(self, u: int, v: int) -> int:
     """頂点 ``u`` と頂点 ``v`` の ``lca`` を返します。
-
     :math:`O(1)` です。
     """
     if u == v:

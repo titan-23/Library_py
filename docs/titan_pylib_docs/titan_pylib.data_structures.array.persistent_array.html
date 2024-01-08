@@ -126,24 +126,24 @@
 <span class="linenos"> 4</span>
 <span class="linenos"> 5</span><span class="k">class</span> <span class="nc">PersistentArray</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos"> 6</span>
-<span class="linenos"> 7</span>  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+<span class="linenos"> 7</span>  <span class="k">class</span> <span class="nc">_Node</span><span class="p">():</span>
 <span class="linenos"> 8</span>
 <span class="linenos"> 9</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
 <span class="linenos">10</span>      <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">key</span>
-<span class="linenos">11</span>      <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PersistentArray</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="linenos">12</span>      <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PersistentArray</span><span class="o">.</span><span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="linenos">11</span>      <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PersistentArray</span><span class="o">.</span><span class="n">_Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="linenos">12</span>      <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PersistentArray</span><span class="o">.</span><span class="n">_Node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">13</span>
-<span class="linenos">14</span>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentArray.Node'</span><span class="p">:</span>
-<span class="linenos">15</span>      <span class="n">node</span> <span class="o">=</span> <span class="n">PersistentArray</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentArray._Node'</span><span class="p">:</span>
+<span class="linenos">15</span>      <span class="n">node</span> <span class="o">=</span> <span class="n">PersistentArray</span><span class="o">.</span><span class="n">_Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos">16</span>      <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span>
 <span class="linenos">17</span>      <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">18</span>      <span class="k">return</span> <span class="n">node</span>
 <span class="linenos">19</span>
-<span class="linenos">20</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">_root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'PersistentArray.Node'</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="linenos">20</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">_root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'PersistentArray._Node'</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="linenos">21</span>    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">if</span> <span class="n">_root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_root</span>
 <span class="linenos">22</span>
-<span class="linenos">23</span>  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'PersistentArray.Node'</span><span class="p">]:</span>
-<span class="linenos">24</span>    <span class="n">pool</span> <span class="o">=</span> <span class="p">[</span><span class="n">PersistentArray</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+<span class="linenos">23</span>  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'PersistentArray._Node'</span><span class="p">]:</span>
+<span class="linenos">24</span>    <span class="n">pool</span> <span class="o">=</span> <span class="p">[</span><span class="n">PersistentArray</span><span class="o">.</span><span class="n">_Node</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
 <span class="linenos">25</span>    <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
 <span class="linenos">26</span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pool</span><span class="p">:</span>
 <span class="linenos">27</span>      <span class="k">return</span> <span class="kc">None</span>
@@ -155,7 +155,7 @@
 <span class="linenos">33</span>        <span class="n">pool</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">pool</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">]</span>
 <span class="linenos">34</span>    <span class="k">return</span> <span class="n">pool</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="linenos">35</span>
-<span class="linenos">36</span>  <span class="k">def</span> <span class="nf">_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'PersistentArray.Node'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'PersistentArray[T]'</span><span class="p">:</span>
+<span class="linenos">36</span>  <span class="k">def</span> <span class="nf">_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'PersistentArray._Node'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'PersistentArray[T]'</span><span class="p">:</span>
 <span class="linenos">37</span>    <span class="n">res</span> <span class="o">=</span> <span class="n">PersistentArray</span><span class="p">(</span><span class="n">_root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
 <span class="linenos">38</span>    <span class="n">res</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos">39</span>    <span class="k">return</span> <span class="n">res</span>
@@ -213,10 +213,10 @@
 <span class="linenos">91</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos">92</span>
 <span class="linenos">93</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">94</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="linenos">94</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 <span class="linenos">95</span>
 <span class="linenos">96</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">97</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'PersistentArray(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">97</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
 <span class="linenos">98</span>
 <span class="linenos">99</span>
 </pre></div>
@@ -232,29 +232,10 @@
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>_root</strong> (<a class="reference internal" href="#titan_pylib.data_structures.array.persistent_array.PersistentArray.Node" title="titan_pylib.data_structures.array.persistent_array.PersistentArray.Node"><em>PersistentArray.Node</em></a><em> | </em><em>None</em>) -- </p></li>
+<li><p><strong>_root</strong> (<em>PersistentArray._Node</em><em> | </em><em>None</em>) -- </p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.array.persistent_array.PersistentArray.Node">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/persistent_array.html#PersistentArray.Node"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.persistent_array.PersistentArray.Node" title="Link to this definition"></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.array.persistent_array.PersistentArray.Node.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/persistent_array.html#PersistentArray.Node.copy"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.persistent_array.PersistentArray.Node.copy" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#titan_pylib.data_structures.array.persistent_array.PersistentArray.Node" title="titan_pylib.data_structures.array.persistent_array.PersistentArray.Node"><em>Node</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.persistent_array.PersistentArray.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/persistent_array.html#PersistentArray.copy"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.persistent_array.PersistentArray.copy" title="Link to this definition"></a></dt>

@@ -7,7 +7,7 @@ class LinkCutTree(Generic[T, F]):
   class Node():
 
     def __init__(self, index: int, key: T, lazy: F) -> None:
-      self.index = index
+      self.index: int = index
       self.key: T = key
       self.data: T = key
       self.rdata: T = key
@@ -40,6 +40,8 @@ class LinkCutTree(Generic[T, F]):
     self.composition = composition
     self.e = e
     self.id = id
+    self.n: int = len(self.node)
+    self._group_count: int = self.n
 
   def _apply_rev(self, node: Optional[Node]) -> None:
     if not node: return
@@ -114,7 +116,7 @@ class LinkCutTree(Generic[T, F]):
       self._rotate(node)
     self._propagate(node)  # splay を抜けた後は伝播済みにする
 
-  def expose(self, v: int) -> Node:
+  def expose(self, v: int) -> int:
     node = self.node[v]
     pre = node
     while node.par:
@@ -135,9 +137,10 @@ class LinkCutTree(Generic[T, F]):
     if root != -1:
       self.evert(root)
     self.expose(u)
-    return self.expose(v).index
+    return self.expose(v)
 
   def link(self, c: int, p: int) -> None:
+    self._group_count -= 1
     self.expose(c)
     self.expose(p)
     self.node[c].par = self.node[p]
@@ -147,13 +150,14 @@ class LinkCutTree(Generic[T, F]):
   def cut(self, c: int) -> None:
     # cとc.parの間の辺を削除
     # cut後、頂点cを根とする木が新たに産まれる
+    self._group_count += 1
     self.expose(c)
     node = self.node[c]
     node.left.par = None
     node.left = None
     self._update(node)
 
-  def root(self, v: int) -> Node:
+  def root(self, v: int) -> int:
     self.expose(v)
     node = self.node[v]
     self._propagate(node)
@@ -161,10 +165,10 @@ class LinkCutTree(Generic[T, F]):
       node = node.left
       self._propagate(node)
     self._splay(node)
-    return node
+    return node.index
 
   def same(self, u: int, v: int) -> bool:
-    return self.root(u) is self.root(v)
+    return self.root(u) == self.root(v)
 
   def evert(self, v: int) -> None:
     # vが属する木の根をvにする

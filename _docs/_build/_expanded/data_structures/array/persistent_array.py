@@ -4,24 +4,24 @@ T = TypeVar('T')
 
 class PersistentArray(Generic[T]):
 
-  class Node():
+  class _Node():
 
     def __init__(self, key: T):
       self.key: T = key
-      self.left: Optional[PersistentArray.Node] = None
-      self.right: Optional[PersistentArray.Node] = None
+      self.left: Optional[PersistentArray._Node] = None
+      self.right: Optional[PersistentArray._Node] = None
 
-    def copy(self) -> 'PersistentArray.Node':
-      node = PersistentArray.Node(self.key)
+    def copy(self) -> 'PersistentArray._Node':
+      node = PersistentArray._Node(self.key)
       node.left = self.left
       node.right = self.right
       return node
 
-  def __init__(self, a: Iterable[T]=[], _root: Optional['PersistentArray.Node']=None):
+  def __init__(self, a: Iterable[T]=[], _root: Optional['PersistentArray._Node']=None):
     self.root = self._build(a) if _root is None else _root
 
-  def _build(self, a: Iterable[T]) -> Optional['PersistentArray.Node']:
-    pool = [PersistentArray.Node(e) for e in a]
+  def _build(self, a: Iterable[T]) -> Optional['PersistentArray._Node']:
+    pool = [PersistentArray._Node(e) for e in a]
     self.n = len(pool)
     if not pool:
       return None
@@ -33,7 +33,7 @@ class PersistentArray(Generic[T]):
         pool[i-1].right = pool[2*i]
     return pool[0]
 
-  def _new(self, root: Optional['PersistentArray.Node']) -> 'PersistentArray[T]':
+  def _new(self, root: Optional['PersistentArray._Node']) -> 'PersistentArray[T]':
     res = PersistentArray(_root=root)
     res.n = self.n
     return res
@@ -91,9 +91,9 @@ class PersistentArray(Generic[T]):
     return self.n
 
   def __str__(self):
-    return str(self)
+    return str(self.tolist())
 
   def __repr__(self):
-    return f'PersistentArray({self})'
+    return f'{self.__class__.__name__}({self})'
 
 

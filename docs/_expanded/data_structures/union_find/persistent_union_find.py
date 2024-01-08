@@ -5,24 +5,24 @@ T = TypeVar('T')
 
 class PersistentArray(Generic[T]):
 
-  class Node():
+  class _Node():
 
     def __init__(self, key: T):
       self.key: T = key
-      self.left: Optional[PersistentArray.Node] = None
-      self.right: Optional[PersistentArray.Node] = None
+      self.left: Optional[PersistentArray._Node] = None
+      self.right: Optional[PersistentArray._Node] = None
 
-    def copy(self) -> 'PersistentArray.Node':
-      node = PersistentArray.Node(self.key)
+    def copy(self) -> 'PersistentArray._Node':
+      node = PersistentArray._Node(self.key)
       node.left = self.left
       node.right = self.right
       return node
 
-  def __init__(self, a: Iterable[T]=[], _root: Optional['PersistentArray.Node']=None):
+  def __init__(self, a: Iterable[T]=[], _root: Optional['PersistentArray._Node']=None):
     self.root = self._build(a) if _root is None else _root
 
-  def _build(self, a: Iterable[T]) -> Optional['PersistentArray.Node']:
-    pool = [PersistentArray.Node(e) for e in a]
+  def _build(self, a: Iterable[T]) -> Optional['PersistentArray._Node']:
+    pool = [PersistentArray._Node(e) for e in a]
     self.n = len(pool)
     if not pool:
       return None
@@ -34,7 +34,7 @@ class PersistentArray(Generic[T]):
         pool[i-1].right = pool[2*i]
     return pool[0]
 
-  def _new(self, root: Optional['PersistentArray.Node']) -> 'PersistentArray[T]':
+  def _new(self, root: Optional['PersistentArray._Node']) -> 'PersistentArray[T]':
     res = PersistentArray(_root=root)
     res.n = self.n
     return res
@@ -92,10 +92,10 @@ class PersistentArray(Generic[T]):
     return self.n
 
   def __str__(self):
-    return str(self)
+    return str(self.tolist())
 
   def __repr__(self):
-    return f'PersistentArray({self})'
+    return f'{self.__class__.__name__}({self})'
 
 from typing import Optional
 
@@ -103,7 +103,6 @@ class PersistentUnionFind():
 
   def __init__(self, n: int, _parents: Optional[PersistentArray[int]]=None):
     """``n`` 個の要素からなる ``PersistentUnionFind`` を構築します。
-
     :math:`O(n)` です。
     """
     self._n: int = n
@@ -114,15 +113,13 @@ class PersistentUnionFind():
 
   def copy(self) -> 'PersistentUnionFind':
     """コピーします。
-
     :math:`O(1)` です。
     """
     return self._new(self._parents.copy())
 
   def root(self, x: int) -> int:
     """要素 ``x`` を含む集合の代表元を返します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
     """
     _parents = self._parents
     while True:
@@ -131,10 +128,9 @@ class PersistentUnionFind():
         return x
       x = p
 
-  def unite(self, x: int, y: int, update: bool=False) -> 'PersistentUnionFind':
+  def unite(self, x: int, y: int, update: bool=True) -> 'PersistentUnionFind':
     """要素 ``x`` を含む集合と要素 ``y`` を含む集合を併合します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
 
     Args:
       x (int): 集合の要素です。
@@ -158,8 +154,7 @@ class PersistentUnionFind():
 
   def size(self, x: int) -> int:
     """要素 ``x`` を含む集合の要素数を返します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
     """
     return -self._parents.get(self.root(x))
 
@@ -167,8 +162,7 @@ class PersistentUnionFind():
     """
     要素 ``x`` と ``y`` が同じ集合に属するなら ``True`` を、
     そうでないなら ``False`` を返します。
-
-    :math:`O(\\log{n}^2)` です。
+    :math:`O(\\log^2{n})` です。
     """
     return self.root(x) == self.root(y)
 

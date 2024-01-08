@@ -11,9 +11,9 @@ class HashDict():
   def __init__(self, e: int=-1, default: Any=0, reserve: int=-1):
     """
     Args:
-        e (int, optional): ``int`` 型で ``key`` として使用しない値です。
-                           ``key`` を ``int`` 型以外のもので指定したいときは ``_hash(key) -> int`` 関数をいじってください。
-        default (Any, optional): 存在しないキーにアクセスしたときの値です。
+      e (int, optional): ``int`` 型で ``key`` として使用しない値です。
+                          ``key`` を ``int`` 型以外のもので指定したいときは ``_hash(key) -> int`` 関数をいじってください。
+      default (Any, optional): 存在しないキーにアクセスしたときの値です。
     """
     # e: keyとして使わない値
     # default: valのdefault値

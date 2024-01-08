@@ -4,7 +4,6 @@ T = TypeVar('T')
 
 class Deque(Generic[T]):
   """Deque です。
-
   ランダムアクセスが :math:`O(1)` で可能です。
   """
 
@@ -25,7 +24,6 @@ class Deque(Generic[T]):
 
   def append(self, v: T) -> None:
     """要素 ``v`` を末尾に追加します。
-
     :math:`O(1)` です。
 
     Args:
@@ -35,7 +33,6 @@ class Deque(Generic[T]):
 
   def appendleft(self, v: T) -> None:
     """要素 ``v`` を先頭に追加します。
-
     :math:`O(1)` です。
 
     Args:
@@ -45,7 +42,6 @@ class Deque(Generic[T]):
 
   def pop(self) -> T:
     """末尾の要素を削除し、その値を返します。
-
     :math:`O(1)` です。
     """
     if not self.back:
@@ -54,7 +50,6 @@ class Deque(Generic[T]):
 
   def popleft(self) -> T:
     """先頭の要素を削除し、その値を返します。
-
     :math:`O(1)` です。
     """
     if not self.front:
@@ -63,12 +58,14 @@ class Deque(Generic[T]):
 
   def tolist(self) -> List[T]:
     """``list`` に変換します。
-
     :math:`O(n)` です。
     """
     return self.front[::-1] + self.back
 
   def __getitem__(self, k: int) -> T:
+    """``k`` 番目の要素を取得します。
+    :math:`O(1)` です。
+    """
     assert -len(self) <= k < len(self), \
         f'IndexError: {self.__class__.__name__}[{k}], len={len(self)}'
     if k < 0:
@@ -76,6 +73,9 @@ class Deque(Generic[T]):
     return self.front[len(self.front)-k-1] if k < len(self.front) else self.back[k-len(self.front)]
 
   def __setitem__(self, k: int, v: T):
+    """``k`` 番目の要素を ``v`` に更新します。
+    :math:`O(1)` です。
+    """
     assert -len(self) <= k < len(self), \
         f'IndexError: {self.__class__.__name__}[{k} = {v}, len={len(self)}'
     if k < 0:
@@ -89,6 +89,9 @@ class Deque(Generic[T]):
     return bool(self.front or self.back)
 
   def __len__(self):
+    """要素数を取得します。
+    :math:`O(1)` です。
+    """
     return len(self.front) + len(self.back)
 
   def __contains__(self, v: T):
