@@ -1,6 +1,6 @@
 from array import array
 from typing import Optional, List
-WORD = 15
+WORD = 62
 
 def bit_length64(x: int) -> int:
   return x.bit_length() if x < 4294967296 else (x>>32).bit_length() + 32
