@@ -6,38 +6,37 @@ class Random():
   標準ライブラリよりも高速なつもりでいます。
   '''
 
-  _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
+  def __init__(self):
+    self._x = 123456789
+    self._y = 362436069
+    self._z = 521288629
+    self._w = 88675123
 
-  @classmethod
-  def _xor(cls) -> int:
-    t = (cls._x ^ ((cls._x << 11) & 0xFFFFFFFF)) & 0xFFFFFFFF
-    cls._x, cls._y, cls._z = cls._y, cls._z, cls._w
-    cls._w = (cls._w ^ (cls._w >> 19)) ^ (t ^ ((t >> 8))&0xFFFFFFFF) & 0xFFFFFFFF
-    return cls._w
+  def _xor(self) -> int:
+    t = (self._x ^ ((self._x << 11) & 0xFFFFFFFF)) & 0xFFFFFFFF
+    self._x, self._y, self._z = self._y, self._z, self._w
+    self._w = (self._w ^ (self._w >> 19)) ^ (t ^ ((t >> 8))&0xFFFFFFFF) & 0xFFFFFFFF
+    return self._w
 
-  @classmethod
-  def random(cls) -> float:
+  def random(self) -> float:
     """random
     0以上1以下の一様ランダムな値を1つ生成して返すはずです。
     """
-    return cls._xor() / 0xFFFFFFFF
+    return self._xor() / 0xFFFFFFFF
 
-  @classmethod
-  def randint(cls, begin: int, end: int) -> int:
+  def randint(self, begin: int, end: int) -> int:
     """``begin`` 以上 ``end`` **以下** のランダムな整数を返します。
     """
     assert begin <= end
-    return begin + cls._xor() % (end - begin + 1)
+    return begin + self._xor() % (end - begin + 1)
 
-  @classmethod
-  def randrange(cls, begin: int, end: int) -> int:
+  def randrange(self, begin: int, end: int) -> int:
     """``begin`` 以上 ``end`` **未満** のランダムな整数を返します。
     """
     assert begin < end
-    return begin + cls._xor() % (end - begin)
+    return begin + self._xor() % (end - begin)
 
-  @classmethod
-  def shuffle(cls, a: List[Any]) -> None:
+  def shuffle(self, a: List[Any]) -> None:
     """インプレースにシャッフルします。
 
     :math:`O(n)` です。
@@ -47,6 +46,6 @@ class Random():
     """
     n = len(a)
     for i in range(n-1):
-      j = cls.randrange(i, n)
+      j = self.randrange(i, n)
       a[i], a[j] = a[j], a[i]
 

@@ -136,3 +136,5 @@ dmypy.json
 a.sh
 all_expander.py
 edit_html.py
+*.in
+*.out

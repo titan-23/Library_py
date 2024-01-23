@@ -139,3 +139,19 @@ class StaticRangeModeQuery(Generic[T]):
 
     val = self.to_origin[val] if self.compress else val
     return val, freq
+
+from time import process_time
+
+
+n, q = map(int, input().split())
+A = list(map(int, input().split()))
+
+start = process_time()
+rmq = StaticRangeModeQuery(A)
+
+for _ in range(q):
+  l, r = map(int, input().split())
+  val, freq = rmq.mode(l, r)
+
+print(process_time() - start)
+# 0.54
