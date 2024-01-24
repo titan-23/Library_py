@@ -9,7 +9,12 @@ class RandomGraphType(enum.Enum):
 class RandomGraph():
 
   @classmethod
-  def build(cls, n: int, m: int, typ: RandomGraphType=RandomGraphType.random, seed: Optional[int]=None) -> List[Tuple[int, int]]:
+  def build(cls,
+            n: int,
+            m: int,
+            typ: RandomGraphType=RandomGraphType.random,
+            seed: Optional[int]=None,
+            ) -> List[Tuple[int, int]]:
     random.seed(seed)
     if typ == RandomGraphType.random:
       return cls._build_random(n, m)

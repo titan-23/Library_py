@@ -3,7 +3,7 @@ T = TypeVar('T')
 
 class StaticRangeModeQuery(Generic[T]):
   """静的な列に対する区間最頻値クエリに答えます。
-  <構築 :math:`O(n\\sqrt{n})` , クエリ :math:`O(\\sqrt{n)})` >
+  <構築 :math:`O(n\\sqrt{n})` , 空間 :math:`O(n)` , クエリ :math:`O(\\sqrt{n)})` >
 
   参考: https://noshi91.hatenablog.com/entry/2020/10/26/140105
   """
@@ -26,7 +26,7 @@ class StaticRangeModeQuery(Generic[T]):
 
     Args:
       a (Iterable[T]):
-      compress (bool, optional): ``False`` なら座標圧縮しません。空間計算量に気を付けてください。
+      compress (bool, optional): ``False`` なら座標圧縮しません。
     """
 
     a: List[T] = list(a)
@@ -37,6 +37,7 @@ class StaticRangeModeQuery(Generic[T]):
       to_zaatsu: Dict[T, int] = {x: i for i, x in enumerate(self.to_origin)}
       self.a: List[int] = [to_zaatsu[x] for x in a]
     else:
+      assert max(a) < len(self.a), 'ValueError'
       self.a: List[int] = a
 
     self.n: int = len(self.a)
@@ -139,3 +140,4 @@ class StaticRangeModeQuery(Generic[T]):
 
     val = self.to_origin[val] if self.compress else val
     return val, freq
+
