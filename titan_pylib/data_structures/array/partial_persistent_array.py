@@ -9,7 +9,6 @@ class PartialPersistentArray(Generic[T]):
   def __init__(self, a: Iterable[T]):
     """``a`` から部分永続配列を構築します。
     初期配列のバージョンは ``0`` です。
-
     :math:`O(n)` です。
     """
     self.a: List[List[T]] = [[e] for e in a]
@@ -18,7 +17,6 @@ class PartialPersistentArray(Generic[T]):
 
   def set(self, k: int, v: T, t: int) -> None:
     """位置 ``k`` を ``v`` に更新します。
-
     :math:`O(1)` です。
 
     Args:
@@ -34,7 +32,6 @@ class PartialPersistentArray(Generic[T]):
 
   def get(self, k: int, t: int=-1) -> T:
     """位置 ``k`` 、バージョン ``t`` の要素を返します。
-
     :math:`O(\\log{n})` です。
 
     Args:
@@ -55,7 +52,6 @@ class PartialPersistentArray(Generic[T]):
 
   def tolist(self, t: int) -> List[T]:
     """バージョン ``t`` の配列を返します。
-
     :math:`O(n\\log{n})` です。
     """
     return [self.get(i, t) for i in range(len(self))]

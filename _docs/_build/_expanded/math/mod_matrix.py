@@ -1,10 +1,9 @@
 # from titan_pylib.math.mod_matrix import ModMatrix
-from typing import List, Union
+from typing import List, Union, Final
 
-class ModMatrix:
+_titan_pylib_ModMatrix_MOD: Final[int] = 998244353
 
-  # mod = 1000000007
-  mod = 998244353
+class ModMatrix():
 
   @staticmethod
   def zeros(n: int, m: int) -> 'ModMatrix':
@@ -27,7 +26,7 @@ class ModMatrix:
     if _exter:
       for ai in a:
         for j in range(self.m):
-          ai[j] %= ModMatrix.mod
+          ai[j] %= _titan_pylib_ModMatrix_MOD
     self.a: List[List[int]] = a
 
   def det(self, inplace=False) -> int:
@@ -46,16 +45,16 @@ class ModMatrix:
             break
         else:
           return 0
-      inv = pow(ai[i], ModMatrix.mod-2, ModMatrix.mod)
+      inv = pow(ai[i], -1, _titan_pylib_ModMatrix_MOD)
       for j in range(i+1, self.n):
         aj = a[j]
-        freq = aj[i] * inv % ModMatrix.mod
+        freq = aj[i] * inv % _titan_pylib_ModMatrix_MOD
         for k in range(i+1, self.n):  # i+1スタートで十分
-          aj[k] = (aj[k] - freq * ai[k]) % ModMatrix.mod
+          aj[k] = (aj[k] - freq * ai[k]) % _titan_pylib_ModMatrix_MOD
       res *= ai[i]
-      res %= ModMatrix.mod
+      res %= _titan_pylib_ModMatrix_MOD
     if flip:
-      res = -res % ModMatrix.mod
+      res = -res % _titan_pylib_ModMatrix_MOD
     return res
 
   def inv(self, inplace=False) -> Union[None, 'ModMatrix']:
@@ -78,18 +77,18 @@ class ModMatrix:
             break
         else:
           return None
-      tmp = pow(ai[i], ModMatrix.mod-2, ModMatrix.mod)
+      tmp = pow(ai[i], _titan_pylib_ModMatrix_MOD-2, _titan_pylib_ModMatrix_MOD)
       for j in range(self.n):
-        ai[j] = ai[j] * tmp % ModMatrix.mod
-        ri[j] = ri[j] * tmp % ModMatrix.mod
+        ai[j] = ai[j] * tmp % _titan_pylib_ModMatrix_MOD
+        ri[j] = ri[j] * tmp % _titan_pylib_ModMatrix_MOD
       for j in range(self.n):
         if i == j: continue
         aj = a[j]
         rj = r[j]
         aji = aj[i]
         for k in range(self.n):
-          aj[k] = (aj[k] - ai[k] * aji) % ModMatrix.mod
-          rj[k] = (rj[k] - ri[k] * aji) % ModMatrix.mod
+          aj[k] = (aj[k] - ai[k] * aji) % _titan_pylib_ModMatrix_MOD
+          rj[k] = (rj[k] - ri[k] * aji) % _titan_pylib_ModMatrix_MOD
     return ModMatrix(r, _exter=False)
 
   @classmethod
@@ -101,13 +100,13 @@ class ModMatrix:
 
   def __add__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
-      other %= ModMatrix.mod
+      other %= _titan_pylib_ModMatrix_MOD
       res = [a[:] for a in self.a]
       for i in range(self.n):
         resi = res[i]
         for j in range(self.m):
           val = resi[j] + other
-          resi[j] = val if val < ModMatrix.mod else val-ModMatrix.mod
+          resi[j] = val if val < _titan_pylib_ModMatrix_MOD else val-_titan_pylib_ModMatrix_MOD
       return ModMatrix(res, _exter=False)
     elif isinstance(other, ModMatrix):
       assert self.n == other.n and self.m == other.m
@@ -117,20 +116,20 @@ class ModMatrix:
         oi = other.a[i]
         for j in range(self.m):
           val = resi[j] + oi[j]
-          resi[j] = val if val < ModMatrix.mod else val-ModMatrix.mod
+          resi[j] = val if val < _titan_pylib_ModMatrix_MOD else val-_titan_pylib_ModMatrix_MOD
       return ModMatrix(res, _exter=False)
     else:
       raise TypeError
 
   def __sub__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
-      other %= ModMatrix.mod
+      other %= _titan_pylib_ModMatrix_MOD
       res = [a[:] for a in self.a]
       for i in range(self.n):
         resi = res[i]
         for j in range(self.m):
           val = resi[j] - other
-          resi[j] = val+ModMatrix.mod if val < 0 else val
+          resi[j] = val+_titan_pylib_ModMatrix_MOD if val < 0 else val
       return ModMatrix(res, _exter=False)
     elif isinstance(other, ModMatrix):
       assert self.n == other.n and self.m == other.m
@@ -140,31 +139,30 @@ class ModMatrix:
         oi = other.a[i]
         for j in range(self.m):
           val = resi[j] - oi[j]
-          resi[j] = val+ModMatrix.mod if val < 0 else val
+          resi[j] = val+_titan_pylib_ModMatrix_MOD if val < 0 else val
       return ModMatrix(res, _exter=False)
     else:
       raise TypeError
 
   def __mul__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
-      other %= ModMatrix.mod
+      other %= _titan_pylib_ModMatrix_MOD
       res = [a[:] for a in self.a]
       for i in range(self.n):
         resi = res[i]
         for j in range(self.m):
-          resi[j] = resi[j] * other % ModMatrix.mod
+          resi[j] = resi[j] * other % _titan_pylib_ModMatrix_MOD
       return ModMatrix(res, _exter=False)
-    elif isinstance(other, ModMatrix):
+    if isinstance(other, ModMatrix):
       assert self.n == other.n and self.m == other.m
       res = [a[:] for a in self.a]
       for i in range(self.n):
         resi = res[i]
         oi = other.a[i]
         for j in range(self.m):
-          resi[j] = resi[j] * oi[j] % ModMatrix.mod
+          resi[j] = resi[j] * oi[j] % _titan_pylib_ModMatrix_MOD
       return ModMatrix(res, _exter=False)
-    else:
-      raise TypeError
+    raise TypeError
 
   def __matmul__(self, other: 'ModMatrix') -> 'ModMatrix':
     if isinstance(other, ModMatrix):
@@ -177,7 +175,7 @@ class ModMatrix:
           ok = other.a[k]
           sik = si[k]
           for j in range(other.m):
-            res_i[j] = (res_i[j] + ok[j] * sik) % ModMatrix.mod
+            res_i[j] = (res_i[j] + ok[j] * sik) % _titan_pylib_ModMatrix_MOD
       return ModMatrix(res, _exter=False)
     raise TypeError
 
@@ -192,18 +190,18 @@ class ModMatrix:
       n >>= 1
     return res
 
-  def __radd__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
-    return self.__add__(other)
+  __radd__ = __add__
+  __rmul__ = __mul__
 
   def __rsub__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
-      other %= ModMatrix.mod
+      other %= _titan_pylib_ModMatrix_MOD
       res = [a[:] for a in self.a]
       for i in range(self.n):
         resi = res[i]
         for j in range(self.m):
           val = other - resi[j]
-          resi[j] = val+ModMatrix.mod if val < 0 else val
+          resi[j] = val+_titan_pylib_ModMatrix_MOD if val < 0 else val
       return ModMatrix(res, _exter=False)
     elif isinstance(other, ModMatrix):
       assert self.n == other.n and self.m == other.m
@@ -213,22 +211,19 @@ class ModMatrix:
         oi = other.a[i]
         for j in range(self.m):
           val = oi[j] - resi[j]
-          resi[j] = val+ModMatrix.mod if val < 0 else val
+          resi[j] = val+_titan_pylib_ModMatrix_MOD if val < 0 else val
       return ModMatrix(res, _exter=False)
     else:
       raise TypeError
 
-  def __rmul__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
-    return self.__mul__(other)
-
   def __iadd__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
-      other %= ModMatrix.mod
+      other %= _titan_pylib_ModMatrix_MOD
       for i in range(self.n):
         si = self.a[i]
         for j in range(self.m):
           val = si[j] + other
-          si[j] = val if val < ModMatrix.mod else val-ModMatrix.mod
+          si[j] = val if val < _titan_pylib_ModMatrix_MOD else val-_titan_pylib_ModMatrix_MOD
     elif isinstance(other, ModMatrix):
       assert self.n == other.n and self.m == other.m
       for i in range(self.n):
@@ -236,19 +231,19 @@ class ModMatrix:
         oi = other.a[i]
         for j in range(self.m):
           val = si[j] + oi[j]
-          si[j] = val if val < ModMatrix.mod else val-ModMatrix.mod
+          si[j] = val if val < _titan_pylib_ModMatrix_MOD else val-_titan_pylib_ModMatrix_MOD
     else:
       raise TypeError
     return self
 
   def __isub__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
-      other %= ModMatrix.mod
+      other %= _titan_pylib_ModMatrix_MOD
       for i in range(self.n):
         si = self.a[i]
         for j in range(self.m):
           val = si[j] - other
-          si[j] = val+ModMatrix.mod if val < 0 else val
+          si[j] = val+_titan_pylib_ModMatrix_MOD if val < 0 else val
     elif isinstance(other, ModMatrix):
       assert self.n == other.n and self.m == other.m
       for i in range(self.n):
@@ -256,25 +251,25 @@ class ModMatrix:
         oi = other.a[i]
         for j in range(self.m):
           val = si[j] - oi[j]
-          si[j] = val+ModMatrix.mod if val < 0 else val
+          si[j] = val+_titan_pylib_ModMatrix_MOD if val < 0 else val
     else:
       raise TypeError
     return self
 
   def __imul__(self, other: Union[int, 'ModMatrix']) -> 'ModMatrix':
     if isinstance(other, int):
-      other %= ModMatrix.mod
+      other %= _titan_pylib_ModMatrix_MOD
       for i in range(self.n):
         si = self.a[i]
         for j in range(self.m):
-          si[j] = si[j] * other % ModMatrix.mod
+          si[j] = si[j] * other % _titan_pylib_ModMatrix_MOD
     elif isinstance(other, ModMatrix):
       assert self.n == other.n and self.m == other.m
       for i in range(self.n):
         si = self.a[i]
         oi = other.a[i]
         for j in range(self.m):
-          si[j] = si[j] * oi[j] % ModMatrix.mod
+          si[j] = si[j] * oi[j] % _titan_pylib_ModMatrix_MOD
     else:
       raise TypeError
     return self
@@ -285,29 +280,40 @@ class ModMatrix:
   def __ipow__(self, n: int) -> 'ModMatrix':
     assert self.n == self.m
     res = ModMatrix.identity(self.n)
-    while n > 0:
-      if n & 1 == 1:
+    while n:
+      if n & 1:
         res @= self
       self @= self
       n >>= 1
     return res
 
-  def get(self, n, m):
+  def __ne__(self) -> 'ModMatrix':
+    a = [a[:] for a in self.a]
+    for i in range(self.n):
+      for j in range(self.m):
+        a[i][j] = (-a[i][j]) % _titan_pylib_ModMatrix_MOD
+    return ModMatrix(a, _exter=False)
+
+  def add(self, n: int, m: int, key: int) -> None:
+    assert 0 <= n < self.n and 0 <= m < self.m
+    self.a[n][m] = (self.a[n][m] + key) % _titan_pylib_ModMatrix_MOD
+
+  def get(self, n: int, m: int) -> int:
     assert 0 <= n < self.n and 0 <= m < self.m
     return self.a[n][m]
 
-  def get_n(self, n):
+  def get_n(self, n: int) -> List[int]:
     assert 0 <= n < self.n
     return self.a[n]
 
-  def set(self, n, m, key):
+  def set(self, n: int, m: int, key: int) -> None:
     assert 0 <= n < self.n and 0 <= m < self.m
-    self.a[n][m] = key % ModMatrix.mod
+    self.a[n][m] = key % _titan_pylib_ModMatrix_MOD
 
-  def tolist(self):
+  def tolist(self) -> List[List[int]]:
     return [a[:] for a in self.a]
 
-  def show(self):
+  def show(self) -> None:
     for a in self.a:
       print(*a)
     print()

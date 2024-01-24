@@ -67,7 +67,6 @@ class BitVector(BitVectorInterface):
     assert 0 <= n < 4294967295
     self.N = n
     self.block_size = (n + 31) >> 5
-    # bit数 32*n/32 * 2 = 2n bit
     b = bytes(4*(self.block_size+1))
     self.bit = array('I', b)
     self.acc = array('I', b)
@@ -83,7 +82,6 @@ class BitVector(BitVectorInterface):
 
   def set(self, k: int) -> None:
     """``k`` 番目の bit を ``1`` にします。
-
     :math:`O(1)` です。
 
     Args:
@@ -94,7 +92,6 @@ class BitVector(BitVectorInterface):
   def build(self) -> None:
     """構築します。
     **これ以降 ``set`` メソッドを使用してはいけません。**
-
     :math:`O(n)` です。
     """
     acc, bit = self.acc, self.bit
@@ -103,7 +100,6 @@ class BitVector(BitVectorInterface):
 
   def access(self, k: int) -> int:
     """``k`` 番目の bit を返します。
-
     :math:`O(1)` です。
     """
     return (self.bit[k >> 5] >> (k & 31)) & 1
@@ -113,28 +109,24 @@ class BitVector(BitVectorInterface):
 
   def rank0(self, r: int) -> int:
     """``a[0, r)`` に含まれる ``0`` の個数を返します。
-
     :math:`O(1)` です。
     """
     return r - (self.acc[r>>5] + BitVector._popcount(self.bit[r>>5] & ((1 << (r & 31)) - 1)))
 
   def rank1(self, r: int) -> int:
     """``a[0, r)`` に含まれる ``1`` の個数を返します。
-
     :math:`O(1)` です。
     """
     return self.acc[r>>5] + BitVector._popcount(self.bit[r>>5] & ((1 << (r & 31)) - 1))
 
   def rank(self, r: int, v: int) -> int:
     """``a[0, r)`` に含まれる ``v`` の個数を返します。
-
     :math:`O(1)` です。
     """
     return self.rank1(r) if v else self.rank0(r)
 
   def select0(self, k: int) -> int:
     """``k`` 番目の ``0`` のインデックスを返します。
-
     :math:`O(\\log{n})` です。
     """
     if k < 0 or self.rank0(self.N) <= k:
@@ -159,7 +151,6 @@ class BitVector(BitVectorInterface):
 
   def select1(self, k: int) -> int:
     """``k`` 番目の ``1`` のインデックスを返します。
-
     :math:`O(\\log{n})` です。
     """
     if k < 0 or self.rank1(self.N) <= k:
@@ -184,7 +175,6 @@ class BitVector(BitVectorInterface):
 
   def select(self, k: int, v: int) -> int:
     """``k`` 番目の ``v`` のインデックスを返します。
-
     :math:`O(\\log{n})` です。
     """
     return self.select1(k) if v else self.select0(k)
@@ -196,7 +186,7 @@ class BitVector(BitVectorInterface):
     return str([self.access(i) for i in range(self.N)])
 
   def __repr__(self):
-    return f'BitVector({self})'
+    return f'{self.__class__.__name__}({self})'
 
 # from titan_pylib.data_structures.wavelet_matrix.wavelet_matrix import WaveletMatrix
 from typing import Sequence, List, Tuple

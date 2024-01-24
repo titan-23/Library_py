@@ -548,9 +548,12 @@ class RandomTreeType(enum.Enum):
 class RandomTree():
 
   @classmethod
-  def build(cls, n: int, typ: RandomTreeType=RandomTreeType.random, seed: Optional[int]=None) -> List[Tuple[int, int]]:
+  def build(cls,
+            n: int,
+            typ: RandomTreeType=RandomTreeType.random,
+            seed: Optional[int]=None,
+            ) -> List[Tuple[int, int]]:
     """ランダムな木を生成し、辺を返します。
-
     :math:`O(n \\log{n})` です。
 
     Args:

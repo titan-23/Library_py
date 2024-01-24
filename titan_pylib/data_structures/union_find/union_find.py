@@ -28,7 +28,6 @@ class UnionFind():
 
   def unite(self, x: int, y: int) -> bool:
     """要素 ``x`` を含む集合と要素 ``y`` を含む集合を併合します。
-
     :math:`O(\\alpha(n))` です。
 
     Returns:
@@ -66,7 +65,6 @@ class UnionFind():
 
   def size(self, x: int) -> int:
     """要素 ``x`` を含む集合の要素数を返します。
-
     :math:`O(\\alpha(n))` です。
     """
     return -self._parents[self.root(x)]
@@ -75,7 +73,6 @@ class UnionFind():
     """
     要素 ``x`` と ``y`` が同じ集合に属するなら ``True`` を、
     そうでないなら ``False`` を返します。
-
     :math:`O(\\alpha(n))` です。
     """
     return self.root(x) == self.root(y)
@@ -88,7 +85,6 @@ class UnionFind():
 
   def all_roots(self) -> List[int]:
     """全ての集合の代表元からなるリストを返します。
-
     :math:`O(n)` です。
 
     Returns:
@@ -98,7 +94,6 @@ class UnionFind():
 
   def group_count(self) -> int:
     """集合の総数を返します。
-
     :math:`O(1)` です。
     """
     return self._group_numbers

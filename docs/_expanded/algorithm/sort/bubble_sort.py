@@ -10,6 +10,7 @@ from typing import TypeVar, Callable, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 def bubble_sort(a: List[T], key: Callable[[T, T], bool]=lambda s, t: s < t, inplace: bool=True) -> List[T]:
+  a = a[:] if inplace else a  
   n = len(a)
   for i in range(n):
     flag = True

@@ -2,7 +2,6 @@ from typing import List, Tuple
 
 def get_biconnected_components(G: List[List[int]]) -> Tuple[List[List[int]], List[List[Tuple[int, int]]]]:
   """``G`` を二重頂点連結分解します。
-
   :math:`O(n+m)` です。
 
   Args:

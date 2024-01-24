@@ -3,13 +3,12 @@ from typing import Any, Iterator, List, Tuple
 class HLD():
 
   def __init__(self, G: List[List[int]], root: int):
-    """``root`` を根とする木 ``G`` から HLD します。
-
+    """``root`` を根とする木 ``G`` を HLD します。
     :math:`O(n)` です。
 
     Args:
-        G (List[List[int]]): 木を表す隣接リストです。
-        root (int): 根です。
+      G (List[List[int]]): 木を表す隣接リストです。
+      root (int): 根です。
     """
     n = len(G)
     self.n: int = n
@@ -72,22 +71,19 @@ class HLD():
         nodeout[~v] = curtime
 
   def build_list(self, a: List[Any]) -> List[Any]:
-    """``hld配列`` を基にインデックスを振りなおします。
-    非破壊的です。
-
+    """``hld配列`` を基にインデックスを振りなおします。非破壊的です。
     :math:`O(n)` です。
 
     Args:
-        a (List[Any]): 元の配列です。
+      a (List[Any]): 元の配列です。
 
     Returns:
-        List[Any]: 振りなおし後の配列です。
+      List[Any]: 振りなおし後の配列です。
     """
     return [a[e] for e in self.hld]
 
   def for_each_vertex(self, u: int, v: int) -> Iterator[Tuple[int, int]]:
     """``u-v`` パスに対応する区間のインデックスを返します。
-
     :math:`O(\\log{n})` です。
     """
     head, nodein, dep, par = self.head, self.nodein, self.dep, self.par
@@ -102,7 +98,6 @@ class HLD():
 
   def for_each_vertex_subtree(self, v: int) -> Iterator[Tuple[int, int]]:
     """頂点 ``v`` の部分木に対応する区間のインデックスを返します。
-
     :math:`O(1)` です。
     """
     yield self.nodein[v], self.nodeout[v]
@@ -110,7 +105,6 @@ class HLD():
   def path_kth_elm(self, s: int, t: int, k: int) -> int:
     """``s`` から ``t`` に向かって ``k`` 個進んだ頂点のインデックスを返します。
     存在しないときは ``-1`` を返します。
-
     :math:`O(\\log{n})` です。
     """
     head, dep, par = self.head, self.dep, self.par
@@ -130,7 +124,6 @@ class HLD():
 
   def lca(self, u: int, v: int) -> int:
     """``u``, ``v`` の LCA を返します。
-
     :math:`O(\\log{n})` です。
     """
     nodein, head, par = self.nodein, self.head, self.par

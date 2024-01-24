@@ -19,6 +19,16 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
     self.e: T = e
 
   def path_prod(self, u: int, v: int) -> T:
+    """頂点 ``u`` から頂点 ``v`` へのパスの集約値を返します。
+    :math:`O(\\log^2{n})` です。
+
+    Args:
+      u (int): パスの **始点** です。
+      v (int): パスの **終点** です。
+
+    Returns:
+      T: 求める集約値です。
+    """
     head, nodein, dep, par, n = self.hld.head, self.hld.nodein, self.hld.dep, self.hld.par, self.hld.n
     lres, rres = self.e, self.e
     seg, rseg = self.seg, self.rseg
@@ -36,12 +46,31 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
     return self.op(lres, rres)
 
   def get(self, k: int) -> T:
+    """頂点の値を返します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): 頂点のインデックスです。
+
+    Returns:
+      T: 頂点の値です。
+    """
     return self.seg[self.hld.nodein[k]]
 
   def set(self, k: int, v: T) -> None:
+    """頂点の値を更新します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): 頂点のインデックスです。
+      v (T): 更新する値です。
+    """
     self.seg[self.hld.nodein[k]] = v
     self.rseg[self.hld.n-self.hld.nodein[k]-1] = v
 
   __getitem__ = get
   __setitem__ = set
+
+  def subtree_prod(self, v: int) -> T:
+    return self.seg.prod(self.hld.nodein[v], self.hld.nodeout[v])
 

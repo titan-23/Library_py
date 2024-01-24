@@ -5,17 +5,19 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class LazySplayTree(Generic[T, F]):
+  """遅延評価反転可能Splay木です。
+  """
 
-  class Node():
+  class _Node():
 
-    def __init__(self, key: T, lazy: F):
+    def __init__(self, key: T, lazy: F) -> None:
       self.key: T = key
       self.data: T = key
       self.rdata: T = key
       self.lazy: F = lazy
-      self.left: Optional['LazySplayTree.Node'] = None
-      self.right: Optional['LazySplayTree.Node'] = None
-      self.par: Optional['LazySplayTree.Node'] = None
+      self.left: Optional['LazySplayTree._Node'] = None
+      self.right: Optional['LazySplayTree._Node'] = None
+      self.par: Optional['LazySplayTree._Node'] = None
       self.size: int = 1
       self.rev: int = 0
 
@@ -26,7 +28,20 @@ class LazySplayTree(Generic[T, F]):
                composition: Callable[[F, F], F],
                e: T,
                id: F,
-               _root: Node=None):
+               _root: Optional[_Node]=None,
+               ) -> None:
+    """構築します。
+    :math:`O(n)` です。
+
+    Args:
+      n_or_a (Union[int, Iterable[T]]): ``n`` のとき、 ``e`` から長さ ``n`` で構築します。
+                                        ``a`` のとき、 ``a`` から構築します。
+      op (Callable[[T, T], T]): 遅延セグ木のあれです。
+      mapping (Callable[[F, T], T]): 遅延セグ木のあれです。
+      composition (Callable[[F, F], F]): 遅延セグ木のあれです。
+      e (T): 遅延セグ木のあれです。
+      id (F): 遅延セグ木のあれです。
+    """
     self.op = op
     self.mapping = mapping
     self.composition = composition
@@ -45,11 +60,11 @@ class LazySplayTree(Generic[T, F]):
       self._build(a)
 
   def _build(self, a: List[T]) -> None:
-    Node = self.Node
+    _Node = self._Node
     id = self.id
-    def build(l: int, r: int) -> Node:
+    def build(l: int, r: int) -> _Node:
       mid = (l + r) >> 1
-      node = Node(a[mid], id)
+      node = _Node(a[mid], id)
       if l != mid:
         node.left = build(l, mid)
         node.left.par = node
@@ -60,7 +75,7 @@ class LazySplayTree(Generic[T, F]):
       return node
     self.root = build(0, len(a))
 
-  def _rotate(self, node: Node) -> None:
+  def _rotate(self, node: _Node) -> None:
     pnode = node.par
     gnode = pnode.par
     if gnode:
@@ -82,18 +97,18 @@ class LazySplayTree(Generic[T, F]):
     pnode.par = node
     self._update_double(pnode, node)
 
-  def _propagate_rev(self, node: Optional[Node]) -> None:
+  def _propagate_rev(self, node: Optional[_Node]) -> None:
     if not node: return
     node.rev ^= 1
 
-  def _propagate_lazy(self, node: Optional[Node], f: F) -> None:
+  def _propagate_lazy(self, node: Optional[_Node], f: F) -> None:
     if not node: return
     node.key = self.mapping(f, node.key)
     node.data = self.mapping(f, node.data)
     node.rdata = self.mapping(f, node.rdata)
     node.lazy = f if node.lazy == self.id else self.composition(f, node.lazy)
 
-  def _propagate(self, node: Optional[Node]) -> None:
+  def _propagate(self, node: Optional[_Node]) -> None:
     if not node: return
     if node.rev:
       node.data, node.rdata = node.rdata, node.data
@@ -106,13 +121,13 @@ class LazySplayTree(Generic[T, F]):
       self._propagate_lazy(node.right, node.lazy)
       node.lazy = self.id
 
-  def _update_double(self, pnode: Node, node: Node) -> None:
+  def _update_double(self, pnode: _Node, node: _Node) -> None:
     node.data = pnode.data
     node.rdata = pnode.rdata
     node.size = pnode.size
     self._update(pnode)
 
-  def _update(self, node: Node) -> None:
+  def _update(self, node: _Node) -> None:
     node.data = node.key
     node.rdata = node.key
     node.size = 1
@@ -125,7 +140,7 @@ class LazySplayTree(Generic[T, F]):
       node.rdata = self.op(node.right.rdata, node.rdata)
       node.size += node.right.size
 
-  def _splay(self, node: Node) -> None:
+  def _splay(self, node: _Node) -> None:
     while node.par and node.par.par:
       pnode = node.par
       self._rotate(pnode if (pnode.par.left is pnode) == (pnode.left is node) else node)
@@ -133,7 +148,7 @@ class LazySplayTree(Generic[T, F]):
     if node.par:
       self._rotate(node)
 
-  def _get_kth_elm_splay(self, node: Optional[Node], k: int) -> None:
+  def _get_kth_elm_splay(self, node: Optional[_Node], k: int) -> None:
     if k < 0:
       k += len(self)
     while True:
@@ -149,7 +164,7 @@ class LazySplayTree(Generic[T, F]):
     self._splay(node)
     return node
 
-  def _get_left_splay(self, node: Optional[Node]) -> Optional[Node]:
+  def _get_left_splay(self, node: Optional[_Node]) -> Optional[_Node]:
     self._propagate(node)
     if not node or not node.left:
       return node
@@ -159,7 +174,7 @@ class LazySplayTree(Generic[T, F]):
     self._splay(node)
     return node
 
-  def _get_right_splay(self, node: Optional[Node]) -> Optional[Node]:
+  def _get_right_splay(self, node: Optional[_Node]) -> Optional[_Node]:
     self._propagate(node)
     if not node or not node.right:
       return node
@@ -170,6 +185,12 @@ class LazySplayTree(Generic[T, F]):
     return node
 
   def merge(self, other: 'LazySplayTree') -> None:
+    """``other`` を後ろに連結します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      other (LazySplayTree):
+    """
     if not self.root:
       self.root = other.root
       return
@@ -181,12 +202,18 @@ class LazySplayTree(Generic[T, F]):
     self._update(self.root)
 
   def split(self, k: int) -> Tuple['LazySplayTree', 'LazySplayTree']:
+    """位置 ``k`` で split します。
+    償却 :math:`O(\\log{n})` です。
+
+    Returns:
+      Tuple['LazySplayTree', 'LazySplayTree']:
+    """
     left, right = self._internal_split(self.root, k)
     left_splay = LazySplayTree(0, self.op, self.mapping, self.composition, self.e, self.id, left)
     right_splay = LazySplayTree(0, self.op, self.mapping, self.composition, self.e, self.id, right)
     return left_splay, right_splay
 
-  def _internal_split(self, k: int) -> Tuple[Node, Node]:
+  def _internal_split(self, k: int) -> Tuple[_Node, _Node]:
     # self.root will be broken
     if k >= len(self):
       return self.root, None
@@ -198,7 +225,7 @@ class LazySplayTree(Generic[T, F]):
     self._update(right)
     return left, right
 
-  def _internal_merge(self, left: Optional[Node], right: Optional[Node]) -> Optional[Node]:
+  def _internal_merge(self, left: Optional[_Node], right: Optional[_Node]) -> Optional[_Node]:
     # need (not right) or (not right.left)
     if not right:
       return left
@@ -210,6 +237,13 @@ class LazySplayTree(Generic[T, F]):
     return right
 
   def reverse(self, l: int, r: int) -> None:
+    """区間 ``[l, r)`` を反転します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      l (int):
+      r (int):
+    """
     assert 0 <= l <= r <= len(self), \
         f'IndexError: {self.__class__.__name__}.reverse({l}, {r}), len={len(self)}'
     left, right = self._internal_split(r)
@@ -221,9 +255,20 @@ class LazySplayTree(Generic[T, F]):
     self.root = self._internal_merge(left, right)
 
   def all_reverse(self) -> None:
+    """区間 ``[0, n)`` を反転します。
+    :math:`O(1)` です。
+    """
     self._propagate_rev(self.root)
 
   def apply(self, l: int, r: int, f: F) -> None:
+    """区間 ``[l, r)`` に ``f`` を作用します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      l (int):
+      r (int):
+      f (F): 作用素です。
+    """
     assert 0 <= l <= r <= len(self), \
         f'IndexError: {self.__class__.__name__}.apply({l}, {r}, {f}), len={len(self)}'
     left, right = self._internal_split(r)
@@ -236,9 +281,22 @@ class LazySplayTree(Generic[T, F]):
     self.root = self._internal_merge(left, right)
 
   def all_apply(self, f: F) -> None:
+    """区間 ``[0, n)`` に ``f`` を作用します。
+    :math:`O(1)` です。
+    """
     self._propagate_lazy(self.root, f)
 
   def prod(self, l: int, r: int) -> T:
+    """区間 ``[l, r)`` の総積を求めます。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      l (int):
+      r (int):
+
+    Returns:
+      T:
+    """
     assert 0 <= l <= r <= len(self), \
         f'IndexError: {self.__class__.__name__}.prod({l}, {r}), len={len(self)}'
     if l == r:
@@ -253,11 +311,21 @@ class LazySplayTree(Generic[T, F]):
     return res
 
   def all_prod(self) -> T:
+    """区間 ``[0, n)`` の総積を求めます。
+    :math:`O(1)` です。
+    """
     self._propagate(self.root)
     return self.root.data if self.root else self.e
 
   def insert(self, k: int, key: T) -> None:
-    node = self.Node(key, self.id)
+    """位置 ``k`` に ``key`` を挿入します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      k (int):
+      key (T):
+    """
+    node = self._Node(key, self.id)
     if not self.root:
       self.root = node
       return
@@ -277,22 +345,43 @@ class LazySplayTree(Generic[T, F]):
     self._update(self.root)
 
   def append(self, key: T) -> None:
+    """末尾に ``key`` を追加します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      key (T):
+    """
     node = self._get_right_splay(self.root)
-    self.root = self.Node(key, self.id)
+    self.root = self._Node(key, self.id)
     self.root.left = node
     if node:
       node.par = self.root
     self._update(self.root)
 
   def appendleft(self, key: T) -> None:
+    """先頭に ``key`` を追加します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      key (T):
+    """
     node = self._get_left_splay(self.root)
-    self.root = self.Node(key, self.id)
+    self.root = self._Node(key, self.id)
     self.root.right = node
     if node:
       node.par = self.root
     self._update(self.root)
 
   def pop(self, k: int=-1) -> T:
+    """位置 ``k`` の要素を削除し、その値を返します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      k (int, optional): 指定するインデックスです。 Defaults to -1.
+
+    Returns:
+      T:
+    """
     if k == -1:
       node = self._get_right_splay(self.root)
       if node.left:
@@ -316,6 +405,12 @@ class LazySplayTree(Generic[T, F]):
     return res
 
   def popleft(self) -> T:
+    """先頭の要素を削除し、その値を返します。
+    償却 :math:`O(\\log{n})` です。
+
+    Returns:
+      T:
+    """
     node = self._get_left_splay(self.root)
     self.root = node.right
     if node.right:
@@ -323,12 +418,29 @@ class LazySplayTree(Generic[T, F]):
     return node.key
 
   def copy(self) -> 'LazySplayTree':
+    """コピーします。
+
+    Note:
+      償却 :math:`O(n)` です。
+
+    Returns:
+      LazySplayTree:
+    """
     return LazySplayTree(self.tolist(), self.op, self.mapping, self.composition, self.e)
 
   def clear(self) -> None:
+    """全ての要素を削除します。
+    :math:`O(1)` です。
+    """
     self.root = None
 
   def tolist(self) -> List[T]:
+    """``list`` にして返します。
+    :math:`O(n)` です。非再帰です。
+
+    Returns:
+      List[T]:
+    """
     node = self.root
     stack = []
     a = newlist_hint(len(self))
@@ -343,12 +455,26 @@ class LazySplayTree(Generic[T, F]):
         node = node.right
     return a
 
-  def __setitem__(self, k: int, key: T):
+  def __setitem__(self, k: int, key: T) -> None:
+    """位置 ``k`` の要素を値 ``key`` で更新します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      k (int):
+      key (T):
+    """
     self.root = self._get_kth_elm_splay(self.root, k)
     self.root.key = key
     self._update(self.root)
 
   def __getitem__(self, k: int) -> T:
+    """位置 ``k`` の値を返します。
+    償却 :math:`O(\\log{n})` です。
+
+    Args:
+      k (int):
+      key (T):
+    """
     self.root = self._get_kth_elm_splay(self.root, k)
     return self.root.key
 
@@ -368,6 +494,12 @@ class LazySplayTree(Generic[T, F]):
       yield self[-i-1]
 
   def __len__(self):
+    """要素数を返します。
+    :math:`O(1)` です。
+
+    Returns:
+      int:
+    """
     return self.root.size if self.root else 0
 
   def __str__(self):

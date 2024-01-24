@@ -646,79 +646,82 @@
 <span class="linenos">548</span><span class="k">class</span> <span class="nc">RandomTree</span><span class="p">():</span>
 <span class="linenos">549</span>
 <span class="linenos">550</span>  <span class="nd">@classmethod</span>
-<span class="linenos">551</span>  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">typ</span><span class="p">:</span> <span class="n">RandomTreeType</span><span class="o">=</span><span class="n">RandomTreeType</span><span class="o">.</span><span class="n">random</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-<span class="linenos">552</span><span class="w">    </span><span class="sd">"""ランダムな木を生成し、辺を返します。</span>
-<span class="linenos">553</span>
-<span class="linenos">554</span><span class="sd">    :math:`O(n \\log{n})` です。</span>
-<span class="linenos">555</span>
-<span class="linenos">556</span><span class="sd">    Args:</span>
-<span class="linenos">557</span><span class="sd">      n (int): 頂点の数です。</span>
-<span class="linenos">558</span><span class="sd">      typ (RandomTreeType, optional): 木の形です。 Defaults to RandomTreeType.random。</span>
-<span class="linenos">559</span><span class="sd">      seed (Optional[int], optional): seed値です。 Defaults to None。</span>
-<span class="linenos">560</span>
-<span class="linenos">561</span><span class="sd">    Returns:</span>
-<span class="linenos">562</span><span class="sd">      List[Tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。</span>
-<span class="linenos">563</span><span class="sd">    """</span>
-<span class="linenos">564</span>    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-<span class="linenos">565</span>    <span class="n">edges</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="linenos">566</span>    <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">RandomTreeType</span><span class="o">.</span><span class="n">random</span><span class="p">:</span>
-<span class="linenos">567</span>      <span class="n">edges</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_build_random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="linenos">568</span>    <span class="k">elif</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">RandomTreeType</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-<span class="linenos">569</span>      <span class="n">edges</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_build_path</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="linenos">570</span>    <span class="k">elif</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">RandomTreeType</span><span class="o">.</span><span class="n">star</span><span class="p">:</span>
-<span class="linenos">571</span>      <span class="n">edges</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_build_star</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="linenos">572</span>    <span class="k">assert</span> <span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> \
-<span class="linenos">573</span>        <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.build(</span><span class="si">{</span><span class="n">typ</span><span class="si">}</span><span class="s1">), typ is not defined.'</span>
-<span class="linenos">574</span>    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
-<span class="linenos">575</span>    <span class="k">return</span> <span class="n">edges</span>
-<span class="linenos">576</span>
-<span class="linenos">577</span>  <span class="nd">@classmethod</span>
-<span class="linenos">578</span>  <span class="k">def</span> <span class="nf">_build_star</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-<span class="linenos">579</span>    <span class="n">center</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="linenos">580</span>    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="linenos">581</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="linenos">582</span>      <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">center</span><span class="p">:</span>
-<span class="linenos">583</span>        <span class="k">continue</span>
-<span class="linenos">584</span>      <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
-<span class="linenos">585</span>        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">center</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
-<span class="linenos">586</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">587</span>        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">center</span><span class="p">))</span>
-<span class="linenos">588</span>    <span class="k">return</span> <span class="n">edges</span>
-<span class="linenos">589</span>
-<span class="linenos">590</span>  <span class="nd">@classmethod</span>
-<span class="linenos">591</span>  <span class="k">def</span> <span class="nf">_build_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-<span class="linenos">592</span>    <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-<span class="linenos">593</span>    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<span class="linenos">594</span>    <span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
-<span class="linenos">595</span>    <span class="k">return</span> <span class="n">edges</span>
-<span class="linenos">596</span>
-<span class="linenos">597</span>  <span class="nd">@classmethod</span>
-<span class="linenos">598</span>  <span class="k">def</span> <span class="nf">_build_random</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-<span class="linenos">599</span>    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="linenos">600</span>    <span class="n">D</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">601</span>    <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-<span class="linenos">602</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
-<span class="linenos">603</span>      <span class="n">v</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="linenos">604</span>      <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">605</span>      <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-<span class="linenos">606</span>    <span class="n">avl</span><span class="p">:</span> <span class="n">AVLTreeSet2</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">AVLTreeSet2</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-<span class="linenos">607</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
-<span class="linenos">608</span>      <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">pop_min</span><span class="p">()</span>
-<span class="linenos">609</span>      <span class="k">assert</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">1</span>
-<span class="linenos">610</span>      <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
-<span class="linenos">611</span>      <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">612</span>      <span class="n">avl</span><span class="o">.</span><span class="n">remove</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">a</span><span class="p">))</span>
-<span class="linenos">613</span>      <span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">614</span>      <span class="k">if</span> <span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">615</span>        <span class="n">avl</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">a</span><span class="p">))</span>
-<span class="linenos">616</span>    <span class="n">u</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">617</span>    <span class="n">D</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">618</span>    <span class="n">v</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">619</span>    <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">620</span>    <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
-<span class="linenos">621</span>    <span class="k">return</span> <span class="n">edges</span>
-<span class="linenos">622</span>
-<span class="linenos">623</span>
+<span class="linenos">551</span>  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+<span class="linenos">552</span>            <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="linenos">553</span>            <span class="n">typ</span><span class="p">:</span> <span class="n">RandomTreeType</span><span class="o">=</span><span class="n">RandomTreeType</span><span class="o">.</span><span class="n">random</span><span class="p">,</span>
+<span class="linenos">554</span>            <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="linenos">555</span>            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">556</span><span class="w">    </span><span class="sd">"""ランダムな木を生成し、辺を返します。</span>
+<span class="linenos">557</span><span class="sd">    :math:`O(n \\log{n})` です。</span>
+<span class="linenos">558</span>
+<span class="linenos">559</span><span class="sd">    Args:</span>
+<span class="linenos">560</span><span class="sd">      n (int): 頂点の数です。</span>
+<span class="linenos">561</span><span class="sd">      typ (RandomTreeType, optional): 木の形です。 Defaults to RandomTreeType.random。</span>
+<span class="linenos">562</span><span class="sd">      seed (Optional[int], optional): seed値です。 Defaults to None。</span>
+<span class="linenos">563</span>
+<span class="linenos">564</span><span class="sd">    Returns:</span>
+<span class="linenos">565</span><span class="sd">      List[Tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。</span>
+<span class="linenos">566</span><span class="sd">    """</span>
+<span class="linenos">567</span>    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="linenos">568</span>    <span class="n">edges</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="linenos">569</span>    <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">RandomTreeType</span><span class="o">.</span><span class="n">random</span><span class="p">:</span>
+<span class="linenos">570</span>      <span class="n">edges</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_build_random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">571</span>    <span class="k">elif</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">RandomTreeType</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+<span class="linenos">572</span>      <span class="n">edges</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_build_path</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">573</span>    <span class="k">elif</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">RandomTreeType</span><span class="o">.</span><span class="n">star</span><span class="p">:</span>
+<span class="linenos">574</span>      <span class="n">edges</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_build_star</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">575</span>    <span class="k">assert</span> <span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> \
+<span class="linenos">576</span>        <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.build(</span><span class="si">{</span><span class="n">typ</span><span class="si">}</span><span class="s1">), typ is not defined.'</span>
+<span class="linenos">577</span>    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+<span class="linenos">578</span>    <span class="k">return</span> <span class="n">edges</span>
+<span class="linenos">579</span>
+<span class="linenos">580</span>  <span class="nd">@classmethod</span>
+<span class="linenos">581</span>  <span class="k">def</span> <span class="nf">_build_star</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">582</span>    <span class="n">center</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">583</span>    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">584</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="linenos">585</span>      <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">center</span><span class="p">:</span>
+<span class="linenos">586</span>        <span class="k">continue</span>
+<span class="linenos">587</span>      <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+<span class="linenos">588</span>        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">center</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+<span class="linenos">589</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">590</span>        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">center</span><span class="p">))</span>
+<span class="linenos">591</span>    <span class="k">return</span> <span class="n">edges</span>
+<span class="linenos">592</span>
+<span class="linenos">593</span>  <span class="nd">@classmethod</span>
+<span class="linenos">594</span>  <span class="k">def</span> <span class="nf">_build_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">595</span>    <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="linenos">596</span>    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="linenos">597</span>    <span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="linenos">598</span>    <span class="k">return</span> <span class="n">edges</span>
+<span class="linenos">599</span>
+<span class="linenos">600</span>  <span class="nd">@classmethod</span>
+<span class="linenos">601</span>  <span class="k">def</span> <span class="nf">_build_random</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">602</span>    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">603</span>    <span class="n">D</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">604</span>    <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="linenos">605</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+<span class="linenos">606</span>      <span class="n">v</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">607</span>      <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">608</span>      <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+<span class="linenos">609</span>    <span class="n">avl</span><span class="p">:</span> <span class="n">AVLTreeSet2</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">AVLTreeSet2</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="linenos">610</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+<span class="linenos">611</span>      <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">avl</span><span class="o">.</span><span class="n">pop_min</span><span class="p">()</span>
+<span class="linenos">612</span>      <span class="k">assert</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="linenos">613</span>      <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+<span class="linenos">614</span>      <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">615</span>      <span class="n">avl</span><span class="o">.</span><span class="n">remove</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">a</span><span class="p">))</span>
+<span class="linenos">616</span>      <span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">617</span>      <span class="k">if</span> <span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">618</span>        <span class="n">avl</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">a</span><span class="p">))</span>
+<span class="linenos">619</span>    <span class="n">u</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">620</span>    <span class="n">D</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">621</span>    <span class="n">v</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">622</span>    <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">623</span>    <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+<span class="linenos">624</span>    <span class="k">return</span> <span class="n">edges</span>
+<span class="linenos">625</span>
+<span class="linenos">626</span>
 </pre></div>
 </div>
 </section>
@@ -731,8 +734,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.random.random_tree.RandomTree.build">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">RandomTreeType.random</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/random/random_tree.html#RandomTree.build"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.random.random_tree.RandomTree.build" title="Link to this definition"></a></dt>
-<dd><p>ランダムな木を生成し、辺を返します。</p>
-<p><span class="math notranslate nohighlight">\(O(n \log{n})\)</span> です。</p>
+<dd><p>ランダムな木を生成し、辺を返します。
+<span class="math notranslate nohighlight">\(O(n \log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

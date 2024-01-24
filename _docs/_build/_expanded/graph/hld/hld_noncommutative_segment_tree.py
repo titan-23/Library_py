@@ -69,7 +69,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
                op: Callable[[T, T], T],
                e: T) -> None:
     """``SegmentTree`` を構築します。
-
     :math:`O(n)` です。
 
     Args:
@@ -246,13 +245,12 @@ from typing import Any, Iterator, List, Tuple
 class HLD():
 
   def __init__(self, G: List[List[int]], root: int):
-    """``root`` を根とする木 ``G`` から HLD します。
-
+    """``root`` を根とする木 ``G`` を HLD します。
     :math:`O(n)` です。
 
     Args:
-        G (List[List[int]]): 木を表す隣接リストです。
-        root (int): 根です。
+      G (List[List[int]]): 木を表す隣接リストです。
+      root (int): 根です。
     """
     n = len(G)
     self.n: int = n
@@ -315,22 +313,19 @@ class HLD():
         nodeout[~v] = curtime
 
   def build_list(self, a: List[Any]) -> List[Any]:
-    """``hld配列`` を基にインデックスを振りなおします。
-    非破壊的です。
-
+    """``hld配列`` を基にインデックスを振りなおします。非破壊的です。
     :math:`O(n)` です。
 
     Args:
-        a (List[Any]): 元の配列です。
+      a (List[Any]): 元の配列です。
 
     Returns:
-        List[Any]: 振りなおし後の配列です。
+      List[Any]: 振りなおし後の配列です。
     """
     return [a[e] for e in self.hld]
 
   def for_each_vertex(self, u: int, v: int) -> Iterator[Tuple[int, int]]:
     """``u-v`` パスに対応する区間のインデックスを返します。
-
     :math:`O(\\log{n})` です。
     """
     head, nodein, dep, par = self.head, self.nodein, self.dep, self.par
@@ -345,7 +340,6 @@ class HLD():
 
   def for_each_vertex_subtree(self, v: int) -> Iterator[Tuple[int, int]]:
     """頂点 ``v`` の部分木に対応する区間のインデックスを返します。
-
     :math:`O(1)` です。
     """
     yield self.nodein[v], self.nodeout[v]
@@ -353,7 +347,6 @@ class HLD():
   def path_kth_elm(self, s: int, t: int, k: int) -> int:
     """``s`` から ``t`` に向かって ``k`` 個進んだ頂点のインデックスを返します。
     存在しないときは ``-1`` を返します。
-
     :math:`O(\\log{n})` です。
     """
     head, dep, par = self.head, self.dep, self.par
@@ -373,7 +366,6 @@ class HLD():
 
   def lca(self, u: int, v: int) -> int:
     """``u``, ``v`` の LCA を返します。
-
     :math:`O(\\log{n})` です。
     """
     nodein, head, par = self.nodein, self.head, self.par
@@ -403,6 +395,16 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
     self.e: T = e
 
   def path_prod(self, u: int, v: int) -> T:
+    """頂点 ``u`` から頂点 ``v`` へのパスの集約値を返します。
+    :math:`O(\\log^2{n})` です。
+
+    Args:
+      u (int): パスの **始点** です。
+      v (int): パスの **終点** です。
+
+    Returns:
+      T: 求める集約値です。
+    """
     head, nodein, dep, par, n = self.hld.head, self.hld.nodein, self.hld.dep, self.hld.par, self.hld.n
     lres, rres = self.e, self.e
     seg, rseg = self.seg, self.rseg
@@ -420,13 +422,32 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
     return self.op(lres, rres)
 
   def get(self, k: int) -> T:
+    """頂点の値を返します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): 頂点のインデックスです。
+
+    Returns:
+      T: 頂点の値です。
+    """
     return self.seg[self.hld.nodein[k]]
 
   def set(self, k: int, v: T) -> None:
+    """頂点の値を更新します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): 頂点のインデックスです。
+      v (T): 更新する値です。
+    """
     self.seg[self.hld.nodein[k]] = v
     self.rseg[self.hld.n-self.hld.nodein[k]-1] = v
 
   __getitem__ = get
   __setitem__ = set
+
+  def subtree_prod(self, v: int) -> T:
+    return self.seg.prod(self.hld.nodein[v], self.hld.nodeout[v])
 
 

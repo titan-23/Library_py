@@ -35,8 +35,8 @@ class CSRArray(Generic[T]):
     """行を指定してイテレートします。
 
     Args:
-        i (int): 行のインデックスです。
-        j (int, optional): 列のインデックスです。デフォルトは ``0`` です。
+      i (int): 行のインデックスです。
+      j (int, optional): 列のインデックスです。デフォルトは ``0`` です。
     """
     csr = self.csr
     for ij in range(self.start[i]+j, self.start[i+1]):

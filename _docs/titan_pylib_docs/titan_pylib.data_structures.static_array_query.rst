@@ -8,6 +8,7 @@ Submodules
    :maxdepth: 1
 
    titan_pylib.data_structures.static_array_query.static_RmQ
+   titan_pylib.data_structures.static_array_query.static_range_mode_query
 
 Module contents
 ---------------

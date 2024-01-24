@@ -39,6 +39,7 @@ class PersistentArray(Generic[T]):
     return res
 
   def set(self, k: int, v: T) -> 'PersistentArray[T]':
+    assert 0 <= k < len(self), f'IndexError: {self.__class__.__name__}.set({k})'
     node = self.root
     if node is None:
       return self._new(None)
@@ -59,6 +60,7 @@ class PersistentArray(Generic[T]):
     return res
 
   def get(self, k: int) -> T:
+    assert 0 <= k < len(self), f'IndexError: {self.__class__.__name__}.get({k})'
     node = self.root
     k += 1
     b = k.bit_length()

@@ -23,6 +23,19 @@ class HLDSegmentTree(Generic[T]):
     self.e: T = e
 
   def path_prod(self, u: int, v: int) -> T:
+    """頂点 ``u`` から頂点 ``v`` へのパスの集約値を返します。
+    :math:`O(\\log^2{n})` です。
+
+    Note:
+      **非可換に対応していません。**
+
+    Args:
+      u (int): パスの端点です。
+      v (int): パスの端点です。
+
+    Returns:
+      T: 求める集約値です。
+    """
     head, nodein, dep, par = self.hld.head, self.hld.nodein, self.hld.dep, self.hld.par
     res = self.e
     while head[u] != head[v]:
@@ -35,14 +48,39 @@ class HLDSegmentTree(Generic[T]):
     return self.op(res, self.seg.prod(nodein[v], nodein[u]+1))
 
   def get(self, k: int) -> T:
+    """頂点の値を返します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): 頂点のインデックスです。
+
+    Returns:
+      T: 頂点の値です。
+    """
     return self.seg[self.hld.nodein[k]]
 
   def set(self, k: int, v: T) -> None:
+    """頂点の値を更新します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int): 頂点のインデックスです。
+      v (T): 更新する値です。
+    """
     self.seg[self.hld.nodein[k]] = v
 
   __getitem__ = get
   __setitem__ = set
 
   def subtree_prod(self, v: int) -> T:
+    """部分木の集約値を返します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      v (int): 根とする頂点です。
+
+    Returns:
+      T: 求める集約値です。
+    """
     return self.seg.prod(self.hld.nodein[v], self.hld.nodeout[v])
 

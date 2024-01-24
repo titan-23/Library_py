@@ -69,7 +69,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
                op: Callable[[T, T], T],
                e: T) -> None:
     """``SegmentTree`` を構築します。
-
     :math:`O(n)` です。
 
     Args:

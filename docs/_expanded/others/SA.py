@@ -1,15 +1,64 @@
 # from titan_pylib.others.SA import SA
-from time import time
-from copy import deepcopy
-import random
+import sys
+from time import process_time
 from math import exp
-from typing import Tuple
+from typing import Tuple, TypeVar
+# from titan_pylib.algorithm.random.random import Random
+from typing import List, Any
 
-random.seed(0)
+class Random():
+  '''Random
+  乱数系のライブラリです。
+  標準ライブラリよりも高速なつもりでいます。
+  '''
+
+  def __init__(self):
+    self._x = 123456789
+    self._y = 362436069
+    self._z = 521288629
+    self._w = 88675123
+
+  def _xor(self) -> int:
+    t = (self._x ^ ((self._x << 11) & 0xFFFFFFFF)) & 0xFFFFFFFF
+    self._x, self._y, self._z = self._y, self._z, self._w
+    self._w = (self._w ^ (self._w >> 19)) ^ (t ^ ((t >> 8))&0xFFFFFFFF) & 0xFFFFFFFF
+    return self._w
+
+  def random(self) -> float:
+    """random
+    0以上1以下の一様ランダムな値を1つ生成して返すはずです。
+    """
+    return self._xor() / 0xFFFFFFFF
+
+  def randint(self, begin: int, end: int) -> int:
+    """``begin`` 以上 ``end`` **以下** のランダムな整数を返します。
+    """
+    assert begin <= end
+    return begin + self._xor() % (end - begin + 1)
+
+  def randrange(self, begin: int, end: int) -> int:
+    """``begin`` 以上 ``end`` **未満** のランダムな整数を返します。
+    """
+    assert begin < end
+    return begin + self._xor() % (end - begin)
+
+  def shuffle(self, a: List[Any]) -> None:
+    """インプレースにシャッフルします。
+
+    :math:`O(n)` です。
+
+    Args:
+      a (List[Any]): ``a`` をシャッフルします。
+    """
+    n = len(a)
+    for i in range(n-1):
+      j = self.randrange(i, n)
+      a[i], a[j] = a[j], a[i]
+
 
 class State():
 
-  def __init__(self):
+  def __init__(self) -> None:
     pass
 
   def copy(self) -> 'State':
@@ -17,40 +66,47 @@ class State():
 
 class SA():
 
+  Changed = TypeVar('Changed')
+
   def __init__(self):
-    self.END_TEMP = 10
-    self.START_TEMP = 100
+    self.random = Random()
 
-  def make_ans_init(self) -> Tuple:
+  def make_ans_init(self) -> Tuple[State, int]:
     return
 
-  def modify(self, ans: State) -> Tuple:
+  def modify(self, state: State) -> Tuple[int, Changed]:
+    # state は変更される
     return
 
-  def rollback(self, ans: State, changed) -> None:
+  def rollback(self, state: State, changed: Changed) -> None:
     return
 
-  def sovle(self, TIME_LIMIT=1.8) -> Tuple:
-    START_TIME = time()
-    START_TEMP, END_TEMP = self.START_TEMP, self.END_TEMP
+  def sovle(self,
+            START_TEMP: float=100,
+            END_TEMP: float=10,
+            TIME_LIMIT: float=1.8) -> Tuple[State, int]:
+    START_TIME = process_time()
+    random = self.random
     ans, score = self.make_ans_init()
-    vest_ans = deepcopy(ans)
+    vest_ans = ans.copy()
     vest_score = score
     cnt = 0
     while True:
-      now_time = time() - START_TIME
-      if now_time > TIME_LIMIT: break
+      now_time = process_time() - START_TIME
+      if now_time > TIME_LIMIT:
+        break
       cnt += 1
       diff_score, changed = self.modify(ans)
       new_score = score + diff_score
       temp = START_TEMP + (END_TEMP - START_TEMP) * now_time / TIME_LIMIT
       arg = new_score - score
-      if 1 if arg >= 1 else exp(arg/temp) > random.random():
+      if arg >= 1 or exp(arg/temp) > random.random():
         score = new_score
         if new_score > vest_score:
           vest_score = new_score
-          vest_ans = deepcopy(ans)
+          vest_ans = ans.copy()
       else:
         self.rollback(ans, changed)
-    return vest_ans, vest_score, cnt
+    print(f'{cnt=}', file=sys.stderr)
+    return vest_ans, vest_score
 

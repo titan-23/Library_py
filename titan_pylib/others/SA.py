@@ -1,14 +1,12 @@
-from time import time
-from copy import deepcopy
-import random
+import sys
+from time import process_time
 from math import exp
-from typing import Tuple
-
-random.seed(0)
+from typing import Tuple, TypeVar
+from titan_pylib.algorithm.random.random import Random
 
 class State():
 
-  def __init__(self):
+  def __init__(self) -> None:
     pass
 
   def copy(self) -> 'State':
@@ -16,39 +14,46 @@ class State():
 
 class SA():
 
+  Changed = TypeVar('Changed')
+
   def __init__(self):
-    self.END_TEMP = 10
-    self.START_TEMP = 100
+    self.random = Random()
 
-  def make_ans_init(self) -> Tuple:
+  def make_ans_init(self) -> Tuple[State, int]:
     return
 
-  def modify(self, ans: State) -> Tuple:
+  def modify(self, state: State) -> Tuple[int, Changed]:
+    # state は変更される
     return
 
-  def rollback(self, ans: State, changed) -> None:
+  def rollback(self, state: State, changed: Changed) -> None:
     return
 
-  def sovle(self, TIME_LIMIT=1.8) -> Tuple:
-    START_TIME = time()
-    START_TEMP, END_TEMP = self.START_TEMP, self.END_TEMP
+  def sovle(self,
+            START_TEMP: float=100,
+            END_TEMP: float=10,
+            TIME_LIMIT: float=1.8) -> Tuple[State, int]:
+    START_TIME = process_time()
+    random = self.random
     ans, score = self.make_ans_init()
-    vest_ans = deepcopy(ans)
+    vest_ans = ans.copy()
     vest_score = score
     cnt = 0
     while True:
-      now_time = time() - START_TIME
-      if now_time > TIME_LIMIT: break
+      now_time = process_time() - START_TIME
+      if now_time > TIME_LIMIT:
+        break
       cnt += 1
       diff_score, changed = self.modify(ans)
       new_score = score + diff_score
       temp = START_TEMP + (END_TEMP - START_TEMP) * now_time / TIME_LIMIT
       arg = new_score - score
-      if 1 if arg >= 1 else exp(arg/temp) > random.random():
+      if arg >= 1 or exp(arg/temp) > random.random():
         score = new_score
         if new_score > vest_score:
           vest_score = new_score
-          vest_ans = deepcopy(ans)
+          vest_ans = ans.copy()
       else:
         self.rollback(ans, changed)
-    return vest_ans, vest_score, cnt
+    print(f'{cnt=}', file=sys.stderr)
+    return vest_ans, vest_score
