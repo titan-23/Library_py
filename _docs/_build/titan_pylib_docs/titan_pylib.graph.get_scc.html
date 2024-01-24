@@ -62,8 +62,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">get_scc</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">展開済みコード</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-titan_pylib.graph.get_scc">仕様</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#titan_pylib.graph.get_scc.get_scc"><code class="docutils literal notranslate"><span class="pre">get_scc()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
@@ -109,60 +108,8 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="titan-pylib-graph-get-scc-module">
-<h1>get_scc<a class="headerlink" href="#titan-pylib-graph-get-scc-module" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.graph.get_scc import get_scc</span>
-<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="k">def</span> <span class="nf">get_scc</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
-<span class="linenos"> 5</span>  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-<span class="linenos"> 6</span>  <span class="n">rG</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-<span class="linenos"> 7</span>  <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="linenos"> 8</span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos"> 9</span>      <span class="n">rG</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-<span class="linenos">10</span>  <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">11</span>  <span class="n">dfsid</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">12</span>  <span class="n">now</span> <span class="o">=</span> <span class="n">n</span>
-<span class="linenos">13</span>  <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="linenos">14</span>    <span class="k">if</span> <span class="n">visited</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span> <span class="k">continue</span>
-<span class="linenos">15</span>    <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="o">~</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>
-<span class="linenos">16</span>    <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
-<span class="linenos">17</span>      <span class="n">v</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="linenos">18</span>      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">19</span>        <span class="k">if</span> <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span> <span class="k">continue</span>
-<span class="linenos">20</span>        <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="linenos">21</span>        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos">22</span>          <span class="k">if</span> <span class="n">visited</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">continue</span>
-<span class="linenos">23</span>          <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">24</span>          <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">25</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">26</span>        <span class="n">v</span> <span class="o">=</span> <span class="o">~</span><span class="n">v</span>
-<span class="linenos">27</span>        <span class="k">if</span> <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="k">continue</span>
-<span class="linenos">28</span>        <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos">29</span>        <span class="n">now</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">30</span>        <span class="n">dfsid</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-<span class="linenos">31</span>  <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="linenos">32</span>  <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dfsid</span><span class="p">:</span>
-<span class="linenos">33</span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span> <span class="k">continue</span>
-<span class="linenos">34</span>    <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">]</span>
-<span class="linenos">35</span>    <span class="n">visited</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">36</span>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">todo</span><span class="p">:</span>
-<span class="linenos">37</span>      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rG</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos">38</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span> <span class="k">continue</span>
-<span class="linenos">39</span>        <span class="n">visited</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">40</span>        <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">41</span>    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">todo</span><span class="p">)</span>
-<span class="linenos">42</span>  <span class="c1"># 閉路検出: len(res) == n</span>
-<span class="linenos">43</span>  <span class="k">return</span> <span class="n">res</span>
-<span class="linenos">44</span>
-<span class="linenos">45</span>
-</pre></div>
-</div>
-</section>
 <section id="module-titan_pylib.graph.get_scc">
-<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.graph.get_scc" title="Link to this heading"></a></h2>
+<span id="titan-pylib-graph-get-scc-module"></span><h1>get_scc<a class="headerlink" href="#module-titan_pylib.graph.get_scc" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.graph.get_scc.get_scc">
 <span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">get_scc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/get_scc.html#get_scc"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.get_scc.get_scc" title="Link to this definition"></a></dt>
@@ -175,7 +122,6 @@
 </dd>
 </dl>
 </dd></dl>
-</section>
 </section>
 </div>
 </div>

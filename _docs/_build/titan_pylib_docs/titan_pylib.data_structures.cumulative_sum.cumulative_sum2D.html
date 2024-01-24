@@ -117,56 +117,8 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="titan-pylib-data-structures-cumulative-sum-cumulative-sum2d-module">
-<h1>cumulative_sum2D<a class="headerlink" href="#titan-pylib-data-structures-cumulative-sum-cumulative-sum2d-module" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.data_structures.cumulative_sum.cumulative_sum2D import CumulativeSum2D</span>
-<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="k">class</span> <span class="nc">CumulativeSum2D</span><span class="p">():</span>
-<span class="linenos"> 5</span><span class="w">  </span><span class="sd">"""2次元累積和です。</span>
-<span class="linenos"> 6</span><span class="sd">  """</span>
-<span class="linenos"> 7</span>
-<span class="linenos"> 8</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
-<span class="linenos"> 9</span><span class="w">    </span><span class="sd">"""``h x w`` の配列 ``a`` から2次元累積和の前計算をします。</span>
-<span class="linenos">10</span>
-<span class="linenos">11</span><span class="sd">    :math:`O(hw)` です。</span>
-<span class="linenos">12</span>
-<span class="linenos">13</span><span class="sd">    Args:</span>
-<span class="linenos">14</span><span class="sd">      h (int): 行数です。</span>
-<span class="linenos">15</span><span class="sd">      w (int): 列数です。</span>
-<span class="linenos">16</span><span class="sd">      a (List[List[int]]):  ``CumulativeSum2D`` を構築する配列です。</span>
-<span class="linenos">17</span><span class="sd">    """</span>
-<span class="linenos">18</span>    <span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">((</span><span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-<span class="linenos">19</span>    <span class="k">for</span> <span class="n">ij</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">w</span><span class="p">):</span>
-<span class="linenos">20</span>      <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">ij</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-<span class="linenos">21</span>      <span class="n">acc</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">acc</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-<span class="linenos">22</span>    <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
-<span class="linenos">23</span>    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
-<span class="linenos">24</span>    <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span>
-<span class="linenos">25</span>
-<span class="linenos">26</span>  <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">27</span><span class="w">    </span><span class="sd">"""長方形領域 ``[h1, h2) x [w1, w2)`` の総和を返します。</span>
-<span class="linenos">28</span>
-<span class="linenos">29</span><span class="sd">    :math:`O(hw)` です。</span>
-<span class="linenos">30</span>
-<span class="linenos">31</span><span class="sd">    Args:</span>
-<span class="linenos">32</span><span class="sd">      h1 (int):</span>
-<span class="linenos">33</span><span class="sd">      w1 (int):</span>
-<span class="linenos">34</span><span class="sd">      h2 (int):</span>
-<span class="linenos">35</span><span class="sd">      w2 (int):</span>
-<span class="linenos">36</span><span class="sd">    """</span>
-<span class="linenos">37</span>    <span class="k">assert</span> <span class="n">h1</span> <span class="o">&lt;=</span> <span class="n">h2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">h1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">h2</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w2</span><span class="si">}</span><span class="s1">), h=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="si">}</span><span class="s1">'</span>
-<span class="linenos">38</span>    <span class="k">assert</span> <span class="n">w1</span> <span class="o">&lt;=</span> <span class="n">w2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.sum(</span><span class="si">{</span><span class="n">h1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">h2</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">w2</span><span class="si">}</span><span class="s1">), w=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="si">}</span><span class="s1">'</span>
-<span class="linenos">39</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w2</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w2</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">h1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">w1</span><span class="p">]</span>
-<span class="linenos">40</span>
-<span class="linenos">41</span>
-</pre></div>
-</div>
-</section>
 <section id="module-titan_pylib.data_structures.cumulative_sum.cumulative_sum2D">
-<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.cumulative_sum.cumulative_sum2D" title="Link to this heading"></a></h2>
+<span id="titan-pylib-data-structures-cumulative-sum-cumulative-sum2d-module"></span><h1>cumulative_sum2D<a class="headerlink" href="#module-titan_pylib.data_structures.cumulative_sum.cumulative_sum2D" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.cumulative_sum.cumulative_sum2D.CumulativeSum2D">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">CumulativeSum2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/cumulative_sum/cumulative_sum2D.html#CumulativeSum2D"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.cumulative_sum.cumulative_sum2D.CumulativeSum2D" title="Link to this definition"></a></dt>
@@ -201,7 +153,6 @@
 </dl>
 </dd></dl>
 </dd></dl>
-</section>
 </section>
 </div>
 </div>

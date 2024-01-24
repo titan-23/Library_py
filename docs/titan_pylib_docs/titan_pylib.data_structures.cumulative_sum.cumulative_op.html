@@ -117,85 +117,8 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="titan-pylib-data-structures-cumulative-sum-cumulative-op-module">
-<h1>cumulative_op<a class="headerlink" href="#titan-pylib-data-structures-cumulative-sum-cumulative-op-module" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.data_structures.cumulative_sum.cumulative_op import CumulativeOp</span>
-<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span>
-<span class="linenos"> 3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">)</span>
-<span class="linenos"> 4</span>
-<span class="linenos"> 5</span><span class="k">class</span> <span class="nc">CumulativeOp</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-<span class="linenos"> 6</span><span class="w">  </span><span class="sd">"""抽象化累積和です。</span>
-<span class="linenos"> 7</span><span class="sd">  """</span>
-<span class="linenos"> 8</span>
-<span class="linenos"> 9</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">inv</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-<span class="linenos">10</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">11</span><span class="sd">    :math:`O(n)` です。</span>
-<span class="linenos">12</span>
-<span class="linenos">13</span><span class="sd">    Args:</span>
-<span class="linenos">14</span><span class="sd">      a (Iterable[T]): ``CumulativeOp`` を構築する配列です。</span>
-<span class="linenos">15</span><span class="sd">      op (Callable[[T, T], T]): 2項演算をする関数です。</span>
-<span class="linenos">16</span><span class="sd">      inv (Callable[[T], T]): 逆元を返す関数です。 ``prod`` メソッドを使用する場合必要です。</span>
-<span class="linenos">17</span><span class="sd">      e (T): 単位元です。</span>
-<span class="linenos">18</span><span class="sd">    """</span>
-<span class="linenos">19</span>    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="linenos">20</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="linenos">21</span>    <span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
-<span class="linenos">22</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="linenos">23</span>      <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">op</span><span class="p">(</span><span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="linenos">24</span>    <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
-<span class="linenos">25</span>    <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span>
-<span class="linenos">26</span>    <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
-<span class="linenos">27</span>    <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="n">op</span>
-<span class="linenos">28</span>    <span class="bp">self</span><span class="o">.</span><span class="n">inv</span> <span class="o">=</span> <span class="n">inv</span>
-<span class="linenos">29</span>
-<span class="linenos">30</span>  <span class="k">def</span> <span class="nf">pref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">31</span><span class="w">    </span><span class="sd">"""区間 ``[0, r)`` の演算結果を返します。</span>
-<span class="linenos">32</span>
-<span class="linenos">33</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos">34</span>
-<span class="linenos">35</span><span class="sd">    Args:</span>
-<span class="linenos">36</span><span class="sd">      r (int): インデックスです。</span>
-<span class="linenos">37</span><span class="sd">    """</span>
-<span class="linenos">38</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
-<span class="linenos">39</span>
-<span class="linenos">40</span>  <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">41</span><span class="w">    </span><span class="sd">"""区間 `[l, r)` の演算結果を返します。</span>
-<span class="linenos">42</span>
-<span class="linenos">43</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos">44</span>
-<span class="linenos">45</span><span class="sd">    Args:</span>
-<span class="linenos">46</span><span class="sd">      l (int): インデックスです。</span>
-<span class="linenos">47</span><span class="sd">      r (int): インデックスです。</span>
-<span class="linenos">48</span><span class="sd">    """</span>
-<span class="linenos">49</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.prod(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">)'</span>
-<span class="linenos">50</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">l</span><span class="p">]))</span>
-<span class="linenos">51</span>
-<span class="linenos">52</span>  <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">53</span><span class="w">    </span><span class="sd">"""区間 `[0, N)` の演算結果を返します。</span>
-<span class="linenos">54</span>
-<span class="linenos">55</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos">56</span><span class="sd">    """</span>
-<span class="linenos">57</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="linenos">58</span>
-<span class="linenos">59</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">60</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-<span class="linenos">61</span>
-<span class="linenos">62</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">63</span>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
-<span class="linenos">64</span>
-<span class="linenos">65</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">66</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">)</span>
-<span class="linenos">67</span>
-<span class="linenos">68</span>  <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
-<span class="linenos">69</span>
-<span class="linenos">70</span>
-</pre></div>
-</div>
-</section>
 <section id="module-titan_pylib.data_structures.cumulative_sum.cumulative_op">
-<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.cumulative_sum.cumulative_op" title="Link to this heading"></a></h2>
+<span id="titan-pylib-data-structures-cumulative-sum-cumulative-op-module"></span><h1>cumulative_op<a class="headerlink" href="#module-titan_pylib.data_structures.cumulative_sum.cumulative_op" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.cumulative_sum.cumulative_op.CumulativeOp">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">CumulativeOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/cumulative_sum/cumulative_op.html#CumulativeOp"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.cumulative_sum.cumulative_op.CumulativeOp" title="Link to this definition"></a></dt>
@@ -254,7 +177,6 @@
 </dl>
 </dd></dl>
 </dd></dl>
-</section>
 </section>
 </div>
 </div>

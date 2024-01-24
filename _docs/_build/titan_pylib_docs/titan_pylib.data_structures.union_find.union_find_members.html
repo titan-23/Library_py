@@ -116,54 +116,8 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="titan-pylib-data-structures-union-find-union-find-members-module">
-<h1>union_find_members<a class="headerlink" href="#titan-pylib-data-structures-union-find-union-find-members-module" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.data_structures.union_find.union_find_members import UnionFindMembers</span>
-<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="k">class</span> <span class="nc">UnionFindMembers</span><span class="p">():</span>
-<span class="linenos"> 5</span>
-<span class="linenos"> 6</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 7</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
-<span class="linenos"> 8</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_group_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
-<span class="linenos"> 9</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-<span class="linenos">10</span>
-<span class="linenos">11</span>  <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos">12</span>    <span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-<span class="linenos">13</span>    <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
-<span class="linenos">14</span>    <span class="k">if</span> <span class="n">u</span> <span class="ow">is</span> <span class="n">v</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
-<span class="linenos">15</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_group_count</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">16</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-<span class="linenos">17</span>      <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
-<span class="linenos">18</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">u</span><span class="p">:</span>
-<span class="linenos">19</span>      <span class="n">v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<span class="linenos">20</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-<span class="linenos">21</span>    <span class="k">return</span> <span class="kc">True</span>
-<span class="linenos">22</span>
-<span class="linenos">23</span>  <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">24</span><span class="w">    </span><span class="sd">'''Return xが属する集合の要素数. / O(1)'''</span>
-<span class="linenos">25</span>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
-<span class="linenos">26</span>
-<span class="linenos">27</span>  <span class="k">def</span> <span class="nf">same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos">28</span><span class="w">    </span><span class="sd">'''Return True if 'same' else False. / O(1)'''</span>
-<span class="linenos">29</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
-<span class="linenos">30</span>
-<span class="linenos">31</span>  <span class="k">def</span> <span class="nf">members</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">32</span><span class="w">    </span><span class="sd">'''Return set(the members of x). / O(1)'''</span>
-<span class="linenos">33</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-<span class="linenos">34</span>
-<span class="linenos">35</span>  <span class="k">def</span> <span class="nf">group_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">36</span><span class="w">    </span><span class="sd">'''Return the number of groups. / O(1)'''</span>
-<span class="linenos">37</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_count</span>
-<span class="linenos">38</span>
-<span class="linenos">39</span>
-</pre></div>
-</div>
-</section>
 <section id="module-titan_pylib.data_structures.union_find.union_find_members">
-<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.union_find.union_find_members" title="Link to this heading"></a></h2>
+<span id="titan-pylib-data-structures-union-find-union-find-members-module"></span><h1>union_find_members<a class="headerlink" href="#module-titan_pylib.data_structures.union_find.union_find_members" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_members.UnionFindMembers">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">UnionFindMembers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_members.html#UnionFindMembers"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_members.UnionFindMembers" title="Link to this definition"></a></dt>
@@ -241,7 +195,6 @@
 </dl>
 </dd></dl>
 </dd></dl>
-</section>
 </section>
 </div>
 </div>

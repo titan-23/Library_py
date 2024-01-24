@@ -68,8 +68,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">lca</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">展開済みコード</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-titan_pylib.graph.lca">仕様</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#titan_pylib.graph.lca.LCA"><code class="docutils literal notranslate"><span class="pre">LCA</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.namori.html">namori</a></li>
@@ -110,125 +109,8 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="titan-pylib-graph-lca-module">
-<h1>lca<a class="headerlink" href="#titan-pylib-graph-lca-module" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="c1"># from titan_pylib.graph.lca import LCA</span>
-<span class="linenos">  2</span><span class="c1"># from titan_pylib.data_structures.sparse_table.sparse_table_RmQ import SparseTableRmQ</span>
-<span class="linenos">  3</span><span class="c1"># from titan_pylib.my_class.supports_less_than import SupportsLessThan</span>
-<span class="linenos">  4</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
-<span class="linenos">  5</span>
-<span class="linenos">  6</span><span class="k">class</span> <span class="nc">SupportsLessThan</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-<span class="linenos">  7</span>
-<span class="linenos">  8</span>  <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="o">...</span>
-<span class="linenos">  9</span>
-<span class="linenos"> 10</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Iterable</span>
-<span class="linenos"> 11</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
-<span class="linenos"> 12</span>
-<span class="linenos"> 13</span><span class="k">class</span> <span class="nc">SparseTableRmQ</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-<span class="linenos"> 14</span><span class="w">  </span><span class="sd">"""</span>
-<span class="linenos"> 15</span><span class="sd">  2項演算を :math:`\\min` にしたものです。</span>
-<span class="linenos"> 16</span><span class="sd">  """</span>
-<span class="linenos"> 17</span>
-<span class="linenos"> 18</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-<span class="linenos"> 19</span>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-<span class="linenos"> 20</span>      <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="linenos"> 21</span>    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="linenos"> 22</span>    <span class="n">log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span>
-<span class="linenos"> 23</span>    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+</span> <span class="p">[[]]</span> <span class="o">*</span> <span class="n">log</span>
-<span class="linenos"> 24</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">log</span><span class="p">):</span>
-<span class="linenos"> 25</span>      <span class="n">pre</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="linenos"> 26</span>      <span class="n">l</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span>
-<span class="linenos"> 27</span>      <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">pre</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">if</span> <span class="n">pre</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pre</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">l</span><span class="p">]</span> <span class="k">else</span> <span class="n">pre</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pre</span><span class="p">)</span><span class="o">-</span><span class="n">l</span><span class="p">)]</span>
-<span class="linenos"> 28</span>    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-<span class="linenos"> 29</span>    <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
-<span class="linenos"> 30</span>
-<span class="linenos"> 31</span>  <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos"> 32</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos"> 33</span>    <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
-<span class="linenos"> 34</span>    <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span>
-<span class="linenos"> 35</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">r</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">u</span><span class="p">)]</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">r</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">u</span><span class="p">)]</span>
-<span class="linenos"> 36</span>
-<span class="linenos"> 37</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos"> 38</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos"> 39</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
-<span class="linenos"> 40</span>
-<span class="linenos"> 41</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 42</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos"> 43</span>
-<span class="linenos"> 44</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 45</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="linenos"> 46</span>
-<span class="linenos"> 47</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 48</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="si">}</span><span class="s1">)'</span>
-<span class="linenos"> 49</span>
-<span class="linenos"> 50</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="linenos"> 51</span>
-<span class="linenos"> 52</span><span class="k">class</span> <span class="nc">LCA</span><span class="p">():</span>
-<span class="linenos"> 53</span><span class="w">  </span><span class="sd">"""LCA を定数倍良く求めます。</span>
-<span class="linenos"> 54</span>
-<span class="linenos"> 55</span><span class="sd">  :math:`O(&lt; O(NlogN), O(1) &gt;)`</span>
-<span class="linenos"> 56</span><span class="sd">  https://github.com/cheran-senthil/PyRival/blob/master/pyrival/graphs/lca.py</span>
-<span class="linenos"> 57</span><span class="sd">  """</span>
-<span class="linenos"> 58</span>
-<span class="linenos"> 59</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 60</span><span class="w">    </span><span class="sd">"""根が ``root`` の重み無し隣接リスト ``G`` で表されるグラフに対して LCA を求めます。</span>
-<span class="linenos"> 61</span><span class="sd">    時間・空間 :math:`O(n\\log{n})` です。</span>
-<span class="linenos"> 62</span>
-<span class="linenos"> 63</span><span class="sd">    Args:</span>
-<span class="linenos"> 64</span><span class="sd">        G (List[List[int]]): 隣接リストです。</span>
-<span class="linenos"> 65</span><span class="sd">        root (int): 根です。</span>
-<span class="linenos"> 66</span><span class="sd">    """</span>
-<span class="linenos"> 67</span>    <span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-<span class="linenos"> 68</span>    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_n</span>
-<span class="linenos"> 69</span>    <span class="n">nodein</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_n</span>
-<span class="linenos"> 70</span>    <span class="n">par</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_n</span>
-<span class="linenos"> 71</span>    <span class="n">curtime</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-<span class="linenos"> 72</span>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos"> 73</span>    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
-<span class="linenos"> 74</span>      <span class="n">v</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="linenos"> 75</span>      <span class="n">path</span><span class="p">[</span><span class="n">curtime</span><span class="p">]</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-<span class="linenos"> 76</span>      <span class="n">curtime</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos"> 77</span>      <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
-<span class="linenos"> 78</span>      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos"> 79</span>        <span class="k">if</span> <span class="n">nodein</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-<span class="linenos"> 80</span>          <span class="k">continue</span>
-<span class="linenos"> 81</span>        <span class="n">par</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-<span class="linenos"> 82</span>        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos"> 83</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">_n</span>
-<span class="linenos"> 84</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
-<span class="linenos"> 85</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_nodein</span> <span class="o">=</span> <span class="n">nodein</span>
-<span class="linenos"> 86</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="p">:</span> <span class="n">SparseTableRmQ</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">SparseTableRmQ</span><span class="p">((</span><span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">path</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="n">_n</span><span class="p">)</span>
-<span class="linenos"> 87</span>
-<span class="linenos"> 88</span>  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 89</span><span class="w">    </span><span class="sd">"""頂点 ``u`` と頂点 ``v`` の ``lca`` を返します。</span>
-<span class="linenos"> 90</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos"> 91</span><span class="sd">    """</span>
-<span class="linenos"> 92</span>    <span class="k">if</span> <span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">:</span>
-<span class="linenos"> 93</span>      <span class="k">return</span> <span class="n">u</span>
-<span class="linenos"> 94</span>    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodein</span><span class="p">[</span><span class="n">u</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodein</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-<span class="linenos"> 95</span>    <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">r</span><span class="p">:</span>
-<span class="linenos"> 96</span>      <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span>
-<span class="linenos"> 97</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)]</span>
-<span class="linenos"> 98</span>
-<span class="linenos"> 99</span>  <span class="k">def</span> <span class="nf">lca_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">100</span>    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
-<span class="linenos">101</span>      <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos">102</span>    <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="o">+</span><span class="mi">1</span>
-<span class="linenos">103</span>    <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="n">l</span>
-<span class="linenos">104</span>    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
-<span class="linenos">105</span>      <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodein</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
-<span class="linenos">106</span>      <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">e</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="n">e</span>
-<span class="linenos">107</span>      <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">e</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">e</span>
-<span class="linenos">108</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_st</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)]</span>
-<span class="linenos">109</span>
-<span class="linenos">110</span>
-</pre></div>
-</div>
-</section>
 <section id="module-titan_pylib.graph.lca">
-<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.graph.lca" title="Link to this heading"></a></h2>
+<span id="titan-pylib-graph-lca-module"></span><h1>lca<a class="headerlink" href="#module-titan_pylib.graph.lca" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.graph.lca.LCA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">LCA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/lca.html#LCA"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.lca.LCA" title="Link to this definition"></a></dt>
@@ -274,7 +156,6 @@
 </dl>
 </dd></dl>
 </dd></dl>
-</section>
 </section>
 </div>
 </div>

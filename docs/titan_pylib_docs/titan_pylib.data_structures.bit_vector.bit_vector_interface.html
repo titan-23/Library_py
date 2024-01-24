@@ -116,65 +116,8 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="titan-pylib-data-structures-bit-vector-bit-vector-interface-module">
-<h1>bit_vector_interface<a class="headerlink" href="#titan-pylib-data-structures-bit-vector-bit-vector-interface-module" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.data_structures.bit_vector.bit_vector_interface import BitVectorInterface</span>
-<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="k">class</span> <span class="nc">BitVectorInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="linenos"> 5</span>
-<span class="linenos"> 6</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos"> 7</span>  <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 8</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">11</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">12</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">13</span>
-<span class="linenos">14</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">15</span>  <span class="k">def</span> <span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">16</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">17</span>
-<span class="linenos">18</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">19</span>  <span class="k">def</span> <span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">20</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">21</span>
-<span class="linenos">22</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">23</span>  <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">24</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">25</span>
-<span class="linenos">26</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">27</span>  <span class="k">def</span> <span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">28</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">29</span>
-<span class="linenos">30</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">31</span>  <span class="k">def</span> <span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">32</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">33</span>
-<span class="linenos">34</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">35</span>  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">36</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">37</span>
-<span class="linenos">38</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">39</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">40</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">41</span>
-<span class="linenos">42</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">43</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="linenos">44</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">45</span>
-<span class="linenos">46</span>  <span class="nd">@abstractmethod</span>
-<span class="linenos">47</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="linenos">48</span>    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">49</span>
-<span class="linenos">50</span>
-</pre></div>
-</div>
-</section>
 <section id="module-titan_pylib.data_structures.bit_vector.bit_vector_interface">
-<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.bit_vector.bit_vector_interface" title="Link to this heading"></a></h2>
+<span id="titan-pylib-data-structures-bit-vector-bit-vector-interface-module"></span><h1>bit_vector_interface<a class="headerlink" href="#module-titan_pylib.data_structures.bit_vector.bit_vector_interface" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.bit_vector.bit_vector_interface.BitVectorInterface">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">BitVectorInterface</span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/bit_vector/bit_vector_interface.html#BitVectorInterface"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.bit_vector.bit_vector_interface.BitVectorInterface" title="Link to this definition"></a></dt>
@@ -270,7 +213,6 @@
 </dl>
 </dd></dl>
 </dd></dl>
-</section>
 </section>
 </div>
 </div>

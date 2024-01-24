@@ -2,8 +2,13 @@ titan\_pylib.data\_structures.splay\_tree.reversible\_lazy\_splay\_tree\_array m
 =====================================================================================
 
 
+ソースコード
+------------
+
+`ソースコードへのリンク <../_build/_modules/titan_pylib/data_structures/splay_tree/reversible_lazy_splay_tree_array.html>`
+
 展開済みコード
-----------------
+^^^^^^^^^^^^^^
 
 .. literalinclude:: ../_build/_expanded/data_structures/splay_tree/reversible_lazy_splay_tree_array.py
    :language: python

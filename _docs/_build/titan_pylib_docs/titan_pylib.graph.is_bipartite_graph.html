@@ -66,8 +66,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">is_bipartite_graph</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">展開済みコード</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-titan_pylib.graph.is_bipartite_graph">仕様</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#titan_pylib.graph.is_bipartite_graph.is_bipartite_graph"><code class="docutils literal notranslate"><span class="pre">is_bipartite_graph()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.lca.html">lca</a></li>
@@ -109,37 +108,8 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="titan-pylib-graph-is-bipartite-graph-module">
-<h1>is_bipartite_graph<a class="headerlink" href="#titan-pylib-graph-is-bipartite-graph-module" title="Link to this heading"></a></h1>
-<section id="id1">
-<h2>展開済みコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.graph.is_bipartite_graph import is_bipartite_graph</span>
-<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="k">def</span> <span class="nf">is_bipartite_graph</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos"> 5</span>  <span class="n">col</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-<span class="linenos"> 6</span>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)):</span>
-<span class="linenos"> 7</span>    <span class="k">if</span> <span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-<span class="linenos"> 8</span>      <span class="k">continue</span>
-<span class="linenos"> 9</span>    <span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">10</span>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="linenos">11</span>    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
-<span class="linenos">12</span>      <span class="n">v</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="linenos">13</span>      <span class="n">cx</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">col</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-<span class="linenos">14</span>      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos">15</span>        <span class="k">if</span> <span class="n">col</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-<span class="linenos">16</span>          <span class="n">col</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">cx</span>
-<span class="linenos">17</span>          <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">18</span>        <span class="k">elif</span> <span class="n">col</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cx</span><span class="p">:</span>
-<span class="linenos">19</span>          <span class="k">return</span> <span class="kc">False</span>
-<span class="linenos">20</span>  <span class="k">return</span> <span class="kc">False</span> <span class="k">if</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">col</span> <span class="k">else</span> <span class="kc">True</span>
-<span class="linenos">21</span>
-<span class="linenos">22</span>
-</pre></div>
-</div>
-</section>
 <section id="module-titan_pylib.graph.is_bipartite_graph">
-<span id="id2"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.graph.is_bipartite_graph" title="Link to this heading"></a></h2>
+<span id="titan-pylib-graph-is-bipartite-graph-module"></span><h1>is_bipartite_graph<a class="headerlink" href="#module-titan_pylib.graph.is_bipartite_graph" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.graph.is_bipartite_graph.is_bipartite_graph">
 <span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">is_bipartite_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/graph/is_bipartite_graph.html#is_bipartite_graph"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.graph.is_bipartite_graph.is_bipartite_graph" title="Link to this definition"></a></dt>
@@ -152,7 +122,6 @@
 </dd>
 </dl>
 </dd></dl>
-</section>
 </section>
 </div>
 </div>

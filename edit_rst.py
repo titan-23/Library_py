@@ -17,13 +17,18 @@ def func(cur_dir, file):
   f.close()
 
   if lines and lines[0].endswith('module'):
-    expanded_file = file[len('titan_pylib.'):-len('.rst')].replace('.', '/') + '.py'
+    expanded_file = file[len('titan_pylib.'):-len('.rst')].replace('.', '/')
 
     new_paragraph = f'''
-展開済みコード
-----------------
+ソースコード
+------------
 
-.. literalinclude:: ../_build/_expanded/{expanded_file}
+`ソースコードへのリンク <../_build/_modules/titan_pylib/{expanded_file}.html>`
+
+展開済みコード
+^^^^^^^^^^^^^^
+
+.. literalinclude:: ../_build/_expanded/{expanded_file}.py
    :language: python
    :linenos:
 
@@ -41,6 +46,7 @@ if __name__ == '__main__':
     for file in files:
       if not file.endswith('.rst'):
         continue
-      func(cur_dir, file)
+      if 'lazy_splay_tree' in file:
+        func(cur_dir, file)
 
   print('\nprocess succeeded.')
