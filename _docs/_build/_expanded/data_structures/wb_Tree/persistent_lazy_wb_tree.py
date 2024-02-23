@@ -1,4 +1,4 @@
-# from titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree import PersistentLazyWBTree
+# from titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree import PersistentLazyWBTree
 from math import sqrt
 from typing import Generic, Iterable, Optional, Union, TypeVar, Callable, List, Tuple, Final
 T = TypeVar('T')
@@ -59,7 +59,7 @@ class PersistentLazyWBTree(Generic[T, F]):
     self.id: F = id
     a = list(a)
     if a:
-      self._build(list(a))
+      self._build(a)
 
   def _build(self, a: List[T]) -> None:
     Node = PersistentLazyWBTree.Node
@@ -367,18 +367,21 @@ class PersistentLazyWBTree(Generic[T, F]):
         node = node.copy()
         node.key = v
         path.append(node)
-        if d:
-          pnode.left = node
+        if pnode:
+          if d:
+            pnode.left = node
+          else:
+            pnode.right = node
         else:
-          pnode.right = node
+          root = node
         while path:
           self._update(path.pop())
         return self._new(root)
       pnode = node
       if t < k:
         k -= t + 1
-        node = node.right.copy()
         d = 0
+        node = node.right.copy()
       else:
         d = 1
         node = node.left.copy()

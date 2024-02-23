@@ -437,4 +437,3 @@ class WaveletMatrix():
 
   __repr__ = __str__
 
-

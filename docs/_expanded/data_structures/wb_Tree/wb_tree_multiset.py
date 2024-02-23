@@ -1,4 +1,4 @@
-# from titan_pylib.data_structures.wb_Tree.wb_tree_multiset import WBTreeMultiset
+# from titan_pylib.data_structures.wb_tree.wb_tree_multiset import WBTreeMultiset
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from typing import Protocol
 

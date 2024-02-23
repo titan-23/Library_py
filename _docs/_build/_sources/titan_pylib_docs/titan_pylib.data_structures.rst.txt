@@ -20,6 +20,7 @@ Subpackages
    titan_pylib.data_structures.fenwick_tree
    titan_pylib.data_structures.heap
    titan_pylib.data_structures.list
+   titan_pylib.data_structures.merge_sort_tree
    titan_pylib.data_structures.others
    titan_pylib.data_structures.rbst
    titan_pylib.data_structures.red_black_tree
@@ -34,7 +35,7 @@ Subpackages
    titan_pylib.data_structures.treap
    titan_pylib.data_structures.union_find
    titan_pylib.data_structures.wavelet_matrix
-   titan_pylib.data_structures.wb_Tree
+   titan_pylib.data_structures.wb_tree
 
 Module contents
 ---------------

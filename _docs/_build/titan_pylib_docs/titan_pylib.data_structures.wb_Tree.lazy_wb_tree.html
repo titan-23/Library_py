@@ -27,8 +27,8 @@
 <script src="../_static/js/theme.js"></script>
 <link href="../genindex.html" rel="index" title="索引"/>
 <link href="../search.html" rel="search" title="検索"/>
-<link href="titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree module"/>
-<link href="titan_pylib.data_structures.wb_Tree.html" rel="prev" title="titan_pylib.data_structures.wb_Tree package"/>
+<link href="titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree module"/>
+<link href="titan_pylib.data_structures.wb_tree.html" rel="prev" title="titan_pylib.data_structures.wb_tree package"/>
 </head>
 <body class="wy-body-for-nav">
 <div class="wy-grid-for-nav">
@@ -64,6 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.html">fenwick_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.html">heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.list.html">list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.merge_sort_tree.html">merge_sort_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
@@ -78,9 +79,9 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.treap.html">treap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.html">union_find</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.html">wavelet_matrix</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.html">wb_Tree</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.html#module-titan_pylib.data_structures.wb_Tree">Module contents</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.html">wb_tree</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.html#module-titan_pylib.data_structures.wb_tree">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -106,21 +107,21 @@
 <ul class="wy-breadcrumbs">
 <li><a aria-label="Home" class="icon icon-home" href="../index.html"></a></li>
 <li class="breadcrumb-item"><a href="titan_pylib.data_structures.html">data_structures</a></li>
-<li class="breadcrumb-item"><a href="titan_pylib.data_structures.wb_Tree.html">wb_Tree</a></li>
+<li class="breadcrumb-item"><a href="titan_pylib.data_structures.wb_tree.html">wb_tree</a></li>
 <li class="breadcrumb-item active">lazy_wb_tree</li>
 <li class="wy-breadcrumbs-aside">
-<a href="../_sources/titan_pylib_docs/titan_pylib.data_structures.wb_Tree.lazy_wb_tree.rst.txt" rel="nofollow"> View page source</a>
+<a href="../_sources/titan_pylib_docs/titan_pylib.data_structures.wb_tree.lazy_wb_tree.rst.txt" rel="nofollow"> View page source</a>
 </li>
 </ul>
 <hr/>
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<section id="module-titan_pylib.data_structures.wb_Tree.lazy_wb_tree">
-<span id="titan-pylib-data-structures-wb-tree-lazy-wb-tree-module"></span><h1>lazy_wb_tree<a class="headerlink" href="#module-titan_pylib.data_structures.wb_Tree.lazy_wb_tree" title="Link to this heading"></a></h1>
+<section id="module-titan_pylib.data_structures.wb_tree.lazy_wb_tree">
+<span id="titan-pylib-data-structures-wb-tree-lazy-wb-tree-module"></span><h1>lazy_wb_tree<a class="headerlink" href="#module-titan_pylib.data_structures.wb_tree.lazy_wb_tree" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">LazyWBTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">LazyWBTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">F</span></code>]</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
@@ -131,21 +132,21 @@
 <li><p><strong>composition</strong> (<em>Callable</em><em>[</em><em>[</em><em>F</em><em>, </em><em>F</em><em>]</em><em>, </em><em>F</em><em>]</em>) -- </p></li>
 <li><p><strong>e</strong> (<em>T</em>) -- </p></li>
 <li><p><strong>id</strong> (<em>F</em>) -- </p></li>
-<li><p><strong>_root</strong> (<a class="reference internal" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.Node" title="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.Node"><em>Node</em></a><em> | </em><em>None</em>) -- </p></li>
+<li><p><strong>_root</strong> (<a class="reference internal" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.Node" title="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.Node"><em>Node</em></a><em> | </em><em>None</em>) -- </p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.ALPHA">
-<span class="sig-name descname"><span class="pre">ALPHA</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.2928932188134524</span></em><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.ALPHA" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.ALPHA">
+<span class="sig-name descname"><span class="pre">ALPHA</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.2928932188134524</span></em><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.ALPHA" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.BETA">
-<span class="sig-name descname"><span class="pre">BETA</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5857864376269051</span></em><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.BETA" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.BETA">
+<span class="sig-name descname"><span class="pre">BETA</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5857864376269051</span></em><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.BETA" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.Node">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lazy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.Node"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.Node" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.Node">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lazy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.Node"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.Node" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
@@ -156,8 +157,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.Node.balance">
-<span class="sig-name descname"><span class="pre">balance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.Node.balance"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.Node.balance" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.Node.balance">
+<span class="sig-name descname"><span class="pre">balance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.Node.balance"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.Node.balance" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
@@ -166,8 +167,8 @@
 </dd></dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.apply">
-<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.apply"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.apply" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.apply"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.apply" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -182,8 +183,8 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.insert"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.insert" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.insert"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.insert" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -197,20 +198,20 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.merge">
-<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.merge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.merge" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.merge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.merge" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a>) -- </p>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a>) -- </p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a></p>
+<dd class="field-even"><p><a class="reference internal" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.pop"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.pop" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.pop"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.pop" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>k</strong> (<em>int</em>) -- </p>
@@ -221,8 +222,8 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.prod">
-<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.prod" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.prod">
+<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.prod" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>l</strong> (<em>int</em>) -- </p>
@@ -233,8 +234,8 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.reverse">
-<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.reverse"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.reverse" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.reverse">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.reverse"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.reverse" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -248,20 +249,20 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.split" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.split" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>k</strong> (<em>int</em>) -- </p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>Tuple</em>[<a class="reference internal" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a>, <a class="reference internal" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a>]</p>
+<dd class="field-even"><p><em>Tuple</em>[<a class="reference internal" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a>, <a class="reference internal" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree" title="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree"><em>LazyWBTree</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.tolist">
-<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_Tree/lazy_wb_tree.html#LazyWBTree.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_Tree.lazy_wb_tree.LazyWBTree.tolist" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.tolist">
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wb_tree/lazy_wb_tree.html#LazyWBTree.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wb_tree.lazy_wb_tree.LazyWBTree.tolist" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>List</em>[<em>T</em>]</p>
@@ -273,8 +274,8 @@
 </div>
 </div>
 <footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
-<a accesskey="p" class="btn btn-neutral float-left" href="titan_pylib.data_structures.wb_Tree.html" rel="prev" title="titan_pylib.data_structures.wb_Tree package"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
-<a accesskey="n" class="btn btn-neutral float-right" href="titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree module">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="titan_pylib.data_structures.wb_tree.html" rel="prev" title="titan_pylib.data_structures.wb_tree package"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree module">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
 </div>
 <hr/>
 <div role="contentinfo">

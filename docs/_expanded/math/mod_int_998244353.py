@@ -89,35 +89,35 @@ class ModInt998244353:
   def __truediv__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
     return ModInt998244353(self.val * (self._inv(int(other))))
 
-  # __iadd__ = __add__
-  # __isub__ = __sub__
-  # __imul__ = __mul__
-  # __ipow__ = __pow__
-  # __itruediv__ = __truediv__
+  __iadd__ = __add__
+  __isub__ = __sub__
+  __imul__ = __mul__
+  __ipow__ = __pow__
+  __itruediv__ = __truediv__
 
-  def __iadd__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
-    self.val += int(other)
-    self.val %= _titan_pylib_ModInt998244353_MOD
-    return self
+  # def __iadd__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
+  #   self.val += int(other)
+  #   self.val %= _titan_pylib_ModInt998244353_MOD
+  #   return self
 
-  def __isub__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
-    self.val -= int(other)
-    self.val %= _titan_pylib_ModInt998244353_MOD
-    return self
+  # def __isub__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
+  #   self.val -= int(other)
+  #   self.val %= _titan_pylib_ModInt998244353_MOD
+  #   return self
 
-  def __imul__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
-    self.val *= int(other)
-    self.val %= _titan_pylib_ModInt998244353_MOD
-    return self
+  # def __imul__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
+  #   self.val *= int(other)
+  #   self.val %= _titan_pylib_ModInt998244353_MOD
+  #   return self
 
-  def __ipow__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
-    self.val = pow(self.val, int(other), _titan_pylib_ModInt998244353_MOD)
-    return self
+  # def __ipow__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
+  #   self.val = pow(self.val, int(other), _titan_pylib_ModInt998244353_MOD)
+  #   return self
 
-  def __itruediv__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
-    self.val *= self._inv(int(other))
-    self.val %= _titan_pylib_ModInt998244353_MOD
-    return self
+  # def __itruediv__(self, other: Union[int, 'ModInt998244353']) -> 'ModInt998244353':
+  #   self.val *= self._inv(int(other))
+  #   self.val %= _titan_pylib_ModInt998244353_MOD
+  #   return self
 
   __radd__ = __add__
   __rmul__ = __mul__

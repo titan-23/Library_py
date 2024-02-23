@@ -1,24 +1,24 @@
 # from titan_pylib.io.fast_o import FastO
 import os
-from __pypy__.builders import StringBuilder
+import io
 
 class FastO():
   """標準出力高速化ライブラリです。
   """
 
-  _sb = StringBuilder()
+  _output = io.StringIO()
 
   @classmethod
   def write(cls, *args, sep: str=' ', end: str='\n', flush: bool=False) -> None:
     """標準出力します。次の ``FastO.flush()`` が起きると print します。
     """
-    append = cls._sb.append
+    wr = cls._output.write
     for i in range(len(args)-1):
-      append(str(args[i]))
-      append(sep)
+      wr(str(args[i]))
+      wr(sep)
     if args:
-      append(str(args[-1]))
-    append(end)
+      wr(str(args[-1]))
+    wr(end)
     if flush:
       cls.flush()
 
@@ -26,7 +26,7 @@ class FastO():
   def flush(cls) -> None:
     """``flush`` します。これを実行しないと ``write`` した内容が表示されないので忘れないでください。
     """
-    os.write(1, cls._sb.build().encode())
-    cls._sb = StringBuilder()
+    os.write(1, cls._output.getvalue().encode())
+    cls._output.close()
 
 

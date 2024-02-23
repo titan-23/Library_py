@@ -20,7 +20,7 @@ class CumulativeOp(Generic[T]):
     n = len(a)
     acc = [e for _ in range(n+1)]
     for i in range(n):
-      acc[i+1] = op(acc[i], [i])
+      acc[i+1] = op(acc[i], a[i])
     self.n = n
     self.acc = acc
     self.a = a

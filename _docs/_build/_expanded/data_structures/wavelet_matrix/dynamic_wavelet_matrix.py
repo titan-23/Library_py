@@ -1127,7 +1127,6 @@ class WaveletMatrix():
     return f'{self.__class__.__name__}({[self.access(i) for i in range(self.size)]})'
 
   __repr__ = __str__
-
 from typing import Sequence, List
 from array import array
 
@@ -1241,5 +1240,4 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def __str__(self):
     return f'{self.__class__.__name__}({[self[i] for i in range(self.size)]})'
-
 

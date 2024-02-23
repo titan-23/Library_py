@@ -10,6 +10,9 @@ Submodules
    titan_pylib.data_structures.segment_tree.dual_segment_tree
    titan_pylib.data_structures.segment_tree.dynamic_segment_tree
    titan_pylib.data_structures.segment_tree.lazy_segment_tree
+   titan_pylib.data_structures.segment_tree.lazy_segment_tree_range
+   titan_pylib.data_structures.segment_tree.persistent_segment_tree
+   titan_pylib.data_structures.segment_tree.range_set_range_composite
    titan_pylib.data_structures.segment_tree.segment_tree
    titan_pylib.data_structures.segment_tree.segment_tree_RSQ
    titan_pylib.data_structures.segment_tree.segment_tree_RmQ

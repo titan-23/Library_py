@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>wb_Tree package — titan_pylib  ドキュメント</title>
+<title>wb_tree package — titan_pylib  ドキュメント</title>
 <link href="../_static/pygments.css?v=80d5e7a1" rel="stylesheet" type="text/css"/>
 <link href="../_static/css/theme.css?v=19f00094" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -27,7 +27,7 @@
 <script src="../_static/js/theme.js"></script>
 <link href="../genindex.html" rel="index" title="索引"/>
 <link href="../search.html" rel="search" title="検索"/>
-<link href="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_Tree.lazy_wb_tree module"/>
+<link href="titan_pylib.data_structures.wb_tree.lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_tree.lazy_wb_tree module"/>
 <link href="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html" rel="prev" title="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix module"/>
 </head>
 <body class="wy-body-for-nav">
@@ -64,6 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.html">fenwick_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.html">heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.list.html">list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.merge_sort_tree.html">merge_sort_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
@@ -78,9 +79,9 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.treap.html">treap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.html">union_find</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.html">wavelet_matrix</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">wb_Tree</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">wb_tree</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-titan_pylib.data_structures.wb_Tree">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-titan_pylib.data_structures.wb_tree">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -106,9 +107,9 @@
 <ul class="wy-breadcrumbs">
 <li><a aria-label="Home" class="icon icon-home" href="../index.html"></a></li>
 <li class="breadcrumb-item"><a href="titan_pylib.data_structures.html">data_structures</a></li>
-<li class="breadcrumb-item active">wb_Tree</li>
+<li class="breadcrumb-item active">wb_tree</li>
 <li class="wy-breadcrumbs-aside">
-<a href="../_sources/titan_pylib_docs/titan_pylib.data_structures.wb_Tree.rst.txt" rel="nofollow"> View page source</a>
+<a href="../_sources/titan_pylib_docs/titan_pylib.data_structures.wb_tree.rst.txt" rel="nofollow"> View page source</a>
 </li>
 </ul>
 <hr/>
@@ -116,28 +117,29 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
 <section id="titan-pylib-data-structures-wb-tree-package">
-<h1>wb_Tree<a class="headerlink" href="#titan-pylib-data-structures-wb-tree-package" title="Link to this heading"></a></h1>
+<h1>wb_tree<a class="headerlink" href="#titan-pylib-data-structures-wb-tree-package" title="Link to this heading"></a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.html">lazy_wb_tree</a></li>
-<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html">persistent_lazy_wb_tree</a></li>
-<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html">persistent_wb_tree_list</a></li>
-<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html">wb_tree_multiset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.wb_tree_set.html">wb_tree_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.lazy_wb_tree.html">lazy_wb_tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html">persistent_lazy_wb_tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.persistent_wb_tree.html">persistent_wb_tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.persistent_wb_tree_list.html">persistent_wb_tree_list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.wb_tree_multiset.html">wb_tree_multiset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib.data_structures.wb_tree.wb_tree_set.html">wb_tree_set</a></li>
 </ul>
 </div>
 </section>
-<section id="module-titan_pylib.data_structures.wb_Tree">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-titan_pylib.data_structures.wb_Tree" title="Link to this heading"></a></h2>
+<section id="module-titan_pylib.data_structures.wb_tree">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-titan_pylib.data_structures.wb_tree" title="Link to this heading"></a></h2>
 </section>
 </section>
 </div>
 </div>
 <footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
 <a accesskey="p" class="btn btn-neutral float-left" href="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html" rel="prev" title="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix module"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
-<a accesskey="n" class="btn btn-neutral float-right" href="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_Tree.lazy_wb_tree module">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="n" class="btn btn-neutral float-right" href="titan_pylib.data_structures.wb_tree.lazy_wb_tree.html" rel="next" title="titan_pylib.data_structures.wb_tree.lazy_wb_tree module">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
 </div>
 <hr/>
 <div role="contentinfo">

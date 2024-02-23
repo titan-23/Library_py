@@ -81,14 +81,14 @@
 <span class="linenos">  4</span><span class="n">F</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'F'</span><span class="p">)</span>
 <span class="linenos">  5</span>
 <div class="viewcode-block" id="PersistentLazyWBTree">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree">[ドキュメント]</a>
 <span class="linenos">  6</span><span class="k">class</span> <span class="nc">PersistentLazyWBTree</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">F</span><span class="p">]):</span>
 <span class="linenos">  7</span>
 <span class="linenos">  8</span>  <span class="n">ALPHA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 <span class="linenos">  9</span>  <span class="n">BETA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">ALPHA</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ALPHA</span><span class="p">)</span>
 <span class="linenos"> 10</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.Node">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.Node">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.Node">[ドキュメント]</a>
 <span class="linenos"> 11</span>  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
 <span class="linenos"> 12</span>
 <span class="linenos"> 13</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -104,7 +104,7 @@
 <span class="linenos"> 23</span>      <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos"> 24</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.Node.copy">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.Node.copy">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.Node.copy">[ドキュメント]</a>
 <span class="linenos"> 25</span>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentLazyWBTree.Node'</span><span class="p">:</span>
 <span class="linenos"> 26</span>      <span class="n">node</span> <span class="o">=</span> <span class="n">PersistentLazyWBTree</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">)</span>
 <span class="linenos"> 27</span>      <span class="n">node</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
@@ -116,7 +116,7 @@
 
 <span class="linenos"> 33</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.Node.balance">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.Node.balance">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.Node.balance">[ドキュメント]</a>
 <span class="linenos"> 34</span>    <span class="k">def</span> <span class="nf">balance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="linenos"> 35</span>      <span class="k">return</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></div>
 
@@ -146,7 +146,7 @@
 <span class="linenos"> 58</span>    <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="nb">id</span>
 <span class="linenos"> 59</span>    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 60</span>    <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
-<span class="linenos"> 61</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="linenos"> 61</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 62</span>
 <span class="linenos"> 63</span>  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 64</span>    <span class="n">Node</span> <span class="o">=</span> <span class="n">PersistentLazyWBTree</span><span class="o">.</span><span class="n">Node</span>
@@ -287,7 +287,7 @@
 <span class="linenos">199</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_with_root</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
 <span class="linenos">200</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.merge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.merge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.merge">[ドキュメント]</a>
 <span class="linenos">201</span>  <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">'PersistentLazyWBTree'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentLazyWBTree'</span><span class="p">:</span>
 <span class="linenos">202</span>    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
 <span class="linenos">203</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
@@ -344,7 +344,7 @@
 <span class="linenos">253</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_with_root</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">l</span><span class="p">),</span> <span class="n">r</span>
 <span class="linenos">254</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.split">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.split">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.split">[ドキュメント]</a>
 <span class="linenos">255</span>  <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="s1">'PersistentLazyWBTree[T, F]'</span><span class="p">,</span> <span class="s1">'PersistentLazyWBTree[T, F]'</span><span class="p">]:</span>
 <span class="linenos">256</span>    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 <span class="linenos">257</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
@@ -354,7 +354,7 @@
 <span class="linenos">260</span>    <span class="k">return</span> <span class="n">PersistentLazyWBTree</span><span class="p">([],</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">composition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
 <span class="linenos">261</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.apply">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.apply">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.apply">[ドキュメント]</a>
 <span class="linenos">262</span>  <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentLazyWBTree[T, F]'</span><span class="p">:</span>
 <span class="linenos">263</span>    <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;=</span> <span class="n">r</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span>
 <span class="linenos">264</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
@@ -388,7 +388,7 @@
 
 <span class="linenos">292</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.prod">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.prod">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.prod">[ドキュメント]</a>
 <span class="linenos">293</span>  <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">294</span>    <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;=</span> <span class="n">r</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
 <span class="linenos">295</span>    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">PersistentLazyWBTree</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
@@ -410,7 +410,7 @@
 
 <span class="linenos">311</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.insert">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.insert">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.insert">[ドキュメント]</a>
 <span class="linenos">312</span>  <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentLazyWBTree[T, F]'</span><span class="p">:</span>
 <span class="linenos">313</span>    <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 <span class="linenos">314</span>    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_with_root</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">PersistentLazyWBTree</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
@@ -418,7 +418,7 @@
 
 <span class="linenos">316</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.pop">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.pop">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.pop">[ドキュメント]</a>
 <span class="linenos">317</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="s1">'PersistentLazyWBTree[T, F]'</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
 <span class="linenos">318</span>    <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 <span class="linenos">319</span>    <span class="k">assert</span> <span class="n">s</span>
@@ -428,7 +428,7 @@
 
 <span class="linenos">323</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.reverse">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.reverse">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.reverse">[ドキュメント]</a>
 <span class="linenos">324</span>  <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentLazyWBTree[T, F]'</span><span class="p">:</span>
 <span class="linenos">325</span>    <span class="k">if</span> <span class="n">l</span> <span class="o">&gt;=</span> <span class="n">r</span><span class="p">:</span>
 <span class="linenos">326</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
@@ -441,7 +441,7 @@
 
 <span class="linenos">333</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.tolist">[ドキュメント]</a>
 <span class="linenos">334</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">335</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos">336</span>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
@@ -459,14 +459,14 @@
 
 <span class="linenos">348</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.copy">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.copy">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.copy">[ドキュメント]</a>
 <span class="linenos">349</span>  <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentLazyWBTree'</span><span class="p">:</span>
 <span class="linenos">350</span>    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="kc">None</span>
 <span class="linenos">351</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
 
 <span class="linenos">352</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.set">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.set">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.set">[ドキュメント]</a>
 <span class="linenos">353</span>  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentLazyWBTree'</span><span class="p">:</span>
 <span class="linenos">354</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">355</span>      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -483,80 +483,83 @@
 <span class="linenos">366</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="linenos">367</span>        <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">v</span>
 <span class="linenos">368</span>        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="linenos">369</span>        <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
-<span class="linenos">370</span>          <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
-<span class="linenos">371</span>        <span class="k">else</span><span class="p">:</span>
-<span class="linenos">372</span>          <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
-<span class="linenos">373</span>        <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
-<span class="linenos">374</span>          <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
-<span class="linenos">375</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-<span class="linenos">376</span>      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
-<span class="linenos">377</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">378</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">379</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="linenos">380</span>        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">381</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">382</span>        <span class="n">d</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos">383</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="linenos">384</span>      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="linenos">385</span>      <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
-<span class="linenos">386</span>        <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
-<span class="linenos">387</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">388</span>        <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span></div>
+<span class="linenos">369</span>        <span class="k">if</span> <span class="n">pnode</span><span class="p">:</span>
+<span class="linenos">370</span>          <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+<span class="linenos">371</span>            <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+<span class="linenos">372</span>          <span class="k">else</span><span class="p">:</span>
+<span class="linenos">373</span>            <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span>
+<span class="linenos">374</span>        <span class="k">else</span><span class="p">:</span>
+<span class="linenos">375</span>          <span class="n">root</span> <span class="o">=</span> <span class="n">node</span>
+<span class="linenos">376</span>        <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
+<span class="linenos">377</span>          <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+<span class="linenos">378</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="linenos">379</span>      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
+<span class="linenos">380</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">381</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">382</span>        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">383</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="linenos">384</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">385</span>        <span class="n">d</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">386</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="linenos">387</span>      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">388</span>      <span class="k">if</span> <span class="n">d</span><span class="p">:</span>
+<span class="linenos">389</span>        <span class="n">pnode</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">node</span>
+<span class="linenos">390</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">391</span>        <span class="n">pnode</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">node</span></div>
 
-<span class="linenos">389</span>
-<span class="linenos">390</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">391</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">392</span>      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-<span class="linenos">393</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-<span class="linenos">394</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="linenos">395</span>      <span class="k">assert</span> <span class="n">node</span>
-<span class="linenos">396</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="linenos">397</span>      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos">398</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">399</span>        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
-<span class="linenos">400</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">401</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">402</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-<span class="linenos">403</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">404</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-<span class="linenos">405</span>
-<span class="linenos">406</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">407</span>    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">392</span>
+<span class="linenos">393</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">394</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">395</span>      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="linenos">396</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+<span class="linenos">397</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="linenos">398</span>      <span class="k">assert</span> <span class="n">node</span>
+<span class="linenos">399</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">400</span>      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">401</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">402</span>        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+<span class="linenos">403</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">404</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">405</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+<span class="linenos">406</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">407</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
 <span class="linenos">408</span>
-<span class="linenos">409</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">410</span>    <span class="k">return</span> <span class="s1">'['</span> <span class="o">+</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">']'</span>
+<span class="linenos">409</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">410</span>    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">411</span>
-<span class="linenos">412</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">413</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'PersistentLazyWBTree(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">412</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">413</span>    <span class="k">return</span> <span class="s1">'['</span> <span class="o">+</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">']'</span>
 <span class="linenos">414</span>
+<span class="linenos">415</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">416</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'PersistentLazyWBTree(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">417</span>
 <div class="viewcode-block" id="PersistentLazyWBTree.isok">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.PersistentLazyWBTree.isok">[ドキュメント]</a>
-<span class="linenos">415</span>  <span class="k">def</span> <span class="nf">isok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">416</span>    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-<span class="linenos">417</span>      <span class="n">ls</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-<span class="linenos">418</span>      <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">419</span>      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-<span class="linenos">420</span>        <span class="n">ls</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-<span class="linenos">421</span>        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-<span class="linenos">422</span>      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-<span class="linenos">423</span>        <span class="n">rs</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.html#titan_pylib.data_structures.wb_tree.persistent_lazy_wb_tree.PersistentLazyWBTree.isok">[ドキュメント]</a>
+<span class="linenos">418</span>  <span class="k">def</span> <span class="nf">isok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">419</span>    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="linenos">420</span>      <span class="n">ls</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="linenos">421</span>      <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">422</span>      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+<span class="linenos">423</span>        <span class="n">ls</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
 <span class="linenos">424</span>        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
-<span class="linenos">425</span>      <span class="n">s</span> <span class="o">=</span> <span class="n">ls</span> <span class="o">+</span> <span class="n">rs</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">426</span>      <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">ls</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">427</span>      <span class="k">assert</span> <span class="n">s</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos">428</span>      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="p">):</span>
-<span class="linenos">429</span>        <span class="nb">print</span><span class="p">(</span><span class="s1">'NG!'</span><span class="p">)</span>
-<span class="linenos">430</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">ls</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">rs</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">s</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">b</span><span class="si">=}</span><span class="s1">'</span><span class="p">)</span>
-<span class="linenos">431</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">'</span><span class="p">)</span>
-<span class="linenos">432</span>        <span class="k">assert</span> <span class="kc">False</span>
-<span class="linenos">433</span>      <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span>
-<span class="linenos">434</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span> <span class="k">return</span>
-<span class="linenos">435</span>    <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span></div>
+<span class="linenos">425</span>      <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+<span class="linenos">426</span>        <span class="n">rs</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+<span class="linenos">427</span>        <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+<span class="linenos">428</span>      <span class="n">s</span> <span class="o">=</span> <span class="n">ls</span> <span class="o">+</span> <span class="n">rs</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">429</span>      <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">ls</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">430</span>      <span class="k">assert</span> <span class="n">s</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">431</span>      <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="p">):</span>
+<span class="linenos">432</span>        <span class="nb">print</span><span class="p">(</span><span class="s1">'NG!'</span><span class="p">)</span>
+<span class="linenos">433</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">ls</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">rs</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">s</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">b</span><span class="si">=}</span><span class="s1">'</span><span class="p">)</span>
+<span class="linenos">434</span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ALPHA</span><span class="si">=}</span><span class="s1">'</span><span class="p">)</span>
+<span class="linenos">435</span>        <span class="k">assert</span> <span class="kc">False</span>
+<span class="linenos">436</span>      <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">height</span><span class="o">+</span><span class="mi">1</span>
+<span class="linenos">437</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span> <span class="k">return</span>
+<span class="linenos">438</span>    <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span></div>
 </div>
 
-<span class="linenos">436</span>    <span class="c1"># print(f'isok.ok., height={h}')</span>
-<span class="linenos">437</span>
+<span class="linenos">439</span>    <span class="c1"># print(f'isok.ok., height={h}')</span>
+<span class="linenos">440</span>
 </pre></div>
 </div>
 </div>

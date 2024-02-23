@@ -1,7 +1,7 @@
-titan\_pylib.data\_structures.wb\_Tree.persistent\_wb\_tree\_list module
+titan\_pylib.data\_structures.wb\_tree.persistent\_wb\_tree\_list module
 ========================================================================
 
-.. automodule:: titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list
+.. automodule:: titan_pylib.data_structures.wb_tree.persistent_wb_tree_list
    :members:
    :undoc-members:
    :show-inheritance:

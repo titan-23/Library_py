@@ -1,4 +1,4 @@
-# from titan_pylib.data_structures.wb_Tree.gomi.WBTreeSet import WBTreeSet
+# from titan_pylib.data_structures.wb_tree.gomi.WBTreeSet import WBTreeSet
 from Library_py.MyClass.SupportsLessThan import SupportsLessThan
 from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
 from math import sqrt

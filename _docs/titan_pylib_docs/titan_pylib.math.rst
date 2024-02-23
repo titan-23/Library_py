@@ -10,6 +10,7 @@ Submodules
    titan_pylib.math.affine_map
    titan_pylib.math.divisors
    titan_pylib.math.fraction
+   titan_pylib.math.get_quotients
    titan_pylib.math.is_prime
    titan_pylib.math.mod_array
    titan_pylib.math.mod_comb

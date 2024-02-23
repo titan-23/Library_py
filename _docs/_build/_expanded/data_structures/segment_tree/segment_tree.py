@@ -71,10 +71,10 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     :math:`O(n)` です。
 
     Args:
-        n_or_a (Union[int, Iterable[T]]): ``n: int`` のとき、 ``e`` を初期値として長さ ``n`` の ``SegmentTree`` を構築します。
-                                          ``a: Iterable[T]`` のとき、 ``a`` から ``SegmentTree`` を構築します。
-        op (Callable[[T, T], T]): 2項演算の関数です。
-        e (T): 単位元です。
+      n_or_a (Union[int, Iterable[T]]): ``n: int`` のとき、 ``e`` を初期値として長さ ``n`` の ``SegmentTree`` を構築します。
+                                        ``a: Iterable[T]`` のとき、 ``a`` から ``SegmentTree`` を構築します。
+      op (Callable[[T, T], T]): 2項演算の関数です。
+      e (T): 単位元です。
     """
     self._op = op
     self._e = e
@@ -96,7 +96,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def set(self, k: int, v: T) -> None:
     """一点更新です。
-
     :math:`O(\\log{n})` です。
 
     Args:
@@ -115,8 +114,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def get(self, k: int) -> T:
     """一点取得です。
-
-    :math:`O(\\log{n})` です。
+    :math:`O(1)` です。
 
     Args:
       k (int): インデックスです。
@@ -129,7 +127,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def prod(self, l: int, r: int) -> T:
     """区間 ``[l, r)`` の総積を返します。
-
     :math:`O(\\log{n})` です。
 
     Args:
@@ -154,7 +151,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def all_prod(self) -> T:
     """区間 ``[0, n)`` の総積を返します。
-
     :math:`O(1)` です。
     """
     return self._data[1]
@@ -231,6 +227,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.__setitem__{k}, {v}), n={self._n}'
     self.set(k, v)
+
+  def __len__(self):
+    return self._n
 
   def __str__(self):
     return str(self.tolist())

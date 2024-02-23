@@ -10,8 +10,8 @@ class CumulativeSum():
     :math:`O(n)` です。
 
     Args:
-      a (Iterable[T]): ``CumulativeSum`` を構築する配列です。
-      e (T): 単位元です。デフォルトは ``0`` です。
+      a (Iterable[int]): ``CumulativeSum`` を構築する配列です。
+      e (int): 単位元です。デフォルトは ``0`` です。
     """
     a = list(a)
     n = len(a)

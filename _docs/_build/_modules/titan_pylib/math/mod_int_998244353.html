@@ -170,35 +170,35 @@
 <span class="linenos"> 88</span>  <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">'ModInt998244353'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'ModInt998244353'</span><span class="p">:</span>
 <span class="linenos"> 89</span>    <span class="k">return</span> <span class="n">ModInt998244353</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))))</span>
 <span class="linenos"> 90</span>
-<span class="linenos"> 91</span>  <span class="c1"># __iadd__ = __add__</span>
-<span class="linenos"> 92</span>  <span class="c1"># __isub__ = __sub__</span>
-<span class="linenos"> 93</span>  <span class="c1"># __imul__ = __mul__</span>
-<span class="linenos"> 94</span>  <span class="c1"># __ipow__ = __pow__</span>
-<span class="linenos"> 95</span>  <span class="c1"># __itruediv__ = __truediv__</span>
+<span class="linenos"> 91</span>  <span class="fm">__iadd__</span> <span class="o">=</span> <span class="fm">__add__</span>
+<span class="linenos"> 92</span>  <span class="fm">__isub__</span> <span class="o">=</span> <span class="fm">__sub__</span>
+<span class="linenos"> 93</span>  <span class="fm">__imul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
+<span class="linenos"> 94</span>  <span class="fm">__ipow__</span> <span class="o">=</span> <span class="fm">__pow__</span>
+<span class="linenos"> 95</span>  <span class="fm">__itruediv__</span> <span class="o">=</span> <span class="fm">__truediv__</span>
 <span class="linenos"> 96</span>
-<span class="linenos"> 97</span>  <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">'ModInt998244353'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'ModInt998244353'</span><span class="p">:</span>
-<span class="linenos"> 98</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-<span class="linenos"> 99</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan_pylib_ModInt998244353_MOD</span>
-<span class="linenos">100</span>    <span class="k">return</span> <span class="bp">self</span>
+<span class="linenos"> 97</span>  <span class="c1"># def __iadd__(self, other: Union[int, 'ModInt998244353']) -&gt; 'ModInt998244353':</span>
+<span class="linenos"> 98</span>  <span class="c1">#   self.val += int(other)</span>
+<span class="linenos"> 99</span>  <span class="c1">#   self.val %= _titan_pylib_ModInt998244353_MOD</span>
+<span class="linenos">100</span>  <span class="c1">#   return self</span>
 <span class="linenos">101</span>
-<span class="linenos">102</span>  <span class="k">def</span> <span class="fm">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">'ModInt998244353'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'ModInt998244353'</span><span class="p">:</span>
-<span class="linenos">103</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">-=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-<span class="linenos">104</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan_pylib_ModInt998244353_MOD</span>
-<span class="linenos">105</span>    <span class="k">return</span> <span class="bp">self</span>
+<span class="linenos">102</span>  <span class="c1"># def __isub__(self, other: Union[int, 'ModInt998244353']) -&gt; 'ModInt998244353':</span>
+<span class="linenos">103</span>  <span class="c1">#   self.val -= int(other)</span>
+<span class="linenos">104</span>  <span class="c1">#   self.val %= _titan_pylib_ModInt998244353_MOD</span>
+<span class="linenos">105</span>  <span class="c1">#   return self</span>
 <span class="linenos">106</span>
-<span class="linenos">107</span>  <span class="k">def</span> <span class="fm">__imul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">'ModInt998244353'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'ModInt998244353'</span><span class="p">:</span>
-<span class="linenos">108</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*=</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-<span class="linenos">109</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan_pylib_ModInt998244353_MOD</span>
-<span class="linenos">110</span>    <span class="k">return</span> <span class="bp">self</span>
+<span class="linenos">107</span>  <span class="c1"># def __imul__(self, other: Union[int, 'ModInt998244353']) -&gt; 'ModInt998244353':</span>
+<span class="linenos">108</span>  <span class="c1">#   self.val *= int(other)</span>
+<span class="linenos">109</span>  <span class="c1">#   self.val %= _titan_pylib_ModInt998244353_MOD</span>
+<span class="linenos">110</span>  <span class="c1">#   return self</span>
 <span class="linenos">111</span>
-<span class="linenos">112</span>  <span class="k">def</span> <span class="fm">__ipow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">'ModInt998244353'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'ModInt998244353'</span><span class="p">:</span>
-<span class="linenos">113</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="n">_titan_pylib_ModInt998244353_MOD</span><span class="p">)</span>
-<span class="linenos">114</span>    <span class="k">return</span> <span class="bp">self</span>
+<span class="linenos">112</span>  <span class="c1"># def __ipow__(self, other: Union[int, 'ModInt998244353']) -&gt; 'ModInt998244353':</span>
+<span class="linenos">113</span>  <span class="c1">#   self.val = pow(self.val, int(other), _titan_pylib_ModInt998244353_MOD)</span>
+<span class="linenos">114</span>  <span class="c1">#   return self</span>
 <span class="linenos">115</span>
-<span class="linenos">116</span>  <span class="k">def</span> <span class="fm">__itruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s1">'ModInt998244353'</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">'ModInt998244353'</span><span class="p">:</span>
-<span class="linenos">117</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
-<span class="linenos">118</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">%=</span> <span class="n">_titan_pylib_ModInt998244353_MOD</span>
-<span class="linenos">119</span>    <span class="k">return</span> <span class="bp">self</span>
+<span class="linenos">116</span>  <span class="c1"># def __itruediv__(self, other: Union[int, 'ModInt998244353']) -&gt; 'ModInt998244353':</span>
+<span class="linenos">117</span>  <span class="c1">#   self.val *= self._inv(int(other))</span>
+<span class="linenos">118</span>  <span class="c1">#   self.val %= _titan_pylib_ModInt998244353_MOD</span>
+<span class="linenos">119</span>  <span class="c1">#   return self</span>
 <span class="linenos">120</span>
 <span class="linenos">121</span>  <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 <span class="linenos">122</span>  <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>

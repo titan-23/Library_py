@@ -83,7 +83,7 @@
 <span class="linenos">  6</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">  7</span>
 <div class="viewcode-block" id="WBTreeMultiset">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset">[ドキュメント]</a>
 <span class="linenos">  8</span><span class="k">class</span> <span class="nc">WBTreeMultiset</span><span class="p">(</span><span class="n">OrderedMultisetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos">  9</span>
 <span class="linenos"> 10</span>  <span class="n">ALPHA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
@@ -105,7 +105,7 @@
 <span class="linenos"> 26</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 27</span>
 <div class="viewcode-block" id="WBTreeMultiset.reserve">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.reserve">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.reserve">[ドキュメント]</a>
 <span class="linenos"> 28</span>  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 29</span>    <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 <span class="linenos"> 30</span>    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
@@ -216,7 +216,7 @@
 <span class="linenos">134</span>    <span class="k">return</span> <span class="n">u</span>
 <span class="linenos">135</span>
 <div class="viewcode-block" id="WBTreeMultiset.add">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.add">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.add">[ドキュメント]</a>
 <span class="linenos">136</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">137</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">138</span>      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
@@ -259,7 +259,7 @@
 
 <span class="linenos">175</span>
 <div class="viewcode-block" id="WBTreeMultiset.count">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.count">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.count">[ドキュメント]</a>
 <span class="linenos">176</span>  <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">177</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">178</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -271,7 +271,7 @@
 
 <span class="linenos">184</span>
 <div class="viewcode-block" id="WBTreeMultiset.remove">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.remove">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.remove">[ドキュメント]</a>
 <span class="linenos">185</span>  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">186</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
 <span class="linenos">187</span>      <span class="k">return</span>
@@ -324,7 +324,7 @@
 <span class="linenos">233</span>    <span class="k">return</span> <span class="kc">True</span>
 <span class="linenos">234</span>
 <div class="viewcode-block" id="WBTreeMultiset.discard">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.discard">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.discard">[ドキュメント]</a>
 <span class="linenos">235</span>  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">236</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">valsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">valsize</span>
 <span class="linenos">237</span>    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
@@ -355,7 +355,7 @@
 
 <span class="linenos">262</span>
 <div class="viewcode-block" id="WBTreeMultiset.discard_all">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.discard_all">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.discard_all">[ドキュメント]</a>
 <span class="linenos">263</span>  <span class="k">def</span> <span class="nf">discard_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">264</span>    <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
 
@@ -392,7 +392,7 @@
 <span class="linenos">295</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="linenos">296</span>
 <div class="viewcode-block" id="WBTreeMultiset.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.tolist">[ドキュメント]</a>
 <span class="linenos">297</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">298</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
 <span class="linenos">299</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -411,7 +411,7 @@
 
 <span class="linenos">312</span>
 <div class="viewcode-block" id="WBTreeMultiset.tolist_items">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.tolist_items">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.tolist_items">[ドキュメント]</a>
 <span class="linenos">313</span>  <span class="k">def</span> <span class="nf">tolist_items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">314</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
 <span class="linenos">315</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -428,7 +428,7 @@
 
 <span class="linenos">326</span>
 <div class="viewcode-block" id="WBTreeMultiset.le">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.le">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.le">[ドキュメント]</a>
 <span class="linenos">327</span>  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">328</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">329</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -446,7 +446,7 @@
 
 <span class="linenos">341</span>
 <div class="viewcode-block" id="WBTreeMultiset.lt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.lt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.lt">[ドキュメント]</a>
 <span class="linenos">342</span>  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">343</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">344</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -461,7 +461,7 @@
 
 <span class="linenos">353</span>
 <div class="viewcode-block" id="WBTreeMultiset.ge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.ge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.ge">[ドキュメント]</a>
 <span class="linenos">354</span>  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">355</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">356</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -479,7 +479,7 @@
 
 <span class="linenos">368</span>
 <div class="viewcode-block" id="WBTreeMultiset.gt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.gt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.gt">[ドキュメント]</a>
 <span class="linenos">369</span>  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">370</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">371</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -494,7 +494,7 @@
 
 <span class="linenos">380</span>
 <div class="viewcode-block" id="WBTreeMultiset.index">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.index">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.index">[ドキュメント]</a>
 <span class="linenos">381</span>  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">382</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">valsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">valsize</span>
 <span class="linenos">383</span>    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
@@ -513,7 +513,7 @@
 
 <span class="linenos">396</span>
 <div class="viewcode-block" id="WBTreeMultiset.index_right">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.index_right">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.index_right">[ドキュメント]</a>
 <span class="linenos">397</span>  <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">398</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">valsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">valsize</span>
 <span class="linenos">399</span>    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
@@ -531,7 +531,7 @@
 
 <span class="linenos">411</span>
 <div class="viewcode-block" id="WBTreeMultiset.index_keys">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.index_keys">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.index_keys">[ドキュメント]</a>
 <span class="linenos">412</span>  <span class="k">def</span> <span class="nf">index_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">413</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">414</span>    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
@@ -550,7 +550,7 @@
 
 <span class="linenos">427</span>
 <div class="viewcode-block" id="WBTreeMultiset.index_right_keys">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.index_right_keys">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.index_right_keys">[ドキュメント]</a>
 <span class="linenos">428</span>  <span class="k">def</span> <span class="nf">index_right_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">429</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">430</span>    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
@@ -568,7 +568,7 @@
 
 <span class="linenos">442</span>
 <div class="viewcode-block" id="WBTreeMultiset.get_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.get_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.get_min">[ドキュメント]</a>
 <span class="linenos">443</span>  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">444</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">445</span>      <span class="k">return</span>
@@ -580,7 +580,7 @@
 
 <span class="linenos">451</span>
 <div class="viewcode-block" id="WBTreeMultiset.get_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.get_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.get_max">[ドキュメント]</a>
 <span class="linenos">452</span>  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">453</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">454</span>      <span class="k">return</span>
@@ -592,7 +592,7 @@
 
 <span class="linenos">460</span>
 <div class="viewcode-block" id="WBTreeMultiset.pop">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.pop">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.pop">[ドキュメント]</a>
 <span class="linenos">461</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">462</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">valsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">valsize</span>
 <span class="linenos">463</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -623,48 +623,48 @@
 
 <span class="linenos">488</span>
 <div class="viewcode-block" id="WBTreeMultiset.pop_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.pop_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.pop_max">[ドキュメント]</a>
 <span class="linenos">489</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">490</span>    <span class="k">assert</span> <span class="bp">self</span>
 <span class="linenos">491</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 <span class="linenos">492</span>
 <div class="viewcode-block" id="WBTreeMultiset.pop_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.pop_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.pop_min">[ドキュメント]</a>
 <span class="linenos">493</span>  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">494</span>    <span class="k">assert</span> <span class="bp">self</span>
 <span class="linenos">495</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 <span class="linenos">496</span>
 <div class="viewcode-block" id="WBTreeMultiset.items">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.items">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.items">[ドキュメント]</a>
 <span class="linenos">497</span>  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">498</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
 <span class="linenos">499</span>      <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></div>
 
 <span class="linenos">500</span>
 <div class="viewcode-block" id="WBTreeMultiset.keys">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.keys">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.keys">[ドキュメント]</a>
 <span class="linenos">501</span>  <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">502</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
 <span class="linenos">503</span>      <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 <span class="linenos">504</span>
 <div class="viewcode-block" id="WBTreeMultiset.values">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.values">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.values">[ドキュメント]</a>
 <span class="linenos">505</span>  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">506</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
 <span class="linenos">507</span>      <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kth_elm_tree</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
 <span class="linenos">508</span>
 <div class="viewcode-block" id="WBTreeMultiset.len_elm">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.len_elm">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.len_elm">[ドキュメント]</a>
 <span class="linenos">509</span>  <span class="k">def</span> <span class="nf">len_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">510</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span></div>
 
 <span class="linenos">511</span>
 <div class="viewcode-block" id="WBTreeMultiset.clear">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.clear">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.clear">[ドキュメント]</a>
 <span class="linenos">512</span>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">513</span>    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span></div>
 
@@ -705,7 +705,7 @@
 <span class="linenos">548</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'WBTreeMultiset(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
 <span class="linenos">549</span>
 <div class="viewcode-block" id="WBTreeMultiset.isok">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_Tree.wb_tree_multiset.WBTreeMultiset.isok">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_tree.wb_tree_multiset.html#titan_pylib.data_structures.wb_tree.wb_tree_multiset.WBTreeMultiset.isok">[ドキュメント]</a>
 <span class="linenos">550</span>  <span class="k">def</span> <span class="nf">isok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">551</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">552</span>    <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
