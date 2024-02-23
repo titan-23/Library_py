@@ -2,8 +2,14 @@ from titan_pylib.data_structures.set.wordsize_tree_set import WordsizeTreeSet
 from typing import List, Iterable, Optional, Iterator, Tuple
 
 class WordsizeTreeMultiset():
+  """``[0, u)`` の整数多重集合を管理する32分木です。
+  空間 :math:`O(u)` であることに注意してください。
+  """
 
-  def __init__(self, u: int, a: Iterable[int]=[]):
+  def __init__(self, u: int, a: Iterable[int]=[]) -> None:
+    """:math:`O(u)` です。
+    """
+    u += 1  # 念のため
     assert u >= 0
     self.u = u
     self.len: int = 0
@@ -14,102 +20,152 @@ class WordsizeTreeMultiset():
       cnt[a_] += 1
     self.cnt: List[int] = cnt
 
-  def add(self, x: int, val: int=1) -> None:
-    assert 0 <= x < self.u, \
-        f'ValueError: {self.__class__.__name__}.add({x}), u={self.u}'
-    self.len += val
-    if self.cnt[x]:
-      self.cnt[x] += val
+  def add(self, v: int, cnt: int=1) -> None:
+    """整数 ``v`` を ``cnt`` 個追加します。
+    :math:`O(\\log{u})` です。
+    """
+    assert 0 <= v < self.u, \
+        f'ValueError: {self.__class__.__name__}.add({v}, {cnt}), u={self.u}'
+    self.len += cnt
+    if self.cnt[v]:
+      self.cnt[v] += cnt
     else:
-      self.cnt[x] = val
-      self.st.add(x)
+      self.cnt[v] = cnt
+      self.st.add(v)
 
-  def discard(self, x: int, val: int=1) -> bool:
-    assert 0 <= x < self.u, \
-        f'ValueError: {self.__class__.__name__}.discard({x}), u={self.u}'
-    if self.cnt[x] == 0: return False
-    v = self.cnt[x]
-    if v > val:
-      self.cnt[x] -= val
-      self.len -= val
+  def discard(self, v: int, cnt: int=1) -> bool:
+    """整数 ``v`` を ``cnt`` 個削除します。
+    :math:`O(\\log{u})` です。
+    """
+    assert 0 <= v < self.u, \
+        f'ValueError: {self.__class__.__name__}.discard({v}), u={self.u}'
+    if self.cnt[v] == 0: return False
+    c = self.cnt[v]
+    if c > cnt:
+      self.cnt[v] -= cnt
+      self.len -= cnt
     else:
-      self.len -= v
-      self.cnt[x] = 0
-      self.st.discard(x)
+      self.len -= c
+      self.cnt[v] = 0
+      self.st.discard(v)
     return True
 
-  def count(self, x: int) -> int:
-    assert 0 <= x < self.u, \
-        f'ValueError: {self.__class__.__name__}.count({x}), u={self.u}'
-    return self.cnt[x]
+  def count(self, v: int) -> int:
+    """整数 ``v`` の個数を返します。
+    :math:`O(1)` です。
+    """
+    assert 0 <= v < self.u, \
+        f'ValueError: {self.__class__.__name__}.count({v}), u={self.u}'
+    return self.cnt[v]
 
-  def ge(self, x: int) -> Optional[int]:
-    assert 0 <= x < self.u, \
-        f'ValueError: {self.__class__.__name__}.ge({x}), u={self.u}'
-    return self.st.ge(x)
+  def ge(self, v: int) -> Optional[int]:
+    """``v`` 以上で最小の要素を返します。存在しないとき、 ``None``を返します。
+    :math:`O(\\log{u})` です。
+    """
+    assert 0 <= v < self.u, \
+        f'ValueError: {self.__class__.__name__}.ge({v}), u={self.u}'
+    return self.st.ge(v)
 
-  def gt(self, x: int) -> Optional[int]:
-    assert 0 <= x < self.u, \
-        f'ValueError: {self.__class__.__name__}.gt({x}), u={self.u}'
-    return self.ge(x + 1)
+  def gt(self, v: int) -> Optional[int]:
+    """``v`` より大きい値で最小の要素を返します。存在しないとき、 ``None``を返します。
+    :math:`O(\\log{u})` です。
+    """
+    assert 0 <= v < self.u, \
+        f'ValueError: {self.__class__.__name__}.gt({v}), u={self.u}'
+    return self.ge(v + 1)
 
-  def le(self, x: int) -> Optional[int]:
-    assert 0 <= x < self.u, \
-        f'ValueError: {self.__class__.__name__}.le({x}), u={self.u}'
-    return self.st.le(x)
+  def le(self, v: int) -> Optional[int]:
+    """``v`` 以下で最大の要素を返します。存在しないとき、 ``None``を返します。
+    :math:`O(\\log{u})` です。
+    """
+    assert 0 <= v < self.u, \
+        f'ValueError: {self.__class__.__name__}.le({v}), u={self.u}'
+    return self.st.le(v)
 
-  def lt(self, x: int) -> Optional[int]:
-    assert 0 <= x < self.u, \
-        f'ValueError: {self.__class__.__name__}.lt({x}), u={self.u}'
-    return self.le(x - 1)
+  def lt(self, v: int) -> Optional[int]:
+    """``v`` より小さい値で最大の要素を返します。存在しないとき、 ``None``を返します。
+    :math:`O(\\log{u})` です。
+    """
+    assert 0 <= v < self.u, \
+        f'ValueError: {self.__class__.__name__}.lt({v}), u={self.u}'
+    return self.le(v - 1)
 
   def get_min(self) -> Optional[int]:
+    """`最小値を返します。存在しないとき、 ``None``を返します。
+    :math:`O(\\log{u})` です。
+    """
     return self.st.ge(0)
 
   def get_max(self) -> Optional[int]:
+    """最大値を返します。存在しないとき、 ``None``を返します。
+    :math:`O(\\log{u})` です。
+    """
     return self.st.le(self.st.u - 1)
 
   def pop_min(self) -> int:
+    """最小値を削除して返します。
+    :math:`O(\\log{u})` です。
+    """
     assert self, f'IndexError: pop_min() from empty {self.__class__.__name__}.'
     x = self.st.get_min()
     self.discard(x)
     return x
 
   def pop_max(self) -> int:
+    """最大値を削除して返します。
+    :math:`O(\\log{u})` です。
+    """
     assert self, f'IndexError: pop_max() from empty {self.__class__.__name__}.'
     x = self.st.get_max()
     self.discard(x)
     return x
 
   def keys(self) -> Iterator[int]:
+    """集合に含まれている要素(重複無し)を昇順にイテレートします。
+    :math:`O(n\\log{u})` です。
+    """
     v = self.st.get_min()
     while v is not None:
       yield v
       v = self.st.gt(v)
 
   def values(self) -> Iterator[int]:
+    """集合に含まれている要素の個数を、要素の昇順にイテレートします。
+    :math:`O(n\\log{u})` です。
+    """
     v = self.st.get_min()
     while v is not None:
       yield self.cnt[v]
       v = self.st.gt(v)
 
   def items(self) -> Iterator[Tuple[int, int]]:
+    """集合に含まれている要素とその個数を、要素の昇順にイテレートします。
+    :math:`O(n\\log{u})` です。
+    """
     v = self.st.get_min()
     while v is not None:
       yield (v, self.cnt[v])
       v = self.st.gt(v)
 
   def clear(self) -> None:
+    """集合を空にします。
+    :math:`O(n\\log{u})` です。
+    """
     for e in self:
+      self.cnt[e] = 0
       self.st.discard(e)
     self.len = 0
-    self.cnt = [0] * (self.u+1)
 
   def tolist(self) -> List[int]:
+    """リストにして返します。
+    :math:`O(n\\log{u})` です。
+    """
     return [x for x in self]
 
-  def __contains__(self, x: int):
-    return self.cnt[x] > 0
+  def __contains__(self, v: int):
+    """:math:`O(1)` です。
+    """
+    return self.cnt[v] > 0
 
   def __bool__(self):
     return self.len > 0
