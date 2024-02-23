@@ -1,24 +1,26 @@
 class Parser():
+  """Parser
 
-  '''Parser
-  expression: < 四則演算の式 > ::= < 乗算除算の式 > (+ or -) < 乗算除算の式 > (+ or -) ...
-  term      : < 乗算除算の式 > ::= < 括弧か数 > (* or /) < 括弧か数 > (* or /) ...
-  term2 など
+  Examples:
+    expression: < 四則演算の式 > ::= < 乗算除算の式 > (+ or -) < 乗算除算の式 > (+ or -) ...
+    term      : < 乗算除算の式 > ::= < 括弧か数 > (* or /) < 括弧か数 > (* or /) ...
+    term2 など
 
-  factor    : < 括弧か数 >     ::= '(' < 四則演算の式 > ')' or < 数 >
-  number    : < 数 >          ::= ...
-  '''
+    factor    : < 括弧か数 >     ::= '(' < 四則演算の式 > ')' or < 数 >
+    number    : < 数 >          ::= ...
+  """
 
-  def __init__(self, s: str):
-    self.s = s
-    self.n = len(s)
-    self.ptr = 0
+  def __init__(self, s: str) -> None:
+    self.s: str = s
+    self.n: int = len(s)
+    self.ptr: int = 0
 
-  def parse(self):
+  def parse(self) -> int:
     return self.expression()
 
-  # 四則演算の式をパースして、その評価結果を返す。
-  def expression(self):
+  def expression(self) -> int:
+    """四則演算の式をパースして、その評価結果を返す。
+    """
     ret = self.term()
     while self.ptr < self.n:
       if self.get_char() == '+':
@@ -31,8 +33,9 @@ class Parser():
         break
     return ret
 
-  # 乗算除算の式をパースして、その評価結果を返す。
-  def term(self):
+  def term(self) -> int:
+    """乗算除算の式をパースして、その評価結果を返す。
+    """
     ret = self.factor()
     while self.ptr < self.n:
       if self.get_char() == '*':
@@ -45,8 +48,9 @@ class Parser():
         break
     return ret
 
-  # 括弧か数をパースして、その評価結果を返す。
-  def factor(self):
+  def factor(self) -> int:
+    """括弧か数をパースして、その評価結果を返す。
+    """
     if self.ptr >= self.n:
       return 0
     if self.get_char() == '(':
@@ -57,8 +61,9 @@ class Parser():
     else:
       return self.number()
 
-  # 数字の列をパースして、その数を返す。
   def number(self) -> int:
+    """数字の列をパースして、その数を返す。
+    """
     ret = 0
     while self.ptr < self.n and self.get_char().isdigit():
       ret *= 10
@@ -66,12 +71,12 @@ class Parser():
       self.ptr += 1
     return ret
 
-  # begin が expected を指していたら begin を一つ進める。
   def consume(self, expected: str) -> None:
+    """begin が expected を指していたら begin を一つ進める。
+    """
     assert self.s[self.ptr] == expected, \
         f'Expected: {expected} but got {self.s[self.ptr]}, s={self.s}'
     self.ptr += 1
 
-  def get_char(self):
+  def get_char(self) -> str:
     return self.s[self.ptr]
-

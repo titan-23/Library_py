@@ -42,4 +42,3 @@ class Doubling(Generic[T]):
         now = self.db[i][now]
       k >>= 1
     return now
-

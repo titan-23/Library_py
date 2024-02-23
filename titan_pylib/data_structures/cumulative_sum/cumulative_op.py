@@ -28,7 +28,6 @@ class CumulativeOp(Generic[T]):
 
   def pref(self, r: int) -> T:
     """区間 ``[0, r)`` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -38,7 +37,6 @@ class CumulativeOp(Generic[T]):
 
   def prod(self, l: int, r: int) -> T:
     """区間 `[l, r)` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -50,7 +48,6 @@ class CumulativeOp(Generic[T]):
 
   def all_prod(self) -> T:
     """区間 `[0, N)` の演算結果を返します。
-
     :math:`O(1)` です。
     """
     return self.acc[-1]
@@ -65,4 +62,3 @@ class CumulativeOp(Generic[T]):
     return str(self.acc)
 
   __repr__ = __str__
-

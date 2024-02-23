@@ -40,4 +40,3 @@ class CSRArray(Generic[T]):
     csr = self.csr
     for ij in range(self.start[i]+j, self.start[i+1]):
       yield csr[ij]
-

@@ -30,4 +30,3 @@ class Array2D(Generic[T]):
     return str(self.tolist())
 
   __repr__ = __str__
-
