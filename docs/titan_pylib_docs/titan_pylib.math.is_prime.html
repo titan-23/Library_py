@@ -59,7 +59,8 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.math.fraction.html">fraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.math.get_quotients.html">get_quotients</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">is_prime</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#titan_pylib.math.is_prime.is_prime64"><code class="docutils literal notranslate"><span class="pre">is_prime64()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">ソースコード</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-titan_pylib.math.is_prime">仕様</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.math.mod_array.html">mod_array</a></li>
@@ -99,8 +100,42 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
+<section id="titan-pylib-math-is-prime-module">
+<h1>is_prime<a class="headerlink" href="#titan-pylib-math-is-prime-module" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.math.is_prime import is_prime</span>
+<span class="linenos"> 2</span><span class="k">def</span> <span class="nf">is_prime64</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos"> 3</span>  <span class="c1"># assert 1 &lt;= n and n &lt;= 1&lt;&lt;64 # = 18446744073709551616</span>
+<span class="linenos"> 4</span>  <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos"> 5</span>    <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos"> 6</span>  <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+<span class="linenos"> 7</span>    <span class="k">return</span> <span class="kc">True</span>
+<span class="linenos"> 8</span>  <span class="k">if</span> <span class="ow">not</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos"> 9</span>    <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos">10</span>  <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">61</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">30</span> <span class="k">else</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">325</span><span class="p">,</span> <span class="mi">9375</span><span class="p">,</span> <span class="mi">28178</span><span class="p">,</span> <span class="mi">450775</span><span class="p">,</span> <span class="mi">9780504</span><span class="p">,</span> <span class="mi">1795265022</span><span class="p">)</span>
+<span class="linenos">11</span>  <span class="n">d</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="linenos">12</span>  <span class="n">d</span> <span class="o">&gt;&gt;=</span> <span class="p">(</span><span class="n">d</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="linenos">13</span>  <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">p</span><span class="p">:</span>
+<span class="linenos">14</span>    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">:</span> <span class="k">break</span>
+<span class="linenos">15</span>    <span class="n">t</span> <span class="o">=</span> <span class="n">d</span>
+<span class="linenos">16</span>    <span class="n">y</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="k">while</span> <span class="n">t</span> <span class="o">!=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">!=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+<span class="linenos">18</span>      <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">%</span> <span class="n">n</span>
+<span class="linenos">19</span>      <span class="n">t</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+<span class="linenos">20</span>    <span class="k">if</span> <span class="n">y</span> <span class="o">!=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">t</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">:</span>
+<span class="linenos">21</span>      <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos">22</span>  <span class="k">return</span> <span class="kc">True</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="module-titan_pylib.math.is_prime">
-<span id="titan-pylib-math-is-prime-module"></span><h1>is_prime<a class="headerlink" href="#module-titan_pylib.math.is_prime" title="Link to this heading"></a></h1>
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.math.is_prime" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.math.is_prime.is_prime64">
 <span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">is_prime64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/is_prime.html#is_prime64"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.math.is_prime.is_prime64" title="Link to this definition"></a></dt>
@@ -113,6 +148,7 @@
 </dd>
 </dl>
 </dd></dl>
+</section>
 </section>
 </div>
 </div>

@@ -117,8 +117,63 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
+<section id="titan-pylib-data-structures-array-csr-array-module">
+<h1>csr_array<a class="headerlink" href="#titan-pylib-data-structures-array-csr-array-module" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.data_structures.array.csr_array import CSRArray</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterator</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="linenos"> 4</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="k">class</span> <span class="nc">CSRArray</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="sd">"""CSR形式の配列です</span>
+<span class="linenos"> 8</span><span class="sd">  """</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">11</span><span class="w">    </span><span class="sd">"""2次元配列 ``a`` を CSR 形式にします。</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="sd">    Args:</span>
+<span class="linenos">14</span><span class="sd">      a (List[List[T]]): 変換する2次元配列です。</span>
+<span class="linenos">15</span><span class="sd">    """</span>
+<span class="linenos">16</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="n">start</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+<span class="linenos">18</span>    <span class="n">start</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="linenos">20</span>      <span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">21</span>    <span class="bp">self</span><span class="o">.</span><span class="n">csr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">))</span>
+<span class="linenos">22</span>    <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">start</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">25</span><span class="w">    </span><span class="sd">"""インデックスを指定して値を更新します。</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="sd">    Args:</span>
+<span class="linenos">28</span><span class="sd">      i (int): 行のインデックスです。</span>
+<span class="linenos">29</span><span class="sd">      j (int): 列のインデックスです。</span>
+<span class="linenos">30</span><span class="sd">      val (T): a[i][j] 要素を更新する値です。</span>
+<span class="linenos">31</span><span class="sd">    """</span>
+<span class="linenos">32</span>    <span class="bp">self</span><span class="o">.</span><span class="n">csr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>  <span class="k">def</span> <span class="nf">iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">35</span><span class="w">    </span><span class="sd">"""行を指定してイテレートします。</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span><span class="sd">    Args:</span>
+<span class="linenos">38</span><span class="sd">      i (int): 行のインデックスです。</span>
+<span class="linenos">39</span><span class="sd">      j (int, optional): 列のインデックスです。デフォルトは ``0`` です。</span>
+<span class="linenos">40</span><span class="sd">    """</span>
+<span class="linenos">41</span>    <span class="n">csr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">csr</span>
+<span class="linenos">42</span>    <span class="k">for</span> <span class="n">ij</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">j</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+<span class="linenos">43</span>      <span class="k">yield</span> <span class="n">csr</span><span class="p">[</span><span class="n">ij</span><span class="p">]</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="module-titan_pylib.data_structures.array.csr_array">
-<span id="titan-pylib-data-structures-array-csr-array-module"></span><h1>csr_array<a class="headerlink" href="#module-titan_pylib.data_structures.array.csr_array" title="Link to this heading"></a></h1>
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.array.csr_array" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.array.csr_array.CSRArray">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">CSRArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/array/csr_array.html#CSRArray"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.array.csr_array.CSRArray" title="Link to this definition"></a></dt>
@@ -163,6 +218,7 @@
 </dl>
 </dd></dl>
 </dd></dl>
+</section>
 </section>
 </div>
 </div>

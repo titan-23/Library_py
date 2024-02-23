@@ -52,7 +52,8 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.html#subpackages">Subpackages</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="titan_pylib.algorithm.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">cycle_memo</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#titan_pylib.algorithm.cycle_memo.CycleMemo"><code class="docutils literal notranslate"><span class="pre">CycleMemo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">ソースコード</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-titan_pylib.algorithm.cycle_memo">仕様</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
@@ -92,8 +93,52 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
+<section id="titan-pylib-algorithm-cycle-memo-module">
+<h1>cycle_memo<a class="headerlink" href="#titan-pylib-algorithm-cycle-memo-module" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.algorithm.cycle_memo import CycleMemo</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
+<span class="linenos"> 3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="k">class</span> <span class="nc">CycleMemo</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">move_to</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]):</span>
+<span class="linenos"> 8</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="n">move_to</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">move_to</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">11</span>    <span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">12</span>    <span class="n">memo</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="linenos">13</span>    <span class="n">now</span> <span class="o">=</span> <span class="n">initial</span>
+<span class="linenos">14</span>    <span class="k">while</span> <span class="n">now</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+<span class="linenos">15</span>      <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+<span class="linenos">16</span>      <span class="n">memo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+<span class="linenos">17</span>      <span class="n">now</span> <span class="o">=</span> <span class="n">move_to</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="n">cycle_start</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="n">cycle_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">history</span><span class="p">)</span> <span class="o">-</span> <span class="n">cycle_start</span>
+<span class="linenos">20</span>    <span class="n">pre</span> <span class="o">=</span> <span class="n">history</span><span class="p">[:</span><span class="n">cycle_start</span><span class="p">]</span>
+<span class="linenos">21</span>    <span class="n">cycle</span> <span class="o">=</span> <span class="n">history</span><span class="p">[</span><span class="n">cycle_start</span><span class="p">:]</span>
+<span class="linenos">22</span>    <span class="bp">self</span><span class="o">.</span><span class="n">cycle_start</span> <span class="o">=</span> <span class="n">cycle_start</span>
+<span class="linenos">23</span>    <span class="bp">self</span><span class="o">.</span><span class="n">cycle_len</span> <span class="o">=</span> <span class="n">cycle_len</span>
+<span class="linenos">24</span>    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span> <span class="o">=</span> <span class="n">pre</span>
+<span class="linenos">25</span>    <span class="bp">self</span><span class="o">.</span><span class="n">cycle</span> <span class="o">=</span> <span class="n">cycle</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span>  <span class="k">def</span> <span class="nf">kth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">28</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycle_start</span><span class="p">:</span>
+<span class="linenos">29</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+<span class="linenos">30</span>    <span class="n">k</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycle_start</span>
+<span class="linenos">31</span>    <span class="n">k</span> <span class="o">%=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycle_len</span>
+<span class="linenos">32</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycle</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="module-titan_pylib.algorithm.cycle_memo">
-<span id="titan-pylib-algorithm-cycle-memo-module"></span><h1>cycle_memo<a class="headerlink" href="#module-titan_pylib.algorithm.cycle_memo" title="Link to this heading"></a></h1>
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.algorithm.cycle_memo" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.cycle_memo.CycleMemo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">CycleMemo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">move_to</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/cycle_memo.html#CycleMemo"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.cycle_memo.CycleMemo" title="Link to this definition"></a></dt>
@@ -119,6 +164,7 @@
 </dl>
 </dd></dl>
 </dd></dl>
+</section>
 </section>
 </div>
 </div>

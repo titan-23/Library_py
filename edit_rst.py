@@ -23,8 +23,6 @@ def func(cur_dir, file):
 ソースコード
 ------------
 
-`ソースコードへのリンク <../_build/_modules/titan_pylib/{expanded_file}.html>`
-
 展開済みコード
 ^^^^^^^^^^^^^^
 
@@ -46,7 +44,6 @@ if __name__ == '__main__':
     for file in files:
       if not file.endswith('.rst'):
         continue
-      if 'lazy_splay_tree' in file:
-        func(cur_dir, file)
+      func(cur_dir, file)
 
   print('\nprocess succeeded.')

@@ -74,8 +74,76 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
+<section id="titan-pylib-others-fast-io-module">
+<h1>fast_io<a class="headerlink" href="#titan-pylib-others-fast-io-module" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.others.fast_io import FastIO</span>
+<span class="linenos"> 2</span><span class="kn">import</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">os</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="k">class</span> <span class="nc">FastIO</span><span class="p">():</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>  <span class="c1"># https://recruit.gmo.jp/engineer/jisedai/blog/python_standard_io_with_bytesio/</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>  <span class="n">input_buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="linenos"> 9</span>  <span class="n">output_buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="linenos">10</span>  <span class="n">num_line</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">11</span>  <span class="n">BUFSIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">18</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>  <span class="nd">@classmethod</span>
+<span class="linenos">14</span>  <span class="k">def</span> <span class="nf">input</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="linenos">15</span>    <span class="n">pointer</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+<span class="linenos">16</span>    <span class="k">while</span> <span class="bp">cls</span><span class="o">.</span><span class="n">num_line</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">17</span>      <span class="n">byte_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">BUFSIZE</span><span class="p">)</span>
+<span class="linenos">18</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">num_line</span> <span class="o">=</span> <span class="n">byte_data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="sa">b</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="ow">not</span> <span class="n">byte_data</span><span class="p">)</span>
+<span class="linenos">19</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">20</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+<span class="linenos">21</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pointer</span><span class="p">)</span>
+<span class="linenos">22</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">num_line</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">23</span>    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>  <span class="nd">@classmethod</span>
+<span class="linenos">26</span>  <span class="k">def</span> <span class="nf">buf_input</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="linenos">27</span>    <span class="n">pointer</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+<span class="linenos">28</span>    <span class="k">while</span> <span class="bp">cls</span><span class="o">.</span><span class="n">num_line</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">29</span>      <span class="n">byte_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">BUFSIZE</span><span class="p">)</span>
+<span class="linenos">30</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">num_line</span> <span class="o">=</span> <span class="n">byte_data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="sa">b</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="ow">not</span> <span class="n">byte_data</span><span class="p">)</span>
+<span class="linenos">31</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos">32</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+<span class="linenos">33</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pointer</span><span class="p">)</span>
+<span class="linenos">34</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">num_line</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">35</span>    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">input_buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span>  <span class="nd">@classmethod</span>
+<span class="linenos">38</span>  <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">' '</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="linenos">39</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">40</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">output_buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="linenos">41</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">output_buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sep</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="linenos">42</span>    <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+<span class="linenos">43</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">output_buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="linenos">44</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">output_buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">end</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="linenos">45</span>    <span class="k">if</span> <span class="n">flush</span><span class="p">:</span>
+<span class="linenos">46</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span>  <span class="nd">@classmethod</span>
+<span class="linenos">49</span>  <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="linenos">50</span>    <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">output_buf</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+<span class="linenos">51</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">output_buf</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">52</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">output_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">53</span>
+<span class="linenos">54</span><span class="n">buf_input</span> <span class="o">=</span> <span class="n">FastIO</span><span class="o">.</span><span class="n">buf_input</span>
+<span class="linenos">55</span><span class="nb">input</span> <span class="o">=</span> <span class="n">FastIO</span><span class="o">.</span><span class="n">input</span>
+<span class="linenos">56</span><span class="n">write</span> <span class="o">=</span> <span class="n">FastIO</span><span class="o">.</span><span class="n">write</span>
+<span class="linenos">57</span><span class="n">flush</span> <span class="o">=</span> <span class="n">FastIO</span><span class="o">.</span><span class="n">flush</span>
+<span class="linenos">58</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="module-titan_pylib.others.fast_io">
-<span id="titan-pylib-others-fast-io-module"></span><h1>fast_io<a class="headerlink" href="#module-titan_pylib.others.fast_io" title="Link to this heading"></a></h1>
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.others.fast_io" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.others.fast_io.FastIO">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">FastIO</span></span><a class="reference internal" href="../_modules/titan_pylib/others/fast_io.html#FastIO"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.others.fast_io.FastIO" title="Link to this definition"></a></dt>
@@ -129,6 +197,7 @@
 <dt class="sig sig-object py" id="titan_pylib.others.fast_io.write">
 <span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flush</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#titan_pylib.others.fast_io.write" title="Link to this definition"></a></dt>
 <dd></dd></dl>
+</section>
 </section>
 </div>
 </div>
