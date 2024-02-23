@@ -8,13 +8,13 @@ T = TypeVar('T')
 
 class BTreeList(Generic[T]):
 
-  class Node():
+  class _Node():
 
     def __init__(self):
       self.key: List[T] = []
       self.bit_len: List[int] = []
       self.key_len: int = 0
-      self.child: List['BTreeList.Node'] = []
+      self.child: List['BTreeList._Node'] = []
       self.size: int = 0
       self.sum: int = 0
 
@@ -24,8 +24,8 @@ class BTreeList(Generic[T]):
     def _add_size(self, s):
       self.size += s
 
-    def split(self, i: int) -> 'BTreeList.Node':
-      right = BTreeList.Node()
+    def split(self, i: int) -> 'BTreeList._Node':
+      right = BTreeList._Node()
       self.key, right.key = self.key[:i], self.key[i:]
       self.child, right.child = self.child[:i+1], self.child[i+1:]
       size = len(self.key) + sum(cnode.size for cnode in self.child)
@@ -41,7 +41,7 @@ class BTreeList(Generic[T]):
       self.sum += key if size == -1 else size
       self.key.insert(i, key)
 
-    def insert_child(self, i: int, node: 'BTreeList.Node', size=-1) -> None:
+    def insert_child(self, i: int, node: 'BTreeList._Node', size=-1) -> None:
       self.size += node.size if size == -1 else size
       self.sum += node.sum if size == -1 else size
       self.child.insert(i, node)
@@ -51,7 +51,7 @@ class BTreeList(Generic[T]):
       self.sum += key
       self.key.append(key)
 
-    def append_child(self, node: 'BTreeList.Node', size: int=-1) -> None:
+    def append_child(self, node: 'BTreeList._Node', size: int=-1) -> None:
       self.size += node.size if size == -1 else size
       self.sum += node.sum if size == -1 else size
       self.child.append(node)
@@ -65,7 +65,7 @@ class BTreeList(Generic[T]):
     def len_key(self) -> int:
       return len(self.key)
 
-    def pop_child(self, i: int=-1, size: int=-1) -> 'BTreeList.Node':
+    def pop_child(self, i: int=-1, size: int=-1) -> 'BTreeList._Node':
       cnode = self.child.pop(i)
       self.sum -= cnode.sum if size == -1 else size
       self.size -= cnode.size if size == -1 else size
@@ -76,7 +76,7 @@ class BTreeList(Generic[T]):
       self.sum += sum(keys)
       self.key += keys
 
-    def extend_child(self, children: List['BTreeList.Node']) -> None:
+    def extend_child(self, children: List['BTreeList._Node']) -> None:
       self.size += sum(cnode.size for cnode in children)
       self.sum += sum(cnode.sum for cnode in children)
       self.child += children
@@ -86,10 +86,9 @@ class BTreeList(Generic[T]):
 
     __repr__ = __str__
 
-
   def __init__(self, a: Iterable[T]=[]):
     self._m = 300
-    self._root = BTreeList.Node()
+    self._root = BTreeList._Node()
     self._len = 0
     self._build(a)
 
@@ -134,7 +133,7 @@ class BTreeList(Generic[T]):
   def prod(self, l: int, r: int) -> int:
     return self.pref(r) - self.pref(l)
 
-  def _is_over(self, node: 'BTreeList.Node') -> bool:
+  def _is_over(self, node: 'BTreeList._Node') -> bool:
     return node.len_key() > self._m
 
   def insert(self, k: int, key: T) -> bool:
@@ -172,7 +171,7 @@ class BTreeList(Generic[T]):
       pnode._add_size(1)
       pnode.sum += key
     if self._is_over(node):
-      pnode = BTreeList.Node()
+      pnode = BTreeList._Node()
       i = node.len_key() // 2
       center = node.pop_key(i)
       right = node.split(i)
@@ -209,7 +208,7 @@ class BTreeList(Generic[T]):
       pnode._add_size(1)
       pnode.sum += key
     if self._is_over(node):
-      pnode = BTreeList.Node()
+      pnode = BTreeList._Node()
       i = node.len_key() // 2
       center = node.pop_key(i)
       right = node.split(i)
@@ -219,7 +218,7 @@ class BTreeList(Generic[T]):
       self._root = pnode
     return True
 
-  def _discard_right(self, node: 'BTreeList.Node') -> T:
+  def _discard_right(self, node: 'BTreeList._Node') -> T:
     stack = []
     while not node.is_leaf():
       stack.append(node)
@@ -242,7 +241,7 @@ class BTreeList(Generic[T]):
     self._update_stack(stack, v)
     return v
 
-  def _discard_left(self, node: 'BTreeList.Node') -> T:
+  def _discard_left(self, node: 'BTreeList._Node') -> T:
     stack = []
     while not node.is_leaf():
       stack.append(node)
@@ -265,7 +264,7 @@ class BTreeList(Generic[T]):
     self._update_stack(stack, v)
     return v
 
-  def _merge(self, node: 'BTreeList.Node', i: int) -> 'BTreeList.Node':
+  def _merge(self, node: 'BTreeList._Node', i: int) -> 'BTreeList._Node':
     y = node.child[i]
     z = node.pop_child(i+1, size=0)
     v = node.pop_key(i)
@@ -276,7 +275,7 @@ class BTreeList(Generic[T]):
     y.extend_child(z.child)
     return y
 
-  def _merge_key(self, node: 'BTreeList.Node', i: int) -> None:
+  def _merge_key(self, node: 'BTreeList._Node', i: int) -> None:
     if node.child[i].len_key() > self._m//2:
       node.key[i] = self._discard_right(node.child[i])
       return
@@ -329,7 +328,7 @@ class BTreeList(Generic[T]):
     self._len -= 1
     return self._pop(k, self._root)
 
-  def _pop(self, k: int, node: 'BTreeList.Node') -> T:
+  def _pop(self, k: int, node: 'BTreeList._Node') -> T:
     stack = []
     while True:
       if node.is_leaf():
@@ -381,7 +380,4 @@ class BTreeList(Generic[T]):
     return self._len
 
   def __str__(self):
-    return '[' + ', '.join(map(str, self.tolist())) + ']'
-
-
-
+    return str(self.tolist())

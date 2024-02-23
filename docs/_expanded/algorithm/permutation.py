@@ -59,4 +59,3 @@ class Permutation():
             return True
     return False
 
-

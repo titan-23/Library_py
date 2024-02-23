@@ -368,4 +368,3 @@ class SplayTreeBitVector(BitVectorInterface):
     # k 番目の v のindex
     # O(log(N))
     return self.select1(k) if v else self.select0(k)
-

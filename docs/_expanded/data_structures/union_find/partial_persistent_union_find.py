@@ -71,7 +71,6 @@ class PartialPersistentArray(Generic[T]):
   def __len__(self):
     return len(self.a)
 
-
 class PartialPersistentUnionFind():
 
   def __init__(self, n: int):

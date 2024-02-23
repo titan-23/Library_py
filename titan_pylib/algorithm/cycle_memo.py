@@ -26,4 +26,3 @@ class CycleMemo(Generic[T]):
     k -= self.cycle_start
     k %= self.cycle_len
     return self.cycle[k]
-

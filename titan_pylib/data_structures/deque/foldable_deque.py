@@ -43,4 +43,3 @@ class FoldableDeque(Generic[T]):
 
   def __len__(self):
     return len(self.front) + len(self.back)
-

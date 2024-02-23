@@ -59,4 +59,3 @@ class RandomGraph():
     random.shuffle(edges)
     assert len(edges) == m
     return edges
-

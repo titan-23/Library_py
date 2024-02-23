@@ -32,4 +32,3 @@ class Array2D(Generic[T]):
 
   __repr__ = __str__
 
-

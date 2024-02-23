@@ -623,4 +623,3 @@ class RandomTree():
     edges.append((u, v))
     return edges
 
-

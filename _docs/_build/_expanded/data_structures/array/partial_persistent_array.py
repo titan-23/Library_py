@@ -70,4 +70,3 @@ class PartialPersistentArray(Generic[T]):
   def __len__(self):
     return len(self.a)
 
-

@@ -48,7 +48,6 @@ class BitVectorInterface(ABC):
   @abstractmethod
   def __repr__(self) -> str:
     raise NotImplementedError
-
 from array import array
 from typing import Iterable, List, Final, Sequence
 from __pypy__ import newlist_hint
@@ -737,7 +736,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 # from titan_pylib.data_structures.wavelet_matrix.wavelet_matrix import WaveletMatrix
 # from titan_pylib.data_structures.bit_vector.bit_vector import BitVector
 from array import array
@@ -878,7 +876,6 @@ class BitVector(BitVectorInterface):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 from typing import Sequence, List, Tuple
 from heapq import heappush, heappop
 from array import array

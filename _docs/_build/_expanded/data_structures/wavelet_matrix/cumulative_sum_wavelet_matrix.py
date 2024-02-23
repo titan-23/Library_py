@@ -48,7 +48,6 @@ class BitVectorInterface(ABC):
   @abstractmethod
   def __repr__(self) -> str:
     raise NotImplementedError
-
 from array import array
 
 class BitVector(BitVectorInterface):
@@ -187,7 +186,6 @@ class BitVector(BitVectorInterface):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 # from titan_pylib.data_structures.cumulative_sum.cumulative_sum import CumulativeSum
 from typing import Iterable
 
@@ -214,7 +212,6 @@ class CumulativeSum():
 
   def pref(self, r: int) -> int:
     """区間 ``[0, r)`` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -226,7 +223,6 @@ class CumulativeSum():
 
   def all_sum(self) -> int:
     """区間 `[0, n)` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -237,7 +233,6 @@ class CumulativeSum():
 
   def sum(self, l: int, r: int) -> int:
     """区間 `[l, r)` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -263,7 +258,6 @@ class CumulativeSum():
     return str(self.acc)
 
   __repr__ = __str__
-
 from array import array
 from typing import List, Tuple, Sequence
 from bisect import bisect_left

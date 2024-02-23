@@ -12,7 +12,7 @@ class Random():
   標準ライブラリよりも高速なつもりでいます。
   '''
 
-  def __init__(self):
+  def __init__(self) -> None:
     self._x = 123456789
     self._y = 362436069
     self._z = 521288629
@@ -33,6 +33,9 @@ class Random():
   def randint(self, begin: int, end: int) -> int:
     """``begin`` 以上 ``end`` **以下** のランダムな整数を返します。
     :math:`O(1)` です。
+
+    制約:
+      :math:`begin \\leq end`
     """
     assert begin <= end
     return begin + self._xor() % (end - begin + 1)
@@ -40,12 +43,15 @@ class Random():
   def randrange(self, begin: int, end: int) -> int:
     """``begin`` 以上 ``end`` **未満** のランダムな整数を返します。
     :math:`O(1)` です。
+
+    制約:
+      :math:`begin < end`
     """
     assert begin < end
     return begin + self._xor() % (end - begin)
 
   def shuffle(self, a: List[Any]) -> None:
-    """``a``をインプレースにシャッフルします。
+    """``a`` をインプレースにシャッフルします。
     :math:`O(n)` です。
 
     Args:
@@ -55,7 +61,6 @@ class Random():
     for i in range(n-1):
       j = self.randrange(i, n)
       a[i], a[j] = a[j], a[i]
-
 
 class State():
 

@@ -24,7 +24,6 @@ class CumulativeSum():
 
   def pref(self, r: int) -> int:
     """区間 ``[0, r)`` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -36,7 +35,6 @@ class CumulativeSum():
 
   def all_sum(self) -> int:
     """区間 `[0, n)` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -47,7 +45,6 @@ class CumulativeSum():
 
   def sum(self, l: int, r: int) -> int:
     """区間 `[l, r)` の演算結果を返します。
-
     :math:`O(1)` です。
 
     Args:
@@ -73,5 +70,4 @@ class CumulativeSum():
     return str(self.acc)
 
   __repr__ = __str__
-
 

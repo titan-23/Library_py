@@ -48,7 +48,6 @@ class BitVectorInterface(ABC):
   @abstractmethod
   def __repr__(self) -> str:
     raise NotImplementedError
-
 from array import array
 
 class BitVector(BitVectorInterface):
@@ -187,7 +186,6 @@ class BitVector(BitVectorInterface):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
 from typing import List, Union, Iterable, Optional
 

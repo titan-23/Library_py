@@ -101,83 +101,88 @@
 <h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.algorithm.parser import Parser</span>
 <span class="linenos"> 2</span><span class="k">class</span> <span class="nc">Parser</span><span class="p">():</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="w">  </span><span class="sd">'''Parser</span>
-<span class="linenos"> 5</span><span class="sd">  expression: &lt; 四則演算の式 &gt; ::= &lt; 乗算除算の式 &gt; (+ or -) &lt; 乗算除算の式 &gt; (+ or -) ...</span>
-<span class="linenos"> 6</span><span class="sd">  term      : &lt; 乗算除算の式 &gt; ::= &lt; 括弧か数 &gt; (* or /) &lt; 括弧か数 &gt; (* or /) ...</span>
-<span class="linenos"> 7</span><span class="sd">  term2 など</span>
-<span class="linenos"> 8</span>
-<span class="linenos"> 9</span><span class="sd">  factor    : &lt; 括弧か数 &gt;     ::= '(' &lt; 四則演算の式 &gt; ')' or &lt; 数 &gt;</span>
-<span class="linenos">10</span><span class="sd">  number    : &lt; 数 &gt;          ::= ...</span>
-<span class="linenos">11</span><span class="sd">  '''</span>
-<span class="linenos">12</span>
-<span class="linenos">13</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="linenos">14</span>    <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">s</span>
-<span class="linenos">15</span>    <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="linenos">16</span>    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">17</span>
-<span class="linenos">18</span>  <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">19</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="p">()</span>
-<span class="linenos">20</span>
-<span class="linenos">21</span>  <span class="c1"># 四則演算の式をパースして、その評価結果を返す。</span>
-<span class="linenos">22</span>  <span class="k">def</span> <span class="nf">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">23</span>    <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term</span><span class="p">()</span>
-<span class="linenos">24</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
-<span class="linenos">25</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'+'</span><span class="p">:</span>
-<span class="linenos">26</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'+'</span><span class="p">)</span>
-<span class="linenos">27</span>        <span class="n">ret</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term</span><span class="p">()</span>
-<span class="linenos">28</span>      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'-'</span><span class="p">:</span>
-<span class="linenos">29</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
-<span class="linenos">30</span>        <span class="n">ret</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term</span><span class="p">()</span>
-<span class="linenos">31</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">32</span>        <span class="k">break</span>
-<span class="linenos">33</span>    <span class="k">return</span> <span class="n">ret</span>
-<span class="linenos">34</span>
-<span class="linenos">35</span>  <span class="c1"># 乗算除算の式をパースして、その評価結果を返す。</span>
-<span class="linenos">36</span>  <span class="k">def</span> <span class="nf">term</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">37</span>    <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
-<span class="linenos">38</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
-<span class="linenos">39</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'*'</span><span class="p">:</span>
-<span class="linenos">40</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'*'</span><span class="p">)</span>
-<span class="linenos">41</span>        <span class="n">ret</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
-<span class="linenos">42</span>      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'/'</span><span class="p">:</span>
-<span class="linenos">43</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
-<span class="linenos">44</span>        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>  <span class="c1"># 切り捨て</span>
-<span class="linenos">45</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">46</span>        <span class="k">break</span>
-<span class="linenos">47</span>    <span class="k">return</span> <span class="n">ret</span>
-<span class="linenos">48</span>
-<span class="linenos">49</span>  <span class="c1"># 括弧か数をパースして、その評価結果を返す。</span>
-<span class="linenos">50</span>  <span class="k">def</span> <span class="nf">factor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">51</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
-<span class="linenos">52</span>      <span class="k">return</span> <span class="mi">0</span>
-<span class="linenos">53</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'('</span><span class="p">:</span>
-<span class="linenos">54</span>      <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'('</span><span class="p">)</span>
-<span class="linenos">55</span>      <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="p">()</span>
-<span class="linenos">56</span>      <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">')'</span><span class="p">)</span>
-<span class="linenos">57</span>      <span class="k">return</span> <span class="n">ret</span>
-<span class="linenos">58</span>    <span class="k">else</span><span class="p">:</span>
-<span class="linenos">59</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">()</span>
-<span class="linenos">60</span>
-<span class="linenos">61</span>  <span class="c1"># 数字の列をパースして、その数を返す。</span>
-<span class="linenos">62</span>  <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">63</span>    <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">64</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-<span class="linenos">65</span>      <span class="n">ret</span> <span class="o">*=</span> <span class="mi">10</span>
-<span class="linenos">66</span>      <span class="n">ret</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">())</span>
-<span class="linenos">67</span>      <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">68</span>    <span class="k">return</span> <span class="n">ret</span>
-<span class="linenos">69</span>
-<span class="linenos">70</span>  <span class="c1"># begin が expected を指していたら begin を一つ進める。</span>
-<span class="linenos">71</span>  <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expected</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">72</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">==</span> <span class="n">expected</span><span class="p">,</span> \
-<span class="linenos">73</span>        <span class="sa">f</span><span class="s1">'Expected: </span><span class="si">{</span><span class="n">expected</span><span class="si">}</span><span class="s1"> but got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span><span class="si">}</span><span class="s1">, s=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="si">}</span><span class="s1">'</span>
-<span class="linenos">74</span>    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">75</span>
-<span class="linenos">76</span>  <span class="k">def</span> <span class="nf">get_char</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">77</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span>
-<span class="linenos">78</span>
-<span class="linenos">79</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="sd">"""Parser</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="sd">  Examples:</span>
+<span class="linenos"> 6</span><span class="sd">    expression: &lt; 四則演算の式 &gt; ::= &lt; 乗算除算の式 &gt; (+ or -) &lt; 乗算除算の式 &gt; (+ or -) ...</span>
+<span class="linenos"> 7</span><span class="sd">    term      : &lt; 乗算除算の式 &gt; ::= &lt; 括弧か数 &gt; (* or /) &lt; 括弧か数 &gt; (* or /) ...</span>
+<span class="linenos"> 8</span><span class="sd">    term2 など</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="sd">    factor    : &lt; 括弧か数 &gt;     ::= '(' &lt; 四則演算の式 &gt; ')' or &lt; 数 &gt;</span>
+<span class="linenos">11</span><span class="sd">    number    : &lt; 数 &gt;          ::= ...</span>
+<span class="linenos">12</span><span class="sd">  """</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">15</span>    <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">s</span>
+<span class="linenos">16</span>    <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>  <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">20</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="p">()</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>  <span class="k">def</span> <span class="nf">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">23</span><span class="w">    </span><span class="sd">"""四則演算の式をパースして、その評価結果を返す。</span>
+<span class="linenos">24</span><span class="sd">    """</span>
+<span class="linenos">25</span>    <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term</span><span class="p">()</span>
+<span class="linenos">26</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+<span class="linenos">27</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'+'</span><span class="p">:</span>
+<span class="linenos">28</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'+'</span><span class="p">)</span>
+<span class="linenos">29</span>        <span class="n">ret</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term</span><span class="p">()</span>
+<span class="linenos">30</span>      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'-'</span><span class="p">:</span>
+<span class="linenos">31</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
+<span class="linenos">32</span>        <span class="n">ret</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term</span><span class="p">()</span>
+<span class="linenos">33</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">34</span>        <span class="k">break</span>
+<span class="linenos">35</span>    <span class="k">return</span> <span class="n">ret</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span>  <span class="k">def</span> <span class="nf">term</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">38</span><span class="w">    </span><span class="sd">"""乗算除算の式をパースして、その評価結果を返す。</span>
+<span class="linenos">39</span><span class="sd">    """</span>
+<span class="linenos">40</span>    <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
+<span class="linenos">41</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+<span class="linenos">42</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'*'</span><span class="p">:</span>
+<span class="linenos">43</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'*'</span><span class="p">)</span>
+<span class="linenos">44</span>        <span class="n">ret</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
+<span class="linenos">45</span>      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'/'</span><span class="p">:</span>
+<span class="linenos">46</span>        <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
+<span class="linenos">47</span>        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>  <span class="c1"># 切り捨て</span>
+<span class="linenos">48</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">49</span>        <span class="k">break</span>
+<span class="linenos">50</span>    <span class="k">return</span> <span class="n">ret</span>
+<span class="linenos">51</span>
+<span class="linenos">52</span>  <span class="k">def</span> <span class="nf">factor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">53</span><span class="w">    </span><span class="sd">"""括弧か数をパースして、その評価結果を返す。</span>
+<span class="linenos">54</span><span class="sd">    """</span>
+<span class="linenos">55</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+<span class="linenos">56</span>      <span class="k">return</span> <span class="mi">0</span>
+<span class="linenos">57</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'('</span><span class="p">:</span>
+<span class="linenos">58</span>      <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">'('</span><span class="p">)</span>
+<span class="linenos">59</span>      <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="p">()</span>
+<span class="linenos">60</span>      <span class="bp">self</span><span class="o">.</span><span class="n">consume</span><span class="p">(</span><span class="s1">')'</span><span class="p">)</span>
+<span class="linenos">61</span>      <span class="k">return</span> <span class="n">ret</span>
+<span class="linenos">62</span>    <span class="k">else</span><span class="p">:</span>
+<span class="linenos">63</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">()</span>
+<span class="linenos">64</span>
+<span class="linenos">65</span>  <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">66</span><span class="w">    </span><span class="sd">"""数字の列をパースして、その数を返す。</span>
+<span class="linenos">67</span><span class="sd">    """</span>
+<span class="linenos">68</span>    <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">69</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">()</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+<span class="linenos">70</span>      <span class="n">ret</span> <span class="o">*=</span> <span class="mi">10</span>
+<span class="linenos">71</span>      <span class="n">ret</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_char</span><span class="p">())</span>
+<span class="linenos">72</span>      <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">73</span>    <span class="k">return</span> <span class="n">ret</span>
+<span class="linenos">74</span>
+<span class="linenos">75</span>  <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expected</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">76</span><span class="w">    </span><span class="sd">"""begin が expected を指していたら begin を一つ進める。</span>
+<span class="linenos">77</span><span class="sd">    """</span>
+<span class="linenos">78</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span> <span class="o">==</span> <span class="n">expected</span><span class="p">,</span> \
+<span class="linenos">79</span>        <span class="sa">f</span><span class="s1">'Expected: </span><span class="si">{</span><span class="n">expected</span><span class="si">}</span><span class="s1"> but got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span><span class="si">}</span><span class="s1">, s=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos">80</span>    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">81</span>
+<span class="linenos">82</span>  <span class="k">def</span> <span class="nf">get_char</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">83</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ptr</span><span class="p">]</span>
+<span class="linenos">84</span>
 </pre></div>
 </div>
 </section>
@@ -188,6 +193,7 @@
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">サンプル</p>
 <p>expression: &lt; 四則演算の式 &gt; ::= &lt; 乗算除算の式 &gt; (+ or -) &lt; 乗算除算の式 &gt; (+ or -) ...
 term      : &lt; 乗算除算の式 &gt; ::= &lt; 括弧か数 &gt; (* or /) &lt; 括弧か数 &gt; (* or /) ...
 term2 など</p>
@@ -196,31 +202,36 @@ number    : &lt; 数 &gt;          ::= ...</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.consume">
 <span class="sig-name descname"><span class="pre">consume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.consume"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.consume" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>begin が expected を指していたら begin を一つ進める。</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.expression">
-<span class="sig-name descname"><span class="pre">expression</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.expression"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.expression" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">expression</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.expression"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.expression" title="Link to this definition"></a></dt>
+<dd><p>四則演算の式をパースして、その評価結果を返す。</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.factor">
-<span class="sig-name descname"><span class="pre">factor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.factor"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.factor" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">factor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.factor"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.factor" title="Link to this definition"></a></dt>
+<dd><p>括弧か数をパースして、その評価結果を返す。</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.get_char">
-<span class="sig-name descname"><span class="pre">get_char</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.get_char"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.get_char" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_char</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.get_char"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.get_char" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.number">
 <span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.number"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.number" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>数字の列をパースして、その数を返す。</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.parse">
-<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.parse"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.parse" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.parse"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.parse" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.term">
-<span class="sig-name descname"><span class="pre">term</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.term"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.term" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">term</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.term"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.term" title="Link to this definition"></a></dt>
+<dd><p>乗算除算の式をパースして、その評価結果を返す。</p>
+</dd></dl>
 </dd></dl>
 </section>
 </section>

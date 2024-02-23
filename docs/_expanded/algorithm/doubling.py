@@ -44,4 +44,3 @@ class Doubling(Generic[T]):
       k >>= 1
     return now
 
-

@@ -24,4 +24,3 @@ def bubble_sort(a: List[T], key: Callable[[T, T], bool]=lambda s, t: s < t, inpl
     if flag:
       break
   return a
-

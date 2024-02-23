@@ -444,4 +444,3 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
   def __repr__(self):
     return f'BinaryTrieMultiset({(1<<self.bit)-1}, {self.tolist()})'
 
-

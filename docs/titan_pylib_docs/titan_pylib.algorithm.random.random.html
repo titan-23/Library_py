@@ -107,7 +107,7 @@
 <span class="linenos"> 7</span><span class="sd">  標準ライブラリよりも高速なつもりでいます。</span>
 <span class="linenos"> 8</span><span class="sd">  '''</span>
 <span class="linenos"> 9</span>
-<span class="linenos">10</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">10</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">11</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="mi">123456789</span>
 <span class="linenos">12</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="mi">362436069</span>
 <span class="linenos">13</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="mi">521288629</span>
@@ -128,30 +128,35 @@
 <span class="linenos">28</span>  <span class="k">def</span> <span class="nf">randint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">begin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">29</span><span class="w">    </span><span class="sd">"""``begin`` 以上 ``end`` **以下** のランダムな整数を返します。</span>
 <span class="linenos">30</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos">31</span><span class="sd">    """</span>
-<span class="linenos">32</span>    <span class="k">assert</span> <span class="n">begin</span> <span class="o">&lt;=</span> <span class="n">end</span>
-<span class="linenos">33</span>    <span class="k">return</span> <span class="n">begin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">()</span> <span class="o">%</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">34</span>
-<span class="linenos">35</span>  <span class="k">def</span> <span class="nf">randrange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">begin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">36</span><span class="w">    </span><span class="sd">"""``begin`` 以上 ``end`` **未満** のランダムな整数を返します。</span>
-<span class="linenos">37</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos">38</span><span class="sd">    """</span>
-<span class="linenos">39</span>    <span class="k">assert</span> <span class="n">begin</span> <span class="o">&lt;</span> <span class="n">end</span>
-<span class="linenos">40</span>    <span class="k">return</span> <span class="n">begin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">()</span> <span class="o">%</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span><span class="p">)</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="sd">    制約:</span>
+<span class="linenos">33</span><span class="sd">      :math:`begin \\leq end`</span>
+<span class="linenos">34</span><span class="sd">    """</span>
+<span class="linenos">35</span>    <span class="k">assert</span> <span class="n">begin</span> <span class="o">&lt;=</span> <span class="n">end</span>
+<span class="linenos">36</span>    <span class="k">return</span> <span class="n">begin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">()</span> <span class="o">%</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span>  <span class="k">def</span> <span class="nf">randrange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">begin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">39</span><span class="w">    </span><span class="sd">"""``begin`` 以上 ``end`` **未満** のランダムな整数を返します。</span>
+<span class="linenos">40</span><span class="sd">    :math:`O(1)` です。</span>
 <span class="linenos">41</span>
-<span class="linenos">42</span>  <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">43</span><span class="w">    </span><span class="sd">"""``a``をインプレースにシャッフルします。</span>
-<span class="linenos">44</span><span class="sd">    :math:`O(n)` です。</span>
-<span class="linenos">45</span>
-<span class="linenos">46</span><span class="sd">    Args:</span>
-<span class="linenos">47</span><span class="sd">      a (List[Any]): ``a`` をシャッフルします。</span>
-<span class="linenos">48</span><span class="sd">    """</span>
-<span class="linenos">49</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="linenos">50</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-<span class="linenos">51</span>      <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<span class="linenos">52</span>      <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="linenos">53</span>
-<span class="linenos">54</span>
+<span class="linenos">42</span><span class="sd">    制約:</span>
+<span class="linenos">43</span><span class="sd">      :math:`begin &lt; end`</span>
+<span class="linenos">44</span><span class="sd">    """</span>
+<span class="linenos">45</span>    <span class="k">assert</span> <span class="n">begin</span> <span class="o">&lt;</span> <span class="n">end</span>
+<span class="linenos">46</span>    <span class="k">return</span> <span class="n">begin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">()</span> <span class="o">%</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span><span class="p">)</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span>  <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">49</span><span class="w">    </span><span class="sd">"""``a`` をインプレースにシャッフルします。</span>
+<span class="linenos">50</span><span class="sd">    :math:`O(n)` です。</span>
+<span class="linenos">51</span>
+<span class="linenos">52</span><span class="sd">    Args:</span>
+<span class="linenos">53</span><span class="sd">      a (List[Any]): ``a`` をシャッフルします。</span>
+<span class="linenos">54</span><span class="sd">    """</span>
+<span class="linenos">55</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="linenos">56</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">57</span>      <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">58</span>      <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">59</span>
 </pre></div>
 </div>
 </section>
@@ -169,6 +174,10 @@
 <span class="sig-name descname"><span class="pre">randint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/random/random.html#Random.randint"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.random.random.Random.randint" title="Link to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">begin</span></code> 以上 <code class="docutils literal notranslate"><span class="pre">end</span></code> <strong>以下</strong> のランダムな整数を返します。
 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="simple">
+<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(begin \leq end\)</span></p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.random.random.Random.random">
@@ -181,11 +190,15 @@
 <span class="sig-name descname"><span class="pre">randrange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/random/random.html#Random.randrange"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.random.random.Random.randrange" title="Link to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">begin</span></code> 以上 <code class="docutils literal notranslate"><span class="pre">end</span></code> <strong>未満</strong> のランダムな整数を返します。
 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dl class="simple">
+<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(begin &lt; end\)</span></p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.random.random.Random.shuffle">
 <span class="sig-name descname"><span class="pre">shuffle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/random/random.html#Random.shuffle"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.random.random.Random.shuffle" title="Link to this definition"></a></dt>
-<dd><p><a href="#id4"><span class="problematic" id="id5">``</span></a>a``をインプレースにシャッフルします。
+<dd><p><code class="docutils literal notranslate"><span class="pre">a</span></code> をインプレースにシャッフルします。
 <span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>

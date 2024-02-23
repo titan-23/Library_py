@@ -104,17 +104,17 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class BTreeSet(OrderedSetInterface, Generic[T]):
 
-  class Node():
+  class _Node():
 
     def __init__(self):
       self.key: List = []
-      self.child: List['BTreeSet.Node'] = []
+      self.child: List['BTreeSet._Node'] = []
 
     def is_leaf(self) -> bool:
       return not self.child
 
-    def split(self, i: int) -> 'BTreeSet.Node':
-      right = BTreeSet.Node()
+    def split(self, i: int) -> 'BTreeSet._Node':
+      right = BTreeSet._Node()
       self.key, right.key = self.key[:i], self.key[i:]
       self.child, right.child = self.child[:i+1], self.child[i+1:]
       return right
@@ -122,13 +122,13 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     def insert_key(self, i: int, key: T) -> None:
       self.key.insert(i, key)
 
-    def insert_child(self, i: int, node: 'BTreeSet.Node') -> None:
+    def insert_child(self, i: int, node: 'BTreeSet._Node') -> None:
       self.child.insert(i, node)
 
     def append_key(self, key: T) -> None:
       self.key.append(key)
 
-    def append_child(self, node: 'BTreeSet.Node') -> None:
+    def append_child(self, node: 'BTreeSet._Node') -> None:
       self.child.append(node)
 
     def pop_key(self, i: int=-1) -> T:
@@ -140,13 +140,13 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     def insort_key(self, key: T) -> None:
       insort(self.key, key)
 
-    def pop_child(self, i: int=-1) -> 'BTreeSet.Node':
+    def pop_child(self, i: int=-1) -> 'BTreeSet._Node':
       return self.child.pop(i)
 
     def extend_key(self, keys: List[T]) -> None:
       self.key += keys
 
-    def extend_child(self, children: List['BTreeSet.Node']) -> None:
+    def extend_child(self, children: List['BTreeSet._Node']) -> None:
       self.child += children
 
     def __str__(self):
@@ -156,7 +156,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]):
     self._m: int = 1000
-    self._root: 'BTreeSet.Node' = BTreeSet.Node()
+    self._root: 'BTreeSet._Node' = BTreeSet._Node()
     self._len: int = 0
     self._build(a)
 
@@ -164,7 +164,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     for e in a:
       self.add(e)
 
-  def _is_over(self, node: 'BTreeSet.Node') -> bool:
+  def _is_over(self, node: 'BTreeSet._Node') -> bool:
     return node.len_key() > self._m
 
   def add(self, key: T) -> bool:
@@ -192,7 +192,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
       pnode.insert_child(indx+1, right)
       node = pnode
     if self._is_over(node):
-      pnode = BTreeSet.Node()
+      pnode = BTreeSet._Node()
       i = node.len_key() // 2
       center = node.pop_key(i)
       right = node.split(i)
@@ -213,7 +213,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
       node = node.child[i]
     return False
 
-  def _discard_right(self, node: 'BTreeSet.Node') -> T:
+  def _discard_right(self, node: 'BTreeSet._Node') -> T:
     while not node.is_leaf():
       if node.child[-1].len_key() == self._m//2:
         if node.child[-2].len_key() > self._m//2:
@@ -232,7 +232,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
       node = node.child[-1]
     return node.pop_key()
 
-  def _discard_left(self, node: 'BTreeSet.Node') -> T:
+  def _discard_left(self, node: 'BTreeSet._Node') -> T:
     while not node.is_leaf():
       if node.child[0].len_key() == self._m//2:
         if node.child[1].len_key() > self._m//2:
@@ -251,7 +251,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
       node = node.child[0]
     return node.pop_key(0)
 
-  def _merge(self, node: 'BTreeSet.Node', i: int) -> 'BTreeSet.Node':
+  def _merge(self, node: 'BTreeSet._Node', i: int) -> 'BTreeSet._Node':
     y = node.child[i]
     z = node.pop_child(i+1)
     y.append_key(node.pop_key(i))
@@ -259,7 +259,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     y.extend_child(z.child)
     return y
 
-  def _merge_key(self, key: T, node: 'BTreeSet.Node', i: int) -> None:
+  def _merge_key(self, key: T, node: 'BTreeSet._Node', i: int) -> None:
     if node.child[i].len_key() > self._m//2:
       node.key[i] = self._discard_right(node.child[i])
       return
@@ -271,7 +271,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     if node is self._root and not node.key:
       self._root = y
 
-  def _discard(self, key: T, node: Optional['BTreeSet.Node']=None) -> bool:
+  def _discard(self, key: T, node: Optional['BTreeSet._Node']=None) -> bool:
     if node is None:
       node = self._root
     if not node.key:
@@ -353,7 +353,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
   def debug(self) -> None:
     dep = [[] for _ in range(10)]
-    dq: Deque[Tuple['BTreeSet.Node', int]] = deque([(self._root, 0)])
+    dq: Deque[Tuple['BTreeSet._Node', int]] = deque([(self._root, 0)])
     while dq:
       node, d = dq.popleft()
       dep[d].append(node.key)
@@ -429,7 +429,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     return res
 
   def clear(self) -> None:
-    self._root = BTreeSet.Node()
+    self._root = BTreeSet._Node()
 
   def __iter__(self):
     self._iter_val = self.get_min()
@@ -453,5 +453,4 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self.tolist()})'
-
 

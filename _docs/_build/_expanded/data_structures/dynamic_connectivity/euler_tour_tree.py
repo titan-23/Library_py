@@ -307,7 +307,6 @@ class EulerTourTree(Generic[T, F]):
 
   def link(self, u: int, v: int) -> None:
     """辺 ``{u, v}`` を追加します。
-
     :math:`O(\\log{n})` です。
 
     Note:
@@ -331,7 +330,6 @@ class EulerTourTree(Generic[T, F]):
 
   def cut(self, u: int, v: int) -> None:
     """辺 ``{u, v}`` を削除します。
-
     :math:`O(\\log{n})` です。
 
     Note:
@@ -355,7 +353,6 @@ class EulerTourTree(Generic[T, F]):
     """
     頂点 ``u`` と ``v`` が同じ連結成分にいる場合はなにもせず ``False`` を返します。
     そうでない場合は辺 ``{u, v}`` を追加し ``True`` を返します。
-
     :math:`O(\\log{n})` です。
     """
     if self.same(u, v):
@@ -367,7 +364,6 @@ class EulerTourTree(Generic[T, F]):
     """
     辺 ``{u, v}`` が存在しない場合はなにもせず ``False`` を返します。
     そうでない場合は辺 ``{u, v}`` を削除し ``True`` を返します。
-
     :math:`O(\\log{n})` です。
     """
     if u*self.n+v not in self.ptr_edge or v*self.n+v not in self.ptr_edge:
@@ -377,7 +373,6 @@ class EulerTourTree(Generic[T, F]):
 
   def leader(self, v: int) -> Node:
     """頂点 ``v`` を含む木の代表元を返します。
-
     :math:`O(\\log{n})` です。
 
     Note:
@@ -485,14 +480,12 @@ class EulerTourTree(Generic[T, F]):
 
   def group_count(self) -> int:
     """連結成分の個数を返します。
-
     :math:`O(1)` です。
     """
     return self._group_numbers
 
   def get_vertex(self, v: int) -> T:
     """頂点 ``v`` の ``key`` を返します。
-
     :math:`O(\\log{n})` です。
     """
     node = self.ptr_vertex[v]
@@ -501,7 +494,6 @@ class EulerTourTree(Generic[T, F]):
 
   def set_vertex(self, v: int, val: T) -> None:
     """頂点 ``v`` の ``key`` を ``val`` に更新します。
-
     :math:`O(\\log{n})` です。
     """
     node = self.ptr_vertex[v]
@@ -514,5 +506,4 @@ class EulerTourTree(Generic[T, F]):
 
   def __setitem__(self, v: int, val: T) -> None:
     return self.set_vertex(v, val)
-
 

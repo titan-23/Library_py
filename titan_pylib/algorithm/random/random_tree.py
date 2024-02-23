@@ -87,4 +87,3 @@ class RandomTree():
     D[v] -= 1
     edges.append((u, v))
     return edges
-

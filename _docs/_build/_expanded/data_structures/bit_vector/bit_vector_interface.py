@@ -47,4 +47,3 @@ class BitVectorInterface(ABC):
   def __repr__(self) -> str:
     raise NotImplementedError
 
-

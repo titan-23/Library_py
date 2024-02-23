@@ -47,7 +47,6 @@ class BitVectorInterface(ABC):
   @abstractmethod
   def __repr__(self) -> str:
     raise NotImplementedError
-
 from typing import Sequence, List
 from array import array
 
@@ -417,5 +416,4 @@ class SplayTreeBitVector(BitVectorInterface):
     # k 番目の v のindex
     # O(log(N))
     return self.select1(k) if v else self.select0(k)
-
 

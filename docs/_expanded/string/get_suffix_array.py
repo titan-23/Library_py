@@ -448,7 +448,6 @@ def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
       res.append(right[j])
     return res
   return _sort(list(a))
-
 from typing import List
 
 def get_suffix_array(s: str, hs: HashString) -> List[int]:

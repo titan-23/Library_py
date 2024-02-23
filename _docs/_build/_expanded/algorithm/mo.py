@@ -124,4 +124,3 @@ class Mo():
         delete_right(nr)
       out(rli & msk)
 
-

@@ -57,4 +57,3 @@ class Permutation():
               q -= 1
             return True
     return False
-

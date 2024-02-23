@@ -356,4 +356,3 @@ class BinaryTrieSet(OrderedSetInterface):
 
   def __repr__(self):
     return f'BinaryTrieSet({(1<<self.bit)-1}, {self})'
-

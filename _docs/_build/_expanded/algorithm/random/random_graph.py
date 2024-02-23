@@ -61,4 +61,3 @@ class RandomGraph():
     assert len(edges) == m
     return edges
 
-

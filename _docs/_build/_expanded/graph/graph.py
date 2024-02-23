@@ -43,7 +43,6 @@ class CSRArray(Generic[T]):
     for ij in range(self.start[i]+j, self.start[i+1]):
       yield csr[ij]
 
-
 class Graph():
 
   def __init__(self, n: int) -> None:
