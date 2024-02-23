@@ -113,4 +113,3 @@ class DynamicWaveletMatrix(WaveletMatrix):
 
   def __str__(self):
     return f'{self.__class__.__name__}({[self[i] for i in range(self.size)]})'
-
