@@ -1,9 +1,8 @@
-from titan_pylib.data_structures.segment_tree.lazy_segment_tree import LazySegmentTree
 from typing import Union, Callable, List, TypeVar, Generic, Iterable
 T = TypeVar('T')
 F = TypeVar('F')
 
-class LazySegmentTreeRange(Generic[T, F], LazySegmentTree[T, F]):
+class LazySegmentTreeRange(Generic[T, F]):
   """遅延セグ木です。
   """
 
@@ -48,9 +47,9 @@ class LazySegmentTreeRange(Generic[T, F], LazySegmentTree[T, F]):
     self.data[k] = self.op(self.data[k<<1], self.data[k<<1|1], self.size_data[k])
 
   def _all_apply(self, k: int, f: F) -> None:
-    self.data[k] = self.mapping(f, self.data[k])
+    self.data[k] = self.mapping(f, self.data[k], self.size_data[k])
     if k >= self.size: return
-    self.lazy[k] = self.composition(f, self.lazy[k])
+    self.lazy[k] = self.composition(f, self.lazy[k], self.size_data[k])
 
   def _propagate(self, k: int) -> None:
     self._all_apply(k<<1, self.lazy[k])
@@ -61,7 +60,7 @@ class LazySegmentTreeRange(Generic[T, F], LazySegmentTree[T, F]):
     k += self.size
     for i in range(self.log, 0, -1):
       self._propagate(k >> i)
-    self.data[k] = self.mapping(f, self.data[k])
+    self.data[k] = self.mapping(f, self.data[k], self.size_data[k])
     for i in range(1, self.log+1):
       self._update(k >> i)
 
@@ -97,7 +96,7 @@ class LazySegmentTreeRange(Generic[T, F], LazySegmentTree[T, F]):
         self._update(rr)
 
   def all_apply(self, f: F) -> None:
-    self.lazy[1] = self.composition(f, self.lazy[1])
+    self.lazy[1] = self.composition(f, self.lazy[1], self.size_data[1])
 
   def prod(self, l: int, r: int) -> T:
     assert 0 <= l <= r <= self.n, \
@@ -114,15 +113,19 @@ class LazySegmentTreeRange(Generic[T, F], LazySegmentTree[T, F]):
         self._propagate(rr)
     lres = self.e
     rres = self.e
+    lsize = 1
+    rsize = 1
     while l < r:
       if l & 1:
-        lres = self.op(lres, self.data[l])
+        lsize += self.size_data[l]
+        lres = self.op(lres, self.data[l], lsize)
         l += 1
       if r & 1:
-        rres = self.op(self.data[r^1], rres)
+        rsize += self.size_data[r^1]
+        rres = self.op(self.data[r^1], rres, rsize)
       l >>= 1
       r >>= 1
-    return self.op(lres, rres)
+    return self.op(lres, rres, lsize+rsize)
 
   def all_prod(self) -> T:
     return self.data[1]
@@ -134,58 +137,6 @@ class LazySegmentTreeRange(Generic[T, F], LazySegmentTree[T, F]):
   def tolist(self) -> List[T]:
     self.all_propagate()
     return self.data[self.size:self.size+self.n]
-
-  def max_right(self, l, f) -> int:
-    assert 0 <= l <= self.n
-    assert f(self.e)
-    if l == self.size:
-      return self.n
-    l += self.size
-    for i in range(self.log, 0, -1):
-      self._propagate(l >> i)
-    s = self.e
-    while True:
-      while l & 1 == 0:
-        l >>= 1
-      if not f(self.op(s, self.data[l])):
-        while l < self.size:
-          self._propagate(l)
-          l <<= 1
-          if f(self.op(s, self.data[l])):
-            s = self.op(s, self.data[l])
-            l |= 1
-        return l - self.size
-      s = self.op(s, self.data[l])
-      l += 1
-      if l & -l == l:
-        break
-    return self.n
-
-  def min_left(self, r: int, f) -> int:
-    assert 0 <= r <= self.n
-    assert f(self.e)
-    if r == 0:
-      return 0
-    r += self.size
-    for i in range(self.log, 0, -1):
-      self._propagate((r-1) >> i)
-    s = self.e
-    while True:
-      r -= 1
-      while r > 1 and r & 1:
-        r >>= 1
-      if not f(self.op(self.data[r], s)):
-        while r < self.size:
-          self._propagate(r)
-          r = r << 1 | 1
-          if f(self.op(self.data[r], s)):
-            s = self.op(self.data[r], s)
-            r ^= 1
-        return r + 1 - self.size
-      s = self.op(self.data[r], s)
-      if r & -r == r:
-        break
-    return 0
 
   def __getitem__(self, k: int) -> T:
     assert -self.n <= k < self.n, \
@@ -210,8 +161,7 @@ class LazySegmentTreeRange(Generic[T, F], LazySegmentTree[T, F]):
      self._update(k >> i)
 
   def __str__(self) -> str:
-    return '[' + ', '.join(map(str, (self.__getitem__(i) for i in range(self.n)))) + ']'
+    return '[' + ', '.join(map(str, (self[i] for i in range(self.n)))) + ']'
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-

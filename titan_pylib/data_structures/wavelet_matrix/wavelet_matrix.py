@@ -247,4 +247,3 @@ class WaveletMatrix():
     return f'{self.__class__.__name__}({[self.access(i) for i in range(self.size)]})'
 
   __repr__ = __str__
-
