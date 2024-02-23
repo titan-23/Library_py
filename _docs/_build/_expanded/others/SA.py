@@ -25,26 +25,27 @@ class Random():
     return self._w
 
   def random(self) -> float:
-    """random
-    0以上1以下の一様ランダムな値を1つ生成して返すはずです。
+    """0以上1以下の一様ランダムな値を1つ生成して返すはずです。
+    :math:`O(1)` です。
     """
     return self._xor() / 0xFFFFFFFF
 
   def randint(self, begin: int, end: int) -> int:
     """``begin`` 以上 ``end`` **以下** のランダムな整数を返します。
+    :math:`O(1)` です。
     """
     assert begin <= end
     return begin + self._xor() % (end - begin + 1)
 
   def randrange(self, begin: int, end: int) -> int:
     """``begin`` 以上 ``end`` **未満** のランダムな整数を返します。
+    :math:`O(1)` です。
     """
     assert begin < end
     return begin + self._xor() % (end - begin)
 
   def shuffle(self, a: List[Any]) -> None:
-    """インプレースにシャッフルします。
-
+    """``a``をインプレースにシャッフルします。
     :math:`O(n)` です。
 
     Args:

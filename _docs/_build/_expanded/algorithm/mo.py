@@ -5,7 +5,6 @@ from math import sqrt, ceil
 
 class Mo():
   """長さ `n` の列、クエリ数 `q` に対する `Mo's algorithm` です。
-
   :math:`O(\\frac{n}{\\sqrt{q}})` です。
 
   Args:
@@ -13,7 +12,7 @@ class Mo():
     q (int): クエリの数です。
 
   制約:
-    ValueError: :math:`0 \\leq n, 0 \\leq q`
+    :math:`0 \\leq n, 0 \\leq q`
   """
 
   def __init__(self, n: int, q: int):
@@ -30,7 +29,6 @@ class Mo():
 
   def add_query(self, l: int, r: int) -> None:
     """区間 ``[l, r)`` に対するクエリを追加します。
-
     :math:`O(1)` です。
 
     Args:
@@ -45,9 +43,12 @@ class Mo():
     self.bucket[l//self.bucket_size].append((((r<<self.bit)|l)<<self.bit)|self.cnt)
     self.cnt += 1
 
-  def run(self, add: Callable[[int], None], delete: Callable[[int], None], out: Callable[[int], None]) -> None:
+  def run(self,
+          add: Callable[[int], None],
+          delete: Callable[[int], None],
+          out: Callable[[int], None],
+          ) -> None:
     """クエリを実行します。
-
     :math:`O(q\\sqrt{n})` です。
 
     Args:

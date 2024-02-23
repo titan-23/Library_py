@@ -14,7 +14,7 @@ def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
   """マージソートです。
 
   非破壊的です。
-  最悪 :math:`O(n\\log{n})` です。
+  最悪 :math:`O(n\\log{n})` 時間です。
 
   Args:
     a (Iterable[T]): ソートする列です。

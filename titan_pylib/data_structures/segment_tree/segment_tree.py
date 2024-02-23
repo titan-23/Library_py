@@ -44,6 +44,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     Args:
       k (int): 更新するインデックスです。
       v (T): 更新する値です。
+
+    制約:
+      :math:`-n \\leq n <= k \\le n`
     """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.set({k}, {v}), n={self._n}'
@@ -61,6 +64,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
     Args:
       k (int): インデックスです。
+
+    制約:
+      :math:`-n \\leq n <= k \\le n`
     """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.get({k}), n={self._n}'
@@ -75,6 +81,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     Args:
       l (int): インデックスです。
       r (int): インデックスです。
+
+    制約:
+      :math:`0 <= l <= r <= n`
     """
     assert 0 <= l <= r <= self._n, \
         f'IndexError: {self.__class__.__name__}.prod({l}, {r})'

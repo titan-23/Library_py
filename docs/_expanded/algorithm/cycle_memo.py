@@ -5,9 +5,6 @@ T = TypeVar('T')
 class CycleMemo(Generic[T]):
 
   def __init__(self, initial: T, move_to: Callable[[T], T]):
-    self._build(initial, move_to)
-
-  def _build(self, initial: T, move_to: Callable[[T], T]) -> None:
     history = []
     memo = set()
     now = initial

@@ -104,6 +104,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     Args:
       k (int): 更新するインデックスです。
       v (T): 更新する値です。
+
+    制約:
+      :math:`-n \\leq n <= k \\le n`
     """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.set({k}, {v}), n={self._n}'
@@ -121,6 +124,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
     Args:
       k (int): インデックスです。
+
+    制約:
+      :math:`-n \\leq n <= k \\le n`
     """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.get({k}), n={self._n}'
@@ -135,6 +141,9 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     Args:
       l (int): インデックスです。
       r (int): インデックスです。
+
+    制約:
+      :math:`0 <= l <= r <= n`
     """
     assert 0 <= l <= r <= self._n, \
         f'IndexError: {self.__class__.__name__}.prod({l}, {r})'
@@ -408,7 +417,7 @@ def merge_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
   """マージソートです。
 
   非破壊的です。
-  最悪 :math:`O(n\\log{n})` です。
+  最悪 :math:`O(n\\log{n})` 時間です。
 
   Args:
     a (Iterable[T]): ソートする列です。

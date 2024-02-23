@@ -23,6 +23,7 @@
 <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../_static/copybutton.js?v=4ea706d9"></script>
 <script src="../_static/translations.js?v=4dbe4bdc"></script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="../_static/_static/script.js"></script>
 <script src="../_static/js/theme.js"></script>
 <link href="../genindex.html" rel="index" title="索引"/>
@@ -109,19 +110,29 @@
 <span class="linenos">10</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">11</span>
 <span class="linenos">12</span><span class="k">def</span> <span class="nf">bubble_sort</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-<span class="linenos">13</span>  <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:]</span> <span class="k">if</span> <span class="n">inplace</span> <span class="k">else</span> <span class="n">a</span>  
-<span class="linenos">14</span>  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="linenos">15</span>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="linenos">16</span>    <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="linenos">17</span>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-<span class="linenos">18</span>      <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
-<span class="linenos">19</span>        <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-<span class="linenos">20</span>        <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="linenos">21</span>    <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
-<span class="linenos">22</span>      <span class="k">break</span>
-<span class="linenos">23</span>  <span class="k">return</span> <span class="n">a</span>
-<span class="linenos">24</span>
-<span class="linenos">25</span>
+<span class="linenos">13</span><span class="w">  </span><span class="sd">"""バブルソートです。</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="sd">  非破壊的です。</span>
+<span class="linenos">16</span><span class="sd">  最悪 :math:`O(n^2)` 時間です。</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="sd">  Args:</span>
+<span class="linenos">19</span><span class="sd">    a (Iterable[T]): ソートする列です。</span>
+<span class="linenos">20</span><span class="sd">    key (Callable[[T, T], bool], optional): 比較関数 `key` にしたがって比較演算をします。</span>
+<span class="linenos">21</span><span class="sd">                                            (第1引数)&lt;(第2引数) のとき、 ``True`` を返すようにしてください。</span>
+<span class="linenos">22</span><span class="sd">  """</span>
+<span class="linenos">23</span>  <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:]</span> <span class="k">if</span> <span class="n">inplace</span> <span class="k">else</span> <span class="n">a</span>
+<span class="linenos">24</span>  <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="linenos">25</span>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="linenos">26</span>    <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">27</span>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">28</span>      <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
+<span class="linenos">29</span>        <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+<span class="linenos">30</span>        <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos">31</span>    <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+<span class="linenos">32</span>      <span class="k">break</span>
+<span class="linenos">33</span>  <span class="k">return</span> <span class="n">a</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span>
 </pre></div>
 </div>
 </section>
@@ -131,11 +142,15 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.sort.bubble_sort.bubble_sort">
 <span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">bubble_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/sort/bubble_sort.html#bubble_sort"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.sort.bubble_sort.bubble_sort" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>バブルソートです。</p>
+<p>非破壊的です。
+最悪 <span class="math notranslate nohighlight">\(O(n^2)\)</span> 時間です。</p>
+<dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>List</em><em>[</em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>key</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em>) -- </p></li>
+<li><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- ソートする列です。</p></li>
+<li><p><strong>key</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em><em>, </em><em>optional</em>) -- 比較関数 <cite>key</cite> にしたがって比較演算をします。
+(第1引数)&lt;(第2引数) のとき、 <code class="docutils literal notranslate"><span class="pre">True</span></code> を返すようにしてください。</p></li>
 <li><p><strong>inplace</strong> (<em>bool</em>) -- </p></li>
 </ul>
 </dd>

@@ -14,7 +14,7 @@ def quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
   """クイックソートです。
 
   非破壊的です。
-  期待 :math:`O(n\\log{n})` です。
+  期待 :math:`O(n\\log{n})` 時間です。
 
   Args:
     a (Iterable[T]): ソートする列です。

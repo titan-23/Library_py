@@ -10,12 +10,12 @@ class Permutation():
     """列 ``a[l, r)`` を辞書順で次の順列にします。
 
     Args:
-        a (List[Any])
-        l (int, optional)
-        r (int, optional)
+      a (List[Any])
+      l (int, optional)
+      r (int, optional)
 
     Returns:
-        bool: 辞書順で次の順列が存在する場合は ``True`` 、存在しない場合は ``False`` を返します。
+      bool: 辞書順で次の順列が存在する場合は ``True`` 、存在しない場合は ``False`` を返します。
     """
     if r == -1:
       r = len(a)
@@ -38,10 +38,10 @@ class Permutation():
     """列 ``a`` を辞書順で後の順列にします。
 
     Args:
-        a (List[Any])
+      a (List[Any])
 
     Returns:
-        bool: 辞書順で後の順列が存在する場合は ``True`` 、存在しない場合は ``False`` を返します。
+      bool: 辞書順で後の順列が存在する場合は ``True`` 、存在しない場合は ``False`` を返します。
     """
     l = 0
     r = len(a)
