@@ -186,30 +186,17 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.algorithm.parser" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>expression: &lt; 四則演算の式 &gt; ::= &lt; 乗算除算の式 &gt; (+ or -) &lt; 乗算除算の式 &gt; (+ or -) ...
 term      : &lt; 乗算除算の式 &gt; ::= &lt; 括弧か数 &gt; (* or /) &lt; 括弧か数 &gt; (* or /) ...
 term2 など</p>
 <p>factor    : &lt; 括弧か数 &gt;     ::= '(' &lt; 四則演算の式 &gt; ')' or &lt; 数 &gt;
 number    : &lt; 数 &gt;          ::= ...</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>s</strong> (<em>str</em>) -- </p>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.consume">
-<span class="sig-name descname"><span class="pre">consume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.consume"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.consume" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>expected</strong> (<em>str</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">consume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.consume"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.consume" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.expression">
 <span class="sig-name descname"><span class="pre">expression</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.expression"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.expression" title="Link to this definition"></a></dt>
@@ -224,13 +211,8 @@ number    : &lt; 数 &gt;          ::= ...</p>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.number">
-<span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.number"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.number" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">number</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.number"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.number" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.parser.Parser.parse">
 <span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/parser.html#Parser.parse"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.parser.Parser.parse" title="Link to this definition"></a></dt>

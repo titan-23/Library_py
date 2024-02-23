@@ -37,4 +37,3 @@ class Pair():
   def __repr__(self):
     return f'Pair({self.first}, {self.second})'
 
-

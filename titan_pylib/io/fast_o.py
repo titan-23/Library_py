@@ -27,4 +27,3 @@ class FastO():
     """
     os.write(1, cls._output.getvalue().encode())
     cls._output.close()
-

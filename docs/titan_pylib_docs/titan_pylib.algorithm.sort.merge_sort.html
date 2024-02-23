@@ -156,7 +156,7 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.algorithm.sort.merge_sort" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.sort.merge_sort.merge_sort">
-<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">merge_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/sort/merge_sort.html#merge_sort"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.sort.merge_sort.merge_sort" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">merge_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a:</span> <span class="pre">~typing.Iterable[~titan_pylib.algorithm.sort.merge_sort.T],</span> <span class="pre">key:</span> <span class="pre">~typing.Callable[[~titan_pylib.algorithm.sort.merge_sort.T,</span> <span class="pre">~titan_pylib.algorithm.sort.merge_sort.T],</span> <span class="pre">bool]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/sort/merge_sort.html#merge_sort"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.sort.merge_sort.merge_sort" title="Link to this definition"></a></dt>
 <dd><p>マージソートです。</p>
 <p>非破壊的です。
 最悪 <span class="math notranslate nohighlight">\(O(n\log{n})\)</span> 時間です。</p>
@@ -167,9 +167,6 @@
 <li><p><strong>key</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em><em>, </em><em>optional</em>) -- 比較関数 <cite>key</cite> にしたがって比較演算をします。
 (第1引数)&lt;(第2引数) のとき、 <code class="docutils literal notranslate"><span class="pre">True</span></code> を返すようにしてください。</p></li>
 </ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>List</em>[<em>T</em>]</p>
 </dd>
 </dl>
 </dd></dl>

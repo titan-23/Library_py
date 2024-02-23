@@ -69,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a></li>
@@ -194,22 +195,13 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.sparse_table.sparse_table" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.sparse_table.sparse_table.SparseTable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">SparseTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/sparse_table/sparse_table.html#SparseTable"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.sparse_table.sparse_table.SparseTable" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">SparseTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/sparse_table/sparse_table.html#SparseTable"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.sparse_table.sparse_table.SparseTable" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p><code class="docutils literal notranslate"><span class="pre">SparseTable</span></code> です。</p>
 <p>静的であることに注意してください。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>op</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>e</strong> (<em>T</em>) -- </p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.sparse_table.sparse_table.SparseTable.prod">
-<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/sparse_table/sparse_table.html#SparseTable.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.sparse_table.sparse_table.SparseTable.prod" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/sparse_table/sparse_table.html#SparseTable.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.sparse_table.sparse_table.SparseTable.prod" title="Link to this definition"></a></dt>
 <dd><p>区間 <code class="docutils literal notranslate"><span class="pre">[l,</span> <span class="pre">r)</span></code> の総積を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
@@ -218,9 +210,6 @@
 <li><p><strong>l</strong> (<em>int</em>) -- インデックスです。</p></li>
 <li><p><strong>r</strong> (<em>int</em>) -- インデックスです。</p></li>
 </ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em></p>
 </dd>
 </dl>
 </dd></dl>

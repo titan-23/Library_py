@@ -69,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a></li>
@@ -230,7 +231,7 @@
 <span class="linenos">104</span><span class="sd">      v (T): 更新する値です。</span>
 <span class="linenos">105</span>
 <span class="linenos">106</span><span class="sd">    制約:</span>
-<span class="linenos">107</span><span class="sd">      :math:`-n \\leq n &lt;= k \\le n`</span>
+<span class="linenos">107</span><span class="sd">      :math:`-n \\leq n \\leq k &lt; n`</span>
 <span class="linenos">108</span><span class="sd">    """</span>
 <span class="linenos">109</span>    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">110</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.set(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">'</span>
@@ -250,7 +251,7 @@
 <span class="linenos">124</span><span class="sd">      k (int): インデックスです。</span>
 <span class="linenos">125</span>
 <span class="linenos">126</span><span class="sd">    制約:</span>
-<span class="linenos">127</span><span class="sd">      :math:`-n \\leq n &lt;= k \\le n`</span>
+<span class="linenos">127</span><span class="sd">      :math:`-n \\leq n \\leq k &lt; n`</span>
 <span class="linenos">128</span><span class="sd">    """</span>
 <span class="linenos">129</span>    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">130</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.get(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">'</span>
@@ -267,7 +268,7 @@
 <span class="linenos">141</span><span class="sd">      r (int): インデックスです。</span>
 <span class="linenos">142</span>
 <span class="linenos">143</span><span class="sd">    制約:</span>
-<span class="linenos">144</span><span class="sd">      :math:`0 &lt;= l &lt;= r &lt;= n`</span>
+<span class="linenos">144</span><span class="sd">      :math:`0 \\leq l \\leq r \\leq n`</span>
 <span class="linenos">145</span><span class="sd">    """</span>
 <span class="linenos">146</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">147</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.prod(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">)'</span>
@@ -292,7 +293,7 @@
 <span class="linenos">166</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="linenos">167</span>
 <span class="linenos">168</span>  <span class="k">def</span> <span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">169</span><span class="w">    </span><span class="sd">'''Find the largest index R s.t. f([l, R)) == True. / O(logN)'''</span>
+<span class="linenos">169</span><span class="w">    </span><span class="sd">'''Find the largest index R s.t. f([l, R)) == True. / O(\\log{n})'''</span>
 <span class="linenos">170</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">171</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.max_right(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, f) index out of range'</span>
 <span class="linenos">172</span>    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
@@ -318,7 +319,7 @@
 <span class="linenos">192</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">193</span>
 <span class="linenos">194</span>  <span class="k">def</span> <span class="nf">min_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">195</span><span class="w">    </span><span class="sd">'''Find the smallest index L s.t. f([L, r)) == True. / O(logN)'''</span>
+<span class="linenos">195</span><span class="w">    </span><span class="sd">'''Find the smallest index L s.t. f([L, r)) == True. / O(\\log{n})'''</span>
 <span class="linenos">196</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">197</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.min_left(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, f) index out of range'</span>
 <span class="linenos">198</span>    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
@@ -372,61 +373,60 @@
 <span class="linenos">246</span>
 <span class="linenos">247</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">248</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
-<span class="linenos">249</span>
-<span class="linenos">250</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span>
-<span class="linenos">251</span>
-<span class="linenos">252</span><span class="k">class</span> <span class="nc">MexMultiset</span><span class="p">():</span>
-<span class="linenos">253</span><span class="w">  </span><span class="sd">"""``MexMultiset`` です。</span>
-<span class="linenos">254</span>
-<span class="linenos">255</span><span class="sd">  各操作は `log` がつきますが、ANDセグ木の ``log`` で割と軽いです。</span>
-<span class="linenos">256</span><span class="sd">  """</span>
-<span class="linenos">257</span>
-<span class="linenos">258</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">259</span><span class="w">    </span><span class="sd">"""``[0, u)`` の範囲の mex を計算する ``MexMultiset`` を構築します。</span>
-<span class="linenos">260</span>
-<span class="linenos">261</span><span class="sd">    時間・空間共に :math:`O(u)` です。</span>
-<span class="linenos">262</span>
-<span class="linenos">263</span><span class="sd">    Args:</span>
-<span class="linenos">264</span><span class="sd">      u (int): 値の上限です。</span>
-<span class="linenos">265</span><span class="sd">    """</span>
-<span class="linenos">266</span>    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">267</span>    <span class="n">init_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">268</span>    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
-<span class="linenos">269</span>      <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">:</span>
-<span class="linenos">270</span>        <span class="n">data</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">271</span>        <span class="n">init_data</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">272</span>    <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">u</span>
-<span class="linenos">273</span>    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
-<span class="linenos">274</span>    <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">:</span> <span class="n">SegmentTree</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">SegmentTree</span><span class="p">(</span><span class="n">init_data</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">s</span><span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="linenos">275</span>
-<span class="linenos">276</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">277</span><span class="w">    </span><span class="sd">"""``key`` を追加します。</span>
-<span class="linenos">278</span>
-<span class="linenos">279</span><span class="sd">    :math:`O(\\log{n})` です。</span>
-<span class="linenos">280</span><span class="sd">    """</span>
-<span class="linenos">281</span>    <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="k">return</span>
-<span class="linenos">282</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">283</span>      <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">284</span>    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">285</span>
-<span class="linenos">286</span>  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">287</span><span class="w">    </span><span class="sd">"""``key`` を削除します。 ``key`` は存在していなければなりません。</span>
-<span class="linenos">288</span>
-<span class="linenos">289</span><span class="sd">    :math:`O(\\log{n})` です。</span>
-<span class="linenos">290</span><span class="sd">    """</span>
-<span class="linenos">291</span>    <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="k">return</span>
-<span class="linenos">292</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">293</span>      <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos">294</span>    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">295</span>
-<span class="linenos">296</span>  <span class="k">def</span> <span class="nf">mex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">297</span><span class="w">    </span><span class="sd">"""mex を返します。</span>
-<span class="linenos">298</span>
-<span class="linenos">299</span><span class="sd">    :math:`O(\\log{n})` です。</span>
-<span class="linenos">300</span><span class="sd">    """</span>
-<span class="linenos">301</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">max_right</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">lr</span><span class="p">:</span> <span class="n">lr</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">249</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span>
+<span class="linenos">250</span>
+<span class="linenos">251</span><span class="k">class</span> <span class="nc">MexMultiset</span><span class="p">():</span>
+<span class="linenos">252</span><span class="w">  </span><span class="sd">"""``MexMultiset`` です。</span>
+<span class="linenos">253</span>
+<span class="linenos">254</span><span class="sd">  各操作は `log` がつきますが、ANDセグ木の ``log`` で割と軽いです。</span>
+<span class="linenos">255</span><span class="sd">  """</span>
+<span class="linenos">256</span>
+<span class="linenos">257</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">258</span><span class="w">    </span><span class="sd">"""``[0, u)`` の範囲の mex を計算する ``MexMultiset`` を構築します。</span>
+<span class="linenos">259</span>
+<span class="linenos">260</span><span class="sd">    時間・空間共に :math:`O(u)` です。</span>
+<span class="linenos">261</span>
+<span class="linenos">262</span><span class="sd">    Args:</span>
+<span class="linenos">263</span><span class="sd">      u (int): 値の上限です。</span>
+<span class="linenos">264</span><span class="sd">    """</span>
+<span class="linenos">265</span>    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">266</span>    <span class="n">init_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">267</span>    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+<span class="linenos">268</span>      <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">:</span>
+<span class="linenos">269</span>        <span class="n">data</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">270</span>        <span class="n">init_data</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">271</span>    <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">u</span>
+<span class="linenos">272</span>    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+<span class="linenos">273</span>    <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">:</span> <span class="n">SegmentTree</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">SegmentTree</span><span class="p">(</span><span class="n">init_data</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">s</span><span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">274</span>
+<span class="linenos">275</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">276</span><span class="w">    </span><span class="sd">"""``key`` を追加します。</span>
+<span class="linenos">277</span>
+<span class="linenos">278</span><span class="sd">    :math:`O(\\log{n})` です。</span>
+<span class="linenos">279</span><span class="sd">    """</span>
+<span class="linenos">280</span>    <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="k">return</span>
+<span class="linenos">281</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">282</span>      <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">283</span>    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">284</span>
+<span class="linenos">285</span>  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">286</span><span class="w">    </span><span class="sd">"""``key`` を削除します。 ``key`` は存在していなければなりません。</span>
+<span class="linenos">287</span>
+<span class="linenos">288</span><span class="sd">    :math:`O(\\log{n})` です。</span>
+<span class="linenos">289</span><span class="sd">    """</span>
+<span class="linenos">290</span>    <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">:</span> <span class="k">return</span>
+<span class="linenos">291</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">292</span>      <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">293</span>    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">294</span>
+<span class="linenos">295</span>  <span class="k">def</span> <span class="nf">mex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">296</span><span class="w">    </span><span class="sd">"""mex を返します。</span>
+<span class="linenos">297</span>
+<span class="linenos">298</span><span class="sd">    :math:`O(\\log{n})` です。</span>
+<span class="linenos">299</span><span class="sd">    """</span>
+<span class="linenos">300</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">max_right</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">lr</span><span class="p">:</span> <span class="n">lr</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">301</span>
 <span class="linenos">302</span>
-<span class="linenos">303</span>
 </pre></div>
 </div>
 </section>
@@ -435,56 +435,27 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.set.mex_multiset" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">MexMultiset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">MexMultiset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">MexMultiset</span></code> です。</p>
 <p>各操作は <cite>log</cite> がつきますが、ANDセグ木の <code class="docutils literal notranslate"><span class="pre">log</span></code> で割と軽いです。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>int</em><em>]</em>) -- </p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.add" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.add" title="Link to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> を追加します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset.mex">
-<span class="sig-name descname"><span class="pre">mex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.mex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.mex" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mex</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.mex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.mex" title="Link to this definition"></a></dt>
 <dd><p>mex を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.set.mex_multiset.MexMultiset.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.remove"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.remove" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/set/mex_multiset.html#MexMultiset.remove"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.set.mex_multiset.MexMultiset.remove" title="Link to this definition"></a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> を削除します。 <code class="docutils literal notranslate"><span class="pre">key</span></code> は存在していなければなりません。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 </dd></dl>
 </section>

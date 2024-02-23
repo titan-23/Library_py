@@ -68,6 +68,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a></li>
@@ -255,158 +256,57 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.union_find.union_find_heavy" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">UnionFindHeavy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">UnionFindHeavy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) -- </p>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.all_group_members">
-<span class="sig-name descname"><span class="pre">all_group_members</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.all_group_members"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.all_group_members" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>defaultdict</em></p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">all_group_members</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">defaultdict</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.all_group_members"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.all_group_members" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.all_roots">
-<span class="sig-name descname"><span class="pre">all_roots</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.all_roots"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.all_roots" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">all_roots</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.all_roots"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.all_roots" title="Link to this definition"></a></dt>
 <dd><p>Return all roots. / O(1)</p>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>List</em>[int]</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.clear"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.clear" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.clear"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.clear" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.get_edges">
-<span class="sig-name descname"><span class="pre">get_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.get_edges"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.get_edges" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">get_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.get_edges"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.get_edges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.group_count">
-<span class="sig-name descname"><span class="pre">group_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.group_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.group_count" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">group_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.group_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.group_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.members">
-<span class="sig-name descname"><span class="pre">members</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.members"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.members" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>Set</em>[int]</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">members</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.members"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.members" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.root">
-<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.root"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.root" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.root"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.root" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.same">
-<span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.same" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.same" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.size">
-<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.size"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.size" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.size"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite">
-<span class="sig-name descname"><span class="pre">unite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.unite"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">unite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.unite"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite_left">
-<span class="sig-name descname"><span class="pre">unite_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.unite_left"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite_left" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">unite_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.unite_left"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite_left" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite_right">
-<span class="sig-name descname"><span class="pre">unite_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.unite_right"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite_right" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">unite_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/union_find_heavy.html#UnionFindHeavy.unite_right"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.union_find_heavy.UnionFindHeavy.unite_right" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 </dd></dl>
 </section>
 </section>

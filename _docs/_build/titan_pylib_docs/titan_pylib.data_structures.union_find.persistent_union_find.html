@@ -69,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a></li>
@@ -303,76 +304,36 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.union_find.persistent_union_find" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">PersistentUnionFind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">PersistentUnionFind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_parents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="titan_pylib.data_structures.array.persistent_array.html#titan_pylib.data_structures.array.persistent_array.PersistentArray" title="titan_pylib.data_structures.array.persistent_array.PersistentArray"><span class="pre">PersistentArray</span></a><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>_parents</strong> (<a class="reference internal" href="titan_pylib.data_structures.array.persistent_array.html#titan_pylib.data_structures.array.persistent_array.PersistentArray" title="titan_pylib.data_structures.array.persistent_array.PersistentArray"><em>PersistentArray</em></a><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em>) -- </p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.copy"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.copy" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind" title="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind"><span class="pre">PersistentUnionFind</span></a></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.copy"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.copy" title="Link to this definition"></a></dt>
 <dd><p>コピーします。
 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind" title="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind"><em>PersistentUnionFind</em></a></p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.root">
-<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.root"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.root" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.root"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.root" title="Link to this definition"></a></dt>
 <dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合の代表元を返します。
 <span class="math notranslate nohighlight">\(O(\log^2{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.same">
-<span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.same" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.same" title="Link to this definition"></a></dt>
 <dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> が同じ集合に属するなら <code class="docutils literal notranslate"><span class="pre">True</span></code> を、
 そうでないなら <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。
 <span class="math notranslate nohighlight">\(O(\log^2{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>y</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.size">
-<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.size"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.size" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.size"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.size" title="Link to this definition"></a></dt>
 <dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合の要素数を返します。
 <span class="math notranslate nohighlight">\(O(\log^2{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.unite">
-<span class="sig-name descname"><span class="pre">unite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.unite"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.unite" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">unite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind" title="titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind"><span class="pre">PersistentUnionFind</span></a></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/union_find/persistent_union_find.html#PersistentUnionFind.unite"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.union_find.persistent_union_find.PersistentUnionFind.unite" title="Link to this definition"></a></dt>
 <dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合と要素 <code class="docutils literal notranslate"><span class="pre">y</span></code> を含む集合を併合します。
 <span class="math notranslate nohighlight">\(O(\log^2{n})\)</span> です。</p>
 <dl class="field-list simple">

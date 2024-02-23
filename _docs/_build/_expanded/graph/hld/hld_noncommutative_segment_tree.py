@@ -104,7 +104,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
       v (T): 更新する値です。
 
     制約:
-      :math:`-n \\leq n <= k \\le n`
+      :math:`-n \\leq n \\leq k < n`
     """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.set({k}, {v}), n={self._n}'
@@ -124,7 +124,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
       k (int): インデックスです。
 
     制約:
-      :math:`-n \\leq n <= k \\le n`
+      :math:`-n \\leq n \\leq k < n`
     """
     assert -self._n <= k < self._n, \
         f'IndexError: {self.__class__.__name__}.get({k}), n={self._n}'
@@ -141,7 +141,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
       r (int): インデックスです。
 
     制約:
-      :math:`0 <= l <= r <= n`
+      :math:`0 \\leq l \\leq r \\leq n`
     """
     assert 0 <= l <= r <= self._n, \
         f'IndexError: {self.__class__.__name__}.prod({l}, {r})'
@@ -166,7 +166,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return self._data[1]
 
   def max_right(self, l: int, f: Callable[[T], bool]) -> int:
-    '''Find the largest index R s.t. f([l, R)) == True. / O(logN)'''
+    '''Find the largest index R s.t. f([l, R)) == True. / O(\\log{n})'''
     assert 0 <= l <= self._n, \
         f'IndexError: {self.__class__.__name__}.max_right({l}, f) index out of range'
     assert f(self._e), \
@@ -192,7 +192,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return self._n
 
   def min_left(self, r: int, f: Callable[[T], bool]) -> int:
-    '''Find the smallest index L s.t. f([L, r)) == True. / O(logN)'''
+    '''Find the smallest index L s.t. f([L, r)) == True. / O(\\log{n})'''
     assert 0 <= r <= self._n, \
         f'IndexError: {self.__class__.__name__}.min_left({r}, f) index out of range'
     assert f(self._e), \
@@ -246,7 +246,6 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 # from titan_pylib.graph.hld.hld import HLD
 from typing import Any, Iterator, List, Tuple
 

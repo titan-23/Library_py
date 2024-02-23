@@ -195,184 +195,68 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.my_class.ordered_multiset_interface" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">OrderedMultisetInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">OrderedMultisetInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.add">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.add" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>key</strong> (<em>T</em>) -- </p></li>
-<li><p><strong>cnt</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.add" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.clear">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.clear"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.clear" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.clear"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.clear" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.count">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.count" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.discard">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">discard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.discard"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.discard" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>key</strong> (<em>T</em>) -- </p></li>
-<li><p><strong>cnt</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">discard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.discard"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.discard" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.discard_all">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">discard_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.discard_all"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.discard_all" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">discard_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.discard_all"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.discard_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.ge">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.ge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.ge" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em> | None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.ge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.ge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.get_max">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.get_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.get_max" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>T</em> | None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.get_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.get_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.get_min">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.get_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.get_min" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>T</em> | None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.get_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.get_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.gt">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.gt"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.gt" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em> | None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.gt"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.gt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.le">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">le</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.le"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.le" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em> | None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">le</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.le"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.le" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.lt">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.lt"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.lt" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em> | None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.lt"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.lt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.pop_max">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pop_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.pop_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.pop_max" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>T</em></p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pop_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.pop_max"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.pop_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.pop_min">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pop_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.pop_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.pop_min" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>T</em></p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pop_min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.pop_min"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.pop_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.remove">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.remove"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.remove" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>key</strong> (<em>T</em>) -- </p></li>
-<li><p><strong>cnt</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cnt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.remove"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.remove" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.tolist">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.tolist" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>List</em>[<em>T</em>]</p>
-</dd>
-</dl>
-</dd></dl>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/my_class/ordered_multiset_interface.html#OrderedMultisetInterface.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.my_class.ordered_multiset_interface.OrderedMultisetInterface.tolist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 </dd></dl>
 </section>
 </section>

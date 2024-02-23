@@ -24,6 +24,7 @@ Subpackages
    titan_pylib.data_structures.others
    titan_pylib.data_structures.rbst
    titan_pylib.data_structures.red_black_tree
+   titan_pylib.data_structures.safe_hash
    titan_pylib.data_structures.scapegoat_tree
    titan_pylib.data_structures.segment_quadratic_division
    titan_pylib.data_structures.segment_tree

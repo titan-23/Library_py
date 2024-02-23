@@ -72,6 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a></li>
@@ -520,236 +521,85 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.b_tree.b_tree_list" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">BTreeList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">BTreeList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p>
-</dd>
-</dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Node</span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.append_child">
-<span class="sig-name descname"><span class="pre">append_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.append_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.append_child" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><em>Node</em></a>) -- </p></li>
-<li><p><strong>size</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">append_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><span class="pre">Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.append_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.append_child" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.append_key">
-<span class="sig-name descname"><span class="pre">append_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.append_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.append_key" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">append_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.append_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.append_key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.extend_child">
-<span class="sig-name descname"><span class="pre">extend_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">children</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.extend_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.extend_child" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>children</strong> (<em>List</em><em>[</em><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><em>Node</em></a><em>]</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">extend_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.extend_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.extend_child" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.extend_key">
-<span class="sig-name descname"><span class="pre">extend_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.extend_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.extend_key" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>keys</strong> (<em>List</em><em>[</em><em>T</em><em>]</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">extend_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.extend_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.extend_key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.insert_child">
-<span class="sig-name descname"><span class="pre">insert_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.insert_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.insert_child" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>node</strong> (<a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><em>Node</em></a>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">insert_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><span class="pre">Node</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.insert_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.insert_child" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.insert_key">
-<span class="sig-name descname"><span class="pre">insert_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.insert_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.insert_key" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>key</strong> (<em>T</em>) -- </p></li>
-<li><p><strong>size</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">insert_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.insert_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.insert_key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.is_leaf">
-<span class="sig-name descname"><span class="pre">is_leaf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.is_leaf"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.is_leaf" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">is_leaf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.is_leaf"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.is_leaf" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.len_key">
-<span class="sig-name descname"><span class="pre">len_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.len_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.len_key" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">len_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.len_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.len_key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.pop_child">
-<span class="sig-name descname"><span class="pre">pop_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.pop_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.pop_child" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>size</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><em>Node</em></a></p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">pop_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><span class="pre">Node</span></a></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.pop_child"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.pop_child" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.pop_key">
-<span class="sig-name descname"><span class="pre">pop_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.pop_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.pop_key" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>i</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em></p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">pop_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.pop_key"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.pop_key" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.split" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>i</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><em>Node</em></a></p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node" title="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node"><span class="pre">Node</span></a></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.Node.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.Node.split" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.append"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.append" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>T</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.append"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.append" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.debug">
 <span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.debug"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.debug" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.insert"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.insert" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>k</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>key</strong> (<em>T</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.insert"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.insert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.pop"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.pop" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em></p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.pop"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.pop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.pref">
-<span class="sig-name descname"><span class="pre">pref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.pref"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.pref" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>r</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">pref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.pref"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.pref" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.prod">
-<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.prod" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>l</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>r</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.prod" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.tolist">
-<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.tolist" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>List</em>[<em>T</em>]</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/b_tree/b_tree_list.html#BTreeList.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.b_tree.b_tree_list.BTreeList.tolist" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 </dd></dl>
 </section>
 </section>

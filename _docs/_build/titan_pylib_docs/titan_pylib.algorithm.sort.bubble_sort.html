@@ -141,7 +141,7 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.algorithm.sort.bubble_sort" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.algorithm.sort.bubble_sort.bubble_sort">
-<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">bubble_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/algorithm/sort/bubble_sort.html#bubble_sort"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.sort.bubble_sort.bubble_sort" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">bubble_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">a:</span> <span class="pre">~typing.List[~titan_pylib.algorithm.sort.bubble_sort.T],</span> <span class="pre">key:</span> <span class="pre">~typing.Callable[[~titan_pylib.algorithm.sort.bubble_sort.T,</span> <span class="pre">~titan_pylib.algorithm.sort.bubble_sort.T],</span> <span class="pre">bool]</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;,</span> <span class="pre">inplace:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/algorithm/sort/bubble_sort.html#bubble_sort"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.algorithm.sort.bubble_sort.bubble_sort" title="Link to this definition"></a></dt>
 <dd><p>バブルソートです。</p>
 <p>非破壊的です。
 最悪 <span class="math notranslate nohighlight">\(O(n^2)\)</span> 時間です。</p>
@@ -151,11 +151,7 @@
 <li><p><strong>a</strong> (<em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- ソートする列です。</p></li>
 <li><p><strong>key</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em><em>, </em><em>optional</em>) -- 比較関数 <cite>key</cite> にしたがって比較演算をします。
 (第1引数)&lt;(第2引数) のとき、 <code class="docutils literal notranslate"><span class="pre">True</span></code> を返すようにしてください。</p></li>
-<li><p><strong>inplace</strong> (<em>bool</em>) -- </p></li>
 </ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>List</em>[<em>T</em>]</p>
 </dd>
 </dl>
 </dd></dl>

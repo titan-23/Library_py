@@ -14,8 +14,7 @@ sys.path.insert(0, os.path.abspath('../titan_pylib/graph/'))
 sys.path.insert(0, os.path.abspath('../titan_pylib/io/'))
 sys.path.insert(0, os.path.abspath('../titan_pylib/math/'))
 sys.path.insert(0, os.path.abspath('../titan_pylib/string/'))
-autodoc_typehints = 'description'  # 型ヒントを有効
-# autoclass_content = 'both'         # __init__()も出力
+autodoc_typehints = 'signature'  # 型ヒントを有効
 autodoc_default_options = {
     'private-members': False,
     'show-inheritance': False,

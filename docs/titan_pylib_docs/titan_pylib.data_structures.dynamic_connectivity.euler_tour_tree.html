@@ -73,6 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a></li>
@@ -650,7 +651,7 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">EulerTourTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">EulerTourTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">F</span></code>]</p>
 <p><code class="docutils literal notranslate"><span class="pre">Euler</span> <span class="pre">Tour</span> <span class="pre">Tree</span></code> です。部分木クエリの強さに定評があります。</p>
 <p>森です。各連結成分(木)は独立なのでそれごとに見ていきます。</p>
@@ -680,30 +681,10 @@
 </ul>
 <p>計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 <cite>O(logN)</cite> です。この実装ではsplay木とハッシュテーブルで管理するので償却 <cite>O(logN)</cite> +期待 <cite>O(1)</cite> です(もとのグラフの頂点数に対してオイラーツアーすると <cite>(元の頂点数)+(辺数)*2?</cite> の頂点ができるので、たしかに <cite>O(元のグラフの頂点数)</cite> ではありますが、定数倍がバカです)。
 オイラーツアーがあれば、部分木クエリは簡単に処理できます。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>n_or_a</strong> (<em>int</em><em> | </em><em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>op</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>mapping</strong> (<em>Callable</em><em>[</em><em>[</em><em>F</em><em>, </em><em>T</em><em>]</em><em>, </em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>composition</strong> (<em>Callable</em><em>[</em><em>[</em><em>F</em><em>, </em><em>F</em><em>]</em><em>, </em><em>F</em><em>]</em>) -- </p></li>
-<li><p><strong>e</strong> (<em>T</em>) -- </p></li>
-<li><p><strong>id</strong> (<em>F</em>) -- </p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.Node">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lazy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.Node"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.Node" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lazy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.Node"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.Node" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>key</strong> (<em>T</em>) -- </p></li>
-<li><p><strong>lazy</strong> (<em>F</em>) -- </p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.antirec">
@@ -711,15 +692,12 @@
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.build">
-<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.build"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.build" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.build"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.build" title="Link to this definition"></a></dt>
 <dd><p>隣接リスト <cite>G</cite> をもとにして、辺を張ります。</p>
 <p><span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>G</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) -- 隣接リストです。</p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -729,177 +707,82 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.cut">
-<span class="sig-name descname"><span class="pre">cut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.cut"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.cut" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.cut"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.cut" title="Link to this definition"></a></dt>
 <dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を削除します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
 <p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> が存在してなければいけません。</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.get_vertex">
-<span class="sig-name descname"><span class="pre">get_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.get_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.get_vertex" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.get_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.get_vertex" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> の <code class="docutils literal notranslate"><span class="pre">key</span></code> を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em></p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.group_count">
-<span class="sig-name descname"><span class="pre">group_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.group_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.group_count" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">group_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.group_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.group_count" title="Link to this definition"></a></dt>
 <dd><p>連結成分の個数を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.leader">
-<span class="sig-name descname"><span class="pre">leader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.leader"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.leader" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">leader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.Node" title="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.Node"><span class="pre">Node</span></a></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.leader"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.leader" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を含む木の代表元を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
 <p><code class="docutils literal notranslate"><span class="pre">reroot</span></code> すると変わるので注意です。</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.Node" title="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.Node"><em>Node</em></a></p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.link">
-<span class="sig-name descname"><span class="pre">link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.link"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.link" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.link"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.link" title="Link to this definition"></a></dt>
 <dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を追加します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
 <p><code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分であってはいけません。</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.merge">
-<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.merge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.merge" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.merge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.merge" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分にいる場合はなにもせず <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。
 そうでない場合は辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を追加し <code class="docutils literal notranslate"><span class="pre">True</span></code> を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.reroot">
-<span class="sig-name descname"><span class="pre">reroot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.reroot"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.reroot" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reroot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.reroot"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.reroot" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を含む木の根を <code class="docutils literal notranslate"><span class="pre">v</span></code> にします。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) -- </p>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.same">
-<span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.same" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.same" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">u</span></code> と <code class="docutils literal notranslate"><span class="pre">v</span></code> が同じ連結成分にいれば <code class="docutils literal notranslate"><span class="pre">True</span></code> を、
 そうでなければ <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.set_vertex">
-<span class="sig-name descname"><span class="pre">set_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.set_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.set_vertex" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set_vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.set_vertex"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.set_vertex" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> の <code class="docutils literal notranslate"><span class="pre">key</span></code> を <code class="docutils literal notranslate"><span class="pre">val</span></code> に更新します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>val</strong> (<em>T</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.split" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.split"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.split" title="Link to this definition"></a></dt>
 <dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> が存在しない場合はなにもせず <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。
 そうでない場合は辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を削除し <code class="docutils literal notranslate"><span class="pre">True</span></code> を返します。</p>
 <p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>u</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>v</strong> (<em>int</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_apply">
-<span class="sig-name descname"><span class="pre">subtree_apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.subtree_apply"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_apply" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">subtree_apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.subtree_apply"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_apply" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を根としたときの部分木に <code class="docutils literal notranslate"><span class="pre">f</span></code> を作用します。</p>
 <p><code class="docutils literal notranslate"><span class="pre">v</span></code> の親は <code class="docutils literal notranslate"><span class="pre">p</span></code> です。
 <code class="docutils literal notranslate"><span class="pre">v</span></code> の親が存在しないときは <code class="docutils literal notranslate"><span class="pre">p=-1</span></code> として下さい。</p>
@@ -912,14 +795,11 @@
 <li><p><strong>f</strong> (<em>F</em>) -- 作用素です。</p></li>
 </ul>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_sum">
-<span class="sig-name descname"><span class="pre">subtree_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.subtree_sum"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_sum" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">subtree_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/euler_tour_tree.html#EulerTourTree.subtree_sum"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_sum" title="Link to this definition"></a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> を根としたときの部分木の総和を返します。</p>
 <p><code class="docutils literal notranslate"><span class="pre">v</span></code> の親は <code class="docutils literal notranslate"><span class="pre">p</span></code> です。
 <code class="docutils literal notranslate"><span class="pre">v</span></code> の親が存在しないときは <code class="docutils literal notranslate"><span class="pre">p=-1</span></code> として下さい。</p>
@@ -930,9 +810,6 @@
 <li><p><strong>v</strong> (<em>int</em>) -- 根です。</p></li>
 <li><p><strong>p</strong> (<em>int</em>) -- <code class="docutils literal notranslate"><span class="pre">v</span></code> の親です。</p></li>
 </ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em></p>
 </dd>
 </dl>
 </dd></dl>

@@ -69,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a><ul class="current">
@@ -229,7 +230,7 @@
 <span class="linenos">103</span><span class="sd">      v (T): 更新する値です。</span>
 <span class="linenos">104</span>
 <span class="linenos">105</span><span class="sd">    制約:</span>
-<span class="linenos">106</span><span class="sd">      :math:`-n \\leq n &lt;= k \\le n`</span>
+<span class="linenos">106</span><span class="sd">      :math:`-n \\leq n \\leq k &lt; n`</span>
 <span class="linenos">107</span><span class="sd">    """</span>
 <span class="linenos">108</span>    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">109</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.set(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">'</span>
@@ -249,7 +250,7 @@
 <span class="linenos">123</span><span class="sd">      k (int): インデックスです。</span>
 <span class="linenos">124</span>
 <span class="linenos">125</span><span class="sd">    制約:</span>
-<span class="linenos">126</span><span class="sd">      :math:`-n \\leq n &lt;= k \\le n`</span>
+<span class="linenos">126</span><span class="sd">      :math:`-n \\leq n \\leq k &lt; n`</span>
 <span class="linenos">127</span><span class="sd">    """</span>
 <span class="linenos">128</span>    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">129</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.get(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">'</span>
@@ -266,7 +267,7 @@
 <span class="linenos">140</span><span class="sd">      r (int): インデックスです。</span>
 <span class="linenos">141</span>
 <span class="linenos">142</span><span class="sd">    制約:</span>
-<span class="linenos">143</span><span class="sd">      :math:`0 &lt;= l &lt;= r &lt;= n`</span>
+<span class="linenos">143</span><span class="sd">      :math:`0 \\leq l \\leq r \\leq n`</span>
 <span class="linenos">144</span><span class="sd">    """</span>
 <span class="linenos">145</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">146</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.prod(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">)'</span>
@@ -291,7 +292,7 @@
 <span class="linenos">165</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="linenos">166</span>
 <span class="linenos">167</span>  <span class="k">def</span> <span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">168</span><span class="w">    </span><span class="sd">'''Find the largest index R s.t. f([l, R)) == True. / O(logN)'''</span>
+<span class="linenos">168</span><span class="w">    </span><span class="sd">'''Find the largest index R s.t. f([l, R)) == True. / O(\\log{n})'''</span>
 <span class="linenos">169</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">170</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.max_right(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, f) index out of range'</span>
 <span class="linenos">171</span>    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
@@ -317,7 +318,7 @@
 <span class="linenos">191</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">192</span>
 <span class="linenos">193</span>  <span class="k">def</span> <span class="nf">min_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">194</span><span class="w">    </span><span class="sd">'''Find the smallest index L s.t. f([L, r)) == True. / O(logN)'''</span>
+<span class="linenos">194</span><span class="w">    </span><span class="sd">'''Find the smallest index L s.t. f([L, r)) == True. / O(\\log{n})'''</span>
 <span class="linenos">195</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">196</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.min_left(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, f) index out of range'</span>
 <span class="linenos">197</span>    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
@@ -372,7 +373,6 @@
 <span class="linenos">246</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">247</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
 <span class="linenos">248</span>
-<span class="linenos">249</span>
 </pre></div>
 </div>
 </section>
@@ -381,82 +381,43 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.segment_tree.segment_tree" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">SegmentTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">SegmentTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree_interface.html#titan_pylib.data_structures.segment_tree.segment_tree_interface.SegmentTreeInterface" title="titan_pylib.data_structures.segment_tree.segment_tree_interface.SegmentTreeInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">SegmentTreeInterface</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>セグ木です。非再帰です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>n_or_a</strong> (<em>int</em><em> | </em><em>Iterable</em><em>[</em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>op</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>T</em><em>]</em>) -- </p></li>
-<li><p><strong>e</strong> (<em>T</em>) -- </p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.all_prod">
-<span class="sig-name descname"><span class="pre">all_prod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.all_prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.all_prod" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">all_prod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.all_prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.all_prod" title="Link to this definition"></a></dt>
 <dd><p>区間 <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">n)</span></code> の総積を返します。
 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>T</em></p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.get"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.get" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.get"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.get" title="Link to this definition"></a></dt>
 <dd><p>一点取得です。
 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>k</strong> (<em>int</em>) -- インデックスです。</p>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em></p>
-</dd>
 </dl>
 <dl class="simple">
-<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(-n \leq n &lt;= k \le n\)</span></p>
+<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(-n \leq n \leq k &lt; n\)</span></p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.max_right">
-<span class="sig-name descname"><span class="pre">max_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.max_right"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.max_right" title="Link to this definition"></a></dt>
-<dd><p>Find the largest index R s.t. f([l, R)) == True. / O(logN)</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>l</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
+<span class="sig-name descname"><span class="pre">max_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.max_right"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.max_right" title="Link to this definition"></a></dt>
+<dd><p>Find the largest index R s.t. f([l, R)) == True. / O(log{n})</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.min_left">
-<span class="sig-name descname"><span class="pre">min_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.min_left"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.min_left" title="Link to this definition"></a></dt>
-<dd><p>Find the smallest index L s.t. f([L, r)) == True. / O(logN)</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>r</strong> (<em>int</em>) -- </p></li>
-<li><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>bool</em><em>]</em>) -- </p></li>
-</ul>
-</dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
+<span class="sig-name descname"><span class="pre">min_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.min_left"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.min_left" title="Link to this definition"></a></dt>
+<dd><p>Find the smallest index L s.t. f([L, r)) == True. / O(log{n})</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.prod">
-<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.prod" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.prod"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.prod" title="Link to this definition"></a></dt>
 <dd><p>区間 <code class="docutils literal notranslate"><span class="pre">[l,</span> <span class="pre">r)</span></code> の総積を返します。
 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
@@ -466,18 +427,15 @@
 <li><p><strong>r</strong> (<em>int</em>) -- インデックスです。</p></li>
 </ul>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>T</em></p>
-</dd>
 </dl>
 <dl class="simple">
-<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(0 &lt;= l &lt;= r &lt;= n\)</span></p>
+<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(0 \leq l \leq r \leq n\)</span></p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.set">
-<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.set"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.set" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.set"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.set" title="Link to this definition"></a></dt>
 <dd><p>一点更新です。
 <span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
@@ -487,34 +445,21 @@
 <li><p><strong>v</strong> (<em>T</em>) -- 更新する値です。</p></li>
 </ul>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 <dl class="simple">
-<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(-n \leq n &lt;= k \le n\)</span></p>
+<dt>制約:</dt><dd><p><span class="math notranslate nohighlight">\(-n \leq n \leq k &lt; n\)</span></p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.show">
-<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.show"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.show" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.show"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.show" title="Link to this definition"></a></dt>
 <dd><p>デバッグ用のメソッドです。</p>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.tolist">
-<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.tolist" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/segment_tree.html#SegmentTree.tolist"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.segment_tree.SegmentTree.tolist" title="Link to this definition"></a></dt>
 <dd><p><span class="math notranslate nohighlight">\(O(n)\)</span> です。</p>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>List</em>[<em>T</em>]</p>
-</dd>
-</dl>
 </dd></dl>
 </dd></dl>
 </section>
