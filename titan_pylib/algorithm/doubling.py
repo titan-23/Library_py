@@ -3,7 +3,6 @@ T = TypeVar('T')
 
 class Doubling(Generic[T]):
   """ダブリングテーブルを構築します。
-
   :math:`O(n\\log{lim})` です。
 
   Args:
@@ -13,14 +12,14 @@ class Doubling(Generic[T]):
     move_to (Callable[[T], T]): 遷移関数です。 ``u`` から ``v`` へ遷移します。
   """
 
-  def __init__(self, n: int, lim: int, move_to: Callable[[T], T]):
+  def __init__(self, n: int, lim: int, move_to: Callable[[T], T]) -> None:
     self.move_to = move_to
     self.n = n
     self.lim = lim
     self.log = lim.bit_length()
     self._build()
 
-  def _build(self):
+  def _build(self) -> None:
     db = [[0]*self.n for _ in range(self.log+1)]
     for i in range(self.n):
       db[0][i] = self.move_to(i)
@@ -31,12 +30,11 @@ class Doubling(Generic[T]):
 
   def kth(self, start: T, k: int) -> T:
     """``start`` から ``k`` 個進んだ状態を返します。
-
     :math:`O(\\log{k})` です。
 
     Args:
-        start (T): スタートの状態です。
-        k (int): 遷移関数を適用する回数です。
+      start (T): スタートの状態です。
+      k (int): 遷移関数を適用する回数です。
     """
     now = start
     for i in range(self.log):
