@@ -55,8 +55,3 @@ class SegmentQuadraticDivision(Generic[T]):
   def __repr__(self):
     return f'SegmentQuadraticDivision({self})'
 
-# def op(s, t):
-#   return
-
-# e = 0
-
