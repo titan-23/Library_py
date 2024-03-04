@@ -1,12 +1,12 @@
-from typing import Callable, TypeVar, Generic
-T = TypeVar('T')
+from typing import Callable, TypeVar, Generic, List, Set, Hashable
+T = TypeVar('T', bound=Hashable)
 
 class CycleMemo(Generic[T]):
 
-  def __init__(self, initial: T, move_to: Callable[[T], T]):
-    history = []
-    memo = set()
-    now = initial
+  def __init__(self, initial: T, move_to: Callable[[T], T]) -> None:
+    history: List[T] = []
+    memo: Set[T] = set()
+    now: T = initial
     while now not in memo:
       history.append(now)
       memo.add(now)
