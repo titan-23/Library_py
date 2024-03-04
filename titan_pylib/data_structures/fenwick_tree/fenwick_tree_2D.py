@@ -61,4 +61,3 @@ class FenwickTree2D():
     for i in range(self._h-1):
       ret.append(', '.join(map(str, ((self.sum(i, j, i+1, j+1)) for j in range(self._w-1)))))
     return '[ ' + '\n  '.join(map(str, ret)) + ' ]'
-
