@@ -65,4 +65,3 @@ class DynamicFenwickTree2D():
   def get(self, h: int, w: int) -> int:
     return self.sum(h, h+1, w, w+1)
 
-

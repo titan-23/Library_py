@@ -18,12 +18,9 @@ class Doubling(Generic[T]):
     self.n = n
     self.lim = lim
     self.log = lim.bit_length()
-    self._build()
-
-  def _build(self) -> None:
     db = [[0]*self.n for _ in range(self.log+1)]
     for i in range(self.n):
-      db[0][i] = self.move_to(i)
+      db[0][i] = move_to(i)
     for k in range(self.log):
       for i in range(self.n):
         db[k+1][i] = db[k][db[k][i]]

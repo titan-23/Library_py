@@ -17,7 +17,7 @@ class DoubleEndedHeap(Generic[T]):
   """
 
   def __init__(self, a: Iterable[T]=[]):
-    """
+    """構築します。
     :math:`O(n)` です。
 
     Args:
@@ -36,7 +36,6 @@ class DoubleEndedHeap(Generic[T]):
 
   def add(self, key: T) -> None:
     """``key`` を1つ追加します。
-
     :math:`O(\\log{n})` です。
     """
     self._data.append(key)
@@ -44,7 +43,6 @@ class DoubleEndedHeap(Generic[T]):
 
   def pop_min(self) -> T:
     """最小の要素を **削除して** 返します。
-
     :math:`O(\\log{n})` です。
     """
     if len(self._data) < 3:
@@ -58,7 +56,6 @@ class DoubleEndedHeap(Generic[T]):
 
   def pop_max(self) -> T:
     """最大の要素を **削除して** 返します。
-
     :math:`O(\\log{n})` です。
     """
     if len(self._data) < 2:
@@ -71,14 +68,12 @@ class DoubleEndedHeap(Generic[T]):
 
   def get_min(self) -> T:
     """最小の要素を返します。
-
     :math:`O(1)` です。
     """
     return self._data[0] if len(self._data) < 2 else self._data[1]
 
   def get_max(self) -> T:
     """最大の要素を返します。
-
     :math:`O(1)` です。
     """
     return self._data[0]
@@ -142,7 +137,6 @@ class DoubleEndedHeap(Generic[T]):
 
   def __repr__(self):
     return f'DoubleEndedHeap({self})'
-
 from typing import Generic, Iterable, TypeVar, List
 T = TypeVar('T', bound=SupportsLessThan)
 

@@ -38,15 +38,15 @@ class EulerTourTree(Generic[T, F]):
   オイラーツアーがあれば、部分木クエリは簡単に処理できます。
   """
 
-  class Node():
+  class _Node():
 
     def __init__(self, key: T, lazy: F):
       self.key: T = key
       self.data: T = key
       self.lazy: F = lazy
-      self.par: Optional[EulerTourTree.Node] = None
-      self.left: Optional[EulerTourTree.Node] = None
-      self.right: Optional[EulerTourTree.Node] = None
+      self.par: Optional[EulerTourTree._Node] = None
+      self.left: Optional[EulerTourTree._Node] = None
+      self.right: Optional[EulerTourTree._Node] = None
 
     def __str__(self):
       if self.left is None and self.right is None:
@@ -70,8 +70,8 @@ class EulerTourTree(Generic[T, F]):
     self.id = id
     a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
     self.n: int = len(a)
-    self.ptr_vertex: List[EulerTourTree.Node] = [EulerTourTree.Node(elem, id) for i, elem in enumerate(a)]
-    self.ptr_edge: Dict[Tuple[int, int], EulerTourTree.Node] = {}
+    self.ptr_vertex: List[EulerTourTree._Node] = [EulerTourTree._Node(elem, id) for i, elem in enumerate(a)]
+    self.ptr_edge: Dict[Tuple[int, int], EulerTourTree._Node] = {}
     self._group_numbers: int = self.n
 
   @staticmethod
@@ -94,7 +94,7 @@ class EulerTourTree(Generic[T, F]):
     return wrappedfunc
 
   def build(self, G: List[List[int]]) -> None:
-    """隣接リスト `G` をもとにして、辺を張ります。
+    """隣接リスト ``G`` をもとにして、辺を張ります。
 
     :math:`O(n)` です。
 
@@ -106,7 +106,7 @@ class EulerTourTree(Generic[T, F]):
     """
     n, ptr_vertex, ptr_edge, e, id = self.n, self.ptr_vertex, self.ptr_edge, self.e, self.id
     seen = [0] * n
-    Node = EulerTourTree.Node
+    _Node = EulerTourTree._Node
 
     @EulerTourTree.antirec
     def dfs(v: int, p: int=-1) -> Generator:
@@ -123,7 +123,7 @@ class EulerTourTree(Generic[T, F]):
     def rec(l: int, r: int) -> Generator:
       mid = (l + r) >> 1
       u, v = divmod(a[mid], n)
-      node = ptr_vertex[u] if u == v else Node(e, id)
+      node = ptr_vertex[u] if u == v else _Node(e, id)
       if u == v:
         seen[u] = 1
       else:
@@ -144,19 +144,19 @@ class EulerTourTree(Generic[T, F]):
       dfs(root)
       rec(0, len(a))
 
-  def _popleft(self, v: Node) -> Optional[Node]:
+  def _popleft(self, v: _Node) -> Optional[_Node]:
     v = self._left_splay(v)
     if v.right:
       v.right.par = None
     return v.right
 
-  def _pop(self, v: Node) -> Optional[Node]:
+  def _pop(self, v: _Node) -> Optional[_Node]:
     v = self._right_splay(v)
     if v.left:
       v.left.par = None
     return v.left
 
-  def _split_left(self, v: Node) -> Tuple[Node, Optional[Node]]:
+  def _split_left(self, v: _Node) -> Tuple[_Node, Optional[_Node]]:
     # x, yに分割する。ただし、xはvを含む
     self._splay(v)
     x, y = v, v.right
@@ -166,7 +166,7 @@ class EulerTourTree(Generic[T, F]):
     self._update(x)
     return x, y
 
-  def _split_right(self, v: Node) -> Tuple[Optional[Node], Node]:
+  def _split_right(self, v: _Node) -> Tuple[Optional[_Node], _Node]:
     # x, yに分割する。ただし、yはvを含む
     self._splay(v)
     x, y = v.left, v
@@ -176,7 +176,7 @@ class EulerTourTree(Generic[T, F]):
     self._update(y)
     return x, y
 
-  def _merge(self, u: Optional[Node], v: Optional[Node]) -> None:
+  def _merge(self, u: Optional[_Node], v: Optional[_Node]) -> None:
     if u is None or v is None:
       return
     u = self._right_splay(u)
@@ -185,7 +185,7 @@ class EulerTourTree(Generic[T, F]):
     v.par = u
     self._update(u)
 
-  def _splay(self, node: Node) -> None:
+  def _splay(self, node: _Node) -> None:
     self._propagate(node)
     while node.par is not None and node.par.par is not None:
       pnode = node.par
@@ -269,21 +269,21 @@ class EulerTourTree(Generic[T, F]):
     self._update(pnode)
     self._update(node)
 
-  def _left_splay(self, node: Node) -> Node:
+  def _left_splay(self, node: _Node) -> _Node:
     self._splay(node)
     while node.left is not None:
       node = node.left
     self._splay(node)
     return node
 
-  def _right_splay(self, node: Node) -> Node:
+  def _right_splay(self, node: _Node) -> _Node:
     self._splay(node)
     while node.right is not None:
       node = node.right
     self._splay(node)
     return node
 
-  def _propagate(self, node: Optional[Node]) -> None:
+  def _propagate(self, node: Optional[_Node]) -> None:
     if node is None or node.lazy == self.id:
       return
     if node.left:
@@ -296,7 +296,7 @@ class EulerTourTree(Generic[T, F]):
       node.right.lazy = self.composition(node.lazy, node.right.lazy)
     node.lazy = self.id
 
-  def _update(self, node: Node) -> None:
+  def _update(self, node: _Node) -> None:
     self._propagate(node.left)
     self._propagate(node.right)
     node.data = node.key
@@ -317,8 +317,8 @@ class EulerTourTree(Generic[T, F]):
     self.reroot(v)
     assert u*self.n+v not in self.ptr_edge, f'EulerTourTree.link(), {(u, v)} in ptr_edge'
     assert v*self.n+u not in self.ptr_edge, f'EulerTourTree.link(), {(v, u)} in ptr_edge'
-    uv_node = EulerTourTree.Node(self.e, self.id)
-    vu_node = EulerTourTree.Node(self.e, self.id)
+    uv_node = EulerTourTree._Node(self.e, self.id)
+    vu_node = EulerTourTree._Node(self.e, self.id)
     self.ptr_edge[u*self.n+v] = uv_node
     self.ptr_edge[v*self.n+u] = vu_node
     u_node = self.ptr_vertex[u]
@@ -371,7 +371,7 @@ class EulerTourTree(Generic[T, F]):
     self.cut(u, v)
     return True
 
-  def leader(self, v: int) -> Node:
+  def leader(self, v: int) -> _Node:
     """頂点 ``v`` を含む木の代表元を返します。
     :math:`O(\\log{n})` です。
 

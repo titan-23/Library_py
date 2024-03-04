@@ -195,12 +195,11 @@ class FenwickTree():
 
   def __init__(self, n_or_a: Union[Iterable[int], int]):
     """構築します。
-
     :math:`O(n)` です。
 
     Args:
-        n_or_a (Union[Iterable[int], int]): `n_or_a` が `int` のとき、初期値 `0` 、長さ `n` で構築します。
-                                            `n_or_a` が `Iterable` のとき、初期値 `a` で構築します。
+      n_or_a (Union[Iterable[int], int]): `n_or_a` が `int` のとき、初期値 `0` 、長さ `n` で構築します。
+                                          `n_or_a` が `Iterable` のとき、初期値 `a` で構築します。
     """
     if isinstance(n_or_a, int):
       self._size = n_or_a
@@ -218,7 +217,6 @@ class FenwickTree():
 
   def pref(self, r: int) -> int:
     """区間 ``[0, r)`` の総和を返します。
-
     :math:`O(\\log{n})` です。
     """
     assert 0 <= r <= self._size, \
@@ -231,7 +229,6 @@ class FenwickTree():
 
   def suff(self, l: int) -> int:
     """区間 ``[l, n)`` の総和を返します。
-
     :math:`O(\\log{n})` です。
     """
     assert 0 <= l < self._size, \
@@ -240,7 +237,6 @@ class FenwickTree():
 
   def sum(self, l: int, r: int) -> int:
     """区間 ``[l, r)`` の総和を返します。
-
     :math:`O(\\log{n})` です。
     """
     assert 0 <= l <= r <= self._size, \
@@ -259,7 +255,6 @@ class FenwickTree():
 
   def __getitem__(self, k: int) -> int:
     """位置 ``k`` の要素を返します。
-
     :math:`O(\\log{n})` です。
     """
     assert -self._size <= k < self._size, \
@@ -270,7 +265,6 @@ class FenwickTree():
 
   def add(self, k: int, x: int) -> None:
     """``k`` 番目の値に ``x`` を加えます。
-
     :math:`O(\\log{n})` です。
     """
     assert 0 <= k < self._size, \
@@ -283,7 +277,6 @@ class FenwickTree():
 
   def __setitem__(self, k: int, x: int):
     """``k`` 番目の値を ``x`` に更新します。
-
     :math:`O(\\log{n})` です。
     """
     assert -self._size <= k < self._size, \
@@ -323,9 +316,6 @@ class FenwickTree():
       s >>= 1
     return i
 
-  def show(self) -> None:
-    print('[' + ', '.join(map(str, (self.pref(i) for i in range(self._size+1)))) + ']')
-
   def tolist(self) -> List[int]:
     sub = [self.pref(i) for i in range(self._size+1)]
     return [sub[i+1]-sub[i] for i in range(self._size)]
@@ -352,7 +342,6 @@ class FenwickTree():
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 from array import array
 from typing import List, Tuple, Sequence
 from bisect import bisect_left

@@ -74,7 +74,6 @@ class DynamicFenwickTree():
 
   def __str__(self):
     return str(self._tree)
-
 from typing import Dict, Iterable, Optional
 
 class DynamicFenwickTreeSet():

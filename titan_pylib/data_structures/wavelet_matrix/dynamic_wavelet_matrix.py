@@ -12,7 +12,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
   :math:`O(n\\log{(\\sigma)})` です。
   """
 
-  def __init__(self, sigma: int, a: Sequence[int]=[]):
+  def __init__(self, sigma: int, a: Sequence[int]=[]) -> None:
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.v: List[AVLTreeBitVector] = [AVLTreeBitVector()] * self.log

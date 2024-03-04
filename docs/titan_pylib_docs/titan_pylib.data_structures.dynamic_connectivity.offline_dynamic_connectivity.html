@@ -167,201 +167,185 @@
 <span class="linenos"> 40</span>
 <span class="linenos"> 41</span>    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 42</span><span class="w">      </span><span class="sd">"""要素 ``x`` を含む集合の代表元を返します。</span>
-<span class="linenos"> 43</span>
-<span class="linenos"> 44</span><span class="sd">      :math:`O(\\log{n})` です。</span>
-<span class="linenos"> 45</span><span class="sd">      """</span>
-<span class="linenos"> 46</span>      <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 47</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-<span class="linenos"> 48</span>      <span class="k">return</span> <span class="n">x</span>
-<span class="linenos"> 49</span>
-<span class="linenos"> 50</span>    <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos"> 51</span><span class="w">      </span><span class="sd">"""要素 ``x`` を含む集合と要素 ``y`` を含む集合を併合します。</span>
+<span class="linenos"> 43</span><span class="sd">      :math:`O(\\log{n})` です。</span>
+<span class="linenos"> 44</span><span class="sd">      """</span>
+<span class="linenos"> 45</span>      <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 46</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="linenos"> 47</span>      <span class="k">return</span> <span class="n">x</span>
+<span class="linenos"> 48</span>
+<span class="linenos"> 49</span>    <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos"> 50</span><span class="w">      </span><span class="sd">"""要素 ``x`` を含む集合と要素 ``y`` を含む集合を併合します。</span>
+<span class="linenos"> 51</span><span class="sd">      :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 52</span>
-<span class="linenos"> 53</span><span class="sd">      :math:`O(\\log{n})` です。</span>
-<span class="linenos"> 54</span>
-<span class="linenos"> 55</span><span class="sd">      Returns:</span>
-<span class="linenos"> 56</span><span class="sd">        bool: もともと同じ集合であれば ``False``、そうでなければ ``True`` を返します。</span>
-<span class="linenos"> 57</span><span class="sd">      """</span>
-<span class="linenos"> 58</span>      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos"> 59</span>      <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="linenos"> 60</span>      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
-<span class="linenos"> 61</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-<span class="linenos"> 62</span>        <span class="k">return</span> <span class="kc">False</span>
-<span class="linenos"> 63</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">]:</span>
-<span class="linenos"> 64</span>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
-<span class="linenos"> 65</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_group_count</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos"> 66</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>
-<span class="linenos"> 67</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">y</span><span class="p">]))</span>
-<span class="linenos"> 68</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
-<span class="linenos"> 69</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
-<span class="linenos"> 70</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
-<span class="linenos"> 71</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
-<span class="linenos"> 72</span>      <span class="k">return</span> <span class="kc">True</span>
-<span class="linenos"> 73</span>
-<span class="linenos"> 74</span>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 75</span><span class="w">      </span><span class="sd">"""要素 ``x`` を含む集合の要素数を返します。</span>
-<span class="linenos"> 76</span>
-<span class="linenos"> 77</span><span class="sd">      :math:`O(\\log{n})` です。</span>
-<span class="linenos"> 78</span><span class="sd">      """</span>
-<span class="linenos"> 79</span>      <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
-<span class="linenos"> 80</span>
-<span class="linenos"> 81</span>    <span class="k">def</span> <span class="nf">same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos"> 82</span><span class="w">      </span><span class="sd">"""</span>
-<span class="linenos"> 83</span><span class="sd">      要素 ``x`` と ``y`` が同じ集合に属するなら ``True`` を、</span>
-<span class="linenos"> 84</span><span class="sd">      そうでないなら ``False`` を返します。</span>
+<span class="linenos"> 53</span><span class="sd">      Returns:</span>
+<span class="linenos"> 54</span><span class="sd">        bool: もともと同じ集合であれば ``False``、そうでなければ ``True`` を返します。</span>
+<span class="linenos"> 55</span><span class="sd">      """</span>
+<span class="linenos"> 56</span>      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 57</span>      <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 58</span>      <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+<span class="linenos"> 59</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="linenos"> 60</span>        <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos"> 61</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">]:</span>
+<span class="linenos"> 62</span>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+<span class="linenos"> 63</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_group_count</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos"> 64</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>
+<span class="linenos"> 65</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">y</span><span class="p">]))</span>
+<span class="linenos"> 66</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+<span class="linenos"> 67</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+<span class="linenos"> 68</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+<span class="linenos"> 69</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+<span class="linenos"> 70</span>      <span class="k">return</span> <span class="kc">True</span>
+<span class="linenos"> 71</span>
+<span class="linenos"> 72</span>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 73</span><span class="w">      </span><span class="sd">"""要素 ``x`` を含む集合の要素数を返します。</span>
+<span class="linenos"> 74</span><span class="sd">      :math:`O(\\log{n})` です。</span>
+<span class="linenos"> 75</span><span class="sd">      """</span>
+<span class="linenos"> 76</span>      <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+<span class="linenos"> 77</span>
+<span class="linenos"> 78</span>    <span class="k">def</span> <span class="nf">same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos"> 79</span><span class="w">      </span><span class="sd">"""</span>
+<span class="linenos"> 80</span><span class="sd">      要素 ``x`` と ``y`` が同じ集合に属するなら ``True`` を、</span>
+<span class="linenos"> 81</span><span class="sd">      そうでないなら ``False`` を返します。</span>
+<span class="linenos"> 82</span><span class="sd">      :math:`O(\\log{n})` です。</span>
+<span class="linenos"> 83</span><span class="sd">      """</span>
+<span class="linenos"> 84</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="linenos"> 85</span>
-<span class="linenos"> 86</span><span class="sd">      :math:`O(\\log{n})` です。</span>
-<span class="linenos"> 87</span><span class="sd">      """</span>
-<span class="linenos"> 88</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="linenos"> 89</span>
-<span class="linenos"> 90</span>    <span class="k">def</span> <span class="nf">add_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 91</span><span class="w">      </span><span class="sd">"""頂点 ``x`` に値 ``v`` を加算します。</span>
-<span class="linenos"> 92</span>
-<span class="linenos"> 93</span><span class="sd">      :math:`O(\\log{n})` です。</span>
-<span class="linenos"> 94</span><span class="sd">      """</span>
-<span class="linenos"> 95</span>      <span class="k">while</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 96</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
-<span class="linenos"> 97</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-<span class="linenos"> 98</span>
-<span class="linenos"> 99</span>    <span class="k">def</span> <span class="nf">add_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">100</span><span class="w">      </span><span class="sd">"""頂点 ``x`` を含む連結成分の要素それぞれに ``v`` を加算します。</span>
-<span class="linenos">101</span>
-<span class="linenos">102</span><span class="sd">      :math:`O(\\log{n})` です。</span>
-<span class="linenos">103</span><span class="sd">      """</span>
-<span class="linenos">104</span>      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">105</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 86</span>    <span class="k">def</span> <span class="nf">add_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 87</span><span class="w">      </span><span class="sd">"""頂点 ``x`` に値 ``v`` を加算します。</span>
+<span class="linenos"> 88</span><span class="sd">      :math:`O(\\log{n})` です。</span>
+<span class="linenos"> 89</span><span class="sd">      """</span>
+<span class="linenos"> 90</span>      <span class="k">while</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 91</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
+<span class="linenos"> 92</span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span>    <span class="k">def</span> <span class="nf">add_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 95</span><span class="w">      </span><span class="sd">"""頂点 ``x`` を含む連結成分の要素それぞれに ``v`` を加算します。</span>
+<span class="linenos"> 96</span><span class="sd">      :math:`O(\\log{n})` です。</span>
+<span class="linenos"> 97</span><span class="sd">      """</span>
+<span class="linenos"> 98</span>      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 99</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos">100</span>
+<span class="linenos">101</span>    <span class="k">def</span> <span class="nf">group_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">102</span><span class="w">      </span><span class="sd">"""集合の総数を返します。</span>
+<span class="linenos">103</span><span class="sd">      :math:`O(1)` です。</span>
+<span class="linenos">104</span><span class="sd">      """</span>
+<span class="linenos">105</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_count</span>
 <span class="linenos">106</span>
-<span class="linenos">107</span>    <span class="k">def</span> <span class="nf">group_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">108</span><span class="w">      </span><span class="sd">"""集合の総数を返します。</span>
-<span class="linenos">109</span>
-<span class="linenos">110</span><span class="sd">      :math:`O(1)` です。</span>
-<span class="linenos">111</span><span class="sd">      """</span>
-<span class="linenos">112</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_count</span>
+<span class="linenos">107</span>    <span class="k">def</span> <span class="nf">group_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">108</span><span class="w">      </span><span class="sd">"""``x`` を要素に含む集合の総和を求めます。</span>
+<span class="linenos">109</span><span class="sd">      :math:`O(n\\log{n})` です。</span>
+<span class="linenos">110</span><span class="sd">      """</span>
+<span class="linenos">111</span>      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos">112</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
 <span class="linenos">113</span>
-<span class="linenos">114</span>    <span class="k">def</span> <span class="nf">group_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">115</span><span class="w">      </span><span class="sd">"""</span>
-<span class="linenos">116</span><span class="sd">      `key` に代表元、 `value` に `key` を代表元とする集合のリストをもつ `defaultdict` を返します。</span>
-<span class="linenos">117</span>
-<span class="linenos">118</span><span class="sd">      :math:`O(n\\log{n})` です。</span>
-<span class="linenos">119</span><span class="sd">      """</span>
-<span class="linenos">120</span>      <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">121</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_sum</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="linenos">114</span>    <span class="k">def</span> <span class="nf">all_group_members</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">defaultdict</span><span class="p">:</span>
+<span class="linenos">115</span><span class="w">      </span><span class="sd">"""``key`` に代表元、 ``value`` に ``key`` を代表元とする集合のリストをもつ ``defaultdict`` を返します。</span>
+<span class="linenos">116</span><span class="sd">      :math:`O(n\\log{n})` です。</span>
+<span class="linenos">117</span><span class="sd">      """</span>
+<span class="linenos">118</span>      <span class="n">group_members</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="linenos">119</span>      <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
+<span class="linenos">120</span>        <span class="n">group_members</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">member</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">member</span><span class="p">)</span>
+<span class="linenos">121</span>      <span class="k">return</span> <span class="n">group_members</span>
 <span class="linenos">122</span>
-<span class="linenos">123</span>    <span class="k">def</span> <span class="nf">all_group_members</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">defaultdict</span><span class="p">:</span>
-<span class="linenos">124</span><span class="w">      </span><span class="sd">"""`key` に代表元、 `value` に `key` を代表元とする集合のリストをもつ `defaultdict` を返します。</span>
+<span class="linenos">123</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">124</span>      <span class="k">return</span> <span class="s1">'&lt;offline-dc.uf&gt; [</span><span class="se">\n</span><span class="s1">'</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_group_members</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">]'</span>
 <span class="linenos">125</span>
-<span class="linenos">126</span><span class="sd">      :math:`O(n\\log{n})` です。</span>
-<span class="linenos">127</span><span class="sd">      """</span>
-<span class="linenos">128</span>      <span class="n">group_members</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-<span class="linenos">129</span>      <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
-<span class="linenos">130</span>        <span class="n">group_members</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">member</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">member</span><span class="p">)</span>
-<span class="linenos">131</span>      <span class="k">return</span> <span class="n">group_members</span>
-<span class="linenos">132</span>
-<span class="linenos">133</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">134</span>      <span class="k">return</span> <span class="s1">'&lt;offline-dc.uf&gt; [</span><span class="se">\n</span><span class="s1">'</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_group_members</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">]'</span>
-<span class="linenos">135</span>
-<span class="linenos">136</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">137</span><span class="w">    </span><span class="sd">"""初期状態を頂点数 ``n`` の無向グラフとします。</span>
-<span class="linenos">138</span>
-<span class="linenos">139</span><span class="sd">    :math:`O(n)` です。</span>
+<span class="linenos">126</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">127</span><span class="w">    </span><span class="sd">"""初期状態を頂点数 ``n`` の無向グラフとします。</span>
+<span class="linenos">128</span><span class="sd">    :math:`O(n)` です。</span>
+<span class="linenos">129</span>
+<span class="linenos">130</span><span class="sd">    Args:</span>
+<span class="linenos">131</span><span class="sd">      n (int): 頂点数です。</span>
+<span class="linenos">132</span><span class="sd">    """</span>
+<span class="linenos">133</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">n</span>
+<span class="linenos">134</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">135</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_bit</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">136</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_msk</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bit</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="linenos">137</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="linenos">138</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_edge_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">139</span>    <span class="bp">self</span><span class="o">.</span><span class="n">uf</span> <span class="o">=</span> <span class="n">OfflineDynamicConnectivity</span><span class="o">.</span><span class="n">UndoableUnionFind</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="linenos">140</span>
-<span class="linenos">141</span><span class="sd">    Args:</span>
-<span class="linenos">142</span><span class="sd">      n (int): 頂点数です。</span>
-<span class="linenos">143</span><span class="sd">    """</span>
-<span class="linenos">144</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">n</span>
-<span class="linenos">145</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">146</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_bit</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">147</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_msk</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bit</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-<span class="linenos">148</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="linenos">149</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_edge_data</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="linenos">150</span>    <span class="bp">self</span><span class="o">.</span><span class="n">uf</span> <span class="o">=</span> <span class="n">OfflineDynamicConnectivity</span><span class="o">.</span><span class="n">UndoableUnionFind</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="linenos">151</span>
-<span class="linenos">152</span>  <span class="k">def</span> <span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">153</span><span class="w">    </span><span class="sd">"""辺 ``{u, v}`` を追加します。</span>
-<span class="linenos">154</span>
+<span class="linenos">141</span>  <span class="k">def</span> <span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">142</span><span class="w">    </span><span class="sd">"""辺 ``{u, v}`` を追加します。</span>
+<span class="linenos">143</span><span class="sd">    :math:`O(1)` です。</span>
+<span class="linenos">144</span><span class="sd">    """</span>
+<span class="linenos">145</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">u</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
+<span class="linenos">146</span>    <span class="k">if</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">:</span>
+<span class="linenos">147</span>      <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+<span class="linenos">148</span>    <span class="n">edge</span> <span class="o">=</span> <span class="n">u</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">_bit</span><span class="o">|</span><span class="n">v</span>
+<span class="linenos">149</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">150</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span>
+<span class="linenos">151</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">152</span>
+<span class="linenos">153</span>  <span class="k">def</span> <span class="nf">delete_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">154</span><span class="w">    </span><span class="sd">"""辺 ``{u, v}`` を削除します。</span>
 <span class="linenos">155</span><span class="sd">    :math:`O(1)` です。</span>
 <span class="linenos">156</span><span class="sd">    """</span>
 <span class="linenos">157</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">u</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">158</span>    <span class="k">if</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">:</span>
 <span class="linenos">159</span>      <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
 <span class="linenos">160</span>    <span class="n">edge</span> <span class="o">=</span> <span class="n">u</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">_bit</span><span class="o">|</span><span class="n">v</span>
-<span class="linenos">161</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">162</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span>
-<span class="linenos">163</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">161</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">162</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_edge_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span><span class="p">,</span> <span class="n">edge</span><span class="p">))</span>
+<span class="linenos">163</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
 <span class="linenos">164</span>
-<span class="linenos">165</span>  <span class="k">def</span> <span class="nf">delete_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">166</span><span class="w">    </span><span class="sd">"""辺 ``{u, v}`` を削除します。</span>
-<span class="linenos">167</span>
-<span class="linenos">168</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos">169</span><span class="sd">    """</span>
-<span class="linenos">170</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">u</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
-<span class="linenos">171</span>    <span class="k">if</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">:</span>
-<span class="linenos">172</span>      <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
-<span class="linenos">173</span>    <span class="n">edge</span> <span class="o">=</span> <span class="n">u</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">_bit</span><span class="o">|</span><span class="n">v</span>
-<span class="linenos">174</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">175</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_edge_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span><span class="p">,</span> <span class="n">edge</span><span class="p">))</span>
-<span class="linenos">176</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">[</span><span class="n">edge</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">177</span>
-<span class="linenos">178</span>  <span class="k">def</span> <span class="nf">next_query</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">179</span><span class="w">    </span><span class="sd">"""クエリカウントを 1 進めます。</span>
-<span class="linenos">180</span>
-<span class="linenos">181</span><span class="sd">    :math:`O(1)` です。</span>
-<span class="linenos">182</span><span class="sd">    """</span>
-<span class="linenos">183</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">165</span>  <span class="k">def</span> <span class="nf">next_query</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">166</span><span class="w">    </span><span class="sd">"""クエリカウントを 1 進めます。</span>
+<span class="linenos">167</span><span class="sd">    :math:`O(1)` です。</span>
+<span class="linenos">168</span><span class="sd">    """</span>
+<span class="linenos">169</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">170</span>
+<span class="linenos">171</span>  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">172</span><span class="w">    </span><span class="sd">"""実行します。</span>
+<span class="linenos">173</span><span class="sd">    :math:`O(q \\log{q} \\log{n})` です。</span>
+<span class="linenos">174</span>
+<span class="linenos">175</span><span class="sd">    Args:</span>
+<span class="linenos">176</span><span class="sd">      out (Callable[[int], None]): クエリ番号 ``k`` を引数にとります。</span>
+<span class="linenos">177</span><span class="sd">    """</span>
+<span class="linenos">178</span>    <span class="c1"># O(qlogqlogn)</span>
+<span class="linenos">179</span>    <span class="n">uf</span><span class="p">,</span> <span class="n">bit</span><span class="p">,</span> <span class="n">msk</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span>
+<span class="linenos">180</span>    <span class="n">log</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="linenos">181</span>    <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">log</span>
+<span class="linenos">182</span>    <span class="n">size2</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="linenos">183</span>    <span class="n">data</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)]</span>
 <span class="linenos">184</span>
-<span class="linenos">185</span>  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">186</span><span class="w">    </span><span class="sd">"""実行します。</span>
-<span class="linenos">187</span>
-<span class="linenos">188</span><span class="sd">    :math:`O(q \\log{q} \\log{n})` です。</span>
-<span class="linenos">189</span>
-<span class="linenos">190</span><span class="sd">    Args:</span>
-<span class="linenos">191</span><span class="sd">        out (Callable[[int], None]): クエリ番号 ``k`` を引数にとります。</span>
-<span class="linenos">192</span><span class="sd">    """</span>
-<span class="linenos">193</span>    <span class="c1"># O(qlogqlogn)</span>
-<span class="linenos">194</span>    <span class="n">uf</span><span class="p">,</span> <span class="n">bit</span><span class="p">,</span> <span class="n">msk</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span>
-<span class="linenos">195</span>    <span class="n">log</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
-<span class="linenos">196</span>    <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">log</span>
-<span class="linenos">197</span>    <span class="n">size2</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="mi">2</span>
-<span class="linenos">198</span>    <span class="n">data</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)]</span>
-<span class="linenos">199</span>
-<span class="linenos">200</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">edge</span><span class="p">):</span>
-<span class="linenos">201</span>      <span class="n">l</span> <span class="o">+=</span> <span class="n">size</span>
-<span class="linenos">202</span>      <span class="n">r</span> <span class="o">+=</span> <span class="n">size</span>
-<span class="linenos">203</span>      <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
-<span class="linenos">204</span>        <span class="k">if</span> <span class="n">l</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">205</span>          <span class="n">data</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
-<span class="linenos">206</span>          <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">207</span>        <span class="k">if</span> <span class="n">r</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">208</span>          <span class="n">data</span><span class="p">[</span><span class="n">r</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
-<span class="linenos">209</span>        <span class="n">l</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
-<span class="linenos">210</span>        <span class="n">r</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
-<span class="linenos">211</span>
-<span class="linenos">212</span>    <span class="k">for</span> <span class="n">edge</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="linenos">213</span>      <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">214</span>        <span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span><span class="p">,</span> <span class="n">edge</span><span class="p">)</span>
-<span class="linenos">215</span>    <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_data</span><span class="p">:</span>
-<span class="linenos">216</span>      <span class="n">add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">edge</span><span class="p">)</span>
-<span class="linenos">217</span>
-<span class="linenos">218</span>    <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="linenos">219</span>    <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
-<span class="linenos">220</span>      <span class="n">v</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="linenos">221</span>      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">222</span>        <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos">223</span>          <span class="n">uf</span><span class="o">.</span><span class="n">unite</span><span class="p">(</span><span class="n">uv</span><span class="o">&gt;&gt;</span><span class="n">bit</span><span class="p">,</span> <span class="n">uv</span><span class="o">&amp;</span><span class="n">msk</span><span class="p">)</span>
-<span class="linenos">224</span>        <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">v</span><span class="p">)</span>
-<span class="linenos">225</span>        <span class="k">if</span> <span class="n">v</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">size2</span><span class="p">:</span>
-<span class="linenos">226</span>          <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">227</span>          <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">228</span>        <span class="k">elif</span> <span class="n">v</span> <span class="o">-</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">:</span>
-<span class="linenos">229</span>          <span class="n">out</span><span class="p">(</span><span class="n">v</span><span class="o">-</span><span class="n">size</span><span class="p">)</span>
-<span class="linenos">230</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">231</span>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos">232</span>          <span class="n">uf</span><span class="o">.</span><span class="n">_undo</span><span class="p">()</span>
-<span class="linenos">233</span>
-<span class="linenos">234</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">235</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'OfflineDynamicConnectivity(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">)'</span>
-<span class="linenos">236</span>
-<span class="linenos">237</span>
+<span class="linenos">185</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">edge</span><span class="p">):</span>
+<span class="linenos">186</span>      <span class="n">l</span> <span class="o">+=</span> <span class="n">size</span>
+<span class="linenos">187</span>      <span class="n">r</span> <span class="o">+=</span> <span class="n">size</span>
+<span class="linenos">188</span>      <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+<span class="linenos">189</span>        <span class="k">if</span> <span class="n">l</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">190</span>          <span class="n">data</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+<span class="linenos">191</span>          <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">192</span>        <span class="k">if</span> <span class="n">r</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">193</span>          <span class="n">data</span><span class="p">[</span><span class="n">r</span><span class="o">^</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+<span class="linenos">194</span>        <span class="n">l</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+<span class="linenos">195</span>        <span class="n">r</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+<span class="linenos">196</span>
+<span class="linenos">197</span>    <span class="k">for</span> <span class="n">edge</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">198</span>      <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">199</span>        <span class="n">add</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_count</span><span class="p">,</span> <span class="n">edge</span><span class="p">)</span>
+<span class="linenos">200</span>    <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_edge_data</span><span class="p">:</span>
+<span class="linenos">201</span>      <span class="n">add</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">edge</span><span class="p">)</span>
+<span class="linenos">202</span>
+<span class="linenos">203</span>    <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="linenos">204</span>    <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
+<span class="linenos">205</span>      <span class="n">v</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="linenos">206</span>      <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">207</span>        <span class="k">for</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<span class="linenos">208</span>          <span class="n">uf</span><span class="o">.</span><span class="n">unite</span><span class="p">(</span><span class="n">uv</span><span class="o">&gt;&gt;</span><span class="n">bit</span><span class="p">,</span> <span class="n">uv</span><span class="o">&amp;</span><span class="n">msk</span><span class="p">)</span>
+<span class="linenos">209</span>        <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">~</span><span class="n">v</span><span class="p">)</span>
+<span class="linenos">210</span>        <span class="k">if</span> <span class="n">v</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">size2</span><span class="p">:</span>
+<span class="linenos">211</span>          <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">|</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">212</span>          <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">213</span>        <span class="k">elif</span> <span class="n">v</span> <span class="o">-</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">:</span>
+<span class="linenos">214</span>          <span class="n">out</span><span class="p">(</span><span class="n">v</span><span class="o">-</span><span class="n">size</span><span class="p">)</span>
+<span class="linenos">215</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">216</span>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]:</span>
+<span class="linenos">217</span>          <span class="n">uf</span><span class="o">.</span><span class="n">_undo</span><span class="p">()</span>
+<span class="linenos">218</span>
+<span class="linenos">219</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">220</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'OfflineDynamicConnectivity(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">221</span>
 </pre></div>
 </div>
 </section>
@@ -388,57 +372,57 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.add_group">
 <span class="sig-name descname"><span class="pre">add_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.add_group"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.add_group" title="Link to this definition"></a></dt>
-<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む連結成分の要素それぞれに <code class="docutils literal notranslate"><span class="pre">v</span></code> を加算します。</p>
-<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む連結成分の要素それぞれに <code class="docutils literal notranslate"><span class="pre">v</span></code> を加算します。
+<span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.add_point">
 <span class="sig-name descname"><span class="pre">add_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.add_point"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.add_point" title="Link to this definition"></a></dt>
-<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">x</span></code> に値 <code class="docutils literal notranslate"><span class="pre">v</span></code> を加算します。</p>
-<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">x</span></code> に値 <code class="docutils literal notranslate"><span class="pre">v</span></code> を加算します。
+<span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.all_group_members">
 <span class="sig-name descname"><span class="pre">all_group_members</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">defaultdict</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.all_group_members"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.all_group_members" title="Link to this definition"></a></dt>
-<dd><p><cite>key</cite> に代表元、 <cite>value</cite> に <cite>key</cite> を代表元とする集合のリストをもつ <cite>defaultdict</cite> を返します。</p>
-<p><span class="math notranslate nohighlight">\(O(n\log{n})\)</span> です。</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> に代表元、 <code class="docutils literal notranslate"><span class="pre">value</span></code> に <code class="docutils literal notranslate"><span class="pre">key</span></code> を代表元とする集合のリストをもつ <code class="docutils literal notranslate"><span class="pre">defaultdict</span></code> を返します。
+<span class="math notranslate nohighlight">\(O(n\log{n})\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.group_count">
 <span class="sig-name descname"><span class="pre">group_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.group_count"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.group_count" title="Link to this definition"></a></dt>
-<dd><p>集合の総数を返します。</p>
-<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dd><p>集合の総数を返します。
+<span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.group_sum">
 <span class="sig-name descname"><span class="pre">group_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.group_sum"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.group_sum" title="Link to this definition"></a></dt>
-<dd><p><cite>key</cite> に代表元、 <cite>value</cite> に <cite>key</cite> を代表元とする集合のリストをもつ <cite>defaultdict</cite> を返します。</p>
-<p><span class="math notranslate nohighlight">\(O(n\log{n})\)</span> です。</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">x</span></code> を要素に含む集合の総和を求めます。
+<span class="math notranslate nohighlight">\(O(n\log{n})\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.root">
 <span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.root"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.root" title="Link to this definition"></a></dt>
-<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合の代表元を返します。</p>
-<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合の代表元を返します。
+<span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.same">
 <span class="sig-name descname"><span class="pre">same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.same"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.same" title="Link to this definition"></a></dt>
 <dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> と <code class="docutils literal notranslate"><span class="pre">y</span></code> が同じ集合に属するなら <code class="docutils literal notranslate"><span class="pre">True</span></code> を、
-そうでないなら <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。</p>
-<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+そうでないなら <code class="docutils literal notranslate"><span class="pre">False</span></code> を返します。
+<span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.size">
 <span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.size"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.size" title="Link to this definition"></a></dt>
-<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合の要素数を返します。</p>
-<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合の要素数を返します。
+<span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.unite">
 <span class="sig-name descname"><span class="pre">unite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.UndoableUnionFind.unite"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.unite" title="Link to this definition"></a></dt>
-<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合と要素 <code class="docutils literal notranslate"><span class="pre">y</span></code> を含む集合を併合します。</p>
-<p><span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
+<dd><p>要素 <code class="docutils literal notranslate"><span class="pre">x</span></code> を含む集合と要素 <code class="docutils literal notranslate"><span class="pre">y</span></code> を含む集合を併合します。
+<span class="math notranslate nohighlight">\(O(\log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値<span class="colon">:</span></dt>
 <dd class="field-odd"><p>もともと同じ集合であれば <code class="docutils literal notranslate"><span class="pre">False</span></code>、そうでなければ <code class="docutils literal notranslate"><span class="pre">True</span></code> を返します。</p>
@@ -452,26 +436,26 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.add_edge">
 <span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.add_edge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.add_edge" title="Link to this definition"></a></dt>
-<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を追加します。</p>
-<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を追加します。
+<span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.delete_edge">
 <span class="sig-name descname"><span class="pre">delete_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.delete_edge"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.delete_edge" title="Link to this definition"></a></dt>
-<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を削除します。</p>
-<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dd><p>辺 <code class="docutils literal notranslate"><span class="pre">{u,</span> <span class="pre">v}</span></code> を削除します。
+<span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.next_query">
 <span class="sig-name descname"><span class="pre">next_query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.next_query"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.next_query" title="Link to this definition"></a></dt>
-<dd><p>クエリカウントを 1 進めます。</p>
-<p><span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+<dd><p>クエリカウントを 1 進めます。
+<span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dynamic_connectivity/offline_dynamic_connectivity.html#OfflineDynamicConnectivity.run"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.run" title="Link to this definition"></a></dt>
-<dd><p>実行します。</p>
-<p><span class="math notranslate nohighlight">\(O(q \log{q} \log{n})\)</span> です。</p>
+<dd><p>実行します。
+<span class="math notranslate nohighlight">\(O(q \log{q} \log{n})\)</span> です。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>out</strong> (<em>Callable</em><em>[</em><em>[</em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em>) -- クエリ番号 <code class="docutils literal notranslate"><span class="pre">k</span></code> を引数にとります。</p>

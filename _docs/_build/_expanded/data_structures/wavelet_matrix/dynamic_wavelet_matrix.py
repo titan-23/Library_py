@@ -50,10 +50,14 @@ class BitVectorInterface(ABC):
     raise NotImplementedError
 from array import array
 from typing import Iterable, List, Final, Sequence
-from __pypy__ import newlist_hint
-titan_pylib_AVLTreeBitVector_W: Final[int] = 32
+titan_pylib_AVLTreeBitVector_W: Final[int] = 31
 
 class AVLTreeBitVector(BitVectorInterface):
+  """AVL木で書かれたビットベクトルです。簡潔でもなんでもありません。
+
+  bit列を管理するわけですが、各節点は 1~32 bit を持つようにしています。
+  これにより、最大 32 倍高速化が行えます。(16~32bitとするといいんだろうけど)
+  """
 
   @staticmethod
   def _popcount(x: int) -> int:
@@ -69,7 +73,7 @@ class AVLTreeBitVector(BitVectorInterface):
     :math:`O(n)` です。
 
     Args:
-        a (Iterable[int], optional): 構築元の配列です。
+      a (Iterable[int], optional): 構築元の配列です。
     """
     self.root = 0
     self.bit_len = array('B', bytes(1))
@@ -85,7 +89,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def reserve(self, n: int) -> None:
     """``n`` 要素分のメモリを確保します。
-
     :math:`O(n)` です。
     """
     n = n // titan_pylib_AVLTreeBitVector_W + 1
@@ -260,7 +263,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def insert(self, k: int, key: int) -> None:
     """``k`` 番目に ``v`` を挿入します。
-
     :math:`O(\\log{n})` です。
 
     Args:
@@ -414,7 +416,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def pop(self, k: int) -> int:
     """``k`` 番目の要素を削除し、その値を返します。
-
     :math:`O(\\log{n})` です。
 
     Args:
@@ -454,7 +455,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def set(self, k: int, v: int) -> None:
     """``k`` 番目の値を ``v`` に更新します。
-
     :math:`O(\\log{n})` です。
 
     Args:
@@ -464,8 +464,11 @@ class AVLTreeBitVector(BitVectorInterface):
     self.__setitem__(k, v)
 
   def tolist(self) -> List[int]:
+    """リストにして返します。
+    :math:`O(n)` です。
+    """
     left, right, key, bit_len = self.left, self.right, self.key, self.bit_len
-    a = newlist_hint(len(self))
+    a = []
     if not self.root:
       return a
     def rec(node):
@@ -478,7 +481,10 @@ class AVLTreeBitVector(BitVectorInterface):
     rec(self.root)
     return a
 
-  def debug_acc(self) -> None:
+  def _debug_acc(self) -> None:
+    """デバッグ用のメソッドです。
+    key,totalをチェックします。
+    """
     left, right = self.left, self.right
     key = self.key
     def rec(node):
@@ -496,7 +502,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def access(self, k: int) -> int:
     """``k`` 番目の値を返します。
-
     :math:`O(\\log{n})` です。
 
     Args:
@@ -506,28 +511,24 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def rank0(self, r: int) -> int:
     """``a[0, r)`` に含まれる ``0`` の個数を返します。
-
     :math:`O(\\log{n})` です。
     """
     return r - self._pref(r)
 
   def rank1(self, r: int) -> int:
     """``a[0, r)`` に含まれる ``1`` の個数を返します。
-
     :math:`O(\\log{n})` です。
     """
     return self._pref(r)
 
   def rank(self, r: int, v: int) -> int:
     """``a[0, r)`` に含まれる ``v`` の個数を返します。
-
     :math:`O(\\log{n})` です。
     """
     return self.rank1(r) if v else self.rank0(r)
 
   def select0(self, k: int) -> int:
     """``k`` 番目の ``0`` のインデックスを返します。
-
     :math:`O(\\log{n}^2)` です。
     """
     if k < 0 or self.rank0(len(self)) <= k:
@@ -543,7 +544,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def select1(self, k: int) -> int:
     """``k`` 番目の ``1`` のインデックスを返します。
-
     :math:`O(\\log{n}^2)` です。
     """
     if k < 0 or self.rank1(len(self)) <= k:
@@ -559,7 +559,6 @@ class AVLTreeBitVector(BitVectorInterface):
 
   def select(self, k: int, v: int) -> int:
     """``k`` 番目の ``v`` のインデックスを返します。
-
     :math:`O(\\log{n}^2)` です。
     """
     return self.select1(k) if v else self.select0(k)
@@ -695,6 +694,9 @@ class AVLTreeBitVector(BitVectorInterface):
     return s << 1 | res
 
   def __getitem__(self, k: int) -> int:
+    """``k`` 番目の要素を返します。
+    :math:`O(\\log{n})` です。
+    """
     assert 0 <= k < len(self)
     left, right, bit_len, size, key = self.left, self.right, self.bit_len, self.size, self.key
     node = self.root
@@ -709,24 +711,32 @@ class AVLTreeBitVector(BitVectorInterface):
         node = right[node]
         k -= t
 
-  def __setitem__(self, k: int, v: int):
-    left, right, bit_len, size, key = self.left, self.right, self.bit_len, self.size, self.key
+  def __setitem__(self, k: int, v: int) -> None:
+    """``k`` 番目の要素を ``v`` に更新します。
+    :math:`O(\\log{n})` です。
+    """
+    left, right, bit_len, size, key, total = self.left, self.right, self.bit_len, self.size, self.key, self.total
     assert v == 0 or v == 1, 'ValueError'
     node = self.root
+    path = []
     while True:
       t = size[left[node]] + bit_len[node]
+      path.append(node)
       if t - bit_len[node] <= k < t:
         k -= size[left[node]]
         if v:
           key[node] |= 1 << k
         else:
           key[node] &= ~(1 << k)
-        return
+        break
       elif t > k:
         node = left[node]
       else:
         node = right[node]
         k -= t
+    while path:
+      node = path.pop()
+      total[node] = AVLTreeBitVector._popcount(node) + total[left[node]] + total[right[node]]
 
   def __str__(self):
     return str(self.tolist())
@@ -1136,7 +1146,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
   :math:`O(n\\log{(\\sigma)})` です。
   """
 
-  def __init__(self, sigma: int, a: Sequence[int]=[]):
+  def __init__(self, sigma: int, a: Sequence[int]=[]) -> None:
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.v: List[AVLTreeBitVector] = [AVLTreeBitVector()] * self.log

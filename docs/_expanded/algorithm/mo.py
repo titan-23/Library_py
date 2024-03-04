@@ -32,8 +32,8 @@ class Mo():
     :math:`O(1)` です。
 
     Args:
-      l (int)
-      r (int)
+      l (int):
+      r (int):
 
     制約:
       :math:`0 \\leq l \\leq r \\leq n`
