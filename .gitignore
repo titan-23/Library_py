@@ -134,7 +134,5 @@ dmypy.json
 # my file
 .vscode/
 a.sh
-all_expander.py
-edit_html.py
 *.in
 *.out
