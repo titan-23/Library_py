@@ -1,10 +1,16 @@
 from typing import List, Iterable, Sequence, Union
 
 class FenwickTreeRAQ():
-  """区間加算ができます。
+  """区間加算/区間和クエリができます。。
   """
 
   def __init__(self, n_or_a: Union[Iterable[int], int]):
+    """構築します。
+    :math:`O(n)` です。
+
+    Args:
+      n_or_a (Union[Iterable[int], int]): 構築元のものです。
+    """
     if isinstance(n_or_a, int):
       self.n = n_or_a
       self.bit0 = [0] * (n_or_a + 2)
@@ -34,34 +40,73 @@ class FenwickTreeRAQ():
     return ret
 
   def add(self, k: int, x: int) -> None:
+    """``k`` 番目に ``x`` を加算します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int):
+      x (int):
+    """
     assert 0 <= k < self.n, \
-        f'IndexError: FenwickTreeRAQ.add({k}, {x}), n={self.n}'
+        f'IndexError: {self.__class__.__name__}.add({k}, {x}), n={self.n}'
     self.add_range(k, k+1, x)
 
   def add_range(self, l: int, r: int, x: int) -> None:
+    """区間 ``[l, r)`` に ``x`` を加算します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      l (int):
+      r (int):
+      x (int):
+    """
     assert 0 <= l <= r <= self.n, \
-        f'IndexError: FenwickTreeRAQ.add_range({l}, {r}, {x}), l={l},r={r},n={self.n}'
+        f'IndexError: {self.__class__.__name__}.add_range({l}, {r}, {x}), l={l},r={r},n={self.n}'
     self.__add(self.bit0, l, -x*l)
     self.__add(self.bit0, r, x*r)
     self.__add(self.bit1, l, x)
     self.__add(self.bit1, r, -x)
 
   def sum(self, l: int, r: int) -> int:
+    """区間 ``[l, r)`` の総和を返します。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      l (int):
+      r (int):
+
+    Returns:
+      int:
+    """
     assert 0 <= l <= r <= self.n, \
-        f'IndexError: FenwickTreeRAQ.sum({l}, {r}), l={l},r={r},n={self.n}'
+        f'IndexError: {self.__class__.__name__}.sum({l}, {r}), l={l},r={r},n={self.n}'
     return self.__pref(self.bit0, r) + r*self.__pref(self.bit1, r) - self.__pref(self.bit0, l) - l*self.__pref(self.bit1, l)
 
   def tolist(self) -> List[int]:
+    """``List`` にして返します。
+
+    Returns:
+      List[int]:
+    """
     return [self.sum(i, i+1) for i in range(self.n)]
 
   def __getitem__(self, k: int) -> int:
+    """``k`` 番目の値を返します。
+    ``sum(k, k+1)`` と等価です。
+    :math:`O(\\log{n})` です。
+
+    Args:
+      k (int):
+
+    Returns:
+      int:
+    """
     assert 0 <= k < self.n, \
-        f'IndexError: FenwickTreeRAQ.__getitem__({k}), n={self.n}'
+        f'IndexError: {self.__class__.__name__}[{k}], n={self.n}'
     return self.sum(k, k+1)
 
   def __str__(self):
-    return '[' + ', '.join(map(str, (self.sum(i, i+1) for i in range(self.n)))) + ']'
+    return str(self.tolist())
 
   def __repr__(self):
-    return f'FenwickTreeRAQ({self})'
-
+    return f'{self.__class__.__name__}({self})'
