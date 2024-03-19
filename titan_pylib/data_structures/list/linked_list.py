@@ -64,7 +64,6 @@ class LinkedList(Generic[T]):
     self._len += 1
     if not self.top:
       self.top = node
-    print(f'{self.top._nxt=}, {self.tail=}')
     node._pre = self.tail
     if self.tail:
       self.tail._nxt = node
@@ -112,11 +111,11 @@ class LinkedList(Generic[T]):
     self._len += 1
     new_node._nxt = pos_node._nxt
     new_node._pre = pos_node
-    pos_node._nxt = new_node
     if pos_node._nxt:
       pos_node._nxt._pre = new_node
     else:
       self.tail = new_node
+    pos_node._nxt = new_node
 
   # nxt._pre -> new -> nxt
   def insert_iter_pre(self, nxt_node: LinkedListNode, new_node: LinkedListNode) -> None:
@@ -165,9 +164,8 @@ class LinkedList(Generic[T]):
   def tolist(self) -> List[T]:
     return [x for x in self]
 
-  @classmethod
-  def make_node(cls, key: T) -> LinkedListNode:
-    return cls.LinkedListNode(key)
+  def make_node(self, key: T) -> LinkedListNode:
+    return self.LinkedListNode(key)
 
   def __iter__(self) -> Iterator[T]:
     self.it = self.top
