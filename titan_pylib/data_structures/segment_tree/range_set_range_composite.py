@@ -10,12 +10,10 @@ class RangeSetRangeComposite(Generic[T]):
                op: Callable[[T, T], T],
                pow_: Callable[[T, int], T],
                e: T,
-               id: T
                ) -> None:
     self.op = op
     self.pow = pow_
     self.e = e
-    self.id = id
     a = [e] * n_or_a if isinstance(n_or_a, int) else list(n_or_a)
     a.append(e)
     self.seg = SegmentTree(a, op, e)
