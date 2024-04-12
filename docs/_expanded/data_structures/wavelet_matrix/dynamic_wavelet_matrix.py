@@ -736,7 +736,7 @@ class AVLTreeBitVector(BitVectorInterface):
         k -= t
     while path:
       node = path.pop()
-      total[node] = AVLTreeBitVector._popcount(node) + total[left[node]] + total[right[node]]
+      total[node] = AVLTreeBitVector._popcount(key[node]) + total[left[node]] + total[right[node]]
 
   def __str__(self):
     return str(self.tolist())

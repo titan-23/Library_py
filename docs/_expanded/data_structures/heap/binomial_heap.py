@@ -12,11 +12,11 @@ class BinomialHeap(Generic[T]):
   ``List`` の代わりに ``LinkedList`` を使用し、``push,meld`` では ``O(1)`` で連結させ、 ``delete_min`` にすべてを押し付けると ``push,meld`` が ``O(1)`` 、``delete_min`` が償却 ``O(logn)`` になるはずです。
   """
 
-  class Node():
+  class _Node():
 
     def __init__(self, key: T) -> None:
       self.key = key
-      self.child: List['BinomialHeap.Node'] = []
+      self.child: List['BinomialHeap._Node'] = []
 
     def rank(self) -> int:
       return len(self.child)
@@ -32,7 +32,7 @@ class BinomialHeap(Generic[T]):
       return a
 
     def __str__(self):
-      return f'Node({sorted(self.tolist())})'
+      return f'_Node({sorted(self.tolist())})'
 
     __repr__ = __str__
 
@@ -44,7 +44,7 @@ class BinomialHeap(Generic[T]):
       self.insert(e)
 
   @staticmethod
-  def _link(node1: Node, node2: Node) -> Node:
+  def _link(node1: _Node, node2: _Node) -> _Node:
     if node1.key > node2.key:
       node1, node2 = node2, node1
     node1.child.append(node2)
@@ -60,7 +60,7 @@ class BinomialHeap(Generic[T]):
   # O(logN)
   def push(self, key: T) -> None:
     self.len += 1
-    new_node = BinomialHeap.Node(key)
+    new_node = BinomialHeap._Node(key)
     ptr = self.ptr
     if self.ptr_min is None or self.ptr_min.key > key:
       self.ptr_min = new_node

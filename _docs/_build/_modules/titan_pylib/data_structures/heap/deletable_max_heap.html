@@ -84,7 +84,7 @@
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.deletable_max_heap.html#titan_pylib.data_structures.heap.deletable_max_heap.DeletableMaxHeap">[ドキュメント]</a>
 <span class="linenos"> 6</span><span class="k">class</span> <span class="nc">DeletableMaxHeap</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos"> 7</span>
-<span class="linenos"> 8</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 8</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 9</span>    <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="p">:</span> <span class="n">MaxHeap</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">MaxHeap</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">10</span>    <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span><span class="p">:</span> <span class="n">MaxHeap</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">MaxHeap</span><span class="p">()</span>
 <span class="linenos">11</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="p">)</span>
@@ -104,33 +104,36 @@
 <span class="linenos">20</span>  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">21</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">0</span>
 <span class="linenos">22</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">23</span>    <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+<span class="linenos">23</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+<span class="linenos">24</span>      <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">pop_max</span><span class="p">()</span>
+<span class="linenos">25</span>    <span class="k">else</span><span class="p">:</span>
+<span class="linenos">26</span>      <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
 
-<span class="linenos">24</span>
-<span class="linenos">25</span>  <span class="k">def</span> <span class="nf">_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">26</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">get_max</span><span class="p">():</span>
-<span class="linenos">27</span>      <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">pop_max</span><span class="p">()</span>
-<span class="linenos">28</span>      <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span><span class="o">.</span><span class="n">pop_max</span><span class="p">()</span>
-<span class="linenos">29</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>  <span class="k">def</span> <span class="nf">_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">29</span>    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">get_max</span><span class="p">():</span>
+<span class="linenos">30</span>      <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">pop_max</span><span class="p">()</span>
+<span class="linenos">31</span>      <span class="bp">self</span><span class="o">.</span><span class="n">rem_hq</span><span class="o">.</span><span class="n">pop_max</span><span class="p">()</span>
+<span class="linenos">32</span>
 <div class="viewcode-block" id="DeletableMaxHeap.get_max">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.deletable_max_heap.html#titan_pylib.data_structures.heap.deletable_max_heap.DeletableMaxHeap.get_max">[ドキュメント]</a>
-<span class="linenos">30</span>  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">31</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">0</span>
-<span class="linenos">32</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">()</span>
-<span class="linenos">33</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span></div>
+<span class="linenos">33</span>  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">34</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="linenos">35</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">()</span>
+<span class="linenos">36</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">get_max</span><span class="p">()</span></div>
 
-<span class="linenos">34</span>
+<span class="linenos">37</span>
 <div class="viewcode-block" id="DeletableMaxHeap.pop_max">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.deletable_max_heap.html#titan_pylib.data_structures.heap.deletable_max_heap.DeletableMaxHeap.pop_max">[ドキュメント]</a>
-<span class="linenos">35</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">36</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">0</span>
-<span class="linenos">37</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="mi">1</span>
-<span class="linenos">38</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">()</span>
-<span class="linenos">39</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">pop_max</span><span class="p">()</span></div>
+<span class="linenos">38</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">39</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="linenos">40</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">41</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">()</span>
+<span class="linenos">42</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hq</span><span class="o">.</span><span class="n">pop_max</span><span class="p">()</span></div>
 
-<span class="linenos">40</span>
-<span class="linenos">41</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">42</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span></div>
+<span class="linenos">43</span>
+<span class="linenos">44</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">45</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span></div>
 
 </pre></div>
 </div>

@@ -88,7 +88,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class DeletableMinHeap(Generic[T]):
 
-  def __init__(self, a: Iterable[T]) -> None:
+  def __init__(self, a: Iterable[T]=[]) -> None:
     self.hq: MinHeap[T] = MinHeap(a)
     self.rem_hq: MinHeap[T] = MinHeap()
     self._len: int = len(self.hq)
@@ -103,7 +103,10 @@ class DeletableMinHeap(Generic[T]):
   def remove(self, key: T) -> None:
     assert self._len > 0
     self._len -= 1
-    self.rem_hq.push(key)
+    if self.hq.get_min() == key:
+      self.hq.pop_min()
+    else:
+      self.rem_hq.push(key)
 
   def _delete(self) -> None:
     while self.rem_hq and self.rem_hq.get_min() == self.hq.get_min():

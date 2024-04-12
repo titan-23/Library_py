@@ -90,22 +90,15 @@
 <span class="linenos"> 11</span><span class="sd">  ``List`` の代わりに ``LinkedList`` を使用し、``push,meld`` では ``O(1)`` で連結させ、 ``delete_min`` にすべてを押し付けると ``push,meld`` が ``O(1)`` 、``delete_min`` が償却 ``O(logn)`` になるはずです。</span>
 <span class="linenos"> 12</span><span class="sd">  """</span>
 <span class="linenos"> 13</span>
-<div class="viewcode-block" id="BinomialHeap.Node">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.binomial_heap.html#titan_pylib.data_structures.heap.binomial_heap.BinomialHeap.Node">[ドキュメント]</a>
-<span class="linenos"> 14</span>  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
+<span class="linenos"> 14</span>  <span class="k">class</span> <span class="nc">_Node</span><span class="p">():</span>
 <span class="linenos"> 15</span>
 <span class="linenos"> 16</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 17</span>      <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
-<span class="linenos"> 18</span>      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">'BinomialHeap.Node'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos"> 18</span>      <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">'BinomialHeap._Node'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos"> 19</span>
-<div class="viewcode-block" id="BinomialHeap.Node.rank">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.binomial_heap.html#titan_pylib.data_structures.heap.binomial_heap.BinomialHeap.Node.rank">[ドキュメント]</a>
 <span class="linenos"> 20</span>    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 21</span>      <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span></div>
-
+<span class="linenos"> 21</span>      <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
 <span class="linenos"> 22</span>
-<div class="viewcode-block" id="BinomialHeap.Node.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.binomial_heap.html#titan_pylib.data_structures.heap.binomial_heap.BinomialHeap.Node.tolist">[ドキュメント]</a>
 <span class="linenos"> 23</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 24</span>      <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos"> 25</span>      <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
@@ -114,14 +107,12 @@
 <span class="linenos"> 28</span>        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">child</span><span class="p">:</span>
 <span class="linenos"> 29</span>          <span class="n">dfs</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="linenos"> 30</span>      <span class="n">dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-<span class="linenos"> 31</span>      <span class="k">return</span> <span class="n">a</span></div>
-
+<span class="linenos"> 31</span>      <span class="k">return</span> <span class="n">a</span>
 <span class="linenos"> 32</span>
 <span class="linenos"> 33</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 34</span>      <span class="k">return</span> <span class="sa">f</span><span class="s1">'Node(</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos"> 34</span>      <span class="k">return</span> <span class="sa">f</span><span class="s1">'_Node(</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span><span class="si">}</span><span class="s1">)'</span>
 <span class="linenos"> 35</span>
-<span class="linenos"> 36</span>    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span></div>
-
+<span class="linenos"> 36</span>    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
 <span class="linenos"> 37</span>
 <span class="linenos"> 38</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 39</span>    <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="p">[]</span>
@@ -131,7 +122,7 @@
 <span class="linenos"> 43</span>      <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 <span class="linenos"> 44</span>
 <span class="linenos"> 45</span>  <span class="nd">@staticmethod</span>
-<span class="linenos"> 46</span>  <span class="k">def</span> <span class="nf">_link</span><span class="p">(</span><span class="n">node1</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">node2</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+<span class="linenos"> 46</span>  <span class="k">def</span> <span class="nf">_link</span><span class="p">(</span><span class="n">node1</span><span class="p">:</span> <span class="n">_Node</span><span class="p">,</span> <span class="n">node2</span><span class="p">:</span> <span class="n">_Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Node</span><span class="p">:</span>
 <span class="linenos"> 47</span>    <span class="k">if</span> <span class="n">node1</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">node2</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
 <span class="linenos"> 48</span>      <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="n">node2</span><span class="p">,</span> <span class="n">node1</span>
 <span class="linenos"> 49</span>    <span class="n">node1</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
@@ -149,7 +140,7 @@
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.binomial_heap.html#titan_pylib.data_structures.heap.binomial_heap.BinomialHeap.push">[ドキュメント]</a>
 <span class="linenos"> 60</span>  <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 61</span>    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos"> 62</span>    <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="linenos"> 62</span>    <span class="n">new_node</span> <span class="o">=</span> <span class="n">BinomialHeap</span><span class="o">.</span><span class="n">_Node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos"> 63</span>    <span class="n">ptr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr</span>
 <span class="linenos"> 64</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span><span class="o">.</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">:</span>
 <span class="linenos"> 65</span>      <span class="bp">self</span><span class="o">.</span><span class="n">ptr_min</span> <span class="o">=</span> <span class="n">new_node</span>
