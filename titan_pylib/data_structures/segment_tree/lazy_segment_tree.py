@@ -45,6 +45,7 @@ class LazySegmentTree(Generic[T, F]):
     self.lazy[k] = self.composition(f, self.lazy[k])
 
   def _propagate(self, k: int) -> None:
+    if self.lazy[k] == self.id: return
     self._all_apply(k<<1, self.lazy[k])
     self._all_apply(k<<1|1, self.lazy[k])
     self.lazy[k] = self.id
@@ -57,6 +58,13 @@ class LazySegmentTree(Generic[T, F]):
     for i in range(1, self.log+1):
       self._update(k >> i)
 
+  def _upper_propagate(self, l: int, r: int) -> None:
+    for i in range(self.log, 0, -1):
+      if l >> i << i != l:
+        self._propagate(l>>i)
+      if (r >> i << i != r) and (l >> i != (r-1) >> i or l >> i << i == l):
+        self._propagate((r-1)>>i)
+
   def apply(self, l: int, r: int, f: F) -> None:
     assert 0 <= l <= r <= self.n, \
         f'IndexError: {self.__class__.__name__}.apply({l}, {r}, {f}), n={self.n}'
@@ -64,12 +72,7 @@ class LazySegmentTree(Generic[T, F]):
     if f == self.id: return
     l += self.size
     r += self.size
-    lazy = self.lazy
-    for i in range(self.log, 0, -1):
-      if l >> i << i != l and lazy[l>>i] != self.id:
-        self._propagate(l>>i)
-      if r >> i << i != r and lazy[(r-1)>>i] != self.id:
-        self._propagate((r-1)>>i)
+    self._upper_propagate(l, r)
     l2, r2 = l, r
     while l < r:
       if l & 1:
@@ -85,7 +88,7 @@ class LazySegmentTree(Generic[T, F]):
       rr >>= 1
       if ll << i != l2:
         self._update(ll)
-      if r2 >> i << i != r2:
+      if (ll << i == l2 or ll != rr) and (r2 >> i << i != r2):
         self._update(rr)
 
   def all_apply(self, f: F) -> None:
@@ -97,13 +100,7 @@ class LazySegmentTree(Generic[T, F]):
     if l == r: return self.e
     l += self.size
     r += self.size
-    lazy = self.lazy
-    for i in range(self.log, 0, -1):
-      ll, rr = l>>i, r>>i
-      if ll << i != l and lazy[ll] != self.id:
-        self._propagate(ll)
-      if rr << i != r and lazy[rr] != self.id:
-        self._propagate(rr)
+    self._upper_propagate(l, r)
     lres = self.e
     rres = self.e
     while l < r:
@@ -202,8 +199,7 @@ class LazySegmentTree(Generic[T, F]):
      self._update(k >> i)
 
   def __str__(self) -> str:
-    return '[' + ', '.join(map(str, (self.__getitem__(i) for i in range(self.n)))) + ']'
+    return str(self.tolist())
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
