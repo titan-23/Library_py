@@ -4,6 +4,7 @@ from typing import Union, Callable, TypeVar, Generic, Iterable
 T = TypeVar('T')
 
 class RangeSetRangeComposite(Generic[T]):
+  """区間更新+区間積です。"""
 
   def __init__(self,
                n_or_a: Union[int, Iterable[T]],
@@ -11,6 +12,15 @@ class RangeSetRangeComposite(Generic[T]):
                pow_: Callable[[T, int], T],
                e: T,
                ) -> None:
+    """
+    :math:`O(nlogn)` です。
+
+    Args:
+      n_or_a (Union[int, Iterable[T]]): n or a
+      op (Callable[[T, T], T]): 2項演算です。
+      pow_ (Callable[[T, int], T]): 累乗演算です。
+      e (T): 単位元です。
+    """
     self.op = op
     self.pow = pow_
     self.e = e
@@ -23,6 +33,10 @@ class RangeSetRangeComposite(Generic[T]):
     self.beki = [1] * self.n
 
   def prod(self, l: int, r: int) -> T:
+    """区間 ``[l, r)`` の総積を返します。
+    :math:`O(logn)` です。
+    ``op`` を :math:`O(logn)` 回、 ``pow_`` を :math:`O(1)` 回呼び出します。
+    """
     ll = self.indx.ge(l)
     rr = self.indx.le(r)
     ans = self.e
@@ -37,6 +51,10 @@ class RangeSetRangeComposite(Generic[T]):
     return ans
 
   def apply(self, l: int, r: int, f: T) -> None:
+    """区間 ``[l, r)`` を ``f`` に更新します。
+    :math:`O(logn)` です。
+    ``op`` を :math:`O(logn)` 回、 ``pow_`` を :math:`O(1)` 回呼び出します。
+    """
     indx, val, beki, seg = self.indx, self.val, self.beki, self.seg
 
     l0 = indx.le(l)
