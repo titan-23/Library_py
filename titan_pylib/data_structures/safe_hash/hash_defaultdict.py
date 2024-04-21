@@ -37,4 +37,4 @@ class HashDefaultdict():
     return ((k^HashDefaultdict._xor, v) for k, v in self._data.items())
 
   def __str__(self):
-    return 'HashDefaultdict({' + ', '.join(f'{k}: {v}' for k, v in self.items()) + '})'
+    return f'{self.__class__.__name__}(' + '{' + ', '.join(f'{k}: {v}' for k, v in self.items()) + '})'

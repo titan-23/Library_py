@@ -2,8 +2,7 @@ import os
 import io
 
 class FastO():
-  """標準出力高速化ライブラリです。
-  """
+  """標準出力高速化ライブラリです。"""
 
   _output = io.StringIO()
 

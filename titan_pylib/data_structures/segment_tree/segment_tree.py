@@ -111,8 +111,8 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     '''Find the largest index R s.t. f([l, R)) == True. / O(\\log{n})'''
     assert 0 <= l <= self._n, \
         f'IndexError: {self.__class__.__name__}.max_right({l}, f) index out of range'
-    assert f(self._e), \
-        f'{self.__class__.__name__}.max_right({l}, f), f({self._e}) must be true.'
+    # assert f(self._e), \
+    #     f'{self.__class__.__name__}.max_right({l}, f), f({self._e}) must be true.'
     if l == self._n:
       return self._n
     l += self._size
@@ -137,8 +137,8 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     '''Find the smallest index L s.t. f([L, r)) == True. / O(\\log{n})'''
     assert 0 <= r <= self._n, \
         f'IndexError: {self.__class__.__name__}.min_left({r}, f) index out of range'
-    assert f(self._e), \
-        f'{self.__class__.__name__}.min_left({r}, f), f({self._e}) must be true.'
+    # assert f(self._e), \
+    #     f'{self.__class__.__name__}.min_left({r}, f), f({self._e}) must be true.'
     if r == 0:
       return 0
     r += self._size
@@ -160,7 +160,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
     return 0
 
   def tolist(self) -> List[T]:
-    """
+    """リストにして返します。
     :math:`O(n)` です。
     """
     return [self.get(i) for i in range(self._n)]
@@ -180,11 +180,11 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         f'IndexError: {self.__class__.__name__}.__setitem__{k}, {v}), n={self._n}'
     self.set(k, v)
 
-  def __len__(self):
+  def __len__(self) -> int:
     return self._n
 
-  def __str__(self):
+  def __str__(self) -> str:
     return str(self.tolist())
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     return f'{self.__class__.__name__}({self})'
