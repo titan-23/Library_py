@@ -384,7 +384,7 @@ class AVLTreeSet(Generic[T]):
     return a
 
   def __contains__(self, key: T) -> bool:
-    return self.find_key(key)
+    return self.find_key(key) is not None
 
   def __getitem__(self, k: int) -> T:
     assert 0 <= k < len(self), \
@@ -464,6 +464,7 @@ def test():
     assert s.tolist() == sorted(ts)
     s.check()
   s.check()
+  exit()
 
 def data():
   import sys
@@ -479,10 +480,10 @@ def data():
       ans.append(s.pop(x-1))
   if ans:
     print('\n'.join(map(str, ans)))
+  exit()
 
-# data()
-test()
-exit()
+data()
+# test()
 
 import os
 import io
