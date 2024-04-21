@@ -18,7 +18,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     ``k`` だけ進める場合、だいたい ``k`` 倍になります(ホント?)。
     """
 
-    def __init__(self, key: T):
+    def __init__(self, key: T) -> None:
       self.key = key
       self.left = RedBlackTreeSet.NIL
       self.right = RedBlackTreeSet.NIL
@@ -28,18 +28,17 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     @property
     def count(self) -> int:
       """保持している `key` の個数です。
-
       ``1`` を返します。
       """
       return 1
 
-    def _min(self):
+    def _min(self) -> 'RedBlackTreeSet.Node':
       now = self
       while now.left:
         now = now.left
       return now
 
-    def _max(self):
+    def _max(self) -> 'RedBlackTreeSet.Node':
       now = self
       while now.right:
         now = now.right
@@ -129,7 +128,6 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]):
     """``a`` から ``RedBlackTreeSet`` を再帰的に構築します。
-
     重複無くソート済みなら :math:`O(N)` 、そうでないなら :math:`O(NlogN)` です。
     """
     self.node = RedBlackTreeSet.NIL
@@ -143,7 +141,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
 
   def _build(self, a: Sequence[T]) -> None:
     Node = RedBlackTreeSet.Node
-    def rec(l: int, r: int, d: int) -> Node:
+    def rec(l: int, r: int, d: int) -> RedBlackTreeSet.Node:
       mid = (l + r) >> 1
       node = Node(a[mid])
       node.col = int((not flag and d&1) or (flag and d > 1 and not d&1))
@@ -278,7 +276,6 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
 
   def discard_iter(self, node: Node) -> None:
     """``node`` を削除します。
-
     償却 :math:`O(1)` らしいです。
 
     Args:
@@ -389,15 +386,13 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
     return self.min_node.key
 
   def get_max_iter(self) -> Optional[Node]:
-    """最大値を指す `Node` を返します。空であれば `None` を返します。
-
+    """最大値を指す ``Node`` を返します。空であれば ``None`` を返します。
     :math:`O(1)` です。
     """
     return self.max_node
 
   def get_min_iter(self) -> Optional[Node]:
-    """最小値を指す `Node` を返します。空であれば `None` を返します。
-
+    """最小値を指す ``Node`` を返します。空であれば ``None`` を返します。
     :math:`O(1)` です。
     """
     return self.min_node
@@ -466,7 +461,6 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
 
   def find(self, key: T) -> Optional[Node]:
     """``key`` が存在すれば ``key`` を指す ``Node`` を返します。存在しなければ ``None`` を返します。
-
     :math:`O(\\log{n})` です。
     """
     node = self.node
@@ -527,4 +521,3 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
