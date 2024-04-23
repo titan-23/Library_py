@@ -1,6 +1,90 @@
 from typing import Generic, Iterable, TypeVar, Optional
 T = TypeVar('T')
 
+class AVLTree():
+
+  def __init__(self):
+    self.root = 0
+    self.keys = []
+    self.left = [0]
+    self.right = [0]
+    self.par = [0]
+    self.size = [0]
+    self.height = [0]
+    self.unused_indx = []
+    self.end = 1
+
+class AVLTreeIterator():
+
+  def __init__(self,
+               tree: AVLTree,
+               it: int) -> None:
+    self.tree: AVLTree = tree
+    self.it: int = it
+
+  def _make_iter(self, it) -> 'AVLTreeIterator':
+    return AVLTreeIterator(self.tree, it)
+
+  def _min(self, node: int) -> int:
+    while self.tree.left[node]:
+      node = self.tree.left[node]
+    return node
+
+  def _max(self, node: int) -> int:
+    while self.tree.right[node]:
+      node = self.tree.right[node]
+    return node
+
+  def _next(self) -> Optional[int]:
+    now = self.it
+    pre = None
+    flag = self.tree.right[now] is pre
+    while self.tree.right[now] is pre:
+      pre, now = now, self.tree.par[now]
+    if not now:
+      return None
+    return now if flag and pre is self.tree.left[now] else self._min(self.tree.right[now])
+
+  def _prev(self) -> Optional[int]:
+    now, pre = self, None
+    flag = self.tree.left[now] is pre
+    while self.tree.left[now] is pre:
+      pre, now = now, self.tree.par[now]
+    if not now:
+      return None
+    return now if flag and pre is self.tree.right[now] else self._max(self.tree.left[now])
+
+  def __iadd__(self, other: int) -> Optional['AVLTreeIterator']:
+    node = self
+    for _ in range(other):
+      node = self._next(node)
+    return node
+
+  def __isub__(self, other: int) -> Optional['AVLTreeIterator']:
+    node = self
+    for _ in range(other):
+      node = self._prev(node)
+    return node
+
+  def __add__(self, other: int) -> Optional['AVLTreeIterator']:
+    node = self
+    for _ in range(other):
+      node = self._next(node)
+    return self._make_iter(node)
+
+  def __sub__(self, other: int) -> Optional['AVLTreeIterator']:
+    node = self
+    for _ in range(other):
+      node = self._prev(node)
+    return self._make_iter(node)
+
+  def __str__(self) -> str:
+    return f'{self.__class__.__name__}({self.key})'
+  
+  def __repr__(self) -> str:
+    return str(self)
+
+
 class AVLTreeSet(Generic[T]):
 
   __slots__ = ('unused_indx', 'root', 'keys', 'left', 'right', 'par', 'size', 'height', 'end', '__iter')
