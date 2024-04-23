@@ -1,21 +1,17 @@
-<!doctype html>
-<html class="no-js" lang="ja" data-content_root="../">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="索引" href="../genindex.html" /><link rel="search" title="検索" href="../search.html" /><link rel="next" title="titan_pylib.data_structures.dynamic_connectivity package" href="titan_pylib.data_structures.dynamic_connectivity.html" /><link rel="prev" title="titan_pylib.data_structures.dict package" href="titan_pylib.data_structures.dict.html" />
+<!DOCTYPE html>
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-        <title>titan_pylib.data_structures.dict.hash_dict - titan_pylib ドキュメント</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/_static/style.css" />
-    
-    
-
-
+<html class="no-js" data-content_root="../" lang="ja">
+<head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
+<link href="../genindex.html" rel="index" title="索引"/><link href="../search.html" rel="search" title="検索"/><link href="titan_pylib.data_structures.dynamic_connectivity.html" rel="next" title="titan_pylib.data_structures.dynamic_connectivity package"/><link href="titan_pylib.data_structures.dict.html" rel="prev" title="titan_pylib.data_structures.dict package"/>
+<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<title>hash_dict - titan_pylib ドキュメント</title>
+<link href="../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../_static/_static/style.css" rel="stylesheet" type="text/css"/>
 <style>
   body {
     --color-code-background: #f8f8f8;
@@ -36,477 +32,457 @@
       }
     }
   }
-</style></head>
-  <body>
-    
-    <script>
+</style></meta></head>
+<body>
+<script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
-    
-
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="svg-toc" viewBox="0 0 24 24">
-    <title>Contents</title>
-    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
-      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
-    </svg>
-  </symbol>
-  <symbol id="svg-menu" viewBox="0 0 24 24">
-    <title>Menu</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
-      <line x1="3" y1="12" x2="21" y2="12"></line>
-      <line x1="3" y1="6" x2="21" y2="6"></line>
-      <line x1="3" y1="18" x2="21" y2="18"></line>
-    </svg>
-  </symbol>
-  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
-    <title>Expand</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-  </symbol>
-  <symbol id="svg-sun" viewBox="0 0 24 24">
-    <title>Light mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
-      <circle cx="12" cy="12" r="5"></circle>
-      <line x1="12" y1="1" x2="12" y2="3"></line>
-      <line x1="12" y1="21" x2="12" y2="23"></line>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-      <line x1="1" y1="12" x2="3" y2="12"></line>
-      <line x1="21" y1="12" x2="23" y2="12"></line>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-  </symbol>
-  <symbol id="svg-moon" viewBox="0 0 24 24">
-    <title>Dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-    </svg>
-  </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-toc" viewbox="0 0 24 24">
+<title>Contents</title>
+<svg fill="currentColor" stroke="currentColor" stroke-width="0" viewbox="0 0 1024 1024">
+<path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"></path>
 </svg>
-
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+</symbol>
+<symbol id="svg-menu" viewbox="0 0 24 24">
+<title>Menu</title>
+<svg class="feather-menu" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<line x1="3" x2="21" y1="12" y2="12"></line>
+<line x1="3" x2="21" y1="6" y2="6"></line>
+<line x1="3" x2="21" y1="18" y2="18"></line>
+</svg>
+</symbol>
+<symbol id="svg-arrow-right" viewbox="0 0 24 24">
+<title>Expand</title>
+<svg class="feather-chevron-right" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</symbol>
+<symbol id="svg-sun" viewbox="0 0 24 24">
+<title>Light mode</title>
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+</symbol>
+<symbol id="svg-moon" viewbox="0 0 24 24">
+<title>Dark mode</title>
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+</svg>
+</symbol>
+<symbol id="svg-sun-half" viewbox="0 0 24 24">
+<title>Auto light/dark mode</title>
+<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<circle cx="12" cy="12" r="9"></circle>
+<path d="M13 12h5"></path>
+<path d="M13 15h4"></path>
+<path d="M13 18h1"></path>
+<path d="M13 9h4"></path>
+<path d="M13 6h1"></path>
+</svg>
+</symbol>
+</svg>
+<input class="sidebar-toggle" id="__navigation" name="__navigation" type="checkbox"/>
+<input class="sidebar-toggle" id="__toc" name="__toc" type="checkbox"/>
 <label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
+<div class="visually-hidden">Hide navigation sidebar</div>
 </label>
 <label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
+<div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
-
-
-
 <div class="page">
-  <header class="mobile-header">
-    <div class="header-left">
-      <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
-      </label>
-    </div>
-    <div class="header-center">
-      <a href="../index.html"><div class="brand">titan_pylib  ドキュメント</div></a>
-    </div>
-    <div class="header-right">
-      <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
-          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
-          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
-        </button>
-      </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
-      </label>
-    </div>
-  </header>
-  <aside class="sidebar-drawer">
-    <div class="sidebar-container">
-      
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
-  
-  <span class="sidebar-brand-text">titan_pylib  ドキュメント</span>
-  
-</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
-  <input class="sidebar-search" placeholder="検索" name="q" aria-label="検索">
-  <input type="hidden" name="check_keywords" value="yes">
-  <input type="hidden" name="area" value="default">
+<header class="mobile-header">
+<div class="header-left">
+<label class="nav-overlay-icon" for="__navigation">
+<div class="visually-hidden">Toggle site navigation sidebar</div>
+<i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+</label>
+</div>
+<div class="header-center">
+<a href="../index.html"><div class="brand">titan_pylib  ドキュメント</div></a>
+</div>
+<div class="header-right">
+<div class="theme-toggle-container theme-toggle-header">
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-header-icon" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+</header>
+<aside class="sidebar-drawer">
+<div class="sidebar-container">
+<div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+<span class="sidebar-brand-text">titan_pylib  ドキュメント</span>
+</a><form action="../search.html" class="sidebar-search-container" method="get" role="search">
+<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.algorithm.html">titan_pylib.algorithm package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.algorithm.random.html">titan_pylib.algorithm.random package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.random.random.html">titan_pylib.algorithm.random.random</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.random.random_graph.html">titan_pylib.algorithm.random.random_graph</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.random.random_tree.html">titan_pylib.algorithm.random.random_tree</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.random.random.html">random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.random.random_graph.html">random_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.random.random_tree.html">random_tree</a></li>
+</ul>
+</input></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.algorithm.sort.html">sort</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.sort</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.bubble_sort.html">bubble_sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.merge_sort.html">merge_sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.quick_sort.html">quick_sort</a></li>
+</ul>
+</input></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.parser.html">parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.permutation.html">permutation</a></li>
+</ul>
+</input></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="titan_pylib.data_structures.html">data_structures</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.array.html">array</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.array</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.array_2D.html">array_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.csr_array.html">csr_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.partial_persistent_array.html">partial_persistent_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.persistent_array.html">persistent_array</a></li>
+</ul>
+</input></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.html">avl_tree</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.avl_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_dict.html">avl_tree_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_multiset.html">avl_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_multiset2.html">avl_tree_multiset2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_multiset3.html">avl_tree_multiset3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_set.html">avl_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_set2.html">avl_tree_set2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_set3.html">avl_tree_set3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.lazy_avl_tree.html">lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.algorithm.sort.html">titan_pylib.algorithm.sort package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.sort package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.bubble_sort.html">titan_pylib.algorithm.sort.bubble_sort</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.merge_sort.html">titan_pylib.algorithm.sort.merge_sort</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.quick_sort.html">titan_pylib.algorithm.sort.quick_sort</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.b_tree.b_tree_list.html">b_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.b_tree.b_tree_set.html">b_tree_set</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">titan_pylib.algorithm.cycle_memo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">titan_pylib.algorithm.doubling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">titan_pylib.algorithm.mo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.parser.html">titan_pylib.algorithm.parser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.permutation.html">titan_pylib.algorithm.permutation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.html">binary_trie</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.binary_trie</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.binary_trie_multiset.html">binary_trie_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.binary_trie_set.html">binary_trie_set</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="titan_pylib.data_structures.html">titan_pylib.data_structures package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.array.html">titan_pylib.data_structures.array package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.array package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.array_2D.html">titan_pylib.data_structures.array.array_2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.csr_array.html">titan_pylib.data_structures.array.csr_array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.partial_persistent_array.html">titan_pylib.data_structures.array.partial_persistent_array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.array.persistent_array.html">titan_pylib.data_structures.array.persistent_array</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.html">bit_vector</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.bit_vector</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html">avl_tree_bit_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.bit_vector.html">bit_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.bit_vector_interface.html">bit_vector_interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.splay_tree_bit_vector.html">splay_tree_bit_vector</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.html">titan_pylib.data_structures.avl_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.avl_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_dict.html">titan_pylib.data_structures.avl_tree.avl_tree_dict</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_multiset.html">titan_pylib.data_structures.avl_tree.avl_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_multiset2.html">titan_pylib.data_structures.avl_tree.avl_tree_multiset2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_multiset3.html">titan_pylib.data_structures.avl_tree.avl_tree_multiset3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_set.html">titan_pylib.data_structures.avl_tree.avl_tree_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_set2.html">titan_pylib.data_structures.avl_tree.avl_tree_set2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.avl_tree_set3.html">titan_pylib.data_structures.avl_tree.avl_tree_set3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.lazy_avl_tree.html">titan_pylib.data_structures.avl_tree.lazy_avl_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">titan_pylib.data_structures.avl_tree.persistent_avl_tree_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.bst_base.html">bst_base</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.bst_base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bst_base.bst_multiset_array_base.html">bst_multiset_array_base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bst_base.bst_multiset_node_base.html">bst_multiset_node_base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bst_base.bst_set_node_base.html">bst_set_node_base</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">titan_pylib.data_structures.b_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.b_tree.b_tree_list.html">titan_pylib.data_structures.b_tree.b_tree_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.b_tree.b_tree_set.html">titan_pylib.data_structures.b_tree.b_tree_set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.html">cumulative_sum</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.cumulative_sum</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.cumulative_op.html">cumulative_op</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.cumulative_sum.html">cumulative_sum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.cumulative_sum2D.html">cumulative_sum2D</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.html">titan_pylib.data_structures.binary_trie package</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.binary_trie package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.binary_trie_multiset.html">titan_pylib.data_structures.binary_trie.binary_trie_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.binary_trie.binary_trie_set.html">titan_pylib.data_structures.binary_trie.binary_trie_set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.deque.html">deque</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.deque</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.deque.deque.html">deque</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.deque.foldable_deque.html">foldable_deque</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.html">titan_pylib.data_structures.bit_vector package</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.bit_vector package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html">titan_pylib.data_structures.bit_vector.avl_tree_bit_vector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.bit_vector.html">titan_pylib.data_structures.bit_vector.bit_vector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.bit_vector_interface.html">titan_pylib.data_structures.bit_vector.bit_vector_interface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bit_vector.splay_tree_bit_vector.html">titan_pylib.data_structures.bit_vector.splay_tree_bit_vector</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="titan_pylib.data_structures.dict.html">dict</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.dict</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">hash_dict</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.bst_base.html">titan_pylib.data_structures.bst_base package</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.bst_base package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bst_base.bst_multiset_array_base.html">titan_pylib.data_structures.bst_base.bst_multiset_array_base</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bst_base.bst_multiset_node_base.html">titan_pylib.data_structures.bst_base.bst_multiset_node_base</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.bst_base.bst_set_node_base.html">titan_pylib.data_structures.bst_base.bst_set_node_base</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.html">dynamic_connectivity</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.dynamic_connectivity</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html">euler_tour_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.lazy_link_cut_tree.html">lazy_link_cut_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.html">link_cut_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.html">offline_dynamic_connectivity</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.html">titan_pylib.data_structures.cumulative_sum package</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.cumulative_sum package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.cumulative_op.html">titan_pylib.data_structures.cumulative_sum.cumulative_op</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.cumulative_sum.html">titan_pylib.data_structures.cumulative_sum.cumulative_sum</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.cumulative_sum.cumulative_sum2D.html">titan_pylib.data_structures.cumulative_sum.cumulative_sum2D</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.html">fenwick_tree</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.fenwick_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree.html">dynamic_fenwick_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">dynamic_fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">fenwick_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">fenwick_tree_RAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">fenwick_tree_abst</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.deque.html">titan_pylib.data_structures.deque package</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.deque package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.deque.deque.html">titan_pylib.data_structures.deque.deque</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.deque.foldable_deque.html">titan_pylib.data_structures.deque.foldable_deque</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.heap.html">heap</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.heap</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.Randomized_meldable_heap.html">Randomized_meldable_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.binomial_heap.html">binomial_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.deletable_max_heap.html">deletable_max_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.deletable_min_heap.html">deletable_min_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.double_ended_heap.html">double_ended_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.max_heap.html">max_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.min_heap.html">min_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.radix_heap.html">radix_heap</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="titan_pylib.data_structures.dict.html">titan_pylib.data_structures.dict package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.dict package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">titan_pylib.data_structures.dict.hash_dict</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.list.html">list</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.list</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.list.linked_list.html">linked_list</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.html">titan_pylib.data_structures.dynamic_connectivity package</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.dynamic_connectivity package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html">titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.lazy_link_cut_tree.html">titan_pylib.data_structures.dynamic_connectivity.lazy_link_cut_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.html">titan_pylib.data_structures.dynamic_connectivity.link_cut_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.html">titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.merge_sort_tree.html">merge_sort_tree</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.merge_sort_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.merge_sort_tree.merge_sort_tree.html">merge_sort_tree</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.html">titan_pylib.data_structures.fenwick_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.fenwick_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree.html">titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">titan_pylib.data_structures.fenwick_tree.fenwick_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.others.html">others</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.others</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.pair.html">pair</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.heap.html">titan_pylib.data_structures.heap package</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.heap package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.Randomized_meldable_heap.html">titan_pylib.data_structures.heap.Randomized_meldable_heap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.binomial_heap.html">titan_pylib.data_structures.heap.binomial_heap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.deletable_max_heap.html">titan_pylib.data_structures.heap.deletable_max_heap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.deletable_min_heap.html">titan_pylib.data_structures.heap.deletable_min_heap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.double_ended_heap.html">titan_pylib.data_structures.heap.double_ended_heap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.max_heap.html">titan_pylib.data_structures.heap.max_heap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.min_heap.html">titan_pylib.data_structures.heap.min_heap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.heap.radix_heap.html">titan_pylib.data_structures.heap.radix_heap</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">rbst</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.rbst</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.lazy_rbst.html">lazy_rbst</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.list.html">titan_pylib.data_structures.list package</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.list package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.list.linked_list.html">titan_pylib.data_structures.list.linked_list</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">red_black_tree</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.red_black_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.red_black_tree_multiset.html">red_black_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.red_black_tree_set.html">red_black_tree_set</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.merge_sort_tree.html">titan_pylib.data_structures.merge_sort_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.merge_sort_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.merge_sort_tree.merge_sort_tree.html">titan_pylib.data_structures.merge_sort_tree.merge_sort_tree</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">safe_hash</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.safe_hash</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_counter.html">hash_counter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_defaultdict.html">hash_defaultdict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_dict.html">hash_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_set.html">hash_set</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.others.html">titan_pylib.data_structures.others package</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.others package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.others.pair.html">titan_pylib.data_structures.others.pair</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.scapegoat_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_multiset.html">scapegoat_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_set.html">scapegoat_tree_set</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.rbst.html">titan_pylib.data_structures.rbst package</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.rbst package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.rbst.lazy_rbst.html">titan_pylib.data_structures.rbst.lazy_rbst</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_quadratic_division</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.quadratic_division_list.html">quadratic_division_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.segment_lazy_quadratic_division.html">segment_lazy_quadratic_division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.segment_quadratic_division.html">segment_quadratic_division</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.html">titan_pylib.data_structures.red_black_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.red_black_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.red_black_tree_multiset.html">titan_pylib.data_structures.red_black_tree.red_black_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.red_black_tree.red_black_tree_set.html">titan_pylib.data_structures.red_black_tree.red_black_tree_set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree.html">dual_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative.html">dual_segment_tree_commutative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dynamic_segment_tree.html">dynamic_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.lazy_segment_tree.html">lazy_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.lazy_segment_tree_range.html">lazy_segment_tree_range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.persistent_segment_tree.html">persistent_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.range_set_range_composite.html">range_set_range_composite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree.html">segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree_RSQ.html">segment_tree_RSQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree_RmQ.html">segment_tree_RmQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree_interface.html">segment_tree_interface</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.html">titan_pylib.data_structures.safe_hash package</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.safe_hash package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_counter.html">titan_pylib.data_structures.safe_hash.hash_counter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_defaultdict.html">titan_pylib.data_structures.safe_hash.hash_defaultdict</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_dict.html">titan_pylib.data_structures.safe_hash.hash_dict</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.safe_hash.hash_set.html">titan_pylib.data_structures.safe_hash.hash_set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.set.html">set</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.set</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.bitset32.html">bitset32</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.dynamic_fenwick_tree_multiset.html">dynamic_fenwick_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.dynamic_fenwick_tree_set.html">dynamic_fenwick_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.fenwick_tree_multiset.html">fenwick_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.fenwick_tree_set.html">fenwick_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.fenwick_tree_set_fast.html">fenwick_tree_set_fast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.hash_set.html">hash_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.hashed_multiset.html">hashed_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.mex_multiset.html">mex_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.min_max_multiset.html">min_max_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.min_max_set.html">min_max_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.multiset_quadratic_division.html">multiset_quadratic_division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.range_set.html">range_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.segki_set.html">segki_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.set_quadratic_division.html">set_quadratic_division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.sorted_multiset.html">sorted_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.sorted_set.html">sorted_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.static_ordered_multiset.html">static_ordered_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.static_ordered_set.html">static_ordered_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.wordsize_tree_multiset.html">wordsize_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.wordsize_tree_set.html">wordsize_tree_set</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.html">titan_pylib.data_structures.scapegoat_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.scapegoat_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_multiset.html">titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_set.html">titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.sparse_table.html">sparse_table</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.sparse_table</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.sparse_table.sparse_table.html">sparse_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.sparse_table.sparse_table_RmQ.html">sparse_table_RmQ</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.html">titan_pylib.data_structures.segment_quadratic_division package</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_quadratic_division package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.quadratic_division_list.html">titan_pylib.data_structures.segment_quadratic_division.quadratic_division_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.segment_lazy_quadratic_division.html">titan_pylib.data_structures.segment_quadratic_division.segment_lazy_quadratic_division</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_quadratic_division.segment_quadratic_division.html">titan_pylib.data_structures.segment_quadratic_division.segment_quadratic_division</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.html">splay_tree</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.splay_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.lazy_splay_tree.html">lazy_splay_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.lazy_splay_tree_array.html">lazy_splay_tree_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.reversible_lazy_splay_tree_array.html">reversible_lazy_splay_tree_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_dict.html">splay_tree_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_list.html">splay_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_list_array.html">splay_tree_list_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset.html">splay_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset2.html">splay_tree_multiset2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html">splay_tree_multiset_sum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset_top_down.html">splay_tree_multiset_top_down</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_set.html">splay_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html">splay_tree_set_top_down</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">titan_pylib.data_structures.segment_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree.html">titan_pylib.data_structures.segment_tree.dual_segment_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative.html">titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dynamic_segment_tree.html">titan_pylib.data_structures.segment_tree.dynamic_segment_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.lazy_segment_tree.html">titan_pylib.data_structures.segment_tree.lazy_segment_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.lazy_segment_tree_range.html">titan_pylib.data_structures.segment_tree.lazy_segment_tree_range</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.persistent_segment_tree.html">titan_pylib.data_structures.segment_tree.persistent_segment_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.range_set_range_composite.html">titan_pylib.data_structures.segment_tree.range_set_range_composite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree.html">titan_pylib.data_structures.segment_tree.segment_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree_RSQ.html">titan_pylib.data_structures.segment_tree.segment_tree_RSQ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree_RmQ.html">titan_pylib.data_structures.segment_tree.segment_tree_RmQ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.segment_tree_interface.html">titan_pylib.data_structures.segment_tree.segment_tree_interface</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.stack.html">stack</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.stack</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.stack.foldable_stack.html">foldable_stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.stack.persistent_stack.html">persistent_stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.stack.stack.html">stack</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.set.html">titan_pylib.data_structures.set package</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.set package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.bitset32.html">titan_pylib.data_structures.set.bitset32</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.dynamic_fenwick_tree_multiset.html">titan_pylib.data_structures.set.dynamic_fenwick_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.dynamic_fenwick_tree_set.html">titan_pylib.data_structures.set.dynamic_fenwick_tree_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.fenwick_tree_multiset.html">titan_pylib.data_structures.set.fenwick_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.fenwick_tree_set.html">titan_pylib.data_structures.set.fenwick_tree_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.fenwick_tree_set_fast.html">titan_pylib.data_structures.set.fenwick_tree_set_fast</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.hash_set.html">titan_pylib.data_structures.set.hash_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.hashed_multiset.html">titan_pylib.data_structures.set.hashed_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.mex_multiset.html">titan_pylib.data_structures.set.mex_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.min_max_multiset.html">titan_pylib.data_structures.set.min_max_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.min_max_set.html">titan_pylib.data_structures.set.min_max_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.multiset_quadratic_division.html">titan_pylib.data_structures.set.multiset_quadratic_division</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.range_set.html">titan_pylib.data_structures.set.range_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.segki_set.html">titan_pylib.data_structures.set.segki_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.set_quadratic_division.html">titan_pylib.data_structures.set.set_quadratic_division</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.sorted_multiset.html">titan_pylib.data_structures.set.sorted_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.sorted_set.html">titan_pylib.data_structures.set.sorted_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.static_ordered_multiset.html">titan_pylib.data_structures.set.static_ordered_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.static_ordered_set.html">titan_pylib.data_structures.set.static_ordered_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.wordsize_tree_multiset.html">titan_pylib.data_structures.set.wordsize_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.set.wordsize_tree_set.html">titan_pylib.data_structures.set.wordsize_tree_set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.static_array_query.html">static_array_query</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.static_array_query</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.static_array_query.static_RmQ.html">static_RmQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.static_array_query.static_range_mode_query.html">static_range_mode_query</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.sparse_table.html">titan_pylib.data_structures.sparse_table package</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.sparse_table package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.sparse_table.sparse_table.html">titan_pylib.data_structures.sparse_table.sparse_table</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.sparse_table.sparse_table_RmQ.html">titan_pylib.data_structures.sparse_table.sparse_table_RmQ</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.treap.html">treap</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.treap</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.treap.treap_multiset.html">treap_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.treap.treap_set.html">treap_set</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.html">titan_pylib.data_structures.splay_tree package</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.splay_tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.lazy_splay_tree.html">titan_pylib.data_structures.splay_tree.lazy_splay_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.lazy_splay_tree_array.html">titan_pylib.data_structures.splay_tree.lazy_splay_tree_array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.reversible_lazy_splay_tree_array.html">titan_pylib.data_structures.splay_tree.reversible_lazy_splay_tree_array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_dict.html">titan_pylib.data_structures.splay_tree.splay_tree_dict</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_list.html">titan_pylib.data_structures.splay_tree.splay_tree_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_list_array.html">titan_pylib.data_structures.splay_tree.splay_tree_list_array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset.html">titan_pylib.data_structures.splay_tree.splay_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset2.html">titan_pylib.data_structures.splay_tree.splay_tree_multiset2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html">titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_multiset_top_down.html">titan_pylib.data_structures.splay_tree.splay_tree_multiset_top_down</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_set.html">titan_pylib.data_structures.splay_tree.splay_tree_set</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html">titan_pylib.data_structures.splay_tree.splay_tree_set_top_down</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.union_find.html">union_find</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.union_find</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.fully_retroactive_union_find.html">fully_retroactive_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.partial_persistent_union_find.html">partial_persistent_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.persistent_union_find.html">persistent_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.undoable_union_find.html">undoable_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.union_find.html">union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.union_find_heavy.html">union_find_heavy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.union_find_members.html">union_find_members</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.weighted_union_find.html">weighted_union_find</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.stack.html">titan_pylib.data_structures.stack package</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.stack package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.stack.foldable_stack.html">titan_pylib.data_structures.stack.foldable_stack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.stack.persistent_stack.html">titan_pylib.data_structures.stack.persistent_stack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.stack.stack.html">titan_pylib.data_structures.stack.stack</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.html">wavelet_matrix</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.wavelet_matrix</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.cumulative_sum_wavelet_matrix.html">cumulative_sum_wavelet_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.html">dynamic_wavelet_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.fenwick_tree_wavelet_matrix.html">fenwick_tree_wavelet_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html">wavelet_matrix</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.static_array_query.html">titan_pylib.data_structures.static_array_query package</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.static_array_query package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.static_array_query.static_RmQ.html">titan_pylib.data_structures.static_array_query.static_RmQ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.static_array_query.static_range_mode_query.html">titan_pylib.data_structures.static_array_query.static_range_mode_query</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.treap.html">titan_pylib.data_structures.treap package</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.treap package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.treap.treap_multiset.html">titan_pylib.data_structures.treap.treap_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.treap.treap_set.html">titan_pylib.data_structures.treap.treap_set</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.union_find.html">titan_pylib.data_structures.union_find package</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.union_find package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.fully_retroactive_union_find.html">titan_pylib.data_structures.union_find.fully_retroactive_union_find</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.partial_persistent_union_find.html">titan_pylib.data_structures.union_find.partial_persistent_union_find</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.persistent_union_find.html">titan_pylib.data_structures.union_find.persistent_union_find</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.undoable_union_find.html">titan_pylib.data_structures.union_find.undoable_union_find</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.union_find.html">titan_pylib.data_structures.union_find.union_find</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.union_find_heavy.html">titan_pylib.data_structures.union_find.union_find_heavy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.union_find_members.html">titan_pylib.data_structures.union_find.union_find_members</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.union_find.weighted_union_find.html">titan_pylib.data_structures.union_find.weighted_union_find</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.html">titan_pylib.data_structures.wavelet_matrix package</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.wavelet_matrix package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.cumulative_sum_wavelet_matrix.html">titan_pylib.data_structures.wavelet_matrix.cumulative_sum_wavelet_matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.html">titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.fenwick_tree_wavelet_matrix.html">titan_pylib.data_structures.wavelet_matrix.fenwick_tree_wavelet_matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html">titan_pylib.data_structures.wavelet_matrix.wavelet_matrix</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.html">titan_pylib.data_structures.wb_Tree package</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.wb_Tree package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.html">titan_pylib.data_structures.wb_Tree.lazy_wb_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html">titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_wb_tree.html">titan_pylib.data_structures.wb_Tree.persistent_wb_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html">titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html">titan_pylib.data_structures.wb_Tree.wb_tree_multiset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.wb_tree_set.html">titan_pylib.data_structures.wb_Tree.wb_tree_set</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.graph.html">titan_pylib.graph package</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of titan_pylib.graph package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">titan_pylib.graph.hld package</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld.html">titan_pylib.graph.hld.hld</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_lazy_segment_tree.html">titan_pylib.graph.hld.hld_lazy_segment_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">titan_pylib.graph.hld.hld_noncommutative_segment_tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_segment_tree.html">titan_pylib.graph.hld.hld_segment_tree</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.max_flow.html">titan_pylib.graph.max_flow package</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_dinic.html">titan_pylib.graph.max_flow.max_flow_dinic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">titan_pylib.graph.max_flow.max_flow_ford_fulkerson</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">titan_pylib.graph.bellman_ford</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bfs.html">titan_pylib.graph.bfs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.cartesian_tree.html">titan_pylib.graph.cartesian_tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">titan_pylib.graph.dijkstra</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">titan_pylib.graph.euler_tour</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">titan_pylib.graph.get_articulation_points</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">titan_pylib.graph.get_biconnected_components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">titan_pylib.graph.get_bridge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">titan_pylib.graph.get_scc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">titan_pylib.graph.get_scc_lowlink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">titan_pylib.graph.graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">titan_pylib.graph.grid_bfs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">titan_pylib.graph.is_bipartite_graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.lca.html">titan_pylib.graph.lca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.namori.html">titan_pylib.graph.namori</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.rerooting_dp.html">titan_pylib.graph.rerooting_dp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.rooted_tree.html">titan_pylib.graph.rooted_tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.spfa.html">titan_pylib.graph.spfa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.topological_sort.html">titan_pylib.graph.topological_sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.warshall_floyd.html">titan_pylib.graph.warshall_floyd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.weighted_rooted_tree.html">titan_pylib.graph.weighted_rooted_tree</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.io.html">titan_pylib.io package</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.io package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.io.fast_o.html">titan_pylib.io.fast_o</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.math.html">titan_pylib.math package</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.math package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.affine_map.html">titan_pylib.math.affine_map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.divisors.html">titan_pylib.math.divisors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.fraction.html">titan_pylib.math.fraction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.get_quotients.html">titan_pylib.math.get_quotients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.is_prime.html">titan_pylib.math.is_prime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_array.html">titan_pylib.math.mod_array</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_comb.html">titan_pylib.math.mod_comb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_int.html">titan_pylib.math.mod_int</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_int_1000000007.html">titan_pylib.math.mod_int_1000000007</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_int_998244353.html">titan_pylib.math.mod_int_998244353</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_matrix.html">titan_pylib.math.mod_matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.number.html">titan_pylib.math.number</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.pollard_rho.html">titan_pylib.math.pollard_rho</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.string.html">titan_pylib.string package</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of titan_pylib.string package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.dynamic_hash_string.html">titan_pylib.string.dynamic_hash_string</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.get_suffix_array.html">titan_pylib.string.get_suffix_array</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.hash_string.html">titan_pylib.string.hash_string</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.multi_hash_string.html">titan_pylib.string.multi_hash_string</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.string_count.html">titan_pylib.string.string_count</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.html">wb_Tree</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.wb_Tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.lazy_wb_tree.html">lazy_wb_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html">persistent_lazy_wb_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_wb_tree.html">persistent_wb_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html">persistent_wb_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html">wb_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.wb_Tree.wb_tree_set.html">wb_tree_set</a></li>
 </ul>
 </li>
 </ul>
-
+</input></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.graph.html">graph</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld.html">hld</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_lazy_segment_tree.html">hld_lazy_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">hld_noncommutative_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_segment_tree.html">hld_segment_tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.max_flow.html">max_flow</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_dinic.html">max_flow_dinic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bfs.html">bfs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.cartesian_tree.html">cartesian_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.lca.html">lca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.namori.html">namori</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.rerooting_dp.html">rerooting_dp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.rooted_tree.html">rooted_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.spfa.html">spfa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.topological_sort.html">topological_sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.warshall_floyd.html">warshall_floyd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.weighted_rooted_tree.html">weighted_rooted_tree</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.io.html">io</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.io</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.io.fast_o.html">fast_o</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.math.html">math</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.math</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.affine_map.html">affine_map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.divisors.html">divisors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.fraction.html">fraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.get_quotients.html">get_quotients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.is_prime.html">is_prime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_array.html">mod_array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_comb.html">mod_comb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_int.html">mod_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_int_1000000007.html">mod_int_1000000007</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_int_998244353.html">mod_int_998244353</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.mod_matrix.html">mod_matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.number.html">number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.pollard_rho.html">pollard_rho</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.string.html">string</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of titan_pylib.string</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.dynamic_hash_string.html">dynamic_hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.get_suffix_array.html">get_suffix_array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.hash_string.html">hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.string_count.html">string_count</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
-
-      </div>
-      
-    </div>
-  </aside>
-  <div class="main">
-    <div class="content">
-      <div class="article-container">
-        <a href="#" class="back-to-top muted-link">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
-          </svg>
-          <span>Back to top</span>
-        </a>
-        <div class="content-icon-container">
-          
+</div>
+</div>
+</aside>
+<div class="main">
+<div class="content">
+<div class="article-container">
+<a class="back-to-top muted-link" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+</svg>
+<span>Back to top</span>
+</a>
+<div class="content-icon-container">
 <div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
-              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
-              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
-            </button>
-          </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
-          </label>
-        </div>
-        <article role="main">
-          <section id="titan-pylib-data-structures-dict-hash-dict">
-<h1>titan_pylib.data_structures.dict.hash_dict<a class="headerlink" href="#titan-pylib-data-structures-dict-hash-dict" title="Link to this heading">¶</a></h1>
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-content-icon" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+<article role="main">
+<section id="titan-pylib-data-structures-dict-hash-dict">
+<h1>hash_dict<a class="headerlink" href="#titan-pylib-data-structures-dict-hash-dict" title="Link to this heading">¶</a></h1>
 <section id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <section id="id2">
@@ -518,17 +494,17 @@
 <span class="linenos">  5</span><span class="n">_titan_pylib_HashDict_K</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mh">0x517cc1b727220a95</span>
 <span class="linenos">  6</span>
 <span class="linenos">  7</span><span class="k">class</span> <span class="nc">HashDict</span><span class="p">():</span>
-<span class="linenos">  8</span><span class="w">  </span><span class="sd">&quot;&quot;&quot;ハッシュテーブルです。</span>
+<span class="linenos">  8</span><span class="w">  </span><span class="sd">"""ハッシュテーブルです。</span>
 <span class="linenos">  9</span><span class="sd">  組み込み辞書の ``dict`` よりやや遅いです。</span>
-<span class="linenos"> 10</span><span class="sd">  &quot;&quot;&quot;</span>
+<span class="linenos"> 10</span><span class="sd">  """</span>
 <span class="linenos"> 11</span>
 <span class="linenos"> 12</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reserve</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-<span class="linenos"> 13</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 13</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos"> 14</span><span class="sd">    Args:</span>
 <span class="linenos"> 15</span><span class="sd">      e (int, optional): ``int`` 型で ``key`` として使用しない値です。</span>
 <span class="linenos"> 16</span><span class="sd">                          ``key`` を ``int`` 型以外のもので指定したいときは ``_hash(key) -&gt; int`` 関数をいじってください。</span>
 <span class="linenos"> 17</span><span class="sd">      default (Any, optional): 存在しないキーにアクセスしたときの値です。</span>
-<span class="linenos"> 18</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos"> 18</span><span class="sd">    """</span>
 <span class="linenos"> 19</span>    <span class="c1"># e: keyとして使わない値</span>
 <span class="linenos"> 20</span>    <span class="c1"># default: valのdefault値</span>
 <span class="linenos"> 21</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
@@ -559,15 +535,15 @@
 <span class="linenos"> 46</span>    <span class="k">return</span> <span class="p">(((((</span><span class="n">key</span><span class="o">&gt;&gt;</span><span class="mi">32</span><span class="p">)</span><span class="o">&amp;</span><span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">key</span><span class="o">&amp;</span><span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">)</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">_titan_pylib_HashDict_K</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msk</span><span class="p">))</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msk</span>
 <span class="linenos"> 47</span>
 <span class="linenos"> 48</span>  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="linenos"> 49</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 49</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos"> 50</span><span class="sd">    キーが ``key`` の値を返します。</span>
 <span class="linenos"> 51</span><span class="sd">    存在しない場合、引数 ``default`` に ``None`` 以外を指定した場合は ``default`` が、</span>
 <span class="linenos"> 52</span><span class="sd">    そうでない場合はコンストラクタで設定した ``default`` が返ります。</span>
 <span class="linenos"> 53</span>
 <span class="linenos"> 54</span><span class="sd">    期待 :math:`O(1)` です。</span>
-<span class="linenos"> 55</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos"> 55</span><span class="sd">    """</span>
 <span class="linenos"> 56</span>    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
-<span class="linenos"> 57</span>        <span class="sa">f</span><span class="s1">&#39;KeyError: HashDict.get(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos"> 57</span>        <span class="sa">f</span><span class="s1">'KeyError: HashDict.get(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">'</span>
 <span class="linenos"> 58</span>    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
 <span class="linenos"> 59</span>    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos"> 60</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -580,7 +556,7 @@
 <span class="linenos"> 67</span>
 <span class="linenos"> 68</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 69</span>    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
-<span class="linenos"> 70</span>        <span class="sa">f</span><span class="s1">&#39;KeyError: HashDict.add(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos"> 70</span>        <span class="sa">f</span><span class="s1">'KeyError: HashDict.add(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">default</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">'</span>
 <span class="linenos"> 71</span>    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
 <span class="linenos"> 72</span>    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos"> 73</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -594,13 +570,13 @@
 <span class="linenos"> 81</span>      <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">l</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="n">h</span><span class="o">+</span><span class="mi">1</span>
 <span class="linenos"> 82</span>
 <span class="linenos"> 83</span>  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 84</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;キーを ``key`` として ``val`` を格納します。</span>
+<span class="linenos"> 84</span><span class="w">    </span><span class="sd">"""キーを ``key`` として ``val`` を格納します。</span>
 <span class="linenos"> 85</span><span class="sd">    ``key`` が既に存在している場合は上書きされます。</span>
 <span class="linenos"> 86</span>
 <span class="linenos"> 87</span><span class="sd">    期待 :math:`O(1)` です。</span>
-<span class="linenos"> 88</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos"> 88</span><span class="sd">    """</span>
 <span class="linenos"> 89</span>    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
-<span class="linenos"> 90</span>        <span class="sa">f</span><span class="s1">&#39;KeyError: HashDict.set(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos"> 90</span>        <span class="sa">f</span><span class="s1">'KeyError: HashDict.set(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">), </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">'</span>
 <span class="linenos"> 91</span>    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
 <span class="linenos"> 92</span>    <span class="n">l</span> <span class="o">-=</span> <span class="mi">1</span>
 <span class="linenos"> 93</span>    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -619,15 +595,15 @@
 <span class="linenos">106</span>      <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">l</span> <span class="k">else</span> <span class="n">h</span><span class="o">+</span><span class="mi">1</span>
 <span class="linenos">107</span>
 <span class="linenos">108</span>  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos">109</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;存在判定です。</span>
+<span class="linenos">109</span><span class="w">    </span><span class="sd">"""存在判定です。</span>
 <span class="linenos">110</span>
 <span class="linenos">111</span><span class="sd">    期待 :math:`O(1)` です。</span>
 <span class="linenos">112</span>
 <span class="linenos">113</span><span class="sd">    Returns:</span>
 <span class="linenos">114</span><span class="sd">      bool: ``key`` が存在すれば ``True`` を、そうでなければ ``False`` を返します。</span>
-<span class="linenos">115</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">115</span><span class="sd">    """</span>
 <span class="linenos">116</span>    <span class="k">assert</span> <span class="n">key</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span> \
-<span class="linenos">117</span>        <span class="sa">f</span><span class="s1">&#39;KeyError: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> in HashDict, </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos">117</span>        <span class="sa">f</span><span class="s1">'KeyError: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> in HashDict, </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> cannot be equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">'</span>
 <span class="linenos">118</span>    <span class="n">l</span><span class="p">,</span> <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
 <span class="linenos">119</span>    <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos">120</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -644,31 +620,31 @@
 <span class="linenos">131</span>  <span class="fm">__setitem__</span> <span class="o">=</span> <span class="nb">set</span>
 <span class="linenos">132</span>
 <span class="linenos">133</span>  <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">134</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;``key 集合`` を列挙するイテレータです。</span>
-<span class="linenos">135</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">134</span><span class="w">    </span><span class="sd">"""``key 集合`` を列挙するイテレータです。</span>
+<span class="linenos">135</span><span class="sd">    """</span>
 <span class="linenos">136</span>    <span class="n">_keys</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
 <span class="linenos">137</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_keys</span><span class="p">)):</span>
 <span class="linenos">138</span>      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_e</span><span class="p">:</span>
 <span class="linenos">139</span>        <span class="k">yield</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="linenos">140</span>
 <span class="linenos">141</span>  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
-<span class="linenos">142</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;``val 集合`` を列挙するイテレータです。</span>
-<span class="linenos">143</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">142</span><span class="w">    </span><span class="sd">"""``val 集合`` を列挙するイテレータです。</span>
+<span class="linenos">143</span><span class="sd">    """</span>
 <span class="linenos">144</span>    <span class="n">_keys</span><span class="p">,</span> <span class="n">_vals</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
 <span class="linenos">145</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_keys</span><span class="p">)):</span>
 <span class="linenos">146</span>      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_e</span><span class="p">:</span>
 <span class="linenos">147</span>        <span class="k">yield</span> <span class="n">_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="linenos">148</span>
 <span class="linenos">149</span>  <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="linenos">150</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;``key とそれに対応する val のタプル`` を列挙するイテレータです。</span>
-<span class="linenos">151</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">150</span><span class="w">    </span><span class="sd">"""``key とそれに対応する val のタプル`` を列挙するイテレータです。</span>
+<span class="linenos">151</span><span class="sd">    """</span>
 <span class="linenos">152</span>    <span class="n">_keys</span><span class="p">,</span> <span class="n">_vals</span><span class="p">,</span> <span class="n">_e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span>
 <span class="linenos">153</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_keys</span><span class="p">)):</span>
 <span class="linenos">154</span>      <span class="k">if</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">_e</span><span class="p">:</span>
 <span class="linenos">155</span>        <span class="k">yield</span> <span class="n">_keys</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">_vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="linenos">156</span>
 <span class="linenos">157</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">158</span>    <span class="k">return</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+<span class="linenos">158</span>    <span class="k">return</span> <span class="s1">'{'</span> <span class="o">+</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span> <span class="o">+</span> <span class="s1">'}'</span>
 <span class="linenos">159</span>
 <span class="linenos">160</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">161</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len</span>
@@ -681,13 +657,13 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.dict.hash_dict" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">titan_pylib.data_structures.dict.hash_dict.</span></span><span class="sig-name descname"><span class="pre">HashDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">HashDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict" title="Link to this definition">¶</a></dt>
 <dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>ハッシュテーブルです。
 組み込み辞書の <code class="docutils literal notranslate"><span class="pre">dict</span></code> よりやや遅いです。</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.__contains__">
-<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.__contains__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__contains__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.__contains__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__contains__" title="Link to this definition">¶</a></dt>
 <dd><p>存在判定です。</p>
 <p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 <dl class="field-list simple">
@@ -699,125 +675,106 @@
 </dd>
 </dl>
 </dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__getitem__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__getitem__" title="Link to this definition">¶</a></dt>
 <dd><p>キーが <code class="docutils literal notranslate"><span class="pre">key</span></code> の値を返します。
 存在しない場合、引数 <code class="docutils literal notranslate"><span class="pre">default</span></code> に <code class="docutils literal notranslate"><span class="pre">None</span></code> 以外を指定した場合は <code class="docutils literal notranslate"><span class="pre">default</span></code> が、
 そうでない場合はコンストラクタで設定した <code class="docutils literal notranslate"><span class="pre">default</span></code> が返ります。</p>
 <p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.__setitem__">
-<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__setitem__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.__setitem__" title="Link to this definition">¶</a></dt>
 <dd><p>キーを <code class="docutils literal notranslate"><span class="pre">key</span></code> として <code class="docutils literal notranslate"><span class="pre">val</span></code> を格納します。
 <code class="docutils literal notranslate"><span class="pre">key</span></code> が既に存在している場合は上書きされます。</p>
 <p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.add" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.add"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.add" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.get"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.get" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.get"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.get" title="Link to this definition">¶</a></dt>
 <dd><p>キーが <code class="docutils literal notranslate"><span class="pre">key</span></code> の値を返します。
 存在しない場合、引数 <code class="docutils literal notranslate"><span class="pre">default</span></code> に <code class="docutils literal notranslate"><span class="pre">None</span></code> 以外を指定した場合は <code class="docutils literal notranslate"><span class="pre">default</span></code> が、
 そうでない場合はコンストラクタで設定した <code class="docutils literal notranslate"><span class="pre">default</span></code> が返ります。</p>
 <p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.items">
-<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.items"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.items" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.items"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.items" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">とそれに対応する</span> <span class="pre">val</span> <span class="pre">のタプル</span></code> を列挙するイテレータです。</p>
 </dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.keys"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.keys" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.keys"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.keys" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">集合</span></code> を列挙するイテレータです。</p>
 </dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.set">
-<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.set"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.set" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.set"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.set" title="Link to this definition">¶</a></dt>
 <dd><p>キーを <code class="docutils literal notranslate"><span class="pre">key</span></code> として <code class="docutils literal notranslate"><span class="pre">val</span></code> を格納します。
 <code class="docutils literal notranslate"><span class="pre">key</span></code> が既に存在している場合は上書きされます。</p>
 <p>期待 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
 </dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.dict.hash_dict.HashDict.values">
-<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.values"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.values" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/dict/hash_dict.html#HashDict.values"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.dict.hash_dict.HashDict.values" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">val</span> <span class="pre">集合</span></code> を列挙するイテレータです。</p>
 </dd></dl>
-
 </dd></dl>
-
 </section>
 </section>
-
-        </article>
-      </div>
-      <footer>
-        
-        <div class="related-pages">
-          <a class="next-page" href="titan_pylib.data_structures.dynamic_connectivity.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">titan_pylib.data_structures.dynamic_connectivity package</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="titan_pylib.data_structures.dict.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">titan_pylib.data_structures.dict package</div>
-                
-              </div>
-            </a>
-        </div>
-        <div class="bottom-of-page">
-          <div class="left-details">
-            <div class="copyright">
-                Copyright &#169; 2024, titan
+</article>
+</div>
+<footer>
+<div class="related-pages">
+<a class="next-page" href="titan_pylib.data_structures.dynamic_connectivity.html">
+<div class="page-info">
+<div class="context">
+<span>Next</span>
+</div>
+<div class="title">dynamic_connectivity</div>
+</div>
+<svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+</a>
+<a class="prev-page" href="titan_pylib.data_structures.dict.html">
+<svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+<div class="page-info">
+<div class="context">
+<span>Previous</span>
+</div>
+<div class="title">dict</div>
+</div>
+</a>
+</div>
+<div class="bottom-of-page">
+<div class="left-details">
+<div class="copyright">
+                Copyright © 2024, titan
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
-            
-          </div>
-          <div class="right-details">
-            
-          </div>
-        </div>
-        
-      </footer>
-    </div>
-    <aside class="toc-drawer">
-      
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
+</div>
+<div class="right-details">
+</div>
+</div>
+</footer>
+</div>
+<aside class="toc-drawer">
+<div class="toc-sticky toc-scroll">
+<div class="toc-title-container">
+<span class="toc-title">
             On this page
           </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">titan_pylib.data_structures.dict.hash_dict</a><ul>
+</div>
+<div class="toc-tree-container">
+<div class="toc-tree">
+<ul>
+<li><a class="reference internal" href="#">hash_dict</a><ul>
 <li><a class="reference internal" href="#id1">ソースコード</a><ul>
 <li><a class="reference internal" href="#id2">展開済みコード</a></li>
 </ul>
@@ -840,22 +797,19 @@
 </ul>
 </li>
 </ul>
-
-          </div>
-        </div>
-      </div>
-      
-      
-    </aside>
-  </div>
+</div>
+</div>
+</div>
+</aside>
+</div>
 </div><script src="../_static/documentation_options.js?v=c033477b"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=4ea706d9"></script>
-    <script src="../_static/translations.js?v=4dbe4bdc"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="../_static/_static/script.js"></script>
-    </body>
+<script src="../_static/doctools.js?v=9a2dae69"></script>
+<script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../_static/copybutton.js?v=4ea706d9"></script>
+<script src="../_static/translations.js?v=4dbe4bdc"></script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../_static/_static/script.js"></script>
+</body>
 </html>
