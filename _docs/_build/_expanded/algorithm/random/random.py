@@ -1,3 +1,4 @@
+# from titan_pylib.algorithm.random.random import Random
 from typing import List, Any
 
 class Random():
@@ -55,3 +56,4 @@ class Random():
     for i in range(n-1):
       j = self.randrange(i, n)
       a[i], a[j] = a[j], a[i]
+

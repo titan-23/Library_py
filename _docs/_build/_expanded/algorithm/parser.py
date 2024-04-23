@@ -1,3 +1,4 @@
+# from titan_pylib.algorithm.parser import Parser
 class Parser():
   """Parser
 
@@ -80,3 +81,4 @@ class Parser():
 
   def get_char(self) -> str:
     return self.s[self.ptr]
+

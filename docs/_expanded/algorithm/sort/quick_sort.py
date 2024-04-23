@@ -1,4 +1,11 @@
-from titan_pylib.my_class.supports_less_than import SupportsLessThan
+# from titan_pylib.algorithm.sort.quick_sort import quick_sort
+# from titan_pylib.my_class.supports_less_than import SupportsLessThan
+from typing import Protocol
+
+class SupportsLessThan(Protocol):
+
+  def __lt__(self, other) -> bool: ...
+
 from typing import Iterable, TypeVar, Callable, List
 import random
 T = TypeVar('T', bound=SupportsLessThan)
@@ -33,3 +40,4 @@ def quick_sort(a: Iterable[T], key: Callable[[T, T], bool]=lambda s, t: s < t) -
     sort(r+1, j)
   sort(0, len(a)-1)
   return a
+

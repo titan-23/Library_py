@@ -21,19 +21,25 @@ def func(cur_dir, file):
 
     new_paragraph = f'''
 ソースコード
-------------
+^^^^^^^^^^^^
 
 展開済みコード
-^^^^^^^^^^^^^^
+""""""""""""""
 
 .. literalinclude:: ../_build/_expanded/{expanded_file}.py
    :language: python
    :linenos:
 
 仕様
-----------------'''
+^^^^^^^^^^^^^^^^'''
     lines.insert(3, new_paragraph)
     with open(s, 'w', encoding='utf=8') as f:
+      for i, line in enumerate(lines):
+        if line.endswith('module'):
+          line = line[:-len('module')]
+        if line.endswith('package'):
+          line = line[:-len('package')]
+        lines[i] = line
       print(*lines, sep='\n', file=f)
 
 if __name__ == '__main__':
@@ -42,6 +48,7 @@ if __name__ == '__main__':
   path = "./_docs/titan_pylib_docs/"
   for cur_dir, dirs, files in os.walk(path):
     for file in files:
+      print(file)
       if not file.endswith('.rst'):
         continue
       func(cur_dir, file)

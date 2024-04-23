@@ -1,3 +1,4 @@
+# from titan_pylib.algorithm.cycle_memo import CycleMemo
 from typing import Callable, TypeVar, Generic, List, Set, Hashable
 T = TypeVar('T', bound=Hashable)
 
@@ -26,3 +27,4 @@ class CycleMemo(Generic[T]):
     k -= self.cycle_start
     k %= self.cycle_len
     return self.cycle[k]
+

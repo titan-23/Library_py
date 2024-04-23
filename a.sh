@@ -16,7 +16,8 @@ pypy3 ./all_expander.py
 sphinx-apidoc -f -e -d 1 -o ./_docs/titan_pylib_docs ./titan_pylib/
 pypy3 ./edit_rst.py
 sphinx-build -b html ./_docs ./_docs/_build
-pypy3 ./edit_html.py
+pypy3 ./edit_rst_after_build.py
+# pypy3 ./edit_html.py
 
 # copy to docs
 echo "copying"

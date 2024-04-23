@@ -26,7 +26,7 @@ autodoc_default_options = {
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'titan_pylib'
-copyright = '2023, titan'
+copyright = '2024, titan'
 author = 'titan'
 
 # -- General configuration ---------------------------------------------------
@@ -71,7 +71,9 @@ language = 'ja'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
+# html_theme = 'sphinx_rtd_theme'
+
 html_static_path = ['_static']
 html_js_files = ['_static/script.js']
-html_css_files = ['_static/style.css', '_static/codeblock.css', '_static/dammy.css']
+html_css_files = ['_static/style.css']
