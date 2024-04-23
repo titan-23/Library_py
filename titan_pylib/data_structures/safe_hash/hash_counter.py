@@ -44,4 +44,4 @@ class HashCounter():
     return len(self._data)
 
   def __str__(self):
-    return f'HashCounter({str(self._data)})'
+    return f'{self.__class__.__name__}({str(self._data)})'

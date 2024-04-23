@@ -99,32 +99,31 @@
 <span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">io</span>
 <span class="linenos"> 4</span>
 <span class="linenos"> 5</span><span class="k">class</span> <span class="nc">FastO</span><span class="p">():</span>
-<span class="linenos"> 6</span><span class="w">  </span><span class="sd">"""標準出力高速化ライブラリです。</span>
-<span class="linenos"> 7</span><span class="sd">  """</span>
-<span class="linenos"> 8</span>
-<span class="linenos"> 9</span>  <span class="n">_output</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
-<span class="linenos">10</span>
-<span class="linenos">11</span>  <span class="nd">@classmethod</span>
-<span class="linenos">12</span>  <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">' '</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="n">flush</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">13</span><span class="w">    </span><span class="sd">"""標準出力します。次の ``FastO.flush()`` が起きると print します。</span>
-<span class="linenos">14</span><span class="sd">    """</span>
-<span class="linenos">15</span>    <span class="n">wr</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">write</span>
-<span class="linenos">16</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-<span class="linenos">17</span>      <span class="n">wr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-<span class="linenos">18</span>      <span class="n">wr</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span>
-<span class="linenos">19</span>    <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
-<span class="linenos">20</span>      <span class="n">wr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-<span class="linenos">21</span>    <span class="n">wr</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
-<span class="linenos">22</span>    <span class="k">if</span> <span class="n">flush</span><span class="p">:</span>
-<span class="linenos">23</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-<span class="linenos">24</span>
-<span class="linenos">25</span>  <span class="nd">@classmethod</span>
-<span class="linenos">26</span>  <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">27</span><span class="w">    </span><span class="sd">"""``flush`` します。これを実行しないと ``write`` した内容が表示されないので忘れないでください。</span>
-<span class="linenos">28</span><span class="sd">    """</span>
-<span class="linenos">29</span>    <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
-<span class="linenos">30</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="linenos">31</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="sd">"""標準出力高速化ライブラリです。"""</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>  <span class="n">_output</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>  <span class="nd">@classmethod</span>
+<span class="linenos">11</span>  <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">' '</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="n">flush</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">    </span><span class="sd">"""標準出力します。次の ``FastO.flush()`` が起きると print します。</span>
+<span class="linenos">13</span><span class="sd">    """</span>
+<span class="linenos">14</span>    <span class="n">wr</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">write</span>
+<span class="linenos">15</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">16</span>      <span class="n">wr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+<span class="linenos">17</span>      <span class="n">wr</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+<span class="linenos">19</span>      <span class="n">wr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="linenos">20</span>    <span class="n">wr</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+<span class="linenos">21</span>    <span class="k">if</span> <span class="n">flush</span><span class="p">:</span>
+<span class="linenos">22</span>      <span class="bp">cls</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>  <span class="nd">@classmethod</span>
+<span class="linenos">25</span>  <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">26</span><span class="w">    </span><span class="sd">"""``flush`` します。これを実行しないと ``write`` した内容が表示されないので忘れないでください。</span>
+<span class="linenos">27</span><span class="sd">    """</span>
+<span class="linenos">28</span>    <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="linenos">29</span>    <span class="bp">cls</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">30</span>
 </pre></div>
 </div>
 </section>

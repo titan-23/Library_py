@@ -12,7 +12,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class MaxHeap(Generic[T]):
 
-  def __init__(self, a: Iterable[T]=[]):
+  def __init__(self, a: Iterable[T]=[]) -> None:
     self.a = list(a)
     self._heapify()
 
@@ -82,18 +82,24 @@ class MaxHeap(Generic[T]):
     return str(self.a)
 
   def __repr__(self):
-    return f'MaxHeap({self})'
+    return f'{self.__class__.__name__}({self})'
 from typing import TypeVar, Generic, Iterable
 T = TypeVar('T', bound=SupportsLessThan)
 
 class DeletableMaxHeap(Generic[T]):
 
   def __init__(self, a: Iterable[T]=[]) -> None:
+    """削除可能Maxヒープです。
+    要素の 追加/削除/最大値取得 が効率よく行えます。
+    """
     self.hq: MaxHeap[T] = MaxHeap(a)
     self.rem_hq: MaxHeap[T] = MaxHeap()
     self._len: int = len(self.hq)
 
   def push(self, key: T) -> None:
+    """``key`` を追加します。
+    :math:`O(\\log{n})` です。
+    """
     self._len += 1
     if self.rem_hq and self.rem_hq.get_max() == key:
       self.rem_hq.pop_max()
@@ -101,6 +107,9 @@ class DeletableMaxHeap(Generic[T]):
     self.hq.push(key)
 
   def remove(self, key: T) -> None:
+    """``key`` を削除します。
+    :math:`O(\\log{n})` です。
+    """
     assert self._len > 0
     self._len -= 1
     if self.hq.get_max() == key:
@@ -114,16 +123,22 @@ class DeletableMaxHeap(Generic[T]):
       self.rem_hq.pop_max()
 
   def get_max(self) -> T:
+    """最大の要素を返します。
+    :math:`O(\\log{n})` です。
+    """
     assert self._len > 0
     self._delete()
     return self.hq.get_max()
 
   def pop_max(self) -> T:
+    """最大の要素を削除して返します。
+    :math:`O(\\log{n})` です。
+    """
     assert self._len > 0
     self._len -= 1
     self._delete()
     return self.hq.pop_max()
 
-  def __len__(self):
+  def __len__(self) -> int:
     return self._len
 

@@ -7,7 +7,7 @@ class SupportsLessThan(Protocol):
   def __lt__(self, other) -> bool: ...
 
 # from titan_pylib.data_structures.heap.double_ended_heap import DoubleEndedHeap
-from typing import Generic, Iterable, TypeVar
+from typing import Generic, Iterable, TypeVar, List
 T = TypeVar('T', bound=SupportsLessThan)
 
 class DoubleEndedHeap(Generic[T]):
@@ -16,12 +16,12 @@ class DoubleEndedHeap(Generic[T]):
   - [Double-ended priority queue(wikipedia)](https://en.wikipedia.org/wiki/Double-ended_priority_queue)
   """
 
-  def __init__(self, a: Iterable[T]=[]):
+  def __init__(self, a: Iterable[T]=[]) -> None:
     """構築します。
     :math:`O(n)` です。
 
     Args:
-      a (Iterable[T], optional): 構築する配列です。
+      a (Iterable[T], optional): 構築元の配列です。
     """
     self._data = list(a)
     self._heapify()
@@ -42,7 +42,7 @@ class DoubleEndedHeap(Generic[T]):
     self._up(len(self._data)-1)
 
   def pop_min(self) -> T:
-    """最小の要素を **削除して** 返します。
+    """最小の要素を削除して返します。
     :math:`O(\\log{n})` です。
     """
     if len(self._data) < 3:
@@ -55,7 +55,7 @@ class DoubleEndedHeap(Generic[T]):
     return res
 
   def pop_max(self) -> T:
-    """最大の要素を **削除して** 返します。
+    """最大の要素を削除して返します。
     :math:`O(\\log{n})` です。
     """
     if len(self._data) < 2:
@@ -78,13 +78,13 @@ class DoubleEndedHeap(Generic[T]):
     """
     return self._data[0]
 
-  def __len__(self):
+  def __len__(self) -> int:
     return len(self._data)
 
-  def __bool__(self):
+  def __bool__(self) -> bool:
     return len(self._data) > 0
 
-  def _parent(self, k):
+  def _parent(self, k: int) -> int:
     return ((k>>1)-1) & ~1
 
   def _down(self, k: int) -> int:
@@ -129,14 +129,14 @@ class DoubleEndedHeap(Generic[T]):
       k = p
     return k
 
-  def tolist(self):
+  def tolist(self) -> List[T]:
     return sorted(self._data)
 
-  def __str__(self):
-    return str(sorted(self._data))
+  def __str__(self) -> str:
+    return str(self.tolist())
 
-  def __repr__(self):
-    return f'DoubleEndedHeap({self})'
+  def __repr__(self) -> str:
+    return f'{self.__class__.__name__}({self})'
 from typing import Generic, Iterable, TypeVar, List
 T = TypeVar('T', bound=SupportsLessThan)
 

@@ -296,8 +296,8 @@
 <span class="linenos">169</span><span class="w">    </span><span class="sd">'''Find the largest index R s.t. f([l, R)) == True. / O(\\log{n})'''</span>
 <span class="linenos">170</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">171</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.max_right(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, f) index out of range'</span>
-<span class="linenos">172</span>    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
-<span class="linenos">173</span>        <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.max_right(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, f), f(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">) must be true.'</span>
+<span class="linenos">172</span>    <span class="c1"># assert f(self._e), \</span>
+<span class="linenos">173</span>    <span class="c1">#     f'{self.__class__.__name__}.max_right({l}, f), f({self._e}) must be true.'</span>
 <span class="linenos">174</span>    <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span>
 <span class="linenos">175</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">176</span>    <span class="n">l</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
@@ -322,8 +322,8 @@
 <span class="linenos">195</span><span class="w">    </span><span class="sd">'''Find the smallest index L s.t. f([L, r)) == True. / O(\\log{n})'''</span>
 <span class="linenos">196</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> \
 <span class="linenos">197</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.min_left(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, f) index out of range'</span>
-<span class="linenos">198</span>    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">),</span> \
-<span class="linenos">199</span>        <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.min_left(</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, f), f(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="si">}</span><span class="s1">) must be true.'</span>
+<span class="linenos">198</span>    <span class="c1"># assert f(self._e), \</span>
+<span class="linenos">199</span>    <span class="c1">#     f'{self.__class__.__name__}.min_left({r}, f), f({self._e}) must be true.'</span>
 <span class="linenos">200</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">201</span>      <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">202</span>    <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
@@ -345,7 +345,7 @@
 <span class="linenos">218</span>    <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">219</span>
 <span class="linenos">220</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-<span class="linenos">221</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos">221</span><span class="w">    </span><span class="sd">"""リストにして返します。</span>
 <span class="linenos">222</span><span class="sd">    :math:`O(n)` です。</span>
 <span class="linenos">223</span><span class="sd">    """</span>
 <span class="linenos">224</span>    <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)]</span>
@@ -365,13 +365,13 @@
 <span class="linenos">238</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.__setitem__</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s1">'</span>
 <span class="linenos">239</span>    <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 <span class="linenos">240</span>
-<span class="linenos">241</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">241</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">242</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">243</span>
-<span class="linenos">244</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">244</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">245</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 <span class="linenos">246</span>
-<span class="linenos">247</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">247</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">248</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span>
 <span class="linenos">249</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span>
 <span class="linenos">250</span>

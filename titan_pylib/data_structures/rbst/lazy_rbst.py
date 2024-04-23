@@ -224,7 +224,6 @@ class LazyRBST(Generic[T, F]):
       k += len(self)
     node = self.root
     while True:
-      assert node
       self._propagate(node)
       t = 0 if node.left is None else node.left.size
       if t == k:
@@ -262,4 +261,3 @@ class LazyRBST(Generic[T, F]):
     return str(self.tolist())
 
   __repr__ = __str__
-

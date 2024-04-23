@@ -11,7 +11,7 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class MaxHeap(Generic[T]):
 
-  def __init__(self, a: Iterable[T]=[]):
+  def __init__(self, a: Iterable[T]=[]) -> None:
     self.a = list(a)
     self._heapify()
 
@@ -81,5 +81,5 @@ class MaxHeap(Generic[T]):
     return str(self.a)
 
   def __repr__(self):
-    return f'MaxHeap({self})'
+    return f'{self.__class__.__name__}({self})'
 

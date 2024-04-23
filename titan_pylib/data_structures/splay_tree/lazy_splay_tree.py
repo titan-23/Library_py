@@ -425,7 +425,7 @@ class LazySplayTree(Generic[T, F]):
     Returns:
       LazySplayTree:
     """
-    return LazySplayTree(self.tolist(), self.op, self.mapping, self.composition, self.e)
+    return LazySplayTree(self.tolist(), self.op, self.mapping, self.composition, self.e, self.id)
 
   def clear(self) -> None:
     """全ての要素を削除します。

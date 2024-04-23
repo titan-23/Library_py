@@ -36,13 +36,17 @@ class LazySplayTreeArrayData(Generic[T, F]):
 
 class LazySplayTreeArray(Generic[T, F]):
 
-  def __init__(self, data: 'LazySplayTreeArrayData', n_or_a: Union[int, Iterable[T]]=0, _root: int=0):
+  def __init__(self,
+               data: 'LazySplayTreeArrayData[T, F]',
+               n_or_a: Union[int, Iterable[T]]=0,
+               _root: int=0
+               ) -> None:
     self.data = data
     self.root = _root
     if not n_or_a:
       return
     if isinstance(n_or_a, int):
-      a = [data.e for _ in range(n_or_a)]
+      a = [data.e] * n_or_a
     elif not isinstance(n_or_a, Sequence):
       a = list(n_or_a)
     else:
@@ -210,7 +214,7 @@ class LazySplayTreeArray(Generic[T, F]):
   def reserve(self, n: int) -> None:
     self.data.reserve(n)
 
-  def merge(self, other: 'LazySplayTreeArray') -> None:
+  def merge(self, other: 'LazySplayTreeArray[T, F]') -> None:
     assert self.data is other.data
     if not other.root: return
     if not self.root:
@@ -220,7 +224,7 @@ class LazySplayTreeArray(Generic[T, F]):
     self.data.arr[self.root<<2|1] = other.root
     self._update(self.root)
 
-  def split(self, k: int) -> Tuple['LazySplayTreeArray', 'LazySplayTreeArray']:
+  def split(self, k: int) -> Tuple['LazySplayTreeArray[T, F]', 'LazySplayTreeArray[T, F]']:
     assert -len(self) < k <= len(self), \
         f'IndexError: LazySplayTreeArray.split({k}), len={len(self)}'
     if k < 0: k += len(self)
@@ -368,7 +372,7 @@ class LazySplayTreeArray(Generic[T, F]):
   def rotate(self, x: int) -> None:
     # 「末尾をを削除し先頭に挿入」をx回
     n = self.data.arr[self.root<<2|2]
-    l, self = self.split(n-(x%n))
+    l, self = self.split(n - (x % n))
     self.merge(l)
 
   def tolist(self) -> List[T]:
@@ -408,13 +412,13 @@ class LazySplayTreeArray(Generic[T, F]):
   def __next__(self):
     if self.__iter == self.data.arr[self.root<<2|2]:
       raise StopIteration
-    res = self.__getitem__(self.__iter)
+    res = self[self.__iter]
     self.__iter += 1
     return res
 
   def __reversed__(self):
     for i in range(len(self)):
-      yield self.__getitem__(-i-1)
+      yield self[-i-1]
 
   def __len__(self):
     return self.data.arr[self.root<<2|2]
@@ -426,5 +430,4 @@ class LazySplayTreeArray(Generic[T, F]):
     return self.root != 0
 
   def __repr__(self):
-    return f'LazySplayTreeArray({self})'
-
+    return f'{self.__class__.__name__}({self})'

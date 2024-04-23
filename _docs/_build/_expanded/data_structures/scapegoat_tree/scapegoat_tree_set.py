@@ -281,7 +281,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
 
   def _build(self, a: List[T]) -> None:
     Node = ScapegoatTreeSet.Node
-    def rec(l: int, r: int) -> Node:
+    def rec(l: int, r: int) -> ScapegoatTreeSet.Node:
       mid = (l + r) >> 1
       node = Node(a[mid])
       if l != mid:
@@ -509,5 +509,4 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 

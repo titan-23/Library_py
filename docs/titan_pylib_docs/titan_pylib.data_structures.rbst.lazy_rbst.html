@@ -351,46 +351,44 @@
 <span class="linenos">225</span>      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 <span class="linenos">226</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos">227</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="linenos">228</span>      <span class="k">assert</span> <span class="n">node</span>
-<span class="linenos">229</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="linenos">230</span>      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos">231</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">232</span>        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
-<span class="linenos">233</span>      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">234</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">235</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-<span class="linenos">236</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">237</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-<span class="linenos">238</span>
-<span class="linenos">239</span>  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-<span class="linenos">240</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">241</span>      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-<span class="linenos">242</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-<span class="linenos">243</span>    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="linenos">244</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="linenos">245</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="linenos">246</span>      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="linenos">247</span>      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos">248</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">249</span>        <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
-<span class="linenos">250</span>        <span class="k">break</span>
-<span class="linenos">251</span>      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">252</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">253</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-<span class="linenos">254</span>      <span class="k">else</span><span class="p">:</span>
-<span class="linenos">255</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
-<span class="linenos">256</span>    <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
-<span class="linenos">257</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
-<span class="linenos">258</span>
-<span class="linenos">259</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">260</span>    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos">261</span>
-<span class="linenos">262</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">263</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-<span class="linenos">264</span>
-<span class="linenos">265</span>  <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
-<span class="linenos">266</span>
-<span class="linenos">267</span>
+<span class="linenos">228</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">229</span>      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">230</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">231</span>        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span>
+<span class="linenos">232</span>      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">233</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">234</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+<span class="linenos">235</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">236</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+<span class="linenos">237</span>
+<span class="linenos">238</span>  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+<span class="linenos">239</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">240</span>      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="linenos">241</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+<span class="linenos">242</span>    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">243</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="linenos">244</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">245</span>      <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos">246</span>      <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">247</span>      <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">248</span>        <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+<span class="linenos">249</span>        <span class="k">break</span>
+<span class="linenos">250</span>      <span class="k">elif</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">251</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">252</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
+<span class="linenos">253</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">254</span>        <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
+<span class="linenos">255</span>    <span class="k">while</span> <span class="n">path</span><span class="p">:</span>
+<span class="linenos">256</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+<span class="linenos">257</span>
+<span class="linenos">258</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">259</span>    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">260</span>
+<span class="linenos">261</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">262</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="linenos">263</span>
+<span class="linenos">264</span>  <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
+<span class="linenos">265</span>
 </pre></div>
 </div>
 </section>

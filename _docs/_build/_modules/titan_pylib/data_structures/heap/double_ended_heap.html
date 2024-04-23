@@ -76,7 +76,7 @@
 <div itemprop="articleBody">
 <h1>double_ended_heap のソースコード</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">titan_pylib.my_class.supports_less_than</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
-<span class="linenos">  2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="linenos">  2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">List</span>
 <span class="linenos">  3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">  4</span>
 <div class="viewcode-block" id="DoubleEndedHeap">
@@ -87,12 +87,12 @@
 <span class="linenos">  8</span><span class="sd">  - [Double-ended priority queue(wikipedia)](https://en.wikipedia.org/wiki/Double-ended_priority_queue)</span>
 <span class="linenos">  9</span><span class="sd">  """</span>
 <span class="linenos"> 10</span>
-<span class="linenos"> 11</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
+<span class="linenos"> 11</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 12</span><span class="w">    </span><span class="sd">"""構築します。</span>
 <span class="linenos"> 13</span><span class="sd">    :math:`O(n)` です。</span>
 <span class="linenos"> 14</span>
 <span class="linenos"> 15</span><span class="sd">    Args:</span>
-<span class="linenos"> 16</span><span class="sd">      a (Iterable[T], optional): 構築する配列です。</span>
+<span class="linenos"> 16</span><span class="sd">      a (Iterable[T], optional): 構築元の配列です。</span>
 <span class="linenos"> 17</span><span class="sd">    """</span>
 <span class="linenos"> 18</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 19</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_heapify</span><span class="p">()</span>
@@ -118,7 +118,7 @@
 <div class="viewcode-block" id="DoubleEndedHeap.pop_min">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.double_ended_heap.html#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_min">[ドキュメント]</a>
 <span class="linenos"> 36</span>  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos"> 37</span><span class="w">    </span><span class="sd">"""最小の要素を **削除して** 返します。</span>
+<span class="linenos"> 37</span><span class="w">    </span><span class="sd">"""最小の要素を削除して返します。</span>
 <span class="linenos"> 38</span><span class="sd">    :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 39</span><span class="sd">    """</span>
 <span class="linenos"> 40</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
@@ -134,7 +134,7 @@
 <div class="viewcode-block" id="DoubleEndedHeap.pop_max">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.double_ended_heap.html#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.pop_max">[ドキュメント]</a>
 <span class="linenos"> 49</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos"> 50</span><span class="w">    </span><span class="sd">"""最大の要素を **削除して** 返します。</span>
+<span class="linenos"> 50</span><span class="w">    </span><span class="sd">"""最大の要素を削除して返します。</span>
 <span class="linenos"> 51</span><span class="sd">    :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 52</span><span class="sd">    """</span>
 <span class="linenos"> 53</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -164,13 +164,13 @@
 <span class="linenos"> 71</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 <span class="linenos"> 72</span>
-<span class="linenos"> 73</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 73</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 74</span>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
 <span class="linenos"> 75</span>
-<span class="linenos"> 76</span>  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 76</span>  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 77</span>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 <span class="linenos"> 78</span>
-<span class="linenos"> 79</span>  <span class="k">def</span> <span class="nf">_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="linenos"> 79</span>  <span class="k">def</span> <span class="nf">_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 80</span>    <span class="k">return</span> <span class="p">((</span><span class="n">k</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mi">1</span>
 <span class="linenos"> 81</span>
 <span class="linenos"> 82</span>  <span class="k">def</span> <span class="nf">_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -217,15 +217,15 @@
 <span class="linenos">123</span>
 <div class="viewcode-block" id="DoubleEndedHeap.tolist">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.double_ended_heap.html#titan_pylib.data_structures.heap.double_ended_heap.DoubleEndedHeap.tolist">[ドキュメント]</a>
-<span class="linenos">124</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">124</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">125</span>    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
 
 <span class="linenos">126</span>
-<span class="linenos">127</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">128</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">))</span>
+<span class="linenos">127</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">128</span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 <span class="linenos">129</span>
-<span class="linenos">130</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">131</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'DoubleEndedHeap(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span></div>
+<span class="linenos">130</span>  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">131</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">)'</span></div>
 
 </pre></div>
 </div>

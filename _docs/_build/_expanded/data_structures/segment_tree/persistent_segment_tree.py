@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.segment_tree.persistent_segment_tree import PersistentSegmentTree
-from typing import Generic, Iterable, Optional, Union, TypeVar, Callable, List, Tuple, Final
+from typing import Generic, Iterable, Optional, TypeVar, Callable, List
 T = TypeVar('T')
 
 class PersistentSegmentTree(Generic[T]):
@@ -38,7 +38,7 @@ class PersistentSegmentTree(Generic[T]):
 
   def _build(self, a: List[T]) -> None:
     Node = PersistentSegmentTree.Node
-    def build(l: int, r: int) -> Node:
+    def build(l: int, r: int) -> PersistentSegmentTree.Node:
       mid = (l + r) >> 1
       node = Node(a[mid])
       if l != mid:
@@ -156,5 +156,4 @@ class PersistentSegmentTree(Generic[T]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 

@@ -34,7 +34,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def _build(self, a: List[T]) -> None:
     Node = ScapegoatTreeMultiset.Node
-    def rec(l: int, r: int) -> 'Node':
+    def rec(l: int, r: int) -> ScapegoatTreeMultiset.Node:
       mid = (l + r) >> 1
       node = Node(x[mid], y[mid])
       if l != mid:
@@ -366,4 +366,3 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self.tolist})'
-

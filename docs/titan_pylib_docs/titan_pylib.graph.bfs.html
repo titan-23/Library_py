@@ -127,7 +127,7 @@
 <span class="linenos">10</span><span class="sd">    inf (Union[int, float], optional): 無限大です。</span>
 <span class="linenos">11</span>
 <span class="linenos">12</span><span class="sd">  Returns:</span>
-<span class="linenos">13</span><span class="sd">      List[Union[int, float]]: 始点 ``s`` からの距離です。</span>
+<span class="linenos">13</span><span class="sd">    List[Union[int, float]]: 始点 ``s`` からの距離です。</span>
 <span class="linenos">14</span><span class="sd">  """</span>
 <span class="linenos">15</span>  <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">inf</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="linenos">16</span>  <span class="n">dist</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -149,7 +149,7 @@
 <span class="linenos">32</span><span class="sd">    inf (Union[int, float], optional): 無限大です。</span>
 <span class="linenos">33</span>
 <span class="linenos">34</span><span class="sd">  Returns:</span>
-<span class="linenos">35</span><span class="sd">      Tuple[List[int], List[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。</span>
+<span class="linenos">35</span><span class="sd">    Tuple[List[int], List[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。</span>
 <span class="linenos">36</span><span class="sd">  """</span>
 <span class="linenos">37</span>  <span class="n">prev</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="linenos">38</span>  <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">inf</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>

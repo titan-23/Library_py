@@ -10,7 +10,7 @@ def bfs(G: List[List[Tuple[int, int]]], s: int, inf: Union[int, float]=float('in
     inf (Union[int, float], optional): 無限大です。
 
   Returns:
-      List[Union[int, float]]: 始点 ``s`` からの距離です。
+    List[Union[int, float]]: 始点 ``s`` からの距離です。
   """
   dist = [inf] * len(G)
   dist[s] = 0
@@ -32,7 +32,7 @@ def bfs_path(G: List[List[Tuple[int, int]]], s: int, t: int, inf: Union[int, flo
     inf (Union[int, float], optional): 無限大です。
 
   Returns:
-      Tuple[List[int], List[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。
+    Tuple[List[int], List[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。
   """
   prev = [-1] * len(G)
   dist = [inf] * len(G)

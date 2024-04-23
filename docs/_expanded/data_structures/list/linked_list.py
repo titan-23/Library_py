@@ -3,8 +3,7 @@ from typing import Generic, TypeVar, List, Optional, Iterator, Iterable
 T = TypeVar('T')
 
 class LinkedList(Generic[T]):
-  """双方向連結リストです。
-  """
+  """双方向連結リストです。"""
 
   ___slots__ = ('top', 'tail', 'it', '_len')
 
@@ -148,7 +147,7 @@ class LinkedList(Generic[T]):
       yield node
       node = nxt
 
-  def iter_node_rev(self):
+  def iter_node_rev(self) -> LinkedListNode:
     node = self.tail
     while node:
       pre = node._pre
@@ -186,6 +185,5 @@ class LinkedList(Generic[T]):
     return str(self.tolist())
 
   def __repr__(self):
-    return f'LinkedList({self})'
-
+    return f'{self.__class__.__name__}({self})'
 

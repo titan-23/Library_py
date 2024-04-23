@@ -593,4 +593,3 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
   def __repr__(self):
     return f'AVLTreeSet({self})'
 
-

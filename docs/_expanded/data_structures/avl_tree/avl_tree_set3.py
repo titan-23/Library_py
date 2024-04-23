@@ -130,7 +130,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
 
   def _build(self, a: Sequence[T]) -> None:
     Node = AVLTreeSet3.Node
-    def rec(l: int, r: int) -> Tuple[Node, int]:
+    def rec(l: int, r: int) -> Tuple[AVLTreeSet3.Node, int]:
       mid = (l + r) >> 1
       node = Node(a[mid])
       hl, hr = 0, 0
@@ -288,7 +288,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
     di = 0
     path = []
     node = self.node
-    while node is not None:
+    while node:
       if key == node.key:
         break
       elif key < node.key:
@@ -302,12 +302,12 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
         node = node.right
     else:
       return False
-    if node.left is not None and node.right is not None:
+    if node.left and node.right:
       path.append(node)
       di <<= 1
       di |= 1
       lmax = node.left
-      while lmax.right is not None:
+      while lmax.right:
         path.append(lmax)
         di <<= 1
         lmax = lmax.right
@@ -334,7 +334,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
         new_node = self._rotate_RL(pnode) if pnode.right.balance == 1 else self._rotate_R(pnode)
       elif pnode.balance != 0:
         break
-      if new_node is not None:
+      if new_node:
         if not path:
           self.node = new_node
           return True

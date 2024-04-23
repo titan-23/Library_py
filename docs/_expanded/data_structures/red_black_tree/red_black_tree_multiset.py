@@ -279,9 +279,9 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
     def __init__(self, key: T, cnt: int=1):
       self.key: T = key
-      self.left = RedBlackTreeMultiset.NIL
-      self.right = RedBlackTreeMultiset.NIL
-      self.par = RedBlackTreeMultiset.NIL
+      self.left = RedBlackTreeMultiset._NIL
+      self.right = RedBlackTreeMultiset._NIL
+      self.par = RedBlackTreeMultiset._NIL
       self.col: int = 0
       self.cnt: int = cnt
 
@@ -303,7 +303,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
     def _next(self) -> Optional['RedBlackTreeMultiset.Node']:
       now = self
-      pre = RedBlackTreeMultiset.NIL
+      pre = RedBlackTreeMultiset._NIL
       flag = now.right is pre
       while now.right is pre:
         pre, now = now, now.par
@@ -312,7 +312,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
       return now if flag and pre is now.left else now.right._min()
 
     def _prev(self) -> Optional['RedBlackTreeMultiset.Node']:
-      now, pre = self, RedBlackTreeMultiset.NIL
+      now, pre = self, RedBlackTreeMultiset._NIL
       flag = now.left is pre
       while now.left is pre:
         pre, now = now, now.par
@@ -340,7 +340,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
         return f'(key,col,par.key):{self.key, self.col, self.par.key}\n'
       return f'(key,col,par.key):{self.key, self.col, self.par.key},\n left:{self.left},\n right:{self.right}\n'
 
-  class NILNode():
+  class _NILNode():
 
     key = None
     left = None
@@ -359,12 +359,12 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
       return False
 
     def __str__(self):
-      return 'NIL'
+      return '_NIL'
 
-  NIL = NILNode()
+  _NIL = _NILNode()
 
   def __init__(self, a: Iterable[T]=[]):
-    self.node = RedBlackTreeMultiset.NIL
+    self.node = RedBlackTreeMultiset._NIL
     self.size = 0
     self.min_node = None
     self.max_node = None
@@ -456,7 +456,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
       self.min_node = node
       self.max_node = node
       return
-    pnode = RedBlackTreeMultiset.NIL
+    pnode = RedBlackTreeMultiset._NIL
     node = self.node
     while node:
       pnode = node
@@ -781,7 +781,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return node.key
 
   def clear(self) -> None:
-    self.node = RedBlackTreeMultiset.NIL
+    self.node = RedBlackTreeMultiset._NIL
     self.size = 0
     self.min_node = None
     self.max_node = None
@@ -801,7 +801,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
     return self.it.key
 
   def __bool__(self):
-    return self.node is not RedBlackTreeMultiset.NIL
+    return self.node is not RedBlackTreeMultiset._NIL
 
   def __contains__(self, key: T):
     node = self.node

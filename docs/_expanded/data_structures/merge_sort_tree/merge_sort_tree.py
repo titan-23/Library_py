@@ -5,7 +5,7 @@ D = TypeVar('D')
 
 class MergeSortTree(Generic[T, D]):
 
-  def __init__(self, a: Iterable[T], func: Callable[[List[T]], D]):
+  def __init__(self, a: Iterable[T], func: Callable[[List[T]], D]) -> None:
     a = list(a)
     self._n = len(a)
     self._log = (self._n - 1).bit_length()
@@ -34,6 +34,12 @@ class MergeSortTree(Generic[T, D]):
     return res
 
   def prod_iter(self, l: int, r: int) -> Iterator[Tuple[List[T], D]]:
+    """区間 ``[l, r)`` における、セグ木の各区間のソート済み配列とそれに ``func`` を適用したものを投げます。
+    :math:`O(\\log{n})` です。
+
+    Yields:
+      Iterator[Tuple[List[T], D]]: (ソート済み配列、func(ソート済み配列)) です。
+    """
     assert 0 <= l <= r <= self._n, \
         f'IndexError: {self.__class__.__name__}.prod_iter({l}, {r})'
     _data, _func_data = self._data, self._func_data
@@ -48,5 +54,4 @@ class MergeSortTree(Generic[T, D]):
         yield _data[r], _func_data[r]
       l >>= 1
       r >>= 1
-
 

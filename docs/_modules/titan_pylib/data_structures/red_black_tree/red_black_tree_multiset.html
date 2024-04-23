@@ -92,9 +92,9 @@
 <span class="linenos"> 11</span>
 <span class="linenos"> 12</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="linenos"> 13</span>      <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">key</span>
-<span class="linenos"> 14</span>      <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
-<span class="linenos"> 15</span>      <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
-<span class="linenos"> 16</span>      <span class="bp">self</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
+<span class="linenos"> 14</span>      <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
+<span class="linenos"> 15</span>      <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
+<span class="linenos"> 16</span>      <span class="bp">self</span><span class="o">.</span><span class="n">par</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
 <span class="linenos"> 17</span>      <span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos"> 18</span>      <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">cnt</span>
 <span class="linenos"> 19</span>
@@ -116,7 +116,7 @@
 <span class="linenos"> 35</span>
 <span class="linenos"> 36</span>    <span class="k">def</span> <span class="nf">_next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'RedBlackTreeMultiset.Node'</span><span class="p">]:</span>
 <span class="linenos"> 37</span>      <span class="n">now</span> <span class="o">=</span> <span class="bp">self</span>
-<span class="linenos"> 38</span>      <span class="n">pre</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
+<span class="linenos"> 38</span>      <span class="n">pre</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
 <span class="linenos"> 39</span>      <span class="n">flag</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="n">pre</span>
 <span class="linenos"> 40</span>      <span class="k">while</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="n">pre</span><span class="p">:</span>
 <span class="linenos"> 41</span>        <span class="n">pre</span><span class="p">,</span> <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">par</span>
@@ -125,7 +125,7 @@
 <span class="linenos"> 44</span>      <span class="k">return</span> <span class="n">now</span> <span class="k">if</span> <span class="n">flag</span> <span class="ow">and</span> <span class="n">pre</span> <span class="ow">is</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="n">now</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">_min</span><span class="p">()</span>
 <span class="linenos"> 45</span>
 <span class="linenos"> 46</span>    <span class="k">def</span> <span class="nf">_prev</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">'RedBlackTreeMultiset.Node'</span><span class="p">]:</span>
-<span class="linenos"> 47</span>      <span class="n">now</span><span class="p">,</span> <span class="n">pre</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
+<span class="linenos"> 47</span>      <span class="n">now</span><span class="p">,</span> <span class="n">pre</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
 <span class="linenos"> 48</span>      <span class="n">flag</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">pre</span>
 <span class="linenos"> 49</span>      <span class="k">while</span> <span class="n">now</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="n">pre</span><span class="p">:</span>
 <span class="linenos"> 50</span>        <span class="n">pre</span><span class="p">,</span> <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">par</span>
@@ -154,9 +154,7 @@
 <span class="linenos"> 73</span>      <span class="k">return</span> <span class="sa">f</span><span class="s1">'(key,col,par.key):</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> left:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1"> right:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="se">\n</span><span class="s1">'</span></div>
 
 <span class="linenos"> 74</span>
-<div class="viewcode-block" id="RedBlackTreeMultiset.NILNode">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.red_black_tree.red_black_tree_multiset.html#titan_pylib.data_structures.red_black_tree.red_black_tree_multiset.RedBlackTreeMultiset.NILNode">[ドキュメント]</a>
-<span class="linenos"> 75</span>  <span class="k">class</span> <span class="nc">NILNode</span><span class="p">():</span>
+<span class="linenos"> 75</span>  <span class="k">class</span> <span class="nc">_NILNode</span><span class="p">():</span>
 <span class="linenos"> 76</span>
 <span class="linenos"> 77</span>    <span class="n">key</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos"> 78</span>    <span class="n">left</span> <span class="o">=</span> <span class="kc">None</span>
@@ -175,13 +173,12 @@
 <span class="linenos"> 91</span>      <span class="k">return</span> <span class="kc">False</span>
 <span class="linenos"> 92</span>
 <span class="linenos"> 93</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 94</span>      <span class="k">return</span> <span class="s1">'NIL'</span></div>
-
+<span class="linenos"> 94</span>      <span class="k">return</span> <span class="s1">'_NIL'</span>
 <span class="linenos"> 95</span>
-<span class="linenos"> 96</span>  <span class="n">NIL</span> <span class="o">=</span> <span class="n">NILNode</span><span class="p">()</span>
+<span class="linenos"> 96</span>  <span class="n">_NIL</span> <span class="o">=</span> <span class="n">_NILNode</span><span class="p">()</span>
 <span class="linenos"> 97</span>
 <span class="linenos"> 98</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
-<span class="linenos"> 99</span>    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
+<span class="linenos"> 99</span>    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
 <span class="linenos">100</span>    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">101</span>    <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">102</span>    <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="kc">None</span>
@@ -275,7 +272,7 @@
 <span class="linenos">188</span>      <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="n">node</span>
 <span class="linenos">189</span>      <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="n">node</span>
 <span class="linenos">190</span>      <span class="k">return</span>
-<span class="linenos">191</span>    <span class="n">pnode</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
+<span class="linenos">191</span>    <span class="n">pnode</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
 <span class="linenos">192</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
 <span class="linenos">193</span>    <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
 <span class="linenos">194</span>      <span class="n">pnode</span> <span class="o">=</span> <span class="n">node</span>
@@ -666,7 +663,7 @@
 <div class="viewcode-block" id="RedBlackTreeMultiset.clear">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.red_black_tree.red_black_tree_multiset.html#titan_pylib.data_structures.red_black_tree.red_black_tree_multiset.RedBlackTreeMultiset.clear">[ドキュメント]</a>
 <span class="linenos">515</span>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">516</span>    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
+<span class="linenos">516</span>    <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
 <span class="linenos">517</span>    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">518</span>    <span class="bp">self</span><span class="o">.</span><span class="n">min_node</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">519</span>    <span class="bp">self</span><span class="o">.</span><span class="n">max_node</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -687,7 +684,7 @@
 <span class="linenos">533</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">it</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">534</span>
 <span class="linenos">535</span>  <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">536</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">NIL</span>
+<span class="linenos">536</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">RedBlackTreeMultiset</span><span class="o">.</span><span class="n">_NIL</span>
 <span class="linenos">537</span>
 <span class="linenos">538</span>  <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
 <span class="linenos">539</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
