@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+
+<html class="writer-html5" data-content_root="../" lang="ja">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>algorithm.cycle_memo module — titan_pylib  ドキュメント</title>
+<link href="../_static/pygments.css?v=80d5e7a1" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/theme.css?v=19f00094" rel="stylesheet" type="text/css"/>
+<link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../_static/_static/style.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/_static/codeblock.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/_static/dammy.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script src="../_static/jquery.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options.js?v=c033477b"></script>
+<script src="../_static/doctools.js?v=888ff710"></script>
+<script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../_static/copybutton.js?v=4ea706d9"></script>
+<script src="../_static/translations.js?v=4dbe4bdc"></script>
+<script src="../_static/_static/script.js"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="索引"/>
+<link href="../search.html" rel="search" title="検索"/>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html">
+            titan_pylib
+          </a>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<!-- Local TOC -->
+<div class="local-toc"><ul>
+<li><a class="reference internal" href="#">algorithm.cycle_memo</a><ul>
+<li><a class="reference internal" href="#id1">ソースコード</a><ul>
+<li><a class="reference internal" href="#id2">展開済みコード</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-algorithm.cycle_memo">仕様</a><ul>
+<li><a class="reference internal" href="#algorithm.cycle_memo.CycleMemo"><code class="docutils literal notranslate"><span class="pre">CycleMemo</span></code></a><ul>
+<li><a class="reference internal" href="#algorithm.cycle_memo.CycleMemo.kth"><code class="docutils literal notranslate"><span class="pre">CycleMemo.kth()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">titan_pylib</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index.html"></a></li>
+<li class="breadcrumb-item active">algorithm.cycle_memo</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/titan_pylib_docs/algorithm.cycle_memo.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="algorithm-cycle-memo-module">
+<h1>algorithm.cycle_memo<a class="headerlink" href="#algorithm-cycle-memo-module" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="module-algorithm.cycle_memo">
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-algorithm.cycle_memo" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="algorithm.cycle_memo.CycleMemo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">algorithm.cycle_memo.</span></span><span class="sig-name descname"><span class="pre">CycleMemo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">move_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/algorithm/cycle_memo.html#CycleMemo"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#algorithm.cycle_memo.CycleMemo" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="algorithm.cycle_memo.CycleMemo.kth">
+<span class="sig-name descname"><span class="pre">kth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/algorithm/cycle_memo.html#CycleMemo.kth"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#algorithm.cycle_memo.CycleMemo.kth" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+</section>
+</div>
+</div>
+<footer>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2023, titan.</p>
+</div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+<link href="../_static/codeblock.css" rel="stylesheet" type="text/css"/>
+<!-- <script type="text/javascript" src="../_static/script.js"></script> -->
+</body>
+</html>

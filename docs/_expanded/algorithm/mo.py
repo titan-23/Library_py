@@ -1,4 +1,3 @@
-# from titan_pylib.algorithm.mo import Mo
 from typing import Callable
 from itertools import chain
 from math import sqrt, ceil
@@ -123,4 +122,3 @@ class Mo():
         nr -= 1
         delete_right(nr)
       out(rli & msk)
-
