@@ -33,11 +33,19 @@ How to Use
 
 インストール方法
 """""""""""""""
-pip を用いて以下のようにインストールできます。
+以下のように pip を用いてインストールできます。
+バージョンは特に考えていないので注意してください。
 
-.. code-block:: none
+.. code-block:: console
 
-   pip install git+https://github.com/titan-23/Library_py.git@main
+   $ pip install git+https://github.com/titan-23/Library_py.git@main
+
+- アンインストール方法
+
+.. code-block:: console
+
+   $ pip uninstall titan_pylib
+
 
 使用例
 """"""
@@ -54,25 +62,25 @@ pip を用いて以下のようにインストールできます。
 
 オンラインジャッジに提出するときは、適切なパスを設定した上で ``expander.py`` を使用してください。
 
-.. code-block:: none
+.. code-block:: console
 
-   python ./expander.py <input_file> <output_file>
+   $ python ./expander.py <input_file> <output_file>
 
-``<output_file>`` を省略または ``clip`` とするとクリップボードにコピーできます。
-
-
-- 例1 ``a.py`` を展開してクリップボードにコピーする
-
-.. code-block:: none
-
-   python ./expander.py a.py
+``<output_file>`` を省略または ``clip`` とするとクリップボードにコピーされます。
 
 
-- 例2 ``b.py`` を展開して ``exp_b.py`` ファイルに書き出す
+- 例1 ``./a.py`` を展開してクリップボードにコピーする
 
-.. code-block:: none
+.. code-block:: console
 
-   python ./expander.py a.py exp_b.py
+   $ python ./expander.py ./a.py
+
+
+- 例2 ``./b.py`` を展開して ``./exp_b.py`` ファイルに書き出す
+
+.. code-block:: console
+
+   $ python ./expander.py ./a.py ./exp_b.py
 
 ----
 

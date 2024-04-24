@@ -504,8 +504,15 @@
 <h2>How to Use<a class="headerlink" href="#how-to-use" title="Link to this heading">¶</a></h2>
 <section id="id1">
 <h3>インストール方法<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>pip を用いて以下のようにインストールできます。</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/titan-23/Library_py.git@main
+<p>以下のように pip を用いてインストールできます。
+バージョンは特に考えていないので注意してください。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/titan-23/Library_py.git@main
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>アンインストール方法</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>uninstall<span class="w"> </span>titan_pylib
 </pre></div>
 </div>
 </section>
@@ -520,20 +527,20 @@
 <section id="id3">
 <h3>コード展開<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <p>オンラインジャッジに提出するときは、適切なパスを設定した上で <code class="docutils literal notranslate"><span class="pre">expander.py</span></code> を使用してください。</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python ./expander.py &lt;input_file&gt; &lt;output_file&gt;
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>./expander.py<span class="w"> </span>&lt;input_file&gt;<span class="w"> </span>&lt;output_file&gt;
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">&lt;output_file&gt;</span></code> を省略または <code class="docutils literal notranslate"><span class="pre">clip</span></code> とするとクリップボードにコピーできます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;output_file&gt;</span></code> を省略または <code class="docutils literal notranslate"><span class="pre">clip</span></code> とするとクリップボードにコピーされます。</p>
 <ul class="simple">
-<li><p>例1 <code class="docutils literal notranslate"><span class="pre">a.py</span></code> を展開してクリップボードにコピーする</p></li>
+<li><p>例1 <code class="docutils literal notranslate"><span class="pre">./a.py</span></code> を展開してクリップボードにコピーする</p></li>
 </ul>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python ./expander.py a.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>./expander.py<span class="w"> </span>./a.py
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>例2 <code class="docutils literal notranslate"><span class="pre">b.py</span></code> を展開して <code class="docutils literal notranslate"><span class="pre">exp_b.py</span></code> ファイルに書き出す</p></li>
+<li><p>例2 <code class="docutils literal notranslate"><span class="pre">./b.py</span></code> を展開して <code class="docutils literal notranslate"><span class="pre">./exp_b.py</span></code> ファイルに書き出す</p></li>
 </ul>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python ./expander.py a.py exp_b.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>./expander.py<span class="w"> </span>./a.py<span class="w"> </span>./exp_b.py
 </pre></div>
 </div>
 </section>
