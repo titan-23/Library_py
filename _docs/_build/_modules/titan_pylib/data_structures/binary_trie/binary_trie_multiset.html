@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>binary_trie_multiset - titan_pylib</title>
+<title>binary_trie_multiset - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,7 +479,7 @@
 </label>
 </div>
 <article role="main">
-<h1>binary_trie_multiset のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.binary_trie.binary_trie_multiset</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">titan_pylib.my_class.ordered_multiset_interface</span> <span class="kn">import</span> <span class="n">OrderedMultisetInterface</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span>
 <span class="linenos">  3</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
@@ -490,7 +489,7 @@
 <span class="linenos">  7</span>  <span class="k">pass</span>
 <span class="linenos">  8</span>
 <div class="viewcode-block" id="BinaryTrieMultiset">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset">[docs]</a>
 <span class="linenos">  9</span><span class="k">class</span> <span class="nc">BinaryTrieMultiset</span><span class="p">(</span><span class="n">OrderedMultisetInterface</span><span class="p">):</span>
 <span class="linenos"> 10</span>
 <span class="linenos"> 11</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
@@ -531,7 +530,7 @@
 <span class="linenos"> 46</span>    <span class="k">return</span> <span class="n">node</span>
 <span class="linenos"> 47</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.reserve">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.reserve">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.reserve">[docs]</a>
 <span class="linenos"> 48</span>  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 49</span>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.reserve(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">)'</span>
 <span class="linenos"> 50</span>    <span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">'I'</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
@@ -542,7 +541,7 @@
 
 <span class="linenos"> 55</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.add">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.add">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.add">[docs]</a>
 <span class="linenos"> 56</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 57</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos"> 58</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.add(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -582,7 +581,7 @@
 <span class="linenos"> 91</span>      <span class="n">node</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos"> 92</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.discard">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.discard">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.discard">[docs]</a>
 <span class="linenos"> 93</span>  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 94</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos"> 95</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.discard(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -599,13 +598,13 @@
 
 <span class="linenos">106</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.discard_all">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.discard_all">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.discard_all">[docs]</a>
 <span class="linenos">107</span>  <span class="k">def</span> <span class="nf">discard_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">108</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
 
 <span class="linenos">109</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.remove">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.remove">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.remove">[docs]</a>
 <span class="linenos">110</span>  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">111</span>    <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos">112</span>    <span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="n">cnt</span><span class="p">:</span>
@@ -614,14 +613,14 @@
 
 <span class="linenos">115</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.count">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.count">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.count">[docs]</a>
 <span class="linenos">116</span>  <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">117</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos">118</span>    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span></div>
 
 <span class="linenos">119</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.pop">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.pop">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.pop">[docs]</a>
 <span class="linenos">120</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">121</span>    <span class="k">assert</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> \
 <span class="linenos">122</span>        <span class="sa">f</span><span class="s1">'IndexError: BinaryTrieMultiset.pop(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), len=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
@@ -660,20 +659,20 @@
 
 <span class="linenos">155</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.pop_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.pop_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.pop_min">[docs]</a>
 <span class="linenos">156</span>  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">157</span>    <span class="k">assert</span> <span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: BinaryTrieMultiset.pop_min(), len=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
 <span class="linenos">158</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 <span class="linenos">159</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.pop_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.pop_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.pop_max">[docs]</a>
 <span class="linenos">160</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">161</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 <span class="linenos">162</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.all_xor">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.all_xor">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.all_xor">[docs]</a>
 <span class="linenos">163</span>  <span class="k">def</span> <span class="nf">all_xor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">164</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos">165</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.all_xor(</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -681,7 +680,7 @@
 
 <span class="linenos">167</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.get_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.get_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.get_min">[docs]</a>
 <span class="linenos">168</span>  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">169</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
 <span class="linenos">170</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
@@ -706,7 +705,7 @@
 
 <span class="linenos">189</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.get_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.get_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.get_max">[docs]</a>
 <span class="linenos">190</span>  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">191</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
 <span class="linenos">192</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
@@ -731,7 +730,7 @@
 
 <span class="linenos">211</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.index">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.index">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.index">[docs]</a>
 <span class="linenos">212</span>  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">213</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos">214</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.index(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -750,7 +749,7 @@
 
 <span class="linenos">227</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.index_right">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.index_right">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.index_right">[docs]</a>
 <span class="linenos">228</span>  <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">229</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos">230</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.index_right(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -771,7 +770,7 @@
 
 <span class="linenos">245</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.gt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.gt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.gt">[docs]</a>
 <span class="linenos">246</span>  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">247</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos">248</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.gt(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -780,7 +779,7 @@
 
 <span class="linenos">251</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.lt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.lt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.lt">[docs]</a>
 <span class="linenos">252</span>  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">253</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos">254</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.lt(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -789,7 +788,7 @@
 
 <span class="linenos">257</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.ge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.ge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.ge">[docs]</a>
 <span class="linenos">258</span>  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">259</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos">260</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.ge(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -799,7 +798,7 @@
 
 <span class="linenos">264</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.le">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.le">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.le">[docs]</a>
 <span class="linenos">265</span>  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">266</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">,</span> \
 <span class="linenos">267</span>        <span class="sa">f</span><span class="s1">'ValueError: BinaryTrieMultiset.le(</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">), lim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="si">}</span><span class="s1">'</span>
@@ -808,7 +807,7 @@
 
 <span class="linenos">270</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.tolist">[docs]</a>
 <span class="linenos">271</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">272</span>    <span class="n">a</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 <span class="linenos">273</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="n">a</span>
@@ -821,7 +820,7 @@
 
 <span class="linenos">280</span>
 <div class="viewcode-block" id="BinaryTrieMultiset.clear">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.clear">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.clear">[docs]</a>
 <span class="linenos">281</span>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">282</span>    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">1</span></div>
 
@@ -906,13 +905,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

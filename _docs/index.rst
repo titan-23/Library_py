@@ -1,14 +1,15 @@
-.. titan\_pylib documentation master file, created by
-   sphinx-quickstart on Thu Dec 28 00:22:05 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to titan\_pylib's documentation!
 =========================================
 
+`titan23 <https://atcoder.jp/users/titan23>`_  が使用している、競技プログラミング用のライブラリです。 PyPy で動きます。
+各 REAMDME はサボっています。また、ありえないバグを仕込んでたりします。ご注意ください。
+誰かがバグに引っかかって WA を出してくれたら、筆者冥利に尽きます。
+
+Library Overview
+-----------------
+
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
 
    ./titan_pylib_docs/titan_pylib.algorithm.rst
 
@@ -22,6 +23,10 @@ Welcome to titan\_pylib's documentation!
 
    ./titan_pylib_docs/titan_pylib.string.rst
 
+
+`view on github <https://github.com/titan-23/Library_py/tree/main>`_
+
+----
 
 How to Use
 ----------
@@ -69,9 +74,10 @@ pip を用いて以下のようにインストールできます。
 
    python ./expander.py a.py exp_b.py
 
+----
 
-Indices and tables
-------------------
+検索
+-----
 
 * :ref:`genindex`
 * :ref:`modindex`

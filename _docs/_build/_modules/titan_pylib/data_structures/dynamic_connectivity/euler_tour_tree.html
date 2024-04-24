@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>euler_tour_tree - titan_pylib</title>
+<title>euler_tour_tree - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,14 +479,14 @@
 </label>
 </div>
 <article role="main">
-<h1>euler_tour_tree のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">GeneratorType</span>
 <span class="linenos">  3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">)</span>
 <span class="linenos">  4</span><span class="n">F</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'F'</span><span class="p">)</span>
 <span class="linenos">  5</span>
 <div class="viewcode-block" id="EulerTourTree">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree">[docs]</a>
 <span class="linenos">  6</span><span class="k">class</span> <span class="nc">EulerTourTree</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">F</span><span class="p">]):</span>
 <span class="linenos">  7</span><span class="w">  </span><span class="sd">"""``Euler Tour Tree`` です。部分木クエリの強さに定評があります。</span>
 <span class="linenos">  8</span>
@@ -559,7 +558,7 @@
 <span class="linenos"> 74</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_group_numbers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos"> 75</span>
 <div class="viewcode-block" id="EulerTourTree.antirec">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.antirec">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.antirec">[docs]</a>
 <span class="linenos"> 76</span>  <span class="nd">@staticmethod</span>
 <span class="linenos"> 77</span>  <span class="k">def</span> <span class="nf">antirec</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="p">[]):</span>
 <span class="linenos"> 78</span>    <span class="c1"># 参考: https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py</span>
@@ -581,7 +580,7 @@
 
 <span class="linenos"> 94</span>
 <div class="viewcode-block" id="EulerTourTree.build">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.build">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.build">[docs]</a>
 <span class="linenos"> 95</span>  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 96</span><span class="w">    </span><span class="sd">"""隣接リスト ``G`` をもとにして、辺を張ります。</span>
 <span class="linenos"> 97</span>
@@ -796,7 +795,7 @@
 <span class="linenos">305</span>      <span class="n">node</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 <span class="linenos">306</span>
 <div class="viewcode-block" id="EulerTourTree.link">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.link">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.link">[docs]</a>
 <span class="linenos">307</span>  <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">308</span><span class="w">    </span><span class="sd">"""辺 ``{u, v}`` を追加します。</span>
 <span class="linenos">309</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -822,7 +821,7 @@
 
 <span class="linenos">329</span>
 <div class="viewcode-block" id="EulerTourTree.cut">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.cut">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.cut">[docs]</a>
 <span class="linenos">330</span>  <span class="k">def</span> <span class="nf">cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">331</span><span class="w">    </span><span class="sd">"""辺 ``{u, v}`` を削除します。</span>
 <span class="linenos">332</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -846,7 +845,7 @@
 
 <span class="linenos">350</span>
 <div class="viewcode-block" id="EulerTourTree.merge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.merge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.merge">[docs]</a>
 <span class="linenos">351</span>  <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">352</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos">353</span><span class="sd">    頂点 ``u`` と ``v`` が同じ連結成分にいる場合はなにもせず ``False`` を返します。</span>
@@ -860,7 +859,7 @@
 
 <span class="linenos">361</span>
 <div class="viewcode-block" id="EulerTourTree.split">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.split">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.split">[docs]</a>
 <span class="linenos">362</span>  <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">363</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos">364</span><span class="sd">    辺 ``{u, v}`` が存在しない場合はなにもせず ``False`` を返します。</span>
@@ -874,7 +873,7 @@
 
 <span class="linenos">372</span>
 <div class="viewcode-block" id="EulerTourTree.leader">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.leader">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.leader">[docs]</a>
 <span class="linenos">373</span>  <span class="k">def</span> <span class="nf">leader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Node</span><span class="p">:</span>
 <span class="linenos">374</span><span class="w">    </span><span class="sd">"""頂点 ``v`` を含む木の代表元を返します。</span>
 <span class="linenos">375</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -888,7 +887,7 @@
 
 <span class="linenos">383</span>
 <div class="viewcode-block" id="EulerTourTree.reroot">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.reroot">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.reroot">[docs]</a>
 <span class="linenos">384</span>  <span class="k">def</span> <span class="nf">reroot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">385</span><span class="w">    </span><span class="sd">"""頂点 ``v`` を含む木の根を ``v`` にします。</span>
 <span class="linenos">386</span>
@@ -901,7 +900,7 @@
 
 <span class="linenos">393</span>
 <div class="viewcode-block" id="EulerTourTree.same">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.same">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.same">[docs]</a>
 <span class="linenos">394</span>  <span class="k">def</span> <span class="nf">same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">395</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos">396</span><span class="sd">    頂点 ``u`` と ``v`` が同じ連結成分にいれば ``True`` を、</span>
@@ -926,7 +925,7 @@
 <span class="linenos">414</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">'+++++++++++++++++++++++++++'</span><span class="p">)</span>
 <span class="linenos">415</span>
 <div class="viewcode-block" id="EulerTourTree.subtree_apply">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_apply">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_apply">[docs]</a>
 <span class="linenos">416</span>  <span class="k">def</span> <span class="nf">subtree_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">417</span><span class="w">    </span><span class="sd">"""頂点 ``v`` を根としたときの部分木に ``f`` を作用します。</span>
 <span class="linenos">418</span>
@@ -964,7 +963,7 @@
 
 <span class="linenos">450</span>
 <div class="viewcode-block" id="EulerTourTree.subtree_sum">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_sum">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.subtree_sum">[docs]</a>
 <span class="linenos">451</span>  <span class="k">def</span> <span class="nf">subtree_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">452</span><span class="w">    </span><span class="sd">"""頂点 ``v`` を根としたときの部分木の総和を返します。</span>
 <span class="linenos">453</span>
@@ -996,7 +995,7 @@
 
 <span class="linenos">479</span>
 <div class="viewcode-block" id="EulerTourTree.group_count">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.group_count">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.group_count">[docs]</a>
 <span class="linenos">480</span>  <span class="k">def</span> <span class="nf">group_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">481</span><span class="w">    </span><span class="sd">"""連結成分の個数を返します。</span>
 <span class="linenos">482</span><span class="sd">    :math:`O(1)` です。</span>
@@ -1005,7 +1004,7 @@
 
 <span class="linenos">485</span>
 <div class="viewcode-block" id="EulerTourTree.get_vertex">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.get_vertex">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.get_vertex">[docs]</a>
 <span class="linenos">486</span>  <span class="k">def</span> <span class="nf">get_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">487</span><span class="w">    </span><span class="sd">"""頂点 ``v`` の ``key`` を返します。</span>
 <span class="linenos">488</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -1016,7 +1015,7 @@
 
 <span class="linenos">493</span>
 <div class="viewcode-block" id="EulerTourTree.set_vertex">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.set_vertex">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html#titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.EulerTourTree.set_vertex">[docs]</a>
 <span class="linenos">494</span>  <span class="k">def</span> <span class="nf">set_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">495</span><span class="w">    </span><span class="sd">"""頂点 ``v`` の ``key`` を ``val`` に更新します。</span>
 <span class="linenos">496</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -1056,13 +1055,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

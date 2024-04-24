@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>fenwick_tree_RAQ - titan_pylib</title>
+<title>fenwick_tree_RAQ - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,11 +479,11 @@
 </label>
 </div>
 <article role="main">
-<h1>fenwick_tree_RAQ のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 <span class="linenos">  2</span>
 <div class="viewcode-block" id="FenwickTreeRAQ">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ">[docs]</a>
 <span class="linenos">  3</span><span class="k">class</span> <span class="nc">FenwickTreeRAQ</span><span class="p">():</span>
 <span class="linenos">  4</span><span class="w">  </span><span class="sd">"""区間加算/区間和クエリができます。。</span>
 <span class="linenos">  5</span><span class="sd">  """</span>
@@ -525,7 +524,7 @@
 <span class="linenos"> 40</span>    <span class="k">return</span> <span class="n">ret</span>
 <span class="linenos"> 41</span>
 <div class="viewcode-block" id="FenwickTreeRAQ.add">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.add">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.add">[docs]</a>
 <span class="linenos"> 42</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 43</span><span class="w">    </span><span class="sd">"""``k`` 番目に ``x`` を加算します。</span>
 <span class="linenos"> 44</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -540,7 +539,7 @@
 
 <span class="linenos"> 53</span>
 <div class="viewcode-block" id="FenwickTreeRAQ.add_range">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.add_range">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.add_range">[docs]</a>
 <span class="linenos"> 54</span>  <span class="k">def</span> <span class="nf">add_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 55</span><span class="w">    </span><span class="sd">"""区間 ``[l, r)`` に ``x`` を加算します。</span>
 <span class="linenos"> 56</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -559,7 +558,7 @@
 
 <span class="linenos"> 69</span>
 <div class="viewcode-block" id="FenwickTreeRAQ.sum">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.sum">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.sum">[docs]</a>
 <span class="linenos"> 70</span>  <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 71</span><span class="w">    </span><span class="sd">"""区間 ``[l, r)`` の総和を返します。</span>
 <span class="linenos"> 72</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -577,7 +576,7 @@
 
 <span class="linenos"> 84</span>
 <div class="viewcode-block" id="FenwickTreeRAQ.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.tolist">[docs]</a>
 <span class="linenos"> 85</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos"> 86</span><span class="w">    </span><span class="sd">"""``List`` にして返します。</span>
 <span class="linenos"> 87</span>
@@ -588,7 +587,7 @@
 
 <span class="linenos"> 92</span>
 <div class="viewcode-block" id="FenwickTreeRAQ.__getitem__">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.__getitem__">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html#titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.FenwickTreeRAQ.__getitem__">[docs]</a>
 <span class="linenos"> 93</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 94</span><span class="w">    </span><span class="sd">"""``k`` 番目の値を返します。</span>
 <span class="linenos"> 95</span><span class="sd">    ``sum(k, k+1)`` と等価です。</span>
@@ -634,13 +633,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

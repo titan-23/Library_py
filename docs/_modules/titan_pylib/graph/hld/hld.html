@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>hld - titan_pylib</title>
+<title>hld - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,11 +479,11 @@
 </label>
 </div>
 <article role="main">
-<h1>hld のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.graph.hld.hld</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="linenos">  2</span>
 <div class="viewcode-block" id="HLD">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD">[docs]</a>
 <span class="linenos">  3</span><span class="k">class</span> <span class="nc">HLD</span><span class="p">():</span>
 <span class="linenos">  4</span>
 <span class="linenos">  5</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -556,7 +555,7 @@
 <span class="linenos"> 71</span>        <span class="n">nodeout</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
 <span class="linenos"> 72</span>
 <div class="viewcode-block" id="HLD.build_list">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.build_list">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.build_list">[docs]</a>
 <span class="linenos"> 73</span>  <span class="k">def</span> <span class="nf">build_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="linenos"> 74</span><span class="w">    </span><span class="sd">"""``hld配列`` を基にインデックスを振りなおします。非破壊的です。</span>
 <span class="linenos"> 75</span><span class="sd">    :math:`O(n)` です。</span>
@@ -571,7 +570,7 @@
 
 <span class="linenos"> 84</span>
 <div class="viewcode-block" id="HLD.for_each_vertex">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.for_each_vertex">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.for_each_vertex">[docs]</a>
 <span class="linenos"> 85</span>  <span class="k">def</span> <span class="nf">for_each_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos"> 86</span><span class="w">    </span><span class="sd">"""``u-v`` パスに対応する区間のインデックスを返します。</span>
 <span class="linenos"> 87</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -588,7 +587,7 @@
 
 <span class="linenos"> 98</span>
 <div class="viewcode-block" id="HLD.for_each_vertex_subtree">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.for_each_vertex_subtree">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.for_each_vertex_subtree">[docs]</a>
 <span class="linenos"> 99</span>  <span class="k">def</span> <span class="nf">for_each_vertex_subtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">100</span><span class="w">    </span><span class="sd">"""頂点 ``v`` の部分木に対応する区間のインデックスを返します。</span>
 <span class="linenos">101</span><span class="sd">    :math:`O(1)` です。</span>
@@ -597,7 +596,7 @@
 
 <span class="linenos">104</span>
 <div class="viewcode-block" id="HLD.path_kth_elm">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.path_kth_elm">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.path_kth_elm">[docs]</a>
 <span class="linenos">105</span>  <span class="k">def</span> <span class="nf">path_kth_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">106</span><span class="w">    </span><span class="sd">"""``s`` から ``t`` に向かって ``k`` 個進んだ頂点のインデックスを返します。</span>
 <span class="linenos">107</span><span class="sd">    存在しないときは ``-1`` を返します。</span>
@@ -620,7 +619,7 @@
 
 <span class="linenos">124</span>
 <div class="viewcode-block" id="HLD.lca">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.lca">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.lca">[docs]</a>
 <span class="linenos">125</span>  <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">126</span><span class="w">    </span><span class="sd">"""``u``, ``v`` の LCA を返します。</span>
 <span class="linenos">127</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -658,13 +657,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

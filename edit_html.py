@@ -33,8 +33,10 @@ def mainfunc(cur_dir, file):
     text_node.replace_with(re.sub(r'\s*package\s*$', '', text_node))
   for text_node in soup.find_all(string=lambda s: 'module' in s):
     text_node.replace_with(re.sub(r'\s*module\s*$', '', text_node))
-  for text_node in soup.find_all(string=lambda s: 'ドキュメント' in s):
-    text_node.replace_with(re.sub(r'\s*ドキュメント\s*$', '', text_node))
+  
+  # english モードにしたので、ここは不要
+  # for text_node in soup.find_all(string=lambda s: 'ドキュメント' in s):
+  #   text_node.replace_with(re.sub(r'\s*ドキュメント\s*$', '', text_node))
 
   with open(f'{cur_dir}/{file}', 'w', encoding='utf-8') as output_file:
     output_file.write(str(soup))

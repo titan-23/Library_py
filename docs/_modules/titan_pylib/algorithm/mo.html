@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../" lang="ja">
+<html class="no-js" data-content_root="../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../genindex.html" rel="index" title="索引"/><link href="../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../genindex.html" rel="index" title="Index"/><link href="../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>mo - titan_pylib</title>
+<title>mo - titan_pylib documentation</title>
 <link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,13 +479,13 @@
 </label>
 </div>
 <article role="main">
-<h1>mo のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.algorithm.mo</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="linenos">  3</span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">ceil</span>
 <span class="linenos">  4</span>
 <div class="viewcode-block" id="Mo">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo">[docs]</a>
 <span class="linenos">  5</span><span class="k">class</span> <span class="nc">Mo</span><span class="p">():</span>
 <span class="linenos">  6</span><span class="w">  </span><span class="sd">"""長さ `n` の列、クエリ数 `q` に対する `Mo's algorithm` です。</span>
 <span class="linenos">  7</span><span class="sd">  :math:`O(\\frac{n}{\\sqrt{q}})` です。</span>
@@ -512,7 +511,7 @@
 <span class="linenos"> 27</span>    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos"> 28</span>
 <div class="viewcode-block" id="Mo.add_query">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo.add_query">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo.add_query">[docs]</a>
 <span class="linenos"> 29</span>  <span class="k">def</span> <span class="nf">add_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 30</span><span class="w">    </span><span class="sd">"""区間 ``[l, r)`` に対するクエリを追加します。</span>
 <span class="linenos"> 31</span><span class="sd">    :math:`O(1)` です。</span>
@@ -531,7 +530,7 @@
 
 <span class="linenos"> 44</span>
 <div class="viewcode-block" id="Mo.run">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo.run">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo.run">[docs]</a>
 <span class="linenos"> 45</span>  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
 <span class="linenos"> 46</span>          <span class="n">add</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
 <span class="linenos"> 47</span>          <span class="n">delete</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
@@ -572,7 +571,7 @@
 
 <span class="linenos"> 82</span>
 <div class="viewcode-block" id="Mo.runrun">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo.runrun">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.algorithm.mo.html#titan_pylib.algorithm.mo.Mo.runrun">[docs]</a>
 <span class="linenos"> 83</span>  <span class="k">def</span> <span class="nf">runrun</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
 <span class="linenos"> 84</span>             <span class="n">add_left</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
 <span class="linenos"> 85</span>             <span class="n">add_right</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
@@ -640,13 +639,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../_static/_static/script.js"></script>
 </body>
 </html>

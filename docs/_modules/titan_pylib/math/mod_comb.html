@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../" lang="ja">
+<html class="no-js" data-content_root="../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../genindex.html" rel="index" title="索引"/><link href="../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../genindex.html" rel="index" title="Index"/><link href="../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>mod_comb - titan_pylib</title>
+<title>mod_comb - titan_pylib documentation</title>
 <link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,9 +479,9 @@
 </label>
 </div>
 <article role="main">
-<h1>mod_comb のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.math.mod_comb</h1><div class="highlight"><pre>
 <div class="viewcode-block" id="ModComb998244353">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353">[docs]</a>
 <span></span><span class="linenos">  1</span><span class="k">class</span> <span class="nc">ModComb998244353</span><span class="p">:</span>
 <span class="linenos">  2</span>
 <span class="linenos">  3</span>  <span class="c1"># nCr2のみをつかうときなどは、limit=-1とかにすると吉</span>
@@ -506,27 +505,27 @@
 <span class="linenos"> 21</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span> <span class="o">=</span> <span class="n">limit</span>
 <span class="linenos"> 22</span>
 <div class="viewcode-block" id="ModComb998244353.nPr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nPr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nPr">[docs]</a>
 <span class="linenos"> 23</span>  <span class="k">def</span> <span class="nf">nPr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 24</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos"> 25</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fact</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 26</span>
 <div class="viewcode-block" id="ModComb998244353.nCr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nCr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nCr">[docs]</a>
 <span class="linenos"> 27</span>  <span class="k">def</span> <span class="nf">nCr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 28</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos"> 29</span>    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fact</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="mi">998244353</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 30</span>
 <div class="viewcode-block" id="ModComb998244353.nHr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nHr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nHr">[docs]</a>
 <span class="linenos"> 31</span>  <span class="k">def</span> <span class="nf">nHr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 32</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nCr</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 <span class="linenos"> 33</span>
 <div class="viewcode-block" id="ModComb998244353.nCr2">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nCr2">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nCr2">[docs]</a>
 <span class="linenos"> 34</span>  <span class="k">def</span> <span class="nf">nCr2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 35</span>    <span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos"> 36</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">:</span>
@@ -543,7 +542,7 @@
 <span class="linenos"> 45</span>
 <span class="linenos"> 46</span>
 <div class="viewcode-block" id="ModComb">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb">[docs]</a>
 <span class="linenos"> 47</span><span class="k">class</span> <span class="nc">ModComb</span><span class="p">():</span>
 <span class="linenos"> 48</span>
 <span class="linenos"> 49</span>  <span class="c1"># nCr2のみをつかうときなどは、limit=-1とかにすると吉</span>
@@ -568,27 +567,27 @@
 <span class="linenos"> 68</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_mod</span> <span class="o">=</span> <span class="n">mod</span>
 <span class="linenos"> 69</span>
 <div class="viewcode-block" id="ModComb.nPr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nPr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nPr">[docs]</a>
 <span class="linenos"> 70</span>  <span class="k">def</span> <span class="nf">nPr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 71</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos"> 72</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fact</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mod</span></div>
 
 <span class="linenos"> 73</span>
 <div class="viewcode-block" id="ModComb.nCr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nCr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nCr">[docs]</a>
 <span class="linenos"> 74</span>  <span class="k">def</span> <span class="nf">nCr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 75</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos"> 76</span>    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fact</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mod</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mod</span></div>
 
 <span class="linenos"> 77</span>
 <div class="viewcode-block" id="ModComb.nHr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nHr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nHr">[docs]</a>
 <span class="linenos"> 78</span>  <span class="k">def</span> <span class="nf">nHr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 79</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nCr</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 <span class="linenos"> 80</span>
 <div class="viewcode-block" id="ModComb.nCr2">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nCr2">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nCr2">[docs]</a>
 <span class="linenos"> 81</span>  <span class="k">def</span> <span class="nf">nCr2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 82</span>    <span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos"> 83</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">:</span>
@@ -605,7 +604,7 @@
 <span class="linenos"> 92</span>
 <span class="linenos"> 93</span>
 <div class="viewcode-block" id="ModComb1000000007">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007">[docs]</a>
 <span class="linenos"> 94</span><span class="k">class</span> <span class="nc">ModComb1000000007</span><span class="p">:</span>
 <span class="linenos"> 95</span>
 <span class="linenos"> 96</span>  <span class="c1"># nCr2のみをつかうときなどは、limit=-1とかにすると吉</span>
@@ -629,27 +628,27 @@
 <span class="linenos">114</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span> <span class="o">=</span> <span class="n">limit</span>
 <span class="linenos">115</span>
 <div class="viewcode-block" id="ModComb1000000007.nPr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nPr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nPr">[docs]</a>
 <span class="linenos">116</span>  <span class="k">def</span> <span class="nf">nPr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">117</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">118</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fact</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">119</span>
 <div class="viewcode-block" id="ModComb1000000007.nCr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nCr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nCr">[docs]</a>
 <span class="linenos">120</span>  <span class="k">def</span> <span class="nf">nCr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">121</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">122</span>    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fact</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1000000007</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_factinv</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">123</span>
 <div class="viewcode-block" id="ModComb1000000007.nHr">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nHr">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nHr">[docs]</a>
 <span class="linenos">124</span>  <span class="k">def</span> <span class="nf">nHr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">125</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nCr</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 <span class="linenos">126</span>
 <div class="viewcode-block" id="ModComb1000000007.nCr2">
-<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nCr2">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nCr2">[docs]</a>
 <span class="linenos">127</span>  <span class="k">def</span> <span class="nf">nCr2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">128</span>    <span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos">129</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="n">n</span><span class="o">-</span><span class="n">r</span><span class="p">:</span>
@@ -687,13 +686,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../_static/_static/script.js"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>avl_tree_bit_vector - titan_pylib</title>
+<title>avl_tree_bit_vector - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,14 +479,14 @@
 </label>
 </div>
 <article role="main">
-<h1>avl_tree_bit_vector のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.bit_vector.avl_tree_bit_vector</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">titan_pylib.data_structures.bit_vector.bit_vector_interface</span> <span class="kn">import</span> <span class="n">BitVectorInterface</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
 <span class="linenos">  3</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="linenos">  4</span><span class="n">titan_pylib_AVLTreeBitVector_W</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">31</span>
 <span class="linenos">  5</span>
 <div class="viewcode-block" id="AVLTreeBitVector">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector">[docs]</a>
 <span class="linenos">  6</span><span class="k">class</span> <span class="nc">AVLTreeBitVector</span><span class="p">(</span><span class="n">BitVectorInterface</span><span class="p">):</span>
 <span class="linenos">  7</span><span class="w">  </span><span class="sd">"""AVL木で書かれたビットベクトルです。簡潔でもなんでもありません。</span>
 <span class="linenos">  8</span>
@@ -524,7 +523,7 @@
 <span class="linenos"> 39</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 40</span>
 <div class="viewcode-block" id="AVLTreeBitVector.reserve">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.reserve">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.reserve">[docs]</a>
 <span class="linenos"> 41</span>  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 42</span><span class="w">    </span><span class="sd">"""``n`` 要素分のメモリを確保します。</span>
 <span class="linenos"> 43</span><span class="sd">    :math:`O(n)` です。</span>
@@ -701,7 +700,7 @@
 <span class="linenos">213</span>    <span class="k">return</span> <span class="n">end</span>
 <span class="linenos">214</span>
 <div class="viewcode-block" id="AVLTreeBitVector.insert">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.insert">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.insert">[docs]</a>
 <span class="linenos">215</span>  <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">216</span><span class="w">    </span><span class="sd">"""``k`` 番目に ``v`` を挿入します。</span>
 <span class="linenos">217</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -857,7 +856,7 @@
 <span class="linenos">366</span>      <span class="n">fd</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos">367</span>
 <div class="viewcode-block" id="AVLTreeBitVector.pop">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.pop">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.pop">[docs]</a>
 <span class="linenos">368</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">369</span><span class="w">    </span><span class="sd">"""``k`` 番目の要素を削除し、その値を返します。</span>
 <span class="linenos">370</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -899,7 +898,7 @@
 
 <span class="linenos">406</span>
 <div class="viewcode-block" id="AVLTreeBitVector.set">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.set">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.set">[docs]</a>
 <span class="linenos">407</span>  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">408</span><span class="w">    </span><span class="sd">"""``k`` 番目の値を ``v`` に更新します。</span>
 <span class="linenos">409</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -912,7 +911,7 @@
 
 <span class="linenos">416</span>
 <div class="viewcode-block" id="AVLTreeBitVector.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.tolist">[docs]</a>
 <span class="linenos">417</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">418</span><span class="w">    </span><span class="sd">"""リストにして返します。</span>
 <span class="linenos">419</span><span class="sd">    :math:`O(n)` です。</span>
@@ -952,7 +951,7 @@
 <span class="linenos">452</span>    <span class="nb">print</span><span class="p">(</span><span class="s1">'debug_acc ok.'</span><span class="p">)</span>
 <span class="linenos">453</span>
 <div class="viewcode-block" id="AVLTreeBitVector.access">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.access">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.access">[docs]</a>
 <span class="linenos">454</span>  <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">455</span><span class="w">    </span><span class="sd">"""``k`` 番目の値を返します。</span>
 <span class="linenos">456</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -964,7 +963,7 @@
 
 <span class="linenos">462</span>
 <div class="viewcode-block" id="AVLTreeBitVector.rank0">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.rank0">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.rank0">[docs]</a>
 <span class="linenos">463</span>  <span class="k">def</span> <span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">464</span><span class="w">    </span><span class="sd">"""``a[0, r)`` に含まれる ``0`` の個数を返します。</span>
 <span class="linenos">465</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -973,7 +972,7 @@
 
 <span class="linenos">468</span>
 <div class="viewcode-block" id="AVLTreeBitVector.rank1">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.rank1">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.rank1">[docs]</a>
 <span class="linenos">469</span>  <span class="k">def</span> <span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">470</span><span class="w">    </span><span class="sd">"""``a[0, r)`` に含まれる ``1`` の個数を返します。</span>
 <span class="linenos">471</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -982,7 +981,7 @@
 
 <span class="linenos">474</span>
 <div class="viewcode-block" id="AVLTreeBitVector.rank">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.rank">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.rank">[docs]</a>
 <span class="linenos">475</span>  <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">476</span><span class="w">    </span><span class="sd">"""``a[0, r)`` に含まれる ``v`` の個数を返します。</span>
 <span class="linenos">477</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -991,7 +990,7 @@
 
 <span class="linenos">480</span>
 <div class="viewcode-block" id="AVLTreeBitVector.select0">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.select0">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.select0">[docs]</a>
 <span class="linenos">481</span>  <span class="k">def</span> <span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">482</span><span class="w">    </span><span class="sd">"""``k`` 番目の ``0`` のインデックスを返します。</span>
 <span class="linenos">483</span><span class="sd">    :math:`O(\\log{n}^2)` です。</span>
@@ -1009,7 +1008,7 @@
 
 <span class="linenos">495</span>
 <div class="viewcode-block" id="AVLTreeBitVector.select1">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.select1">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.select1">[docs]</a>
 <span class="linenos">496</span>  <span class="k">def</span> <span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">497</span><span class="w">    </span><span class="sd">"""``k`` 番目の ``1`` のインデックスを返します。</span>
 <span class="linenos">498</span><span class="sd">    :math:`O(\\log{n}^2)` です。</span>
@@ -1027,7 +1026,7 @@
 
 <span class="linenos">510</span>
 <div class="viewcode-block" id="AVLTreeBitVector.select">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.select">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.select">[docs]</a>
 <span class="linenos">511</span>  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">512</span><span class="w">    </span><span class="sd">"""``k`` 番目の ``v`` のインデックスを返します。</span>
 <span class="linenos">513</span><span class="sd">    :math:`O(\\log{n}^2)` です。</span>
@@ -1166,7 +1165,7 @@
 <span class="linenos">645</span>    <span class="k">return</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">res</span>
 <span class="linenos">646</span>
 <div class="viewcode-block" id="AVLTreeBitVector.__getitem__">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.__getitem__">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.__getitem__">[docs]</a>
 <span class="linenos">647</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">648</span><span class="w">    </span><span class="sd">"""``k`` 番目の要素を返します。</span>
 <span class="linenos">649</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -1187,7 +1186,7 @@
 
 <span class="linenos">664</span>
 <div class="viewcode-block" id="AVLTreeBitVector.__setitem__">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.__setitem__">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html#titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.AVLTreeBitVector.__setitem__">[docs]</a>
 <span class="linenos">665</span>  <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">666</span><span class="w">    </span><span class="sd">"""``k`` 番目の要素を ``v`` に更新します。</span>
 <span class="linenos">667</span><span class="sd">    :math:`O(\\log{n})` です。</span>
@@ -1248,13 +1247,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

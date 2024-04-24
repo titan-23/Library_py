@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>avl_tree_set - titan_pylib</title>
+<title>avl_tree_set - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,7 +479,7 @@
 </label>
 </div>
 <article role="main">
-<h1>avl_tree_set のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.avl_tree.avl_tree_set</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">titan_pylib.my_class.supports_less_than</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">titan_pylib.my_class.ordered_set_interface</span> <span class="kn">import</span> <span class="n">OrderedSetInterface</span>
 <span class="linenos">  3</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
@@ -488,7 +487,7 @@
 <span class="linenos">  5</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">  6</span>
 <div class="viewcode-block" id="AVLTreeSet">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet">[docs]</a>
 <span class="linenos">  7</span><span class="k">class</span> <span class="nc">AVLTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos">  8</span><span class="w">  </span><span class="sd">"""AVLTreeSet</span>
 <span class="linenos">  9</span><span class="sd">  集合としての AVL 木です。</span>
@@ -510,7 +509,7 @@
 <span class="linenos"> 25</span>      <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 26</span>
 <div class="viewcode-block" id="AVLTreeSet.reserve">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.reserve">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.reserve">[docs]</a>
 <span class="linenos"> 27</span>  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 28</span>    <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 <span class="linenos"> 29</span>    <span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">'I'</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
@@ -634,7 +633,7 @@
 <span class="linenos">146</span>    <span class="k">return</span> <span class="n">end</span>
 <span class="linenos">147</span>
 <div class="viewcode-block" id="AVLTreeSet.add">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.add">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.add">[docs]</a>
 <span class="linenos">148</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">149</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">150</span>      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -687,7 +686,7 @@
 
 <span class="linenos">197</span>
 <div class="viewcode-block" id="AVLTreeSet.remove">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.remove">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.remove">[docs]</a>
 <span class="linenos">198</span>  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">199</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
 <span class="linenos">200</span>      <span class="k">return</span> <span class="kc">True</span>
@@ -695,7 +694,7 @@
 
 <span class="linenos">202</span>
 <div class="viewcode-block" id="AVLTreeSet.discard">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.discard">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.discard">[docs]</a>
 <span class="linenos">203</span>  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">204</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">205</span>    <span class="n">di</span> <span class="o">=</span> <span class="mi">0</span>
@@ -761,7 +760,7 @@
 
 <span class="linenos">265</span>
 <div class="viewcode-block" id="AVLTreeSet.le">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.le">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.le">[docs]</a>
 <span class="linenos">266</span>  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">267</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">268</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -778,7 +777,7 @@
 
 <span class="linenos">279</span>
 <div class="viewcode-block" id="AVLTreeSet.lt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.lt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.lt">[docs]</a>
 <span class="linenos">280</span>  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">281</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">282</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -793,7 +792,7 @@
 
 <span class="linenos">291</span>
 <div class="viewcode-block" id="AVLTreeSet.ge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.ge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.ge">[docs]</a>
 <span class="linenos">292</span>  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">293</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">294</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -810,7 +809,7 @@
 
 <span class="linenos">305</span>
 <div class="viewcode-block" id="AVLTreeSet.gt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.gt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.gt">[docs]</a>
 <span class="linenos">306</span>  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">307</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">308</span>    <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
@@ -825,7 +824,7 @@
 
 <span class="linenos">317</span>
 <div class="viewcode-block" id="AVLTreeSet.index">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.index">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.index">[docs]</a>
 <span class="linenos">318</span>  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">319</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">320</span>    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
@@ -843,7 +842,7 @@
 
 <span class="linenos">332</span>
 <div class="viewcode-block" id="AVLTreeSet.index_right">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.index_right">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.index_right">[docs]</a>
 <span class="linenos">333</span>  <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">334</span>    <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">335</span>    <span class="n">k</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -860,7 +859,7 @@
 
 <span class="linenos">346</span>
 <div class="viewcode-block" id="AVLTreeSet.get_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.get_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.get_max">[docs]</a>
 <span class="linenos">347</span>  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">348</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
 <span class="linenos">349</span>      <span class="k">return</span>
@@ -868,7 +867,7 @@
 
 <span class="linenos">351</span>
 <div class="viewcode-block" id="AVLTreeSet.get_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.get_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.get_min">[docs]</a>
 <span class="linenos">352</span>  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">353</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
 <span class="linenos">354</span>      <span class="k">return</span>
@@ -876,7 +875,7 @@
 
 <span class="linenos">356</span>
 <div class="viewcode-block" id="AVLTreeSet.pop">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.pop">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.pop">[docs]</a>
 <span class="linenos">357</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">358</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
 <span class="linenos">359</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -946,25 +945,25 @@
 
 <span class="linenos">423</span>
 <div class="viewcode-block" id="AVLTreeSet.pop_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.pop_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.pop_max">[docs]</a>
 <span class="linenos">424</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">425</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 <span class="linenos">426</span>
 <div class="viewcode-block" id="AVLTreeSet.pop_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.pop_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.pop_min">[docs]</a>
 <span class="linenos">427</span>  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">428</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 <span class="linenos">429</span>
 <div class="viewcode-block" id="AVLTreeSet.clear">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.clear">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.clear">[docs]</a>
 <span class="linenos">430</span>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">431</span>    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span></div>
 
 <span class="linenos">432</span>
 <div class="viewcode-block" id="AVLTreeSet.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.tolist">[docs]</a>
 <span class="linenos">433</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">434</span>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">435</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -1055,13 +1054,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

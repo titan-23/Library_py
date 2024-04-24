@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>persistent_wb_tree_list - titan_pylib</title>
+<title>persistent_wb_tree_list - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,20 +479,20 @@
 </label>
 </div>
 <article role="main">
-<h1>persistent_wb_tree_list のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Final</span>
 <span class="linenos">  3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">)</span>
 <span class="linenos">  4</span>
 <div class="viewcode-block" id="PersistentWBTreeList">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList">[docs]</a>
 <span class="linenos">  5</span><span class="k">class</span> <span class="nc">PersistentWBTreeList</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos">  6</span>
 <span class="linenos">  7</span>  <span class="n">ALPHA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 <span class="linenos">  8</span>  <span class="n">BETA</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">ALPHA</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ALPHA</span><span class="p">)</span>
 <span class="linenos">  9</span>
 <div class="viewcode-block" id="PersistentWBTreeList.Node">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.Node">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.Node">[docs]</a>
 <span class="linenos"> 10</span>  <span class="k">class</span> <span class="nc">Node</span><span class="p">():</span>
 <span class="linenos"> 11</span>
 <span class="linenos"> 12</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
@@ -503,7 +502,7 @@
 <span class="linenos"> 16</span>      <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos"> 17</span>
 <div class="viewcode-block" id="PersistentWBTreeList.Node.copy">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.Node.copy">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.Node.copy">[docs]</a>
 <span class="linenos"> 18</span>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentWBTreeList.Node'</span><span class="p">:</span>
 <span class="linenos"> 19</span>      <span class="n">node</span> <span class="o">=</span> <span class="n">PersistentWBTreeList</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos"> 20</span>      <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span>
@@ -513,7 +512,7 @@
 
 <span class="linenos"> 24</span>
 <div class="viewcode-block" id="PersistentWBTreeList.Node.balance">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.Node.balance">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.Node.balance">[docs]</a>
 <span class="linenos"> 25</span>    <span class="k">def</span> <span class="nf">balance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="linenos"> 26</span>      <span class="k">return</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></div>
 
@@ -639,7 +638,7 @@
 <span class="linenos">145</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_with_root</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
 <span class="linenos">146</span>
 <div class="viewcode-block" id="PersistentWBTreeList.merge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.merge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.merge">[docs]</a>
 <span class="linenos">147</span>  <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">'PersistentWBTreeList'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentWBTreeList'</span><span class="p">:</span>
 <span class="linenos">148</span>    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
 <span class="linenos">149</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
@@ -693,7 +692,7 @@
 <span class="linenos">196</span>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_with_root</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">l</span><span class="p">),</span> <span class="n">r</span>
 <span class="linenos">197</span>
 <div class="viewcode-block" id="PersistentWBTreeList.split">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.split">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.split">[docs]</a>
 <span class="linenos">198</span>  <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="s1">'PersistentWBTreeList'</span><span class="p">,</span> <span class="s1">'PersistentWBTreeList'</span><span class="p">]:</span>
 <span class="linenos">199</span>    <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 <span class="linenos">200</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
@@ -703,7 +702,7 @@
 <span class="linenos">203</span>    <span class="k">return</span> <span class="n">PersistentWBTreeList</span><span class="p">([],</span> <span class="n">root</span><span class="p">)</span>
 <span class="linenos">204</span>
 <div class="viewcode-block" id="PersistentWBTreeList.insert">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.insert">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.insert">[docs]</a>
 <span class="linenos">205</span>  <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentWBTreeList'</span><span class="p">:</span>
 <span class="linenos">206</span>    <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 <span class="linenos">207</span>    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_with_root</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">PersistentWBTreeList</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
@@ -711,7 +710,7 @@
 
 <span class="linenos">209</span>
 <div class="viewcode-block" id="PersistentWBTreeList.pop">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.pop">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.pop">[docs]</a>
 <span class="linenos">210</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="s1">'PersistentWBTreeList'</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
 <span class="linenos">211</span>    <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 <span class="linenos">212</span>    <span class="k">assert</span> <span class="n">s</span>
@@ -721,7 +720,7 @@
 
 <span class="linenos">216</span>
 <div class="viewcode-block" id="PersistentWBTreeList.set">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.set">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.set">[docs]</a>
 <span class="linenos">217</span>  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentWBTreeList'</span><span class="p">:</span>
 <span class="linenos">218</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">219</span>      <span class="n">k</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -755,14 +754,14 @@
 
 <span class="linenos">247</span>
 <div class="viewcode-block" id="PersistentWBTreeList.copy">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.copy">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.copy">[docs]</a>
 <span class="linenos">248</span>  <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'PersistentWBTreeList'</span><span class="p">:</span>
 <span class="linenos">249</span>    <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="k">else</span> <span class="kc">None</span>
 <span class="linenos">250</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
 
 <span class="linenos">251</span>
 <div class="viewcode-block" id="PersistentWBTreeList.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html#titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.PersistentWBTreeList.tolist">[docs]</a>
 <span class="linenos">252</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">253</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos">254</span>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
@@ -826,13 +825,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

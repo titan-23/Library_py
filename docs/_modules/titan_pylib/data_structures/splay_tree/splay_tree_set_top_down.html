@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>splay_tree_set_top_down - titan_pylib</title>
+<title>splay_tree_set_top_down - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,7 +479,7 @@
 </label>
 </div>
 <article role="main">
-<h1>splay_tree_set_top_down のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.splay_tree.splay_tree_set_top_down</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">titan_pylib.my_class.supports_less_than</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">titan_pylib.my_class.ordered_set_interface</span> <span class="kn">import</span> <span class="n">OrderedSetInterface</span>
 <span class="linenos">  3</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
@@ -488,7 +487,7 @@
 <span class="linenos">  5</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">  6</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown">[docs]</a>
 <span class="linenos">  7</span><span class="k">class</span> <span class="nc">SplayTreeSetTopDown</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos">  8</span>
 <span class="linenos">  9</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -628,7 +627,7 @@
 <span class="linenos">143</span>    <span class="k">return</span> <span class="n">node</span>
 <span class="linenos">144</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.reserve">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.reserve">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.reserve">[docs]</a>
 <span class="linenos">145</span>  <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">146</span>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'ValueError'</span>
 <span class="linenos">147</span>    <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
@@ -636,7 +635,7 @@
 
 <span class="linenos">149</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.add">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.add">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.add">[docs]</a>
 <span class="linenos">150</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">151</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span>
 <span class="linenos">152</span>      <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -656,7 +655,7 @@
 
 <span class="linenos">166</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.discard">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.discard">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.discard">[docs]</a>
 <span class="linenos">167</span>  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">168</span>    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
 <span class="linenos">169</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -675,7 +674,7 @@
 
 <span class="linenos">182</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.remove">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.remove">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.remove">[docs]</a>
 <span class="linenos">183</span>  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">184</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
 <span class="linenos">185</span>      <span class="k">return</span>
@@ -683,7 +682,7 @@
 
 <span class="linenos">187</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.ge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.ge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.ge">[docs]</a>
 <span class="linenos">188</span>  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">189</span>    <span class="k">def</span> <span class="nf">set_left</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">190</span>      <span class="k">nonlocal</span> <span class="n">left</span>
@@ -738,7 +737,7 @@
 
 <span class="linenos">239</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.gt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.gt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.gt">[docs]</a>
 <span class="linenos">240</span>  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">241</span>    <span class="k">def</span> <span class="nf">set_left</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">242</span>      <span class="k">nonlocal</span> <span class="n">left</span>
@@ -789,7 +788,7 @@
 
 <span class="linenos">287</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.le">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.le">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.le">[docs]</a>
 <span class="linenos">288</span>  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">289</span>    <span class="k">def</span> <span class="nf">set_left</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">290</span>      <span class="k">nonlocal</span> <span class="n">left</span>
@@ -844,7 +843,7 @@
 
 <span class="linenos">339</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.lt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.lt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.lt">[docs]</a>
 <span class="linenos">340</span>  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">341</span>    <span class="k">def</span> <span class="nf">set_left</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">342</span>      <span class="k">nonlocal</span> <span class="n">left</span>
@@ -895,7 +894,7 @@
 
 <span class="linenos">387</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.tolist">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.tolist">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.tolist">[docs]</a>
 <span class="linenos">388</span>  <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">389</span>    <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos">390</span>    <span class="n">child</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span>
@@ -912,7 +911,7 @@
 
 <span class="linenos">401</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.get_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.get_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.get_max">[docs]</a>
 <span class="linenos">402</span>  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">403</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">'IndexError: get_max() from empty SplayTreeSetTopDown'</span>
 <span class="linenos">404</span>    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_max_splay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
@@ -920,7 +919,7 @@
 
 <span class="linenos">406</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.get_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.get_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.get_min">[docs]</a>
 <span class="linenos">407</span>  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">408</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">'IndexError: get_min() from empty SplayTreeSetTopDown'</span>
 <span class="linenos">409</span>    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_min_splay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
@@ -928,7 +927,7 @@
 
 <span class="linenos">411</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.pop_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.pop_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.pop_max">[docs]</a>
 <span class="linenos">412</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">413</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">'IndexError: pop_max() from empty SplayTreeSetTopDown'</span>
 <span class="linenos">414</span>    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-=</span> <span class="mi">1</span>
@@ -938,7 +937,7 @@
 
 <span class="linenos">418</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.pop_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.pop_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.pop_min">[docs]</a>
 <span class="linenos">419</span>  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">420</span>    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">'IndexError: pop_min() from empty SplayTreeSetTopDown'</span>
 <span class="linenos">421</span>    <span class="bp">self</span><span class="o">.</span><span class="n">len</span> <span class="o">-=</span> <span class="mi">1</span>
@@ -948,7 +947,7 @@
 
 <span class="linenos">425</span>
 <div class="viewcode-block" id="SplayTreeSetTopDown.clear">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.clear">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html#titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.SplayTreeSetTopDown.clear">[docs]</a>
 <span class="linenos">426</span>  <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">427</span>    <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span></div>
 
@@ -1004,13 +1003,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>

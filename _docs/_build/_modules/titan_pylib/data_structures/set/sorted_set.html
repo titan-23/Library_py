@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="no-js" data-content_root="../../../../" lang="ja">
+<html class="no-js" data-content_root="../../../../" lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="索引"/><link href="../../../../search.html" rel="search" title="検索"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-<title>sorted_set - titan_pylib</title>
+<title>sorted_set - titan_pylib documentation</title>
 <link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
@@ -108,7 +108,7 @@
 </label>
 </div>
 <div class="header-center">
-<a href="../../../../index.html"><div class="brand">titan_pylib</div></a>
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
 </div>
 <div class="header-right">
 <div class="theme-toggle-container theme-toggle-header">
@@ -128,14 +128,13 @@
 <aside class="sidebar-drawer">
 <div class="sidebar-container">
 <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
-<span class="sidebar-brand-text">titan_pylib</span>
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
 </a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
-<input aria-label="検索" class="sidebar-search" name="q" placeholder="検索"/>
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -480,7 +479,7 @@
 </label>
 </div>
 <article role="main">
-<h1>sorted_set のソースコード</h1><div class="highlight"><pre>
+<h1>Source code for titan_pylib.data_structures.set.sorted_set</h1><div class="highlight"><pre>
 <span></span><span class="linenos">  1</span><span class="c1"># https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py</span>
 <span class="linenos">  2</span>
 <span class="linenos">  3</span><span class="kn">from</span> <span class="nn">titan_pylib.my_class.supports_less_than</span> <span class="kn">import</span> <span class="n">SupportsLessThan</span>
@@ -490,7 +489,7 @@
 <span class="linenos">  7</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'T'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">  8</span>
 <div class="viewcode-block" id="SortedSet">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet">[docs]</a>
 <span class="linenos">  9</span><span class="k">class</span> <span class="nc">SortedSet</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos"> 10</span>
 <span class="linenos"> 11</span>  <span class="n">BUCKET_RATIO</span> <span class="o">=</span> <span class="mi">50</span>
@@ -544,7 +543,7 @@
 <span class="linenos"> 59</span>    <span class="k">return</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span>
 <span class="linenos"> 60</span>
 <div class="viewcode-block" id="SortedSet.add">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.add">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.add">[docs]</a>
 <span class="linenos"> 61</span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 62</span>    <span class="s2">"Add an element and return True if added. / O(√N)"</span>
 <span class="linenos"> 63</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -567,7 +566,7 @@
 <span class="linenos"> 79</span>    <span class="k">return</span> <span class="n">ans</span>
 <span class="linenos"> 80</span>
 <div class="viewcode-block" id="SortedSet.discard">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.discard">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.discard">[docs]</a>
 <span class="linenos"> 81</span>  <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 82</span>    <span class="s2">"Remove an element and return True if removed. / O(√N)"</span>
 <span class="linenos"> 83</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
@@ -578,7 +577,7 @@
 
 <span class="linenos"> 88</span>  
 <div class="viewcode-block" id="SortedSet.lt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.lt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.lt">[docs]</a>
 <span class="linenos"> 89</span>  <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 90</span>    <span class="s2">"Find the largest element &lt; x, or None if it doesn't exist."</span>
 <span class="linenos"> 91</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">):</span>
@@ -587,7 +586,7 @@
 
 <span class="linenos"> 94</span>
 <div class="viewcode-block" id="SortedSet.le">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.le">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.le">[docs]</a>
 <span class="linenos"> 95</span>  <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 96</span>    <span class="s2">"Find the largest element &lt;= x, or None if it doesn't exist."</span>
 <span class="linenos"> 97</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">):</span>
@@ -596,7 +595,7 @@
 
 <span class="linenos">100</span>
 <div class="viewcode-block" id="SortedSet.gt">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.gt">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.gt">[docs]</a>
 <span class="linenos">101</span>  <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">102</span>    <span class="s2">"Find the smallest element &gt; x, or None if it doesn't exist."</span>
 <span class="linenos">103</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">:</span>
@@ -605,7 +604,7 @@
 
 <span class="linenos">106</span>
 <div class="viewcode-block" id="SortedSet.ge">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.ge">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.ge">[docs]</a>
 <span class="linenos">107</span>  <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">108</span>    <span class="s2">"Find the smallest element &gt;= x, or None if it doesn't exist."</span>
 <span class="linenos">109</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">:</span>
@@ -614,7 +613,7 @@
 
 <span class="linenos">112</span>  
 <div class="viewcode-block" id="SortedSet.__getitem__">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.__getitem__">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.__getitem__">[docs]</a>
 <span class="linenos">113</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">114</span>    <span class="s2">"Return the i-th element."</span>
 <span class="linenos">115</span>    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -629,7 +628,7 @@
 
 <span class="linenos">124</span>  
 <div class="viewcode-block" id="SortedSet.pop">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.pop">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.pop">[docs]</a>
 <span class="linenos">125</span>  <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">126</span>    <span class="s2">"Pop and return the i-th element."</span>
 <span class="linenos">127</span>    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -644,31 +643,31 @@
 
 <span class="linenos">136</span>
 <div class="viewcode-block" id="SortedSet.pop_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.pop_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.pop_min">[docs]</a>
 <span class="linenos">137</span>  <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">138</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 <span class="linenos">139</span>
 <div class="viewcode-block" id="SortedSet.pop_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.pop_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.pop_max">[docs]</a>
 <span class="linenos">140</span>  <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">141</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 <span class="linenos">142</span>
 <div class="viewcode-block" id="SortedSet.get_min">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.get_min">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.get_min">[docs]</a>
 <span class="linenos">143</span>  <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">144</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 <span class="linenos">145</span>
 <div class="viewcode-block" id="SortedSet.get_max">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.get_max">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.get_max">[docs]</a>
 <span class="linenos">146</span>  <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">147</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 <span class="linenos">148</span>  
 <div class="viewcode-block" id="SortedSet.index">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.index">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.index">[docs]</a>
 <span class="linenos">149</span>  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">150</span>    <span class="s2">"Count the number of elements &lt; x."</span>
 <span class="linenos">151</span>    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
@@ -680,7 +679,7 @@
 
 <span class="linenos">157</span>
 <div class="viewcode-block" id="SortedSet.index_right">
-<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.index_right">[ドキュメント]</a>
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html#titan_pylib.data_structures.set.sorted_set.SortedSet.index_right">[docs]</a>
 <span class="linenos">158</span>  <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">159</span>    <span class="s2">"Count the number of elements &lt;= x."</span>
 <span class="linenos">160</span>    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
@@ -715,13 +714,12 @@
 <aside class="toc-drawer no-toc">
 </aside>
 </div>
-</div><script src="../../../../_static/documentation_options.js?v=c033477b"></script>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
 <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
-<script src="../../../../_static/translations.js?v=4dbe4bdc"></script>
 <script src="../../../../_static/_static/script.js"></script>
 </body>
 </html>
