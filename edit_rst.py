@@ -48,7 +48,6 @@ if __name__ == '__main__':
   path = "./_docs/titan_pylib_docs/"
   for cur_dir, dirs, files in os.walk(path):
     for file in files:
-      print(file)
       if not file.endswith('.rst'):
         continue
       func(cur_dir, file)

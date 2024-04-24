@@ -25,6 +25,9 @@ def mainfunc(cur_dir, file):
   for text_node in soup.find_all(string=lambda s: s.startswith('titan_pylib')):
     if '_modules' in cur_dir and text_node.find_parent('span'):
       continue
+    if file == 'index.html' and text_node == "titan_pylib.data_structures.union_find.union_find":
+      # index.html では、使用例で titan_pylib を使用している
+      continue
     text_node.replace_with(re.sub(r'^.*\.', '', text_node))
   for text_node in soup.find_all(string=lambda s: 'package' in s):
     text_node.replace_with(re.sub(r'\s*package\s*$', '', text_node))
@@ -40,12 +43,9 @@ if __name__ == '__main__':
   print('edit HTML.')
 
   # all
-  non_edition_file = set(['index.html'])
   path = "./_docs/_build/"
   for cur_dir, dirs, files in os.walk(path):
     for file in files:
-      if file in non_edition_file:
-        continue
       if not file.endswith('.html'):
         continue
       mainfunc(cur_dir, file)
