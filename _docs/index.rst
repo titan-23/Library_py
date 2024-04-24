@@ -49,6 +49,13 @@ pip を用いて以下のようにインストールできます。
 
 オンラインジャッジに提出するときは、適切なパスを設定した上で ``expander.py`` を使用してください。
 
+.. code-block:: none
+
+   python ./expander.py <input_file> <output_file>
+
+``<output_file>`` を省略または ``clip`` とするとクリップボードにコピーできます。
+
+
 - 例1 ``a.py`` を展開してクリップボードにコピーする
 
 .. code-block:: none
