@@ -1,4 +1,3 @@
-# from titan_pylib.algorithm.permutation import Permutation
 from typing import List, Any
 
 class Permutation():
@@ -58,4 +57,3 @@ class Permutation():
               q -= 1
             return True
     return False
-

@@ -1,4 +1,3 @@
-# from titan_pylib.algorithm.doubling import Doubling
 from typing import Callable, TypeVar, Generic
 T = TypeVar('T')
 
@@ -40,4 +39,3 @@ class Doubling(Generic[T]):
         now = self.db[i][now]
       k >>= 1
     return now
-

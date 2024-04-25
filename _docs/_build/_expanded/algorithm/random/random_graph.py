@@ -1,4 +1,3 @@
-# from titan_pylib.algorithm.random.random_graph import RandomGraph
 import enum
 from typing import Optional, List, Tuple
 import random
@@ -60,4 +59,3 @@ class RandomGraph():
     random.shuffle(edges)
     assert len(edges) == m
     return edges
-

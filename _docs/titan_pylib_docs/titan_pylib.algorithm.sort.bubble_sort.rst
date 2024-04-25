@@ -5,6 +5,14 @@ titan\_pylib.algorithm.sort.bubble\_sort
 ソースコード
 ^^^^^^^^^^^^
 
+
+.. code-block:: python
+
+
+  from titan_pylib.algorithm.sort.bubble_sort import bubble_sort
+
+`view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/algorithm/sort/bubble_sort.py>`_
+
 展開済みコード
 """"""""""""""
 

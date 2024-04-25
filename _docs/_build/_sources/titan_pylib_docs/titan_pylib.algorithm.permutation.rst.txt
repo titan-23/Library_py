@@ -5,6 +5,14 @@ titan\_pylib.algorithm.permutation
 ソースコード
 ^^^^^^^^^^^^
 
+
+.. code-block:: python
+
+
+  from titan_pylib.algorithm.permutation import Permutation
+
+`view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/algorithm/permutation.py>`_
+
 展開済みコード
 """"""""""""""
 

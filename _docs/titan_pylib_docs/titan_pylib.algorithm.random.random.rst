@@ -5,6 +5,14 @@ titan\_pylib.algorithm.random.random
 ソースコード
 ^^^^^^^^^^^^
 
+
+.. code-block:: python
+
+
+  from titan_pylib.algorithm.random.random import Random
+
+`view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/algorithm/random/random.py>`_
+
 展開済みコード
 """"""""""""""
 
