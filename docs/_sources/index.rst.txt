@@ -40,7 +40,7 @@ How to Use
 
    $ pip install git+https://github.com/titan-23/Library_py.git@main
 
-- アンインストール方法
+- アンインストール方法(時間がかかる可能性があります。書き方間違っているのかも)
 
 .. code-block:: console
 
@@ -80,7 +80,7 @@ How to Use
 
 .. code-block:: console
 
-   $ python ./expander.py ./a.py ./exp_b.py
+   $ python ./expander.py ./b.py ./exp_b.py
 
 ----
 
