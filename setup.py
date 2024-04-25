@@ -1,9 +1,9 @@
 from glob import glob
-from os.path import basename
-from os.path import splitext
+from os.path import basename, splitext
+from setuptools import setup, find_packages
 
-from setuptools import setup
-from setuptools import find_packages
+def _requires_from_file(filename: str):
+    return open(filename).read().splitlines()
 
 setup(
   name="titan_pylib",
@@ -17,4 +17,5 @@ setup(
   py_modules=[splitext(basename(path))[0] for path in glob('titan_pylib/*.py')],
   include_package_data=True,
   zip_safe=False,
+  install_requires=_requires_from_file('requirements.txt'),
 )
