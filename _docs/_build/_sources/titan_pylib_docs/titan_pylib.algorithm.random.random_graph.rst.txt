@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.random.random\_graph 
+titan\_pylib.algorithm.random.random\_graph
 ==================================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.random.random_graph import RandomGraphType
   from titan_pylib.algorithm.random.random_graph import RandomGraph

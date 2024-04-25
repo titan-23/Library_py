@@ -22,21 +22,17 @@ def read_file(cur_dir, file):
 def mainfunc(cur_dir, file):
   lines = read_file(cur_dir, file)
   soup = BeautifulSoup(lines, 'html.parser')
-  for text_node in soup.find_all(string=lambda tag:
-                                 tag.startswith('titan_pylib')
-                                 # and not (tag.find_parent('h3') and tag.find_parent('h3').text.startswith('展開済みコード'))
-                                ):
+  for text_node in soup.find_all(string=lambda tag: tag.startswith('titan_pylib')):
     if not text_node:
       continue
     if '_modules' in cur_dir and text_node.find_parent('span'):
-      print('a', cur_dir, file, text_node.text)
       continue
     if file == 'index.html' and text_node == "titan_pylib.data_structures.union_find.union_find":
       # index.html では、使用例で titan_pylib を使用している
       continue
-    # 一つ前が from かどうかで場合分けするのが良さそう？
-    # print(text_node.previous)
-    print('erace', text_node, text_node)
+    if text_node.find_previous('h2') and 'ソースコード' in text_node.find_previous('h2').text:
+      # 一つ前が from かどうかで場合分けするのが良さそう？
+      continue
     text_node.replace_with(re.sub(r'^.*\.', '', text_node))
   for text_node in soup.find_all(string=lambda s: 'package' in s):
     text_node.replace_with(re.sub(r'\s*package\s*$', '', text_node))

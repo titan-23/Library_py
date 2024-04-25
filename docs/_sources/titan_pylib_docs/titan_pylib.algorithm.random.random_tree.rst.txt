@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.random.random\_tree 
+titan\_pylib.algorithm.random.random\_tree
 =================================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.random.random_tree import RandomTreeType
   from titan_pylib.algorithm.random.random_tree import RandomTree

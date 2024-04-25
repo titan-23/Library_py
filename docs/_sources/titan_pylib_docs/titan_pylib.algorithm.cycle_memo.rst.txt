@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.cycle\_memo 
+titan\_pylib.algorithm.cycle\_memo
 =========================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.cycle_memo import CycleMemo
 

@@ -39,7 +39,6 @@ def func(cur_dir: str, file: str) -> None:
 
     codes = '''
 .. code-block:: python
-
 '''
     for name in class_name:
       imp_str = f'''
@@ -49,7 +48,6 @@ def func(cur_dir: str, file: str) -> None:
     new_paragraph = f'''
 ソースコード
 ^^^^^^^^^^^^
-
 {codes}
 
 `view on github <https://github.com/titan-23/Library_py/tree/main/{url}>`_
@@ -64,13 +62,26 @@ def func(cur_dir: str, file: str) -> None:
 仕様
 ^^^^^^^^^^^^^^^^'''
     lines.insert(3, new_paragraph)
+    for i, line in enumerate(lines):
+      if line.endswith('module'):
+        line = line[:-len('module')]
+      if line.endswith('package'):
+        line = line[:-len('package')]
+      lines[i] = line.rstrip()
     with open(s, 'w', encoding='utf=8') as f:
-      for i, line in enumerate(lines):
-        if line.endswith('module'):
-          line = line[:-len('module')]
-        if line.endswith('package'):
-          line = line[:-len('package')]
-        lines[i] = line
+      print(*lines, sep='\n', file=f)
+  elif lines and lines[0].endswith('package'):
+    lines[0] = re.sub(r'package', '', lines[0])
+    for i, line in enumerate(lines):
+      if line == 'Subpackages':
+        lines[i+1] = ''
+      elif line == 'Submodules':
+        lines[i+1] = ''
+      elif line == 'Module contents':
+        line = ''
+        lines[i+1] = ''
+      lines[i] = line.rstrip()
+    with open(s, 'w', encoding='utf=8') as f:
       print(*lines, sep='\n', file=f)
 
 if __name__ == '__main__':

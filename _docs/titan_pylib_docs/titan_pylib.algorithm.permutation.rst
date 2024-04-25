@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.permutation 
+titan\_pylib.algorithm.permutation
 =========================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.permutation import Permutation
 

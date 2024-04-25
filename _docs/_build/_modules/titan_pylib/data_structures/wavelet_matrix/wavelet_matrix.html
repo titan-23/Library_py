@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+<html class="no-js" data-content_root="../../../../" lang="en">
+<head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
+<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<title>wavelet_matrix - titan_pylib documentation</title>
+<link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/_static/style.css" rel="stylesheet" type="text/css"/>
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+<body>
+<script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-toc" viewbox="0 0 24 24">
+<title>Contents</title>
+<svg fill="currentColor" stroke="currentColor" stroke-width="0" viewbox="0 0 1024 1024">
+<path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"></path>
+</svg>
+</symbol>
+<symbol id="svg-menu" viewbox="0 0 24 24">
+<title>Menu</title>
+<svg class="feather-menu" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<line x1="3" x2="21" y1="12" y2="12"></line>
+<line x1="3" x2="21" y1="6" y2="6"></line>
+<line x1="3" x2="21" y1="18" y2="18"></line>
+</svg>
+</symbol>
+<symbol id="svg-arrow-right" viewbox="0 0 24 24">
+<title>Expand</title>
+<svg class="feather-chevron-right" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</symbol>
+<symbol id="svg-sun" viewbox="0 0 24 24">
+<title>Light mode</title>
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+</symbol>
+<symbol id="svg-moon" viewbox="0 0 24 24">
+<title>Dark mode</title>
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+</svg>
+</symbol>
+<symbol id="svg-sun-half" viewbox="0 0 24 24">
+<title>Auto light/dark mode</title>
+<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<circle cx="12" cy="12" r="9"></circle>
+<path d="M13 12h5"></path>
+<path d="M13 15h4"></path>
+<path d="M13 18h1"></path>
+<path d="M13 9h4"></path>
+<path d="M13 6h1"></path>
+</svg>
+</symbol>
+</svg>
+<input class="sidebar-toggle" id="__navigation" name="__navigation" type="checkbox"/>
+<input class="sidebar-toggle" id="__toc" name="__toc" type="checkbox"/>
+<label class="overlay sidebar-overlay" for="__navigation">
+<div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+<div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+<div class="page">
+<header class="mobile-header">
+<div class="header-left">
+<label class="nav-overlay-icon" for="__navigation">
+<div class="visually-hidden">Toggle site navigation sidebar</div>
+<i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+</label>
+</div>
+<div class="header-center">
+<a href="../../../../index.html"><div class="brand">titan_pylib  documentation</div></a>
+</div>
+<div class="header-right">
+<div class="theme-toggle-container theme-toggle-header">
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+</header>
+<aside class="sidebar-drawer">
+<div class="sidebar-container">
+<div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+<span class="sidebar-brand-text">titan_pylib  documentation</span>
+</a><form action="../../../../search.html" class="sidebar-search-container" method="get" role="search">
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.html">algorithm</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.html">random</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.random</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.random.html">random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.random_graph.html">random_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.random.random_tree.html">random_tree</a></li>
+</ul>
+</input></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.sort.html">sort</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of titan_pylib.algorithm.sort</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.sort.bubble_sort.html">bubble_sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.sort.merge_sort.html">merge_sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.sort.quick_sort.html">quick_sort</a></li>
+</ul>
+</input></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.doubling.html">doubling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.mo.html">mo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.parser.html">parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.algorithm.permutation.html">permutation</a></li>
+</ul>
+</input></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.html">data_structures</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.array.html">array</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.array</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.array.array_2D.html">array_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.array.csr_array.html">csr_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.array.partial_persistent_array.html">partial_persistent_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.array.persistent_array.html">persistent_array</a></li>
+</ul>
+</input></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.html">avl_tree</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.avl_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_dict.html">avl_tree_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_multiset.html">avl_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_multiset2.html">avl_tree_multiset2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_multiset3.html">avl_tree_multiset3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html">avl_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set2.html">avl_tree_set2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set3.html">avl_tree_set3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.lazy_avl_tree.html">lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.b_tree.b_tree_list.html">b_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.b_tree.b_tree_set.html">b_tree_set</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.html">binary_trie</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.binary_trie</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html">binary_trie_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_set.html">binary_trie_set</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.html">bit_vector</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.bit_vector</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.avl_tree_bit_vector.html">avl_tree_bit_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.bit_vector.html">bit_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.bit_vector_interface.html">bit_vector_interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bit_vector.splay_tree_bit_vector.html">splay_tree_bit_vector</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bst_base.html">bst_base</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.bst_base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bst_base.bst_multiset_array_base.html">bst_multiset_array_base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bst_base.bst_multiset_node_base.html">bst_multiset_node_base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.bst_base.bst_set_node_base.html">bst_set_node_base</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.cumulative_sum.html">cumulative_sum</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.cumulative_sum</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.cumulative_sum.cumulative_op.html">cumulative_op</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.cumulative_sum.cumulative_sum.html">cumulative_sum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.cumulative_sum.cumulative_sum2D.html">cumulative_sum2D</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.deque.html">deque</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.deque</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.deque.deque.html">deque</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.deque.foldable_deque.html">foldable_deque</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dict.html">dict</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.dict</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dict.hash_dict.html">hash_dict</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.html">dynamic_connectivity</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.dynamic_connectivity</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.euler_tour_tree.html">euler_tour_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.lazy_link_cut_tree.html">lazy_link_cut_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.link_cut_tree.html">link_cut_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.html">offline_dynamic_connectivity</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.html">fenwick_tree</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.fenwick_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree.html">dynamic_fenwick_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">dynamic_fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">fenwick_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">fenwick_tree_RAQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">fenwick_tree_abst</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.html">heap</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.heap</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.Randomized_meldable_heap.html">Randomized_meldable_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.binomial_heap.html">binomial_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.deletable_max_heap.html">deletable_max_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.deletable_min_heap.html">deletable_min_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.double_ended_heap.html">double_ended_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.max_heap.html">max_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.min_heap.html">min_heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.radix_heap.html">radix_heap</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.list.html">list</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.list</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.list.linked_list.html">linked_list</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.merge_sort_tree.html">merge_sort_tree</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.merge_sort_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.merge_sort_tree.merge_sort_tree.html">merge_sort_tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.others.html">others</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.others</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.others.pair.html">pair</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.rbst.html">rbst</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.rbst</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.rbst.lazy_rbst.html">lazy_rbst</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.red_black_tree.html">red_black_tree</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.red_black_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.red_black_tree.red_black_tree_multiset.html">red_black_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.red_black_tree.red_black_tree_set.html">red_black_tree_set</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.safe_hash.html">safe_hash</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.safe_hash</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.safe_hash.hash_counter.html">hash_counter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.safe_hash.hash_defaultdict.html">hash_defaultdict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.safe_hash.hash_dict.html">hash_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.safe_hash.hash_set.html">hash_set</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.scapegoat_tree.html">scapegoat_tree</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.scapegoat_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_multiset.html">scapegoat_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_set.html">scapegoat_tree_set</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_quadratic_division.html">segment_quadratic_division</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_quadratic_division</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_quadratic_division.quadratic_division_list.html">quadratic_division_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_quadratic_division.segment_lazy_quadratic_division.html">segment_lazy_quadratic_division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_quadratic_division.segment_quadratic_division.html">segment_quadratic_division</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.html">segment_tree</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.dual_segment_tree.html">dual_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative.html">dual_segment_tree_commutative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.dynamic_segment_tree.html">dynamic_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.lazy_segment_tree.html">lazy_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.lazy_segment_tree_range.html">lazy_segment_tree_range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.persistent_segment_tree.html">persistent_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.range_set_range_composite.html">range_set_range_composite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.segment_tree.html">segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.segment_tree_RSQ.html">segment_tree_RSQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.segment_tree_RmQ.html">segment_tree_RmQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.segment_tree_interface.html">segment_tree_interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.html">set</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.set</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.bitset32.html">bitset32</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.dynamic_fenwick_tree_multiset.html">dynamic_fenwick_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.dynamic_fenwick_tree_set.html">dynamic_fenwick_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html">fenwick_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_set.html">fenwick_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_set_fast.html">fenwick_tree_set_fast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.hash_set.html">hash_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.hashed_multiset.html">hashed_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.mex_multiset.html">mex_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.min_max_multiset.html">min_max_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.min_max_set.html">min_max_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.multiset_quadratic_division.html">multiset_quadratic_division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.range_set.html">range_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.segki_set.html">segki_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.set_quadratic_division.html">set_quadratic_division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_multiset.html">sorted_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.sorted_set.html">sorted_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.static_ordered_multiset.html">static_ordered_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.static_ordered_set.html">static_ordered_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.wordsize_tree_multiset.html">wordsize_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.wordsize_tree_set.html">wordsize_tree_set</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.sparse_table.html">sparse_table</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.sparse_table</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.sparse_table.sparse_table.html">sparse_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.sparse_table.sparse_table_RmQ.html">sparse_table_RmQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.html">splay_tree</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.splay_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.lazy_splay_tree.html">lazy_splay_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.lazy_splay_tree_array.html">lazy_splay_tree_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.reversible_lazy_splay_tree_array.html">reversible_lazy_splay_tree_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_dict.html">splay_tree_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_list.html">splay_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_list_array.html">splay_tree_list_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset.html">splay_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset2.html">splay_tree_multiset2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html">splay_tree_multiset_sum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_top_down.html">splay_tree_multiset_top_down</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set.html">splay_tree_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_set_top_down.html">splay_tree_set_top_down</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.stack.html">stack</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.stack</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.stack.foldable_stack.html">foldable_stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.stack.persistent_stack.html">persistent_stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.stack.stack.html">stack</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.static_array_query.html">static_array_query</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.static_array_query</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.static_array_query.static_RmQ.html">static_RmQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.static_array_query.static_range_mode_query.html">static_range_mode_query</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.treap.html">treap</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.treap</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.treap.treap_multiset.html">treap_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.treap.treap_set.html">treap_set</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.html">union_find</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.union_find</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.fully_retroactive_union_find.html">fully_retroactive_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.partial_persistent_union_find.html">partial_persistent_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.persistent_union_find.html">persistent_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.undoable_union_find.html">undoable_union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.union_find.html">union_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.union_find_heavy.html">union_find_heavy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.union_find_members.html">union_find_members</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.union_find.weighted_union_find.html">weighted_union_find</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.html">wavelet_matrix</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.wavelet_matrix</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.cumulative_sum_wavelet_matrix.html">cumulative_sum_wavelet_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.html">dynamic_wavelet_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.fenwick_tree_wavelet_matrix.html">fenwick_tree_wavelet_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html">wavelet_matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.html">wb_Tree</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.wb_Tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.lazy_wb_tree.html">lazy_wb_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_lazy_wb_tree.html">persistent_lazy_wb_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree.html">persistent_wb_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.persistent_wb_tree_list.html">persistent_wb_tree_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_multiset.html">wb_tree_multiset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wb_Tree.wb_tree_set.html">wb_tree_set</a></li>
+</ul>
+</li>
+</ul>
+</input></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.html">graph</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html">hld</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld_lazy_segment_tree.html">hld_lazy_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">hld_noncommutative_segment_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld_segment_tree.html">hld_segment_tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.max_flow.html">max_flow</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.max_flow.max_flow_dinic.html">max_flow_dinic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.bfs.html">bfs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.cartesian_tree.html">cartesian_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.dijkstra.html">dijkstra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_bridge.html">get_bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc.html">get_scc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.graph.html">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.lca.html">lca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.namori.html">namori</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.rerooting_dp.html">rerooting_dp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.rooted_tree.html">rooted_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.spfa.html">spfa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.topological_sort.html">topological_sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.warshall_floyd.html">warshall_floyd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.weighted_rooted_tree.html">weighted_rooted_tree</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.io.html">io</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.io</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.io.fast_o.html">fast_o</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.html">math</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.math</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.affine_map.html">affine_map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.divisors.html">divisors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.fraction.html">fraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.get_quotients.html">get_quotients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.is_prime.html">is_prime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.mod_array.html">mod_array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.mod_comb.html">mod_comb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.mod_int.html">mod_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.mod_int_1000000007.html">mod_int_1000000007</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.mod_int_998244353.html">mod_int_998244353</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.mod_matrix.html">mod_matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.number.html">number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.math.pollard_rho.html">pollard_rho</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.html">string</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of titan_pylib.string</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.dynamic_hash_string.html">dynamic_hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.get_suffix_array.html">get_suffix_array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.hash_string.html">hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.string_count.html">string_count</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<div class="main">
+<div class="content">
+<div class="article-container">
+<a class="back-to-top muted-link" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+</svg>
+<span>Back to top</span>
+</a>
+<div class="content-icon-container">
+<div class="theme-toggle-container theme-toggle-content">
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+<article role="main">
+<h1>Source code for titan_pylib.data_structures.wavelet_matrix.wavelet_matrix</h1><div class="highlight"><pre>
+<span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">titan_pylib.data_structures.bit_vector.bit_vector</span> <span class="kn">import</span> <span class="n">BitVector</span>
+<span class="linenos">  2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="linenos">  3</span><span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappop</span>
+<span class="linenos">  4</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="linenos">  5</span>
+<div class="viewcode-block" id="WaveletMatrix">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix">[docs]</a>
+<span class="linenos">  6</span><span class="k">class</span> <span class="nc">WaveletMatrix</span><span class="p">():</span>
+<span class="linenos">  7</span><span class="w">  </span><span class="sd">"""``WaveletMatrix`` です。</span>
+<span class="linenos">  8</span><span class="sd">  静的であることに注意してください。</span>
+<span class="linenos">  9</span>
+<span class="linenos"> 10</span><span class="sd">  以下の仕様の計算量には嘘があるかもしれません。import 元の ``BitVector`` の計算量も参考にしてください。</span>
+<span class="linenos"> 11</span>
+<span class="linenos"> 12</span><span class="sd">  - 参考:</span>
+<span class="linenos"> 13</span><span class="sd">    - `https://miti-7.hatenablog.com/entry/2018/04/28/152259 &lt;https://miti-7.hatenablog.com/entry/2018/04/28/152259&gt;`</span>
+<span class="linenos"> 14</span><span class="sd">    - `https://www.slideshare.net/pfi/ss-15916040 &lt;https://www.slideshare.net/pfi/ss-15916040&gt;`</span>
+<span class="linenos"> 15</span><span class="sd">    - `デwiki &lt;https://scrapbox.io/data-structures/Wavelet_Matrix&gt;`</span>
+<span class="linenos"> 16</span><span class="sd">  """</span>
+<span class="linenos"> 17</span>
+<span class="linenos"> 18</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
+<span class="linenos"> 19</span><span class="w">    </span><span class="sd">"""``[0, sigma)`` の整数列を管理する ``WaveletMatrix`` を構築します。</span>
+<span class="linenos"> 20</span><span class="sd">    :math:`O(n\\log{\\sigma})` です。</span>
+<span class="linenos"> 21</span>
+<span class="linenos"> 22</span><span class="sd">    Args:</span>
+<span class="linenos"> 23</span><span class="sd">      sigma (int): 扱う整数の上限です。</span>
+<span class="linenos"> 24</span><span class="sd">      a (Sequence[int], optional): 構築する配列です。</span>
+<span class="linenos"> 25</span><span class="sd">    """</span>
+<span class="linenos"> 26</span>    <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sigma</span>
+<span class="linenos"> 27</span>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigma</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="linenos"> 28</span>    <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">:</span> <span class="n">array</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">'I'</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">))</span>
+<span class="linenos"> 29</span>    <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="linenos"> 30</span>    <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BitVector</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">BitVector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">)]</span>
+<span class="linenos"> 31</span>    <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="linenos"> 32</span>
+<span class="linenos"> 33</span>  <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 34</span>    <span class="c1"># 列 a から wm を構築する</span>
+<span class="linenos"> 35</span>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos"> 36</span>      <span class="c1"># bit目の0/1に応じてvを構築 + aを安定ソート</span>
+<span class="linenos"> 37</span>      <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos"> 38</span>      <span class="n">zero</span><span class="p">,</span> <span class="n">one</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="linenos"> 39</span>      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="linenos"> 40</span>        <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos"> 41</span>          <span class="n">v</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos"> 42</span>          <span class="n">one</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="linenos"> 43</span>        <span class="k">else</span><span class="p">:</span>
+<span class="linenos"> 44</span>          <span class="n">zero</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="linenos"> 45</span>      <span class="n">v</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="linenos"> 46</span>      <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zero</span><span class="p">)</span>  <span class="c1"># 境界をmid[bit]に保持</span>
+<span class="linenos"> 47</span>      <span class="n">a</span> <span class="o">=</span> <span class="n">zero</span> <span class="o">+</span> <span class="n">one</span>
+<span class="linenos"> 48</span>
+<div class="viewcode-block" id="WaveletMatrix.access">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.access">[docs]</a>
+<span class="linenos"> 49</span>  <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 50</span><span class="w">    </span><span class="sd">"""k番目の値を返します。</span>
+<span class="linenos"> 51</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos"> 52</span>
+<span class="linenos"> 53</span><span class="sd">    Args:</span>
+<span class="linenos"> 54</span><span class="sd">      k (int): インデックスです。</span>
+<span class="linenos"> 55</span><span class="sd">    """</span>
+<span class="linenos"> 56</span>    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> \
+<span class="linenos"> 57</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.access(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos"> 58</span>    <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 59</span>      <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos"> 60</span>    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 答え</span>
+<span class="linenos"> 61</span>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos"> 62</span>      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+<span class="linenos"> 63</span>        <span class="c1"># k番目が立ってたら、</span>
+<span class="linenos"> 64</span>        <span class="c1"># kまでの1とすべての0が次のk</span>
+<span class="linenos"> 65</span>        <span class="n">s</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span>
+<span class="linenos"> 66</span>        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos"> 67</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos"> 68</span>        <span class="c1"># kまでの0が次のk</span>
+<span class="linenos"> 69</span>        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="linenos"> 70</span>    <span class="k">return</span> <span class="n">s</span></div>
+
+<span class="linenos"> 71</span>
+<span class="linenos"> 72</span>  <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 73</span>    <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">], size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos"> 74</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="linenos"> 75</span>
+<div class="viewcode-block" id="WaveletMatrix.rank">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.rank">[docs]</a>
+<span class="linenos"> 76</span>  <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 77</span><span class="w">    </span><span class="sd">"""``a[0, r)`` に含まれる ``x`` の個数を返します。</span>
+<span class="linenos"> 78</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos"> 79</span><span class="sd">    """</span>
+<span class="linenos"> 80</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.rank(), r=</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos"> 81</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'ValueError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.rank(), x=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">, LIM=</span><span class="si">{</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos"> 82</span>    <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos"> 83</span>    <span class="n">mid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid</span>
+<span class="linenos"> 84</span>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos"> 85</span>      <span class="c1"># 位置 r より左に x が何個あるか</span>
+<span class="linenos"> 86</span>      <span class="c1"># x の bit 目で場合分け</span>
+<span class="linenos"> 87</span>      <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos"> 88</span>        <span class="c1"># 立ってたら、次のl, rは以下</span>
+<span class="linenos"> 89</span>        <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos"> 90</span>        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos"> 91</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos"> 92</span>        <span class="c1"># そうでなければ次のl, rは以下</span>
+<span class="linenos"> 93</span>        <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="linenos"> 94</span>        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="linenos"> 95</span>    <span class="k">return</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span></div>
+
+<span class="linenos"> 96</span>
+<div class="viewcode-block" id="WaveletMatrix.select">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.select">[docs]</a>
+<span class="linenos"> 97</span>  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 98</span><span class="w">    </span><span class="sd">"""``k`` 番目の ``v`` のインデックスを返します。</span>
+<span class="linenos"> 99</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos">100</span><span class="sd">    """</span>
+<span class="linenos">101</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.select(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos">102</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'ValueError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.select(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">), x=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">, LIM=</span><span class="si">{</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos">103</span>    <span class="c1"># x の開始位置 s を探す</span>
+<span class="linenos">104</span>    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">105</span>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">106</span>      <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">107</span>        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="linenos">108</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">109</span>        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="linenos">110</span>    <span class="n">s</span> <span class="o">+=</span> <span class="n">k</span>  <span class="c1"># s から k 進んだ位置が、元の列で何番目か調べる</span>
+<span class="linenos">111</span>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">):</span>
+<span class="linenos">112</span>      <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">113</span>        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">select1</span><span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+<span class="linenos">114</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">115</span>        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">select0</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="linenos">116</span>    <span class="k">return</span> <span class="n">s</span></div>
+
+<span class="linenos">117</span>
+<div class="viewcode-block" id="WaveletMatrix.kth_smallest">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.kth_smallest">[docs]</a>
+<span class="linenos">118</span>  <span class="k">def</span> <span class="nf">kth_smallest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">119</span><span class="w">    </span><span class="sd">"""``a[l, r)`` の中で k 番目に **小さい** 値を返します。</span>
+<span class="linenos">120</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos">121</span><span class="sd">    """</span>
+<span class="linenos">122</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.kth_smallest(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos">123</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.kth_smallest(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), wrong k'</span>
+<span class="linenos">124</span>    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">125</span>    <span class="n">mid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid</span>
+<span class="linenos">126</span>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">127</span>      <span class="n">r0</span><span class="p">,</span> <span class="n">l0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="linenos">128</span>      <span class="n">cnt</span> <span class="o">=</span> <span class="n">r0</span> <span class="o">-</span> <span class="n">l0</span>  <span class="c1"># 区間内の 0 の個数</span>
+<span class="linenos">129</span>      <span class="k">if</span> <span class="n">cnt</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">:</span>  <span class="c1"># 0 が k 以下のとき、 k 番目は 1</span>
+<span class="linenos">130</span>        <span class="n">s</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span>
+<span class="linenos">131</span>        <span class="n">k</span> <span class="o">-=</span> <span class="n">cnt</span>
+<span class="linenos">132</span>        <span class="c1"># この 1 が次の bit 列でどこに行くか</span>
+<span class="linenos">133</span>        <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="n">l0</span> <span class="o">+</span> <span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos">134</span>        <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">r0</span> <span class="o">+</span> <span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos">135</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">136</span>        <span class="c1"># この 0 が次の bit 列でどこに行くか</span>
+<span class="linenos">137</span>        <span class="n">l</span> <span class="o">=</span> <span class="n">l0</span>
+<span class="linenos">138</span>        <span class="n">r</span> <span class="o">=</span> <span class="n">r0</span>
+<span class="linenos">139</span>    <span class="k">return</span> <span class="n">s</span></div>
+
+<span class="linenos">140</span>
+<span class="linenos">141</span>  <span class="n">quantile</span> <span class="o">=</span> <span class="n">kth_smallest</span>
+<span class="linenos">142</span>
+<div class="viewcode-block" id="WaveletMatrix.kth_largest">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.kth_largest">[docs]</a>
+<span class="linenos">143</span>  <span class="k">def</span> <span class="nf">kth_largest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">144</span><span class="w">    </span><span class="sd">"""``a[l, r)`` の中で k 番目に **大きい値** を返します。</span>
+<span class="linenos">145</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos">146</span><span class="sd">    """</span>
+<span class="linenos">147</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.kth_largest(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos">148</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.kth_largest(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), wrong k'</span>
+<span class="linenos">149</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kth_smallest</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+<span class="linenos">150</span>
+<div class="viewcode-block" id="WaveletMatrix.topk">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.topk">[docs]</a>
+<span class="linenos">151</span>  <span class="k">def</span> <span class="nf">topk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">152</span><span class="w">    </span><span class="sd">"""``a[l, r)`` の中で、要素を出現回数が多い順にその頻度とともに ``k`` 個返します。</span>
+<span class="linenos">153</span><span class="sd">    :math:`O(\\min(r-l, \\sigam) \\log(\\sigam))` です。</span>
+<span class="linenos">154</span>
+<span class="linenos">155</span><span class="sd">    Note:</span>
+<span class="linenos">156</span><span class="sd">      :math:`\\sigma` が大きい場合、計算量に注意です。</span>
+<span class="linenos">157</span>
+<span class="linenos">158</span><span class="sd">    Returns:</span>
+<span class="linenos">159</span><span class="sd">      List[Tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。</span>
+<span class="linenos">160</span><span class="sd">    """</span>
+<span class="linenos">161</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.topk(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">'</span>
+<span class="linenos">162</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.topk(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">), wrong k'</span>
+<span class="linenos">163</span>    <span class="c1"># heap[-length, x, l, bit]</span>
+<span class="linenos">164</span>    <span class="n">hq</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="linenos">165</span>    <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">166</span>    <span class="k">while</span> <span class="n">hq</span><span class="p">:</span>
+<span class="linenos">167</span>      <span class="n">length</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">bit</span> <span class="o">=</span> <span class="n">heappop</span><span class="p">(</span><span class="n">hq</span><span class="p">)</span>
+<span class="linenos">168</span>      <span class="n">length</span> <span class="o">=</span> <span class="o">-</span><span class="n">length</span>
+<span class="linenos">169</span>      <span class="k">if</span> <span class="n">bit</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+<span class="linenos">170</span>        <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">length</span><span class="p">))</span>
+<span class="linenos">171</span>        <span class="n">k</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="linenos">172</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">173</span>          <span class="k">break</span>
+<span class="linenos">174</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">175</span>        <span class="n">r</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">length</span>
+<span class="linenos">176</span>        <span class="n">l0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="linenos">177</span>        <span class="n">r0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="linenos">178</span>        <span class="k">if</span> <span class="n">l0</span> <span class="o">&lt;</span> <span class="n">r0</span><span class="p">:</span>
+<span class="linenos">179</span>          <span class="n">heappush</span><span class="p">(</span><span class="n">hq</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r0</span><span class="o">-</span><span class="n">l0</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">l0</span><span class="p">,</span> <span class="n">bit</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="linenos">180</span>        <span class="n">l1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos">181</span>        <span class="n">r1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span>
+<span class="linenos">182</span>        <span class="k">if</span> <span class="n">l1</span> <span class="o">&lt;</span> <span class="n">r1</span><span class="p">:</span>
+<span class="linenos">183</span>          <span class="n">heappush</span><span class="p">(</span><span class="n">hq</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r1</span><span class="o">-</span><span class="n">l1</span><span class="p">),</span> <span class="n">x</span><span class="o">|</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">bit</span><span class="p">),</span> <span class="n">l1</span><span class="p">,</span> <span class="n">bit</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="linenos">184</span>    <span class="k">return</span> <span class="n">ans</span></div>
+
+<span class="linenos">185</span>
+<div class="viewcode-block" id="WaveletMatrix.sum">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.sum">[docs]</a>
+<span class="linenos">186</span>  <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">187</span><span class="w">    </span><span class="sd">"""``topk`` メソッドを用いて ``a[l, r)`` の総和を返します。</span>
+<span class="linenos">188</span>
+<span class="linenos">189</span><span class="sd">    計算量に注意です。</span>
+<span class="linenos">190</span><span class="sd">    """</span>
+<span class="linenos">191</span>    <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'Yabai Keisanryo Error'</span>
+<span class="linenos">192</span>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">))</span></div>
+
+<span class="linenos">193</span>
+<span class="linenos">194</span>  <span class="k">def</span> <span class="nf">_range_freq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">195</span><span class="w">    </span><span class="sd">'''a[l, r) で x 未満の要素の数を返す'''</span>
+<span class="linenos">196</span>    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">197</span>    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos">198</span>      <span class="n">l0</span><span class="p">,</span> <span class="n">r0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="linenos">199</span>      <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">200</span>        <span class="c1"># bit が立ってたら、区間の 0 の個数を答えに加算し、新たな区間は 1 のみ</span>
+<span class="linenos">201</span>        <span class="n">ans</span> <span class="o">+=</span> <span class="n">r0</span> <span class="o">-</span> <span class="n">l0</span>
+<span class="linenos">202</span>        <span class="c1"># 1 が次の bit 列でどこに行くか</span>
+<span class="linenos">203</span>        <span class="n">l</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span> <span class="o">-</span> <span class="n">l0</span>
+<span class="linenos">204</span>        <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span> <span class="o">-</span> <span class="n">r0</span>
+<span class="linenos">205</span>      <span class="k">else</span><span class="p">:</span>
+<span class="linenos">206</span>        <span class="c1"># 0 が次の bit 列でどこに行くか</span>
+<span class="linenos">207</span>        <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">l0</span><span class="p">,</span> <span class="n">r0</span>
+<span class="linenos">208</span>    <span class="k">return</span> <span class="n">ans</span>
+<span class="linenos">209</span>
+<div class="viewcode-block" id="WaveletMatrix.range_freq">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.range_freq">[docs]</a>
+<span class="linenos">210</span>  <span class="k">def</span> <span class="nf">range_freq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">211</span><span class="w">    </span><span class="sd">"""``a[l, r)`` に含まれる、 ``x`` 以上 ``y`` 未満である要素の個数を返します。</span>
+<span class="linenos">212</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos">213</span><span class="sd">    """</span>
+<span class="linenos">214</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> \
+<span class="linenos">215</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.range_freq(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">216</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
+
+<span class="linenos">217</span>
+<div class="viewcode-block" id="WaveletMatrix.prev_value">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.prev_value">[docs]</a>
+<span class="linenos">218</span>  <span class="k">def</span> <span class="nf">prev_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">219</span><span class="w">    </span><span class="sd">"""``a[l, r)`` で、``x`` 以上 ``y`` 未満であるような要素のうち最大の要素を返します。</span>
+<span class="linenos">220</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos">221</span><span class="sd">    """</span>
+<span class="linenos">222</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> \
+<span class="linenos">223</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.prev_value(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">224</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kth_smallest</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+<span class="linenos">225</span>
+<div class="viewcode-block" id="WaveletMatrix.next_value">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.next_value">[docs]</a>
+<span class="linenos">226</span>  <span class="k">def</span> <span class="nf">next_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">227</span><span class="w">    </span><span class="sd">"""``a[l, r)`` で、``x`` 以上 ``y`` 未満であるような要素のうち最小の要素を返します。</span>
+<span class="linenos">228</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos">229</span><span class="sd">    """</span>
+<span class="linenos">230</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> \
+<span class="linenos">231</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.next_value(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">232</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kth_smallest</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span></div>
+
+<span class="linenos">233</span>
+<div class="viewcode-block" id="WaveletMatrix.range_count">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix.range_count">[docs]</a>
+<span class="linenos">234</span>  <span class="k">def</span> <span class="nf">range_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">235</span><span class="w">    </span><span class="sd">"""``a[l, r)`` に含まれる ``x`` の個数を返します。</span>
+<span class="linenos">236</span><span class="sd">    ``wm.rank(r, x) - wm.rank(l, x)`` と等価です。</span>
+<span class="linenos">237</span><span class="sd">    :math:`O(\\log{\\sigma})` です。</span>
+<span class="linenos">238</span><span class="sd">    """</span>
+<span class="linenos">239</span>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> \
+<span class="linenos">240</span>        <span class="sa">f</span><span class="s1">'IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.range_count(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">241</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
+
+<span class="linenos">242</span>
+<span class="linenos">243</span>  <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">244</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">245</span>
+<span class="linenos">246</span>  <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">247</span>    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(</span><span class="si">{</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span><span class="si">}</span><span class="s1">)'</span>
+<span class="linenos">248</span>
+<span class="linenos">249</span>  <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span></div>
+
+</pre></div>
+</article>
+</div>
+<footer>
+<div class="related-pages">
+</div>
+<div class="bottom-of-page">
+<div class="left-details">
+<div class="copyright">
+                Copyright © 2024, titan
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+</div>
+<div class="right-details">
+</div>
+</div>
+</footer>
+</div>
+<aside class="toc-drawer no-toc">
+</aside>
+</div>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+<script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
+<script src="../../../../_static/_static/script.js"></script>
+</body>
+</html>

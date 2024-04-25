@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.sort.quick\_sort 
+titan\_pylib.algorithm.sort.quick\_sort
 ==============================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.sort.quick_sort import quick_sort
 

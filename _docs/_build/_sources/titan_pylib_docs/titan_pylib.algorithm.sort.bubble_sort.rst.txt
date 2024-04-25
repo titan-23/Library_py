@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.sort.bubble\_sort 
+titan\_pylib.algorithm.sort.bubble\_sort
 ===============================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.sort.bubble_sort import bubble_sort
 

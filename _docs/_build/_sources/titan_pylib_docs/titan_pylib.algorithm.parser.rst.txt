@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.parser 
+titan\_pylib.algorithm.parser
 ====================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.parser import Parser
 

@@ -1,8 +1,8 @@
-titan\_pylib.algorithm.random package
+titan\_pylib.algorithm.random
 =====================================
 
 Submodules
-----------
+
 
 .. toctree::
    :maxdepth: 1
@@ -11,10 +11,11 @@ Submodules
    titan_pylib.algorithm.random.random_graph
    titan_pylib.algorithm.random.random_tree
 
-Module contents
----------------
+
+
 
 .. automodule:: titan_pylib.algorithm.random
    :members:
    :undoc-members:
    :show-inheritance:
+

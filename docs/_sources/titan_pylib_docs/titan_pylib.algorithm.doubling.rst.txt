@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.doubling 
+titan\_pylib.algorithm.doubling
 ======================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.doubling import Doubling
 

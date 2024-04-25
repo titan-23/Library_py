@@ -1,8 +1,8 @@
-titan\_pylib.algorithm package
+titan\_pylib.algorithm
 ==============================
 
 Subpackages
------------
+
 
 .. toctree::
    :maxdepth: 1
@@ -11,7 +11,7 @@ Subpackages
    titan_pylib.algorithm.sort
 
 Submodules
-----------
+
 
 .. toctree::
    :maxdepth: 1
@@ -22,10 +22,11 @@ Submodules
    titan_pylib.algorithm.parser
    titan_pylib.algorithm.permutation
 
-Module contents
----------------
+
+
 
 .. automodule:: titan_pylib.algorithm
    :members:
    :undoc-members:
    :show-inheritance:
+

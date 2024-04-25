@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.random.random 
+titan\_pylib.algorithm.random.random
 ===========================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.random.random import Random
 

@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.sort.merge\_sort 
+titan\_pylib.algorithm.sort.merge\_sort
 ==============================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.sort.merge_sort import merge_sort
 

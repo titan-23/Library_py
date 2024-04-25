@@ -1,13 +1,11 @@
-titan\_pylib.algorithm.mo 
+titan\_pylib.algorithm.mo
 ================================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.algorithm.mo import Mo
 

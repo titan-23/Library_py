@@ -1,13 +1,11 @@
-titan\_pylib.expander 
+titan\_pylib.expander
 ============================
 
 
 ソースコード
 ^^^^^^^^^^^^
 
-
 .. code-block:: python
-
 
   from titan_pylib.expander import get_code
 
