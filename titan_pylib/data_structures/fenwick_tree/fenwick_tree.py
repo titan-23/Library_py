@@ -128,6 +128,9 @@ class FenwickTree():
     return i
 
   def tolist(self) -> List[int]:
+    """リストにして返します。
+    :math:`O(n)` です。
+    """
     sub = [self.pref(i) for i in range(self._size+1)]
     return [sub[i+1]-sub[i] for i in range(self._size)]
 

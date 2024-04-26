@@ -5,7 +5,6 @@ class UnionFind():
 
   def __init__(self, n: int) -> None:
     """``n`` 個の要素からなる ``UnionFind`` を構築します。
-
     :math:`O(n)` です。
     """
     self._n: int = n
@@ -14,7 +13,6 @@ class UnionFind():
 
   def root(self, x: int) -> int:
     """要素 ``x`` を含む集合の代表元を返します。
-
     :math:`O(\\alpha(n))` です。
     """
     a = x
@@ -88,7 +86,7 @@ class UnionFind():
     :math:`O(n)` です。
 
     Returns:
-        List[int]: 昇順であることが保証されます。
+      List[int]: 昇順であることが保証されます。
     """
     return [i for i, x in enumerate(self._parents) if x < 0]
 
@@ -100,8 +98,7 @@ class UnionFind():
 
   def all_group_members(self) -> defaultdict:
     """
-    `key` に代表元、 `value` に `key` を代表元とする集合のリストをもつ `defaultdict` を返します。
-
+    key に代表元、 value に key を代表元とする集合のリストをもつ defaultdict を返します。
     :math:`O(n\\alpha(n))` です。
     """
     group_members = defaultdict(list)
@@ -111,7 +108,6 @@ class UnionFind():
 
   def clear(self) -> None:
     """集合の連結状態をなくします(初期状態に戻します)。
-
     :math:`O(n)` です。
     """
     self._group_numbers = self._n
@@ -120,7 +116,6 @@ class UnionFind():
 
   def __str__(self) -> str:
     """よしなにします。
-
     :math:`O(n\\alpha(n))` です。
     """
     return f'<{self.__class__.__name__}> [\n' + '\n'.join(f'  {k}: {v}' for k, v in self.all_group_members().items()) + '\n]'
