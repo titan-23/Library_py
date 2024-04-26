@@ -265,9 +265,9 @@ class HashStringBase():
     :math:`O(n)` です。
 
     Args:
-        n (int): 文字列の長さの上限です。
-        base (int, optional): Defaults to -1.
-        seed (Optional[int], optional): Defaults to None.
+      n (int): 文字列の長さの上限です。
+      base (int, optional): Defaults to -1.
+      seed (Optional[int], optional): Defaults to None.
     """
     random.seed(seed)
     base = random.randint(37, 10**9) if base < 0 else base
@@ -310,13 +310,12 @@ class HashString():
 
   def __init__(self, hsb: HashStringBase, s: str, update: bool=False) -> None:
     """ロリハを構築します。
-
     :math:`O(n)` です。
 
     Args:
-        hsb (HashStringBase): ベースクラスです。
-        s (str): ロリハを構築する文字列です。
-        update (bool, optional): ``update=True`` のとき、1点更新が可能になります。
+      hsb (HashStringBase): ベースクラスです。
+      s (str): ロリハを構築する文字列です。
+      update (bool, optional): ``update=True`` のとき、1点更新が可能になります。
     """
     n = len(s)
     data = [0] * n
@@ -334,7 +333,6 @@ class HashString():
 
   def get(self, l: int, r: int) -> int:
     """``s[l, r)`` のハッシュ値を返します。
-
     1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。
 
     Args:
@@ -350,7 +348,6 @@ class HashString():
 
   def __getitem__(self, k: int) -> int:
     """``s[k]`` のハッシュ値を返します。
-
     1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。
 
     Args:
@@ -363,7 +360,6 @@ class HashString():
 
   def set(self, k: int, c: str) -> None:
     """`k` 番目の文字を `c` に更新します。
-
     :math:`O(\\log{n})` です。また、今後の ``get()`` が :math:`O(\\log{n})` になります。
 
     Args:
@@ -381,7 +377,6 @@ class HashString():
 
   def get_lcp(self) -> List[int]:
     """lcp配列を返します。
-
     :math:`O(n\\log{n})` です。
     """
     a = [0] * self.n

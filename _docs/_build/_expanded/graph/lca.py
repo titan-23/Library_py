@@ -52,7 +52,7 @@ from typing import List
 class LCA():
   """LCA を定数倍良く求めます。
 
-  :math:`O(< O(NlogN), O(1) >)`
+  :math:`< O(NlogN), O(1) >`
   https://github.com/cheran-senthil/PyRival/blob/master/pyrival/graphs/lca.py
   """
 
@@ -61,8 +61,8 @@ class LCA():
     時間・空間 :math:`O(n\\log{n})` です。
 
     Args:
-        G (List[List[int]]): 隣接リストです。
-        root (int): 根です。
+      G (List[List[int]]): 隣接リストです。
+      root (int): 根です。
     """
     _n = len(G)
     path = [-1] * _n
@@ -86,7 +86,7 @@ class LCA():
     self._st: SparseTableRmQ[int] = SparseTableRmQ((nodein[v] for v in path), e=_n)
 
   def lca(self, u: int, v: int) -> int:
-    """頂点 ``u`` と頂点 ``v`` の ``lca`` を返します。
+    """頂点 ``u`` と頂点 ``v`` の LCA を返します。
     :math:`O(1)` です。
     """
     if u == v:
@@ -97,6 +97,7 @@ class LCA():
     return self._path[self._st.prod(l, r)]
 
   def lca_mul(self, a: List[int]) -> int:
+    """頂点集合 ``a`` の LCA を返します。"""
     if all(a[i] == a[i+1] for i in range(len(a)-1)):
       return a[0]
     l = self._n+1

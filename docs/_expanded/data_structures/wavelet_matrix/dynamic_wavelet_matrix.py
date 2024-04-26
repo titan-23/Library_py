@@ -902,7 +902,7 @@ class WaveletMatrix():
     - `デwiki <https://scrapbox.io/data-structures/Wavelet_Matrix>`
   """
 
-  def __init__(self, sigma: int, a: Sequence[int]=[]):
+  def __init__(self, sigma: int, a: Sequence[int]=[]) -> None:
     """``[0, sigma)`` の整数列を管理する ``WaveletMatrix`` を構築します。
     :math:`O(n\\log{\\sigma})` です。
 
@@ -934,7 +934,7 @@ class WaveletMatrix():
       a = zero + one
 
   def access(self, k: int) -> int:
-    """k番目の値を返します。
+    """``k`` 番目の値を返します。
     :math:`O(\\log{\\sigma})` です。
 
     Args:
@@ -1003,7 +1003,7 @@ class WaveletMatrix():
     return s
 
   def kth_smallest(self, l: int, r: int, k: int) -> int:
-    """``a[l, r)`` の中で k 番目に **小さい** 値を返します。
+    """``a[l, r)`` の中で ``k`` 番目に **小さい** 値を返します。
     :math:`O(\\log{\\sigma})` です。
     """
     assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.kth_smallest({l}, {r}, {k}), size={self.size}'
@@ -1028,7 +1028,7 @@ class WaveletMatrix():
   quantile = kth_smallest
 
   def kth_largest(self, l: int, r: int, k: int) -> int:
-    """``a[l, r)`` の中で k 番目に **大きい値** を返します。
+    """``a[l, r)`` の中で ``k`` 番目に **大きい値** を返します。
     :math:`O(\\log{\\sigma})` です。
     """
     assert 0 <= l <= r <= self.size, f'IndexError: {self.__class__.__name__}.kth_largest({l}, {r}, {k}), size={self.size}'
@@ -1072,7 +1072,6 @@ class WaveletMatrix():
 
   def sum(self, l: int, r: int) -> int:
     """``topk`` メソッドを用いて ``a[l, r)`` の総和を返します。
-
     計算量に注意です。
     """
     assert False, 'Yabai Keisanryo Error'
@@ -1127,10 +1126,10 @@ class WaveletMatrix():
         f'IndexError: {self.__class__.__name__}.range_count({l}, {r}, {x})'
     return self.rank(r, x) - self.rank(l, x)
 
-  def __len__(self):
+  def __len__(self) -> int:
     return self.size
 
-  def __str__(self):
+  def __str__(self) -> str:
     return f'{self.__class__.__name__}({[self.access(i) for i in range(self.size)]})'
 
   __repr__ = __str__

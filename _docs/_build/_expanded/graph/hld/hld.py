@@ -83,7 +83,7 @@ class HLD():
     """
     return [a[e] for e in self.hld]
 
-  def for_each_vertex(self, u: int, v: int) -> Iterator[Tuple[int, int]]:
+  def for_each_vertex_path(self, u: int, v: int) -> Iterator[Tuple[int, int]]:
     """``u-v`` パスに対応する区間のインデックスを返します。
     :math:`O(\\log{n})` です。
     """
