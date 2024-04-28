@@ -4,7 +4,17 @@ T = TypeVar('T')
 
 class FenwickTreeMultiset(FenwickTreeSet, Generic[T]):
 
-  def __init__(self, used: Union[int, Iterable[T]], a: Iterable[T]=[], compress=True) -> None:
+  def __init__(self,
+               used: Union[int, Iterable[T]],
+               a: Iterable[T]=[],
+               compress: bool=True
+               ) -> None:
+    """
+    Args:
+      used (Union[int, Iterable[T]]): 使用する要素の集合
+      a (Iterable[T], optional): 初期集合
+      compress (bool, optional): 座圧するかどうか( ``True`` : する)
+    """
     super().__init__(used, a, compress=compress, _multi=True)
 
   def add(self, key: T, num: int=1) -> None:
@@ -14,12 +24,14 @@ class FenwickTreeMultiset(FenwickTreeSet, Generic[T]):
     self._cnt[i] += num
     self._fw.add(i, num)
 
+  def remove(self, key: T, num: int=1) -> None:
+    if not self.discard(key, num):
+      raise KeyError(key)
+
   def discard(self, key: T, num: int=1) -> bool:
-    cnt = self.count(key)
-    if num > cnt:
-      num = cnt
-    if num <= 0: return False
     i = self._to_zaatsu[key]
+    num = min(num, self._cnt[i])
+    if num <= 0: return False
     self._len -= num
     self._cnt[i] -= num
     self._fw.add(i, -num)
@@ -33,7 +45,7 @@ class FenwickTreeMultiset(FenwickTreeSet, Generic[T]):
 
   def pop(self, k: int=-1) -> T:
     assert -self._len <= k < self._len, \
-        f'IndexError: FenwickTreeMultiset.pop({k}), len={self._len}'
+        f'IndexError: {self.__class__.__name__}.pop({k}), len={self._len}'
     x = self[k]
     self.discard(x)
     return x
@@ -58,4 +70,3 @@ class FenwickTreeMultiset(FenwickTreeSet, Generic[T]):
 
   def show(self) -> None:
     print('{' + ', '.join(f'{i[0]}: {i[1]}' for i in self.items()) + '}')
-

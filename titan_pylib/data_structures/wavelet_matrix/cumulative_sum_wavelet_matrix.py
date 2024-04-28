@@ -1,17 +1,25 @@
 from titan_pylib.data_structures.bit_vector.bit_vector import BitVector
 from titan_pylib.data_structures.cumulative_sum.cumulative_sum import CumulativeSum
 from array import array
-from typing import List, Tuple, Sequence
+from typing import List, Tuple, Sequence, Iterable
 from bisect import bisect_left
 
 class CumulativeSumWaveletMatrix():
 
-  def __init__(self, sigma: int, pos: List[Tuple[int, int, int]] = []):
+  def __init__(self,
+               sigma: int,
+               pos: Iterable[Tuple[int, int, int]]=[]
+               ) -> None:
+    """
+    Args:
+      sigma (int): yの最大値
+      pos (List[Tuple[int, int, int]], optional): List[(x, y, w)]
+    """
     self.sigma: int = sigma
     self.log: int = (sigma-1).bit_length()
     self.mid: array[int] = array('I', bytes(4*self.log))
     self.xy: List[Tuple[int, int]] = self._sort_unique([(x, y) for x, y, _ in pos])
-    self.y: List[int] = self._sort_unique([y for _, y, _ in pos])
+    self.y: List[int] = self._sort_unique([y for _, y in self.xy])
     self.size: int = len(self.xy)
     self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
     self._build([bisect_left(self.y, y) for _, y in self.xy])
@@ -67,7 +75,9 @@ class CumulativeSumWaveletMatrix():
     return ans
 
   def sum(self, w1: int, w2: int, h1: int, h2: int) -> int:
-    # sum([w1, w2) x [h1, h2))
+    """sum([w1, w2) x [h1, h2))"""
+    assert 0 <= w1 <= w2
+    assert 0 <= h1 <= h2
     l = bisect_left(self.xy, (w1, 0))
     r = bisect_left(self.xy, (w2, 0))
     return self._sum(l, r, bisect_left(self.y, h2)) - self._sum(l, r, bisect_left(self.y, h1))

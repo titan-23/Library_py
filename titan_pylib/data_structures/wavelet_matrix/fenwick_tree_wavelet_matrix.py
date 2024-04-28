@@ -81,4 +81,3 @@ class FenwickTreeWaveletMatrix():
     l = bisect_left(self.xy, (w1, 0))
     r = bisect_left(self.xy, (w2, 0))
     return self._sum(l, r, bisect_left(self.y, h2)) - self._sum(l, r, bisect_left(self.y, h1))
-
