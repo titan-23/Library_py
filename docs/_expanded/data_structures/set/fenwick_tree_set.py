@@ -170,9 +170,19 @@ T = TypeVar('T', bound=SupportsLessThan)
 
 class FenwickTreeSet(Generic[T]):
 
-  def __init__(self, _used: Union[int, Iterable[T]], _a: Iterable[T]=[], compress=True, _multi=False):
+  def __init__(self,
+               _used: Union[int, Iterable[T]],
+               _a: Iterable[T]=[],
+               compress=True,
+               _multi=False
+               ) -> None:
     self._len = 0
-    self._to_origin = list(range(_used)) if isinstance(_used, int) else sorted(set(_used))
+    if isinstance(_used, int):
+      self._to_origin = list(range(_used))
+    elif isinstance(_used, set):
+      self._to_origin = sorted(_used)
+    else:
+      self._to_origin = sorted(set(_used))
     self._to_zaatsu: Dict[T, int] = {key: i for i, key in enumerate(self._to_origin)} if compress else self._to_origin
     self._size = len(self._to_origin)
     self._cnt = [0] * self._size
@@ -307,5 +317,4 @@ class FenwickTreeSet(Generic[T]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 

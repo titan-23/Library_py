@@ -196,10 +196,10 @@ class WaveletMatrix():
 
   以下の仕様の計算量には嘘があるかもしれません。import 元の ``BitVector`` の計算量も参考にしてください。
 
-  - 参考:
-    - `https://miti-7.hatenablog.com/entry/2018/04/28/152259 <https://miti-7.hatenablog.com/entry/2018/04/28/152259>`
-    - `https://www.slideshare.net/pfi/ss-15916040 <https://www.slideshare.net/pfi/ss-15916040>`
-    - `デwiki <https://scrapbox.io/data-structures/Wavelet_Matrix>`
+  参考:
+    `https://miti-7.hatenablog.com/entry/2018/04/28/152259 <https://miti-7.hatenablog.com/entry/2018/04/28/152259>`_
+    `https://www.slideshare.net/pfi/ss-15916040 <https://www.slideshare.net/pfi/ss-15916040>`_
+    `デwiki <https://scrapbox.io/data-structures/Wavelet_Matrix>`_
   """
 
   def __init__(self, sigma: int, a: Sequence[int]=[]) -> None:

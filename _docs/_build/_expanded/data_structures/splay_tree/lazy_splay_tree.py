@@ -5,8 +5,6 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class LazySplayTree(Generic[T, F]):
-  """遅延評価反転可能Splay木です。
-  """
 
   class _Node():
 
@@ -52,17 +50,16 @@ class LazySplayTree(Generic[T, F]):
       return
     a = n_or_a
     if isinstance(a, int):
-      if a > 0:
-        a = [e for _ in range(a)]
+      a = [e for _ in range(a)]
     elif not isinstance(a, list):
       a = list(a)
     if a:
       self._build(a)
 
   def _build(self, a: List[T]) -> None:
-    _Node = self._Node
+    _Node = LazySplayTree._Node
     id = self.id
-    def build(l: int, r: int) -> _Node:
+    def build(l: int, r: int) -> LazySplayTree._Node:
       mid = (l + r) >> 1
       node = _Node(a[mid], id)
       if l != mid:
@@ -141,14 +138,19 @@ class LazySplayTree(Generic[T, F]):
       node.size += node.right.size
 
   def _splay(self, node: _Node) -> None:
-    while node.par and node.par.par:
+    # while node.par and node.par.par:
+    #   pnode = node.par
+    #   self._rotate(pnode if (pnode.par.left is pnode) == (pnode.left is node) else node)
+    #   self._rotate(node)
+    # if node.par:
+    #   self._rotate(node)
+    while node.par:
       pnode = node.par
-      self._rotate(pnode if (pnode.par.left is pnode) == (pnode.left is node) else node)
-      self._rotate(node)
-    if node.par:
+      if pnode:
+        self._rotate(pnode if (pnode.par.left is pnode) == (pnode.left is node) else node)
       self._rotate(node)
 
-  def _get_kth_elm_splay(self, node: Optional[_Node], k: int) -> None:
+  def kth_splay(self, node: Optional[_Node], k: int) -> None:
     if k < 0:
       k += len(self)
     while True:
@@ -164,7 +166,7 @@ class LazySplayTree(Generic[T, F]):
     self._splay(node)
     return node
 
-  def _get_left_splay(self, node: Optional[_Node]) -> Optional[_Node]:
+  def _left_splay(self, node: Optional[_Node]) -> Optional[_Node]:
     self._propagate(node)
     if not node or not node.left:
       return node
@@ -174,7 +176,7 @@ class LazySplayTree(Generic[T, F]):
     self._splay(node)
     return node
 
-  def _get_right_splay(self, node: Optional[_Node]) -> Optional[_Node]:
+  def _right_splay(self, node: Optional[_Node]) -> Optional[_Node]:
     self._propagate(node)
     if not node or not node.right:
       return node
@@ -196,7 +198,7 @@ class LazySplayTree(Generic[T, F]):
       return
     if not other.root:
       return
-    self.root = self._get_right_splay(self.root)
+    self.root = self._right_splay(self.root)
     self.root.right = other.root
     other.root.par = self.root
     self._update(self.root)
@@ -214,10 +216,9 @@ class LazySplayTree(Generic[T, F]):
     return left_splay, right_splay
 
   def _internal_split(self, k: int) -> Tuple[_Node, _Node]:
-    # self.root will be broken
-    if k >= len(self):
+    if k == len(self):
       return self.root, None
-    right = self._get_kth_elm_splay(self.root, k)
+    right = self.kth_splay(self.root, k)
     left = right.left
     if left:
       left.par = None
@@ -250,7 +251,7 @@ class LazySplayTree(Generic[T, F]):
     if l == 0:
       self._propagate_rev(left)
     else:
-      left = self._get_kth_elm_splay(left, l-1)
+      left = self.kth_splay(left, l-1)
       self._propagate_rev(left.right)
     self.root = self._internal_merge(left, right)
 
@@ -275,7 +276,7 @@ class LazySplayTree(Generic[T, F]):
     if l == 0:
       self._propagate_lazy(left, f)
     else:
-      left = self._get_kth_elm_splay(left, l-1)
+      left = self.kth_splay(left, l-1)
       self._propagate_lazy(left.right, f)
       self._update(left)
     self.root = self._internal_merge(left, right)
@@ -289,13 +290,6 @@ class LazySplayTree(Generic[T, F]):
   def prod(self, l: int, r: int) -> T:
     """区間 ``[l, r)`` の総積を求めます。
     償却 :math:`O(\\log{n})` です。
-
-    Args:
-      l (int):
-      r (int):
-
-    Returns:
-      T:
     """
     assert 0 <= l <= r <= len(self), \
         f'IndexError: {self.__class__.__name__}.prod({l}, {r}), len={len(self)}'
@@ -305,7 +299,7 @@ class LazySplayTree(Generic[T, F]):
     if l == 0:
       res = left.data
     else:
-      left = self._get_kth_elm_splay(left, l-1)
+      left = self.kth_splay(left, l-1)
       res = left.right.data
     self.root = self._internal_merge(left, right)
     return res
@@ -325,15 +319,16 @@ class LazySplayTree(Generic[T, F]):
       k (int):
       key (T):
     """
+    assert 0 <= k <= len(self)
     node = self._Node(key, self.id)
     if not self.root:
       self.root = node
       return
     if k >= len(self):
-      root = self._get_kth_elm_splay(self.root, len(self)-1)
+      root = self.kth_splay(self.root, len(self)-1)
       node.left = root
     else:
-      root = self._get_kth_elm_splay(self.root, k)
+      root = self.kth_splay(self.root, k)
       if root.left:
         node.left = root.left
         root.left.par = node
@@ -351,7 +346,7 @@ class LazySplayTree(Generic[T, F]):
     Args:
       key (T):
     """
-    node = self._get_right_splay(self.root)
+    node = self._right_splay(self.root)
     self.root = self._Node(key, self.id)
     self.root.left = node
     if node:
@@ -365,7 +360,7 @@ class LazySplayTree(Generic[T, F]):
     Args:
       key (T):
     """
-    node = self._get_left_splay(self.root)
+    node = self._left_splay(self.root)
     self.root = self._Node(key, self.id)
     self.root.right = node
     if node:
@@ -378,20 +373,17 @@ class LazySplayTree(Generic[T, F]):
 
     Args:
       k (int, optional): 指定するインデックスです。 Defaults to -1.
-
-    Returns:
-      T:
     """
     if k == -1:
-      node = self._get_right_splay(self.root)
+      node = self._right_splay(self.root)
       if node.left:
         node.left.par = None
       self.root = node.left
       return node.key
-    root = self._get_kth_elm_splay(self.root, k)
+    root = self.kth_splay(self.root, k)
     res = root.key
     if root.left and root.right:
-      node = self._get_right_splay(root.left)
+      node = self._right_splay(root.left)
       node.par = None
       node.right = root.right
       if node.right:
@@ -411,7 +403,7 @@ class LazySplayTree(Generic[T, F]):
     Returns:
       T:
     """
-    node = self._get_left_splay(self.root)
+    node = self._left_splay(self.root)
     self.root = node.right
     if node.right:
       node.right.par = None
@@ -463,7 +455,7 @@ class LazySplayTree(Generic[T, F]):
       k (int):
       key (T):
     """
-    self.root = self._get_kth_elm_splay(self.root, k)
+    self.root = self.kth_splay(self.root, k)
     self.root.key = key
     self._update(self.root)
 
@@ -475,7 +467,7 @@ class LazySplayTree(Generic[T, F]):
       k (int):
       key (T):
     """
-    self.root = self._get_kth_elm_splay(self.root, k)
+    self.root = self.kth_splay(self.root, k)
     return self.root.key
 
   def __iter__(self):
@@ -510,5 +502,4 @@ class LazySplayTree(Generic[T, F]):
 
   def __repr__(self):
     return f'{self.__class__.__name__}({self})'
-
 
