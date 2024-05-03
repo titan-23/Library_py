@@ -7,11 +7,7 @@ titan\_pylib.graph.rerooting\_dp
 
 .. code-block:: python
 
-  from titan_pylib.graph.rerooting_dp import antirec
   from titan_pylib.graph.rerooting_dp import rerooting_dp
-  from titan_pylib.graph.rerooting_dp import leaf
-  from titan_pylib.graph.rerooting_dp import merge
-  from titan_pylib.graph.rerooting_dp import apply
 
 `view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/graph/rerooting_dp.py>`_
 

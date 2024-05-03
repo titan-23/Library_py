@@ -1,78 +1,86 @@
 # from titan_pylib.graph.rerooting_dp import rerooting_dp
-from types import GeneratorType
-# 再帰用デコレータ
-# yieldにするのを忘れないこと
-# 参考: https://github.com/cheran-senthil/PyRival/blob/master/pyrival/misc/bootstrap.py
+from typing import List, Callable, Tuple, TypeVar
+T = TypeVar('T')
+E = TypeVar('E')
 
-def antirec(func, stack=[]):
-  def wrappedfunc(*args, **kwargs):
-    if stack:
-      return func(*args, **kwargs)
-    to = func(*args, **kwargs)
-    while True:
-      if isinstance(to, GeneratorType):
-        stack.append(to)
-        to = next(to)
-      else:
-        stack.pop()
-        if not stack:
-          break
-        to = stack[-1].send(to)
-    return to
-  return wrappedfunc
+def rerooting_dp(G: List[List[Tuple[int, int]]],
+                 merge: Callable[[T, T], T],
+                 apply_vertex: Callable[[T, int], T],
+                 apply_edge: Callable[[T, E, int, int], T],
+                 e: T) -> None:
+  n = len(G)
 
-from typing import List, Callable, Tuple, Generator
+  dp: List[List[T]] = [[e]*len(g) for g in G]
+  ans = [e] * len(G)
 
-def rerooting_dp(G: List[List[Tuple[int, int]]], merge: Callable, apply: Callable, leaf: Callable, e):
-  @antirec
-  def dfs1(v: int, p: int) -> Generator:
+  root = 0
+  par = [-2] * n
+  par[root] = -1
+  toposo = [root]
+
+  todo = [root]
+  while todo:
+    v = todo.pop()
+    for x, _ in G[v]:
+      if par[x] != -2: continue
+      par[x] = v
+      toposo.append(x)
+      todo.append(x)
+
+  arr = [e] * n
+  for v in toposo[::-1]:
     dp_v = dp[v]
-    if p != -1 and len(dp_v) == 1:
-      yield leaf(v)
-    else:
-      acc = e
-      for i, (x, c) in enumerate(G[v]):
-        if x == p: continue
-        res = yield dfs1(x, v)
-        dp_v[i] = apply(res, x, c, True)
-        acc = merge(acc, dp_v[i])
-      yield acc
+    acc = e
+    for i, (x, c) in enumerate(G[v]):
+      if x == par[v]: continue
+      dp_v[i] = apply_edge(arr[x], c, x, v)
+      acc = merge(acc, dp_v[i])
+    arr[v] = apply_vertex(acc, v)
 
-  @antirec
-  def dfs2(v: int, p: int, dp_p) -> Generator:
+  dp_par = [e] * n
+  acc_l = [e] * (n + 1)
+  acc_r = [e] * (n + 1)
+  for v in toposo:
     dp_v = dp[v]
-    G_v = G[v]
-    for i, (x, _) in enumerate(G_v):
-      if x == p:
-        dp_v[i] = dp_p
+    for i, (x, _) in enumerate(G[v]):
+      if x == par[v]:
+        dp_v[i] = dp_par[v]
         break
     d = len(dp_v)
-    acc_l = [e] * (d + 1)
-    acc_r = [e] * (d + 1)
     for i in range(d):
-        acc_l[i+1] = merge(acc_l[i], apply(dp_v[i], G_v[i][0], G_v[i][1], False))
-        acc_r[i+1] = merge(acc_r[i], apply(dp_v[-i-1], G_v[-i-1][0], G_v[-i-1][1], False))
-    ans[v] = acc_l[-1]
-    for i, (x, c) in enumerate(G_v):
-      if x == p: continue
-      yield dfs2(x, v, apply(merge(acc_l[i], acc_r[d-i-1]), v, c, True))
-    yield
-
-  dp = [[e]*len(g) for g in G]
-  ans = [e] * len(G)
-  dfs1(0, -1)
-  dfs2(0, -1, e)
+      acc_l[i+1] = merge(acc_l[i], dp_v[i])
+      acc_r[i+1] = merge(acc_r[i], dp_v[d-i-1])
+    ans[v] = apply_vertex(acc_l[d], v)
+    for i, (x, c) in enumerate(G[v]):
+      if x == par[v]: continue
+      dp_par[x] = apply_edge(apply_vertex(merge(acc_l[i], acc_r[d-i-1]), v,), c, v, x)
   return ans
 
-def leaf(v: int):
-  return
+"""
+apply_vertex
+       v          } return
+ --------------   }
+|  /   |   \  |   }
+| o    o    o | } dp_x
+| △   △   △ |
+ --------------
 
-def merge(s, t):
-  return
+apply_edge
+  v      } return
+  | } e
+  x | } dp_x
+  △|
+"""
 
-def apply(dp_x, x, edge, flag):
-  # flag: (辺などを含む)加工をするかどうか
-  return
+# def merge(s: T, t: T) -> T:
+#   """``s`` , ``t`` をマージする"""
+#   ...
 
-e = None
+# def apply_vertex(dp_x: T, v: int) -> T:
+#   ...
+
+# def apply_edge(dp_x: T, e: E, x: int, v: int) -> T:
+#   ...
+
+# e: T = ...
 

@@ -74,4 +74,3 @@ class StringCount():
 
   def __str__(self):
     return ''.join(self.s)
-

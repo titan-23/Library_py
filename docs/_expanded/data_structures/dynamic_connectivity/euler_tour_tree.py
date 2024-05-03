@@ -5,38 +5,6 @@ T = TypeVar('T')
 F = TypeVar('F')
 
 class EulerTourTree(Generic[T, F]):
-  """``Euler Tour Tree`` です。部分木クエリの強さに定評があります。
-
-  森です。各連結成分(木)は独立なのでそれごとに見ていきます。
-
-  基本戦術はオイラーツアー(Euler tour technique)です。これはググってください。
-  実は、ある木をオイラーツアーした列と、その木に対して 根の変更 / 辺の追加 / 辺の削除 をした木のオイラーツアーした列との差分は多くはありません。実際に紙に書くとよいでしょう。これをうまいこと管理します。
-
-  列を平衡二分木で管理します。ここで、オイラーツアーの列はでは頂点ではなく辺の列とします。例えば、
-  `[0, 1, 0, 2, 0]`
-  の頂点列は辺列
-  `[{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 2}, {2, 2}, {2, 0}]`
-  などとなります。
-  また、補助データ構造として辺からノードのポインタをたどれる辞書を保持します。
-  各処理の流れは以下のようになります。
-
-  - 根の変更: `reroot(v)`
-    - 辺 `{v, v}` の頂点の直前で `split` し、それを順に `A, B` とする
-    - `B` と `A` をこの順にマージする
-  - 辺の追加: `link(u, v)`
-    - `reroot(u); reroot(v)`
-    - `u, v` が属する木(のオイラーツアーした辺の列)をそれぞれ `E1, E2` とする
-    - `E1, [{u, v}], E2, [{v, u}]` をこの順にマージする
-  - 辺の削除: `cut(u, v)`
-    - `reroot(v); reroot(u)`
-    - `{u, v}, {v, u}` で `split` してできたものを順に `A, B, C` とする。ただし、 `{u, v}` は `A` に含まれ、 `{v, u}` は `C` に含まれる。
-    - `A` の末尾と `C` の先頭を削除し、 `A` と `C` をこの順にマージする
-  - 連結性判定: `same(u, v)`
-    - `u, v` を `splay` して、 `u` の親が `None` じゃなければ連結。 `u == v` のときは別途処理をする。
-
-  計算量は、オイラーツアーの管理と辺→ノードの管理に赤黒木を使えば最悪 `O(logN)` です。この実装ではsplay木とハッシュテーブルで管理するので償却 `O(logN)` +期待 `O(1)` です(もとのグラフの頂点数に対してオイラーツアーすると `(元の頂点数)+(辺数)*2?` の頂点ができるので、たしかに `O(元のグラフの頂点数)` ではありますが、定数倍がバカです)。
-  オイラーツアーがあれば、部分木クエリは簡単に処理できます。
-  """
 
   class _Node():
 
@@ -47,7 +15,7 @@ class EulerTourTree(Generic[T, F]):
       self.par: Optional[EulerTourTree._Node] = None
       self.left: Optional[EulerTourTree._Node] = None
       self.right: Optional[EulerTourTree._Node] = None
-
+    
     def __str__(self):
       if self.left is None and self.right is None:
         return f'(key,par):{self.key,self.data,self.lazy,(self.par.key if self.par else None)}\n'
@@ -95,7 +63,6 @@ class EulerTourTree(Generic[T, F]):
 
   def build(self, G: List[List[int]]) -> None:
     """隣接リスト ``G`` をもとにして、辺を張ります。
-
     :math:`O(n)` です。
 
     Args:
@@ -348,28 +315,6 @@ class EulerTourTree(Generic[T, F]):
     c = self._popleft(c)
     self._merge(a, c)
     self._group_numbers += 1
-
-  def merge(self, u: int, v: int) -> bool:
-    """
-    頂点 ``u`` と ``v`` が同じ連結成分にいる場合はなにもせず ``False`` を返します。
-    そうでない場合は辺 ``{u, v}`` を追加し ``True`` を返します。
-    :math:`O(\\log{n})` です。
-    """
-    if self.same(u, v):
-      return False
-    self.link(u, v)
-    return True
-
-  def split(self, u: int, v: int) -> bool:
-    """
-    辺 ``{u, v}`` が存在しない場合はなにもせず ``False`` を返します。
-    そうでない場合は辺 ``{u, v}`` を削除し ``True`` を返します。
-    :math:`O(\\log{n})` です。
-    """
-    if u*self.n+v not in self.ptr_edge or v*self.n+v not in self.ptr_edge:
-      return False
-    self.cut(u, v)
-    return True
 
   def leader(self, v: int) -> _Node:
     """頂点 ``v`` を含む木の代表元を返します。

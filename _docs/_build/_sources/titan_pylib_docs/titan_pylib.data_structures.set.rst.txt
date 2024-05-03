@@ -7,7 +7,6 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
-   titan_pylib.data_structures.set.bitset32
    titan_pylib.data_structures.set.dynamic_fenwick_tree_multiset
    titan_pylib.data_structures.set.dynamic_fenwick_tree_set
    titan_pylib.data_structures.set.fenwick_tree_multiset

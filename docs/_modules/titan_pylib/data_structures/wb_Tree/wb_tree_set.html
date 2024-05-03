@@ -297,7 +297,6 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.html">set</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.set</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.bitset32.html">bitset32</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.dynamic_fenwick_tree_multiset.html">dynamic_fenwick_tree_multiset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.dynamic_fenwick_tree_set.html">dynamic_fenwick_tree_set</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.set.fenwick_tree_multiset.html">fenwick_tree_multiset</a></li>
@@ -570,7 +569,7 @@
 <span class="linenos"> 83</span>
 <span class="linenos"> 84</span>  <span class="k">def</span> <span class="nf">_balance_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 85</span>    <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
-<span class="linenos"> 86</span>    <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+<span class="linenos"> 86</span>    <span class="c1"># right[node] = right[node]</span>
 <span class="linenos"> 87</span>    <span class="n">u</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos"> 88</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_balance</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_BETA</span><span class="p">:</span>
 <span class="linenos"> 89</span>      <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
@@ -591,7 +590,7 @@
 <span class="linenos">104</span>
 <span class="linenos">105</span>  <span class="k">def</span> <span class="nf">_balance_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">106</span>    <span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span>
-<span class="linenos">107</span>    <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+<span class="linenos">107</span>    <span class="c1"># left[node] = left[node]</span>
 <span class="linenos">108</span>    <span class="n">u</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">109</span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_balance</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_BETA</span><span class="p">:</span>
 <span class="linenos">110</span>      <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>

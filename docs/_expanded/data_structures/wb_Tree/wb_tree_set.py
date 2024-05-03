@@ -180,7 +180,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
 
   def _balance_left(self, node: int) -> int:
     right = self.right
-    right[node] = right[node]
+    # right[node] = right[node]
     u = right[node]
     if self._balance(u) >= self._BETA:
       right[node] = self._rotate_right(u)
@@ -201,7 +201,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
 
   def _balance_right(self, node: int) -> int:
     left = self.left
-    left[node] = left[node]
+    # left[node] = left[node]
     u = left[node]
     if self._balance(u) <= 1 - self._BETA:
       left[node] = self._rotate_left(u)
