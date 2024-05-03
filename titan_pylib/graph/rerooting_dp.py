@@ -37,6 +37,8 @@ def rerooting_dp(G: List[List[Tuple[int, int]]],
     arr[v] = apply_vertex(acc, v)
 
   dp_par = [e] * n
+  acc_l = [e] * (n + 1)
+  acc_r = [e] * (n + 1)
   for v in toposo:
     dp_v = dp[v]
     for i, (x, _) in enumerate(G[v]):
@@ -44,12 +46,10 @@ def rerooting_dp(G: List[List[Tuple[int, int]]],
         dp_v[i] = dp_par[v]
         break
     d = len(dp_v)
-    acc_l = [e] * (d + 1)
-    acc_r = [e] * (d + 1)
     for i in range(d):
       acc_l[i+1] = merge(acc_l[i], dp_v[i])
-      acc_r[i+1] = merge(acc_r[i], dp_v[-i-1])
-    ans[v] = apply_vertex(acc_l[-1], v)
+      acc_r[i+1] = merge(acc_r[i], dp_v[d-i-1])
+    ans[v] = apply_vertex(acc_l[d], v)
     for i, (x, c) in enumerate(G[v]):
       if x == par[v]: continue
       dp_par[x] = apply_edge(apply_vertex(merge(acc_l[i], acc_r[d-i-1]), v,), c, v, x)
