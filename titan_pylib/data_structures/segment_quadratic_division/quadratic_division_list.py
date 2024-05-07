@@ -1,5 +1,6 @@
 class QuadraticDivisionList:
-  pass
+    pass
 
-if __name__ == '__main__':
-  raise NotImplementedError
+
+if __name__ == "__main__":
+    raise NotImplementedError
