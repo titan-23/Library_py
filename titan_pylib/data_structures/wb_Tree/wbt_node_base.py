@@ -163,7 +163,7 @@ class _WBTNodeBase(Generic[T]):
 
     def __str__(self) -> str:
         # if self._left is None and self._right is None:
-        #   return f"key:{self._key, self._size}\n"
+        #     return f"key:{self._key, self._size}\n"
         # return f"key:{self._key, self._size},\n _left:{self._left},\n _right:{self._right}\n"
         return str(self._key)
 

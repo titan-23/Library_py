@@ -199,7 +199,7 @@ class LazyAVLTree(Generic[T, F]):
         return self._merge_with_root(l, tmp, r)
 
     def merge(self, other: "LazyAVLTree") -> None:
-        self.root = self._merge_node(self.root, other.node)
+        self.root = self._merge_node(self.root, other.root)
 
     def _pop_max(self, node: Node) -> Tuple[Node, Node]:
         self._propagate(node)
