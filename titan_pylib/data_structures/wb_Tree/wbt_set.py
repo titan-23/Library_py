@@ -5,7 +5,7 @@ T = TypeVar("T")
 
 
 class WBTSet(Generic[T]):
-    """重み平衡木"""
+    """重み平衡木で実装された順序付き集合"""
 
     __slots__ = "_root", "_min", "_max"
 
@@ -17,7 +17,7 @@ class WBTSet(Generic[T]):
 
         計算量:
 
-            ソート済みなら ::math::`O(n)` 、そうでないなら ::math::`O(n \\log{n})`
+            ソート済みなら :math:`O(n)` 、そうでないなら :math:`O(n \\log{n})`
         """
         self._root: Optional[_WBTSetNode[T]] = None
         self._min: Optional[_WBTSetNode[T]] = None
@@ -66,7 +66,7 @@ class WBTSet(Generic[T]):
             bool: ``key`` を追加したら ``True`` 、そうでなければ ``False`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         if not self._root:
             self._root = _WBTSetNode(key)
@@ -98,13 +98,13 @@ class WBTSet(Generic[T]):
         そうでなければ ``None`` を返します。
 
         Args:
-            key (T): _description_
+            key (T):
 
         Returns:
-            Optional[_WBTSetNode[T]]: _description_
+            Optional[_WBTSetNode[T]]:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         node = self._root
         while node:
@@ -117,16 +117,16 @@ class WBTSet(Generic[T]):
         """昇順 ``k`` 番目のノードを返します。
 
         Args:
-            k (int): _description_
+            k (int):
 
         Returns:
-            _WBTSetNode[T]: _description_
+            _WBTSetNode[T]:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
 
         制約:
-            -n <= k < n
+            :math:`-n \\leq k \\le n`
         """
         if k < 0:
             k += len(self)
@@ -148,7 +148,7 @@ class WBTSet(Generic[T]):
             node (_WBTSetNode[T]):
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         if node is self._min:
             self._min = self._min._next()
@@ -185,7 +185,7 @@ class WBTSet(Generic[T]):
             key (T): 削除する ``key`` です。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
 
         Note:
             ``key`` が存在しない場合、 ``AssertionError`` を出します。
@@ -205,7 +205,7 @@ class WBTSet(Generic[T]):
             bool: ``key`` が存在したかどうか
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         node = self.find_key(key)
         if node is None:
@@ -224,7 +224,7 @@ class WBTSet(Generic[T]):
             T: ``k`` 番目の値です。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         node = self.find_order(k)
         key = node._key
@@ -232,16 +232,10 @@ class WBTSet(Generic[T]):
         return key
 
     def le_iter(self, key: T) -> Optional[_WBTSetNode[T]]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[_WBTSetNode[T]]: _description_
+        """``key`` 以下で最大のノードを返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         res = None
         node = self._root
@@ -257,16 +251,10 @@ class WBTSet(Generic[T]):
         return res
 
     def lt_iter(self, key: T) -> Optional[_WBTSetNode[T]]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[_WBTSetNode[T]]: _description_
+        """``key`` より小さい値で最大のノードを返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         res = None
         node = self._root
@@ -279,16 +267,10 @@ class WBTSet(Generic[T]):
         return res
 
     def ge_iter(self, key: T) -> Optional[_WBTSetNode[T]]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[_WBTSetNode[T]]: _description_
+        """``key`` 以上で最小のノードを返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         res = None
         node = self._root
@@ -304,16 +286,10 @@ class WBTSet(Generic[T]):
         return res
 
     def gt_iter(self, key: T) -> Optional[_WBTSetNode[T]]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[_WBTSetNode[T]]: _description_
+        """``key`` より大きい値で最小のノードを返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         res = None
         node = self._root
@@ -326,16 +302,10 @@ class WBTSet(Generic[T]):
         return res
 
     def le(self, key: T) -> Optional[T]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[T]: _description_
+        """``key`` 以下で最大の要素を返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         res = None
         node = self._root
@@ -351,18 +321,11 @@ class WBTSet(Generic[T]):
         return res
 
     def lt(self, key: T) -> Optional[T]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[T]: _description_
+        """``key`` より小さい値で最大の要素を返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
-        res = None
         node = self._root
         while node:
             if key <= node._key:
@@ -373,16 +336,10 @@ class WBTSet(Generic[T]):
         return res
 
     def ge(self, key: T) -> Optional[T]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[T]: _description_
+        """``key`` 以上で最小の要素を返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         res = None
         node = self._root
@@ -398,16 +355,10 @@ class WBTSet(Generic[T]):
         return res
 
     def gt(self, key: T) -> Optional[T]:
-        """_summary_
-
-        Args:
-            key (T): _description_
-
-        Returns:
-            Optional[T]: _description_
+        """``key`` より大きい値で最小の要素を返します。存在しないときは ``None`` を返します。
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         res = None
         node = self._root
@@ -420,16 +371,16 @@ class WBTSet(Generic[T]):
         return res
 
     def index(self, key: T) -> int:
-        """``_summary_``
+        """``key`` より小さい値を個数を返します。
 
         Args:
-            key (T): _description_
+            key (T):
 
         Returns:
-            int: _description_
+            int:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         k = 0
         node = self._root
@@ -445,16 +396,16 @@ class WBTSet(Generic[T]):
         return k
 
     def index_right(self, key: T) -> int:
-        """_summary_
+        """``key`` 以下の値を個数を返します。
 
         Args:
-            key (T): _description_
+            key (T):
 
         Returns:
-            int: _description_
+            int:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         k = 0
         node = self._root
@@ -469,52 +420,47 @@ class WBTSet(Generic[T]):
                 node = node._right
         return k
 
-    def tolist(self) -> list[T]:
-        """_summary_
-
-        Returns:
-            list[T]: _description_
-
-        計算量:
-            ::math::`O(n)`
-
-        Note:
-            ``n`` 回インデックスアクセスするよりも高速です。
-        """
-        return list(self)
-
     def get_min(self) -> T:
-        """_summary_
+        """最小の要素を返します。
 
         Returns:
-            T: _description_
+            T:
 
         計算量:
-            ::math::`O(1)`
+            :math:`O(1)`
+
+        制約:
+            :math:`0 < n`
         """
         assert self._min
         return self._min._key
 
     def get_max(self) -> T:
-        """_summary_
+        """最大の要素を返します。
 
         Returns:
-            T: _description_
+            T:
 
         計算量:
-            ::math::`O(1)`
+            :math:`O(1)`
+
+        制約:
+            :math:`0 < n`
         """
         assert self._max
         return self._max._key
 
     def pop_min(self) -> T:
-        """_summary_
+        """最小の要素を削除して返します。
 
         Returns:
-            T: _description_
+            T:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
+
+        制約:
+            :math:`0 < n`
         """
         assert self._min
         key = self._min._key
@@ -522,13 +468,16 @@ class WBTSet(Generic[T]):
         return key
 
     def pop_max(self) -> T:
-        """_summary_
+        """最大の要素を削除して返します。
 
         Returns:
-            T: _description_
+            T:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
+
+        制約:
+            :math:`0 < n`
         """
         assert self._max
         key = self._max._key
@@ -536,6 +485,9 @@ class WBTSet(Generic[T]):
         return key
 
     def _check(self) -> None:
+        """作業用デバック関数
+        size,key,balanceをチェックして、正しければ高さを表示する
+        """
         if self._root is None:
             # print("ok. 0 (empty)")
             return
@@ -562,30 +514,31 @@ class WBTSet(Generic[T]):
         # print(f"ok. {h}")
 
     def __contains__(self, key: T) -> bool:
-        """_summary_
+        """``key`` が存在すれば ``True`` 、そうでなければ ``False`` を返します。
 
         Args:
-            key (T): _description_
+            key (T):
 
         Returns:
-            bool: _description_
+            bool:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(\\log{n})`
         """
         return self.find_key(key) is not None
 
     def __getitem__(self, k: int) -> T:
-        """_summary_
+        """昇順 ``k`` 番目の値を返します。
 
         Args:
-            k (int): _description_
+            k (int):
 
         Returns:
-            T: _description_
+            T:
 
         計算量:
-            ::math::`O(\\log{n})`
+            k = 0 または k = n-1 の場合: :math:`O(1)`
+            そうでない場合: :math:`O(\\log{n})`
         """
         assert (
             -len(self) <= k < len(self)
@@ -599,35 +552,27 @@ class WBTSet(Generic[T]):
         return self.find_order(k)._key
 
     # def __delitem__(self, k: int) -> None:
-    #     """_summary_
-
-    #     Args:
-    #         k (int): _description_
-
-    #     計算量:
-    #         ::math::`O(\\log{n})`
-    #     """
     #     self.remove_iter(self.find_order(k))
 
     def __len__(self) -> int:
-        """_summary_
+        """要素数を返します。
 
         Returns:
-            int: _description_
+            int:
 
         計算量:
-            ::math::`O(\\log{n})`
+            :math:`O(1)`
         """
         return self._root._size if self._root else 0
 
     def __iter__(self) -> Iterator[T]:
-        """_summary_
+        """昇順に値を返します。
 
         Yields:
-            Iterator[T]: _description_
+            Iterator[T]:
 
         計算量:
-            ::math::`O(\\log{n})`
+            全体で :math:`O(n)`
         """
         stack: list[_WBTSetNode[T]] = []
         node = self._root
@@ -641,13 +586,13 @@ class WBTSet(Generic[T]):
                 node = node._right
 
     def __reversed__(self) -> Iterator[T]:
-        """_summary_
+        """降順に値を返します。
 
         Yields:
-            Iterator[T]: _description_
+            Iterator[T]:
 
         計算量:
-            ::math::`O(\\log{n})`
+            全体で :math:`O(n)`
         """
         stack: list[_WBTSetNode[T]] = []
         node = self._root
