@@ -1,165 +1,7 @@
-from typing import Generic, TypeVar, Optional, Iterable, Iterator, Final
+from typing import Generic, TypeVar, Optional, Final
+from 
 
 T = TypeVar("T")
-
-
-class _WBTNodeBase(Generic[T]):
-
-    __slots__ = "_size", "_par", "_left", "_right"
-    DELTA: Final[int] = 3
-    GAMMA: Final[int] = 2
-
-    def __init__(self) -> None:
-        self._size: int = 1
-        self._par: Optional[_WBTNodeBase[T]] = None
-        self._left: Optional[_WBTNodeBase[T]] = None
-        self._right: Optional[_WBTNodeBase[T]] = None
-
-    def _rebalance(self) -> "_WBTNodeBase[T]":
-        node = self
-        while True:
-            node._update()
-            wl, wr = node._weight_left(), node._weight_right()
-            if wl * _WBTNodeBase.DELTA < wr:
-                if (
-                    node._right._weight_left()
-                    >= node._right._weight_right() * _WBTNodeBase.GAMMA
-                ):
-                    node._right = node._right._rotate_right()
-                node = node._rotate_left()
-            elif wr * _WBTNodeBase.DELTA < wl:
-                if (
-                    node._left._weight_right()
-                    >= node._left._weight_left() * _WBTNodeBase.GAMMA
-                ):
-                    node._left = node._left._rotate_left()
-                node = node._rotate_right()
-            if not node._par:
-                return node
-            node = node._par
-
-    def _copy_from(self, other: "_WBTNodeBase[T]") -> None:
-        self._size = other._size
-        if other._left:
-            other._left._par = self
-        if other._right:
-            other._right._par = self
-        if other._par:
-            if other._par._left is other:
-                other._par._left = self
-            else:
-                other._par._right = self
-        self._par = other._par
-        self._left = other._left
-        self._right = other._right
-
-    def _weight_left(self) -> int:
-        return self._left._size + 1 if self._left else 1
-
-    def _weight_right(self) -> int:
-        return self._right._size + 1 if self._right else 1
-
-    def _update(self) -> None:
-        self._size = (
-            1
-            + (self._left._size if self._left else 0)
-            + (self._right._size if self._right else 0)
-        )
-
-    def _rotate_right(self) -> "_WBTNodeBase[T]":
-        u = self._left
-        u._size = self._size
-        self._size -= u._left._size + 1 if u._left else 1
-        u._par = self._par
-        self._left = u._right
-        if u._right:
-            u._right._par = self
-        u._right = self
-        self._par = u
-        if u._par:
-            if u._par._left is self:
-                u._par._left = u
-            else:
-                u._par._right = u
-        return u
-
-    def _rotate_left(self) -> "_WBTNodeBase[T]":
-        u = self._right
-        u._size = self._size
-        self._size -= u._right._size + 1 if u._right else 1
-        u._par = self._par
-        self._right = u._left
-        if u._left:
-            u._left._par = self
-        u._left = self
-        self._par = u
-        if u._par:
-            if u._par._left is self:
-                u._par._left = u
-            else:
-                u._par._right = u
-        return u
-
-    def _balance_check(self) -> None:
-        if not self._weight_left() * _WBTNodeBase.DELTA >= self._weight_right():
-            print(self._weight_left(), self._weight_right(), flush=True)
-            print(self)
-            assert False, f"self._weight_left() * DELTA >= self._weight_right()"
-        if not self._weight_right() * _WBTNodeBase.DELTA >= self._weight_left():
-            print(self._weight_left(), self._weight_right(), flush=True)
-            print(self)
-            assert False, f"self._weight_right() * DELTA >= self._weight_left()"
-
-    def _min(self) -> "_WBTNodeBase[T]":
-        node = self
-        while node._left:
-            node = node._left
-        return node
-
-    def _max(self) -> "_WBTNodeBase[T]":
-        node = self
-        while node._right:
-            node = node._right
-        return node
-
-    def _next(self) -> Optional["_WBTNodeBase[T]"]:
-        if self._right:
-            return self._right._min()
-        now, pre = self, None
-        while now and now._right is pre:
-            now, pre = now._par, now
-        return now
-
-    def _prev(self) -> Optional["_WBTNodeBase[T]"]:
-        if self._left:
-            return self._left._max()
-        now, pre = self, None
-        while now and now._left is pre:
-            now, pre = now._par, now
-        return now
-
-    def __add__(self, other: int) -> Optional["_WBTNodeBase[T]"]:
-        node = self
-        for _ in range(other):
-            node = node._next()
-        return node
-
-    def __sub__(self, other: int) -> Optional["_WBTNodeBase[T]"]:
-        node = self
-        for _ in range(other):
-            node = node._prev()
-        return node
-
-    __iadd__ = __add__
-    __isub__ = __sub__
-
-    def __str__(self) -> str:
-        # if self._left is None and self._right is None:
-        #   return f"key:{self._key, self._size}\n"
-        # return f"key:{self._key, self._size},\n _left:{self._left},\n _right:{self._right}\n"
-        return str(self._key)
-
-    __repr__ = __str__
 
 
 class _WBTSetNode(_WBTNodeBase[T]):
@@ -177,10 +19,6 @@ class _WBTSetNode(_WBTNodeBase[T]):
     @property
     def key(self) -> T:
         return self._key
-
-    def _copy_from(self, other: "_WBTSetNode[T]") -> None:
-        super()._copy_from(other)
-        self._key = other._key
 
 
 class _WBTMultisetNode(_WBTNodeBase[T]):
@@ -212,12 +50,6 @@ class _WBTMultisetNode(_WBTNodeBase[T]):
             + (self._left._count_size if self._left else 0)
             + (self._right._count_size if self._right else 0)
         )
-
-    def _copy_from(self, other: "_WBTMultisetNode[T]") -> None:
-        super()._copy_from(other)
-        self._key = other._key
-        self._count = other._count
-        self._count_size = other._count_size
 
     def _rotate_right(self) -> "_WBTMultisetNode[T]":
         u = self._left
@@ -256,6 +88,11 @@ class _WBTMultisetNode(_WBTNodeBase[T]):
             else:
                 u._par._right = u
         return u
+
+    def _copy_from(self, other: "_WBTSetNode[T]") -> None:
+        super()._copy_from(other)
+        self._count = other._count
+        self._count_size = other._count_size
 
 
 class WBTSet(Generic[T]):
@@ -306,18 +143,18 @@ class WBTSet(Generic[T]):
         pnode = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 return False
             pnode = node
-            node = node._left if key < node.key else node._right
-        if key < pnode.key:
+            node = node._left if key < node._key else node._right
+        if key < pnode._key:
             pnode._left = _WBTSetNode(key)
-            if key < self._min.key:
+            if key < self._min._key:
                 self._min = pnode._left
             pnode._left._par = pnode
         else:
             pnode._right = _WBTSetNode(key)
-            if key > self._max.key:
+            if key > self._max._key:
                 self._max = pnode._right
             pnode._right._par = pnode
         self._root = pnode._rebalance()
@@ -326,9 +163,9 @@ class WBTSet(Generic[T]):
     def find_key(self, key: T) -> Optional[_WBTSetNode[T]]:
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 return node
-            node = node._left if key < node.key else node._right
+            node = node._left if key < node._key else node._right
         return None
 
     def find_order(self, k: int) -> _WBTSetNode[T]:
@@ -354,13 +191,12 @@ class WBTSet(Generic[T]):
             pnode, mnode = node, node._left
             while mnode._right:
                 pnode, mnode = mnode, mnode._right
-            node._key = mnode.key
             node = mnode
         cnode = node._right if not node._left else node._left
         if cnode:
             cnode._par = pnode
         if pnode:
-            if node.key <= pnode.key:
+            if pnode._left is node:
                 pnode._left = cnode
             else:
                 pnode._right = cnode
@@ -386,7 +222,7 @@ class WBTSet(Generic[T]):
 
     def pop(self, k: int = -1) -> T:
         node = self.find_order(k)
-        key = node.key
+        key = node._key
         self.remove_iter(node)
         return key
 
@@ -394,10 +230,10 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = node
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
                 res = node
@@ -408,7 +244,7 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key <= node.key:
+            if key <= node._key:
                 node = node._left
             else:
                 res = node
@@ -419,10 +255,10 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = node
                 break
-            if key < node.key:
+            if key < node._key:
                 res = node
                 node = node._left
             else:
@@ -433,7 +269,7 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key < node.key:
+            if key < node._key:
                 res = node
                 node = node._left
             else:
@@ -444,13 +280,13 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = key
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
-                res = node.key
+                res = node._key
                 node = node._right
         return res
 
@@ -458,10 +294,10 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key <= node.key:
+            if key <= node._key:
                 node = node._left
             else:
-                res = node.key
+                res = node._key
                 node = node._right
         return res
 
@@ -469,11 +305,11 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = key
                 break
-            if key < node.key:
-                res = node.key
+            if key < node._key:
+                res = node._key
                 node = node._left
             else:
                 node = node._right
@@ -483,8 +319,8 @@ class WBTSet(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key < node.key:
-                res = node.key
+            if key < node._key:
+                res = node._key
                 node = node._left
             else:
                 node = node._right
@@ -494,10 +330,10 @@ class WBTSet(Generic[T]):
         k = 0
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 k += node._left._size if node._left else 0
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
                 k += node._left._size + 1 if node._left else 1
@@ -508,10 +344,10 @@ class WBTSet(Generic[T]):
         k = 0
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 k += node._left._size + 1 if node._left else 1
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
                 k += node._left._size + 1 if node._left else 1
@@ -523,21 +359,21 @@ class WBTSet(Generic[T]):
 
     def get_min(self) -> T:
         assert self._min
-        return self._min.key
+        return self._min._key
 
     def get_max(self) -> T:
         assert self._max
-        return self._max.key
+        return self._max._key
 
     def pop_min(self) -> T:
         assert self._min
-        key = self._min.key
+        key = self._min._key
         self.remove_iter(self._min)
         return key
 
     def pop_max(self) -> T:
         assert self._max
-        key = self._max.key
+        key = self._max._key
         self.remove_iter(self._max)
         return key
 
@@ -551,12 +387,12 @@ class WBTSet(Generic[T]):
             h = 0
             s = 1
             if node._left:
-                assert node.key > node._left.key
+                assert node._key > node._left._key
                 ls, lh = dfs(node._left)
                 s += ls
                 h = max(h, lh)
             if node._right:
-                assert node.key < node._right.key
+                assert node._key < node._right._key
                 rs, rh = dfs(node._right)
                 s += rs
                 h = max(h, rh)
@@ -580,7 +416,7 @@ class WBTSet(Generic[T]):
             return self.get_min()
         if k == len(self) - 1:
             return self.get_max()
-        return self.find_order(k).key
+        return self.find_order(k)._key
 
     def __delitem__(self, k: int) -> None:
         self.remove_iter(self.find_order(k))
@@ -597,7 +433,7 @@ class WBTSet(Generic[T]):
                 node = node._left
             else:
                 node = stack.pop()
-                yield node.key
+                yield node._key
                 node = node._right
 
     def __reversed__(self) -> Iterator[T]:
@@ -609,7 +445,7 @@ class WBTSet(Generic[T]):
                 node = node._right
             else:
                 node = stack.pop()
-                yield node.key
+                yield node._key
                 node = node._left
 
     def __str__(self) -> str:
@@ -677,19 +513,19 @@ class WBTMultiset(Generic[T]):
         node = self._root
         while node:
             node._count_size += count
-            if key == node.key:
+            if key == node._key:
                 node._count += count
                 return
             pnode = node
-            node = node._left if key < node.key else node._right
-        if key < pnode.key:
+            node = node._left if key < node._key else node._right
+        if key < pnode._key:
             pnode._left = _WBTMultisetNode(key, count)
-            if key < self._min.key:
+            if key < self._min._key:
                 self._min = pnode._left
             pnode._left._par = pnode
         else:
             pnode._right = _WBTMultisetNode(key, count)
-            if key > self._max.key:
+            if key > self._max._key:
                 self._max = pnode._right
             pnode._right._par = pnode
         self._root = pnode._rebalance()
@@ -697,9 +533,9 @@ class WBTMultiset(Generic[T]):
     def find_key(self, key: T) -> Optional[_WBTMultisetNode[T]]:
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 return node
-            node = node._left if key < node.key else node._right
+            node = node._left if key < node._key else node._right
         return None
 
     def find_order(self, k: int) -> _WBTMultisetNode[T]:
@@ -725,14 +561,13 @@ class WBTMultiset(Generic[T]):
             pnode, mnode = node, node._left
             while mnode._right:
                 pnode, mnode = mnode, mnode._right
-            node._key = mnode.key
             node._count = mnode._count
             node = mnode
         cnode = node._right if not node._left else node._left
         if cnode:
             cnode._par = pnode
         if pnode:
-            if node.key <= pnode.key:
+            if pnode._left is node:
                 pnode._left = cnode
             else:
                 pnode._right = cnode
@@ -766,7 +601,7 @@ class WBTMultiset(Generic[T]):
 
     def pop(self, k: int = -1) -> T:
         node = self.find_order(k)
-        key = node.key
+        key = node._key
         node._count -= 1
         if node._count == 0:
             self.remove_iter(node)
@@ -776,10 +611,10 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = node
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
                 res = node
@@ -790,7 +625,7 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key <= node.key:
+            if key <= node._key:
                 node = node._left
             else:
                 res = node
@@ -801,10 +636,10 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = node
                 break
-            if key < node.key:
+            if key < node._key:
                 res = node
                 node = node._left
             else:
@@ -815,7 +650,7 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key < node.key:
+            if key < node._key:
                 res = node
                 node = node._left
             else:
@@ -826,13 +661,13 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = key
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
-                res = node.key
+                res = node._key
                 node = node._right
         return res
 
@@ -840,10 +675,10 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key <= node.key:
+            if key <= node._key:
                 node = node._left
             else:
-                res = node.key
+                res = node._key
                 node = node._right
         return res
 
@@ -851,11 +686,11 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 res = key
                 break
-            if key < node.key:
-                res = node.key
+            if key < node._key:
+                res = node._key
                 node = node._left
             else:
                 node = node._right
@@ -865,8 +700,8 @@ class WBTMultiset(Generic[T]):
         res = None
         node = self._root
         while node:
-            if key < node.key:
-                res = node.key
+            if key < node._key:
+                res = node._key
                 node = node._left
             else:
                 node = node._right
@@ -876,10 +711,10 @@ class WBTMultiset(Generic[T]):
         k = 0
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 k += node._left._count_size if node._left else 0
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
                 k += node._left._count_size + node._count if node._left else node._count
@@ -890,10 +725,10 @@ class WBTMultiset(Generic[T]):
         k = 0
         node = self._root
         while node:
-            if key == node.key:
+            if key == node._key:
                 k += node._left._count_size + node._count if node._left else node._count
                 break
-            if key < node.key:
+            if key < node._key:
                 node = node._left
             else:
                 k += node._left._count_size + node._count if node._left else node._count
@@ -905,15 +740,15 @@ class WBTMultiset(Generic[T]):
 
     def get_min(self) -> T:
         assert self._min
-        return self._min.key
+        return self._min._key
 
     def get_max(self) -> T:
         assert self._max
-        return self._max.key
+        return self._max._key
 
     def pop_min(self) -> T:
         assert self._min
-        key = self._min.key
+        key = self._min._key
         self._min._count -= 1
         if self._min._count == 0:
             self.remove_iter(self._min)
@@ -921,7 +756,7 @@ class WBTMultiset(Generic[T]):
 
     def pop_max(self) -> T:
         assert self._max
-        key = self._max.key
+        key = self._max._key
         self._max._count -= 1
         if self._max._count == 0:
             self.remove_iter(self._max)
@@ -938,13 +773,13 @@ class WBTMultiset(Generic[T]):
             s = 1
             cs = node.count
             if node._left:
-                assert node.key > node._left.key
+                assert node._key > node._left._key
                 ls, lcs, lh = dfs(node._left)
                 s += ls
                 cs += lcs
                 h = max(h, lh)
             if node._right:
-                assert node.key < node._right.key
+                assert node._key < node._right._key
                 rs, rcs, rh = dfs(node._right)
                 s += rs
                 cs += rcs
@@ -970,7 +805,7 @@ class WBTMultiset(Generic[T]):
             return self.get_min()
         if k == len(self) - 1:
             return self.get_max()
-        return self.find_order(k).key
+        return self.find_order(k)._key
 
     def __delitem__(self, k: int) -> None:
         node = self.find_order(k)
@@ -991,7 +826,7 @@ class WBTMultiset(Generic[T]):
             else:
                 node = stack.pop()
                 for _ in range(node._count):
-                    yield node.key
+                    yield node._key
                 node = node._right
 
     def __reversed__(self) -> Iterator[T]:
@@ -1004,7 +839,7 @@ class WBTMultiset(Generic[T]):
             else:
                 node = stack.pop()
                 for _ in range(node._count):
-                    yield node.key
+                    yield node._key
                 node = node._left
 
     def __str__(self) -> str:
@@ -1315,13 +1150,14 @@ def pred():
             tree.discard(k)
             # tree.check()
         elif c == 2:
-            print(1 if k in tree else 0)
+            write(1 if k in tree else 0)
         elif c == 3:
             ans = tree.ge(k)
-            print(-1 if ans is None else ans)
+            write(-1 if ans is None else ans)
         else:
             ans = tree.le(k)
-            print(-1 if ans is None else ans)
+            write(-1 if ans is None else ans)
+    flush()
 
 
 def permutation():
@@ -1383,6 +1219,7 @@ def call():
 
 
 def cutting():
+    input = lambda: sys.stdin.buffer.readline().rstrip()
     l, q = map(int, input().split())
     tree = WBTSet([0, l])
     for _ in range(q):
@@ -1390,7 +1227,9 @@ def cutting():
         if c == 1:
             tree.add(x)
         else:
-            print(tree.gt(x) - tree.lt(x))
+            it = tree.lt_iter(x)
+            write((it + 1).key - it.key)
+    flush()
 
 
 def ranking():
@@ -1466,22 +1305,68 @@ def jealous():
 def sequence_query():
     input = lambda: sys.stdin.buffer.readline().rstrip()
 
+    # q = int(input())
+    # tree = WBTMultiset()
+
+    # for _ in range(q):
+    #     com, *qu = tuple(map(int, input().split()))
+    #     if com == 1:
+    #         x = qu[0]
+    #         tree.add(x)
+    #     elif com == 2:
+    #         x, k = qu
+    #         indx = tree.index_right(x)
+    #         write(tree[indx - k] if indx - k >= 0 else -1)
+    #     else:
+    #         x, k = qu
+    #         indx = tree.index(x)
+    #         write(tree[indx + k - 1] if indx + k - 1 < len(tree) else -1)
+    # flush()
+
     q = int(input())
     tree = WBTMultiset()
 
+    def q2(x, k):
+        it = tree.le_iter(x)
+        if it is None:
+            write(-1)
+            return
+        while k > 0:
+            if it.count >= k:
+                write(it.key)
+                return
+            k -= it.count
+            it -= 1
+            if it is None:
+                write(-1)
+                return
+
+    def q3(x, k):
+        it = tree.ge_iter(x)
+        if it is None:
+            write(-1)
+            return
+        while k > 0:
+            if it.count >= k:
+                write(it.key)
+                return
+            k -= it.count
+            it += 1
+            if it is None:
+                write(-1)
+                return
+
     for _ in range(q):
-        com, *qu = tuple(map(int, input().split()))
-        if com == 1:
-            x = qu[0]
+        qu = list(map(int, input().split()))
+        if qu[0] == 1:
+            x = qu[1]
             tree.add(x)
-        elif com == 2:
-            x, k = qu
-            indx = tree.index_right(x)
-            write(tree[indx - k] if indx - k >= 0 else -1)
+        elif qu[0] == 2:
+            x, k = qu[1:]
+            q2(x, k)
         else:
-            x, k = qu
-            indx = tree.index(x)
-            write(tree[indx + k - 1] if indx + k - 1 < len(tree) else -1)
+            x, k = qu[1:]
+            q3(x, k)
     flush()
 
 
@@ -1618,7 +1503,7 @@ start = process_time()
 
 # data()
 # pred()
-# permutation()
+permutation()
 # prefix()
 # call()
 # cutting()
@@ -1629,9 +1514,9 @@ start = process_time()
 # sequence_query()
 # jump_dist()
 # min_max()
-chocolate()
+# chocolate()
 
 # main()
 
 du = process_time() - start
-print(f"{du:.3f} sec", file=sys.stderr)
+print(f"\n{du:.3f} sec", file=sys.stderr)

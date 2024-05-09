@@ -29,8 +29,8 @@ def isbug():
 
 
 def P():
-    n = 2 * 10**5
-    k = 10**5
+    n = 10 * 10**5
+    k = n // 2
     P = list(range(1, n + 1))
     random.shuffle(P)
     print(n, k)
@@ -52,5 +52,5 @@ def sequence_query():
             print(com, x, k)
 
 
-# P()
-sequence_query()
+P()
+# sequence_query()
