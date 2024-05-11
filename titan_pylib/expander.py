@@ -1,19 +1,30 @@
 # user settings --------------------------------------------------
-# LIB_PATH = "/mnt/c/Users/titan/source/Library_py"
-LIB_PATH = "C:\\Users\\titan\\source\\Library_py\\"
+# "titan_pylib" がある絶対パス
+LIB_PATH = (
+    "/mnt/c/Users/titan/source/Library_py/",
+    "C:\\Users\\titan\\source\\Library_py\\",
+)
 #  ----------------------------------------------------------------
 
 from logging import getLogger, basicConfig
 import sys
+import shutil
 import pyperclip
 import ast
 import re
 import black
-from os import getenv
+import os
 
 LIB = "titan_pylib"
 
 logger = getLogger(__name__)
+
+
+def init_clipboard():
+    for command in ["wl-clipboard", "xclip", "xsel"]:
+        if shutil.which(command):
+            pyperclip.set_clipboard(command)
+            break
 
 
 class Expander:
@@ -41,7 +52,13 @@ class Expander:
     def _get_path(self, path: str, is_titan_pylib: bool) -> str:
         """pathをスラッシュ表記にする"""
         if is_titan_pylib:
-            path = LIB_PATH + path.replace(".", "/") + ".py"
+            for lib_path in LIB_PATH:
+                new_path = lib_path + path.replace(".", "/") + ".py"
+                if os.path.exists(new_path):
+                    path = new_path
+                    break
+            else:
+                logger.critical(f'File "{path}" not found.')
         return path
 
     def _find_imported_modules(self, path: str, is_titan_pylib: bool) -> None:
@@ -59,6 +76,7 @@ class Expander:
             for alias in node.names:
                 if alias.name not in self.added_modules:
                     self.need_modules.add(alias.name)
+                    logger.info(f"[SEARCH] {path} {alias.name}")
 
     def _find_classes(self, path: str, is_titan_pylib: bool) -> None:
         """classで始まるモジュールを列挙し、added_modulesに格納する
@@ -69,7 +87,7 @@ class Expander:
         for node in ast.walk(tree):
             if isinstance(node, ast.ClassDef):
                 self.added_modules.add(node.name)
-                logger.info(f"{path} {node.name}")
+                logger.info(f"[FIND] {path} {node.name}")
 
     def _find_defs(self, path: str, is_titan_pylib: bool) -> None:
         """defで始まる関数を列挙し、added_modulesに格納する
@@ -84,7 +102,7 @@ class Expander:
                 matches = re.search(pattern, line)
                 if matches:
                     defs = matches.group(1)
-                    logger.info(f"{path} {defs}")
+                    logger.info(f"[FIND] {path} {defs}")
                     self.added_modules.add(defs)
                 else:
                     logger.critical(
@@ -163,10 +181,11 @@ class Expander:
 
 if __name__ == "__main__":
     basicConfig(
-        format="%(asctime)s [%(levelname)s] %(message)s",
+        format="%(asctime)s [%(levelname)s] : %(message)s",
         datefmt="%H:%M:%S",
-        level=getenv("LOG_LEVEL", "INFO"),
+        level=os.getenv("LOG_LEVEL", "INFO"),
     )
+    init_clipboard()
     input_path = sys.argv[1]
     output_filepath = sys.argv[2] if len(sys.argv) == 3 else "clip"
     expander = Expander(input_path)
