@@ -1,5 +1,5 @@
 # user settings --------------------------------------------------
-# "titan_pylib" がある絶対パス
+# `./titan_pylib` がある絶対パス
 LIB_PATH = (
     "/mnt/c/Users/titan/source/Library_py/",
     "C:\\Users\\titan\\source\\Library_py\\",
@@ -7,10 +7,10 @@ LIB_PATH = (
 #  ----------------------------------------------------------------
 
 from logging import getLogger, basicConfig
-import sys
 import shutil
 import pyperclip
 import ast
+import argparse
 import re
 import black
 import os
@@ -30,18 +30,24 @@ def init_clipboard():
 class Expander:
     """titan_pylib の expander"""
 
-    def __init__(self, input_path: str) -> None:
-        self.input_path = input_path
-        self.seen_path = set()
-        self.added_modules = set()
-        self.need_modules = set()
+    def __init__(self, input_path: str, formatter: bool = False) -> None:
+        """
+        Args:
+            input_path (str): 入力ファイルのパス
+            formatter (bool, optional): フォーマッタをかけるかどうか
+        """
+        self.input_path: str = input_path
+        self.formatter: bool = formatter
+        self.seen_path: set[str] = set()
+        self.added_modules: set[str] = set()
+        self.need_modules: set[str] = set()
         self.outputs: list[str] = []
 
     def _finalize(self) -> str:
-        """self.outputsの最終処理をしたコードを返す
-        - black-formatをかける
-        """
-        code = black.format_str("".join(self.outputs), mode=black.FileMode())
+        """self.outputsの最終処理をしたコードを返す"""
+        code = "".join(self.outputs)
+        if self.formatter:
+            code = black.format_str(code, mode=black.FileMode())
         try:
             ast.parse(code)
         except SyntaxError as e:
@@ -87,7 +93,7 @@ class Expander:
         for node in ast.walk(tree):
             if isinstance(node, ast.ClassDef):
                 self.added_modules.add(node.name)
-                logger.info(f"[FIND] {path} {node.name}")
+                logger.info(f"[ FIND ] {path} {node.name}")
 
     def _find_defs(self, path: str, is_titan_pylib: bool) -> None:
         """defで始まる関数を列挙し、added_modulesに格納する
@@ -102,7 +108,7 @@ class Expander:
                 matches = re.search(pattern, line)
                 if matches:
                     defs = matches.group(1)
-                    logger.info(f"[FIND] {path} {defs}")
+                    logger.info(f"[ FIND ] {path} {defs}()")
                     self.added_modules.add(defs)
                 else:
                     logger.critical(
@@ -186,7 +192,26 @@ if __name__ == "__main__":
         level=os.getenv("LOG_LEVEL", "INFO"),
     )
     init_clipboard()
-    input_path = sys.argv[1]
-    output_filepath = sys.argv[2] if len(sys.argv) == 3 else "clip"
-    expander = Expander(input_path)
-    expander.expand(output_filepath)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "input_path",
+    )
+    parser.add_argument(
+        "-o",
+        "--output_path",
+        default="clip",
+        action="store",
+    )
+    parser.add_argument(
+        "-f",
+        "--formatter",
+        required=False,
+        action="store_true",
+        default=False,
+        help="do format. default is `False`.",
+    )
+    args = parser.parse_args()
+
+    expander = Expander(args.input_path, args.formatter)
+    expander.expand(args.output_path)
