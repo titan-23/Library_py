@@ -1,51 +1,52 @@
 import os
 import re
 
-_pre = ''
+_pre = ""
+
 
 def func(cur_dir: str, file: str) -> None:
-  global _pre
-  s = f'{cur_dir}{file}'
-  print(' '*len(_pre) + '\r', end='')
-  _pre = ' '*2 + s + '\r'
-  print(_pre, end='')
-  try:
-    f = open(s, 'r', encoding='utf=8')
-  except FileNotFoundError as e:
-    print('\nError:', e)
-    return
-  lines = f.read().split('\n')
-  f.close()
+    global _pre
+    s = f"{cur_dir}{file}"
+    print(" " * len(_pre) + "\r", end="")
+    _pre = " " * 2 + s + "\r"
+    print(_pre, end="")
+    try:
+        f = open(s, "r", encoding="utf=8")
+    except FileNotFoundError as e:
+        print("\nError:", e)
+        return
+    lines = f.read().split("\n")
+    f.close()
 
-  if lines and lines[0].endswith('module'):
-    expanded_file = file[len('titan_pylib.'):-len('.rst')].replace('.', '/')
+    if lines and lines[0].endswith("module"):
+        expanded_file = file[len("titan_pylib.") : -len(".rst")].replace(".", "/")
 
-    url = file.replace('.', '/')[:-len('/rst')] + '.py'
-    frm_name = file[:-len('/rst')]
+        url = file.replace(".", "/")[: -len("/rst")] + ".py"
+        frm_name = file[: -len("/rst")]
 
-    class_name = []
-    with open(url, 'r', encoding='utf-8') as f:
-      for line in f:
-        match = re.search(r'class\s+(\w+)', line)
-        if line.startswith('class ') and match:
-          class_name.append(match.group(1))
+        class_name = []
+        with open(url, "r", encoding="utf-8") as f:
+            for line in f:
+                match = re.search(r"class\s+(\w+)", line)
+                if line.startswith("class ") and match:
+                    class_name.append(match.group(1))
 
-    if not class_name:
-      with open(url, 'r', encoding='utf-8') as f:
-        for line in f:
-          match = re.search(r'def\s+(\w+)', line)
-          if line.startswith('def ') and match:
-            class_name.append(match.group(1))
+        if not class_name:
+            with open(url, "r", encoding="utf-8") as f:
+                for line in f:
+                    match = re.search(r"def\s+(\w+)", line)
+                    if line.startswith("def ") and match:
+                        class_name.append(match.group(1))
 
-    codes = '''
+        codes = """
 .. code-block:: python
-'''
-    for name in class_name:
-      imp_str = f'''
-  from {frm_name} import {name}'''
-      codes += imp_str
+"""
+        for name in class_name:
+            imp_str = f"""
+  from {frm_name} import {name}"""
+            codes += imp_str
 
-    new_paragraph = f'''
+        new_paragraph = f'''
 ソースコード
 ^^^^^^^^^^^^
 {codes}
@@ -61,37 +62,38 @@ def func(cur_dir: str, file: str) -> None:
 
 仕様
 ^^^^^^^^^^^^^^^^'''
-    lines.insert(3, new_paragraph)
-    for i, line in enumerate(lines):
-      if line.endswith('module'):
-        line = line[:-len('module')]
-      if line.endswith('package'):
-        line = line[:-len('package')]
-      lines[i] = line.rstrip()
-    with open(s, 'w', encoding='utf=8') as f:
-      print(*lines, sep='\n', file=f)
-  elif lines and lines[0].endswith('package'):
-    lines[0] = re.sub(r'package', '', lines[0])
-    for i, line in enumerate(lines):
-      if line == 'Subpackages':
-        lines[i+1] = ''
-      elif line == 'Submodules':
-        lines[i+1] = ''
-      elif line == 'Module contents':
-        line = ''
-        lines[i+1] = ''
-      lines[i] = line.rstrip()
-    with open(s, 'w', encoding='utf=8') as f:
-      print(*lines, sep='\n', file=f)
+        lines.insert(3, new_paragraph)
+        for i, line in enumerate(lines):
+            if line.endswith("module"):
+                line = line[: -len("module")]
+            if line.endswith("package"):
+                line = line[: -len("package")]
+            lines[i] = line.rstrip()
+        with open(s, "w", encoding="utf=8") as f:
+            print(*lines, sep="\n", file=f)
+    elif lines and lines[0].endswith("package"):
+        lines[0] = re.sub(r"package", "", lines[0])
+        for i, line in enumerate(lines):
+            if line == "Subpackages":
+                lines[i + 1] = ""
+            elif line == "Submodules":
+                lines[i + 1] = ""
+            elif line == "Module contents":
+                line = ""
+                lines[i + 1] = ""
+            lines[i] = line.rstrip()
+        with open(s, "w", encoding="utf=8") as f:
+            print(*lines, sep="\n", file=f)
 
-if __name__ == '__main__':
-  print('edit rst.')
 
-  path = "./_docs/titan_pylib_docs/"
-  for cur_dir, dirs, files in os.walk(path):
-    for file in files:
-      if not file.endswith('.rst'):
-        continue
-      func(cur_dir, file)
+if __name__ == "__main__":
+    print("edit rst.")
 
-  print('\nprocess succeeded.')
+    path = "./_docs/titan_pylib_docs/"
+    for cur_dir, dirs, files in os.walk(path):
+        for file in files:
+            if not file.endswith(".rst"):
+                continue
+            func(cur_dir, file)
+
+    print("\nprocess succeeded.")

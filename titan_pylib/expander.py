@@ -1,112 +1,219 @@
 # user settings --------------------------------------------------
-SLASH = '/'
-LIB_PATH = '/mnt/c/Users/titan/source/Library_py'
-# LIB_PATH = 'C:\\Users\\titan\\source\\Library_py'
-TO_LIB_PATH = '.'
+# `./titan_pylib` がある絶対パス
+LIB_PATH = (
+    "/mnt/c/Users/titan/source/Library_py/",
+    "C:\\Users\\titan\\source\\Library_py\\",
+)
 #  ----------------------------------------------------------------
 
-import sys
+from logging import getLogger, basicConfig
+import shutil
 import pyperclip
+import ast
+import argparse
 import re
+import black
+import os
 
-def get_code(now_path, input_file, need_class, is_input=False):
-  global input_lines, output
+LIB = "titan_pylib"
 
-  for line in input_file:
+logger = getLogger(__name__)
 
-    if 'class' in line:
-      match = re.search(r'class\s+(\w+)', line)
-      if match:
-        class_name = match.group(1)
-        if class_name in need_class:
-          print(f'import {class_name} OK.')
-          need_class.remove(class_name)
-    if 'def' in line:
-      for func_name in need_class:
-        if line.startswith(f'def {func_name}'):
-          print(f'import {func_name} OK.(function)')
-          need_class.remove(func_name)
 
-    if is_input:
-      input_lines += 1
-    if line.startswith('from titan_pylib'):
-      _, s, _, *fs = line.split()
-      fs = [x.rstrip(', ') for x in fs]
-      s = s.replace('.', SLASH)
-      s = f'{LIB_PATH}{SLASH}{s}.py'
-      if s not in added_file:
-        output += f'# {line}'
+def init_clipboard():
+    for command in ["wl-clipboard", "xclip", "xsel"]:
+        if shutil.which(command):
+            pyperclip.set_clipboard(command)
+            break
+
+
+class Expander:
+    """titan_pylib の expander"""
+
+    def __init__(self, input_path: str, formatter: bool = False) -> None:
+        """
+        Args:
+            input_path (str): 入力ファイルのパス
+            formatter (bool, optional): フォーマッタをかけるかどうか
+        """
+        self.input_path: str = input_path
+        self.formatter: bool = formatter
+        self.seen_path: set[str] = set()
+        self.added_modules: set[str] = set()
+        self.need_modules: set[str] = set()
+        self.outputs: list[str] = []
+
+    def _finalize(self) -> str:
+        """self.outputsの最終処理をしたコードを返す"""
+        code = "".join(self.outputs)
+        if self.formatter:
+            code = black.format_str(code, mode=black.FileMode())
         try:
-          f = open(s, 'r', encoding='utf-8')
-        except FileNotFoundError:
-          print(s)
-          print(f'File \"{input_filename}\", line {input_lines}')
-          error_line = line.rstrip()
-          error_underline = '^' * len(error_line)
-          print(f'    {error_line}')
-          print(f'    {error_underline}')
-          print('ImportError')
-          exit(1)
-        get_code(s, f, fs)
-        f.close()
-        added_file.add(s)
-    elif line.startswith('from .'):
-      output += f'# {line}'
-      _, s, _, *fs = line.split()
-      fs = [x.rstrip(', ') for x in fs]
-      cnt = 0
-      while s and s[0] == '.':
-        s = s[1:]
-        cnt += 1
-      s = s.replace('.', SLASH)
-      t = now_path
-      for _ in range(cnt):
-        i = len(t)-1
-        while i >= 0 and t[i] != SLASH:
-          i -= 1
-        t = t[:i]
-      s = f'{t}{SLASH}{s}.py'
-      if s not in added_file:
-        try:
-          f = open(s, 'r', encoding='utf-8')
-        except FileNotFoundError:
-          print(s)
-          print('FileNotFoundError')
-          exit(1)
-        get_code(s, f, fs)
-        f.close()
-        added_file.add(s)
-    else:
-      output += line
-      # print(line, end='', file=output_file)
-  if need_class:
-    error_msg = ''
-    for e in need_class:
-      error_msg += f'  {e}\n'
-    error_msg += 'ImportError: class not found.'
-    print(error_msg)
-    exit(1)
+            ast.parse(code)
+        except SyntaxError as e:
+            logger.critical(f"Syntax Error in _finalize()\n{e}")
+            exit(1)
+        return code
 
-if __name__ == '__main__':
+    def _get_path(self, path: str, is_titan_pylib: bool) -> str:
+        """pathをスラッシュ表記にする"""
+        if is_titan_pylib:
+            for lib_path in LIB_PATH:
+                new_path = lib_path + path.replace(".", "/") + ".py"
+                if os.path.exists(new_path):
+                    path = new_path
+                    break
+            else:
+                logger.critical(f'File "{path}" not found.')
+                exit(1)
+        return path
 
-  input_filename = sys.argv[1]
-  output_filename = sys.argv[2] if len(sys.argv) == 3 else 'clip'
-  input_file = open(input_filename, 'r', encoding='utf-8')
+    def _find_imported_modules(self, path: str, is_titan_pylib: bool) -> None:
+        """fromで始まるモジュールを列挙し、need_modulesに格納する
+        (pathファイルの中で必要なモジュールの列挙)
+        """
+        with open(self._get_path(path, is_titan_pylib), "r", encoding="utf-8") as f:
+            tree = ast.parse(f.read())
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.ImportFrom):
+                continue
+            module_name = node.module if node.module else ""
+            if not module_name.startswith(LIB):
+                continue
+            for alias in node.names:
+                if alias.name not in self.added_modules:
+                    self.need_modules.add(alias.name)
+                    logger.info(f"[SEARCH] {path} {alias.name}")
 
-  added_file = set()
-  output = ''
-  input_lines = 0
+    def _find_classes(self, path: str, is_titan_pylib: bool) -> None:
+        """classで始まるモジュールを列挙し、added_modulesに格納する
+        (pathファイルは今見ている)
+        """
+        with open(self._get_path(path, is_titan_pylib), "r", encoding="utf-8") as f:
+            tree = ast.parse(f.read())
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef):
+                self.added_modules.add(node.name)
+                logger.info(f"[ FIND ] {path} {node.name}")
 
-  get_code(TO_LIB_PATH, input_file, [], is_input=True)
+    def _find_defs(self, path: str, is_titan_pylib: bool) -> None:
+        """defで始まる関数を列挙し、added_modulesに格納する
+        (pathファイルは今見ている)
+        """
+        with open(self._get_path(path, is_titan_pylib), "r", encoding="utf-8") as f:
+            linenum: int = 0
+            for line in f:
+                if not line.startswith("def"):
+                    continue
+                pattern = r"def\s+(.*?)\("
+                matches = re.search(pattern, line)
+                if matches:
+                    defs = matches.group(1)
+                    logger.info(f"[ FIND ] {path} {defs}()")
+                    self.added_modules.add(defs)
+                else:
+                    logger.critical(
+                        f"may be SyntaxError?\nfile: {path},\nlinenum: {linenum},\nline: {line}"
+                    )
+                    exit(1)
 
-  if output_filename in ['clip', 'CLIP', 'c', 'C']:
-    output_filename = 'clipboard'
-    pyperclip.copy(output)
-  else:
-    output_file = open(output_filename, 'w', encoding='utf-8')
-    print(output, file=output_file)
-    output_file.close()
+    def _get_code(self, path: str, is_titan_pylib: bool) -> None:
+        """pathファイルを展開してoutputsに格納する"""
 
-  print()
-  print('The process completed successfully.')
-  print(f'Output file: \"{output_filename}\" .')
+        # メモ化
+        if self._get_path(path, is_titan_pylib) in self.seen_path:
+            return
+        self.seen_path.add(self._get_path(path, is_titan_pylib))
+
+        # 今見ているファイルに必要なモジュール検出
+        self._find_imported_modules(path, is_titan_pylib)
+
+        # 今見ているファイルから取得できるモジュール検出
+        self._find_classes(path, is_titan_pylib)
+        self._find_defs(path, is_titan_pylib)
+
+        # 1行ずつ見ていく
+        linenum: int = 0
+        with open(self._get_path(path, is_titan_pylib), "r", encoding="utf-8") as f:
+            it = iter(f)
+            while True:
+                try:
+                    line = next(it)
+                    linenum += 1
+                except StopIteration:
+                    break
+
+                if not line.startswith(f"from {LIB}"):
+                    self.outputs.append(line)
+                    continue
+
+                pattern = r"from\s+(.*?)\s+import"
+                matches = re.search(pattern, line)
+                if matches:
+                    module = matches.group(1)
+                else:
+                    logger.critical(
+                        f"may be SyntaxError?\nfile: {path},\nlinenum: {linenum},\nline: {line}"
+                    )
+                    exit(1)
+                if "(" in line:
+                    while ")" not in line:
+                        self.outputs.append(f"# {line}")
+                        try:
+                            line = next(it)
+                            linenum += 1
+                        except StopIteration:
+                            break
+                self.outputs.append(f"# {line}")
+                self._get_code(module, True)
+
+    def expand(self, output_fiepath: str) -> None:
+        """コードを展開してoutput_fiepathに書き出す"""
+        self.outputs = []
+        self._get_code(self.input_path, False)
+        if self.need_modules - self.added_modules:
+            for cname in self.need_modules - self.added_modules:
+                logger.error(f"  {cname}")
+            logger.critical("class not found.")
+            exit(1)
+        output_code = self._finalize()
+        if output_fiepath in ["clip"]:
+            output_fiepath = "clipboard"
+            pyperclip.copy(output_code)
+        else:
+            with open(output_fiepath, "w", encoding="utf-8") as f:
+                f.write(output_code)
+        logger.info("The process completed successfully.")
+        logger.info(f"Output file: {output_fiepath} .")
+
+
+if __name__ == "__main__":
+    basicConfig(
+        format="%(asctime)s [%(levelname)s] : %(message)s",
+        datefmt="%H:%M:%S",
+        level=os.getenv("LOG_LEVEL", "INFO"),
+    )
+    init_clipboard()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "input_path",
+    )
+    parser.add_argument(
+        "-o",
+        "--output_path",
+        default="clip",
+        action="store",
+    )
+    parser.add_argument(
+        "-f",
+        "--formatter",
+        required=False,
+        action="store_true",
+        default=False,
+        help="do format. default is `False`.",
+    )
+    args = parser.parse_args()
+
+    expander = Expander(args.input_path, args.formatter)
+    expander.expand(args.output_path)

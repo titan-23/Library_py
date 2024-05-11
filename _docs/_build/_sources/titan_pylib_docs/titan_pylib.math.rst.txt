@@ -11,7 +11,7 @@ Submodules
    titan_pylib.math.divisors
    titan_pylib.math.fraction
    titan_pylib.math.get_quotients
-   titan_pylib.math.is_prime
+   titan_pylib.math.is_prime64
    titan_pylib.math.mod_array
    titan_pylib.math.mod_comb
    titan_pylib.math.mod_int

@@ -36,7 +36,7 @@ Subpackages
    titan_pylib.data_structures.treap
    titan_pylib.data_structures.union_find
    titan_pylib.data_structures.wavelet_matrix
-   titan_pylib.data_structures.wb_Tree
+   titan_pylib.data_structures.wbt
 
 
 

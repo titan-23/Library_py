@@ -1,4 +1,3 @@
-
 # from typing import Generic, Tuple, TypeVar, List
 # T = TypeVar('T')
 
@@ -79,4 +78,3 @@
 #     for d in self.data:
 #       a.extend(d)
 #     return str(a)
-

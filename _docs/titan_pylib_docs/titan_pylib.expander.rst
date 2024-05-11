@@ -7,7 +7,7 @@ titan\_pylib.expander
 
 .. code-block:: python
 
-  from titan_pylib.expander import get_code
+  from titan_pylib.expander import Expander
 
 `view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/expander.py>`_
 

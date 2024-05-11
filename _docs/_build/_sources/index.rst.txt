@@ -64,9 +64,10 @@ How to Use
 
 .. code-block:: console
 
-   $ python ./expander.py <input_file> <output_file>
+   $ python ./expander.py <input_file> <-o output_file> <-f>
 
 ``<output_file>`` を省略または ``clip`` とするとクリップボードにコピーされます。
+``-f`` オプションをつけると生成コードに black formatter がかかります。
 
 
 - 例1 ``./a.py`` を展開してクリップボードにコピーする
@@ -80,7 +81,7 @@ How to Use
 
 .. code-block:: console
 
-   $ python ./expander.py ./b.py ./exp_b.py
+   $ python ./expander.py ./b.py -o exp_b.py
 
 ----
 

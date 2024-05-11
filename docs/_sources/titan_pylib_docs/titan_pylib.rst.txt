@@ -14,7 +14,6 @@ Subpackages
    titan_pylib.math
    titan_pylib.my_class
    titan_pylib.others
-   titan_pylib.string
 
 Submodules
 
