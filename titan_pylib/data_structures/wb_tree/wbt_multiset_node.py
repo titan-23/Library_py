@@ -1,4 +1,4 @@
-from titan_pylib.data_structures.changed.wbt_node_base import _WBTNodeBase
+from titan_pylib.data_structures.wb_tree.wbt_node_base import _WBTNodeBase
 from typing import TypeVar, Optional
 
 T = TypeVar("T")

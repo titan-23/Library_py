@@ -1,5 +1,5 @@
-from titan_pylib.data_structures.changed.wbt_node_base import _WBTNodeBase
-from titan_pylib.data_structures.changed.wbt_list import WBTList
+from titan_pylib.data_structures.wb_tree.wbt_node_base import _WBTNodeBase
+from titan_pylib.data_structures.wb_tree.wbt_list import WBTList
 from typing import Generic, TypeVar, Optional
 
 T = TypeVar("T")
