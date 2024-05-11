@@ -1,4 +1,4 @@
-from titan_pylib.data_structures.wb_tree.wbt_list_node import _WBTListNode
+from titan_pylib.data_structures.wbt._wbt_list_node import _WBTListNode
 from typing import Generic, TypeVar, Optional, Iterable, Callable
 
 T = TypeVar("T")

@@ -65,6 +65,7 @@ class Expander:
                     break
             else:
                 logger.critical(f'File "{path}" not found.')
+                exit(1)
         return path
 
     def _find_imported_modules(self, path: str, is_titan_pylib: bool) -> None:
@@ -173,7 +174,8 @@ class Expander:
         if self.need_modules - self.added_modules:
             for cname in self.need_modules - self.added_modules:
                 logger.error(f"  {cname}")
-            raise ImportError("class not found.")
+            logger.critical("class not found.")
+            exit(1)
         output_code = self._finalize()
         if output_fiepath in ["clip"]:
             output_fiepath = "clipboard"

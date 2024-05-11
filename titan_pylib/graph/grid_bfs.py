@@ -1,5 +1,6 @@
-#########################
-#################
+from collections import deque
+
+
 def grid_bfs(field, sx, sy, tx, ty, ng="#"):
     dx = [0, 1, 0, -1]
     dy = [1, 0, -1, 0]

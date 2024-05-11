@@ -1,4 +1,4 @@
-from titan_pylib.data_structures.wb_tree.wbt_multiset_node import _WBTMultisetNode
+from titan_pylib.data_structures.wbt._wbt_multiset_node import _WBTMultisetNode
 from typing import Generic, TypeVar, Optional, Iterable, Iterator
 
 T = TypeVar("T")

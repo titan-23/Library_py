@@ -1,4 +1,4 @@
-from titan_pylib.math.is_prime import is_prime64
+from titan_pylib.math.is_prime64 import is_prime64
 from collections import Counter
 from math import gcd
 

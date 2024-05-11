@@ -1,7 +1,4 @@
-from typing import List
-
-
-def is_bipartite_graph(G: List[List[int]]) -> bool:
+def is_bipartite_graph(G: list[list[int]]) -> bool:
     col = [-1] * len(G)
     for i in range(len(G)):
         if col[i] != -1:
