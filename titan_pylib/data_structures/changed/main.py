@@ -1,5 +1,5 @@
-from titan_pylib.data_structures.wb_tree.wbt_set import WBTSet
-from titan_pylib.data_structures.wb_tree.wbt_multiset import WBTMultiset
+from titan_pylib.data_structures.changed.wbt_set import WBTSet
+from titan_pylib.data_structures.changed.wbt_multiset import WBTMultiset
 
 #  -----------------------  #
 
