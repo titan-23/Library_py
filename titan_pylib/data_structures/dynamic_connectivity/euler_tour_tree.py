@@ -1,12 +1,4 @@
-from typing import (
-    Generator,
-    Generic,
-    TypeVar,
-    Callable,
-    Iterable,
-    Optional,
-    Union,
-)
+from typing import Generator, Generic, TypeVar, Callable, Iterable, Optional, Union
 from types import GeneratorType
 
 T = TypeVar("T")
