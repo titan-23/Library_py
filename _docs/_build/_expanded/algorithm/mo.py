@@ -16,7 +16,7 @@ class Mo:
       :math:`0 \\leq n, 0 \\leq q`
     """
 
-    def __init__(self, n: int, q: int):
+    def __init__(self, n: int, q: int) -> None:
         assert 0 <= n and 0 <= q, f"ValueError: {n=} {q=}"
         self.n = n
         self.q = q
@@ -31,10 +31,6 @@ class Mo:
     def add_query(self, l: int, r: int) -> None:
         """区間 ``[l, r)`` に対するクエリを追加します。
         :math:`O(1)` です。
-
-        Args:
-          l (int):
-          r (int):
 
         制約:
           :math:`0 \\leq l \\leq r \\leq n`

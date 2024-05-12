@@ -11,6 +11,8 @@ Library Overview
 .. toctree::
    :maxdepth: 1
 
+   ./titan_pylib_docs/titan_pylib.ahc.rst
+
    ./titan_pylib_docs/titan_pylib.algorithm.rst
 
    ./titan_pylib_docs/titan_pylib.data_structures.rst

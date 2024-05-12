@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 1
 
+   titan_pylib.ahc
    titan_pylib.algorithm
    titan_pylib.data_structures
    titan_pylib.graph
