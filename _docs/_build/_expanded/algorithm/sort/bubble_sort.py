@@ -6,14 +6,14 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import TypeVar, Callable, List
+from typing import TypeVar, Callable
 
 T = TypeVar("T", bound=SupportsLessThan)
 
 
 def bubble_sort(
-    a: List[T], key: Callable[[T, T], bool] = lambda s, t: s < t, inplace: bool = True
-) -> List[T]:
+    a: list[T], key: Callable[[T, T], bool] = lambda s, t: s < t, inplace: bool = True
+) -> list[T]:
     """バブルソートです。
 
     非破壊的です。

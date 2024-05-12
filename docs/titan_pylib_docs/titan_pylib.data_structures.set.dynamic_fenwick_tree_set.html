@@ -490,7 +490,7 @@
 <span class="linenos">  2</span><span class="c1"># from titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree import (</span>
 <span class="linenos">  3</span><span class="c1">#     DynamicFenwickTree,</span>
 <span class="linenos">  4</span><span class="c1"># )</span>
-<span class="linenos">  5</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="linenos">  5</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Final</span>
 <span class="linenos">  6</span>
 <span class="linenos">  7</span>
 <span class="linenos">  8</span><span class="k">class</span> <span class="nc">DynamicFenwickTree</span><span class="p">:</span>
@@ -502,7 +502,7 @@
 <span class="linenos"> 14</span>            <span class="n">u</span><span class="p">,</span> <span class="nb">int</span>
 <span class="linenos"> 15</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"TypeError: DynamicFenwickTree(</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">), </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> must be int"</span>
 <span class="linenos"> 16</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_u</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
-<span class="linenos"> 17</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos"> 17</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="linenos"> 18</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_s</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
 <span class="linenos"> 19</span>
 <span class="linenos"> 20</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -568,7 +568,7 @@
 <span class="linenos"> 80</span>
 <span class="linenos"> 81</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 82</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tree</span><span class="p">)</span>
-<span class="linenos"> 83</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="linenos"> 83</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="linenos"> 84</span>
 <span class="linenos"> 85</span>
 <span class="linenos"> 86</span><span class="k">class</span> <span class="nc">DynamicFenwickTreeSet</span><span class="p">:</span>
@@ -578,7 +578,7 @@
 <span class="linenos"> 90</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]):</span>
 <span class="linenos"> 91</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">u</span>
 <span class="linenos"> 92</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 93</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos"> 93</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="linenos"> 94</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_fw</span> <span class="o">=</span> <span class="n">DynamicFenwickTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">)</span>
 <span class="linenos"> 95</span>        <span class="k">for</span> <span class="n">_a</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
 <span class="linenos"> 96</span>            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_a</span><span class="p">)</span>

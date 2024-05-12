@@ -2,7 +2,7 @@ from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from math import sqrt
 from array import array
-from typing import Generic, Iterable, Optional, TypeVar, List, Final
+from typing import Generic, Iterable, Optional, TypeVar, Final
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -17,7 +17,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
 
     def __init__(self, a: Iterable[T] = [], e: T = 0) -> None:
         self.root: int = 0
-        self.key: List[T] = [e]
+        self.key: list[T] = [e]
         self.size: array[int] = array("I", bytes(4))
         self.left: array[int] = array("I", bytes(4))
         self.right: array[int] = array("I", bytes(4))
@@ -38,7 +38,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
     def _balance(self, node: int) -> float:
         return (self.size[self.left[node]] + 1) / (self.size[node] + 1)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, size = self.left, self.right, self.size
 
         def build(l: int, r: int) -> int:
@@ -122,7 +122,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
             return True
         left, right, size, keys = self.left, self.right, self.size, self.key
         node = self.root
-        path: List[int] = []
+        path: list[int] = []
         while node:
             if key == keys[node]:
                 return False
@@ -223,7 +223,7 @@ class WBTreeSet(OrderedSetInterface, Generic[T]):
             else:
                 node = left[node]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         left, right, keys = self.left, self.right, self.key
         node = self.root
         stack = []

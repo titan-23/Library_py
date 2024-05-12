@@ -1,5 +1,5 @@
 from titan_pylib.string.hash_string import HashStringBase, HashString
-from typing import Optional, Tuple, List
+from typing import Optional
 import random
 
 
@@ -9,7 +9,7 @@ class MultiHashStringBase:
         self,
         n: int,
         base_cnt: int = 1,
-        base_list: List[int] = [],
+        base_list: list[int] = [],
         seed: Optional[int] = None,
     ) -> None:
         if seed is None:
@@ -32,10 +32,10 @@ class MultiHashString:
         self.hsb = hsb
         self.hs = tuple(HashString(hsb, s, update=update) for hsb in self.hsb.hsb)
 
-    def get(self, l: int, r: int) -> Tuple[int]:
+    def get(self, l: int, r: int) -> tuple[int]:
         return tuple(hs.get(l, r) for hs in self.hs)
 
-    def __getitem__(self, k: int) -> Tuple[int]:
+    def __getitem__(self, k: int) -> tuple[int]:
         return self.get(k, k + 1)
 
     def set(self, k: int, c: str) -> None:

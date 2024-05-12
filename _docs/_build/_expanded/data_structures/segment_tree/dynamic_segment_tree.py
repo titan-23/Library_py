@@ -3,7 +3,7 @@
 #     SegmentTreeInterface,
 # )
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Union, Iterable, Callable, List
+from typing import TypeVar, Generic, Union, Iterable, Callable
 
 T = TypeVar("T")
 
@@ -39,7 +39,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -57,7 +57,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
     @abstractmethod
     def __repr__(self):
         raise NotImplementedError
-from typing import Generic, TypeVar, Callable, List, Dict
+from typing import Generic, TypeVar, Callable
 
 T = TypeVar("T")
 
@@ -71,7 +71,7 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
         self._u = u
         self._log = (self._u - 1).bit_length()
         self._size = 1 << self._log
-        self._data: Dict[int, T] = {}
+        self._data: dict[int, T] = {}
 
     def set(self, k: int, v: T) -> None:
         assert (
@@ -176,7 +176,7 @@ class DynamicSegmentTree(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return [self.get(i) for i in range(self._u)]
 
     def __getitem__(self, k: int) -> T:

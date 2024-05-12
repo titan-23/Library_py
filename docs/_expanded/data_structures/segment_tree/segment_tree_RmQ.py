@@ -3,7 +3,7 @@
 #     SegmentTreeInterface,
 # )
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Union, Iterable, Callable, List
+from typing import TypeVar, Generic, Union, Iterable, Callable
 
 T = TypeVar("T")
 
@@ -39,7 +39,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -64,7 +64,7 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import Generic, Iterable, TypeVar, Union, List
+from typing import Generic, Iterable, TypeVar, Union
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -197,7 +197,7 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return [self.get(i) for i in range(self._n)]
 
     def show(self) -> None:

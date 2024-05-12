@@ -1,6 +1,6 @@
 # from titan_pylib.graph.euler_tour import EulerTour
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 
 
 class FenwickTree:
@@ -136,7 +136,7 @@ class FenwickTree:
             s >>= 1
         return i
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n)` です。
         """
@@ -144,7 +144,7 @@ class FenwickTree:
         return [sub[i + 1] - sub[i] for i in range(self._size)]
 
     @staticmethod
-    def get_inversion_num(a: List[int], compress: bool = False) -> int:
+    def get_inversion_num(a: list[int], compress: bool = False) -> int:
         inv = 0
         if compress:
             a_ = sorted(set(a))
@@ -170,7 +170,7 @@ class FenwickTree:
 #     SegmentTreeInterface,
 # )
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Union, Iterable, Callable, List
+from typing import TypeVar, Generic, Union, Iterable, Callable
 
 T = TypeVar("T")
 
@@ -206,7 +206,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -231,7 +231,7 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import Generic, Iterable, TypeVar, Union, List
+from typing import Generic, Iterable, TypeVar, Union
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -364,7 +364,7 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return [self.get(i) for i in range(self._n)]
 
     def show(self) -> None:
@@ -399,13 +399,12 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self})"
-from typing import List, Tuple
 
 
 class EulerTour:
 
     def __init__(
-        self, G: List[List[Tuple[int, int]]], root: int, vertexcost: List[int] = []
+        self, G: list[list[tuple[int, int]]], root: int, vertexcost: list[int] = []
     ) -> None:
         n = len(G)
         if not vertexcost:
@@ -422,7 +421,7 @@ class EulerTour:
 
         curtime = -1
         depth[root] = 0
-        stack: List[Tuple[int, int]] = [(~root, 0), (root, 0)]
+        stack: list[tuple[int, int]] = [(~root, 0), (root, 0)]
         while stack:
             curtime += 1
             v, ec = stack.pop()
@@ -466,7 +465,7 @@ class EulerTour:
 
         bit = len(path).bit_length()
         self.msk = (1 << bit) - 1
-        a: List[int] = [(depth[v] << bit) + i for i, v in enumerate(path)]
+        a: list[int] = [(depth[v] << bit) + i for i, v in enumerate(path)]
         self._st: SegmentTreeRmQ[int] = SegmentTreeRmQ(a, e=max(a))
 
     def lca(self, u: int, v: int) -> int:
@@ -477,7 +476,7 @@ class EulerTour:
         ind = self._st.prod(l, r) & self.msk
         return self._path[ind]
 
-    def lca_mul(self, a: List[int]) -> int:
+    def lca_mul(self, a: list[int]) -> int:
         l, r = self._n + 1, -self._n - 1
         for e in a:
             l = min(l, self._nodein[e])

@@ -1,7 +1,4 @@
-from typing import List
-
-
-def get_scc(G: List[List[int]]) -> List[List[int]]:
+def get_scc(G: list[list[int]]) -> list[list[int]]:
     n = len(G)
     rG = [[] for _ in range(n)]
     for v in range(n):

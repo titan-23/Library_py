@@ -4,7 +4,7 @@
 #     SegmentTreeInterface,
 # )
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Union, Iterable, Callable, List
+from typing import TypeVar, Generic, Union, Iterable, Callable
 
 T = TypeVar("T")
 
@@ -40,7 +40,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -58,7 +58,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
     @abstractmethod
     def __repr__(self):
         raise NotImplementedError
-from typing import Generic, Iterable, TypeVar, Callable, Union, List
+from typing import Generic, Iterable, TypeVar, Callable, Union
 
 T = TypeVar("T")
 
@@ -223,7 +223,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         """リストにして返します。
         :math:`O(n)` です。
         """
@@ -267,7 +267,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         return f"{self.__class__.__name__}({self})"
 # from titan_pylib.data_structures.set.wordsize_tree_set import WordsizeTreeSet
 from array import array
-from typing import Iterable, Optional, List
+from typing import Iterable, Optional
 
 
 class WordsizeTreeSet:
@@ -305,7 +305,7 @@ class WordsizeTreeSet:
             while u:
                 u >>= 5
                 data.append(array("I", bytes(4 * (u + 1))))
-        self.data: List[array[int]] = data
+        self.data: list[array[int]] = data
         self.len: int = len_
         self.len_data: int = len(data)
 
@@ -454,7 +454,7 @@ class WordsizeTreeSet:
             self.discard(e)
         self.len = 0
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n\\log{u})` です。
         """

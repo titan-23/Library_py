@@ -1,15 +1,15 @@
-from typing import List, Any
+from typing import Any
 
 
 class Permutation:
     """順列のライブラリです。"""
 
     @staticmethod
-    def next_permutation(a: List[Any], l: int = 0, r: int = -1) -> bool:
+    def next_permutation(a: list[Any], l: int = 0, r: int = -1) -> bool:
         """列 ``a[l, r)`` を辞書順で次の順列にします。
 
         Args:
-          a (List[Any])
+          a (list[Any])
           l (int, optional)
           r (int, optional)
 
@@ -33,11 +33,11 @@ class Permutation:
         return False
 
     @staticmethod
-    def prev_permutation(a: List[Any]) -> bool:
+    def prev_permutation(a: list[Any]) -> bool:
         """列 ``a`` を辞書順で後の順列にします。
 
         Args:
-          a (List[Any])
+          a (list[Any])
 
         Returns:
           bool: 辞書順で後の順列が存在する場合は ``True`` 、存在しない場合は ``False`` を返します。

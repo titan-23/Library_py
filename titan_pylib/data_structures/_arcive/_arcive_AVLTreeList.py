@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Callable, Union, List, Tuple
+from typing import Generic, Iterable, TypeVar
 
 T = TypeVar("T")
 
@@ -25,7 +25,7 @@ class AVLTreeList(Generic[T]):
         if a:
             self._build(list(a))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         def sort(l: int, r: int) -> Node:
             mid = (l + r) >> 1
             node = Node(a[mid])
@@ -159,7 +159,7 @@ class AVLTreeList(Generic[T]):
     def merge(self, other: "AVLTreeList") -> None:
         self.node = self._merge_node(self.node, other.node)
 
-    def _pop_max(self, node: Node) -> Tuple[Node, Node]:
+    def _pop_max(self, node: Node) -> tuple[Node, Node]:
         path = []
         mx = node
         while node.right is not None:
@@ -191,7 +191,7 @@ class AVLTreeList(Generic[T]):
         self._update(mx)
         return path[0], mx
 
-    def _split_node(self, node: Node, k: int) -> Tuple[Node, Node]:
+    def _split_node(self, node: Node, k: int) -> tuple[Node, Node]:
         if node is None:
             return None, None
         tmp = k if node.left is None else k - node.left.size
@@ -204,7 +204,7 @@ class AVLTreeList(Generic[T]):
             s, t = self._split_node(node.right, tmp - 1)
             return self._merge_with_root(node.left, node, s), t
 
-    def split(self, k: int) -> Tuple["AVLTreeList", "AVLTreeList"]:
+    def split(self, k: int) -> tuple["AVLTreeList", "AVLTreeList"]:
         l, r = self._split_node(self.node, k)
         return AVLTreeList(node=l), AVLTreeList(node=r)
 
@@ -221,7 +221,7 @@ class AVLTreeList(Generic[T]):
     def clear(self) -> None:
         self.node = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node is None:
             return a

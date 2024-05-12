@@ -1,7 +1,7 @@
 # from titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum import SplayTreeMultisetSum
 import sys
 from __pypy__ import newlist_hint
-from typing import Iterator, Optional, Generic, Iterable, List, TypeVar, Tuple
+from typing import Iterator, Optional, Generic, Iterable, TypeVar
 
 T = TypeVar("T")
 
@@ -35,7 +35,7 @@ class SplayTreeMultisetSum(Generic[T]):
     def _build(self, a: Iterable[T]) -> None:
         Node = SplayTreeMultisetSum.Node
 
-        def sort(l: int, r: int) -> Node:
+        def sort(l: int, r: int) -> SplayTreeMultisetSum.Node:
             mid = (l + r) >> 1
             node = Node(key[mid], cnt[mid])
             if l != mid:
@@ -48,7 +48,7 @@ class SplayTreeMultisetSum(Generic[T]):
         key, cnt = self._rle(sorted(a))
         self.node = sort(0, len(key))
 
-    def _rle(self, a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(self, a: list[T]) -> tuple[list[T], list[int]]:
         x = newlist_hint(len(a))
         y = newlist_hint(len(a))
         x.append(a[0])
@@ -83,7 +83,7 @@ class SplayTreeMultisetSum(Generic[T]):
                 node.cntsize = node.cnt + node.left.cntsize + node.right.cntsize
                 node.data = node.key * node.cnt + node.left.data + node.right.data
 
-    def _splay(self, path: List[Node], d: int) -> Node:
+    def _splay(self, path: list[Node], d: int) -> Node:
         for _ in range(len(path) >> 1):
             node = path.pop()
             pnode = path.pop()
@@ -434,7 +434,7 @@ class SplayTreeMultisetSum(Generic[T]):
     def pop_min(self) -> T:
         return self.pop(0)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node is None:
             return a
@@ -452,7 +452,7 @@ class SplayTreeMultisetSum(Generic[T]):
         rec(self.node)
         return a
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         a = []
         if self.node is None:
             return a
@@ -474,7 +474,7 @@ class SplayTreeMultisetSum(Generic[T]):
         self._set_kth_elm_tree_splay(k)
         return self.node.key
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             self._set_kth_elm_tree_splay(i)
             yield self.node.key, self.node.cnt
@@ -521,7 +521,7 @@ class SplayTreeMultisetSum(Generic[T]):
         self.node.right = other.node
         self._update(self.node)
 
-    def split(self, k: int) -> Tuple["SplayTreeMultisetSum", "SplayTreeMultisetSum"]:
+    def split(self, k: int) -> tuple["SplayTreeMultisetSum", "SplayTreeMultisetSum"]:
         if self.node is None:
             return SplayTreeMultisetSum(self.e), self
         if k >= len(self):

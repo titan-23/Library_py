@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -68,7 +68,7 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -99,7 +99,7 @@ class OrderedSetInterface(ABC, Generic[T]):
     def __repr__(self) -> str:
         raise NotImplementedError
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
+from typing import Generic, Iterable, TypeVar, Optional, Sequence
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -137,7 +137,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
     def _build(self, a: Sequence[T]) -> None:
         Node = AVLTreeSet3.Node
 
-        def rec(l: int, r: int) -> Tuple[AVLTreeSet3.Node, int]:
+        def rec(l: int, r: int) -> tuple[AVLTreeSet3.Node, int]:
             mid = (l + r) >> 1
             node = Node(a[mid])
             hl, hr = 0, 0
@@ -489,7 +489,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
     def clear(self) -> None:
         self.node = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node is None:
             return a

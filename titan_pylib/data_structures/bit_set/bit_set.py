@@ -1,4 +1,3 @@
-from typing import List
 from array import array
 
 
@@ -43,7 +42,7 @@ class Bitset:
         else:
             self._data[k >> 5] &= ~Bitset.TABLE[k & 31]
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         return [
             (i << 5) + j
             for i, a in enumerate(self._data)

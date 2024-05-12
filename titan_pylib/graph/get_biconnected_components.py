@@ -1,17 +1,14 @@
-from typing import List, Tuple
-
-
 def get_biconnected_components(
-    G: List[List[int]],
-) -> Tuple[List[List[int]], List[List[Tuple[int, int]]]]:
+    G: list[list[int]],
+) -> tuple[list[list[int]], list[list[tuple[int, int]]]]:
     """``G`` を二重頂点連結分解します。
     :math:`O(n+m)` です。
 
     Args:
-      G (List[List[int]]): 隣接リストです。
+      G (list[list[int]]): 隣接リストです。
 
     Returns:
-      Tuple[List[List[int]], List[List[Tuple[int, int]]]]: ``(頂点集合), (辺集合)`` のタプルです。
+      tuple[list[list[int]], list[list[tuple[int, int]]]]: ``(頂点集合), (辺集合)`` のタプルです。
     """
     n = len(G)
     order = [-1] * n

@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.heap.radix_heap import RadixHeap
-from typing import Generic, Tuple, TypeVar, List
+from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
@@ -12,14 +12,14 @@ class RadixHeap(Generic[T]):
         self.lim = (1 << self.log) - 1
         self.last = 0
         self._len = 0
-        self.data: List[List[Tuple[int, T]]] = [[] for _ in range(self.log)]
+        self.data: list[list[tuple[int, T]]] = [[] for _ in range(self.log)]
 
     def push(self, key: int, val: T) -> None:
         assert key <= self.lim
         self._len += 1
         self.data[(key ^ self.last).bit_length()].append((key, val))
 
-    def pop_min(self) -> Tuple[int, T]:
+    def pop_min(self) -> tuple[int, T]:
         self._len -= 1
         data = self.data
         if data[0]:

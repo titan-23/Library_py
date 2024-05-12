@@ -1,5 +1,5 @@
 from titan_pylib.data_structures.stack.foldable_stack import FoldableStack
-from typing import Generic, Iterable, TypeVar, Callable, Union, List
+from typing import Generic, Iterable, TypeVar, Callable, Union
 
 T = TypeVar("T")
 
@@ -19,7 +19,7 @@ class FoldableDeque(Generic[T]):
         self.front = FoldableStack(new[: len(new) // 2][::-1], self._op, self._e)
         self.back = FoldableStack(new[len(new) // 2 :], self._op, self._e)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return self.front.tolist()[::-1] + self.back.tolist()
 
     def append(self, v: T) -> None:

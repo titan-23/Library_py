@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.deque.deque import Deque
-from typing import Iterable, List, Generic, TypeVar
+from typing import Iterable, Generic, TypeVar
 
 T = TypeVar("T")
 
@@ -16,8 +16,8 @@ class Deque(Generic[T]):
         Args:
           a (Iterable[T], optional): ``Deque`` を構築する配列です。
         """
-        self.front: List[T] = []
-        self.back: List[T] = list(a)
+        self.front: list[T] = []
+        self.back: list[T] = list(a)
 
     def _rebuild(self) -> None:
         new = self.front[::-1] + self.back
@@ -58,7 +58,7 @@ class Deque(Generic[T]):
             self._rebuild()
         return self.front.pop() if self.front else self.back.pop()
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         """``list`` に変換します。
         :math:`O(n)` です。
         """

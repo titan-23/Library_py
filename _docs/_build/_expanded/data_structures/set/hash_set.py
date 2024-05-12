@@ -1,12 +1,12 @@
 # from titan_pylib.data_structures.set.hash_set import HashSet
 import random
-from typing import Iterable, List, Iterator
+from typing import Iterable, Iterator
 
 
 class HashSet:
 
     def __init__(self, a: Iterable[int] = [], not_seen: int = -1, deleted: int = -2):
-        self._keys: List[int] = [not_seen]
+        self._keys: list[int] = [not_seen]
         self._empty: int = not_seen
         self._deleted: int = deleted
         self._len: int = 0
@@ -21,7 +21,7 @@ class HashSet:
         self._keys += [self._empty] * (3 * n + 4)
         self._xor = random.getrandbits(len(self._keys).bit_length())
 
-    def _inner_rebuild(self, old_keys: List[int]) -> None:
+    def _inner_rebuild(self, old_keys: list[int]) -> None:
         _empty, _deleted = self._empty, self._deleted
         self._len = 0
         self._dellen = 0

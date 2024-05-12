@@ -1,10 +1,9 @@
-from typing import List
 from heapq import heapify, heappush, heappop
 
 # len(toposo) != n: 閉路が存在
 
 
-def topological_sort_min(G: List[List[int]]) -> List[int]:
+def topological_sort_min(G: list[list[int]]) -> list[int]:
     n = len(G)
     d = [0] * n
     F = [[] for _ in range(n)]
@@ -25,12 +24,12 @@ def topological_sort_min(G: List[List[int]]) -> List[int]:
     return ret
 
 
-from typing import List
+from typing import list
 
 """Return topological_sort. / O(|V|+|E|)"""
 
 
-def topological_sort(G: List[List[int]]) -> List[int]:
+def topological_sort(G: list[list[int]]) -> list[int]:
     n = len(G)
     d = [0] * n
     outs = [[] for _ in range(n)]

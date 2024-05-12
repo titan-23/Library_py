@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import Any
 
 
 class Random:
@@ -47,12 +47,12 @@ class Random:
         assert begin < end
         return begin + self._xor() % (end - begin)
 
-    def shuffle(self, a: List[Any]) -> None:
+    def shuffle(self, a: list[Any]) -> None:
         """``a`` をインプレースにシャッフルします。
         :math:`O(n)` です。
 
         Args:
-          a (List[Any]): ``a`` をシャッフルします。
+          a (list[Any]): ``a`` をシャッフルします。
         """
         n = len(a)
         for i in range(n - 1):

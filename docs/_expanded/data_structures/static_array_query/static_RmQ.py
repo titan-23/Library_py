@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.static_array_query.static_RmQ import StaticRmQ
-from typing import List, Iterable
+from typing import Iterable
 from array import array
 
 
@@ -7,7 +7,7 @@ class StaticRmQ:
 
     class SparseTableRmQ:
 
-        def __init__(self, a: List[int], INF: int):
+        def __init__(self, a: list[int], INF: int):
             size = len(a)
             log = size.bit_length() - 1
             data = [a] + [[]] * log

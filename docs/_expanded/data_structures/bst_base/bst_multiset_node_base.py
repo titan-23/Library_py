@@ -1,6 +1,6 @@
 # from titan_pylib.data_structures.bst_base.bst_multiset_node_base import BSTMultisetNodeBase
 from __pypy__ import newlist_hint
-from typing import List, Tuple, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 Node = TypeVar("Node")
@@ -42,7 +42,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return False
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> List[T]:
+    def tolist(node: Node, _len: int = 0) -> list[T]:
         stack = []
         a = newlist_hint(_len)
         while stack or node:
@@ -57,7 +57,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def tolist_items(node: Node, _len: int = 0) -> List[Tuple[T, int]]:
+    def tolist_items(node: Node, _len: int = 0) -> list[tuple[T, int]]:
         stack = newlist_hint(_len)
         a = newlist_hint(_len)
         while stack or node:
@@ -71,7 +71,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def _rle(a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(a: list[T]) -> tuple[list[T], list[int]]:
         keys, vals = newlist_hint(len(a)), newlist_hint(len(a))
         keys.append(a[0])
         vals.append(1)

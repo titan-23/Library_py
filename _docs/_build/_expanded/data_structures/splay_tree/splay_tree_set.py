@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -68,7 +68,7 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -101,7 +101,7 @@ class OrderedSetInterface(ABC, Generic[T]):
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from array import array
 from __pypy__ import newlist_hint
-from typing import Generic, Iterable, List, TypeVar, Optional
+from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -109,7 +109,7 @@ T = TypeVar("T", bound=SupportsLessThan)
 class SplayTreeSet(OrderedSetInterface, Generic[T]):
 
     def __init__(self, a: Iterable[T] = [], e: T = 0):
-        self.keys: List[T] = [e]
+        self.keys: list[T] = [e]
         self.size = array("I", bytes(4))
         self.child = array("I", bytes(8))
         self.end = 1
@@ -120,7 +120,7 @@ class SplayTreeSet(OrderedSetInterface, Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         def sort(l: int, r: int) -> int:
             mid = (l + r) >> 1
             if l != mid:
@@ -162,7 +162,7 @@ class SplayTreeSet(OrderedSetInterface, Generic[T]):
         size[x] = 1 + size[child[x << 1]] + size[child[x << 1 | 1]]
         size[y] = 1 + size[child[y << 1]] + size[child[y << 1 | 1]]
 
-    def _splay(self, path: List[int], d: int) -> int:
+    def _splay(self, path: list[int], d: int) -> int:
         child = self.child
         g = d & 1
         while len(path) > 1:
@@ -435,7 +435,7 @@ class SplayTreeSet(OrderedSetInterface, Generic[T]):
     def clear(self) -> None:
         self.node = 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.node
         child, keys = self.child, self.keys
         stack, res = newlist_hint(len(self)), newlist_hint(len(self))

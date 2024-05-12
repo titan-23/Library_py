@@ -6,7 +6,7 @@
 #     SegmentTreeInterface,
 # )
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Union, Iterable, Callable, List
+from typing import TypeVar, Generic, Union, Iterable, Callable
 
 T = TypeVar("T")
 
@@ -42,7 +42,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -60,7 +60,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
     @abstractmethod
     def __repr__(self):
         raise NotImplementedError
-from typing import Generic, Iterable, TypeVar, Callable, Union, List
+from typing import Generic, Iterable, TypeVar, Callable, Union
 
 T = TypeVar("T")
 
@@ -225,7 +225,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         """リストにして返します。
         :math:`O(n)` です。
         """
@@ -267,12 +267,12 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self})"
-from typing import Optional, List, Dict, Final
+from typing import Optional, Final
 import random
 import string
 
 _titan_pylib_HashString_MOD: Final[int] = (1 << 61) - 1
-_titan_pylib_HashString_DIC: Final[Dict[str, int]] = {
+_titan_pylib_HashString_DIC: Final[dict[str, int]] = {
     c: i for i, c in enumerate(string.ascii_lowercase, 1)
 }
 _titan_pylib_HashString_MASK30: Final[int] = (1 << 30) - 1
@@ -405,7 +405,7 @@ class HashString:
     def __len__(self):
         return self.n
 
-    def get_lcp(self) -> List[int]:
+    def get_lcp(self) -> list[int]:
         """lcp配列を返します。
         :math:`O(n\\log{n})` です。
         """
@@ -431,7 +431,7 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import Iterable, TypeVar, Callable, List
+from typing import Iterable, TypeVar, Callable
 from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -439,7 +439,7 @@ T = TypeVar("T", bound=SupportsLessThan)
 
 def merge_sort(
     a: Iterable[T], key: Callable[[T, T], bool] = lambda s, t: s < t
-) -> List[T]:
+) -> list[T]:
     """マージソートです。
 
     非破壊的です。
@@ -451,7 +451,7 @@ def merge_sort(
                                               (第1引数)<(第2引数) のとき、 ``True`` を返すようにしてください。
     """
 
-    def _sort(a: List[T]) -> List[T]:
+    def _sort(a: list[T]) -> list[T]:
         n = len(a)
         if n <= 1:
             return a
@@ -477,10 +477,9 @@ def merge_sort(
         return res
 
     return _sort(list(a))
-from typing import List
 
 
-def get_suffix_array(s: str, hs: HashString) -> List[int]:
+def get_suffix_array(s: str, hs: HashString) -> list[int]:
     """suffix_arrayを求めます。
 
     ロリハで大小比較をするため、比較関数に :math:`O(logn)` 、
@@ -492,7 +491,7 @@ def get_suffix_array(s: str, hs: HashString) -> List[int]:
         hs (HashString): ``HashString`` です。
 
     Returns:
-        List[int]: suffix_array です。
+        list[int]: suffix_array です。
     """
 
     def cmp(u: int, v: int) -> bool:

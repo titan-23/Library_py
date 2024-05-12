@@ -1,4 +1,4 @@
-from typing import Iterable, Union, List
+from typing import Iterable, Union
 from functools import reduce, lru_cache
 
 
@@ -18,7 +18,7 @@ class ModArray998244353:
 
     def __init__(self, n_or_a: Union[int, Iterable[int]], e: int = 0):
         e %= 998244353
-        self.a: List[int] = (
+        self.a: list[int] = (
             [e] * n_or_a if isinstance(n_or_a, int) else [e % 998244353 for e in n_or_a]
         )
 
@@ -81,7 +81,7 @@ Array = ModArray998244353
 
 # ---------------------- #
 
-from typing import Iterable, Union, List
+from typing import Iterable, Union, list
 from functools import reduce, lru_cache
 
 
@@ -101,7 +101,7 @@ class ModArray1000000007:
 
     def __init__(self, n_or_a: Union[int, Iterable[int]], e: int = 0):
         e %= 1000000007
-        self.a: List[int] = (
+        self.a: list[int] = (
             [e] * n_or_a
             if isinstance(n_or_a, int)
             else [e % 1000000007 for e in n_or_a]
@@ -166,7 +166,7 @@ Array = ModArray1000000007
 
 # ---------------------- #
 
-from typing import Iterable, Union, List
+from typing import Iterable, Union, list
 from functools import reduce, lru_cache
 
 
@@ -186,7 +186,7 @@ class ModArray:
     def __init__(self, mod: int, n_or_a: Union[int, Iterable[int]] = [], e: int = 0):
         self.mod: int = mod
         e %= mod
-        self.a: List[int] = (
+        self.a: list[int] = (
             [e] * n_or_a if isinstance(n_or_a, int) else [e % mod for e in n_or_a]
         )
 

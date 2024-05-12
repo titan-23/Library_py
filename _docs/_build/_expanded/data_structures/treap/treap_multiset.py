@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -76,7 +76,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -111,7 +111,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
 #     BSTMultisetNodeBase,
 # )
 from __pypy__ import newlist_hint
-from typing import List, Tuple, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 Node = TypeVar("Node")
@@ -153,7 +153,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return False
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> List[T]:
+    def tolist(node: Node, _len: int = 0) -> list[T]:
         stack = []
         a = newlist_hint(_len)
         while stack or node:
@@ -168,7 +168,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def tolist_items(node: Node, _len: int = 0) -> List[Tuple[T, int]]:
+    def tolist_items(node: Node, _len: int = 0) -> list[tuple[T, int]]:
         stack = newlist_hint(_len)
         a = newlist_hint(_len)
         while stack or node:
@@ -182,7 +182,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def _rle(a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(a: list[T]) -> tuple[list[T], list[int]]:
         keys, vals = newlist_hint(len(a)), newlist_hint(len(a))
         keys.append(a[0])
         vals.append(1)
@@ -274,7 +274,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
                 k += node.val if node.left is None else node.left.valsize + node.val
                 node = node.right
         return k
-from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
+from typing import Generic, Iterable, TypeVar, Optional, Sequence
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -480,10 +480,10 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
             "{" + ", ".join(map(lambda x: f"{x[0]}: {x[1]}", self.tolist_items())) + "}"
         )
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist(self.root, len(self))
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist_items(
             self.root, self._len_elm
         )

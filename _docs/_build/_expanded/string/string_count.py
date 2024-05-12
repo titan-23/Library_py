@@ -1,6 +1,6 @@
 # from titan_pylib.string.string_count import StringCount
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 
 
 class FenwickTree:
@@ -136,7 +136,7 @@ class FenwickTree:
             s >>= 1
         return i
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n)` です。
         """
@@ -144,7 +144,7 @@ class FenwickTree:
         return [sub[i + 1] - sub[i] for i in range(self._size)]
 
     @staticmethod
-    def get_inversion_num(a: List[int], compress: bool = False) -> int:
+    def get_inversion_num(a: list[int], compress: bool = False) -> int:
         inv = 0
         if compress:
             a_ = sorted(set(a))
@@ -165,7 +165,6 @@ class FenwickTree:
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self})"
-from typing import List, Dict
 import string
 
 
@@ -173,13 +172,13 @@ class StringCount:
 
     alp: str = string.ascii_lowercase
     # alp: str = string.ascii_uppercase
-    DIC: Dict[str, int] = {c: i for i, c in enumerate(alp)}
+    DIC: dict[str, int] = {c: i for i, c in enumerate(alp)}
 
     def __init__(self, s: str):
         assert isinstance(s, str)
         self.n: int = len(s)
-        self.s: List[str] = list(s)
-        self.data: List[FenwickTree] = [FenwickTree(self.n) for _ in range(26)]
+        self.s: list[str] = list(s)
+        self.data: list[FenwickTree] = [FenwickTree(self.n) for _ in range(26)]
         for i, c in enumerate(s):
             self.data[StringCount.DIC[c]].add(i, 1)
 
@@ -228,8 +227,8 @@ class StringCount:
         self.data[StringCount.DIC[c]].add(k, 1)
 
     # 区間[l, r)の全ての文字の個数を返す
-    # 返り値は要素数26のList[int]
-    def get_all_count(self, l: int, r: int) -> List[int]:
+    # 返り値は要素数26のlist[int]
+    def get_all_count(self, l: int, r: int) -> list[int]:
         return [self.data[i].sum(l, r) for i in range(26)]
 
     # 区間[l, r)のcの個数を返す

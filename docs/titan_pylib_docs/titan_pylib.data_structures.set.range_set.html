@@ -500,7 +500,7 @@
 <span class="linenos"> 12</span><span class="c1"># from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface</span>
 <span class="linenos"> 13</span><span class="c1"># from titan_pylib.my_class.supports_less_than import SupportsLessThan</span>
 <span class="linenos"> 14</span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="linenos"> 15</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">List</span>
+<span class="linenos"> 15</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
 <span class="linenos"> 16</span>
 <span class="linenos"> 17</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos"> 18</span>
@@ -560,7 +560,7 @@
 <span class="linenos"> 72</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 73</span>
 <span class="linenos"> 74</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 75</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 75</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 76</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 77</span>
 <span class="linenos"> 78</span>    <span class="nd">@abstractmethod</span>
@@ -591,7 +591,7 @@
 <span class="linenos">103</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">104</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">105</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="linenos">106</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="linenos">106</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span>
 <span class="linenos">107</span>
 <span class="linenos">108</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">109</span>
@@ -599,7 +599,7 @@
 <span class="linenos">111</span><span class="k">class</span> <span class="nc">SplayTreeSetTopDown</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos">112</span>
 <span class="linenos">113</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
-<span class="linenos">114</span>        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
+<span class="linenos">114</span>        <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
 <span class="linenos">115</span>        <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
 <span class="linenos">116</span>        <span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos">117</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
@@ -610,7 +610,7 @@
 <span class="linenos">122</span>        <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
 <span class="linenos">123</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">124</span>
-<span class="linenos">125</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">125</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">126</span>        <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">127</span>            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
 <span class="linenos">128</span>            <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
@@ -1051,7 +1051,7 @@
 <span class="linenos">563</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">node</span>
 <span class="linenos">564</span>        <span class="k">return</span> <span class="n">lt</span>
 <span class="linenos">565</span>
-<span class="linenos">566</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">566</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">567</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos">568</span>        <span class="n">child</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span>
 <span class="linenos">569</span>        <span class="n">stack</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -1118,7 +1118,7 @@
 <span class="linenos">630</span>
 <span class="linenos">631</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">632</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"SplayTreeSetTopDown(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
-<span class="linenos">633</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="linenos">633</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="linenos">634</span>
 <span class="linenos">635</span>
 <span class="linenos">636</span><span class="k">class</span> <span class="nc">RangeSet</span><span class="p">:</span>
@@ -1127,8 +1127,8 @@
 <span class="linenos">639</span><span class="sd">    """</span>
 <span class="linenos">640</span>
 <span class="linenos">641</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]):</span>
-<span class="linenos">642</span>        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">SplayTreeSetTopDown</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">SplayTreeSetTopDown</span><span class="p">()</span>
-<span class="linenos">643</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dic</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos">642</span>        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">SplayTreeSetTopDown</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">SplayTreeSetTopDown</span><span class="p">()</span>
+<span class="linenos">643</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dic</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="linenos">644</span>        <span class="k">for</span> <span class="n">a_</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="linenos">645</span>            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a_</span><span class="p">)</span>
 <span class="linenos">646</span>

@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.segment_tree.dual_segment_tree import DualSegmentTree
-from typing import Union, Callable, List, TypeVar, Generic, Iterable
+from typing import Union, Callable, TypeVar, Generic, Iterable
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -20,11 +20,11 @@ class DualSegmentTree(Generic[T, F]):
         self.composition: Callable[[F, F], F] = composition
         self.e: T = e
         self.id: F = id
-        self.data: List[T] = [e] * n_or_a if isinstance(n_or_a, int) else list(n_or_a)
+        self.data: list[T] = [e] * n_or_a if isinstance(n_or_a, int) else list(n_or_a)
         self.n: int = len(self.data)
         self.log: int = (self.n - 1).bit_length()
         self.size: int = 1 << self.log
-        self.lazy: List[F] = [id] * self.size
+        self.lazy: list[F] = [id] * self.size
 
     def _all_apply(self, k: int, f: F) -> None:
         if k < self.size:
@@ -89,7 +89,7 @@ class DualSegmentTree(Generic[T, F]):
         for i in range(self.size):
             self._propagate(i)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         self.all_propagate()
         return self.data[:]
 

@@ -50,7 +50,7 @@ class BitVectorInterface(ABC):
     @abstractmethod
     def __repr__(self) -> str:
         raise NotImplementedError
-from typing import Sequence, List
+from typing import Sequence
 from array import array
 
 
@@ -175,7 +175,7 @@ class SplayTreeBitVector(BitVectorInterface):
             + self.total[rnode]
         )
 
-    def _splay(self, path: List[int], d: int) -> None:
+    def _splay(self, path: list[int], d: int) -> None:
         child = self.child
         g = d & 1
         while len(path) > 1:
@@ -371,7 +371,7 @@ class SplayTreeBitVector(BitVectorInterface):
     def __len__(self):
         return self.size[self.root]
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         child, key, bit_len = self.child, self.key, self.bit_len
         a = []
         if not self.root:

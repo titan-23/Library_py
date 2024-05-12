@@ -1,12 +1,11 @@
 from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
 from titan_pylib.data_structures.segment_tree.segment_tree_RmQ import SegmentTreeRmQ
-from typing import List, Tuple
 
 
 class EulerTour:
 
     def __init__(
-        self, G: List[List[Tuple[int, int]]], root: int, vertexcost: List[int] = []
+        self, G: list[list[tuple[int, int]]], root: int, vertexcost: list[int] = []
     ) -> None:
         n = len(G)
         if not vertexcost:
@@ -23,7 +22,7 @@ class EulerTour:
 
         curtime = -1
         depth[root] = 0
-        stack: List[Tuple[int, int]] = [(~root, 0), (root, 0)]
+        stack: list[tuple[int, int]] = [(~root, 0), (root, 0)]
         while stack:
             curtime += 1
             v, ec = stack.pop()
@@ -67,7 +66,7 @@ class EulerTour:
 
         bit = len(path).bit_length()
         self.msk = (1 << bit) - 1
-        a: List[int] = [(depth[v] << bit) + i for i, v in enumerate(path)]
+        a: list[int] = [(depth[v] << bit) + i for i, v in enumerate(path)]
         self._st: SegmentTreeRmQ[int] = SegmentTreeRmQ(a, e=max(a))
 
     def lca(self, u: int, v: int) -> int:
@@ -78,7 +77,7 @@ class EulerTour:
         ind = self._st.prod(l, r) & self.msk
         return self._path[ind]
 
-    def lca_mul(self, a: List[int]) -> int:
+    def lca_mul(self, a: list[int]) -> int:
         l, r = self._n + 1, -self._n - 1
         for e in a:
             l = min(l, self._nodein[e])

@@ -1,11 +1,8 @@
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D import FenwickTree2D
-from typing import List
-
-
 class FenwickTree2D:
     """2次元です。"""
 
-    def __init__(self, h: int, w: int, a: List[List[int]] = []):
+    def __init__(self, h: int, w: int, a: list[list[int]] = []):
         """O(HWlogHlogW)"""
         self._h = h + 1
         self._w = w + 1

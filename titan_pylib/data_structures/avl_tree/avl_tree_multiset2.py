@@ -2,7 +2,7 @@ from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.bst_base.bst_multiset_array_base import (
     BSTMultisetArrayBase,
 )
-from typing import Generic, Iterable, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, TypeVar, Optional
 from array import array
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -52,10 +52,10 @@ class AVLTreeMultiset2(Generic[T]):
         self.right += a
         self.balance += array("b", bytes(n))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, balance = self.left, self.right, self.balance
 
-        def sort(l: int, r: int) -> Tuple[int, int]:
+        def sort(l: int, r: int) -> tuple[int, int]:
             mid = (l + r) >> 1
             node = mid
             hl, hr = 0, 0
@@ -139,7 +139,7 @@ class AVLTreeMultiset2(Generic[T]):
         self._update_balance(D)
         return D
 
-    def _discard(self, node: int, path: List[int], di: int) -> bool:
+    def _discard(self, node: int, path: list[int], di: int) -> bool:
         left, right, keys, vals, balance = (
             self.left,
             self.right,
@@ -355,14 +355,14 @@ class AVLTreeMultiset2(Generic[T]):
     def clear(self) -> None:
         self.root = 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetArrayBase[AVLTreeMultiset2, T].tolist(self)
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         node = self.root
-        stack: List[int] = []
-        a: List[Tuple[T, int]] = []
+        stack: list[int] = []
+        a: list[tuple[T, int]] = []
         while stack or node:
             if node:
                 stack.append(node)

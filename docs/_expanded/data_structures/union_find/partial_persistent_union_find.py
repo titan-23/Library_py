@@ -2,7 +2,7 @@
 # from titan_pylib.data_structures.array.partial_persistent_array import (
 #     PartialPersistentArray,
 # )
-from typing import Iterable, List, TypeVar, Generic
+from typing import Iterable, TypeVar, Generic
 
 T = TypeVar("T")
 
@@ -17,8 +17,8 @@ class PartialPersistentArray(Generic[T]):
         初期配列のバージョンは ``0`` です。
         :math:`O(n)` です。
         """
-        self.a: List[List[T]] = [[e] for e in a]
-        self.t: List[List[int]] = [[0] for _ in range(len(self.a))]
+        self.a: list[list[T]] = [[e] for e in a]
+        self.t: list[list[int]] = [[0] for _ in range(len(self.a))]
         self.last_time: int = 0
 
     def set(self, k: int, v: T, t: int) -> None:
@@ -56,7 +56,7 @@ class PartialPersistentArray(Generic[T]):
                 ng = mid
         return self.a[k][ok]
 
-    def tolist(self, t: int) -> List[T]:
+    def tolist(self, t: int) -> list[T]:
         """バージョン ``t`` の配列を返します。
         :math:`O(n\\log{n})` です。
         """

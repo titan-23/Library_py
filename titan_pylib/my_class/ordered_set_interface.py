@@ -1,6 +1,6 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -60,7 +60,7 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod

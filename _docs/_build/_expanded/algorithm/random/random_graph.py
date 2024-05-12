@@ -1,6 +1,6 @@
 # from titan_pylib.algorithm.random.random_graph import RandomGraph
 import enum
-from typing import Optional, List, Tuple
+from typing import Optional
 import random
 
 
@@ -18,7 +18,7 @@ class RandomGraph:
         m: int,
         typ: RandomGraphType = RandomGraphType.random,
         seed: Optional[int] = None,
-    ) -> List[Tuple[int, int]]:
+    ) -> list[tuple[int, int]]:
         random.seed(seed)
         if typ == RandomGraphType.random:
             return cls._build_random(n, m)
@@ -27,7 +27,7 @@ class RandomGraph:
         raise ValueError(typ)
 
     @classmethod
-    def _build_cycle(cls, n: int, m: int) -> List[Tuple[int, int]]:
+    def _build_cycle(cls, n: int, m: int) -> list[tuple[int, int]]:
         assert m == n
         cycle = list(range(n))
         random.shuffle(cycle)
@@ -44,7 +44,7 @@ class RandomGraph:
         return edges
 
     @classmethod
-    def _build_random(cls, n: int, m: int) -> List[Tuple[int, int]]:
+    def _build_random(cls, n: int, m: int) -> list[tuple[int, int]]:
         assert m <= n * (n - 1) // 2
         edges = set()
         while len(edges) < m:

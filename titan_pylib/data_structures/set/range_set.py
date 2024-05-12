@@ -1,7 +1,7 @@
 from titan_pylib.data_structures.splay_tree.splay_tree_set_top_down import (
     SplayTreeSetTopDown,
 )
-from typing import Dict, Iterable, Tuple
+from typing import Iterable
 
 
 class RangeSet:
@@ -10,8 +10,8 @@ class RangeSet:
     """
 
     def __init__(self, a: Iterable[int] = []):
-        self.data: SplayTreeSetTopDown[Tuple[int, int]] = SplayTreeSetTopDown()
-        self.dic: Dict[int, int] = {}
+        self.data: SplayTreeSetTopDown[tuple[int, int]] = SplayTreeSetTopDown()
+        self.dic: dict[int, int] = {}
         for a_ in sorted(a):
             self.add(a_)
 

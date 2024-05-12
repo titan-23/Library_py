@@ -6,7 +6,7 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import Iterable, TypeVar, Callable, List
+from typing import Iterable, TypeVar, Callable
 import random
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -14,7 +14,7 @@ T = TypeVar("T", bound=SupportsLessThan)
 
 def quick_sort(
     a: Iterable[T], key: Callable[[T, T], bool] = lambda s, t: s < t
-) -> List[T]:
+) -> list[T]:
     """クイックソートです。
 
     非破壊的です。

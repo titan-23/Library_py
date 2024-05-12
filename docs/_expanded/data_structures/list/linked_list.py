@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.list.linked_list import LinkedList
-from typing import Generic, TypeVar, List, Optional, Iterator, Iterable
+from typing import Generic, TypeVar, Optional, Iterator, Iterable
 
 T = TypeVar("T")
 
@@ -167,7 +167,7 @@ class LinkedList(Generic[T]):
             yield node.key()
             node = pre
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return [x for x in self]
 
     def make_node(self, key: T) -> LinkedListNode:

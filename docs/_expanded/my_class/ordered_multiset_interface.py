@@ -7,7 +7,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -75,7 +75,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod

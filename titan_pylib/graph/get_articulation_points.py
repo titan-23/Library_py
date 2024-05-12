@@ -1,14 +1,13 @@
-from typing import List
 from types import GeneratorType
 
 """Return articulation points. / O(|V|+|E|)"""
 
 
 # https://algo-logic.info/articulation-points/
-def get_articulation_points(G: List[List[int]]) -> List[int]:
+def get_articulation_points(G: list[list[int]]) -> list[int]:
     n = len(G)
     order = [-1] * n
-    res: List[int] = []
+    res: list[int] = []
     cnt = 0
 
     def antirec(func):

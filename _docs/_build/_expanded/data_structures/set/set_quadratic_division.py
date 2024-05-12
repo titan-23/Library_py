@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.set.set_quadratic_division import SetQuadraticDivision
-from typing import List
+from typing import Iterable
 
 
 class SetQuadraticDivision:
@@ -9,7 +9,7 @@ class SetQuadraticDivision:
     # add / discard / remove / contains : O(1)
     # kth_elm : O(√u)
 
-    def __init__(self, u: int, a: List[int] = []):
+    def __init__(self, u: int, a: Iterable[int] = []):
         self.data = [0] * u
         self.size = int(u**0.5) + 1
         self.bucket_cnt = (u + self.size - 1) // self.size

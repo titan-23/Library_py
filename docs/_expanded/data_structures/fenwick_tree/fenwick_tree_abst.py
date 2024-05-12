@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst import FenwickTreeAbst
-from typing import List, Union, Iterable, TypeVar, Generic, Callable
+from typing import Union, Iterable, TypeVar, Generic, Callable
 
 T = TypeVar("T")
 
@@ -89,7 +89,7 @@ class FenwickTreeAbst(Generic[T]):
         pre = self.__getitem__(k)
         self.add(k, self.op(x, self.inv(pre)))
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         sub = [self.pref(i) for i in range(self._size + 1)]
         return [self.op(sub[i + 1], self.inv(sub[i])) for i in range(self._size)]
 

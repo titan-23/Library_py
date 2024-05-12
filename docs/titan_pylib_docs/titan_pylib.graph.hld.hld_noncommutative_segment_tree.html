@@ -492,7 +492,7 @@
 <span class="linenos">  4</span><span class="c1">#     SegmentTreeInterface,</span>
 <span class="linenos">  5</span><span class="c1"># )</span>
 <span class="linenos">  6</span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="linenos">  7</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+<span class="linenos">  7</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="linenos">  8</span>
 <span class="linenos">  9</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos"> 10</span>
@@ -528,7 +528,7 @@
 <span class="linenos"> 40</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 41</span>
 <span class="linenos"> 42</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 43</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 43</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 44</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 45</span>
 <span class="linenos"> 46</span>    <span class="nd">@abstractmethod</span>
@@ -546,7 +546,7 @@
 <span class="linenos"> 58</span>    <span class="nd">@abstractmethod</span>
 <span class="linenos"> 59</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 60</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos"> 61</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
+<span class="linenos"> 61</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
 <span class="linenos"> 62</span>
 <span class="linenos"> 63</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos"> 64</span>
@@ -711,7 +711,7 @@
 <span class="linenos">223</span>                <span class="k">break</span>
 <span class="linenos">224</span>        <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">225</span>
-<span class="linenos">226</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">226</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">227</span><span class="w">        </span><span class="sd">"""リストにして返します。</span>
 <span class="linenos">228</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">229</span><span class="sd">        """</span>
@@ -754,29 +754,29 @@
 <span class="linenos">266</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">267</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
 <span class="linenos">268</span><span class="c1"># from titan_pylib.graph.hld.hld import HLD</span>
-<span class="linenos">269</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="linenos">269</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span>
 <span class="linenos">270</span>
 <span class="linenos">271</span>
 <span class="linenos">272</span><span class="k">class</span> <span class="nc">HLD</span><span class="p">:</span>
 <span class="linenos">273</span>
-<span class="linenos">274</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos">274</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="linenos">275</span><span class="w">        </span><span class="sd">"""``root`` を根とする木 ``G`` を HLD します。</span>
 <span class="linenos">276</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">277</span>
 <span class="linenos">278</span><span class="sd">        Args:</span>
-<span class="linenos">279</span><span class="sd">          G (List[List[int]]): 木を表す隣接リストです。</span>
+<span class="linenos">279</span><span class="sd">          G (list[list[int]]): 木を表す隣接リストです。</span>
 <span class="linenos">280</span><span class="sd">          root (int): 根です。</span>
 <span class="linenos">281</span><span class="sd">        """</span>
 <span class="linenos">282</span>        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="linenos">283</span>        <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n</span>
-<span class="linenos">284</span>        <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">G</span>
-<span class="linenos">285</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">286</span>        <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">287</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">288</span>        <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">289</span>        <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">290</span>        <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos">291</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">284</span>        <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">G</span>
+<span class="linenos">285</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">286</span>        <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">287</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">288</span>        <span class="bp">self</span><span class="o">.</span><span class="n">nodein</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">289</span>        <span class="bp">self</span><span class="o">.</span><span class="n">nodeout</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">290</span>        <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos">291</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 <span class="linenos">292</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_dfs</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
 <span class="linenos">293</span>
 <span class="linenos">294</span>    <span class="k">def</span> <span class="nf">_dfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -827,19 +827,19 @@
 <span class="linenos">339</span>            <span class="k">else</span><span class="p">:</span>
 <span class="linenos">340</span>                <span class="n">nodeout</span><span class="p">[</span><span class="o">~</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">curtime</span>
 <span class="linenos">341</span>
-<span class="linenos">342</span>    <span class="k">def</span> <span class="nf">build_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="linenos">342</span>    <span class="k">def</span> <span class="nf">build_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="linenos">343</span><span class="w">        </span><span class="sd">"""``hld配列`` を基にインデックスを振りなおします。非破壊的です。</span>
 <span class="linenos">344</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">345</span>
 <span class="linenos">346</span><span class="sd">        Args:</span>
-<span class="linenos">347</span><span class="sd">          a (List[Any]): 元の配列です。</span>
+<span class="linenos">347</span><span class="sd">          a (list[Any]): 元の配列です。</span>
 <span class="linenos">348</span>
 <span class="linenos">349</span><span class="sd">        Returns:</span>
-<span class="linenos">350</span><span class="sd">          List[Any]: 振りなおし後の配列です。</span>
+<span class="linenos">350</span><span class="sd">          list[Any]: 振りなおし後の配列です。</span>
 <span class="linenos">351</span><span class="sd">        """</span>
 <span class="linenos">352</span>        <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">]</span>
 <span class="linenos">353</span>
-<span class="linenos">354</span>    <span class="k">def</span> <span class="nf">for_each_vertex_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">354</span>    <span class="k">def</span> <span class="nf">for_each_vertex_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">355</span><span class="w">        </span><span class="sd">"""``u-v`` パスに対応する区間のインデックスを返します。</span>
 <span class="linenos">356</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos">357</span><span class="sd">        """</span>
@@ -853,7 +853,7 @@
 <span class="linenos">365</span>            <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
 <span class="linenos">366</span>        <span class="k">yield</span> <span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="linenos">367</span>
-<span class="linenos">368</span>    <span class="k">def</span> <span class="nf">for_each_vertex_subtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">368</span>    <span class="k">def</span> <span class="nf">for_each_vertex_subtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">369</span><span class="w">        </span><span class="sd">"""頂点 ``v`` の部分木に対応する区間のインデックスを返します。</span>
 <span class="linenos">370</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos">371</span><span class="sd">        """</span>

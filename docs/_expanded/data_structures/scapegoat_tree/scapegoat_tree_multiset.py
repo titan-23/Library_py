@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -76,7 +76,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -111,7 +111,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
 #     BSTMultisetNodeBase,
 # )
 from __pypy__ import newlist_hint
-from typing import List, Tuple, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 Node = TypeVar("Node")
@@ -153,7 +153,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return False
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> List[T]:
+    def tolist(node: Node, _len: int = 0) -> list[T]:
         stack = []
         a = newlist_hint(_len)
         while stack or node:
@@ -168,7 +168,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def tolist_items(node: Node, _len: int = 0) -> List[Tuple[T, int]]:
+    def tolist_items(node: Node, _len: int = 0) -> list[tuple[T, int]]:
         stack = newlist_hint(_len)
         a = newlist_hint(_len)
         while stack or node:
@@ -182,7 +182,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def _rle(a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(a: list[T]) -> tuple[list[T], list[int]]:
         keys, vals = newlist_hint(len(a)), newlist_hint(len(a))
         keys.append(a[0])
         vals.append(1)
@@ -276,7 +276,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return k
 import math
 from __pypy__ import newlist_hint
-from typing import Final, List, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
+from typing import Final, TypeVar, Generic, Iterable, Optional, Iterator
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -307,7 +307,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
             a = list(a)
         self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = ScapegoatTreeMultiset.Node
 
         def rec(l: int, r: int) -> ScapegoatTreeMultiset.Node:
@@ -362,7 +362,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = node.right
         return rec(0, len(a))
 
-    def _kth_elm(self, k: int) -> Tuple[T, int]:
+    def _kth_elm(self, k: int) -> tuple[T, int]:
         if k < 0:
             k += len(self)
         node = self.root
@@ -376,7 +376,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = node.right
                 k -= t
 
-    def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
+    def _kth_elm_tree(self, k: int) -> tuple[T, int]:
         if k < 0:
             k += self.len_elm()
         node = self.root
@@ -576,7 +576,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def pop_max(self) -> T:
         return self.pop(-1)
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             yield self._kth_elm_tree(i)
 
@@ -602,12 +602,12 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def len_elm(self) -> int:
         return self.root.size if self.root else 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist(
             self.root, len(self)
         )
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist_items(
             self.root, self.len_elm()
         )

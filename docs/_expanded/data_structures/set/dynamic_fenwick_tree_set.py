@@ -2,7 +2,7 @@
 # from titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree import (
 #     DynamicFenwickTree,
 # )
-from typing import Optional, Final, Dict
+from typing import Optional, Final
 
 
 class DynamicFenwickTree:
@@ -14,7 +14,7 @@ class DynamicFenwickTree:
             u, int
         ), f"TypeError: DynamicFenwickTree({u}), {u} must be int"
         self._u: Final[int] = u
-        self._tree: Dict[int, int] = {}
+        self._tree: dict[int, int] = {}
         self._s: Final[int] = 1 << (u - 1).bit_length()
 
     def add(self, k: int, x: int) -> None:
@@ -80,7 +80,7 @@ class DynamicFenwickTree:
 
     def __str__(self):
         return str(self._tree)
-from typing import Dict, Iterable, Optional
+from typing import Iterable, Optional
 
 
 class DynamicFenwickTreeSet:
@@ -90,7 +90,7 @@ class DynamicFenwickTreeSet:
     def __init__(self, u: int, a: Iterable[int] = []):
         self._size: int = u
         self._len: int = 0
-        self._cnt: Dict[int, int] = {}
+        self._cnt: dict[int, int] = {}
         self._fw = DynamicFenwickTree(self._size)
         for _a in a:
             self.add(_a)

@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any
 import random
 
 
@@ -7,7 +7,7 @@ class HashDict:
     _xor = random.randrange(10000000, 1000000000)
 
     def __init__(self):
-        self._data: Dict[int, Any] = {}
+        self._data: dict[int, Any] = {}
 
     def __setitem__(self, key: int, val: Any):
         self._data[key ^ HashDict._xor] = val

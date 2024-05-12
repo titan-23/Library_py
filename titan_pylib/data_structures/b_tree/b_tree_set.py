@@ -2,7 +2,7 @@ from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
-from typing import Deque, Generic, Tuple, TypeVar, List, Optional, Iterable
+from typing import Deque, Generic, TypeVar, Optional, Iterable
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -12,8 +12,8 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     class _Node:
 
         def __init__(self):
-            self.key: List = []
-            self.child: List["BTreeSet._Node"] = []
+            self.key: list = []
+            self.child: list["BTreeSet._Node"] = []
 
         def is_leaf(self) -> bool:
             return not self.child
@@ -48,10 +48,10 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
         def pop_child(self, i: int = -1) -> "BTreeSet._Node":
             return self.child.pop(i)
 
-        def extend_key(self, keys: List[T]) -> None:
+        def extend_key(self, keys: list[T]) -> None:
             self.key += keys
 
-        def extend_child(self, children: List["BTreeSet._Node"]) -> None:
+        def extend_child(self, children: list["BTreeSet._Node"]) -> None:
             self.child += children
 
         def __str__(self):
@@ -232,7 +232,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
             return
         raise ValueError
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
 
         def dfs(node):
@@ -263,7 +263,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
     def debug(self) -> None:
         dep = [[] for _ in range(10)]
-        dq: Deque[Tuple["BTreeSet._Node", int]] = deque([(self._root, 0)])
+        dq: Deque[tuple["BTreeSet._Node", int]] = deque([(self._root, 0)])
         while dq:
             node, d = dq.popleft()
             dep[d].append(node.key)

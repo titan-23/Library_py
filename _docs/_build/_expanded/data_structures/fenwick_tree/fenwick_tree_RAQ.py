@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ import FenwickTreeRAQ
-from typing import List, Iterable, Sequence, Union
+from typing import Iterable, Sequence, Union
 
 
 class FenwickTreeRAQ:
@@ -27,13 +27,13 @@ class FenwickTreeRAQ:
             for i, e in enumerate(n_or_a):
                 self.add_range(i, i + 1, e)
 
-    def __add(self, bit: List[int], k: int, x: int) -> None:
+    def __add(self, bit: list[int], k: int, x: int) -> None:
         k += 1
         while k <= self.bit_size:
             bit[k] += x
             k += k & -k
 
-    def __pref(self, bit: List[int], r: int) -> int:
+    def __pref(self, bit: list[int], r: int) -> int:
         ret = 0
         while r > 0:
             ret += bit[r]
@@ -91,11 +91,11 @@ class FenwickTreeRAQ:
             - l * self.__pref(self.bit1, l)
         )
 
-    def tolist(self) -> List[int]:
-        """``List`` にして返します。
+    def tolist(self) -> list[int]:
+        """``list`` にして返します。
 
         Returns:
-          List[int]:
+          list[int]:
         """
         return [self.sum(i, i + 1) for i in range(self.n)]
 

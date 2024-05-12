@@ -1,5 +1,5 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Callable, Generic, Iterable, Tuple, TypeVar, Union, List, Optional
+from typing import Callable, Generic, Iterable, TypeVar, Union, Optional
 
 K = TypeVar("K", bound=SupportsLessThan)
 V = TypeVar("V")
@@ -192,7 +192,7 @@ class AVLTreeDict(Generic[K, V]):
                     break
         return True
 
-    def tolist_items(self) -> List[Tuple[K, V]]:
+    def tolist_items(self) -> list[tuple[K, V]]:
         a = []
         if self.node is None:
             return a

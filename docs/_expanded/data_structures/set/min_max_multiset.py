@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
     def __lt__(self, other) -> bool: ...
 # from titan_pylib.data_structures.heap.double_ended_heap import DoubleEndedHeap
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Generic, Iterable, TypeVar, List
+from typing import Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -135,7 +135,7 @@ class DoubleEndedHeap(Generic[T]):
             k = p
         return k
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return sorted(self._data)
 
     def __str__(self) -> str:
@@ -143,7 +143,7 @@ class DoubleEndedHeap(Generic[T]):
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self})"
-from typing import Generic, Iterable, TypeVar, List
+from typing import Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -229,7 +229,7 @@ class MinMaxMultiset(Generic[T]):
     def count(self, key: T) -> int:
         return self.data[key]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return sorted(k for k, v in self.data.items() for _ in range(v))
 
     def len_elm(self) -> int:

@@ -1,25 +1,25 @@
 from titan_pylib.data_structures.bit_vector.bit_vector import BitVector
 from titan_pylib.data_structures.cumulative_sum.cumulative_sum import CumulativeSum
 from array import array
-from typing import List, Tuple, Sequence, Iterable
+from typing import Sequence, Iterable
 from bisect import bisect_left
 
 
 class CumulativeSumWaveletMatrix:
 
-    def __init__(self, sigma: int, pos: Iterable[Tuple[int, int, int]] = []) -> None:
+    def __init__(self, sigma: int, pos: Iterable[tuple[int, int, int]] = []) -> None:
         """
         Args:
           sigma (int): yの最大値
-          pos (List[Tuple[int, int, int]], optional): List[(x, y, w)]
+          pos (list[tuple[int, int, int]], optional): list[(x, y, w)]
         """
         self.sigma: int = sigma
         self.log: int = (sigma - 1).bit_length()
         self.mid: array[int] = array("I", bytes(4 * self.log))
-        self.xy: List[Tuple[int, int]] = self._sort_unique([(x, y) for x, y, _ in pos])
-        self.y: List[int] = self._sort_unique([y for _, y in self.xy])
+        self.xy: list[tuple[int, int]] = self._sort_unique([(x, y) for x, y, _ in pos])
+        self.y: list[int] = self._sort_unique([y for _, y in self.xy])
         self.size: int = len(self.xy)
-        self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
+        self.v: list[BitVector] = [BitVector(self.size) for _ in range(self.log)]
         self._build([bisect_left(self.y, y) for _, y in self.xy])
         ws = [[0] * self.size for _ in range(self.log)]
         for x, y, w in pos:
@@ -31,7 +31,7 @@ class CumulativeSumWaveletMatrix:
                 else:
                     k = self.v[bit].rank0(k)
                 ws[bit][k] += w
-        self.bit: List[CumulativeSum] = [CumulativeSum(a) for a in ws]
+        self.bit: list[CumulativeSum] = [CumulativeSum(a) for a in ws]
 
     def _build(self, a: Sequence[int]) -> None:
         # 列 a から wm を構築する
@@ -49,7 +49,7 @@ class CumulativeSumWaveletMatrix:
             self.mid[bit] = len(zero)  # 境界をmid[bit]に保持
             a = zero + one
 
-    def _sort_unique(self, a: List) -> List:
+    def _sort_unique(self, a: list) -> list:
         if not a:
             return a
         a.sort()

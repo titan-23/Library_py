@@ -1,19 +1,19 @@
-from typing import List, Tuple, Union
+from typing import Union
 
 
 def warshall_floyd(
-    G: List[List[Tuple[int, int]]], INF: Union[int, float] = float("inf")
-) -> List[List[Union[int, float]]]:
+    G: list[list[tuple[int, int]]], INF: Union[int, float] = float("inf")
+) -> list[list[Union[int, float]]]:
     """重み付き隣接リスト ``G`` に対し、全点対最短経路を返します。
 
     :math:`O(n^3)` です。
 
     Args:
-        G (List[List[Tuple[int, int]]]): 重み付き隣接リストです。
+        G (list[list[tuple[int, int]]]): 重み付き隣接リストです。
         INF (Union[int, float], optional): 無限大です。
 
     Returns:
-        List[List[Union[int, float]]]: dist[a][b] -> a to b
+        list[list[Union[int, float]]]: dist[a][b] -> a to b
     """
     n = len(G)
     dist = [[INF] * n for _ in range(n)]
@@ -35,14 +35,14 @@ def warshall_floyd(
     return dist
 
 
-from typing import List, Tuple, Union
+from typing import list, tuple, Union
 
 """Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)"""
 
 
 def warshall_floyd(
-    D: List[List[int]], INF: Union[int, float] = float("inf")
-) -> List[List[Union[int, float]]]:
+    D: list[list[int]], INF: Union[int, float] = float("inf")
+) -> list[list[Union[int, float]]]:
     n = len(D)
     dist = [d[:] for d in D]
     for k in range(n):
@@ -58,9 +58,9 @@ def warshall_floyd(
     return dist
 
 
-# from typing import List, Tuple, Union
+# from typing import list, tuple, Union
 # '''Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)'''
-# def warshall_floyd(G: List[List[Tuple[int, int]]], INF: Union[int, float]=float('inf')) -> List[List[Union[int, float]]]:
+# def warshall_floyd(G: list[list[tuple[int, int]]], INF: Union[int, float]=float('inf')) -> list[list[Union[int, float]]]:
 #   n = len(G)
 #   # dist = [dijkstra(G, s, INF) for s in range(n)]
 #   dist = [[INF]*n for _ in range(n)]

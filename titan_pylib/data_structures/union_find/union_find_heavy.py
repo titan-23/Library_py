@@ -1,4 +1,3 @@
-from typing import Set, List
 from collections import defaultdict
 
 
@@ -7,10 +6,10 @@ class UnionFindHeavy:
     def __init__(self, n: int) -> None:
         self._n: int = n
         self._group_numbers: int = n
-        self._parents: List[int] = [-1] * n  # defaultdict(lambda: -1)
+        self._parents: list[int] = [-1] * n  # defaultdict(lambda: -1)
         # self._roots = set(range(n))
-        self._edges: List[int] = [0] * n
-        self._G: List[List[int]] = [[] for _ in range(n)]
+        self._edges: list[int] = [0] * n
+        self._G: list[list[int]] = [[] for _ in range(n)]
 
     def root(self, x: int) -> int:
         assert 0 <= x < self._n, f"{self.__class__.__name__}.root(x) IndexError, x={x}"
@@ -93,7 +92,7 @@ class UnionFindHeavy:
         ), f"IndexError: {self.__class__.__name__}.same(x: int, y: int), x={x}, y={y}"
         return self.root(x) == self.root(y)
 
-    def members(self, x: int) -> Set[int]:
+    def members(self, x: int) -> set[int]:
         assert (
             0 <= x < self._n
         ), f"IndexError: {self.__class__.__name__}.members(x: int), x={x}"
@@ -108,7 +107,7 @@ class UnionFindHeavy:
                 seen.add(x)
         return seen
 
-    def all_roots(self) -> List[int]:
+    def all_roots(self) -> list[int]:
         """Return all roots. / O(1)"""
         # return self._roots
         return [i for i, x in enumerate(self._parents) if x < 0]

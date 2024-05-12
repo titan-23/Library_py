@@ -9,7 +9,7 @@ class SupportsLessThan(Protocol):
 # from titan_pylib.my_class.ordered_multiset_interface import OrderedMultisetInterface
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -77,7 +77,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -111,7 +111,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
 #     BSTMultisetNodeBase,
 # )
 from __pypy__ import newlist_hint
-from typing import List, Tuple, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 Node = TypeVar("Node")
@@ -153,7 +153,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return False
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> List[T]:
+    def tolist(node: Node, _len: int = 0) -> list[T]:
         stack = []
         a = newlist_hint(_len)
         while stack or node:
@@ -168,7 +168,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def tolist_items(node: Node, _len: int = 0) -> List[Tuple[T, int]]:
+    def tolist_items(node: Node, _len: int = 0) -> list[tuple[T, int]]:
         stack = newlist_hint(_len)
         a = newlist_hint(_len)
         while stack or node:
@@ -182,7 +182,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def _rle(a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(a: list[T]) -> tuple[list[T], list[int]]:
         keys, vals = newlist_hint(len(a)), newlist_hint(len(a))
         keys.append(a[0])
         vals.append(1)
@@ -274,7 +274,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
                 k += node.val if node.left is None else node.left.valsize + node.val
                 node = node.right
         return k
-from typing import Iterable, Optional, TypeVar, Generic, List
+from typing import Iterable, Optional, TypeVar, Generic
 from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -380,7 +380,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         def sort(l: int, r: int, d: int):
             mid = (l + r) >> 1
             node = Node(x[mid], y[mid])
@@ -755,7 +755,7 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
             node = node.left if key < node.key else node.right
         return None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.node
         stack = newlist_hint(len(self))
         res = newlist_hint(len(self))

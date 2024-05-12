@@ -1,9 +1,107 @@
 # from titan_pylib.data_structures.b_tree.gomi.BTreeSet import BTreeSet
-from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
-from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+# from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
+# from titan_pylib.my_class.supports_less_than import SupportsLessThan
+from typing import Protocol
+
+
+class SupportsLessThan(Protocol):
+
+    def __lt__(self, other) -> bool: ...
+from abc import ABC, abstractmethod
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
+
+T = TypeVar("T", bound=SupportsLessThan)
+
+
+class OrderedSetInterface(ABC, Generic[T]):
+
+    @abstractmethod
+    def __init__(self, a: Iterable[T]) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def add(self, key: T) -> bool:
+        raise NotImplementedError
+
+    @abstractmethod
+    def discard(self, key: T) -> bool:
+        raise NotImplementedError
+
+    @abstractmethod
+    def remove(self, key: T) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def le(self, key: T) -> Optional[T]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def lt(self, key: T) -> Optional[T]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def ge(self, key: T) -> Optional[T]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def gt(self, key: T) -> Optional[T]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_max(self) -> Optional[T]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_min(self) -> Optional[T]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def pop_max(self) -> T:
+        raise NotImplementedError
+
+    @abstractmethod
+    def pop_min(self) -> T:
+        raise NotImplementedError
+
+    @abstractmethod
+    def clear(self) -> None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def tolist(self) -> list[T]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def __iter__(self) -> Iterator:
+        raise NotImplementedError
+
+    @abstractmethod
+    def __next__(self) -> T:
+        raise NotImplementedError
+
+    @abstractmethod
+    def __contains__(self, key: T) -> bool:
+        raise NotImplementedError
+
+    @abstractmethod
+    def __len__(self) -> int:
+        raise NotImplementedError
+
+    @abstractmethod
+    def __bool__(self) -> bool:
+        raise NotImplementedError
+
+    @abstractmethod
+    def __str__(self) -> str:
+        raise NotImplementedError
+
+    @abstractmethod
+    def __repr__(self) -> str:
+        raise NotImplementedError
+# from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
-from typing import Deque, Generic, Tuple, TypeVar, List, Optional, Iterable
+from typing import Deque, Generic, TypeVar, Optional, Iterable
 from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -14,8 +112,8 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     class Node:
 
         def __init__(self):
-            self.key: List[T] = []
-            self.child: List["BTreeSet.Node"] = []
+            self.key: list[T] = []
+            self.child: list["BTreeSet.Node"] = []
             self.size: int = 0
 
         def is_leaf(self) -> bool:
@@ -65,11 +163,11 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
             self.size -= cnode.size if size == -1 else size
             return cnode
 
-        def extend_key(self, keys: List[T]) -> None:
+        def extend_key(self, keys: list[T]) -> None:
             self.size += len(keys)
             self.key += keys
 
-        def extend_child(self, children: List["BTreeSet.Node"]) -> None:
+        def extend_child(self, children: list["BTreeSet.Node"]) -> None:
             self.size += sum(cnode.size for cnode in children)
             self.child += children
 
@@ -219,7 +317,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
         if node is self._root and not node.key:
             self._root = y
 
-    def _update_stack(self, stack: List["BTreeSet.Node"]) -> None:
+    def _update_stack(self, stack: list["BTreeSet.Node"]) -> None:
         for s in stack:
             s.size -= 1
 
@@ -283,7 +381,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
             return
         raise ValueError
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = newlist_hint(len(self))
 
         def dfs(node):
@@ -314,7 +412,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
     def debug(self) -> None:
         dep = [[] for _ in range(10)]
-        dq: Deque[Tuple["BTreeSet.Node", int]] = deque([(self._root, 0)])
+        dq: Deque[tuple["BTreeSet.Node", int]] = deque([(self._root, 0)])
         while dq:
             node, d = dq.popleft()
             dep[d].append((node.key, node.size))

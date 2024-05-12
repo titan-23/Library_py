@@ -2,7 +2,7 @@
 
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
-from typing import Generic, TypeVar, List, Optional, Iterable
+from typing import Generic, TypeVar, Optional, Iterable
 from __pypy__ import newlist_hint
 
 T = TypeVar("T")
@@ -13,9 +13,9 @@ class BTreeMultiset(Generic[T]):
     class Node:
 
         def __init__(self):
-            self.key: List[T] = []
-            self.child: List["BTreeMultiset.Node"] = []
-            self.cnt: List[int] = []
+            self.key: list[T] = []
+            self.child: list["BTreeMultiset.Node"] = []
+            self.cnt: list[int] = []
             self.size: int = 0
 
         def is_leaf(self) -> bool:
@@ -66,11 +66,11 @@ class BTreeMultiset(Generic[T]):
             self.size -= cnode.size if size == -1 else size
             return cnode
 
-        def extend_key(self, keys: List[T]) -> None:
+        def extend_key(self, keys: list[T]) -> None:
             self.size += len(keys)
             self.key += keys
 
-        def extend_child(self, children: List["BTreeMultiset.Node"]) -> None:
+        def extend_child(self, children: list["BTreeMultiset.Node"]) -> None:
             self.size += sum(cnode.size for cnode in children)
             self.child += children
 
@@ -220,7 +220,7 @@ class BTreeMultiset(Generic[T]):
         if node is self._root and not node.key:
             self._root = y
 
-    def _update_stack(self, stack: List["BTreeMultiset.Node"]) -> None:
+    def _update_stack(self, stack: list["BTreeMultiset.Node"]) -> None:
         for s in stack:
             s.size -= 1
 
@@ -284,7 +284,7 @@ class BTreeMultiset(Generic[T]):
             return
         raise ValueError
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = newlist_hint(len(self))
 
         def dfs(node):

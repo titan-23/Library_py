@@ -1,6 +1,6 @@
 from array import array
 from __pypy__ import newlist_hint
-from typing import TypeVar, Generic, List, Iterable
+from typing import TypeVar, Generic, Iterable
 
 T = TypeVar("T")
 
@@ -12,7 +12,7 @@ class RandomizedMeldableHeap(Generic[T]):
     """
 
     _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
-    keys: List[T] = [0]
+    keys: list[T] = [0]
     child = array("I", bytes(8))
     end = 1
 
@@ -83,7 +83,7 @@ class RandomizedMeldableHeap(Generic[T]):
     def top(self) -> T:
         return self.keys[self.root]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         stack = newlist_hint(len(self))
         res = newlist_hint(len(self))

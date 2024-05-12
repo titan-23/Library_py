@@ -1,7 +1,7 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 import sys
 from __pypy__ import newlist_hint
-from typing import Iterator, Optional, Generic, Iterable, List, TypeVar, Tuple
+from typing import Iterator, Optional, Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -31,7 +31,7 @@ class SplayTreeMultiset(Generic[T]):
     def _build(self, a: Iterable[T]) -> None:
         Node = SplayTreeMultiset.Node
 
-        def sort(l: int, r: int) -> Node:
+        def sort(l: int, r: int) -> SplayTreeMultiset.Node:
             mid = (l + r) >> 1
             node = Node(key[mid], val[mid])
             if l != mid:
@@ -46,7 +46,7 @@ class SplayTreeMultiset(Generic[T]):
             return
         self.root = sort(0, len(key))
 
-    def _rle(self, a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(self, a: list[T]) -> tuple[list[T], list[int]]:
         x = newlist_hint(len(a))
         y = newlist_hint(len(a))
         x.append(a[0])
@@ -77,7 +77,7 @@ class SplayTreeMultiset(Generic[T]):
                 node.size = 1 + node.left.size + node.right.size
                 node.valsize = node.val + node.left.valsize + node.right.valsize
 
-    def _splay(self, path: List[Node], d: int) -> Node:
+    def _splay(self, path: list[Node], d: int) -> Node:
         for _ in range(len(path) >> 1):
             node = path.pop()
             pnode = path.pop()
@@ -428,7 +428,7 @@ class SplayTreeMultiset(Generic[T]):
     def pop_min(self) -> T:
         return self.pop(0)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.root is None:
             return a
@@ -446,7 +446,7 @@ class SplayTreeMultiset(Generic[T]):
         rec(self.root)
         return a
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         a = []
         if self.root is None:
             return a
@@ -468,7 +468,7 @@ class SplayTreeMultiset(Generic[T]):
         self._set_kth_elm_tree_splay(k)
         return self.root.key
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             self._set_kth_elm_tree_splay(i)
             yield self.root.key, self.root.val

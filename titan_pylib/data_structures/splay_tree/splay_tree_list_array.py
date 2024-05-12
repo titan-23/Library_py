@@ -1,5 +1,5 @@
 from array import array
-from typing import Generic, List, TypeVar, Tuple, Iterable, Union
+from typing import Generic, TypeVar, Iterable, Union
 from __pypy__ import newlist_hint
 
 T = TypeVar("T")
@@ -8,7 +8,7 @@ T = TypeVar("T")
 class SplayTreeListArrayData(Generic[T]):
 
     def __init__(self, e: T = 0):
-        self.keys: List[T] = [e]
+        self.keys: list[T] = [e]
         self.e: T = e
         self.arr: array[int] = array("I", bytes(16))
         # left:  arr[node<<2]
@@ -52,7 +52,7 @@ class SplayTreeListArrayData(Generic[T]):
         self.end += 1
         return self.end - 1
 
-    def _splay(self, path: List[int], d: int) -> None:
+    def _splay(self, path: list[int], d: int) -> None:
         arr = self.arr
         g = d & 1
         while len(path) > 1:
@@ -97,7 +97,7 @@ class SplayTreeListArray(Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         def rec(l: int, r: int) -> int:
             mid = (l + r) >> 1
             if l != mid:
@@ -173,7 +173,7 @@ class SplayTreeListArray(Generic[T]):
         self.data.arr[self.root << 2 | 1] = other.root
         self.data._update(self.root)
 
-    def split(self, k: int) -> Tuple["SplayTreeListArray", "SplayTreeListArray"]:
+    def split(self, k: int) -> tuple["SplayTreeListArray", "SplayTreeListArray"]:
         assert (
             -len(self) < k <= len(self)
         ), f"IndexError: SplayTreeListArray.split({k}), len={len(self)}"
@@ -187,7 +187,7 @@ class SplayTreeListArray(Generic[T]):
         self.data._update(self.root)
         return left, self
 
-    def _internal_split(self, k: int) -> Tuple[int, int]:
+    def _internal_split(self, k: int) -> tuple[int, int]:
         if k >= self.data.arr[self.root << 2 | 2]:
             return self.root, 0
         self.root = self._kth_elm_splay(self.root, k)
@@ -266,7 +266,7 @@ class SplayTreeListArray(Generic[T]):
         l, self = self.split(n - (x % n))
         self.merge(l)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         arr, keys = self.data.arr, self.data.keys
         stack = newlist_hint(len(self))

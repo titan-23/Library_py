@@ -3,7 +3,7 @@
 #     SegmentTreeInterface,
 # )
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Union, Iterable, Callable, List
+from typing import TypeVar, Generic, Union, Iterable, Callable
 
 T = TypeVar("T")
 
@@ -39,7 +39,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -66,7 +66,7 @@ class SupportsAdd(Protocol):
     def __add__(self, other): ...
     def __iadd__(self, other): ...
     def __radd__(self, other): ...
-from typing import Generic, Iterable, TypeVar, Union, List
+from typing import Generic, Iterable, TypeVar, Union
 
 T = TypeVar("T", bound=SupportsAdd)
 
@@ -186,7 +186,7 @@ class SegmentTreeRSQ(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return [self.get(i) for i in range(self._n)]
 
     def show(self) -> None:

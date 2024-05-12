@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -68,7 +68,7 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -101,7 +101,7 @@ class OrderedSetInterface(ABC, Generic[T]):
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 # from titan_pylib.data_structures.bst_base.bst_set_node_base import BSTSetNodeBase
 from __pypy__ import newlist_hint
-from typing import List, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 Node = TypeVar("Node")
@@ -111,7 +111,7 @@ Node = TypeVar("Node")
 class BSTSetNodeBase(Generic[T, Node]):
 
     @staticmethod
-    def sort_unique(a: List[T]) -> List[T]:
+    def sort_unique(a: list[T]) -> list[T]:
         if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
             a = sorted(a)
             new_a = [a[0]]
@@ -226,7 +226,7 @@ class BSTSetNodeBase(Generic[T, Node]):
         return k
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> List[T]:
+    def tolist(node: Node, _len: int = 0) -> list[T]:
         stack = []
         res = newlist_hint(_len)
         while stack or node:
@@ -252,7 +252,7 @@ class BSTSetNodeBase(Generic[T, Node]):
             else:
                 node = node.right
                 k -= t + 1
-from typing import Iterable, Optional, TypeVar, Generic, List, Sequence
+from typing import Iterable, Optional, TypeVar, Generic, Sequence
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -723,7 +723,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
             node = node.left if key < node.key else node.right
         return None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTSetNodeBase[T, RedBlackTreeSet.Node].tolist(self.node, len(self))
 
     def pop_max(self) -> T:

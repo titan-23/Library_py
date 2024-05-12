@@ -1,6 +1,6 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.heap.double_ended_heap import DoubleEndedHeap
-from typing import Generic, Iterable, TypeVar, List
+from typing import Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -55,7 +55,7 @@ class MinMaxSet(Generic[T]):
             else:
                 self.heap.pop_max()
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return sorted(self.data)
 
     def __contains__(self, key: T):

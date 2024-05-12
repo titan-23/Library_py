@@ -1,6 +1,6 @@
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Generic, Iterable, Tuple, TypeVar, List, Optional, Sequence
+from typing import Generic, Iterable, TypeVar, Optional, Sequence
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -38,7 +38,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
     def _build(self, a: Sequence[T]) -> None:
         Node = AVLTreeSet3.Node
 
-        def rec(l: int, r: int) -> Tuple[AVLTreeSet3.Node, int]:
+        def rec(l: int, r: int) -> tuple[AVLTreeSet3.Node, int]:
             mid = (l + r) >> 1
             node = Node(a[mid])
             hl, hr = 0, 0
@@ -390,7 +390,7 @@ class AVLTreeSet3(OrderedSetInterface, Generic[T]):
     def clear(self) -> None:
         self.node = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node is None:
             return a

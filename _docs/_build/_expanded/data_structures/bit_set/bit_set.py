@@ -1,5 +1,4 @@
 # from titan_pylib.data_structures.bit_set.bit_set import Bitset
-from typing import List
 from array import array
 
 
@@ -44,7 +43,7 @@ class Bitset:
         else:
             self._data[k >> 5] &= ~Bitset.TABLE[k & 31]
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         return [
             (i << 5) + j
             for i, a in enumerate(self._data)

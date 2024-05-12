@@ -10,7 +10,7 @@ class SupportsLessThan(Protocol):
 # from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -70,7 +70,7 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -101,7 +101,7 @@ class OrderedSetInterface(ABC, Generic[T]):
     def __repr__(self) -> str:
         raise NotImplementedError
 from array import array
-from typing import Generic, Iterable, Tuple, TypeVar, Optional, List
+from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -133,10 +133,10 @@ class AVLTreeSet2(OrderedSetInterface, Generic[T]):
         self.right += a
         self.balance += array("b", bytes(n))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, balance = self.left, self.right, self.balance
 
-        def sort(l: int, r: int) -> Tuple[int, int]:
+        def sort(l: int, r: int) -> tuple[int, int]:
             mid = (l + r) >> 1
             node = mid
             hl, hr = 0, 0
@@ -526,7 +526,7 @@ class AVLTreeSet2(OrderedSetInterface, Generic[T]):
     def clear(self) -> None:
         self.root = 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         left, right, keys = self.left, self.right, self.key
         node = self.root
         stack, a = [], []
@@ -572,7 +572,7 @@ class AVLTreeSet2(OrderedSetInterface, Generic[T]):
     def __repr__(self):
         return f"AVLTreeSet2({self})"
 import enum
-from typing import Optional, List, Tuple
+from typing import Optional
 import random
 
 
@@ -592,7 +592,7 @@ class RandomTree:
         n: int,
         typ: RandomTreeType = RandomTreeType.random,
         seed: Optional[int] = None,
-    ) -> List[Tuple[int, int]]:
+    ) -> list[tuple[int, int]]:
         """ランダムな木を生成し、辺を返します。
         :math:`O(n \\log{n})` です。
 
@@ -602,7 +602,7 @@ class RandomTree:
           seed (Optional[int], optional): seed値です。 Defaults to None。
 
         Returns:
-          List[Tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
+          list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
         """
         random.seed(seed)
         edges = None
@@ -619,7 +619,7 @@ class RandomTree:
         return edges
 
     @classmethod
-    def _build_star(cls, n: int) -> List[Tuple[int, int]]:
+    def _build_star(cls, n: int) -> list[tuple[int, int]]:
         center = random.randrange(0, n)
         edges = []
         for i in range(n):
@@ -632,7 +632,7 @@ class RandomTree:
         return edges
 
     @classmethod
-    def _build_path(cls, n: int) -> List[Tuple[int, int]]:
+    def _build_path(cls, n: int) -> list[tuple[int, int]]:
         p = list(range(n))
         random.shuffle(p)
         edges = [
@@ -642,7 +642,7 @@ class RandomTree:
         return edges
 
     @classmethod
-    def _build_random(cls, n: int) -> List[Tuple[int, int]]:
+    def _build_random(cls, n: int) -> list[tuple[int, int]]:
         edges = []
         D = [1] * n
         A = [0] * (n - 2)
@@ -650,7 +650,7 @@ class RandomTree:
             v = random.randrange(0, n)
             D[v] += 1
             A[i] = v
-        avl: AVLTreeSet2[Tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(n))
+        avl: AVLTreeSet2[tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(n))
         for a in A:
             d, v = avl.pop_min()
             assert d == 1

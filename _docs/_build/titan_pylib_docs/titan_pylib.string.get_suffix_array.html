@@ -494,7 +494,7 @@
 <span class="linenos">  6</span><span class="c1">#     SegmentTreeInterface,</span>
 <span class="linenos">  7</span><span class="c1"># )</span>
 <span class="linenos">  8</span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="linenos">  9</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+<span class="linenos">  9</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="linenos"> 10</span>
 <span class="linenos"> 11</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos"> 12</span>
@@ -530,7 +530,7 @@
 <span class="linenos"> 42</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 43</span>
 <span class="linenos"> 44</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 45</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 45</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 46</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 47</span>
 <span class="linenos"> 48</span>    <span class="nd">@abstractmethod</span>
@@ -548,7 +548,7 @@
 <span class="linenos"> 60</span>    <span class="nd">@abstractmethod</span>
 <span class="linenos"> 61</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 62</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos"> 63</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
+<span class="linenos"> 63</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
 <span class="linenos"> 64</span>
 <span class="linenos"> 65</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos"> 66</span>
@@ -713,7 +713,7 @@
 <span class="linenos">225</span>                <span class="k">break</span>
 <span class="linenos">226</span>        <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">227</span>
-<span class="linenos">228</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">228</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">229</span><span class="w">        </span><span class="sd">"""リストにして返します。</span>
 <span class="linenos">230</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">231</span><span class="sd">        """</span>
@@ -755,12 +755,12 @@
 <span class="linenos">267</span>
 <span class="linenos">268</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">269</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
-<span class="linenos">270</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Final</span>
+<span class="linenos">270</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Final</span>
 <span class="linenos">271</span><span class="kn">import</span> <span class="nn">random</span>
 <span class="linenos">272</span><span class="kn">import</span> <span class="nn">string</span>
 <span class="linenos">273</span>
 <span class="linenos">274</span><span class="n">_titan_pylib_HashString_MOD</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">61</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-<span class="linenos">275</span><span class="n">_titan_pylib_HashString_DIC</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">275</span><span class="n">_titan_pylib_HashString_DIC</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
 <span class="linenos">276</span>    <span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">277</span><span class="p">}</span>
 <span class="linenos">278</span><span class="n">_titan_pylib_HashString_MASK30</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
@@ -893,7 +893,7 @@
 <span class="linenos">405</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">406</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos">407</span>
-<span class="linenos">408</span>    <span class="k">def</span> <span class="nf">get_lcp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">408</span>    <span class="k">def</span> <span class="nf">get_lcp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">409</span><span class="w">        </span><span class="sd">"""lcp配列を返します。</span>
 <span class="linenos">410</span><span class="sd">        :math:`O(n\\log{n})` です。</span>
 <span class="linenos">411</span><span class="sd">        """</span>
@@ -919,7 +919,7 @@
 <span class="linenos">431</span><span class="k">class</span> <span class="nc">SupportsLessThan</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
 <span class="linenos">432</span>
 <span class="linenos">433</span>    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="o">...</span>
-<span class="linenos">434</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+<span class="linenos">434</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="linenos">435</span><span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
 <span class="linenos">436</span>
 <span class="linenos">437</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
@@ -927,7 +927,7 @@
 <span class="linenos">439</span>
 <span class="linenos">440</span><span class="k">def</span> <span class="nf">merge_sort</span><span class="p">(</span>
 <span class="linenos">441</span>    <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">t</span>
-<span class="linenos">442</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">442</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">443</span><span class="w">    </span><span class="sd">"""マージソートです。</span>
 <span class="linenos">444</span>
 <span class="linenos">445</span><span class="sd">    非破壊的です。</span>
@@ -939,7 +939,7 @@
 <span class="linenos">451</span><span class="sd">                                              (第1引数)&lt;(第2引数) のとき、 ``True`` を返すようにしてください。</span>
 <span class="linenos">452</span><span class="sd">    """</span>
 <span class="linenos">453</span>
-<span class="linenos">454</span>    <span class="k">def</span> <span class="nf">_sort</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">454</span>    <span class="k">def</span> <span class="nf">_sort</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">455</span>        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">456</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
 <span class="linenos">457</span>            <span class="k">return</span> <span class="n">a</span>
@@ -965,36 +965,35 @@
 <span class="linenos">477</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">478</span>
 <span class="linenos">479</span>    <span class="k">return</span> <span class="n">_sort</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-<span class="linenos">480</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="linenos">480</span>
 <span class="linenos">481</span>
-<span class="linenos">482</span>
-<span class="linenos">483</span><span class="k">def</span> <span class="nf">get_suffix_array</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hs</span><span class="p">:</span> <span class="n">HashString</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">484</span><span class="w">    </span><span class="sd">"""suffix_arrayを求めます。</span>
-<span class="linenos">485</span>
-<span class="linenos">486</span><span class="sd">    ロリハで大小比較をするため、比較関数に :math:`O(logn)` 、</span>
-<span class="linenos">487</span><span class="sd">    ソートが :math:`O(nlogn*(比較関数の計算慮))` で、</span>
-<span class="linenos">488</span><span class="sd">    全体 :math:`O(nlog^2n)` です。</span>
-<span class="linenos">489</span>
-<span class="linenos">490</span><span class="sd">    Args:</span>
-<span class="linenos">491</span><span class="sd">        s (str): 文字列です。</span>
-<span class="linenos">492</span><span class="sd">        hs (HashString): ``HashString`` です。</span>
-<span class="linenos">493</span>
-<span class="linenos">494</span><span class="sd">    Returns:</span>
-<span class="linenos">495</span><span class="sd">        List[int]: suffix_array です。</span>
-<span class="linenos">496</span><span class="sd">    """</span>
-<span class="linenos">497</span>
-<span class="linenos">498</span>    <span class="k">def</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos">499</span>        <span class="n">ok</span><span class="p">,</span> <span class="n">ng</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span>
-<span class="linenos">500</span>        <span class="k">while</span> <span class="n">ng</span> <span class="o">-</span> <span class="n">ok</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">501</span>            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">ok</span> <span class="o">+</span> <span class="n">ng</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
-<span class="linenos">502</span>            <span class="k">if</span> <span class="n">hs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span> <span class="o">+</span> <span class="n">mid</span><span class="p">)</span> <span class="o">==</span> <span class="n">hs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span> <span class="o">+</span> <span class="n">mid</span><span class="p">):</span>
-<span class="linenos">503</span>                <span class="n">ok</span> <span class="o">=</span> <span class="n">mid</span>
-<span class="linenos">504</span>            <span class="k">else</span><span class="p">:</span>
-<span class="linenos">505</span>                <span class="n">ng</span> <span class="o">=</span> <span class="n">mid</span>
-<span class="linenos">506</span>        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">u</span> <span class="o">+</span> <span class="n">ok</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">[</span><span class="n">v</span> <span class="o">+</span> <span class="n">ok</span><span class="p">]</span>
-<span class="linenos">507</span>
-<span class="linenos">508</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="linenos">509</span>    <span class="k">return</span> <span class="n">merge_sort</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">cmp</span><span class="p">)</span>
+<span class="linenos">482</span><span class="k">def</span> <span class="nf">get_suffix_array</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hs</span><span class="p">:</span> <span class="n">HashString</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">483</span><span class="w">    </span><span class="sd">"""suffix_arrayを求めます。</span>
+<span class="linenos">484</span>
+<span class="linenos">485</span><span class="sd">    ロリハで大小比較をするため、比較関数に :math:`O(logn)` 、</span>
+<span class="linenos">486</span><span class="sd">    ソートが :math:`O(nlogn*(比較関数の計算慮))` で、</span>
+<span class="linenos">487</span><span class="sd">    全体 :math:`O(nlog^2n)` です。</span>
+<span class="linenos">488</span>
+<span class="linenos">489</span><span class="sd">    Args:</span>
+<span class="linenos">490</span><span class="sd">        s (str): 文字列です。</span>
+<span class="linenos">491</span><span class="sd">        hs (HashString): ``HashString`` です。</span>
+<span class="linenos">492</span>
+<span class="linenos">493</span><span class="sd">    Returns:</span>
+<span class="linenos">494</span><span class="sd">        list[int]: suffix_array です。</span>
+<span class="linenos">495</span><span class="sd">    """</span>
+<span class="linenos">496</span>
+<span class="linenos">497</span>    <span class="k">def</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">498</span>        <span class="n">ok</span><span class="p">,</span> <span class="n">ng</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos">499</span>        <span class="k">while</span> <span class="n">ng</span> <span class="o">-</span> <span class="n">ok</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">500</span>            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">ok</span> <span class="o">+</span> <span class="n">ng</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+<span class="linenos">501</span>            <span class="k">if</span> <span class="n">hs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span> <span class="o">+</span> <span class="n">mid</span><span class="p">)</span> <span class="o">==</span> <span class="n">hs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span> <span class="o">+</span> <span class="n">mid</span><span class="p">):</span>
+<span class="linenos">502</span>                <span class="n">ok</span> <span class="o">=</span> <span class="n">mid</span>
+<span class="linenos">503</span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos">504</span>                <span class="n">ng</span> <span class="o">=</span> <span class="n">mid</span>
+<span class="linenos">505</span>        <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="n">u</span> <span class="o">+</span> <span class="n">ok</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">[</span><span class="n">v</span> <span class="o">+</span> <span class="n">ok</span><span class="p">]</span>
+<span class="linenos">506</span>
+<span class="linenos">507</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="linenos">508</span>    <span class="k">return</span> <span class="n">merge_sort</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">cmp</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

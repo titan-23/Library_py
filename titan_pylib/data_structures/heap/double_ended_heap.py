@@ -1,5 +1,5 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Generic, Iterable, TypeVar, List
+from typing import Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -126,7 +126,7 @@ class DoubleEndedHeap(Generic[T]):
             k = p
         return k
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return sorted(self._data)
 
     def __str__(self) -> str:

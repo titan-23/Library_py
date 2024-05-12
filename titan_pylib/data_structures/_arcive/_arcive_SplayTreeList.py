@@ -3,7 +3,7 @@
 # 理由: Lazyのほうで良くないか
 
 import sys
-from typing import Callable, Generic, Tuple, TypeVar, Union, List, Iterable
+from typing import Generic, TypeVar, Union, Iterable
 
 T = TypeVar("T")
 
@@ -29,7 +29,7 @@ class SplayTreeList(Generic[T]):
         if a:
             self._build(list(a))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         def sort(l: int, r: int) -> Node:
             mid = (l + r) >> 1
             node = Node(a[mid])
@@ -49,7 +49,7 @@ class SplayTreeList(Generic[T]):
             + (0 if node.right is None else node.right.size)
         )
 
-    def _splay(self, path: List[Node], di: int) -> Node:
+    def _splay(self, path: list[Node], di: int) -> Node:
         for _ in range(len(path) >> 1):
             node = path.pop()
             pnode = path.pop()
@@ -169,7 +169,7 @@ class SplayTreeList(Generic[T]):
         self.node.right = other.node
         self._update(self.node)
 
-    def split(self, p: int) -> Tuple["SplayTreeList", "SplayTreeList"]:
+    def split(self, p: int) -> tuple["SplayTreeList", "SplayTreeList"]:
         if p >= self.__len__():
             return self, SplayTreeList()
         self._set_kth_elm_splay(p)
@@ -244,7 +244,7 @@ class SplayTreeList(Generic[T]):
     def clear(self) -> None:
         self.node = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node is None:
             return a

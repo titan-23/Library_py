@@ -476,7 +476,7 @@
 </div>
 <article role="main">
 <h1>Source code for titan_pylib.math.mod_matrix</h1><div class="highlight"><pre>
-<span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Final</span>
+<span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Final</span>
 <span class="linenos">  2</span>
 <span class="linenos">  3</span><span class="n">_titan_pylib_ModMatrix_MOD</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">998244353</span>
 <span class="linenos">  4</span>
@@ -509,14 +509,14 @@
 <span class="linenos"> 21</span>        <span class="k">return</span> <span class="n">ModMatrix</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">_exter</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 <span class="linenos"> 22</span>
-<span class="linenos"> 23</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">_exter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 23</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">_exter</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 24</span>        <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 25</span>        <span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
 <span class="linenos"> 26</span>        <span class="k">if</span> <span class="n">_exter</span><span class="p">:</span>
 <span class="linenos"> 27</span>            <span class="k">for</span> <span class="n">ai</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
 <span class="linenos"> 28</span>                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">):</span>
 <span class="linenos"> 29</span>                    <span class="n">ai</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">%=</span> <span class="n">_titan_pylib_ModMatrix_MOD</span>
-<span class="linenos"> 30</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">a</span>
+<span class="linenos"> 30</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">a</span>
 <span class="linenos"> 31</span>
 <div class="viewcode-block" id="ModMatrix.det">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_matrix.html#titan_pylib.math.mod_matrix.ModMatrix.det">[docs]</a>
@@ -825,7 +825,7 @@
 <span class="linenos">321</span>
 <div class="viewcode-block" id="ModMatrix.get_n">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_matrix.html#titan_pylib.math.mod_matrix.ModMatrix.get_n">[docs]</a>
-<span class="linenos">322</span>    <span class="k">def</span> <span class="nf">get_n</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">322</span>    <span class="k">def</span> <span class="nf">get_n</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">323</span>        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos">324</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">n</span><span class="p">]</span></div>
 
@@ -839,7 +839,7 @@
 <span class="linenos">329</span>
 <div class="viewcode-block" id="ModMatrix.tolist">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_matrix.html#titan_pylib.math.mod_matrix.ModMatrix.tolist">[docs]</a>
-<span class="linenos">330</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">330</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">331</span>        <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">[:]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">]</span></div>
 
 <span class="linenos">332</span>

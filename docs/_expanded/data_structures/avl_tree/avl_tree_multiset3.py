@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -76,7 +76,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -107,7 +107,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     def __repr__(self) -> str:
         raise NotImplementedError
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, Iterator, TypeVar, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -139,7 +139,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
         if a:
             self._build(a)
 
-    def _rle(self, L: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(self, L: list[T]) -> tuple[list[T], list[int]]:
         x, y = [L[0]], [1]
         for i, a in enumerate(L):
             if i == 0:
@@ -154,7 +154,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
     def _build(self, a: Iterable[T]) -> None:
         Node = AVLTreeMultiset3.Node
 
-        def sort(l: int, r: int) -> Tuple[Node, int]:
+        def sort(l: int, r: int) -> tuple[Node, int]:
             mid = (l + r) >> 1
             node = Node(x[mid], y[mid])
             h = 0
@@ -277,7 +277,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
         self._update_balance(D)
         return D
 
-    def _kth_elm(self, k: int) -> Tuple[T, int]:
+    def _kth_elm(self, k: int) -> tuple[T, int]:
         if k < 0:
             k += len(self)
         node = self.node
@@ -291,7 +291,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
                 node = node.right
                 k -= t
 
-    def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
+    def _kth_elm_tree(self, k: int) -> tuple[T, int]:
         if k < 0:
             k += self.len_elm()
         assert 0 <= k < self.len_elm()
@@ -306,7 +306,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
                 node = node.right
                 k -= t + 1
 
-    def _discard(self, node: Node, path: List[Node], di: int) -> bool:
+    def _discard(self, node: Node, path: list[Node], di: int) -> bool:
         fdi = 0
         if node.left is not None and node.right is not None:
             path.append(node)
@@ -672,7 +672,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
                 p.valsize -= 1
         return x
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             yield self._kth_elm_tree(i)
 
@@ -698,7 +698,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
     def get_elm(self, k: int) -> T:
         return self._kth_elm_tree(k)[0]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node is None:
             return a
@@ -713,7 +713,7 @@ class AVLTreeMultiset3(OrderedMultisetInterface, Generic[T]):
         rec(self.node)
         return a
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         a = []
         if self.node is None:
             return a

@@ -1,12 +1,9 @@
-from typing import List
-
-
 class UnionFindMembers:
 
     def __init__(self, n: int) -> None:
         self._n: int = n
         self._group_count: int = n
-        self._group: List[List[int]] = [[i] for i in range(n)]
+        self._group: list[list[int]] = [[i] for i in range(n)]
 
     def unite(self, x: int, y: int) -> bool:
         u = self._group[x]
@@ -29,7 +26,7 @@ class UnionFindMembers:
         """Return True if 'same' else False. / O(1)"""
         return self._group[x] is self._group[y]
 
-    def members(self, x: int) -> List[int]:
+    def members(self, x: int) -> list[int]:
         """Return set(the members of x). / O(1)"""
         return self._group[x]
 

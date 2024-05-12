@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 
 
 class FenwickTree:
@@ -135,7 +135,7 @@ class FenwickTree:
             s >>= 1
         return i
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n)` です。
         """
@@ -143,7 +143,7 @@ class FenwickTree:
         return [sub[i + 1] - sub[i] for i in range(self._size)]
 
     @staticmethod
-    def get_inversion_num(a: List[int], compress: bool = False) -> int:
+    def get_inversion_num(a: list[int], compress: bool = False) -> int:
         inv = 0
         if compress:
             a_ = sorted(set(a))

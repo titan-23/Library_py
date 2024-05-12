@@ -476,7 +476,7 @@
 </div>
 <article role="main">
 <h1>Source code for titan_pylib.data_structures.segment_tree.persistent_segment_tree</h1><div class="highlight"><pre>
-<span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+<span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="linenos">  2</span>
 <span class="linenos">  3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos">  4</span>
@@ -524,7 +524,7 @@
 <span class="linenos"> 38</span>        <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
 <span class="linenos"> 39</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 40</span>
-<span class="linenos"> 41</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 41</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 42</span>        <span class="n">Node</span> <span class="o">=</span> <span class="n">PersistentSegmentTree</span><span class="o">.</span><span class="n">Node</span>
 <span class="linenos"> 43</span>
 <span class="linenos"> 44</span>        <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PersistentSegmentTree</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
@@ -575,7 +575,7 @@
 <span class="linenos"> 86</span>
 <div class="viewcode-block" id="PersistentSegmentTree.tolist">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.segment_tree.persistent_segment_tree.html#titan_pylib.data_structures.segment_tree.persistent_segment_tree.PersistentSegmentTree.tolist">[docs]</a>
-<span class="linenos"> 87</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 87</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 88</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos"> 89</span>        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos"> 90</span>        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>

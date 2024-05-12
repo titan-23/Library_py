@@ -10,7 +10,7 @@ class SupportsLessThan(Protocol):
 #     BSTMultisetArrayBase,
 # )
 from __pypy__ import newlist_hint
-from typing import List, Tuple, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 BST = TypeVar("BST")
@@ -20,7 +20,7 @@ BST = TypeVar("BST")
 class BSTMultisetArrayBase(Generic[BST, T]):
 
     @staticmethod
-    def _rle(a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(a: list[T]) -> tuple[list[T], list[int]]:
         keys, vals = [a[0]], [1]
         for i, elm in enumerate(a):
             if i == 0:
@@ -146,7 +146,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
         return k
 
     @staticmethod
-    def _kth_elm(bst: BST, k: int) -> Tuple[T, int]:
+    def _kth_elm(bst: BST, k: int) -> tuple[T, int]:
         left, right, vals, valsize = bst.left, bst.right, bst.val, bst.valsize
         if k < 0:
             k += len(bst)
@@ -172,7 +172,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
         return False
 
     @staticmethod
-    def tolist(bst: BST) -> List[T]:
+    def tolist(bst: BST) -> list[T]:
         left, right, keys, vals = bst.left, bst.right, bst.key, bst.val
         node = bst.root
         stack, a = [], newlist_hint(len(bst))
@@ -187,7 +187,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
                     a.append(key)
                 node = right[node]
         return a
-from typing import Generic, Iterable, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, TypeVar, Optional
 from array import array
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -237,10 +237,10 @@ class AVLTreeMultiset2(Generic[T]):
         self.right += a
         self.balance += array("b", bytes(n))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, balance = self.left, self.right, self.balance
 
-        def sort(l: int, r: int) -> Tuple[int, int]:
+        def sort(l: int, r: int) -> tuple[int, int]:
             mid = (l + r) >> 1
             node = mid
             hl, hr = 0, 0
@@ -324,7 +324,7 @@ class AVLTreeMultiset2(Generic[T]):
         self._update_balance(D)
         return D
 
-    def _discard(self, node: int, path: List[int], di: int) -> bool:
+    def _discard(self, node: int, path: list[int], di: int) -> bool:
         left, right, keys, vals, balance = (
             self.left,
             self.right,
@@ -540,14 +540,14 @@ class AVLTreeMultiset2(Generic[T]):
     def clear(self) -> None:
         self.root = 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetArrayBase[AVLTreeMultiset2, T].tolist(self)
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         node = self.root
-        stack: List[int] = []
-        a: List[Tuple[T, int]] = []
+        stack: list[int] = []
+        a: list[tuple[T, int]] = []
         while stack or node:
             if node:
                 stack.append(node)

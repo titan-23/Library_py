@@ -1,11 +1,11 @@
-from typing import Union, List, Iterable, Optional
+from typing import Union, Iterable, Optional
 
 
 class FenwickTreeSetFast:
 
     class InternalFenwickTree:
 
-        def __init__(self, _n_or_a: Union[int, List[int]]):
+        def __init__(self, _n_or_a: Union[int, list[int]]):
             if isinstance(_n_or_a, int):
                 self._size = _n_or_a
                 self._tree = [0] * (self._size + 1)

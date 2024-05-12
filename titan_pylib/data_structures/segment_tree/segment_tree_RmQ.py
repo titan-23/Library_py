@@ -2,7 +2,7 @@ from titan_pylib.data_structures.segment_tree.segment_tree_interface import (
     SegmentTreeInterface,
 )
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Generic, Iterable, TypeVar, Union, List
+from typing import Generic, Iterable, TypeVar, Union
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -135,7 +135,7 @@ class SegmentTreeRmQ(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return [self.get(i) for i in range(self._n)]
 
     def show(self) -> None:

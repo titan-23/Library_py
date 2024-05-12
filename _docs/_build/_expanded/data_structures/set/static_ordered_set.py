@@ -6,7 +6,7 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import Iterable, TypeVar, Generic, Optional, Set, List
+from typing import Iterable, TypeVar, Generic, Optional
 from bisect import bisect_right, bisect_left
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -15,8 +15,8 @@ T = TypeVar("T", bound=SupportsLessThan)
 class StaticOrderedSet(Generic[T]):
 
     def __init__(self, a: Iterable = [T]):
-        self.s: Set[T] = set(a)
-        self.l: List[T] = sorted(self.s)
+        self.s: set[T] = set(a)
+        self.l: list[T] = sorted(self.s)
         self.n: int = len(self.l)
 
     def ge(self, x: T) -> Optional[T]:

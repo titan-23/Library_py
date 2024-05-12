@@ -476,7 +476,7 @@
 </div>
 <article role="main">
 <h1>Source code for titan_pylib.data_structures.heap.radix_heap</h1><div class="highlight"><pre>
-<span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">List</span>
+<span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos"> 4</span>
@@ -491,7 +491,7 @@
 <span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">lim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 <span class="linenos">12</span>        <span class="bp">self</span><span class="o">.</span><span class="n">last</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">13</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">14</span>        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">)]</span>
+<span class="linenos">14</span>        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">)]</span>
 <span class="linenos">15</span>
 <div class="viewcode-block" id="RadixHeap.push">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.radix_heap.html#titan_pylib.data_structures.heap.radix_heap.RadixHeap.push">[docs]</a>
@@ -503,7 +503,7 @@
 <span class="linenos">20</span>
 <div class="viewcode-block" id="RadixHeap.pop_min">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.heap.radix_heap.html#titan_pylib.data_structures.heap.radix_heap.RadixHeap.pop_min">[docs]</a>
-<span class="linenos">21</span>    <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
+<span class="linenos">21</span>    <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">T</span><span class="p">]:</span>
 <span class="linenos">22</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_len</span> <span class="o">-=</span> <span class="mi">1</span>
 <span class="linenos">23</span>        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
 <span class="linenos">24</span>        <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>

@@ -6,7 +6,7 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import Callable, Generic, Iterable, Tuple, TypeVar, Union, List, Optional
+from typing import Callable, Generic, Iterable, TypeVar, Union, Optional
 
 K = TypeVar("K", bound=SupportsLessThan)
 V = TypeVar("V")
@@ -199,7 +199,7 @@ class AVLTreeDict(Generic[K, V]):
                     break
         return True
 
-    def tolist_items(self) -> List[Tuple[K, V]]:
+    def tolist_items(self) -> list[tuple[K, V]]:
         a = []
         if self.node is None:
             return a

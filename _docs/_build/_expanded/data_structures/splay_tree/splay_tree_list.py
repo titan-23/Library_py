@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.splay_tree.splay_tree_list import SplayTreeList
-from typing import Generic, List, TypeVar, Tuple, Iterable, Optional
+from typing import Generic, TypeVar, Iterable, Optional
 from __pypy__ import newlist_hint
 
 T = TypeVar("T")
@@ -27,10 +27,10 @@ class SplayTreeList(Generic[T, F]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = self.Node
 
-        def build(l: int, r: int) -> Node:
+        def build(l: int, r: int) -> self.Node:
             mid = (l + r) >> 1
             node = Node(a[mid])
             if l != mid:
@@ -146,13 +146,13 @@ class SplayTreeList(Generic[T, F]):
         other.root.par = self.root
         self._update(self.root)
 
-    def split(self, k: int) -> Tuple["SplayTreeList", "SplayTreeList"]:
+    def split(self, k: int) -> tuple["SplayTreeList", "SplayTreeList"]:
         left, right = self._internal_split(self.root, k)
         left_splay = SplayTreeList([], left)
         right_splay = SplayTreeList([], right)
         return left_splay, right_splay
 
-    def _internal_split(self, k: int) -> Tuple[Node, Node]:
+    def _internal_split(self, k: int) -> tuple[Node, Node]:
         # self.root will be broken
         if k >= len(self):
             return self.root, None
@@ -266,7 +266,7 @@ class SplayTreeList(Generic[T, F]):
     def clear(self) -> None:
         self.root = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         stack = []
         a = newlist_hint(len(self))

@@ -479,7 +479,7 @@
 <span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">process_time</span>
 <span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">exp</span>
-<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
 <span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">titan_pylib.algorithm.random.random</span> <span class="kn">import</span> <span class="n">Random</span>
 <span class="linenos"> 6</span>
 <span class="linenos"> 7</span>
@@ -509,13 +509,13 @@
 <span class="linenos">23</span>
 <div class="viewcode-block" id="SA.make_ans_init">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.others.SA.html#titan_pylib.others.SA.SA.make_ans_init">[docs]</a>
-<span class="linenos">24</span>    <span class="k">def</span> <span class="nf">make_ans_init</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">State</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">24</span>    <span class="k">def</span> <span class="nf">make_ans_init</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">State</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">25</span>        <span class="k">return</span></div>
 
 <span class="linenos">26</span>
 <div class="viewcode-block" id="SA.modify">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.others.SA.html#titan_pylib.others.SA.SA.modify">[docs]</a>
-<span class="linenos">27</span>    <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Changed</span><span class="p">]:</span>
+<span class="linenos">27</span>    <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Changed</span><span class="p">]:</span>
 <span class="linenos">28</span>        <span class="c1"># state は変更される</span>
 <span class="linenos">29</span>        <span class="k">return</span></div>
 
@@ -530,7 +530,7 @@
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.others.SA.html#titan_pylib.others.SA.SA.sovle">[docs]</a>
 <span class="linenos">34</span>    <span class="k">def</span> <span class="nf">sovle</span><span class="p">(</span>
 <span class="linenos">35</span>        <span class="bp">self</span><span class="p">,</span> <span class="n">START_TEMP</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">END_TEMP</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">TIME_LIMIT</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.8</span>
-<span class="linenos">36</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">State</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">36</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">State</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">37</span>        <span class="n">START_TIME</span> <span class="o">=</span> <span class="n">process_time</span><span class="p">()</span>
 <span class="linenos">38</span>        <span class="n">random</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random</span>
 <span class="linenos">39</span>        <span class="n">ans</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ans_init</span><span class="p">()</span>

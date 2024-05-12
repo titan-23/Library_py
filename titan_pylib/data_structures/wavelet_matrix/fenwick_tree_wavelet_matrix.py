@@ -1,20 +1,20 @@
 from titan_pylib.data_structures.bit_vector.bit_vector import BitVector
 from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
 from array import array
-from typing import List, Tuple, Sequence
+from typing import Sequence
 from bisect import bisect_left
 
 
 class FenwickTreeWaveletMatrix:
 
-    def __init__(self, sigma: int, pos: List[Tuple[int, int, int]] = []):
+    def __init__(self, sigma: int, pos: list[tuple[int, int, int]] = []):
         self.sigma: int = sigma
         self.log: int = (sigma - 1).bit_length()
         self.mid: array[int] = array("I", bytes(4 * self.log))
-        self.xy: List[Tuple[int, int]] = self._sort_unique([(x, y) for x, y, _ in pos])
-        self.y: List[int] = self._sort_unique([y for _, y, _ in pos])
+        self.xy: list[tuple[int, int]] = self._sort_unique([(x, y) for x, y, _ in pos])
+        self.y: list[int] = self._sort_unique([y for _, y, _ in pos])
         self.size: int = len(self.xy)
-        self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
+        self.v: list[BitVector] = [BitVector(self.size) for _ in range(self.log)]
         self._build([bisect_left(self.y, y) for _, y in self.xy])
         ws = [[0] * self.size for _ in range(self.log)]
         for x, y, w in pos:
@@ -26,7 +26,7 @@ class FenwickTreeWaveletMatrix:
                 else:
                     k = self.v[bit].rank0(k)
                 ws[bit][k] += w
-        self.bit: List[FenwickTree] = [FenwickTree(a) for a in ws]
+        self.bit: list[FenwickTree] = [FenwickTree(a) for a in ws]
 
     def _build(self, a: Sequence[int]) -> None:
         # 列 a から wm を構築する
@@ -44,7 +44,7 @@ class FenwickTreeWaveletMatrix:
             self.mid[bit] = len(zero)  # 境界をmid[bit]に保持
             a = zero + one
 
-    def _sort_unique(self, a: List) -> List:
+    def _sort_unique(self, a: list) -> list:
         if not a:
             return a
         a.sort()

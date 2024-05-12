@@ -1,9 +1,8 @@
 from titan_pylib.string.hash_string import HashString
 from titan_pylib.algorithm.sort.merge_sort import merge_sort
-from typing import List
 
 
-def get_suffix_array(s: str, hs: HashString) -> List[int]:
+def get_suffix_array(s: str, hs: HashString) -> list[int]:
     """suffix_arrayを求めます。
 
     ロリハで大小比較をするため、比較関数に :math:`O(logn)` 、
@@ -15,7 +14,7 @@ def get_suffix_array(s: str, hs: HashString) -> List[int]:
         hs (HashString): ``HashString`` です。
 
     Returns:
-        List[int]: suffix_array です。
+        list[int]: suffix_array です。
     """
 
     def cmp(u: int, v: int) -> bool:

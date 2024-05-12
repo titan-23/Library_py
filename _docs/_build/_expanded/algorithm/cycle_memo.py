@@ -1,5 +1,5 @@
 # from titan_pylib.algorithm.cycle_memo import CycleMemo
-from typing import Callable, TypeVar, Generic, List, Set, Hashable
+from typing import Callable, TypeVar, Generic, Hashable
 
 T = TypeVar("T", bound=Hashable)
 
@@ -7,8 +7,8 @@ T = TypeVar("T", bound=Hashable)
 class CycleMemo(Generic[T]):
 
     def __init__(self, initial: T, move_to: Callable[[T], T]) -> None:
-        history: List[T] = []
-        memo: Set[T] = set()
+        history: list[T] = []
+        memo: set[T] = set()
         now: T = initial
         while now not in memo:
             history.append(now)

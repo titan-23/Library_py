@@ -3,12 +3,12 @@ from titan_pylib.data_structures.splay_tree.reversible_lazy_splay_tree_array imp
     ReversibleLazySplayTreeArrayData,
     ReversibleLazySplayTreeArray,
 )
-from typing import Optional, Dict, Final
+from typing import Optional, Final
 import random
 import string
 
 _titan_pylib_DynamicHashString_MOD: Final[int] = (1 << 61) - 1
-_titan_pylib_DynamicHashString_DIC: Final[Dict[str, int]] = {
+_titan_pylib_DynamicHashString_DIC: Final[dict[str, int]] = {
     c: i for i, c in enumerate(string.ascii_lowercase, 1)
 }
 _titan_pylib_DynamicHashString_MASK30: Final[int] = (1 << 30) - 1

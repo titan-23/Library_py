@@ -6,7 +6,7 @@ from typing import Protocol
 class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
-from typing import Iterable, TypeVar, Callable, List
+from typing import Iterable, TypeVar, Callable
 from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -14,7 +14,7 @@ T = TypeVar("T", bound=SupportsLessThan)
 
 def merge_sort(
     a: Iterable[T], key: Callable[[T, T], bool] = lambda s, t: s < t
-) -> List[T]:
+) -> list[T]:
     """マージソートです。
 
     非破壊的です。
@@ -26,7 +26,7 @@ def merge_sort(
                                               (第1引数)<(第2引数) のとき、 ``True`` を返すようにしてください。
     """
 
-    def _sort(a: List[T]) -> List[T]:
+    def _sort(a: list[T]) -> list[T]:
         n = len(a)
         if n <= 1:
             return a

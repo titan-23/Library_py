@@ -1,4 +1,4 @@
-from typing import Optional, Final, Dict
+from typing import Optional, Final
 
 
 class DynamicFenwickTree:
@@ -10,7 +10,7 @@ class DynamicFenwickTree:
             u, int
         ), f"TypeError: DynamicFenwickTree({u}), {u} must be int"
         self._u: Final[int] = u
-        self._tree: Dict[int, int] = {}
+        self._tree: dict[int, int] = {}
         self._s: Final[int] = 1 << (u - 1).bit_length()
 
     def add(self, k: int, x: int) -> None:

@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Callable, List, Iterator, Tuple
+from typing import Generic, Iterable, TypeVar, Callable, Iterator
 
 T = TypeVar("T")
 D = TypeVar("D")
@@ -6,19 +6,19 @@ D = TypeVar("D")
 
 class MergeSortTree(Generic[T, D]):
 
-    def __init__(self, a: Iterable[T], func: Callable[[List[T]], D]) -> None:
+    def __init__(self, a: Iterable[T], func: Callable[[list[T]], D]) -> None:
         a = list(a)
         self._n = len(a)
         self._log = (self._n - 1).bit_length()
         self._size = 1 << self._log
-        _data: List[List[T]] = [[]] * (self._size << 1)
+        _data: list[list[T]] = [[]] * (self._size << 1)
         _data[self._size : self._size + self._n] = [[e] for e in a]
         for i in range(self._size - 1, 0, -1):
             _data[i] = self._merge(_data[i << 1], _data[i << 1 | 1])
         self._data = _data
-        self._func_data: List[D] = [func(v) for v in self._data]
+        self._func_data: list[D] = [func(v) for v in self._data]
 
-    def _merge(self, left: List[T], right: List[T]) -> List[T]:
+    def _merge(self, left: list[T], right: list[T]) -> list[T]:
         i, j, l, r = 0, 0, len(left), len(right)
         res = []
         while i < l and j < r:
@@ -34,12 +34,12 @@ class MergeSortTree(Generic[T, D]):
             res.append(right[j])
         return res
 
-    def prod_iter(self, l: int, r: int) -> Iterator[Tuple[List[T], D]]:
+    def prod_iter(self, l: int, r: int) -> Iterator[tuple[list[T], D]]:
         """区間 ``[l, r)`` における、セグ木の各区間のソート済み配列とそれに ``func`` を適用したものを投げます。
         :math:`O(\\log{n})` です。
 
         Yields:
-          Iterator[Tuple[List[T], D]]: (ソート済み配列、func(ソート済み配列)) です。
+          Iterator[tuple[list[T], D]]: (ソート済み配列、func(ソート済み配列)) です。
         """
         assert (
             0 <= l <= r <= self._n

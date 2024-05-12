@@ -4,7 +4,7 @@
 #     SegmentTreeInterface,
 # )
 from abc import ABC, abstractmethod
-from typing import TypeVar, Generic, Union, Iterable, Callable, List
+from typing import TypeVar, Generic, Union, Iterable, Callable
 
 T = TypeVar("T")
 
@@ -40,7 +40,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -58,7 +58,7 @@ class SegmentTreeInterface(ABC, Generic[T]):
     @abstractmethod
     def __repr__(self):
         raise NotImplementedError
-from typing import Generic, Iterable, TypeVar, Callable, Union, List
+from typing import Generic, Iterable, TypeVar, Callable, Union
 
 T = TypeVar("T")
 
@@ -223,7 +223,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         """リストにして返します。
         :math:`O(n)` です。
         """
@@ -265,7 +265,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self})"
-from typing import Iterable, List
+from typing import Iterable
 
 
 class MexMultiset:
@@ -289,7 +289,7 @@ class MexMultiset:
                 data[e] += 1
                 init_data[e] = 0
         self.u: int = u
-        self.data: List[int] = data
+        self.data: list[int] = data
         self.seg: SegmentTree[int] = SegmentTree(init_data, op=lambda s, t: s | t, e=0)
 
     def add(self, key: int) -> None:

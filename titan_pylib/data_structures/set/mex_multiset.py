@@ -1,5 +1,5 @@
 from titan_pylib.data_structures.segment_tree.segment_tree import SegmentTree
-from typing import Iterable, List
+from typing import Iterable
 
 
 class MexMultiset:
@@ -23,7 +23,7 @@ class MexMultiset:
                 data[e] += 1
                 init_data[e] = 0
         self.u: int = u
-        self.data: List[int] = data
+        self.data: list[int] = data
         self.seg: SegmentTree[int] = SegmentTree(init_data, op=lambda s, t: s | t, e=0)
 
     def add(self, key: int) -> None:

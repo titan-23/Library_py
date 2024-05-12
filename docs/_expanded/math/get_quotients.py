@@ -1,8 +1,5 @@
 # from titan_pylib.math.get_quotients import get_quotients
-from typing import List
-
-
-def get_quotients(n: int) -> List[int]:
+def get_quotients(n: int) -> list[int]:
     i = 1
     a = []
     while i * i <= n:

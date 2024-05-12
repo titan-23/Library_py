@@ -1,7 +1,7 @@
 # from titan_pylib.data_structures.splay_tree.splay_tree_multiset2 import SplayTreeMultiset2
 import sys
 from __pypy__ import newlist_hint
-from typing import Generic, Iterable, List, TypeVar, Tuple, Optional
+from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T")
 
@@ -35,7 +35,7 @@ class SplayTreeMultiset2(Generic[T]):
     def _build(self, a: Iterable[T]) -> None:
         Node = SplayTreeMultiset2.Node
 
-        def sort(l: int, r: int) -> Node:
+        def sort(l: int, r: int) -> SplayTreeMultiset2.Node:
             mid = (l + r) >> 1
             node = Node(key[mid], val[mid])
             if l != mid:
@@ -50,7 +50,7 @@ class SplayTreeMultiset2(Generic[T]):
         self._len_elm = len(key)
         self.node = sort(0, len(key))
 
-    def _rle(self, a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(self, a: list[T]) -> tuple[list[T], list[int]]:
         x = newlist_hint(len(a))
         y = newlist_hint(len(a))
         x.append(a[0])
@@ -65,7 +65,7 @@ class SplayTreeMultiset2(Generic[T]):
             y.append(1)
         return x, y
 
-    def _splay(self, path: List[Node], di: int) -> Node:
+    def _splay(self, path: list[Node], di: int) -> Node:
         for _ in range(len(path) >> 1):
             node = path.pop()
             pnode = path.pop()
@@ -344,7 +344,7 @@ class SplayTreeMultiset2(Generic[T]):
         self.node = self._get_max_splay(self.node)
         return self.node.key
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node is None:
             return a
@@ -361,7 +361,7 @@ class SplayTreeMultiset2(Generic[T]):
         rec(self.node)
         return a
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         a = []
         if self.node is None:
             return a

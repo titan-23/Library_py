@@ -9,7 +9,7 @@ class SupportsLessThan(Protocol):
 # from titan_pylib.my_class.ordered_multiset_interface import OrderedMultisetInterface
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -77,7 +77,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -108,7 +108,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     def __repr__(self) -> str:
         raise NotImplementedError
 from array import array
-from typing import Optional, Generic, Iterable, List, Sequence, TypeVar, Tuple
+from typing import Optional, Generic, Iterable, Sequence, TypeVar
 from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -117,8 +117,8 @@ T = TypeVar("T", bound=SupportsLessThan)
 class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
 
     def __init__(self, a: Iterable[T] = [], e: T = 0):
-        self.keys: List[T] = [e]
-        self.vals: List[int] = [0]
+        self.keys: list[T] = [e]
+        self.vals: list[int] = [0]
         self.child = array("I", bytes(8))
         self.end: int = 1
         self.root: int = 0
@@ -129,7 +129,7 @@ class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
         if a:
             self._build(a)
 
-    def _rle(self, a: Sequence[T]) -> Tuple[List[T], List[int]]:
+    def _rle(self, a: Sequence[T]) -> tuple[list[T], list[int]]:
         x = newlist_hint(len(a))
         y = newlist_hint(len(a))
         x.append(a[0])
@@ -476,7 +476,7 @@ class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
         self.root = node
         return lt
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         child, vals, keys = self.child, self.vals, self.keys
         stack, res = [], []

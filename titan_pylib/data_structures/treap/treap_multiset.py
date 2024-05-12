@@ -3,7 +3,7 @@ from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.bst_base.bst_multiset_node_base import (
     BSTMultisetNodeBase,
 )
-from typing import Generic, Iterable, TypeVar, Tuple, List, Optional, Sequence
+from typing import Generic, Iterable, TypeVar, Optional, Sequence
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -209,10 +209,10 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
             "{" + ", ".join(map(lambda x: f"{x[0]}: {x[1]}", self.tolist_items())) + "}"
         )
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist(self.root, len(self))
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist_items(
             self.root, self._len_elm
         )

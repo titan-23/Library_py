@@ -1,5 +1,5 @@
 from titan_pylib.data_structures.set.wordsize_tree_set import WordsizeTreeSet
-from typing import List, Iterable, Optional, Iterator, Tuple
+from typing import Iterable, Optional, Iterator
 
 
 class WordsizeTreeMultiset:
@@ -18,7 +18,7 @@ class WordsizeTreeMultiset:
         for a_ in a:
             self.len += 1
             cnt[a_] += 1
-        self.cnt: List[int] = cnt
+        self.cnt: list[int] = cnt
 
     def add(self, v: int, cnt: int = 1) -> None:
         """整数 ``v`` を ``cnt`` 個追加します。
@@ -146,7 +146,7 @@ class WordsizeTreeMultiset:
             yield self.cnt[v]
             v = self.st.gt(v)
 
-    def items(self) -> Iterator[Tuple[int, int]]:
+    def items(self) -> Iterator[tuple[int, int]]:
         """集合に含まれている要素とその個数を、要素の昇順にイテレートします。
         :math:`O(n\\log{u})` です。
         """
@@ -164,7 +164,7 @@ class WordsizeTreeMultiset:
             self.st.discard(e)
         self.len = 0
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n\\log{u})` です。
         """

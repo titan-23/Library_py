@@ -1,12 +1,12 @@
 # from titan_pylib.graph.rerooting_dp import rerooting_dp
-from typing import List, Callable, Tuple, TypeVar
+from typing import Callable, TypeVar
 
 T = TypeVar("T")
 E = TypeVar("E")
 
 
 def rerooting_dp(
-    G: List[List[Tuple[int, int]]],
+    G: list[list[tuple[int, int]]],
     merge: Callable[[T, T], T],
     apply_vertex: Callable[[T, int], T],
     apply_edge: Callable[[T, E, int, int], T],
@@ -14,7 +14,7 @@ def rerooting_dp(
 ) -> None:
     n = len(G)
 
-    dp: List[List[T]] = [[e] * len(g) for g in G]
+    dp: list[list[T]] = [[e] * len(g) for g in G]
     ans = [e] * len(G)
 
     root = 0

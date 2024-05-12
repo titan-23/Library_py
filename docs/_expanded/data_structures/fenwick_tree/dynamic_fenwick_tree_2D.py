@@ -1,19 +1,16 @@
 # from titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D import DynamicFenwickTree2D
-from typing import Dict, List
-
-
 class DynamicFenwickTree2D:
     """必要なところだけノードを作ります。2次元です。"""
 
-    def __init__(self, h: int, w: int, a: List[List[int]] = []):
+    def __init__(self, h: int, w: int, a: list[list[int]] = []):
         """O(HWlogHlogW)"""
         self._h: int = h + 1
         self._w: int = w + 1
-        self._bit: Dict[int, Dict[int, int]] = {}
+        self._bit: dict[int, dict[int, int]] = {}
         if a:
             self._build(a)
 
-    def _build(self, a: List[List[int]]) -> None:
+    def _build(self, a: list[list[int]]) -> None:
         assert len(a) == self._h - 1 and len(a[0]) == self._w - 1
         for i in range(self._h - 1):
             for j in range(self._w - 1):

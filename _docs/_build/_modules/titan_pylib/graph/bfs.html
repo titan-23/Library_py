@@ -476,23 +476,23 @@
 </div>
 <article role="main">
 <h1>Source code for titan_pylib.graph.bfs</h1><div class="highlight"><pre>
-<span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
 <span class="linenos"> 3</span>
 <span class="linenos"> 4</span>
 <div class="viewcode-block" id="bfs">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.graph.bfs.html#titan_pylib.graph.bfs.bfs">[docs]</a>
 <span class="linenos"> 5</span><span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span>
-<span class="linenos"> 6</span>    <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">inf</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
-<span class="linenos"> 7</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="linenos"> 6</span>    <span class="n">G</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">inf</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
 <span class="linenos"> 8</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos"> 9</span><span class="sd">    Args:</span>
-<span class="linenos">10</span><span class="sd">      G (List[List[Tuple[int, int]]]): 隣接リストです。</span>
+<span class="linenos">10</span><span class="sd">      G (list[list[tuple[int, int]]]): 隣接リストです。</span>
 <span class="linenos">11</span><span class="sd">      s (int): 始点です。</span>
 <span class="linenos">12</span><span class="sd">      inf (Union[int, float], optional): 無限大です。</span>
 <span class="linenos">13</span>
 <span class="linenos">14</span><span class="sd">    Returns:</span>
-<span class="linenos">15</span><span class="sd">      List[Union[int, float]]: 始点 ``s`` からの距離です。</span>
+<span class="linenos">15</span><span class="sd">      list[Union[int, float]]: 始点 ``s`` からの距離です。</span>
 <span class="linenos">16</span><span class="sd">    """</span>
 <span class="linenos">17</span>    <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">inf</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="linenos">18</span>    <span class="n">dist</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -510,20 +510,20 @@
 <div class="viewcode-block" id="bfs_path">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.graph.bfs.html#titan_pylib.graph.bfs.bfs_path">[docs]</a>
 <span class="linenos">29</span><span class="k">def</span> <span class="nf">bfs_path</span><span class="p">(</span>
-<span class="linenos">30</span>    <span class="n">G</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span>
+<span class="linenos">30</span>    <span class="n">G</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]],</span>
 <span class="linenos">31</span>    <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <span class="linenos">32</span>    <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <span class="linenos">33</span>    <span class="n">inf</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">),</span>
-<span class="linenos">34</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
+<span class="linenos">34</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
 <span class="linenos">35</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos">36</span><span class="sd">    Args:</span>
-<span class="linenos">37</span><span class="sd">      G (List[List[Tuple[int, int]]]): 隣接リストです。</span>
+<span class="linenos">37</span><span class="sd">      G (list[list[tuple[int, int]]]): 隣接リストです。</span>
 <span class="linenos">38</span><span class="sd">      s (int): 始点です。</span>
 <span class="linenos">39</span><span class="sd">      t (int): 終点です。</span>
 <span class="linenos">40</span><span class="sd">      inf (Union[int, float], optional): 無限大です。</span>
 <span class="linenos">41</span>
 <span class="linenos">42</span><span class="sd">    Returns:</span>
-<span class="linenos">43</span><span class="sd">      Tuple[List[int], List[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。</span>
+<span class="linenos">43</span><span class="sd">      tuple[list[int], list[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。</span>
 <span class="linenos">44</span><span class="sd">    """</span>
 <span class="linenos">45</span>    <span class="n">prev</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="linenos">46</span>    <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">inf</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>

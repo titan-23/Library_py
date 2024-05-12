@@ -1,5 +1,5 @@
 from titan_pylib.my_class.ordered_multiset_interface import OrderedMultisetInterface
-from typing import Optional, List, Iterable
+from typing import Optional, Iterable
 from array import array
 
 try:
@@ -291,7 +291,7 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         i = self.index(key + 1) - 1
         return None if i < 0 else self.__getitem__(i)
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         a = newlist_hint(len(self))
         if not self:
             return a

@@ -56,10 +56,9 @@ def antirec_cache(func):
         return to
 
     return wrappedfunc
-from typing import List, Tuple
 
 
-def get_bridge(G: List[List[int]]) -> Tuple[List[int], List[Tuple[int, int]]]:
+def get_bridge(G: list[list[int]]) -> tuple[list[int], list[tuple[int, int]]]:
     # ref: https://algo-logic.info/bridge-lowlink/
 
     n = len(G)

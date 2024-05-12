@@ -1,6 +1,6 @@
 # from titan_pylib.graph.graph import Graph
 # from titan_pylib.data_structures.array.csr_array import CSRArray
-from typing import Generic, TypeVar, List, Iterator
+from typing import Generic, TypeVar, Iterator
 from itertools import chain
 
 T = TypeVar("T")
@@ -9,19 +9,19 @@ T = TypeVar("T")
 class CSRArray(Generic[T]):
     """CSR形式の配列です"""
 
-    def __init__(self, a: List[List[T]]) -> None:
+    def __init__(self, a: list[list[T]]) -> None:
         """2次元配列 ``a`` を CSR 形式にします。
 
         Args:
-          a (List[List[T]]): 変換する2次元配列です。
+          a (list[list[T]]): 変換する2次元配列です。
         """
         n = len(a)
         start = list(map(len, a))
         start.insert(0, 0)
         for i in range(n):
             start[i + 1] += start[i]
-        self.csr: List[T] = list(chain(*a))
-        self.start: List[int] = start
+        self.csr: list[T] = list(chain(*a))
+        self.start: list[int] = start
 
     def set(self, i: int, j: int, val: T) -> None:
         """インデックスを指定して値を更新します。

@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.stack.persistent_stack import PersistentStack
-from typing import Dict, Iterable, List, Optional, TypeVar, Generic
+from typing import Iterable, Optional, TypeVar, Generic
 
 T = TypeVar("T")
 
@@ -22,7 +22,7 @@ class PersistentStack(Generic[T]):
         stack = PersistentStack.Node(None, None)
         for e in a:
             stack = PersistentStack.Node(e, prev=stack)
-        self.a: Dict[int, PersistentStack.Node] = {init_t: stack}
+        self.a: dict[int, PersistentStack.Node] = {init_t: stack}
 
     def top(self, t: int) -> T:
         res = self.a[t].key
@@ -44,7 +44,7 @@ class PersistentStack(Generic[T]):
         self.a[new_t] = PersistentStack.Node(None) if s.prev is None else s.prev
         return s.key
 
-    def tolist(self, t: int) -> List[T]:
+    def tolist(self, t: int) -> list[T]:
         a = []
         stack = self.a[t]
         while stack.prev is not None:

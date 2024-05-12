@@ -1,10 +1,10 @@
 # from titan_pylib.data_structures.set.hashed_multiset import HashedMultiset
-from typing import Iterator, List, Hashable
+from typing import Iterator, Hashable
 
 
 class HashedMultiset:
 
-    def __init__(self, a: List[Hashable] = []):
+    def __init__(self, a: list[Hashable] = []):
         d = {}
         for e in a:
             if e in d:

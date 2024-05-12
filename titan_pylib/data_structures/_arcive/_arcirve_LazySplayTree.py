@@ -1,4 +1,4 @@
-from typing import Generic, List, Union, TypeVar, Tuple, Callable, Iterable, Optional
+from typing import Generic, Union, TypeVar, Callable, Iterable, Optional
 from __pypy__ import newlist_hint
 
 T = TypeVar("T")
@@ -47,7 +47,7 @@ class LazySplayTree(Generic[T, F]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = self.Node
         id = self.id
 
@@ -185,7 +185,7 @@ class LazySplayTree(Generic[T, F]):
         other.root.par = self.root
         self._update(self.root)
 
-    def split(self, k: int) -> Tuple["LazySplayTree", "LazySplayTree"]:
+    def split(self, k: int) -> tuple["LazySplayTree", "LazySplayTree"]:
         left, right = self._internal_split(self.root, k)
         left_splay = LazySplayTree(
             0, self.op, self.mapping, self.composition, self.e, self.id, left
@@ -195,7 +195,7 @@ class LazySplayTree(Generic[T, F]):
         )
         return left_splay, right_splay
 
-    def _internal_split(self, k: int) -> Tuple[Node, Node]:
+    def _internal_split(self, k: int) -> tuple[Node, Node]:
         # self.root will be broken
         if k >= len(self):
             return self.root, None
@@ -344,7 +344,7 @@ class LazySplayTree(Generic[T, F]):
     def clear(self) -> None:
         self.root = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         stack, res = [], newlist_hint(len(self))
         while stack or node:

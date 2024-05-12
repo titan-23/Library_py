@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.union_find.weighted_union_find import WeightedUnionFind
-from typing import List, Optional
+from typing import Optional
 from collections import defaultdict
 
 
@@ -8,8 +8,8 @@ class WeightedUnionFind:
     def __init__(self, n: int):
         self._n: int = n
         self._group_numbers: int = n
-        self._parents: List[int] = [-1] * n
-        self._weight: List[int] = [0] * n
+        self._parents: list[int] = [-1] * n
+        self._weight: list[int] = [0] * n
 
     def root(self, x: int) -> int:
         path = [x]
@@ -45,11 +45,11 @@ class WeightedUnionFind:
     def same(self, x: int, y: int) -> bool:
         return self.root(x) == self.root(y)
 
-    def members(self, x: int) -> List[int]:
+    def members(self, x: int) -> list[int]:
         x = self.root(x)
         return [i for i in range(self._n) if self.root(i) == x]
 
-    def all_roots(self) -> List[int]:
+    def all_roots(self) -> list[int]:
         return [i for i, x in enumerate(self._parents) if x < 0]
 
     def group_count(self) -> int:

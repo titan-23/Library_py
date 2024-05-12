@@ -1,4 +1,4 @@
-from typing import Union, Callable, List, TypeVar, Generic, Iterable
+from typing import Union, Callable, TypeVar, Generic, Iterable
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -25,7 +25,7 @@ class LazySegmentTreeRange(Generic[T, F]):
             self.n = n_or_a
             self.log = (self.n - 1).bit_length()
             self.size = 1 << self.log
-            size_data: List[int] = [1] * (self.size << 1)
+            size_data: list[int] = [1] * (self.size << 1)
             for i in range(self.size - 1, 0, -1):
                 size_data[i] = size_data[i << 1] + size_data[i << 1 | 1]
             self.size_data = size_data
@@ -37,7 +37,7 @@ class LazySegmentTreeRange(Generic[T, F]):
             self.size = 1 << self.log
             data = [e] * (self.size << 1)
             data[self.size : self.size + self.n] = a
-            size_data: List[int] = [1] * (self.size << 1)
+            size_data: list[int] = [1] * (self.size << 1)
             for i in range(self.size - 1, 0, -1):
                 size_data[i] = size_data[i << 1] + size_data[i << 1 | 1]
                 data[i] = op(data[i << 1], data[i << 1 | 1], size_data[i])
@@ -144,7 +144,7 @@ class LazySegmentTreeRange(Generic[T, F]):
         for i in range(self.size):
             self._propagate(i)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         self.all_propagate()
         return self.data[self.size : self.size + self.n]
 

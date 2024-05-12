@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, Optional, TypeVar, Callable, List
+from typing import Generic, Iterable, Optional, TypeVar, Callable
 
 T = TypeVar("T")
 
@@ -38,7 +38,7 @@ class PersistentSegmentTree(Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = PersistentSegmentTree.Node
 
         def build(l: int, r: int) -> PersistentSegmentTree.Node:
@@ -84,7 +84,7 @@ class PersistentSegmentTree(Generic[T]):
 
         return dfs(self.root, 0, len(self))
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         stack = []
         a = []

@@ -6,9 +6,6 @@ from typing import (
     Iterable,
     Optional,
     Union,
-    Tuple,
-    List,
-    Dict,
 )
 from types import GeneratorType
 
@@ -51,10 +48,10 @@ class EulerTourTree(Generic[T, F]):
         self.id = id
         a = [e for _ in range(n_or_a)] if isinstance(n_or_a, int) else list(n_or_a)
         self.n: int = len(a)
-        self.ptr_vertex: List[EulerTourTree._Node] = [
+        self.ptr_vertex: list[EulerTourTree._Node] = [
             EulerTourTree._Node(elem, id) for i, elem in enumerate(a)
         ]
-        self.ptr_edge: Dict[Tuple[int, int], EulerTourTree._Node] = {}
+        self.ptr_edge: dict[tuple[int, int], EulerTourTree._Node] = {}
         self._group_numbers: int = self.n
 
     @staticmethod
@@ -77,12 +74,12 @@ class EulerTourTree(Generic[T, F]):
 
         return wrappedfunc
 
-    def build(self, G: List[List[int]]) -> None:
+    def build(self, G: list[list[int]]) -> None:
         """隣接リスト ``G`` をもとにして、辺を張ります。
         :math:`O(n)` です。
 
         Args:
-          G (List[List[int]]): 隣接リストです。
+          G (list[list[int]]): 隣接リストです。
 
         Note:
           ``build`` メソッドを使用する場合は他のメソッドより前に使用しなければなりません。
@@ -129,7 +126,7 @@ class EulerTourTree(Generic[T, F]):
         for root in range(self.n):
             if seen[root]:
                 continue
-            a: List[int] = []
+            a: list[int] = []
             dfs(root)
             rec(0, len(a))
 
@@ -145,7 +142,7 @@ class EulerTourTree(Generic[T, F]):
             v.left.par = None
         return v.left
 
-    def _split_left(self, v: _Node) -> Tuple[_Node, Optional[_Node]]:
+    def _split_left(self, v: _Node) -> tuple[_Node, Optional[_Node]]:
         # x, yに分割する。ただし、xはvを含む
         self._splay(v)
         x, y = v, v.right
@@ -155,7 +152,7 @@ class EulerTourTree(Generic[T, F]):
         self._update(x)
         return x, y
 
-    def _split_right(self, v: _Node) -> Tuple[Optional[_Node], _Node]:
+    def _split_right(self, v: _Node) -> tuple[Optional[_Node], _Node]:
         # x, yに分割する。ただし、yはvを含む
         self._splay(v)
         x, y = v.left, v

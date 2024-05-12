@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 # from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 
 
 class FenwickTree:
@@ -144,7 +144,7 @@ class FenwickTree:
             s >>= 1
         return i
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n)` です。
         """
@@ -152,7 +152,7 @@ class FenwickTree:
         return [sub[i + 1] - sub[i] for i in range(self._size)]
 
     @staticmethod
-    def get_inversion_num(a: List[int], compress: bool = False) -> int:
+    def get_inversion_num(a: list[int], compress: bool = False) -> int:
         inv = 0
         if compress:
             a_ = sorted(set(a))
@@ -173,7 +173,7 @@ class FenwickTree:
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self})"
-from typing import Dict, Iterable, TypeVar, Generic, Union, Optional
+from typing import Iterable, TypeVar, Generic, Union, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -194,7 +194,7 @@ class FenwickTreeSet(Generic[T]):
             self._to_origin = sorted(_used)
         else:
             self._to_origin = sorted(set(_used))
-        self._to_zaatsu: Dict[T, int] = (
+        self._to_zaatsu: dict[T, int] = (
             {key: i for i, key in enumerate(self._to_origin)}
             if compress
             else self._to_origin
@@ -346,7 +346,7 @@ class FenwickTreeSet(Generic[T]):
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self})"
-from typing import Iterable, TypeVar, Generic, Union, Tuple
+from typing import Iterable, TypeVar, Generic, Union
 
 T = TypeVar("T")
 
@@ -412,7 +412,7 @@ class FenwickTreeMultiset(FenwickTreeSet, Generic[T]):
         ), f"IndexError: pop_max() from empty {self.__class__.__name__}."
         return self.pop(-1)
 
-    def items(self) -> Iterable[Tuple[T, int]]:
+    def items(self) -> Iterable[tuple[T, int]]:
         _iter = 0
         while _iter < self._len:
             res = self._to_origin[self._bisect_right(_iter)]

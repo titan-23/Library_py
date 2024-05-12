@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.array.array_2D import Array2D
-from typing import TypeVar, Generic, List
+from typing import TypeVar, Generic
 
 T = TypeVar("T")
 
@@ -10,7 +10,7 @@ class Array2D(Generic[T]):
         self.n: int = n
         self.m: int = m
         self.val: T = val
-        self.a: List[T] = [val for _ in range(n * m)]
+        self.a: list[T] = [val for _ in range(n * m)]
 
     def set(self, i: int, j: int, val: T) -> None:
         assert (
@@ -24,7 +24,7 @@ class Array2D(Generic[T]):
         ), f"IndexError: {self.__class__.__name__}.get({i}, {j})"
         return self.a[i * self.m + j]
 
-    def tolist(self) -> List[List[T]]:
+    def tolist(self) -> list[list[T]]:
         a = [[self.val] * self.m for _ in range(self.n)]
         for i in range(self.n):
             for j in range(self.m):

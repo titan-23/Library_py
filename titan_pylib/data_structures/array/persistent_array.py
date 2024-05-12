@@ -1,4 +1,4 @@
-from typing import List, Iterable, TypeVar, Generic, Optional
+from typing import Iterable, TypeVar, Generic, Optional
 
 T = TypeVar("T")
 
@@ -79,9 +79,9 @@ class PersistentArray(Generic[T]):
     def copy(self) -> "PersistentArray[T]":
         return self._new(None if self.root is None else self.root.copy())
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
-        a: List[T] = []
+        a: list[T] = []
         if not node:
             return a
         q = [node]

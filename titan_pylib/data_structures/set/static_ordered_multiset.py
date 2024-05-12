@@ -1,5 +1,5 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import Iterable, Optional, TypeVar, Generic, List
+from typing import Iterable, Optional, TypeVar, Generic
 from bisect import bisect_right, bisect_left
 from collections import Counter
 
@@ -9,7 +9,7 @@ T = TypeVar("T", bound=SupportsLessThan)
 class StaticOrderedMultiset(Generic[T]):
 
     def __init__(self, a: Iterable = [T]):
-        self.l: List[T] = sorted(a)
+        self.l: list[T] = sorted(a)
         self.s: Counter[T] = Counter(self.l)
         self.n: int = len(self.l)
 

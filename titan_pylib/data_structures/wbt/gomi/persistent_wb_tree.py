@@ -3,11 +3,8 @@ from typing import (
     Generic,
     Iterable,
     Optional,
-    Union,
     TypeVar,
     Callable,
-    List,
-    Tuple,
     Final,
 )
 
@@ -60,10 +57,10 @@ class PersistentWBTree(Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = PersistentWBTree.Node
 
-        def build(l: int, r: int) -> Node:
+        def build(l: int, r: int) -> PersistentWBTree.Node:
             mid = (l + r) >> 1
             node = Node(a[mid])
             if l != mid:
@@ -174,7 +171,7 @@ class PersistentWBTree(Generic[T]):
         root = self._merge_node(self.root, other.root)
         return self._new(root)
 
-    def _pop_right(self, node: Node) -> Tuple[Node, Node]:
+    def _pop_right(self, node: Node) -> tuple[Node, Node]:
         path = []
         node = node.copy()
         mx = node
@@ -209,7 +206,7 @@ class PersistentWBTree(Generic[T]):
 
     def _split_node(
         self, node: Optional[Node], k: int
-    ) -> Tuple[Optional[Node], Optional[Node]]:
+    ) -> tuple[Optional[Node], Optional[Node]]:
         if node is None:
             return None, None
         tmp = k if node.left is None else k - node.left.size
@@ -223,7 +220,7 @@ class PersistentWBTree(Generic[T]):
             l, r = self._split_node(node.right, tmp - 1)
             return self._merge_with_root(node.left, node, l), r
 
-    def split(self, k: int) -> Tuple["PersistentWBTree[T]", "PersistentWBTree[T]"]:
+    def split(self, k: int) -> tuple["PersistentWBTree[T]", "PersistentWBTree[T]"]:
         l, r = self._split_node(self.root, k)
         return self._new(l), self._new(r)
 
@@ -256,14 +253,14 @@ class PersistentWBTree(Generic[T]):
         root = self._merge_with_root(s, PersistentWBTree.Node(key, self.id), t)
         return self._new(root)
 
-    def pop(self, k: int) -> Tuple["PersistentWBTree[T]", T]:
+    def pop(self, k: int) -> tuple["PersistentWBTree[T]", T]:
         s, t = self._split_node(self.root, k + 1)
         assert s
         s, tmp = self._pop_right(s)
         root = self._merge_node(s, t)
         return self._new(root), tmp.key
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         stack = []
         a = []

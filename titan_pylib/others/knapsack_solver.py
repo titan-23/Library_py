@@ -1,13 +1,12 @@
 from bisect import bisect_right
-from typing import List, Tuple
 
 
 class KnapsackSolver:
 
-    def __init__(self, N: int, W: int, VW: List[Tuple[int, int]]):
+    def __init__(self, N: int, W: int, VW: list[tuple[int, int]]):
         self.N: int = N
         self.W: int = W
-        self.VW: List[Tuple[int, int]] = VW
+        self.VW: list[tuple[int, int]] = VW
 
     def solve_hanbunzenrekkyo(self) -> int:
         def naive(vw):

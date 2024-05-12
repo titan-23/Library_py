@@ -1,6 +1,6 @@
 # from titan_pylib.data_structures.dynamic_connectivity.lazy_link_cut_tree import LazyLinkCutTree
 from array import array
-from typing import Generic, List, TypeVar, Callable, Iterable, Union
+from typing import Generic, TypeVar, Callable, Iterable, Union
 # from titan_pylib.data_structures.dynamic_connectivity.link_cut_tree import LinkCutTree
 from array import array
 
@@ -305,11 +305,11 @@ class LazyLinkCutTree(LinkCutTree, Generic[T, F]):
         self.composition = composition
         self.e = e
         self.id = id
-        self.key: List[T] = [e] * (n_or_a) if isinstance(n_or_a, int) else list(n_or_a)
+        self.key: list[T] = [e] * (n_or_a) if isinstance(n_or_a, int) else list(n_or_a)
         self.n = len(self.key)
         self.key.append(e)
-        self.data: List[T] = [x for x in self.key for _ in range(2)]
-        self.lazy: List[F] = [id] * (self.n + 1)
+        self.data: list[T] = [x for x in self.key for _ in range(2)]
+        self.lazy: list[F] = [id] * (self.n + 1)
         self.arr: array[int] = array("I", [self.n, self.n, self.n, 0] * (self.n + 1))
         # node.left  : arr[node<<2|0]
         # node.right : arr[node<<2|1]

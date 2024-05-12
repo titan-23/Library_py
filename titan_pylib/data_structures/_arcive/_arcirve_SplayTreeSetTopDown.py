@@ -1,5 +1,5 @@
 import sys
-from typing import Optional, Generic, Iterable, List, TypeVar
+from typing import Optional, Generic, Iterable, TypeVar
 
 T = TypeVar("T")
 
@@ -330,7 +330,7 @@ class SplayTreeSetTopDown(Generic[T]):
         self.len -= 1
         return True
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         if sys.getrecursionlimit() < self.__len__():
             sys.setrecursionlimit(self.__len__() + 1)
 

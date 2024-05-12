@@ -1,4 +1,4 @@
-from typing import Sequence, List
+from typing import Sequence
 from array import array
 
 
@@ -7,7 +7,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
     def __init__(self, sigma: int, a: Sequence[int] = []):
         self.sigma: int = sigma
         self.log: int = (sigma - 1).bit_length()
-        self.v: List[DynamicBitVector] = [None] * self.log
+        self.v: list[DynamicBitVector] = [None] * self.log
         self.mid: array[int] = array("I", bytes(4 * self.log))
         self.size: int = len(a)
         self._build(a)

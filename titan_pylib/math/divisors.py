@@ -1,5 +1,4 @@
 from collections import Counter
-from typing import List, Tuple
 
 
 class Divisors:
@@ -18,7 +17,7 @@ class Divisors:
                             _min_factor[i * j] = i
             self._min_factor = _min_factor
 
-        def p_factorization(self, n: int) -> List[int]:
+        def p_factorization(self, n: int) -> list[int]:
             ret = []
             _min_factor = self._min_factor
             while n > 1:
@@ -54,7 +53,7 @@ class Divisors:
     """約数全列挙. / O(√N)"""
 
     @staticmethod
-    def get_divisors(n: int) -> List[int]:
+    def get_divisors(n: int) -> list[int]:
         l = []
         r = []
         for i in range(1, int(n**0.5) + 1):
@@ -67,7 +66,7 @@ class Divisors:
     "Nを1回素因数c分解する / O(√N)"
 
     @staticmethod
-    def factorization(n: int) -> List[Tuple[int, int]]:
+    def factorization(n: int) -> list[tuple[int, int]]:
         ret = []
         if n == 1:
             return ret
@@ -119,7 +118,7 @@ class Divisors:
     "N以下のそれぞれの数の約数の個数を求める / O(NlogN)"
 
     @staticmethod
-    def divisors_num_all(n) -> List[int]:
+    def divisors_num_all(n) -> list[int]:
         li = [0] * (n + 1)
         for i in range(1, n + 1):
             for j in range(i, n + 1, i):
@@ -129,7 +128,7 @@ class Divisors:
     "N以下のそれぞれの数の素因数の種類数を求める / O(NloglogN)"
 
     @staticmethod
-    def primefactor_num(n) -> List[int]:
+    def primefactor_num(n) -> list[int]:
         cnt = [0] * (n + 1)
         for i in range(2, n + 1):
             if cnt[i] >= 1:
@@ -141,7 +140,7 @@ class Divisors:
     "エラトステネスの篩(N以下の素数を返す) / O(NloglogN)"
 
     @staticmethod
-    def get_primelist(limit: int) -> List[int]:
+    def get_primelist(limit: int) -> list[int]:
         p = [1] * (limit + 1)
         p[0] = 0
         p[1] = 0
@@ -169,7 +168,7 @@ class Divisors:
     "O(sqrt(N)log(log(sqrt(N)) + log(N))"
 
     @staticmethod
-    def factorization_eratos(n: int, primes: List[int]) -> List[int]:
+    def factorization_eratos(n: int, primes: list[int]) -> list[int]:
         res = []
         for p in primes:
             # if is_prime64(n): break

@@ -47,6 +47,7 @@ class Expander:
         """self.outputsの最終処理をしたコードを返す"""
         code = "".join(self.outputs)
         if self.formatter:
+            logger.info("set formatter.")
             code = black.format_str(code, mode=black.FileMode())
         try:
             ast.parse(code)

@@ -194,7 +194,7 @@ class BitVector(BitVectorInterface):
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self})"
-from typing import Sequence, List, Tuple
+from typing import Sequence
 from heapq import heappush, heappop
 from array import array
 
@@ -223,7 +223,7 @@ class WaveletMatrix:
         self.log: int = (sigma - 1).bit_length()
         self.mid: array[int] = array("I", bytes(4 * self.log))
         self.size: int = len(a)
-        self.v: List[BitVector] = [BitVector(self.size) for _ in range(self.log)]
+        self.v: list[BitVector] = [BitVector(self.size) for _ in range(self.log)]
         self._build(a)
 
     def _build(self, a: Sequence[int]) -> None:
@@ -363,7 +363,7 @@ class WaveletMatrix:
         ), f"IndexError: {self.__class__.__name__}.kth_largest({l}, {r}, {k}), wrong k"
         return self.kth_smallest(l, r, r - l - k - 1)
 
-    def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:
+    def topk(self, l: int, r: int, k: int) -> list[tuple[int, int]]:
         """``a[l, r)`` の中で、要素を出現回数が多い順にその頻度とともに ``k`` 個返します。
         :math:`O(\\min(r-l, \\sigam) \\log(\\sigam))` です。
 
@@ -371,7 +371,7 @@ class WaveletMatrix:
           :math:`\\sigma` が大きい場合、計算量に注意です。
 
         Returns:
-          List[Tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。
+          list[tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。
         """
         assert (
             0 <= l <= r <= self.size
@@ -380,7 +380,7 @@ class WaveletMatrix:
             0 <= k < r - l
         ), f"IndexError: {self.__class__.__name__}.topk({l}, {r}, {k}), wrong k"
         # heap[-length, x, l, bit]
-        hq: List[Tuple[int, int, int, int]] = [(-(r - l), 0, l, self.log - 1)]
+        hq: list[tuple[int, int, int, int]] = [(-(r - l), 0, l, self.log - 1)]
         ans = []
         while hq:
             length, x, l, bit = heappop(hq)

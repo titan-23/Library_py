@@ -1,5 +1,5 @@
 from titan_pylib.data_structures.set.fenwick_tree_set import FenwickTreeSet
-from typing import Iterable, TypeVar, Generic, Union, Tuple
+from typing import Iterable, TypeVar, Generic, Union
 
 T = TypeVar("T")
 
@@ -65,7 +65,7 @@ class FenwickTreeMultiset(FenwickTreeSet, Generic[T]):
         ), f"IndexError: pop_max() from empty {self.__class__.__name__}."
         return self.pop(-1)
 
-    def items(self) -> Iterable[Tuple[T, int]]:
+    def items(self) -> Iterable[tuple[T, int]]:
         _iter = 0
         while _iter < self._len:
             res = self._to_origin[self._bisect_right(_iter)]

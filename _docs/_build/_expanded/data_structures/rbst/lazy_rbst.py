@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.rbst.lazy_rbst import LazyRBST
-from typing import Generic, List, TypeVar, Tuple, Callable, Iterable, Optional
+from typing import Generic, TypeVar, Callable, Iterable, Optional
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -152,7 +152,7 @@ class LazyRBST(Generic[T, F]):
 
     def _split_node(
         self, node: Optional[Node], k: int
-    ) -> Tuple[Optional[Node], Optional[Node]]:
+    ) -> tuple[Optional[Node], Optional[Node]]:
         left_path, right_path = [], []
         while node:
             self._propagate(node)
@@ -175,7 +175,7 @@ class LazyRBST(Generic[T, F]):
             self._update(r)
         return l, r
 
-    def split(self, k: int) -> Tuple["LazyRBST", "LazyRBST"]:
+    def split(self, k: int) -> tuple["LazyRBST", "LazyRBST"]:
         left, right = self._split_node(self.root, k)
         return (
             LazyRBST(
@@ -236,7 +236,7 @@ class LazyRBST(Generic[T, F]):
         s.rev ^= 1
         self.root = self._merge_node(self._merge_node(u, s), t)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         stack, res = [], []
         while stack or node:

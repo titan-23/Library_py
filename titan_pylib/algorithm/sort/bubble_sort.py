@@ -1,12 +1,12 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from typing import TypeVar, Callable, List
+from typing import TypeVar, Callable
 
 T = TypeVar("T", bound=SupportsLessThan)
 
 
 def bubble_sort(
-    a: List[T], key: Callable[[T, T], bool] = lambda s, t: s < t, inplace: bool = True
-) -> List[T]:
+    a: list[T], key: Callable[[T, T], bool] = lambda s, t: s < t, inplace: bool = True
+) -> list[T]:
     """バブルソートです。
 
     非破壊的です。

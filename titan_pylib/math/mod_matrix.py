@@ -1,4 +1,4 @@
-from typing import List, Union, Final
+from typing import Union, Final
 
 _titan_pylib_ModMatrix_MOD: Final[int] = 998244353
 
@@ -20,14 +20,14 @@ class ModMatrix:
             a[i][i] = 1
         return ModMatrix(a, _exter=False)
 
-    def __init__(self, a: List[List[int]], _exter=True) -> None:
+    def __init__(self, a: list[list[int]], _exter=True) -> None:
         self.n: int = len(a)
         self.m: int = len(a[0]) if self.n > 0 else 0
         if _exter:
             for ai in a:
                 for j in range(self.m):
                     ai[j] %= _titan_pylib_ModMatrix_MOD
-        self.a: List[List[int]] = a
+        self.a: list[list[int]] = a
 
     def det(self, inplace=False) -> int:
         # 上三角行列の行列式はその対角成分の総積であることを利用
@@ -319,7 +319,7 @@ class ModMatrix:
         assert 0 <= n < self.n and 0 <= m < self.m
         return self.a[n][m]
 
-    def get_n(self, n: int) -> List[int]:
+    def get_n(self, n: int) -> list[int]:
         assert 0 <= n < self.n
         return self.a[n]
 
@@ -327,7 +327,7 @@ class ModMatrix:
         assert 0 <= n < self.n and 0 <= m < self.m
         self.a[n][m] = key % _titan_pylib_ModMatrix_MOD
 
-    def tolist(self) -> List[List[int]]:
+    def tolist(self) -> list[list[int]]:
         return [a[:] for a in self.a]
 
     def show(self) -> None:

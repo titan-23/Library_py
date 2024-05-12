@@ -1,4 +1,4 @@
-# from typing import Generic, Tuple, TypeVar, List
+# from typing import Generic, TypeVar
 # T = TypeVar('T')
 
 # class RadixHeapArray(Generic[T]):
@@ -9,7 +9,7 @@
 #     self.lim = (1 << self.log) - 1
 #     self.last = 0
 #     self._len = 0
-#     self.data: List[List[Tuple[int, T]]] = [[] for _ in range(self.log)]
+#     self.data: list[list[tuple[int, T]]] = [[] for _ in range(self.log)]
 
 #     # key, i(in data[x])
 #     self.rev = [(-1, -1) for _ in range(n)]
@@ -40,7 +40,7 @@
 #     self.rev[i] = (key, len(self.data[x]))
 #     self.data[x].append((key, i))
 
-#   def top(self) -> Tuple[int, T]:
+#   def top(self) -> tuple[int, T]:
 #     data = self.data
 #     if not data[0]:
 #       for d in data:
@@ -48,7 +48,7 @@
 #         return min(d)
 #     return data[0][-1]
 
-#   def pop(self) -> Tuple[int, T]:
+#   def pop(self) -> tuple[int, T]:
 #     assert len(self) == sum(len(x) for x in self.data)
 #     self._len -= 1
 #     data, rev = self.data, self.rev

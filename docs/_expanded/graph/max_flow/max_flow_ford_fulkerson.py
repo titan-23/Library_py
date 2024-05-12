@@ -1,12 +1,9 @@
 # from titan_pylib.graph.max_flow.max_flow_ford_fulkerson import MaxFlowFordFulkerson
-from typing import List
-
-
 class MaxFlowFordFulkerson:
 
     def __init__(self, n: int):
         self.n: int = n
-        self.G: List[List[List[int]]] = [[] for _ in range(n)]
+        self.G: list[list[list[int]]] = [[] for _ in range(n)]
 
     def add_edge(self, u: int, v: int, w: int) -> None:
         assert (
@@ -20,7 +17,7 @@ class MaxFlowFordFulkerson:
         self.G[u].append([v, w, G_v])
         self.G[v].append([u, 0, G_u])
 
-    def _dfs(self, v: int, g: int, f: int, used: List[int]) -> int:
+    def _dfs(self, v: int, g: int, f: int, used: list[int]) -> int:
         if v == g:
             return f
         used[v] = 1

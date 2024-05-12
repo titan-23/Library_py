@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.stack.stack import Stack
-from typing import TypeVar, Generic, Iterable, List
+from typing import TypeVar, Generic, Iterable
 
 T = TypeVar("T")
 
@@ -9,7 +9,7 @@ class Stack(Generic[T]):
     # コンセプト：popをしないStack
 
     def __init__(self, a: Iterable[T] = []):
-        self.data: List[T] = list(a)
+        self.data: list[T] = list(a)
         self.back: int = len(self.data)
 
     def pop(self) -> T:

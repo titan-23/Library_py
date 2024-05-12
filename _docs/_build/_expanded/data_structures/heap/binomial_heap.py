@@ -1,5 +1,5 @@
 # from titan_pylib.data_structures.heap.binomial_heap import BinomialHeap
-from typing import Generic, Iterable, TypeVar, List
+from typing import Generic, Iterable, TypeVar
 from itertools import chain
 
 T = TypeVar("T")
@@ -11,14 +11,14 @@ class BinomialHeap(Generic[T]):
     計算量はメチャクチャさぼってます。
     あらゆる操作が :math:`\\theta{(\\log{n})}` です。
 
-    ``List`` の代わりに ``LinkedList`` を使用し、``push,meld`` では ``O(1)`` で連結させ、 ``delete_min`` にすべてを押し付けると ``push,meld`` が ``O(1)`` 、``delete_min`` が償却 ``O(logn)`` になるはずです。
+    ``list`` の代わりに ``LinkedList`` を使用し、``push,meld`` では ``O(1)`` で連結させ、 ``delete_min`` にすべてを押し付けると ``push,meld`` が ``O(1)`` 、``delete_min`` が償却 ``O(logn)`` になるはずです。
     """
 
     class _Node:
 
         def __init__(self, key: T) -> None:
             self.key = key
-            self.child: List["BinomialHeap._Node"] = []
+            self.child: list["BinomialHeap._Node"] = []
 
         def rank(self) -> int:
             return len(self.child)
@@ -137,7 +137,7 @@ class BinomialHeap(Generic[T]):
         self.ptr = h1
         self.ptr_min = min_node
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return sorted(chain(*[node.tolist() for node in self.ptr if node]))
 
     def __len__(self):
@@ -147,4 +147,4 @@ class BinomialHeap(Generic[T]):
         return str(self.tolist())
 
     def __repr__(self):
-        return f"BinomialHeap({self})"
+        return f"{self.__class__.__name__}({self})"

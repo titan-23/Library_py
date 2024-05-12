@@ -1,5 +1,5 @@
 from array import array
-from typing import List, Tuple, Iterable, Union, Sequence
+from typing import Iterable, Union, Sequence
 from __pypy__ import newlist_hint
 
 
@@ -115,7 +115,7 @@ class DynamicBitVector_SplayTreeList:
             keydata[lnode << 1 | 1] + keydata[node << 1] + keydata[rnode << 1 | 1]
         )
 
-    def _splay(self, path: List[int], d: int) -> None:
+    def _splay(self, path: list[int], d: int) -> None:
         arr = self.data.arr
         g = d & 1
         while len(path) > 1:
@@ -200,7 +200,7 @@ class DynamicBitVector_SplayTreeList:
 
     def split(
         self, k: int
-    ) -> Tuple["DynamicBitVector_SplayTreeList", "DynamicBitVector_SplayTreeList"]:
+    ) -> tuple["DynamicBitVector_SplayTreeList", "DynamicBitVector_SplayTreeList"]:
         assert (
             -len(self) < k <= len(self)
         ), f"IndexError: DynamicBitVector_SplayTreeList.split({k}), len={len(self)}"
@@ -216,7 +216,7 @@ class DynamicBitVector_SplayTreeList:
         self._update(self.root)
         return left, self
 
-    def _internal_split(self, k: int) -> Tuple[int, int]:
+    def _internal_split(self, k: int) -> tuple[int, int]:
         if k >= self.data.arr[self.root << 2 | 2]:
             return self.root, 0
         self.root = self._kth_elm_splay(self.root, k)
@@ -287,7 +287,7 @@ class DynamicBitVector_SplayTreeList:
             self._update(self.root)
         return res
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         node = self.root
         arr, keydata = self.data.arr, self.data.keydata
         stack = newlist_hint(len(self))

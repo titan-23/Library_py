@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -76,7 +76,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -106,7 +106,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
     @abstractmethod
     def __repr__(self) -> str:
         raise NotImplementedError
-from typing import Optional, List, Iterable
+from typing import Optional, Iterable
 from array import array
 
 try:
@@ -398,7 +398,7 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         i = self.index(key + 1) - 1
         return None if i < 0 else self.__getitem__(i)
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         a = newlist_hint(len(self))
         if not self:
             return a

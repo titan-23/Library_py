@@ -8,7 +8,7 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, Iterator, TypeVar, Generic, List
+from typing import Iterable, Optional, Iterator, TypeVar, Generic
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -76,7 +76,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
         raise NotImplementedError
 
     @abstractmethod
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         raise NotImplementedError
 
     @abstractmethod
@@ -111,7 +111,7 @@ class OrderedMultisetInterface(ABC, Generic[T]):
 #     BSTMultisetArrayBase,
 # )
 from __pypy__ import newlist_hint
-from typing import List, Tuple, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 BST = TypeVar("BST")
@@ -121,7 +121,7 @@ BST = TypeVar("BST")
 class BSTMultisetArrayBase(Generic[BST, T]):
 
     @staticmethod
-    def _rle(a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(a: list[T]) -> tuple[list[T], list[int]]:
         keys, vals = [a[0]], [1]
         for i, elm in enumerate(a):
             if i == 0:
@@ -247,7 +247,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
         return k
 
     @staticmethod
-    def _kth_elm(bst: BST, k: int) -> Tuple[T, int]:
+    def _kth_elm(bst: BST, k: int) -> tuple[T, int]:
         left, right, vals, valsize = bst.left, bst.right, bst.val, bst.valsize
         if k < 0:
             k += len(bst)
@@ -273,7 +273,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
         return False
 
     @staticmethod
-    def tolist(bst: BST) -> List[T]:
+    def tolist(bst: BST) -> list[T]:
         left, right, keys, vals = bst.left, bst.right, bst.key, bst.val
         node = bst.root
         stack, a = [], newlist_hint(len(bst))
@@ -288,7 +288,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
                     a.append(key)
                 node = right[node]
         return a
-from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, Iterator, TypeVar, Optional
 from array import array
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -344,7 +344,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         self.size += array("I", [1] * n)
         self.balance += array("b", bytes(n))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, size, valsize, balance = (
             self.left,
             self.right,
@@ -353,7 +353,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
             self.balance,
         )
 
-        def sort(l: int, r: int) -> Tuple[int, int]:
+        def sort(l: int, r: int) -> tuple[int, int]:
             mid = (l + r) >> 1
             node = mid
             hl, hr = 0, 0
@@ -495,10 +495,10 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         self._update_balance(D)
         return D
 
-    def _kth_elm(self, k: int) -> Tuple[T, int]:
+    def _kth_elm(self, k: int) -> tuple[T, int]:
         return BSTMultisetArrayBase[AVLTreeMultiset, T]._kth_elm(self, k)
 
-    def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
+    def _kth_elm_tree(self, k: int) -> tuple[T, int]:
         left, right, vals, size = self.left, self.right, self.val, self.size
         if k < 0:
             k += self.len_elm()
@@ -514,7 +514,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = right[node]
                 k -= t + 1
 
-    def _discard(self, node: int, path: List[int], di: int) -> bool:
+    def _discard(self, node: int, path: list[int], di: int) -> bool:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         balance, size, valsize = self.balance, self.size, self.valsize
         fdi = 0
@@ -822,7 +822,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         assert self
         return self.pop(0)
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             yield self._kth_elm_tree(i)
 
@@ -848,10 +848,10 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def get_elm(self, k: int) -> T:
         return self._kth_elm_tree(k)[0]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetArrayBase[AVLTreeMultiset, T].tolist(self)
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         node = self.root
         stack, a = [], []
