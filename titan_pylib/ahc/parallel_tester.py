@@ -17,7 +17,12 @@ basicConfig(
 
 
 class ParallelTester:
-    """テストケース並列回し屋です。"""
+    """テストケース並列回し屋です。
+
+    - 実行例(127並列)ahc_settings.pyを設定して以下のコマンドを実行
+
+    ``$ python3 ./parallel_tester.py -c -v -njobs 127``
+    """
 
     def __init__(
         self,
