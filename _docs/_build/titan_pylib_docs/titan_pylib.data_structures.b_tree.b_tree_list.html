@@ -515,7 +515,7 @@
 <span class="linenos"> 21</span>        <span class="k">def</span> <span class="nf">is_leaf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 22</span>            <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span>
 <span class="linenos"> 23</span>
-<span class="linenos"> 24</span>        <span class="k">def</span> <span class="nf">_add_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<span class="linenos"> 24</span>        <span class="k">def</span> <span class="nf">_add_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 25</span>            <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">s</span>
 <span class="linenos"> 26</span>
 <span class="linenos"> 27</span>        <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"BTreeList._Node"</span><span class="p">:</span>

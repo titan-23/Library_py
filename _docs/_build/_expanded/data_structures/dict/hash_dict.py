@@ -1,9 +1,8 @@
 # from titan_pylib.data_structures.dict.hash_dict import HashDict
 import random
-from typing import Iterator, Any
+from typing import Iterator, Any, Final
 
-random.seed(0)
-_titan_pylib_HashDict_K: int = 0x517CC1B727220A95
+_titan_pylib_HashDict_K: Final[int] = 0x517CC1B727220A95
 
 
 class HashDict:
@@ -11,7 +10,7 @@ class HashDict:
     組み込み辞書の ``dict`` よりやや遅いです。
     """
 
-    def __init__(self, e: int = -1, default: Any = 0, reserve: int = -1):
+    def __init__(self, e: int = -1, default: Any = 0, reserve: int = -1) -> None:
         """
         Args:
           e (int, optional): ``int`` 型で ``key`` として使用しない値です。
