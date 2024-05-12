@@ -438,6 +438,14 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.pollard_rho.html">pollard_rho</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.html">string</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of titan_pylib.string</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.dynamic_hash_string.html">dynamic_hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.get_suffix_array.html">get_suffix_array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.hash_string.html">hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.string_count.html">string_count</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -482,6 +490,7 @@
 <li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.html">graph</a></li>
 <li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.io.html">io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.html">math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titan_pylib_docs/titan_pylib.string.html">string</a></li>
 </ul>
 </div>
 <p><a class="reference external" href="https://github.com/titan-23/Library_py/tree/main">view on github</a></p>
@@ -513,13 +522,15 @@
 </section>
 <section id="id3">
 <h3>コード展開<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
-<p>オンラインジャッジに提出するときは、適切なパスを設定した上で <code class="docutils literal notranslate"><span class="pre">expander.py</span></code> を使用してください。</p>
+<p>オンラインジャッジに提出するときは、適切なパスを設定した上で
+<a class="reference external" href="https://github.com/titan-23/Library_py/blob/main/titan_pylib/util/expander.py">expander.py</a>
+を使用してください。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>./expander.py<span class="w"> </span>&lt;input_file&gt;<span class="w"> </span>&lt;-o<span class="w"> </span>output_file&gt;<span class="w"> </span>&lt;-f&gt;
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">&lt;output_file&gt;</span></code> を省略または <code class="docutils literal notranslate"><span class="pre">clip</span></code> とするとクリップボードにコピーされます。
-<code class="docutils literal notranslate"><span class="pre">-f</span></code> オプションをつけると生成コードに black formatter がかかります。</p>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;output_file&gt;</span></code> を省略または <code class="docutils literal notranslate"><span class="pre">clip</span></code> とするとクリップボードにコピーされます。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-f</span></code> オプションをつけると生成コードに black formatter がかかります。</p></li>
 <li><p>例1 <code class="docutils literal notranslate"><span class="pre">./a.py</span></code> を展開してクリップボードにコピーする</p></li>
 </ul>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>./expander.py<span class="w"> </span>./a.py

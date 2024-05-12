@@ -14,14 +14,7 @@ Subpackages
    titan_pylib.math
    titan_pylib.my_class
    titan_pylib.others
-
-Submodules
-
-
-.. toctree::
-   :maxdepth: 1
-
-   titan_pylib.expander
+   titan_pylib.string
 
 
 

@@ -2,7 +2,6 @@ from typing import List
 import os
 import subprocess
 import re
-import logging
 from logging import getLogger, basicConfig
 
 logger = getLogger(__name__)
@@ -99,7 +98,7 @@ if __name__ == "__main__":
                 output_file.write(f"from {f} import {class_name}\n")
             command = [
                 "python3",
-                "./titan_pylib/expander.py",
+                "./titan_pylib/util/expander.py",
                 output_path,
                 "-o",
                 output_path,
@@ -116,7 +115,7 @@ if __name__ == "__main__":
                     output_file.write(f"from {f} import {class_name}\n")
                     command = [
                         "python3",
-                        "./titan_pylib/expander.py",
+                        "./titan_pylib/util/expander.py",
                         output_path,
                         "-o",
                         output_path,

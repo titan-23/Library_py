@@ -60,14 +60,16 @@ How to Use
 コード展開
 """"""""""
 
-オンラインジャッジに提出するときは、適切なパスを設定した上で ``expander.py`` を使用してください。
+オンラインジャッジに提出するときは、適切なパスを設定した上で
+`expander.py <https://github.com/titan-23/Library_py/blob/main/titan_pylib/util/expander.py>`_
+を使用してください。
 
 .. code-block:: console
 
    $ python ./expander.py <input_file> <-o output_file> <-f>
 
-``<output_file>`` を省略または ``clip`` とするとクリップボードにコピーされます。
-``-f`` オプションをつけると生成コードに black formatter がかかります。
+- ``<output_file>`` を省略または ``clip`` とするとクリップボードにコピーされます。
+- ``-f`` オプションをつけると生成コードに black formatter がかかります。
 
 
 - 例1 ``./a.py`` を展開してクリップボードにコピーする
