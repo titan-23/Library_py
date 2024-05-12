@@ -4,4 +4,4 @@
 各 REAMDME はサボっています。また、ありえないバグを仕込んでたりします。ご注意ください。  
 誰かがバグに引っかかって WA を出してくれたら、筆者冥利に尽きます。
 
-[Pages](https://titan-23.github.io/Library_py/)
+[ドキュメントサイト](https://titan-23.github.io/Library_py/)
