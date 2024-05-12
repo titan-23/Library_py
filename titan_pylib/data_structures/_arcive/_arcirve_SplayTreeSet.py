@@ -1,5 +1,5 @@
 from __pypy__ import newlist_hint
-from typing import Generic, Iterable, List, TypeVar, Optional
+from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T")
 
@@ -22,7 +22,7 @@ class SplayTreeSet(Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = self.Node
 
         def build(l: int, r: int) -> Node:
@@ -315,7 +315,7 @@ class SplayTreeSet(Generic[T]):
     def clear(self) -> None:
         self.root = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         res = newlist_hint(len(self))
         stack = []

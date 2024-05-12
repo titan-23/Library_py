@@ -4,7 +4,7 @@
 
 import sys
 from array import array
-from typing import Generic, List, TypeVar, Tuple, Callable, Iterable, Any
+from typing import Generic, TypeVar, Iterable
 
 T = TypeVar("T")
 
@@ -31,7 +31,7 @@ class SplayTreeList(Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         def sort(l: int, r: int) -> int:
             mid = (l + r) >> 1
             if l != mid:
@@ -69,7 +69,7 @@ class SplayTreeList(Generic[T]):
             + SplayTreeList.size[SplayTreeList.right[node]]
         )
 
-    def _splay(self, path: List[int], di: int) -> int:
+    def _splay(self, path: list[int], di: int) -> int:
         left, right, size = SplayTreeList.left, SplayTreeList.right, SplayTreeList.size
         while len(path) > 1:
             node = path.pop()
@@ -183,7 +183,7 @@ class SplayTreeList(Generic[T]):
         SplayTreeList.right[self.node] = other.node
         self._update(self.node)
 
-    def split(self, k: int) -> Tuple["SplayTreeList", "SplayTreeList"]:
+    def split(self, k: int) -> tuple["SplayTreeList", "SplayTreeList"]:
         if k >= SplayTreeList.size[self.node]:
             return self, SplayTreeList()
         self._set_kth_elm_splay(k)
@@ -288,7 +288,7 @@ class SplayTreeList(Generic[T]):
         l, self = self.split(n - x)
         self.merge(l)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         if self.node == 0:
             return a

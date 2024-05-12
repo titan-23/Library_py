@@ -1,5 +1,5 @@
 from __pypy__ import newlist_hint
-from typing import List, Tuple, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 BST = TypeVar("BST")
@@ -9,7 +9,7 @@ BST = TypeVar("BST")
 class BSTMultisetArrayBase(Generic[BST, T]):
 
     @staticmethod
-    def _rle(a: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(a: list[T]) -> tuple[list[T], list[int]]:
         keys, vals = [a[0]], [1]
         for i, elm in enumerate(a):
             if i == 0:
@@ -135,7 +135,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
         return k
 
     @staticmethod
-    def _kth_elm(bst: BST, k: int) -> Tuple[T, int]:
+    def _kth_elm(bst: BST, k: int) -> tuple[T, int]:
         left, right, vals, valsize = bst.left, bst.right, bst.val, bst.valsize
         if k < 0:
             k += len(bst)
@@ -161,7 +161,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
         return False
 
     @staticmethod
-    def tolist(bst: BST) -> List[T]:
+    def tolist(bst: BST) -> list[T]:
         left, right, keys, vals = bst.left, bst.right, bst.key, bst.val
         node = bst.root
         stack, a = [], newlist_hint(len(bst))

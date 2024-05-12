@@ -1,10 +1,7 @@
 from collections import deque
-from typing import Generic, TypeVar, List, Iterable
+from typing import Generic, TypeVar, Iterable
+from __pypy__ import newlist_hint
 
-try:
-    from __pypy__ import newlist_hint
-except ImportError:
-    pass
 T = TypeVar("T")
 
 
@@ -13,10 +10,10 @@ class BTreeList(Generic[T]):
     class _Node:
 
         def __init__(self):
-            self.key: List[T] = []
-            self.bit_len: List[int] = []
+            self.key: list[T] = []
+            self.bit_len: list[int] = []
             self.key_len: int = 0
-            self.child: List["BTreeList._Node"] = []
+            self.child: list["BTreeList._Node"] = []
             self.size: int = 0
             self.sum: int = 0
 
@@ -73,12 +70,12 @@ class BTreeList(Generic[T]):
             self.size -= cnode.size if size == -1 else size
             return cnode
 
-        def extend_key(self, keys: List[T]) -> None:
+        def extend_key(self, keys: list[T]) -> None:
             self.size += len(keys)
             self.sum += sum(keys)
             self.key += keys
 
-        def extend_child(self, children: List["BTreeList._Node"]) -> None:
+        def extend_child(self, children: list["BTreeList._Node"]) -> None:
             self.size += sum(cnode.size for cnode in children)
             self.sum += sum(cnode.sum for cnode in children)
             self.child += children
@@ -295,7 +292,7 @@ class BTreeList(Generic[T]):
             s.size -= 1
             s.sum -= key
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = newlist_hint(len(self))
 
         def dfs(node):

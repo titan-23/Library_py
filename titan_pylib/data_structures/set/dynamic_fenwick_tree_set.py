@@ -1,7 +1,7 @@
 from titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree import (
     DynamicFenwickTree,
 )
-from typing import Dict, Iterable, Optional
+from typing import Iterable, Optional
 
 
 class DynamicFenwickTreeSet:
@@ -11,7 +11,7 @@ class DynamicFenwickTreeSet:
     def __init__(self, u: int, a: Iterable[int] = []):
         self._size: int = u
         self._len: int = 0
-        self._cnt: Dict[int, int] = {}
+        self._cnt: dict[int, int] = {}
         self._fw = DynamicFenwickTree(self._size)
         for _a in a:
             self.add(_a)

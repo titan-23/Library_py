@@ -1,26 +1,26 @@
-from typing import Any, Iterator, List, Tuple
+from typing import Any, Iterator
 
 
 class HLD:
 
-    def __init__(self, G: List[List[int]], root: int):
+    def __init__(self, G: list[list[int]], root: int):
         """``root`` を根とする木 ``G`` を HLD します。
         :math:`O(n)` です。
 
         Args:
-          G (List[List[int]]): 木を表す隣接リストです。
+          G (list[list[int]]): 木を表す隣接リストです。
           root (int): 根です。
         """
         n = len(G)
         self.n: int = n
-        self.G: List[List[int]] = G
-        self.size: List[int] = [1] * n
-        self.par: List[int] = [-1] * n
-        self.dep: List[int] = [-1] * n
-        self.nodein: List[int] = [0] * n
-        self.nodeout: List[int] = [0] * n
-        self.head: List[int] = [0] * n
-        self.hld: List[int] = [0] * n
+        self.G: list[list[int]] = G
+        self.size: list[int] = [1] * n
+        self.par: list[int] = [-1] * n
+        self.dep: list[int] = [-1] * n
+        self.nodein: list[int] = [0] * n
+        self.nodeout: list[int] = [0] * n
+        self.head: list[int] = [0] * n
+        self.hld: list[int] = [0] * n
         self._dfs(root)
 
     def _dfs(self, root: int) -> None:
@@ -71,19 +71,19 @@ class HLD:
             else:
                 nodeout[~v] = curtime
 
-    def build_list(self, a: List[Any]) -> List[Any]:
+    def build_list(self, a: list[Any]) -> list[Any]:
         """``hld配列`` を基にインデックスを振りなおします。非破壊的です。
         :math:`O(n)` です。
 
         Args:
-          a (List[Any]): 元の配列です。
+          a (list[Any]): 元の配列です。
 
         Returns:
-          List[Any]: 振りなおし後の配列です。
+          list[Any]: 振りなおし後の配列です。
         """
         return [a[e] for e in self.hld]
 
-    def for_each_vertex_path(self, u: int, v: int) -> Iterator[Tuple[int, int]]:
+    def for_each_vertex_path(self, u: int, v: int) -> Iterator[tuple[int, int]]:
         """``u-v`` パスに対応する区間のインデックスを返します。
         :math:`O(\\log{n})` です。
         """
@@ -97,7 +97,7 @@ class HLD:
             u, v = v, u
         yield nodein[v], nodein[u] + 1
 
-    def for_each_vertex_subtree(self, v: int) -> Iterator[Tuple[int, int]]:
+    def for_each_vertex_subtree(self, v: int) -> Iterator[tuple[int, int]]:
         """頂点 ``v`` の部分木に対応する区間のインデックスを返します。
         :math:`O(1)` です。
         """

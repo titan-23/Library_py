@@ -1,8 +1,8 @@
-from Library_py.MyClass.OrderedSetInterface import OrderedSetInterface
-from Library_py.MyClass.SupportsLessThan import SupportsLessThan
+from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
+from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
-from typing import Deque, Generic, Tuple, TypeVar, List, Optional, Iterable
+from typing import Deque, Generic, TypeVar, Optional, Iterable
 from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -13,8 +13,8 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
     class Node:
 
         def __init__(self):
-            self.key: List[T] = []
-            self.child: List["BTreeSet.Node"] = []
+            self.key: list[T] = []
+            self.child: list["BTreeSet.Node"] = []
             self.size: int = 0
 
         def is_leaf(self) -> bool:
@@ -64,11 +64,11 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
             self.size -= cnode.size if size == -1 else size
             return cnode
 
-        def extend_key(self, keys: List[T]) -> None:
+        def extend_key(self, keys: list[T]) -> None:
             self.size += len(keys)
             self.key += keys
 
-        def extend_child(self, children: List["BTreeSet.Node"]) -> None:
+        def extend_child(self, children: list["BTreeSet.Node"]) -> None:
             self.size += sum(cnode.size for cnode in children)
             self.child += children
 
@@ -218,7 +218,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
         if node is self._root and not node.key:
             self._root = y
 
-    def _update_stack(self, stack: List["BTreeSet.Node"]) -> None:
+    def _update_stack(self, stack: list["BTreeSet.Node"]) -> None:
         for s in stack:
             s.size -= 1
 
@@ -282,7 +282,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
             return
         raise ValueError
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = newlist_hint(len(self))
 
         def dfs(node):
@@ -313,7 +313,7 @@ class BTreeSet(OrderedSetInterface, Generic[T]):
 
     def debug(self) -> None:
         dep = [[] for _ in range(10)]
-        dq: Deque[Tuple["BTreeSet.Node", int]] = deque([(self._root, 0)])
+        dq: Deque[tuple["BTreeSet.Node", int]] = deque([(self._root, 0)])
         while dq:
             node, d = dq.popleft()
             dep[d].append((node.key, node.size))

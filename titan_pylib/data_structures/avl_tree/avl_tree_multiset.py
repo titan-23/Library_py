@@ -3,7 +3,7 @@ from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.bst_base.bst_multiset_array_base import (
     BSTMultisetArrayBase,
 )
-from typing import Generic, Iterable, Iterator, Tuple, TypeVar, List, Optional
+from typing import Generic, Iterable, Iterator, TypeVar, Optional
 from array import array
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -59,7 +59,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         self.size += array("I", [1] * n)
         self.balance += array("b", bytes(n))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, size, valsize, balance = (
             self.left,
             self.right,
@@ -68,7 +68,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
             self.balance,
         )
 
-        def sort(l: int, r: int) -> Tuple[int, int]:
+        def sort(l: int, r: int) -> tuple[int, int]:
             mid = (l + r) >> 1
             node = mid
             hl, hr = 0, 0
@@ -210,10 +210,10 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         self._update_balance(D)
         return D
 
-    def _kth_elm(self, k: int) -> Tuple[T, int]:
+    def _kth_elm(self, k: int) -> tuple[T, int]:
         return BSTMultisetArrayBase[AVLTreeMultiset, T]._kth_elm(self, k)
 
-    def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
+    def _kth_elm_tree(self, k: int) -> tuple[T, int]:
         left, right, vals, size = self.left, self.right, self.val, self.size
         if k < 0:
             k += self.len_elm()
@@ -229,7 +229,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = right[node]
                 k -= t + 1
 
-    def _discard(self, node: int, path: List[int], di: int) -> bool:
+    def _discard(self, node: int, path: list[int], di: int) -> bool:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         balance, size, valsize = self.balance, self.size, self.valsize
         fdi = 0
@@ -537,7 +537,7 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
         assert self
         return self.pop(0)
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             yield self._kth_elm_tree(i)
 
@@ -563,10 +563,10 @@ class AVLTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def get_elm(self, k: int) -> T:
         return self._kth_elm_tree(k)[0]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetArrayBase[AVLTreeMultiset, T].tolist(self)
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         node = self.root
         stack, a = [], []

@@ -1,7 +1,7 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from array import array
-from typing import Generic, Iterable, Tuple, TypeVar, Optional, List
+from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -34,10 +34,10 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
         self.size += array("I", [1] * n)
         self.balance += array("b", bytes(n))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, size, balance = self.left, self.right, self.size, self.balance
 
-        def sort(l: int, r: int) -> Tuple[int, int]:
+        def sort(l: int, r: int) -> tuple[int, int]:
             mid = (l + r) >> 1
             node = mid
             hl, hr = 0, 0
@@ -477,7 +477,7 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
     def clear(self) -> None:
         self.root = 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         left, right, keys = self.left, self.right, self.key
         node = self.root
         stack, a = [], []

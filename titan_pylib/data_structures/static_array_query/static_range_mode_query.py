@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, List, Tuple, Dict
+from typing import Generic, Iterable, TypeVar
 
 T = TypeVar("T")
 
@@ -11,7 +11,7 @@ class StaticRangeModeQuery(Generic[T]):
     """
 
     @staticmethod
-    def _sort_unique(a: List[T]) -> List[T]:
+    def _sort_unique(a: list[T]) -> list[T]:
         if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
             a = sorted(a)
             new_a = [a[0]]
@@ -31,33 +31,33 @@ class StaticRangeModeQuery(Generic[T]):
           compress (bool, optional): ``False`` なら座標圧縮しません。
         """
 
-        a: List[T] = list(a)
-        self.to_origin: List[T] = []
+        a: list[T] = list(a)
+        self.to_origin: list[T] = []
         self.compress: bool = compress
         if compress:
             self.to_origin = StaticRangeModeQuery._sort_unique(a)
-            to_zaatsu: Dict[T, int] = {x: i for i, x in enumerate(self.to_origin)}
-            self.a: List[int] = [to_zaatsu[x] for x in a]
+            to_zaatsu: dict[T, int] = {x: i for i, x in enumerate(self.to_origin)}
+            self.a: list[int] = [to_zaatsu[x] for x in a]
         else:
             assert max(a) < len(self.a), "ValueError"
-            self.a: List[int] = a
+            self.a: list[int] = a
 
         self.n: int = len(self.a)
         self.u: int = max(self.a) + 1
         self.size: int = int(self.n**0.5) + 1
         self.bucket_cnt: int = (self.n + self.size - 1) // self.size
-        self.data: List[List[int]] = [
+        self.data: list[list[int]] = [
             self.a[k * self.size : (k + 1) * self.size] for k in range(self.bucket_cnt)
         ]
 
         # (freq, val)
-        self.bucket_data: List[List[Tuple[int, int]]] = [
+        self.bucket_data: list[list[tuple[int, int]]] = [
             [(0, -1)] * (self.bucket_cnt + 1) for _ in range(self.bucket_cnt + 1)
         ]
         self._calc_all_blocks()
 
-        self.indx: List[List[int]] = [[] for _ in range(self.u)]
-        self.inv_indx: List[int] = [-1] * self.n
+        self.indx: list[list[int]] = [[] for _ in range(self.u)]
+        self.inv_indx: list[int] = [-1] * self.n
         self._calc_index()
 
     def _calc_all_blocks(self) -> None:
@@ -92,7 +92,7 @@ class StaticRangeModeQuery(Generic[T]):
             inv_indx[i] = len(indx[e])
             indx[e].append(i)
 
-    def mode(self, l: int, r: int) -> Tuple[T, int]:
+    def mode(self, l: int, r: int) -> tuple[T, int]:
         """区間 ``[l, r)`` の最頻値とその頻度を返します。
 
         Args:
@@ -100,7 +100,7 @@ class StaticRangeModeQuery(Generic[T]):
           r (int):
 
         Returns:
-          Tuple[T, int]: (最頻値, 頻度) のタプルです。
+          tuple[T, int]: (最頻値, 頻度) のタプルです。
         """
         assert 0 <= l < r <= self.n
         L, R = l, r

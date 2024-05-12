@@ -2,7 +2,7 @@ from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.my_class.ordered_multiset_interface import OrderedMultisetInterface
 from math import sqrt
 from array import array
-from typing import Generic, Iterable, Optional, TypeVar, List, Final, Tuple, Iterator
+from typing import Generic, Iterable, Optional, TypeVar, Final, Iterator
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -14,9 +14,9 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
     def __init__(self, a: Iterable[T] = [], e: T = 0) -> None:
         self.root: int = 0
-        self.key: List[T] = [e]
-        self.val: List[int] = [0]
-        self.valsize: List[int] = [0]
+        self.key: list[T] = [e]
+        self.val: list[int] = [0]
+        self.valsize: list[int] = [0]
         self.size: array[int] = array("I", bytes(4))
         self.left: array[int] = array("I", bytes(4))
         self.right: array[int] = array("I", bytes(4))
@@ -39,7 +39,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def _balance(self, node: int) -> float:
         return (self.size[self.left[node]] + 1) / (self.size[node] + 1)
 
-    def _rle(self, L: List[T]) -> Tuple[List[T], List[int]]:
+    def _rle(self, L: list[T]) -> tuple[list[T], list[int]]:
         x, y = [L[0]], [1]
         for i, a in enumerate(L):
             if i == 0:
@@ -51,7 +51,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
             y.append(1)
         return x, y
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         left, right, size, valsize = self.left, self.right, self.size, self.valsize
 
         def rec(l: int, r: int) -> int:
@@ -149,7 +149,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
             self.valsize,
         )
         node = self.root
-        path: List[int] = []
+        path: list[int] = []
         while node:
             if key == keys[node]:
                 self.val[node] += val
@@ -197,7 +197,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
             return
         raise KeyError(key)
 
-    def _discard(self, node: int, path: List[int], d: int) -> bool:
+    def _discard(self, node: int, path: list[int], d: int) -> bool:
         left, right, size, keys, valsize = (
             self.left,
             self.right,
@@ -285,7 +285,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def discard_all(self, key: T) -> None:
         self.discard(key, self.count(key))
 
-    def _kth_elm(self, k: int) -> Tuple[T, int]:
+    def _kth_elm(self, k: int) -> tuple[T, int]:
         left, right, vals, valsize = self.left, self.right, self.val, self.valsize
         if k < 0:
             k += len(self)
@@ -300,7 +300,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = right[node]
                 k -= t
 
-    def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
+    def _kth_elm_tree(self, k: int) -> tuple[T, int]:
         left, right, vals, size = self.left, self.right, self.val, self.size
         if k < 0:
             k += self.len_elm()
@@ -316,7 +316,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = right[node]
                 k -= t + 1
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         node = self.root
         stack, a = [], []
@@ -332,7 +332,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = right[node]
         return a
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         left, right, keys, vals = self.left, self.right, self.key, self.val
         node = self.root
         stack, a = [], []
@@ -546,7 +546,7 @@ class WBTreeMultiset(OrderedMultisetInterface, Generic[T]):
         assert self
         return self.pop(0)
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             yield self._kth_elm_tree(i)
 

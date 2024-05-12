@@ -1,9 +1,7 @@
 # from Library_py.Graph.get_scc import get_scc
 
-from typing import List
 
-
-def get_scc_lowlink(G: List[List[int]]) -> List[List[int]]:
+def get_scc_lowlink(G: list[list[int]]) -> list[list[int]]:
     n = len(G)
     stack = [0] * n
     ptr = 0

@@ -1,9 +1,7 @@
 from array import array
 from typing import (
     Generic,
-    List,
     TypeVar,
-    Tuple,
     Callable,
     Iterable,
     Optional,
@@ -33,8 +31,8 @@ class ReversibleLazySplayTreeArrayData(Generic[T, F]):
         )
         self.e: T = e
         self.id: F = id
-        self.keydata: List[T] = [e, e, e]
-        self.lazy: List[F] = [id]
+        self.keydata: list[T] = [e, e, e]
+        self.lazy: list[F] = [id]
         self.arr: array[int] = array("I", bytes(16))
         # left:  arr[node<<2]
         # right: arr[node<<2|1]
@@ -193,7 +191,7 @@ class ReversibleLazySplayTreeArray(Generic[T, F]):
             keydata[lnode * 3 + 2],
         )
 
-    def _splay(self, path: List[int], d: int) -> None:
+    def _splay(self, path: list[int], d: int) -> None:
         arr = self.data.arr
         g = d & 1
         while len(path) > 1:
@@ -283,7 +281,7 @@ class ReversibleLazySplayTreeArray(Generic[T, F]):
 
     def split(
         self, k: int
-    ) -> Tuple["ReversibleLazySplayTreeArray", "ReversibleLazySplayTreeArray"]:
+    ) -> tuple["ReversibleLazySplayTreeArray", "ReversibleLazySplayTreeArray"]:
         assert (
             -len(self) < k <= len(self)
         ), f"IndexError: ReversibleLazySplayTreeArray.split({k}), len={len(self)}"
@@ -299,7 +297,7 @@ class ReversibleLazySplayTreeArray(Generic[T, F]):
         self._update(self.root)
         return left, self
 
-    def _internal_split(self, k: int) -> Tuple[int, int]:
+    def _internal_split(self, k: int) -> tuple[int, int]:
         if k >= self.data.arr[self.root << 2 | 2]:
             return self.root, 0
         self.root = self._kth_elm_splay(self.root, k)
@@ -452,7 +450,7 @@ class ReversibleLazySplayTreeArray(Generic[T, F]):
         l, self = self.split(n - (x % n))
         self.merge(l)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         arr, keydata = self.data.arr, self.data.keydata
         stack = newlist_hint(len(self))

@@ -1,6 +1,6 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.heap.double_ended_heap import DoubleEndedHeap
-from typing import Generic, Iterable, TypeVar, List
+from typing import Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -86,7 +86,7 @@ class MinMaxMultiset(Generic[T]):
     def count(self, key: T) -> int:
         return self.data[key]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return sorted(k for k, v in self.data.items() for _ in range(v))
 
     def len_elm(self) -> int:

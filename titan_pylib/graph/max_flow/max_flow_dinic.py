@@ -1,12 +1,11 @@
 from collections import deque
-from typing import List
 
 
 class MaxFlowDinic:
 
     def __init__(self, n: int):
         self.n: int = n
-        self.G: List[List[List[int]]] = [[] for _ in range(n)]
+        self.G: list[list[list[int]]] = [[] for _ in range(n)]
 
     def add_edge(self, u: int, v: int, w: int) -> None:
         assert (

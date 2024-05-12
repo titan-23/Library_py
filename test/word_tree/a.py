@@ -1,5 +1,5 @@
 from array import array
-from typing import Optional, List
+from typing import Optional
 
 WORD = 62
 
@@ -31,7 +31,7 @@ class MyWordsizeTreeSet:
             u //= WORD
             print(u + 1)
             data.append([0] * (u + 1))
-        self.data: List[array[int]] = data
+        self.data: list[array[int]] = data
         self.len: int = len_
         self.len_data: int = len(data)
 
@@ -106,7 +106,7 @@ class MyWordsizeTreeSet:
                 d -= 1
         return x
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         return [x for x in self]
 
     def __len__(self):

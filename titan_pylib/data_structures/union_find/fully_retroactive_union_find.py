@@ -1,5 +1,4 @@
 from titan_pylib.data_structures.dynamic_connectivity.link_cut_tree import LinkCutTree
-from typing import List, Tuple, Set
 
 
 class FullyRetroactiveUnionFind:
@@ -17,8 +16,8 @@ class FullyRetroactiveUnionFind:
         """
         m += 1
         self.n: int = n
-        self.edge: List[Tuple[int, int, int]] = [()] * m
-        self.node_pool: Set[int] = set(range(n, n + m))
+        self.edge: list[tuple[int, int, int]] = [()] * m
+        self.node_pool: set[int] = set(range(n, n + m))
         self.lct: LinkCutTree[int, None] = LinkCutTree(
             n + m,
             op=lambda s, t: s if s > t else t,

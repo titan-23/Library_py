@@ -1,4 +1,3 @@
-from typing import List, Tuple
 from collections import defaultdict
 
 
@@ -9,9 +8,9 @@ class UndoableUnionFind:
         :math:`O(n)` です。
         """
         self._n: int = n
-        self._parents: List[int] = [-1] * n
+        self._parents: list[int] = [-1] * n
         self._group_count: int = n
-        self._history: List[Tuple[int, int]] = []
+        self._history: list[tuple[int, int]] = []
 
     def root(self, x: int) -> int:
         """要素 ``x`` を含む集合の代表元を返します。
@@ -71,12 +70,12 @@ class UndoableUnionFind:
         """
         return self.root(x) == self.root(y)
 
-    def all_roots(self) -> List[int]:
+    def all_roots(self) -> list[int]:
         """全ての集合の代表元からなるリストを返します。
         :math:`O(n)` です。
 
         Returns:
-            List[int]: 昇順であることが保証されます。
+            list[int]: 昇順であることが保証されます。
         """
         return [i for i, x in enumerate(self._parents) if x < 0]
 

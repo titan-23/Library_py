@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Callable, List, Tuple, Optional
+from typing import Generic, Iterable, TypeVar, Callable, Optional
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -45,7 +45,7 @@ class ReversibleLazyAVLTree(Generic[T, F]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = ReversibleLazyAVLTree.Node
         id = self.id
 
@@ -210,7 +210,7 @@ class ReversibleLazyAVLTree(Generic[T, F]):
     def merge(self, other: "ReversibleLazyAVLTree") -> None:
         self.root = self._merge_node(self.root, other.node)
 
-    def _pop_max(self, node: Node) -> Tuple[Node, Node]:
+    def _pop_max(self, node: Node) -> tuple[Node, Node]:
         self._propagate(node)
         path = []
         mx = node
@@ -244,7 +244,7 @@ class ReversibleLazyAVLTree(Generic[T, F]):
         self._update(mx)
         return path[0], mx
 
-    def _split_node(self, node: Node, k: int) -> Tuple[Node, Node]:
+    def _split_node(self, node: Node, k: int) -> tuple[Node, Node]:
         if not node:
             return None, None
         self._propagate(node)
@@ -258,7 +258,7 @@ class ReversibleLazyAVLTree(Generic[T, F]):
             s, t = self._split_node(node.right, tmp - 1)
             return self._merge_with_root(node.left, node, s), t
 
-    def split(self, k: int) -> Tuple["ReversibleLazyAVLTree", "ReversibleLazyAVLTree"]:
+    def split(self, k: int) -> tuple["ReversibleLazyAVLTree", "ReversibleLazyAVLTree"]:
         l, r = self._split_node(self.root, k)
         return ReversibleLazyAVLTree(
             [], self.op, self.mapping, self.composition, self.e, self.id, l
@@ -360,7 +360,7 @@ class ReversibleLazyAVLTree(Generic[T, F]):
     def clear(self) -> None:
         self.root = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         stack = []
         a = []

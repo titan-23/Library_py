@@ -1,7 +1,7 @@
 import sys
 from time import process_time
 from math import exp
-from typing import Tuple, TypeVar
+from typing import TypeVar
 from titan_pylib.algorithm.random.random import Random
 
 
@@ -21,10 +21,10 @@ class SA:
     def __init__(self):
         self.random = Random()
 
-    def make_ans_init(self) -> Tuple[State, int]:
+    def make_ans_init(self) -> tuple[State, int]:
         return
 
-    def modify(self, state: State) -> Tuple[int, Changed]:
+    def modify(self, state: State) -> tuple[int, Changed]:
         # state は変更される
         return
 
@@ -33,7 +33,7 @@ class SA:
 
     def sovle(
         self, START_TEMP: float = 100, END_TEMP: float = 10, TIME_LIMIT: float = 1.8
-    ) -> Tuple[State, int]:
+    ) -> tuple[State, int]:
         START_TIME = process_time()
         random = self.random
         ans, score = self.make_ans_init()

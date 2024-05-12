@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, List, Optional, Sequence
+from typing import Generic, Iterable, TypeVar, Optional, Sequence
 
 T = TypeVar("T")
 
@@ -398,7 +398,7 @@ class AVLTreeSet(Generic[T]):
         self.remove_iter(node)
         return key
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         a = []
         stack = []
         node = self.root

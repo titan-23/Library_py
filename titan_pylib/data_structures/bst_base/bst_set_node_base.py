@@ -1,5 +1,5 @@
 from __pypy__ import newlist_hint
-from typing import List, TypeVar, Generic, Optional
+from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
 Node = TypeVar("Node")
@@ -9,7 +9,7 @@ Node = TypeVar("Node")
 class BSTSetNodeBase(Generic[T, Node]):
 
     @staticmethod
-    def sort_unique(a: List[T]) -> List[T]:
+    def sort_unique(a: list[T]) -> list[T]:
         if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
             a = sorted(a)
             new_a = [a[0]]
@@ -124,7 +124,7 @@ class BSTSetNodeBase(Generic[T, Node]):
         return k
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> List[T]:
+    def tolist(node: Node, _len: int = 0) -> list[T]:
         stack = []
         res = newlist_hint(_len)
         while stack or node:

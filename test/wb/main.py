@@ -889,7 +889,7 @@ class FastO:
         cls._output.close()
 
 
-from typing import Generic, Iterable, TypeVar, Union, List
+from typing import Generic, Iterable, TypeVar, Union, list
 
 T = TypeVar("T")
 
@@ -967,7 +967,7 @@ class SegmentTreeRSQ(Generic[T]):
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedMultiset.py
 import math
 from bisect import bisect_left, bisect_right
-from typing import Generic, Iterable, Iterator, List, Tuple, TypeVar, Optional
+from typing import Generic, Iterable, Iterator, TypeVar, Optional
 
 T = TypeVar("T")
 
@@ -1011,7 +1011,7 @@ class SortedMultiset(Generic[T]):
         s = str(list(self))
         return "{" + s[1 : len(s) - 1] + "}"
 
-    def _position(self, x: T) -> Tuple[List[T], int, int]:
+    def _position(self, x: T) -> tuple[list[T], int, int]:
         "return the bucket, index of the bucket and position in which x should be. self must not be empty."
         for i, a in enumerate(self.a):
             if x <= a[-1]:
@@ -1041,7 +1041,7 @@ class SortedMultiset(Generic[T]):
             mid = len(a) >> 1
             self.a[b : b + 1] = [a[:mid], a[mid:]]
 
-    def _pop(self, a: List[T], b: int, i: int) -> T:
+    def _pop(self, a: list[T], b: int, i: int) -> T:
         ans = a.pop(i)
         self.size -= 1
         if not a:

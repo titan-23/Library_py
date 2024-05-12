@@ -1,4 +1,4 @@
-from typing import Union, Callable, TypeVar, Generic, Iterable, List
+from typing import Union, Callable, TypeVar, Generic, Iterable
 from functools import reduce
 from itertools import chain
 
@@ -165,7 +165,7 @@ class SegmentLazyQuadraticDivision(Generic[T, F]):
         """
         return reduce(self.op, self.bucket_data)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         self._all_propagatae()
         return list(chain(*self.data))
 

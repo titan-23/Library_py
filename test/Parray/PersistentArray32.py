@@ -1,4 +1,4 @@
-from typing import List, Iterable, TypeVar, Generic, Optional
+from typing import Iterable, TypeVar, Generic, Optional
 
 T = TypeVar("T")
 _titan23_PersistentArray32_BIT = 4
@@ -12,7 +12,7 @@ class PersistentArray32(Generic[T]):
 
         def __init__(self, key: T, child=None):
             self.key: T = key
-            self.child: List[Optional[PersistentArray32.Node]] = (
+            self.child: list[Optional[PersistentArray32.Node]] = (
                 [None] * _titan23_PersistentArray32_M if child is None else child
             )
 
@@ -78,7 +78,7 @@ class PersistentArray32(Generic[T]):
     def copy(self) -> "PersistentArray32[T]":
         return self._new(None if self.root is None else self.root.copy())
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return [self[i] for i in range(self.n)]
 
     def __str__(self):

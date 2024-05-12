@@ -1,6 +1,6 @@
 from titan_pylib.data_structures.bit_vector.avl_tree_bit_vector import AVLTreeBitVector
 from titan_pylib.data_structures.wavelet_matrix.wavelet_matrix import WaveletMatrix
-from typing import Sequence, List
+from typing import Sequence
 from array import array
 
 
@@ -16,7 +16,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
     def __init__(self, sigma: int, a: Sequence[int] = []) -> None:
         self.sigma: int = sigma
         self.log: int = (sigma - 1).bit_length()
-        self.v: List[AVLTreeBitVector] = [AVLTreeBitVector()] * self.log
+        self.v: list[AVLTreeBitVector] = [AVLTreeBitVector()] * self.log
         self.mid: array[int] = array("I", bytes(4 * self.log))
         self.size: int = len(a)
         self._build(a)

@@ -2,7 +2,7 @@ from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.bst_base.bst_set_node_base import BSTSetNodeBase
 import math
-from typing import Final, Iterator, List, TypeVar, Generic, Iterable, Optional
+from typing import Final, Iterator, TypeVar, Generic, Iterable, Optional
 from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -35,7 +35,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = ScapegoatTreeSet.Node
 
         def rec(l: int, r: int) -> ScapegoatTreeSet.Node:
@@ -222,7 +222,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
     def clear(self) -> None:
         self.root = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTSetNodeBase[T, ScapegoatTreeSet.Node].tolist(self.root, len(self))
 
     def get_min(self) -> T:

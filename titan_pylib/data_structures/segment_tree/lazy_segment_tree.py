@@ -1,4 +1,4 @@
-from typing import Union, Callable, List, TypeVar, Generic, Iterable
+from typing import Union, Callable, TypeVar, Generic, Iterable
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -129,7 +129,7 @@ class LazySegmentTree(Generic[T, F]):
         for i in range(self.size):
             self._propagate(i)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         self.all_propagate()
         return self.data[self.size : self.size + self.n]
 

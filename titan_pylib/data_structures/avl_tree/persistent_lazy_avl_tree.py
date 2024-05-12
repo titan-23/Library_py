@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, Optional, TypeVar, Callable, List, Tuple, Union
+from typing import Generic, Iterable, Optional, TypeVar, Callable, Union
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -66,10 +66,10 @@ class PersistentLazyAVLTree(Generic[T, F]):
         if a:
             self._build(list(a))
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = PersistentLazyAVLTree.Node
 
-        def build(l: int, r: int) -> Node:
+        def build(l: int, r: int) -> PersistentLazyAVLTree.Node:
             mid = (l + r) >> 1
             node = Node(a[mid], id)
             if l != mid:
@@ -211,7 +211,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
         root = self._merge_node(self.root, other.root)
         return self._new(root)
 
-    def _pop_right(self, node: Node) -> Tuple[Node, Node]:
+    def _pop_right(self, node: Node) -> tuple[Node, Node]:
         path = []
         self._propagate(node)
         node = node.copy()
@@ -248,7 +248,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
 
     def _split_node(
         self, node: Optional[Node], k: int
-    ) -> Tuple[Optional[Node], Optional[Node]]:
+    ) -> tuple[Optional[Node], Optional[Node]]:
         if node is None:
             return None, None
         self._propagate(node)
@@ -263,7 +263,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
             l, r = self._split_node(node.right, tmp - 1)
             return self._merge_with_root(node.left, node, l), r
 
-    def split(self, k: int) -> Tuple["PersistentLazyAVLTree", "PersistentLazyAVLTree"]:
+    def split(self, k: int) -> tuple["PersistentLazyAVLTree", "PersistentLazyAVLTree"]:
         l, r = self._split_node(self.root, k)
         return self._new(l), self._new(r)
 
@@ -278,9 +278,9 @@ class PersistentLazyAVLTree(Generic[T, F]):
         if l >= r or (not self.root):
             return self._new(self.root.copy() if self.root else None)
         root = self.root.copy()
-        stack: List[
+        stack: list[
             Union[
-                PersistentLazyAVLTree.Node, Tuple[PersistentLazyAVLTree.Node, int, int]
+                PersistentLazyAVLTree.Node, tuple[PersistentLazyAVLTree.Node, int, int]
             ]
         ] = [(root), (root, 0, len(self))]
         while stack:
@@ -339,7 +339,7 @@ class PersistentLazyAVLTree(Generic[T, F]):
         root = self._merge_with_root(s, PersistentLazyAVLTree.Node(key, self.id), t)
         return self._new(root)
 
-    def pop(self, k: int) -> Tuple["PersistentLazyAVLTree", T]:
+    def pop(self, k: int) -> tuple["PersistentLazyAVLTree", T]:
         s, t = self._split_node(self.root, k + 1)
         assert s
         s, tmp = self._pop_right(s)
@@ -356,10 +356,10 @@ class PersistentLazyAVLTree(Generic[T, F]):
         root = self._merge_node(self._merge_node(u, s), t)
         return self._new(root)
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
-        stack: List[PersistentLazyAVLTree.Node] = []
-        a: List[T] = []
+        stack: list[PersistentLazyAVLTree.Node] = []
+        a: list[T] = []
         while stack or node:
             if node:
                 self._propagate(node)

@@ -1,4 +1,4 @@
-from typing import Generic, Iterable, TypeVar, Callable, Union, List
+from typing import Generic, Iterable, TypeVar, Callable, Union
 
 T = TypeVar("T")
 
@@ -38,7 +38,7 @@ class FoldableStack(Generic[T]):
     def prod(self, r: int) -> T:
         return self._data[r]
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return list(self._a)
 
     def __len__(self):

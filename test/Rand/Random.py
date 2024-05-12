@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import Any
 
 
 class Random:
@@ -27,7 +27,7 @@ class Random:
         return begin + cls._xor() % (end - begin)
 
     @classmethod
-    def shuffle(cls, a: List[Any]) -> None:
+    def shuffle(cls, a: list[Any]) -> None:
         n = len(a)
         for i in range(n - 1):
             j = cls.randrange(i, n)

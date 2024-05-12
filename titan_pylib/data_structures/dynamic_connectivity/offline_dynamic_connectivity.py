@@ -1,4 +1,4 @@
-from typing import List, Callable, Tuple
+from typing import Callable
 from collections import defaultdict
 
 
@@ -17,10 +17,10 @@ class OfflineDynamicConnectivity:
 
         def __init__(self, n: int):
             self._n: int = n
-            self._parents: List[int] = [-1] * n
-            self._all_sum: List[int] = [0] * n
-            self._one_sum: List[int] = [0] * n
-            self._history: List[Tuple[int, int, int]] = []
+            self._parents: list[int] = [-1] * n
+            self._all_sum: list[int] = [0] * n
+            self._one_sum: list[int] = [0] * n
+            self._history: list[tuple[int, int, int]] = []
             self._group_count: int = n
 
         def _undo(self) -> None:

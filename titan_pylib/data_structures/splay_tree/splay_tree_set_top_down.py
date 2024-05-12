@@ -1,7 +1,7 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from array import array
-from typing import Optional, Generic, Iterable, List, TypeVar
+from typing import Optional, Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -9,7 +9,7 @@ T = TypeVar("T", bound=SupportsLessThan)
 class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
 
     def __init__(self, a: Iterable[T] = [], e: T = 0):
-        self.keys: List[T] = [e]
+        self.keys: list[T] = [e]
         self.child = array("I", bytes(8))
         self.end: int = 1
         self.root: int = 0
@@ -20,7 +20,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         def rec(l: int, r: int) -> int:
             mid = (l + r) >> 1
             if l != mid:
@@ -461,7 +461,7 @@ class SplayTreeSetTopDown(OrderedSetInterface, Generic[T]):
         self.root = node
         return lt
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         node = self.root
         child, keys = self.child, self.keys
         stack, res = [], []

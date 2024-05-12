@@ -1,7 +1,7 @@
 from titan_pylib.data_structures.segment_tree.segment_tree_interface import (
     SegmentTreeInterface,
 )
-from typing import Generic, Iterable, TypeVar, Callable, Union, List
+from typing import Generic, Iterable, TypeVar, Callable, Union
 
 T = TypeVar("T")
 
@@ -166,7 +166,7 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
                 break
         return 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         """リストにして返します。
         :math:`O(n)` です。
         """

@@ -1,7 +1,7 @@
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.bst_base.bst_set_node_base import BSTSetNodeBase
-from typing import Generic, Iterable, TypeVar, Optional, List
+from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -48,10 +48,10 @@ class TreapSet(OrderedSetInterface, Generic[T]):
         if a:
             self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = TreapSet.Node
 
-        def rec(l: int, r: int) -> Node:
+        def rec(l: int, r: int) -> TreapSet.Node:
             mid = (l + r) >> 1
             node = Node(a[mid], rand[mid])
             if l != mid:
@@ -228,7 +228,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
     def clear(self) -> None:
         self.root = None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTSetNodeBase[T, TreapSet.Node].tolist(self.root, len(self))
 
     def __iter__(self):

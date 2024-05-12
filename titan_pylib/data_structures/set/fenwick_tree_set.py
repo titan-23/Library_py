@@ -1,6 +1,6 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
-from typing import Dict, Iterable, TypeVar, Generic, Union, Optional
+from typing import Iterable, TypeVar, Generic, Union, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -21,7 +21,7 @@ class FenwickTreeSet(Generic[T]):
             self._to_origin = sorted(_used)
         else:
             self._to_origin = sorted(set(_used))
-        self._to_zaatsu: Dict[T, int] = (
+        self._to_zaatsu: dict[T, int] = (
             {key: i for i, key in enumerate(self._to_origin)}
             if compress
             else self._to_origin

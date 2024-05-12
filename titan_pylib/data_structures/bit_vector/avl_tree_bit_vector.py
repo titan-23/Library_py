@@ -2,7 +2,7 @@ from titan_pylib.data_structures.bit_vector.bit_vector_interface import (
     BitVectorInterface,
 )
 from array import array
-from typing import Iterable, List, Final, Sequence
+from typing import Iterable, Final, Sequence
 
 titan_pylib_AVLTreeBitVector_W: Final[int] = 31
 
@@ -358,7 +358,7 @@ class AVLTreeBitVector(BitVectorInterface):
             else:
                 self.root = new_node
 
-    def _pop_under(self, path: List[int], d: int, node: int, res: int) -> None:
+    def _pop_under(self, path: list[int], d: int, node: int, res: int) -> None:
         left, right, size, bit_len, balance, keys, total = (
             self.left,
             self.right,
@@ -483,7 +483,7 @@ class AVLTreeBitVector(BitVectorInterface):
         """
         self.__setitem__(k, v)
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n)` です。
         """

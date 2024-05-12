@@ -1,6 +1,6 @@
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from array import array
-from typing import Generic, Iterator, List, TypeVar, Any, Tuple
+from typing import Generic, Iterator, TypeVar, Any
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -12,8 +12,8 @@ class SplayTreeDict(Generic[T]):
         # default: valのdefault値
         if reserve < 1:
             reserve = 1
-        self._keys: List[T] = [e] * reserve
-        self._vals: List[Any] = [0] * reserve
+        self._keys: list[T] = [e] * reserve
+        self._vals: list[Any] = [0] * reserve
         self._child = array("I", bytes(8 * reserve))
         self._end: int = 1
         self._root: int = 0
@@ -124,7 +124,7 @@ class SplayTreeDict(Generic[T]):
             self._root = node
         self._len -= 1
 
-    def tolist(self) -> List[Tuple[T, Any]]:
+    def tolist(self) -> list[tuple[T, Any]]:
         node = self._root
         child, keys, vals = self._child, self._keys, self._vals
         stack, res = [], []
@@ -164,7 +164,7 @@ class SplayTreeDict(Generic[T]):
                 yield vals[node]
                 node = child[node << 1 | 1]
 
-    def items(self) -> Iterator[Tuple[T, Any]]:
+    def items(self) -> Iterator[tuple[T, Any]]:
         node = self._root
         child, keys, vals = self._child, self._keys, self._vals
         stack = []

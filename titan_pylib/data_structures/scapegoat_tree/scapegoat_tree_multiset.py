@@ -5,7 +5,7 @@ from titan_pylib.data_structures.bst_base.bst_multiset_node_base import (
 )
 import math
 from __pypy__ import newlist_hint
-from typing import Final, List, TypeVar, Generic, Iterable, Tuple, Optional, Iterator
+from typing import Final, TypeVar, Generic, Iterable, Optional, Iterator
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -36,7 +36,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
             a = list(a)
         self._build(a)
 
-    def _build(self, a: List[T]) -> None:
+    def _build(self, a: list[T]) -> None:
         Node = ScapegoatTreeMultiset.Node
 
         def rec(l: int, r: int) -> ScapegoatTreeMultiset.Node:
@@ -91,7 +91,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = node.right
         return rec(0, len(a))
 
-    def _kth_elm(self, k: int) -> Tuple[T, int]:
+    def _kth_elm(self, k: int) -> tuple[T, int]:
         if k < 0:
             k += len(self)
         node = self.root
@@ -105,7 +105,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node = node.right
                 k -= t
 
-    def _kth_elm_tree(self, k: int) -> Tuple[T, int]:
+    def _kth_elm_tree(self, k: int) -> tuple[T, int]:
         if k < 0:
             k += self.len_elm()
         node = self.root
@@ -305,7 +305,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def pop_max(self) -> T:
         return self.pop(-1)
 
-    def items(self) -> Iterator[Tuple[T, int]]:
+    def items(self) -> Iterator[tuple[T, int]]:
         for i in range(self.len_elm()):
             yield self._kth_elm_tree(i)
 
@@ -331,12 +331,12 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
     def len_elm(self) -> int:
         return self.root.size if self.root else 0
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist(
             self.root, len(self)
         )
 
-    def tolist_items(self) -> List[Tuple[T, int]]:
+    def tolist_items(self) -> list[tuple[T, int]]:
         return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist_items(
             self.root, self.len_elm()
         )

@@ -1,7 +1,7 @@
 from titan_pylib.data_structures.set.dynamic_fenwick_tree_set import (
     DynamicFenwickTreeSet,
 )
-from typing import Iterable, Tuple
+from typing import Iterable
 
 
 class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet):
@@ -37,7 +37,7 @@ class DynamicFenwickTreeMultiset(DynamicFenwickTreeSet):
     def count(self, key: int) -> int:
         return self._cnt[key]
 
-    def items(self) -> Iterable[Tuple[int, int]]:
+    def items(self) -> Iterable[tuple[int, int]]:
         _iter = 0
         while _iter < self._len:
             res = self.__getitem__(_iter)

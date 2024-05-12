@@ -1,5 +1,5 @@
 from array import array
-from typing import Iterable, Optional, List
+from typing import Iterable, Optional
 
 
 class WordsizeTreeSet:
@@ -37,7 +37,7 @@ class WordsizeTreeSet:
             while u:
                 u >>= 5
                 data.append(array("I", bytes(4 * (u + 1))))
-        self.data: List[array[int]] = data
+        self.data: list[array[int]] = data
         self.len: int = len_
         self.len_data: int = len(data)
 
@@ -186,7 +186,7 @@ class WordsizeTreeSet:
             self.discard(e)
         self.len = 0
 
-    def tolist(self) -> List[int]:
+    def tolist(self) -> list[int]:
         """リストにして返します。
         :math:`O(n\\log{u})` です。
         """

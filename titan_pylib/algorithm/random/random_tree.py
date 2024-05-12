@@ -1,6 +1,6 @@
 from titan_pylib.data_structures.avl_tree.avl_tree_set2 import AVLTreeSet2
 import enum
-from typing import Optional, List, Tuple
+from typing import Optional
 import random
 
 
@@ -20,7 +20,7 @@ class RandomTree:
         n: int,
         typ: RandomTreeType = RandomTreeType.random,
         seed: Optional[int] = None,
-    ) -> List[Tuple[int, int]]:
+    ) -> list[tuple[int, int]]:
         """ランダムな木を生成し、辺を返します。
         :math:`O(n \\log{n})` です。
 
@@ -30,7 +30,7 @@ class RandomTree:
           seed (Optional[int], optional): seed値です。 Defaults to None。
 
         Returns:
-          List[Tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
+          list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
         """
         random.seed(seed)
         edges = None
@@ -47,7 +47,7 @@ class RandomTree:
         return edges
 
     @classmethod
-    def _build_star(cls, n: int) -> List[Tuple[int, int]]:
+    def _build_star(cls, n: int) -> list[tuple[int, int]]:
         center = random.randrange(0, n)
         edges = []
         for i in range(n):
@@ -60,7 +60,7 @@ class RandomTree:
         return edges
 
     @classmethod
-    def _build_path(cls, n: int) -> List[Tuple[int, int]]:
+    def _build_path(cls, n: int) -> list[tuple[int, int]]:
         p = list(range(n))
         random.shuffle(p)
         edges = [
@@ -70,7 +70,7 @@ class RandomTree:
         return edges
 
     @classmethod
-    def _build_random(cls, n: int) -> List[Tuple[int, int]]:
+    def _build_random(cls, n: int) -> list[tuple[int, int]]:
         edges = []
         D = [1] * n
         A = [0] * (n - 2)
@@ -78,7 +78,7 @@ class RandomTree:
             v = random.randrange(0, n)
             D[v] += 1
             A[i] = v
-        avl: AVLTreeSet2[Tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(n))
+        avl: AVLTreeSet2[tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(n))
         for a in A:
             d, v = avl.pop_min()
             assert d == 1

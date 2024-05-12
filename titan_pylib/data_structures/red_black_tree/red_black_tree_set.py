@@ -1,7 +1,7 @@
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.data_structures.bst_base.bst_set_node_base import BSTSetNodeBase
-from typing import Iterable, Optional, TypeVar, Generic, List, Sequence
+from typing import Iterable, Optional, TypeVar, Generic, Sequence
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -472,7 +472,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
             node = node.left if key < node.key else node.right
         return None
 
-    def tolist(self) -> List[T]:
+    def tolist(self) -> list[T]:
         return BSTSetNodeBase[T, RedBlackTreeSet.Node].tolist(self.node, len(self))
 
     def pop_max(self) -> T:

@@ -1,4 +1,3 @@
-from typing import List, Tuple
 from __pypy__ import newlist_hint
 
 
@@ -6,7 +5,7 @@ class WeightedRootedTree:
 
     def __init__(
         self,
-        _G: List[List[Tuple[int, int]]],
+        _G: list[list[tuple[int, int]]],
         _root: int,
         cp: bool = False,
         lca: bool = False,
@@ -96,12 +95,12 @@ class WeightedRootedTree:
 
     """Return dist from root. / O(N)"""
 
-    def get_dists(self) -> List[int]:
+    def get_dists(self) -> list[int]:
         return self._dist
 
     """Return toposo. / O(N)"""
 
-    def get_toposo(self) -> List[int]:
+    def get_toposo(self) -> list[int]:
         return self._toposo
 
     """Return height. / O(N)"""
@@ -114,7 +113,7 @@ class WeightedRootedTree:
 
     """Return descendant_num. / O(N)"""
 
-    def get_descendant_num(self) -> List[int]:
+    def get_descendant_num(self) -> list[int]:
         if self._descendant_num:
             return self._descendant_num
         _G, _dist = self._G, self._dist
@@ -131,7 +130,7 @@ class WeightedRootedTree:
 
     """Return child / O(N)"""
 
-    def get_child(self) -> List[List[int]]:
+    def get_child(self) -> list[list[int]]:
         if self._child:
             return self._child
         self._calc_child_parents()
@@ -139,7 +138,7 @@ class WeightedRootedTree:
 
     """Return child_num. / O(N)"""
 
-    def get_child_num(self) -> List[int]:
+    def get_child_num(self) -> list[int]:
         if self._child_num:
             return self._child_num
         self._calc_child_parents()
@@ -147,7 +146,7 @@ class WeightedRootedTree:
 
     """Return parents. / O(N)"""
 
-    def get_parents(self) -> List[int]:
+    def get_parents(self) -> list[int]:
         if self._parents:
             return self._parents
         self._calc_child_parents()
@@ -155,7 +154,7 @@ class WeightedRootedTree:
 
     """Return diameter of tree. (diameter, start, stop) / O(N)"""
 
-    def get_diameter(self) -> Tuple[int, int, int]:
+    def get_diameter(self) -> tuple[int, int, int]:
         if self._diameter[0] > -1:
             return self._diameter
         s = self._dist.index(self.get_height())
@@ -177,7 +176,7 @@ class WeightedRootedTree:
 
     """Return [1 if root else 0]. / O(N)"""
 
-    def get_bipartite_graph(self) -> List[int]:
+    def get_bipartite_graph(self) -> list[int]:
         if self._bipartite_graph:
             return self._bipartite_graph
         self._bipartite_graph = [-1] * self._n
@@ -240,13 +239,13 @@ class WeightedRootedTree:
 
     """Return path (u -> v). / O(logN + |path|)"""
 
-    def get_path(self, u: int, v: int) -> List[int]:
+    def get_path(self, u: int, v: int) -> list[int]:
         assert self._lca, f"{self.__class__.__name__}, `lca` must be True"
         if u == v:
             return [u]
         self.get_parents()
 
-        def get_path_lca(u: int, v: int) -> List[int]:
+        def get_path_lca(u: int, v: int) -> list[int]:
             path = []
             while u != v:
                 u = self._parents[u]
@@ -264,7 +263,7 @@ class WeightedRootedTree:
         path.append(v)
         return path
 
-    def dfs_in_out(self) -> Tuple[List[int], List[int]]:
+    def dfs_in_out(self) -> tuple[list[int], list[int]]:
         curtime = -1
         todo = [~self._root, self._root]
         intime = [-1] * self._n

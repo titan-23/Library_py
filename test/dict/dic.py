@@ -1,5 +1,5 @@
 import random
-from typing import List, Iterator, Tuple, Any
+from typing import Iterator, Any
 
 random.seed(0)
 _titan23_HashDict_K: int = 0x517CC1B727220A95
@@ -10,13 +10,13 @@ class HashDict:
     def __init__(self, e: int = -1, default: Any = 0, reserve: int = -1):
         # e: keyとして使わない値
         # default: valのdefault値
-        self._keys: List[int] = [e]
-        self._vals: List[Any] = [default]
+        self._keys: list[int] = [e]
+        self._vals: list[Any] = [default]
         self._msk: int = 0
         self._xor: int = random.getrandbits(1)
         if reserve > 0:
-            self._keys: List[int] = [e] * (1 << (reserve.bit_length()))
-            self._vals: List[Any] = [default] * (1 << (reserve.bit_length()))
+            self._keys: list[int] = [e] * (1 << (reserve.bit_length()))
+            self._vals: list[Any] = [default] * (1 << (reserve.bit_length()))
             self._msk = (1 << (len(self._keys) - 1).bit_length()) - 1
             self._xor = random.getrandbits((len(self._keys) - 1).bit_length())
         self._e: int = e
@@ -126,7 +126,7 @@ class HashDict:
             if _keys[i] != _e:
                 yield _vals[i]
 
-    def items(self) -> Iterator[Tuple[int, Any]]:
+    def items(self) -> Iterator[tuple[int, Any]]:
         _keys, _vals, _e = self._keys, self._vals, self._e
         for i in range(len(_keys)):
             if _keys[i] != _e:

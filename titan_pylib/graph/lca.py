@@ -1,5 +1,4 @@
 from titan_pylib.data_structures.sparse_table.sparse_table_RmQ import SparseTableRmQ
-from typing import List
 
 
 class LCA:
@@ -9,12 +8,12 @@ class LCA:
     https://github.com/cheran-senthil/PyRival/blob/master/pyrival/graphs/lca.py
     """
 
-    def __init__(self, G: List[List[int]], root: int) -> None:
+    def __init__(self, G: list[list[int]], root: int) -> None:
         """根が ``root`` の重み無し隣接リスト ``G`` で表されるグラフに対して LCA を求めます。
         時間・空間 :math:`O(n\\log{n})` です。
 
         Args:
-          G (List[List[int]]): 隣接リストです。
+          G (list[list[int]]): 隣接リストです。
           root (int): 根です。
         """
         _n = len(G)
@@ -49,7 +48,7 @@ class LCA:
             l, r = r, l
         return self._path[self._st.prod(l, r)]
 
-    def lca_mul(self, a: List[int]) -> int:
+    def lca_mul(self, a: list[int]) -> int:
         """頂点集合 ``a`` の LCA を返します。"""
         if all(a[i] == a[i + 1] for i in range(len(a) - 1)):
             return a[0]

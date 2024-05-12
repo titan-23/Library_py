@@ -1,17 +1,14 @@
-from typing import List
-
-
 class CumulativeSum2D:
     """2次元累積和です。"""
 
-    def __init__(self, h: int, w: int, a: List[List[int]]):
+    def __init__(self, h: int, w: int, a: list[list[int]]):
         """``h x w`` の配列 ``a`` から2次元累積和の前計算をします。
         :math:`O(hw)` です。
 
         Args:
           h (int): 行数です。
           w (int): 列数です。
-          a (List[List[int]]):  ``CumulativeSum2D`` を構築する配列です。
+          a (list[list[int]]):  ``CumulativeSum2D`` を構築する配列です。
         """
         acc = [0] * ((h + 1) * (w + 1))
         for ij in range(h * w):
