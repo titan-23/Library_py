@@ -20,7 +20,7 @@ class BTreeList(Generic[T]):
         def is_leaf(self) -> bool:
             return not self.child
 
-        def _add_size(self, s):
+        def _add_size(self, s: int) -> None:
             self.size += s
 
         def split(self, i: int) -> "BTreeList._Node":
