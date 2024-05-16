@@ -1,25 +1,28 @@
 from typing import Union, Sequence
+from array import array
 
 
 class BigInt:
 
-    def __init__(self, a: Union[Sequence[int], int, str] = 0) -> None:
+    def __init__(
+        self, a: Union[Sequence[int], int, str], _internal: bool = False
+    ) -> None:
+        if _internal:
+            self.a = a
+            self.n = len(a)
+            return
         self.sgn = True
         if isinstance(a, int):
             a = str(a)
         if a and a[0] == "-":
             self.sgn = False
-        start = 0
-        if a and (a[0] == "-" or a[0] == "+"):
-            start = 1
-        self.a = list(int(a[i]) for i in range(len(a) - 1, start - 1, -1))
+        start = 1 if a and (a[0] == "-" or a[0] == "+") else 0
+        self.a = array("B", (int(a[i]) for i in range(len(a) - 1, start - 1, -1)))
         self.n = len(self.a)
 
     @classmethod
-    def _gen(cls, a: list[int], sgn: bool):
-        res = cls()
-        res.a = a
-        res.n = len(a)
+    def _gen(cls, a: array, sgn: bool):
+        res = cls(a, True)
         res.sgn = sgn
         if res.n == 0:
             res.sgn = True
@@ -73,10 +76,10 @@ class BigInt:
         return self.n < other.n
 
     @staticmethod
-    def _add(b1: "BigInt", b2: "BigInt") -> list[int]:
+    def _add(b1: "BigInt", b2: "BigInt") -> array:
         if b1.n > b2.n:
             b1, b2 = b2, b1
-        a = []
+        a = array("B")
         carry = 0
         for i in range(b1.n):
             x = b1.a[i] + b2.a[i] + carry
@@ -91,12 +94,12 @@ class BigInt:
         return a
 
     @staticmethod
-    def _sub(b1: "BigInt", b2: "BigInt") -> tuple[list[int], bool]:
+    def _sub(b1: "BigInt", b2: "BigInt") -> tuple[array, bool]:
         sgn = True
         if b1._abs_lt(b2):
             b1, b2 = b2, b1
             sgn = False
-        a = []
+        a = array("B")
         kurisagari = False
         for i in range(b2.n):
             val = b1.a[i] - kurisagari
