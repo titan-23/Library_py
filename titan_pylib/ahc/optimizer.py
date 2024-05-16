@@ -57,13 +57,13 @@ class Optimizer:
         logger.info(study.best_trial)
         logger.info("writing results ...")
         self.output(study)
-        logger.info(f"Finish parameter seraching. Time: {time.time() - start}sec.")
+        logger.info(f"Finish parameter seraching. Time: {time.time() - start:.2f}sec.")
 
     def output(self, study: optuna.Study) -> None:
         if not os.path.exists(self.path):
             os.makedirs(self.path)
         with open(f"{self.path}/result.txt", "w", encoding="utf-8") as f:
-            logger.info(study.best_trial, file=f)
+            print(study.best_trial, file=f)
 
         img_path = self.path + "/images"
         if not os.path.exists(img_path):
