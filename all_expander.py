@@ -1,8 +1,8 @@
 from typing import List
 import os
-import subprocess
 import re
 from logging import getLogger, basicConfig
+from titan_pylib.util.expander import Expander
 
 logger = getLogger(__name__)
 
@@ -96,35 +96,19 @@ if __name__ == "__main__":
                 f = re.sub(r"\.py$", "", f)
                 class_name = get_class_names(file)
                 output_file.write(f"from {f} import {class_name}\n")
-            command = [
-                "python3",
-                "./titan_pylib/util/expander.py",
-                output_path,
-                "-o",
-                output_path,
-            ]
+            expander = Expander(output_path, verbose=False)
             try:
-                result = subprocess.run(
-                    command, capture_output=True, text=True, check=True
-                )
-            except subprocess.CalledProcessError:
+                expander.expand(output_path, False)
+            except SystemExit:
                 with open(output_path, "w", encoding="utf-8") as output_file:
                     f = input_path.lstrip("./").replace("/", ".")
                     f = re.sub(r"\.py$", "", f)
                     class_name = file.removesuffix(".py")
                     output_file.write(f"from {f} import {class_name}\n")
-                    command = [
-                        "python3",
-                        "./titan_pylib/util/expander.py",
-                        output_path,
-                        "-o",
-                        output_path,
-                    ]
+                    expander = Expander(output_path, verbose=False)
                 try:
-                    result = subprocess.run(
-                        command, capture_output=True, text=True, check=True
-                    )
-                except subprocess.CalledProcessError:
+                    expander.expand(output_path, False)
+                except SystemExit:
                     logger.error(f"展開に失敗しました: from {f} import {class_name}")
                     with open(output_path, "w", encoding="utf-8") as output_file:
                         with open(input_path, "r", encoding="utf=8") as input_file:
