@@ -1,10 +1,10 @@
-from typing import Union, Sequence
+from typing import Union, Sequence, Final
 
 
 class BigInt:
 
-    _KETA = 18
-    _BAI10 = 10**_KETA
+    _KETA: Final[int] = 18
+    _BAI10: Final[int] = 10**_KETA
 
     def __init__(
         self, a: Union[Sequence[int], int, str], _internal: bool = False
@@ -141,6 +141,18 @@ class BigInt:
                 a, sgn = self._sub(other, self)
         return self._gen(a, sgn)
 
+    def __sub__(self, other: "BigInt") -> "BigInt":
+        other.sgn = not other.sgn
+        res = self + other
+        other.sgn = not other.sgn
+        return res
+
+    __iadd__ = __add__
+    __isub__ = __sub__
+
+    def __mul__(self, other: "BigInt") -> "BigInt":
+        raise NotImplementedError
+
     def __int__(self) -> int:
         res = 0
         for i in range(self.n - 1, -1, -1):
@@ -149,6 +161,9 @@ class BigInt:
         if not self.sgn:
             res = -res
         return res
+
+    def __neg__(self) -> "BigInt":
+        return self._gen(self.a[:], not self.sgn)
 
     def __abs__(self) -> "BigInt":
         return self._gen(self.a[:], True)
