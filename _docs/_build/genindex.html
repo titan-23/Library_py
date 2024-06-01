@@ -414,6 +414,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.lca.html">lca</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.namori.html">namori</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html">perfect_binary_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.rerooting_dp.html">rerooting_dp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.rooted_tree.html">rooted_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.graph.spfa.html">spfa</a></li>
@@ -429,6 +430,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.html">math</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of titan_pylib.math</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.affine_map.html">affine_map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.big_int.html">big_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.comb.html">comb</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.divisors.html">divisors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.fraction.html">fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib_docs/titan_pylib.math.get_quotients.html">get_quotients</a></li>
@@ -940,6 +942,12 @@
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.wbt.wbt_multiset.html#titan_pylib.data_structures.wbt.wbt_multiset.WBTMultiset.check">check() (titan_pylib.data_structures.wbt.wbt_multiset.WBTMultiset method)</a>
 </li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.child_left">child_left() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
+</li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.child_right">child_right() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
+</li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.children">children() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
+</li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_multiset3.html#titan_pylib.data_structures.avl_tree.avl_tree_multiset3.AVLTreeMultiset3.clear">clear() (titan_pylib.data_structures.avl_tree.avl_tree_multiset3.AVLTreeMultiset3 method)</a>
 <ul>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.html#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.clear">(titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet method)</a>
@@ -977,12 +985,16 @@
 <li><a href="titan_pylib_docs/titan_pylib.my_class.ordered_set_interface.html#titan_pylib.my_class.ordered_set_interface.OrderedSetInterface.clear">(titan_pylib.my_class.ordered_set_interface.OrderedSetInterface method)</a>
 </li>
 </ul></li>
+<li><a href="titan_pylib_docs/titan_pylib.math.comb.html#titan_pylib.math.comb.Comb">Comb (class in titan_pylib.math.comb)</a>
+</li>
 <li><a href="titan_pylib_docs/titan_pylib.ahc.parallel_tester.html#titan_pylib.ahc.parallel_tester.ParallelTester.compile">compile() (titan_pylib.ahc.parallel_tester.ParallelTester method)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.ahc.ahc_settings.html#titan_pylib.ahc.ahc_settings.AHCSettings.compile_command">compile_command (titan_pylib.ahc.ahc_settings.AHCSettings attribute)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.algorithm.parser.html#titan_pylib.algorithm.parser.Parser.consume">consume() (titan_pylib.algorithm.parser.Parser method)</a>
 </li>
+</ul></td>
+<td style="width: 33%; vertical-align: top;"><ul>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.array.persistent_array.html#titan_pylib.data_structures.array.persistent_array.PersistentArray.copy">copy() (titan_pylib.data_structures.array.persistent_array.PersistentArray method)</a>
 <ul>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html#titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.PersistentAVLTreeList.Node.copy">(titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.PersistentAVLTreeList.Node method)</a>
@@ -998,8 +1010,6 @@
 <li><a href="titan_pylib_docs/titan_pylib.others.SA.html#titan_pylib.others.SA.State.copy">(titan_pylib.others.SA.State method)</a>
 </li>
 </ul></li>
-</ul></td>
-<td style="width: 33%; vertical-align: top;"><ul>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_multiset3.html#titan_pylib.data_structures.avl_tree.avl_tree_multiset3.AVLTreeMultiset3.count">count() (titan_pylib.data_structures.avl_tree.avl_tree_multiset3.AVLTreeMultiset3 method)</a>
 <ul>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.binary_trie.binary_trie_multiset.html#titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset.count">(titan_pylib.data_structures.binary_trie.binary_trie_multiset.BinaryTrieMultiset method)</a>
@@ -1065,6 +1075,8 @@
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.heap.deletable_min_heap.html#titan_pylib.data_structures.heap.deletable_min_heap.DeletableMinHeap">DeletableMinHeap (class in titan_pylib.data_structures.heap.deletable_min_heap)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.html#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.delete_edge">delete_edge() (titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity method)</a>
+</li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.dep">dep() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.deque.deque.html#titan_pylib.data_structures.deque.deque.Deque">Deque (class in titan_pylib.data_structures.deque.deque)</a>
 </li>
@@ -1508,6 +1520,8 @@
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.math.mod_matrix.html#titan_pylib.math.mod_matrix.ModMatrix.get_n">get_n() (titan_pylib.math.mod_matrix.ModMatrix method)</a>
 </li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.get_path">get_path() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
+</li>
 <li><a href="titan_pylib_docs/titan_pylib.math.divisors.html#titan_pylib.math.divisors.Divisors.get_prime_count">get_prime_count() (titan_pylib.math.divisors.Divisors static method)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.math.divisors.html#titan_pylib.math.divisors.Divisors.get_primelist">get_primelist() (titan_pylib.math.divisors.Divisors static method)</a>
@@ -1822,6 +1836,8 @@
 <td style="width: 33%; vertical-align: top;"><ul>
 <li><a href="titan_pylib_docs/titan_pylib.math.pollard_rho.html#titan_pylib.math.pollard_rho.PollardRho.L">L (titan_pylib.math.pollard_rho.PollardRho attribute)</a>
 </li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.la">la() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
+</li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.avl_tree.lazy_avl_tree.html#titan_pylib.data_structures.avl_tree.lazy_avl_tree.LazyAVLTree">LazyAVLTree (class in titan_pylib.data_structures.avl_tree.lazy_avl_tree)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.avl_tree.lazy_avl_tree.html#titan_pylib.data_structures.avl_tree.lazy_avl_tree.LazyAVLTree.Node">LazyAVLTree.Node (class in titan_pylib.data_structures.avl_tree.lazy_avl_tree)</a>
@@ -1847,6 +1863,8 @@
 <li><a href="titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.lca">(titan_pylib.graph.hld.hld.HLD method)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.graph.lca.html#titan_pylib.graph.lca.LCA.lca">(titan_pylib.graph.lca.LCA method)</a>
+</li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.lca">(titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
 </li>
 </ul></li>
 <li><a href="titan_pylib_docs/titan_pylib.graph.euler_tour.html#titan_pylib.graph.euler_tour.EulerTour.lca_mul">lca_mul() (titan_pylib.graph.euler_tour.EulerTour method)</a>
@@ -2448,6 +2466,8 @@
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.graph.namori.html#module-titan_pylib.graph.namori">namori</a>
 </li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#module-titan_pylib.graph.perfect_binary_tree">perfect_binary_tree</a>
+</li>
 <li><a href="titan_pylib_docs/titan_pylib.graph.rerooting_dp.html#module-titan_pylib.graph.rerooting_dp">rerooting_dp</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.graph.spfa.html#module-titan_pylib.graph.spfa">spfa</a>
@@ -2461,6 +2481,8 @@
 <li><a href="titan_pylib_docs/titan_pylib.math.affine_map.html#module-titan_pylib.math.affine_map">affine_map</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.math.big_int.html#module-titan_pylib.math.big_int">big_int</a>
+</li>
+<li><a href="titan_pylib_docs/titan_pylib.math.comb.html#module-titan_pylib.math.comb">comb</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.math.divisors.html#module-titan_pylib.math.divisors">divisors</a>
 </li>
@@ -2542,8 +2564,10 @@
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.math.fraction.html#titan_pylib.math.fraction.Fraction.NAN">NAN (titan_pylib.math.fraction.Fraction attribute)</a>
 </li>
-<li><a href="titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nCr">nCr() (titan_pylib.math.mod_comb.ModComb method)</a>
+<li><a href="titan_pylib_docs/titan_pylib.math.comb.html#titan_pylib.math.comb.Comb.nCr">nCr() (titan_pylib.math.comb.Comb method)</a>
 <ul>
+<li><a href="titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb.nCr">(titan_pylib.math.mod_comb.ModComb method)</a>
+</li>
 <li><a href="titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb1000000007.nCr">(titan_pylib.math.mod_comb.ModComb1000000007 method)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.math.mod_comb.html#titan_pylib.math.mod_comb.ModComb998244353.nCr">(titan_pylib.math.mod_comb.ModComb998244353 method)</a>
@@ -2628,6 +2652,8 @@
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.others.pair.html#titan_pylib.data_structures.others.pair.Pair">Pair (class in titan_pylib.data_structures.others.pair)</a>
 </li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.par">par() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
+</li>
 <li><a href="titan_pylib_docs/titan_pylib.ahc.parallel_tester.html#titan_pylib.ahc.parallel_tester.ParallelTester">ParallelTester (class in titan_pylib.ahc.parallel_tester)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.algorithm.parser.html#titan_pylib.algorithm.parser.Parser.parse">parse() (titan_pylib.algorithm.parser.Parser method)</a>
@@ -2664,6 +2690,8 @@
 </li>
 </ul></li>
 <li><a href="titan_pylib_docs/titan_pylib.graph.euler_tour.html#titan_pylib.graph.euler_tour.EulerTour.path_vcost">path_vcost() (titan_pylib.graph.euler_tour.EulerTour method)</a>
+</li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree">PerfectBinaryTree (class in titan_pylib.graph.perfect_binary_tree)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.algorithm.permutation.html#titan_pylib.algorithm.permutation.Permutation">Permutation (class in titan_pylib.algorithm.permutation)</a>
 </li>
@@ -3297,6 +3325,8 @@
 <li><a href="titan_pylib_docs/titan_pylib.ahc.parallel_tester.html#titan_pylib.ahc.parallel_tester.ParallelTester.show_score">show_score() (titan_pylib.ahc.parallel_tester.ParallelTester method)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.algorithm.random.random.html#titan_pylib.algorithm.random.random.Random.shuffle">shuffle() (titan_pylib.algorithm.random.random.Random method)</a>
+</li>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.sibling">sibling() (titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree method)</a>
 </li>
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.html#titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind.size">size() (titan_pylib.data_structures.dynamic_connectivity.offline_dynamic_connectivity.OfflineDynamicConnectivity.UndoableUnionFind method)</a>
 <ul>
@@ -4269,8 +4299,6 @@
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.set.set_quadratic_division.html#module-titan_pylib.data_structures.set.set_quadratic_division"></a>
 </li>
 </ul></li>
-</ul></td>
-<td style="width: 33%; vertical-align: top;"><ul>
 <li>
     titan_pylib.data_structures.set.sorted_multiset
 
@@ -4278,6 +4306,8 @@
 <li><a href="titan_pylib_docs/titan_pylib.data_structures.set.sorted_multiset.html#module-titan_pylib.data_structures.set.sorted_multiset"></a>
 </li>
 </ul></li>
+</ul></td>
+<td style="width: 33%; vertical-align: top;"><ul>
 <li>
     titan_pylib.data_structures.set.sorted_set
 
@@ -4692,6 +4722,13 @@
 </li>
 </ul></li>
 <li>
+    titan_pylib.graph.perfect_binary_tree
+
+        <ul>
+<li><a href="titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html#module-titan_pylib.graph.perfect_binary_tree"></a>
+</li>
+</ul></li>
+<li>
     titan_pylib.graph.rerooting_dp
 
         <ul>
@@ -4738,6 +4775,13 @@
 
         <ul>
 <li><a href="titan_pylib_docs/titan_pylib.math.big_int.html#module-titan_pylib.math.big_int"></a>
+</li>
+</ul></li>
+<li>
+    titan_pylib.math.comb
+
+        <ul>
+<li><a href="titan_pylib_docs/titan_pylib.math.comb.html#module-titan_pylib.math.comb"></a>
 </li>
 </ul></li>
 <li>

@@ -9,6 +9,7 @@ Submodules
 
    titan_pylib.math.affine_map
    titan_pylib.math.big_int
+   titan_pylib.math.comb
    titan_pylib.math.divisors
    titan_pylib.math.fraction
    titan_pylib.math.get_quotients

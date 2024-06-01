@@ -415,6 +415,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.lca.html">lca</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.namori.html">namori</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.perfect_binary_tree.html">perfect_binary_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.rerooting_dp.html">rerooting_dp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.rooted_tree.html">rooted_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.spfa.html">spfa</a></li>
@@ -430,6 +431,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.math.html">math</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of titan_pylib.math</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.math.affine_map.html">affine_map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.math.big_int.html">big_int</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.math.comb.html">comb</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.math.divisors.html">divisors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.math.fraction.html">fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.math.get_quotients.html">get_quotients</a></li>
@@ -546,7 +548,7 @@
 <span class="linenos">57</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="p">)</span>
 <span class="linenos">58</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"writing results ..."</span><span class="p">)</span>
 <span class="linenos">59</span>        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">study</span><span class="p">)</span>
-<span class="linenos">60</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Finish parameter seraching. Time: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">sec."</span><span class="p">)</span></div>
+<span class="linenos">60</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Finish parameter seraching. Time: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">sec."</span><span class="p">)</span></div>
 
 <span class="linenos">61</span>
 <div class="viewcode-block" id="Optimizer.output">
@@ -555,7 +557,7 @@
 <span class="linenos">63</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
 <span class="linenos">64</span>            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
 <span class="linenos">65</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">/result.txt"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="linenos">66</span>            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+<span class="linenos">66</span>            <span class="nb">print</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
 <span class="linenos">67</span>
 <span class="linenos">68</span>        <span class="n">img_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">"/images"</span>
 <span class="linenos">69</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span>

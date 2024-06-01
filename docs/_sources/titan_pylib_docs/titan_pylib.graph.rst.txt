@@ -31,6 +31,7 @@ Submodules
    titan_pylib.graph.is_bipartite_graph
    titan_pylib.graph.lca
    titan_pylib.graph.namori
+   titan_pylib.graph.perfect_binary_tree
    titan_pylib.graph.rerooting_dp
    titan_pylib.graph.rooted_tree
    titan_pylib.graph.spfa
