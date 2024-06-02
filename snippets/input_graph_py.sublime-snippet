@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[
+$1= [[] for _ in range(n)]
+for _ in range(m$2):
+  u, v = map(int, input().split())
+  u -= 1
+  v -= 1
+  G[u].append(v)
+  G[v].append(u)
+
+]]></content>
+	<tabTrigger>ingraph</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

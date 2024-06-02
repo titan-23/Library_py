@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+def isok(m):
+  # mで条件が達成可能かどうか調べる
+  $3
+
+ok = $1
+ng = $2
+while abs(ok - ng) > 1:
+  mid = (ok + ng) >> 1
+  if isok(mid):
+    ok = mid
+  else:
+    ng = mid
+
+
+]]></content>
+	<tabTrigger>nibuntansaku</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

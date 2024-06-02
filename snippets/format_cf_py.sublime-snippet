@@ -1,0 +1,56 @@
+<snippet>
+  <content><![CDATA[
+import sys
+import io
+import os
+import math
+import random
+from bisect import bisect_right, bisect_left
+from itertools import product, permutations, combinations, combinations_with_replacement 
+from collections import deque, Counter, defaultdict
+from heapq import heapify, heappush, heappop
+from functools import lru_cache, reduce
+INF = float('inf')
+ceil = lambda a, b: (a + b - 1) // b
+def error(*args, sep=' ', end='\n'):
+  print(*args, sep=sep, end=end, file=sys.stderr)
+sys.set_int_max_str_digits(0)
+
+# mod = 1000000007
+# mod = 998244353
+
+# dx = (-1, 0, 0, 1)
+# dy = (0, -1, 1, 0)
+
+# dx = (-1, -1, -1, 0, 0, 1, 1, 1)
+# dy = (-1, 0, 1, -1, 1, -1, 0, 1)
+
+input = lambda: sys.stdin.readline().rstrip()
+# input = lambda: sys.stdin.buffer.readline().rstrip()
+
+# from titan_pylib.io.fast_o import FastO
+# write, flush = FastO.write, FastO.flush
+# from titan_pylib.data_structures.safe_hash.hash_counter import HashCounter
+# from titan_pylib.data_structures.safe_hash.hash_defaultdict import HashDefaultdict
+# from titan_pylib.data_structures.safe_hash.hash_dict import HashDict
+# from titan_pylib.data_structures.safe_hash.hash_set import HashSet
+
+#  -----------------------  #
+
+def main():
+  $0
+
+
+
+_output = io.StringIO()
+t = int(input())
+for _ in range(t):
+  _output.write(str(main()))
+  _output.write('\n')
+
+os.write(1, _output.getvalue().encode())
+_output.close()
+]]></content>
+  <tabTrigger>cfformat</tabTrigger>
+  <scope>source.python</scope>
+</snippet>

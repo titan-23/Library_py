@@ -1,0 +1,43 @@
+<snippet>
+  <content><![CDATA[
+import sys
+import math
+import random
+from bisect import bisect_right, bisect_left
+from itertools import product, permutations, combinations, combinations_with_replacement
+from collections import deque, defaultdict, Counter
+from heapq import heapify, heappush, heappop
+from functools import lru_cache, reduce
+
+
+def debug(*args, sep=" ", end="\n"):
+    print(*args, sep=sep, end=end, file=sys.stderr)
+
+
+sys.set_int_max_str_digits(0)
+sys.setrecursionlimit(7 * 10**5)
+INF = float("inf")
+ceil = lambda a, b: (a + b - 1) // b
+
+# mod = 1000000007
+# mod = 998244353
+
+# dx = (-1, 0, 0, 1)
+# dy = (0, -1, 1, 0)
+
+# dx = (-1, -1, -1, 0, 0, 1, 1, 1)
+# dy = (-1, 0, 1, -1, 1, -1, 0, 1)
+
+# from titan_pylib.io.fast_o import FastO
+# write, flush = FastO.write, FastO.flush
+# input = lambda: sys.stdin.buffer.readline().rstrip()
+input = lambda: sys.stdin.readline().rstrip()
+
+#  -----------------------  #
+
+$0
+
+]]></content>
+  <tabTrigger>fmain</tabTrigger>
+  <scope>source.python</scope>
+</snippet>

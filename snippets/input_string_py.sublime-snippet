@@ -1,0 +1,7 @@
+<snippet>
+	<content><![CDATA[
+$1= input()$0
+]]></content>
+	<tabTrigger>ins</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

@@ -1,0 +1,45 @@
+<snippet>
+	<content><![CDATA[
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// #include <atcoder/all>
+// using namespace atcoder;
+
+#define rep(i, n) for (int i = 0; i < (n); ++i)
+#define ll long long
+static constexpr ll INF = 1e18;
+static constexpr int inf = 1e9;
+
+
+void solve() {
+  $0
+
+  return;
+}
+
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(0);
+  cout << fixed << setprecision(15);
+  solve();
+
+  // int t;
+  // cin >> t;
+  // for (int i = 0; i < t; ++i) {
+  //   solve();
+  // }
+
+  return 0;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>cppmain</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

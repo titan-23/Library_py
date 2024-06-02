@@ -1,0 +1,38 @@
+<snippet>
+	<content><![CDATA[
+import sys
+import math
+from bisect import bisect_right, bisect_left
+from itertools import *
+from collections import *
+from heapq import heapify, heappush, heappop
+inf = float('inf')
+# mod = 1000000007
+# mod = 998244353
+input = lambda: sys.stdin.readline().rstrip()
+cpdef error(*args, sep=' ', end='\n'):
+  print(*args, sep=sep, end=end, file=sys.stderr)
+# sys.setrecursionlimit(10**6)
+
+#  -----------------------  #
+
+cdef solve():
+  cdef:
+    
+
+  $0
+ 
+  return
+
+cpdef main():
+  solve()
+  return
+
+main()
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>cymain</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope></scope> -->
+</snippet>
