@@ -326,6 +326,7 @@ class WBTSet(Generic[T]):
         計算量:
             :math:`O(\\log{n})`
         """
+        res = None
         node = self._root
         while node:
             if key <= node._key:
