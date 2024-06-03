@@ -118,7 +118,7 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
 
     def remove(self, key: int, cnt: int = 1) -> None:
         c = self.count(key)
-        if c > cnt:
+        if c < cnt:
             raise KeyError(key)
         self.discard(key, cnt)
 
