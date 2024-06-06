@@ -141,6 +141,9 @@ class WBTSet(Generic[T]):
             else:
                 node = node._left
 
+    def count(self, key: T) -> int:
+        return 1 if self.find_key(key) is not None else 0
+
     def remove_iter(self, node: _WBTSetNode[T]) -> None:
         """``node`` を削除します。
 
