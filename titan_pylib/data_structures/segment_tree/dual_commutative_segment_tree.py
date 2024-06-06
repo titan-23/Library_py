@@ -111,11 +111,12 @@ class DualCommutativeSegmentTree(Generic[T, F]):
         ), f"IndexError: {self.__class__.__name__}[{k}], n={self.n}"
         if k < 0:
             k += self.n
+        lazy = self.lazy
         k += self.size
-        lazy = self.id
+        lazy_f = self.id
         for i in range(self.log, 0, -1):
-            lazy = self.composition(lazy, self.lazy[k >> i])
-        return self.mapping(lazy, self.data[k - self.size])
+            lazy_f = self.composition(lazy_f, lazy[k >> i])
+        return self.mapping(lazy_f, self.data[k - self.size])
 
     def __setitem__(self, k: int, v: T) -> None:
         assert (
