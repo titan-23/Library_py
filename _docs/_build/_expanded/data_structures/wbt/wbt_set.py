@@ -517,6 +517,7 @@ class WBTSet(Generic[T]):
         計算量:
             :math:`O(\\log{n})`
         """
+        res = None
         node = self._root
         while node:
             if key <= node._key:
@@ -800,9 +801,4 @@ class WBTSet(Generic[T]):
         return "{" + ", ".join(map(str, self)) + "}"
 
     def __repr__(self) -> str:
-        return (
-            f"{self.__class__.__name__}("
-            + "{"
-            + ", ".join(map(str, self.tolist()))
-            + "})"
-        )
+        return f"{self.__class__.__name__}(" + "{" + ", ".join(map(str, self)) + "})"

@@ -2,15 +2,10 @@ from titan_pylib.my_class.ordered_multiset_interface import OrderedMultisetInter
 from typing import Optional, Iterable
 from array import array
 
-try:
-    from __pypy__ import newlist_hint
-except ImportError:
-    pass
-
 
 class BinaryTrieMultiset(OrderedMultisetInterface):
 
-    def __init__(self, u: int, a: Iterable[int] = []):
+    def __init__(self, u: int, a: Iterable[int] = []) -> None:
         self.left = array("I", bytes(8))
         self.right = array("I", bytes(8))
         self.par = array("I", bytes(8))
@@ -41,12 +36,13 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         node = self.root
         for i in range(self.bit - 1, -1, -1):
             if key >> i & 1:
-                left, right = right, left
-            if not left[node]:
-                return -1
-            node = left[node]
-            if key >> i & 1:
-                left, right = right, left
+                if not right[node]:
+                    return -1
+                node = right[node]
+            else:
+                if not left[node]:
+                    return -1
+                node = left[node]
         return node
 
     def reserve(self, n: int) -> None:
@@ -65,20 +61,20 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         key ^= self.xor
         node = self.root
         for i in range(self.bit - 1, -1, -1):
-            if key >> i & 1:
-                left, right = right, left
-            if not left[node]:
-                left[node] = self._make_node()
-                par[left[node]] = node
-            node = left[node]
-            if key >> i & 1:
-                left, right = right, left
-        size[node] += cnt
-        for i in range(self.bit):
-            node = par[node]
             size[node] += cnt
+            if key >> i & 1:
+                if not right[node]:
+                    right[node] = self._make_node()
+                    par[right[node]] = node
+                node = right[node]
+            else:
+                if not left[node]:
+                    left[node] = self._make_node()
+                    par[left[node]] = node
+                node = left[node]
+        size[node] += cnt
 
-    def _discard(self, node: int) -> None:
+    def _remove(self, node: int) -> None:
         left, right, par, size = self.left, self.right, self.par, self.size
         cnt = size[node]
         for _ in range(self.bit):
@@ -106,7 +102,7 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         if node == -1:
             return False
         if size[node] <= cnt:
-            self._discard(node)
+            self._remove(node)
         else:
             while node:
                 size[node] -= cnt
@@ -117,10 +113,28 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         return self.discard(key, self.count(key))
 
     def remove(self, key: int, cnt: int = 1) -> None:
-        c = self.count(key)
-        if c > cnt:
-            raise KeyError(key)
-        self.discard(key, cnt)
+        left, right, par, size = self.left, self.right, self.par, self.size
+        _key = key
+        key ^= self.xor
+        node = self.root
+        for i in range(self.bit - 1, -1, -1):
+            if key >> i & 1:
+                if not right[node]:
+                    assert False, f"{_key} is not found."
+                node = right[node]
+            else:
+                if not left[node]:
+                    assert False, f"{_key} is not found."
+                node = left[node]
+        c = self.size[node]
+        if c < cnt:
+            assert False, f"{_key} is not found."
+        elif c == cnt:
+            self._remove(node)
+        else:
+            while node:
+                size[node] -= cnt
+                node = par[node]
 
     def count(self, key: int) -> int:
         node = self._find(key)
@@ -157,7 +171,7 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
             if b:
                 left, right = right, left
         if size[node] == 1:
-            self._discard(node)
+            self._remove(node)
         else:
             while node:
                 size[node] -= 1
@@ -266,14 +280,14 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
             0 <= key < self.lim
         ), f"ValueError: BinaryTrieMultiset.gt({key}), lim={self.lim}"
         i = self.index_right(key)
-        return None if i >= self.size[self.root] else self.__getitem__(i)
+        return None if i >= self.size[self.root] else self[i]
 
     def lt(self, key: int) -> Optional[int]:
         assert (
             0 <= key < self.lim
         ), f"ValueError: BinaryTrieMultiset.lt({key}), lim={self.lim}"
         i = self.index(key) - 1
-        return None if i < 0 else self.__getitem__(i)
+        return None if i < 0 else self[i]
 
     def ge(self, key: int) -> Optional[int]:
         assert (
@@ -282,17 +296,17 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
         if key == 0:
             return self.get_min() if self else None
         i = self.index_right(key - 1)
-        return None if i >= self.size[self.root] else self.__getitem__(i)
+        return None if i >= self.size[self.root] else self[i]
 
     def le(self, key: int) -> Optional[int]:
         assert (
             0 <= key < self.lim
         ), f"ValueError: BinaryTrieMultiset.le({key}), lim={self.lim}"
         i = self.index(key + 1) - 1
-        return None if i < 0 else self.__getitem__(i)
+        return None if i < 0 else self[i]
 
     def tolist(self) -> list[int]:
-        a = newlist_hint(len(self))
+        a = []
         if not self:
             return a
         val = self.get_min()
@@ -305,16 +319,16 @@ class BinaryTrieMultiset(OrderedMultisetInterface):
     def clear(self) -> None:
         self.root = 1
 
-    def __contains__(self, key: int):
+    def __contains__(self, key: int) -> bool:
         assert (
             0 <= key < self.lim
         ), f"ValueError: BinaryTrieMultiset.__contains__({key}), lim={self.lim}"
         return self._find(key) != -1
 
-    def __getitem__(self, k: int):
+    def __getitem__(self, k: int) -> int:
         assert (
             -len(self) <= k < len(self)
-        ), f"IndexError: BinaryTrieMultiset.__getitem__({k}), len={len(self)}"
+        ), f"IndexError: BinaryTrieMultiset[({k}], len={len(self)}"
         if k < 0:
             k += len(self)
         left, right, size = self.left, self.right, self.size

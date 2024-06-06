@@ -2,27 +2,16 @@ from titan_pylib.data_structures.wbt._wbt_list_node import _WBTListNode
 from typing import Generic, TypeVar, Optional, Iterable, Callable
 
 T = TypeVar("T")
-F = TypeVar("F")
 
 
-class WBTList(Generic[T, F]):
+class WBTList(Generic[T]):
     # insert / pop / pop_max
 
     def __init__(
         self,
-        op: Callable[[T, T], T],
-        mapping: Callable[[F, T], T],
-        composition: Callable[[F, F], F],
-        e: T,
-        id_: F,
         a: Iterable[T] = [],
     ) -> None:
         self._root = None
-        self._op = op
-        self._mapping = mapping
-        self._composition = composition
-        self._e = e
-        self._id = id_
         self.__build(a)
 
     def __build(self, a: Iterable[T]) -> None:
@@ -30,7 +19,7 @@ class WBTList(Generic[T, F]):
             if l == r:
                 return None
             mid = (l + r) // 2
-            node = _WBTListNode(self, a[mid], self._id)
+            node = _WBTListNode(self, a[mid])
             node._left = build(l, mid, node)
             node._right = build(mid + 1, r, node)
             node._par = pnode
@@ -105,7 +94,7 @@ class WBTList(Generic[T, F]):
             t._par = par
         return s, t
 
-    def find_order(self, k: int) -> "WBTList[T, F]":
+    def find_order(self, k: int) -> "WBTList[T]":
         if k < 0:
             k += len(self)
         node = self._root
@@ -122,10 +111,7 @@ class WBTList(Generic[T, F]):
 
     def split(self, k: int) -> tuple["WBTList", "WBTList"]:
         lnode, rnode = self._split_node(self._root, k)
-        l, r = (
-            WBTList(self._op, self._mapping, self._composition, self._e, self._id),
-            WBTList(self._op, self._mapping, self._composition, self._e, self._id),
-        )
+        l, r = WBTList(), WBTList()
         l._root = lnode
         r._root = rnode
         return l, r
@@ -142,12 +128,12 @@ class WBTList(Generic[T, F]):
         l, tmp = self._pop_max(l)
         return self._merge_with_root(l, tmp, r)
 
-    def extend(self, other: "WBTList[T, F]") -> None:
+    def extend(self, other: "WBTList[T]") -> None:
         self._root = self._merge_node(self._root, other._root)
 
     def insert(self, k: int, key) -> None:
         s, t = self._split_node(self._root, k)
-        self._root = self._merge_with_root(s, _WBTListNode(self, key, self._id), t)
+        self._root = self._merge_with_root(s, _WBTListNode(self, key), t)
 
     def pop(self, k: int):
         s, t = self._split_node(self._root, k + 1)
@@ -186,31 +172,6 @@ class WBTList(Generic[T, F]):
         _, h = dfs(self._root)
         if verbose:
             print(f"ok. {h}")
-
-    def prod(self, l: int, r: int) -> T:
-        def dfs(node: _WBTListNode[T, F], left: int, right: int) -> T:
-            if right <= l or r <= left:
-                return self._e
-            node._propagate()
-            if l <= left and right < r:
-                return node._data
-            lsize = node._left._size if node._left else 0
-            res = self._e
-            if node._left:
-                res = dfs(node._left, left, left + lsize)
-            if l <= left + lsize < r:
-                res = self._op(res, node._key)
-            if node._right:
-                res = self._op(res, dfs(node._right, left + lsize + 1, right))
-            return res
-
-        return dfs(self._root, 0, len(self))
-
-    def apply(self, l, r, f):
-        s, t = self._split_node(self._root, r)
-        r, s = self._split_node(s, l)
-        s._apply_lazy(f)
-        self._root = self._merge_node(self._merge_node(r, s), t)
 
     def reverse(self, l, r):
         s, t = self._split_node(self._root, r)

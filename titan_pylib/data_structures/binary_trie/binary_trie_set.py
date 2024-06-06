@@ -1,7 +1,6 @@
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from typing import Optional, Iterable, Sequence
 from array import array
-from __pypy__ import newlist_hint
 
 
 class BinaryTrieSet(OrderedSetInterface):
@@ -126,7 +125,7 @@ class BinaryTrieSet(OrderedSetInterface):
             size[node] += 1
         return True
 
-    def _discard(self, node: int) -> None:
+    def _rmeove(self, node: int) -> None:
         left, right, par, size = self.left, self.right, self.par, self.size
         for _ in range(self.bit):
             size[node] -= 1
@@ -151,7 +150,7 @@ class BinaryTrieSet(OrderedSetInterface):
         node = self._find(key)
         if node == -1:
             return False
-        self._discard(node)
+        self._rmeove(node)
         return True
 
     def remove(self, key: int) -> None:
@@ -189,7 +188,7 @@ class BinaryTrieSet(OrderedSetInterface):
                     node = left[node]
             if b:
                 left, right = right, left
-        self._discard(node)
+        self._rmeove(node)
         return res ^ self.xor
 
     def pop_min(self) -> int:
@@ -327,7 +326,7 @@ class BinaryTrieSet(OrderedSetInterface):
         return None if i < 0 else self[i]
 
     def tolist(self) -> list[int]:
-        a = newlist_hint(len(self))
+        a = []
         if not self:
             return a
         val = self.get_min()

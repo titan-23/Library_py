@@ -1,12 +1,13 @@
 from titan_pylib.data_structures.wbt._wbt_node_base import _WBTNodeBase
-from titan_pylib.data_structures.wbt.wbt_list import WBTList
-from typing import Generic, TypeVar, Optional
+from typing import Generic, TypeVar, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from titan_pylib.data_structures.wbt.wbt_list import WBTList
 
 T = TypeVar("T")
-F = TypeVar("F")
 
 
-class _WBTListNode(_WBTNodeBase, Generic[T, F]):
+class _WBTListNode(_WBTNodeBase, Generic[T]):
 
     __slots__ = (
         "_left",
@@ -14,23 +15,17 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         "_par",
         "_tree",
         "_key",
-        "_lazy",
-        "_data",
-        "_rdata",
         "_rev",
     )
 
-    def __init__(self, tree: "WBTList[T, F]", key: T, lazy: F) -> None:
+    def __init__(self, tree: "WBTList[T]", key: T) -> None:
         super().__init__()
-        self._tree: WBTList[T, F] = tree
+        self._tree: WBTList[T] = tree
         self._key: T = key
-        self._data: T = key
-        self._rdata: T = key
-        self._lazy: F = lazy
         self._rev: int = 0
-        self._left: "_WBTListNode[T, F]"
-        self._right: "_WBTListNode[T, F]"
-        self._par: "_WBTListNode[T, F]"
+        self._left: "_WBTListNode[T]"
+        self._right: "_WBTListNode[T]"
+        self._par: "_WBTListNode[T]"
 
     def __str__(self) -> str:
         if self._left is None and self._right is None:
@@ -54,8 +49,8 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         # print("check ok.")
 
     def propagate_above(self) -> None:
-        """これの上について、lazy, revをすべて伝播する"""
-        stack: list["_WBTListNode[T, F]"] = []
+        """これの上について、revをすべて伝播する"""
+        stack: list["_WBTListNode[T]"] = []
         node = self
         while node:
             stack.append(node)
@@ -68,7 +63,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         """これの上について、updateする
 
         Note:
-            これの上はすべて lazy, revを伝播済み
+            これの上はすべて revを伝播済み
         """
         node = self
         while node:
@@ -77,43 +72,24 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
 
     def _update(self) -> None:
         self._size = 1
-        self._data = self._key
-        self._rdata = self._key
         if self._left:
             self._size += self._left._size
-            self._data = self._tree._op(self._left._data, self._data)
-            self._rdata = self._tree._op(self._rdata, self._left._rdata)
         if self._right:
             self._size += self._right._size
-            self._data = self._tree._op(self._data, self._right._data)
-            self._rdata = self._tree._op(self._right._rdata, self._rdata)
 
     def _apply_rev(self) -> None:
         self._rev ^= 1
 
-    def _apply_lazy(self, f: F) -> None:
-        self._key = self._tree._mapping(f, self._key)
-        self._data = self._tree._mapping(f, self._data)
-        self._rdata = self._tree._mapping(f, self._rdata)
-        self._lazy = self._tree._composition(f, self._lazy)
-
     def _propagate(self) -> None:
         if self._rev:
-            self._data, self._rdata = self._rdata, self._data
             self._left, self._right = self._right, self._left
             if self._left:
                 self._left._apply_rev()
             if self._right:
                 self._right._apply_rev()
             self._rev = 0
-        if self._lazy != self._tree._id:
-            if self._left:
-                self._left._apply_lazy(self._lazy)
-            if self._right:
-                self._right._apply_lazy(self._lazy)
-            self._lazy = self._tree._id
 
-    def _rotate_right(self) -> "_WBTListNode[T, F]":
+    def _rotate_right(self) -> "_WBTListNode[T]":
         u = self._left
         u._propagate()
         u._par = self._par
@@ -131,7 +107,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         u._update()
         return u
 
-    def _rotate_left(self) -> "_WBTListNode[T, F]":
+    def _rotate_left(self) -> "_WBTListNode[T]":
         u = self._right
         u._propagate()
         u._par = self._par
@@ -149,19 +125,19 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         u._update()
         return u
 
-    def _balance_left(self) -> "_WBTListNode[T, F]":
+    def _balance_left(self) -> "_WBTListNode[T]":
         self._right._propagate()
         if self._right._weight_left() >= self._right._weight_right() * self.GAMMA:
             self._right = self._right._rotate_right()
         return self._rotate_left()
 
-    def _balance_right(self) -> "_WBTListNode[T, F]":
+    def _balance_right(self) -> "_WBTListNode[T]":
         self._left._propagate()
         if self._left._weight_right() >= self._left._weight_left() * self.GAMMA:
             self._left = self._left._rotate_left()
         return self._rotate_right()
 
-    def _min(self) -> "_WBTListNode[T, F]":
+    def _min(self) -> "_WBTListNode[T]":
         self.propagate_above()
         assert self._rev == 0
         node = self
@@ -170,7 +146,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
             node._propagate()
         return node
 
-    def _max(self) -> "_WBTListNode[T, F]":
+    def _max(self) -> "_WBTListNode[T]":
         self.propagate_above()
         assert self._rev == 0
         node = self
@@ -179,7 +155,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
             node._propagate()
         return node
 
-    def _next(self) -> Optional["_WBTListNode[T, F]"]:
+    def _next(self) -> Optional["_WBTListNode[T]"]:
         self.propagate_above()
         if self._right:
             return self._right._min()
@@ -188,7 +164,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
             now, pre = now._par, now
         return now
 
-    def _prev(self) -> Optional["_WBTListNode[T, F]"]:
+    def _prev(self) -> Optional["_WBTListNode[T]"]:
         self.propagate_above()
         if self._left:
             return self._left._max()

@@ -171,14 +171,15 @@ class _WBTNodeBase(Generic[T]):
         return str(self._key)
 
     __repr__ = __str__
-# from titan_pylib.data_structures.wbt.wbt_list import WBTList
-from typing import Generic, TypeVar, Optional
+from typing import Generic, TypeVar, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from titan_pylib.data_structures.wbt.wbt_list import WBTList
 
 T = TypeVar("T")
-F = TypeVar("F")
 
 
-class _WBTListNode(_WBTNodeBase, Generic[T, F]):
+class _WBTListNode(_WBTNodeBase, Generic[T]):
 
     __slots__ = (
         "_left",
@@ -186,23 +187,17 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         "_par",
         "_tree",
         "_key",
-        "_lazy",
-        "_data",
-        "_rdata",
         "_rev",
     )
 
-    def __init__(self, tree: "WBTList[T, F]", key: T, lazy: F) -> None:
+    def __init__(self, tree: "WBTList[T]", key: T) -> None:
         super().__init__()
-        self._tree: WBTList[T, F] = tree
+        self._tree: WBTList[T] = tree
         self._key: T = key
-        self._data: T = key
-        self._rdata: T = key
-        self._lazy: F = lazy
         self._rev: int = 0
-        self._left: "_WBTListNode[T, F]"
-        self._right: "_WBTListNode[T, F]"
-        self._par: "_WBTListNode[T, F]"
+        self._left: "_WBTListNode[T]"
+        self._right: "_WBTListNode[T]"
+        self._par: "_WBTListNode[T]"
 
     def __str__(self) -> str:
         if self._left is None and self._right is None:
@@ -226,8 +221,8 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         # print("check ok.")
 
     def propagate_above(self) -> None:
-        """これの上について、lazy, revをすべて伝播する"""
-        stack: list["_WBTListNode[T, F]"] = []
+        """これの上について、revをすべて伝播する"""
+        stack: list["_WBTListNode[T]"] = []
         node = self
         while node:
             stack.append(node)
@@ -240,7 +235,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         """これの上について、updateする
 
         Note:
-            これの上はすべて lazy, revを伝播済み
+            これの上はすべて revを伝播済み
         """
         node = self
         while node:
@@ -249,43 +244,24 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
 
     def _update(self) -> None:
         self._size = 1
-        self._data = self._key
-        self._rdata = self._key
         if self._left:
             self._size += self._left._size
-            self._data = self._tree._op(self._left._data, self._data)
-            self._rdata = self._tree._op(self._rdata, self._left._rdata)
         if self._right:
             self._size += self._right._size
-            self._data = self._tree._op(self._data, self._right._data)
-            self._rdata = self._tree._op(self._right._rdata, self._rdata)
 
     def _apply_rev(self) -> None:
         self._rev ^= 1
 
-    def _apply_lazy(self, f: F) -> None:
-        self._key = self._tree._mapping(f, self._key)
-        self._data = self._tree._mapping(f, self._data)
-        self._rdata = self._tree._mapping(f, self._rdata)
-        self._lazy = self._tree._composition(f, self._lazy)
-
     def _propagate(self) -> None:
         if self._rev:
-            self._data, self._rdata = self._rdata, self._data
             self._left, self._right = self._right, self._left
             if self._left:
                 self._left._apply_rev()
             if self._right:
                 self._right._apply_rev()
             self._rev = 0
-        if self._lazy != self._tree._id:
-            if self._left:
-                self._left._apply_lazy(self._lazy)
-            if self._right:
-                self._right._apply_lazy(self._lazy)
-            self._lazy = self._tree._id
 
-    def _rotate_right(self) -> "_WBTListNode[T, F]":
+    def _rotate_right(self) -> "_WBTListNode[T]":
         u = self._left
         u._propagate()
         u._par = self._par
@@ -303,7 +279,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         u._update()
         return u
 
-    def _rotate_left(self) -> "_WBTListNode[T, F]":
+    def _rotate_left(self) -> "_WBTListNode[T]":
         u = self._right
         u._propagate()
         u._par = self._par
@@ -321,19 +297,19 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
         u._update()
         return u
 
-    def _balance_left(self) -> "_WBTListNode[T, F]":
+    def _balance_left(self) -> "_WBTListNode[T]":
         self._right._propagate()
         if self._right._weight_left() >= self._right._weight_right() * self.GAMMA:
             self._right = self._right._rotate_right()
         return self._rotate_left()
 
-    def _balance_right(self) -> "_WBTListNode[T, F]":
+    def _balance_right(self) -> "_WBTListNode[T]":
         self._left._propagate()
         if self._left._weight_right() >= self._left._weight_left() * self.GAMMA:
             self._left = self._left._rotate_left()
         return self._rotate_right()
 
-    def _min(self) -> "_WBTListNode[T, F]":
+    def _min(self) -> "_WBTListNode[T]":
         self.propagate_above()
         assert self._rev == 0
         node = self
@@ -342,7 +318,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
             node._propagate()
         return node
 
-    def _max(self) -> "_WBTListNode[T, F]":
+    def _max(self) -> "_WBTListNode[T]":
         self.propagate_above()
         assert self._rev == 0
         node = self
@@ -351,7 +327,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
             node._propagate()
         return node
 
-    def _next(self) -> Optional["_WBTListNode[T, F]"]:
+    def _next(self) -> Optional["_WBTListNode[T]"]:
         self.propagate_above()
         if self._right:
             return self._right._min()
@@ -360,7 +336,7 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
             now, pre = now._par, now
         return now
 
-    def _prev(self) -> Optional["_WBTListNode[T, F]"]:
+    def _prev(self) -> Optional["_WBTListNode[T]"]:
         self.propagate_above()
         if self._left:
             return self._left._max()
@@ -371,27 +347,16 @@ class _WBTListNode(_WBTNodeBase, Generic[T, F]):
 from typing import Generic, TypeVar, Optional, Iterable, Callable
 
 T = TypeVar("T")
-F = TypeVar("F")
 
 
-class WBTList(Generic[T, F]):
+class WBTList(Generic[T]):
     # insert / pop / pop_max
 
     def __init__(
         self,
-        op: Callable[[T, T], T],
-        mapping: Callable[[F, T], T],
-        composition: Callable[[F, F], F],
-        e: T,
-        id_: F,
         a: Iterable[T] = [],
     ) -> None:
         self._root = None
-        self._op = op
-        self._mapping = mapping
-        self._composition = composition
-        self._e = e
-        self._id = id_
         self.__build(a)
 
     def __build(self, a: Iterable[T]) -> None:
@@ -399,7 +364,7 @@ class WBTList(Generic[T, F]):
             if l == r:
                 return None
             mid = (l + r) // 2
-            node = _WBTListNode(self, a[mid], self._id)
+            node = _WBTListNode(self, a[mid])
             node._left = build(l, mid, node)
             node._right = build(mid + 1, r, node)
             node._par = pnode
@@ -474,7 +439,7 @@ class WBTList(Generic[T, F]):
             t._par = par
         return s, t
 
-    def find_order(self, k: int) -> "WBTList[T, F]":
+    def find_order(self, k: int) -> "WBTList[T]":
         if k < 0:
             k += len(self)
         node = self._root
@@ -491,10 +456,7 @@ class WBTList(Generic[T, F]):
 
     def split(self, k: int) -> tuple["WBTList", "WBTList"]:
         lnode, rnode = self._split_node(self._root, k)
-        l, r = (
-            WBTList(self._op, self._mapping, self._composition, self._e, self._id),
-            WBTList(self._op, self._mapping, self._composition, self._e, self._id),
-        )
+        l, r = WBTList(), WBTList()
         l._root = lnode
         r._root = rnode
         return l, r
@@ -511,12 +473,12 @@ class WBTList(Generic[T, F]):
         l, tmp = self._pop_max(l)
         return self._merge_with_root(l, tmp, r)
 
-    def extend(self, other: "WBTList[T, F]") -> None:
+    def extend(self, other: "WBTList[T]") -> None:
         self._root = self._merge_node(self._root, other._root)
 
     def insert(self, k: int, key) -> None:
         s, t = self._split_node(self._root, k)
-        self._root = self._merge_with_root(s, _WBTListNode(self, key, self._id), t)
+        self._root = self._merge_with_root(s, _WBTListNode(self, key), t)
 
     def pop(self, k: int):
         s, t = self._split_node(self._root, k + 1)
@@ -555,31 +517,6 @@ class WBTList(Generic[T, F]):
         _, h = dfs(self._root)
         if verbose:
             print(f"ok. {h}")
-
-    def prod(self, l: int, r: int) -> T:
-        def dfs(node: _WBTListNode[T, F], left: int, right: int) -> T:
-            if right <= l or r <= left:
-                return self._e
-            node._propagate()
-            if l <= left and right < r:
-                return node._data
-            lsize = node._left._size if node._left else 0
-            res = self._e
-            if node._left:
-                res = dfs(node._left, left, left + lsize)
-            if l <= left + lsize < r:
-                res = self._op(res, node._key)
-            if node._right:
-                res = self._op(res, dfs(node._right, left + lsize + 1, right))
-            return res
-
-        return dfs(self._root, 0, len(self))
-
-    def apply(self, l, r, f):
-        s, t = self._split_node(self._root, r)
-        r, s = self._split_node(s, l)
-        s._apply_lazy(f)
-        self._root = self._merge_node(self._merge_node(r, s), t)
 
     def reverse(self, l, r):
         s, t = self._split_node(self._root, r)
