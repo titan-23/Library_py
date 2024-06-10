@@ -342,6 +342,10 @@ class WBTMultiset(Generic[T]):
                 node = node._right
                 k -= t
 
+    def count(self, key: T) -> int:
+        node = self.find_key(key)
+        return node.count if node is not None else 0
+
     def remove_iter(self, node: _WBTMultisetNode[T]) -> None:
         if node is self._min:
             self._min = self._min._next()
@@ -374,18 +378,23 @@ class WBTMultiset(Generic[T]):
 
     def remove(self, key: T, count: int = 1) -> None:
         node = self.find_key(key)
-        node._count -= count
-        if node._count <= 0:
+        assert node, f"KeyError: {key} is not found."
+        if node._count <= count:
             self.remove_iter(node)
+        else:
+            node._count -= count
+            while node:
+                node._count_size -= count
+                node = node._par
 
     def discard(self, key: T, count: int = 1) -> bool:
         node = self.find_key(key)
         if node is None:
             return False
-        node._count -= count
-        if node._count <= 0:
+        if node._count <= count:
             self.remove_iter(node)
         else:
+            node._count -= count
             while node:
                 node._count_size -= count
                 node = node._par
@@ -394,9 +403,13 @@ class WBTMultiset(Generic[T]):
     def pop(self, k: int = -1) -> T:
         node = self.find_order(k)
         key = node._key
-        node._count -= 1
         if node._count == 0:
             self.remove_iter(node)
+        else:
+            node._count -= 1
+            while node:
+                node._count_size -= 1
+                node = node._par
         return key
 
     def le_iter(self, key: T) -> Optional[_WBTMultisetNode[T]]:

@@ -1,31 +1,32 @@
-from typing import Iterable, Set
-import random
+from typing import Iterable
+from random import Random
 
 
 class HashSet:
 
-    _xor = random.randrange(10000000, 1000000000)
+    _r = Random()
+    _xor = _r.randrange(10000000, 1000000000)
 
     def __init__(self, a: Iterable[int] = []):
-        self._data: Set[int] = set(x ^ HashSet._xor for x in a)
+        self._data: set[int] = set(x ^ self._xor for x in a)
 
     def add(self, key: int) -> None:
-        self._data.add(key ^ HashSet._xor)
+        self._data.add(key ^ self._xor)
 
     def discard(self, key: int) -> None:
-        self._data.discard(key ^ HashSet._xor)
+        self._data.discard(key ^ self._xor)
 
     def remove(self, key: int) -> None:
-        self._data.remove(key ^ HashSet._xor)
+        self._data.remove(key ^ self._xor)
 
     def __contains__(self, key: int):
-        return key ^ HashSet._xor in self._data
+        return key ^ self._xor in self._data
 
     def __len__(self):
         return len(self._data)
 
     def __iter__(self):
-        return (k ^ HashSet._xor for k in self._data.__iter__())
+        return (k ^ self._xor for k in self._data.__iter__())
 
     def __str__(self):
         return "{" + ", ".join(sorted(map(str, self))) + "}"

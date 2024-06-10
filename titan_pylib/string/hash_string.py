@@ -16,17 +16,17 @@ _titan_pylib_HashString_MASK61: Final[int] = _titan_pylib_HashString_MOD
 class HashStringBase:
     """HashStringのベースクラスです。"""
 
-    def __init__(self, n: int, base: int = -1, seed: Optional[int] = None) -> None:
+    def __init__(self, n: int = 0, base: int = -1, seed: Optional[int] = None) -> None:
         """
         :math:`O(n)` です。
 
         Args:
-          n (int): 文字列の長さの上限です。
-          base (int, optional): Defaults to -1.
-          seed (Optional[int], optional): Defaults to None.
+            n (int): 文字列の長さの上限です。上限を超えても問題ありません。
+            base (int, optional): Defaults to -1.
+            seed (Optional[int], optional): Defaults to None.
         """
-        random.seed(seed)
-        base = random.randint(37, 10**9) if base < 0 else base
+        rand = random.Random(seed)
+        base = rand.randint(37, 10**9) if base < 0 else base
         powb = [1] * (n + 1)
         invb = [1] * (n + 1)
         invbpow = pow(base, -1, _titan_pylib_HashString_MOD)
@@ -34,6 +34,8 @@ class HashStringBase:
             powb[i] = HashStringBase.get_mul(powb[i - 1], base)
             invb[i] = HashStringBase.get_mul(invb[i - 1], invbpow)
         self.n = n
+        self.base = base
+        self.invpow = invbpow
         self.powb = powb
         self.invb = invb
 
@@ -57,9 +59,24 @@ class HashStringBase:
             res -= _titan_pylib_HashString_MOD
         return res
 
+    def extend(self, cap: int) -> None:
+        pre_cap = len(self.powb)
+        powb, invb = self.powb, self.invb
+        powb += [0] * cap
+        invb += [0] * cap
+        invbpow = pow(self.base, -1, _titan_pylib_HashString_MOD)
+        for i in range(pre_cap, pre_cap + cap):
+            powb[i] = HashStringBase.get_mul(powb[i - 1], self.base)
+            invb[i] = HashStringBase.get_mul(invb[i - 1], invbpow)
+
+    def get_cap(self) -> int:
+        return len(self.powb)
+
     def unite(self, h1: int, h2: int, k: int) -> int:
         # len(h2) == k
         # h1 <- h2
+        if k >= self.get_cap():
+            self.extend(k - self.get_cap() + 1)
         return self.get_mod(self.get_mul(h1, self.powb[k]) + h2)
 
 
@@ -70,13 +87,15 @@ class HashString:
         :math:`O(n)` です。
 
         Args:
-          hsb (HashStringBase): ベースクラスです。
-          s (str): ロリハを構築する文字列です。
-          update (bool, optional): ``update=True`` のとき、1点更新が可能になります。
+            hsb (HashStringBase): ベースクラスです。
+            s (str): ロリハを構築する文字列です。
+            update (bool, optional): ``update=True`` のとき、1点更新が可能になります。
         """
         n = len(s)
         data = [0] * n
         acc = [0] * (n + 1)
+        if n > hsb.get_cap():
+            hsb.extend(n - hsb.get_cap())
         powb = hsb.powb
         for i, c in enumerate(s):
             data[i] = hsb.get_mul(powb[n - i - 1], _titan_pylib_HashString_DIC[c])
@@ -95,11 +114,11 @@ class HashString:
         1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。
 
         Args:
-          l (int): インデックスです。
-          r (int): インデックスです。
+            l (int): インデックスです。
+            r (int): インデックスです。
 
         Returns:
-          int: ハッシュ値です。
+            int: ハッシュ値です。
         """
         if self.used_seg:
             return self.hsb.get_mul(self.seg.prod(l, r), self.hsb.invb[self.n - r])
@@ -112,10 +131,10 @@ class HashString:
         1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。
 
         Args:
-          k (int): インデックスです。
+            k (int): インデックスです。
 
         Returns:
-          int: ハッシュ値です。
+            int: ハッシュ値です。
         """
         return self.get(k, k + 1)
 
@@ -124,8 +143,8 @@ class HashString:
         :math:`O(\\log{n})` です。また、今後の ``get()`` が :math:`O(\\log{n})` になります。
 
         Args:
-          k (int): インデックスです。
-          c (str): 更新する文字です。
+            k (int): インデックスです。
+            c (str): 更新する文字です。
         """
         self.used_seg = True
         self.seg[k] = self.hsb.get_mul(

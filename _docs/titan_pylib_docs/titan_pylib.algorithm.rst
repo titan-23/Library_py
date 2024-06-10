@@ -16,6 +16,7 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
+   titan_pylib.algorithm.arithmetic_progression
    titan_pylib.algorithm.cycle_memo
    titan_pylib.algorithm.doubling
    titan_pylib.algorithm.mo

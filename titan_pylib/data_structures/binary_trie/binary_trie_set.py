@@ -1,67 +1,24 @@
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
-from typing import Optional, Iterable, Sequence
+from typing import Optional, Iterable
 from array import array
 
 
 class BinaryTrieSet(OrderedSetInterface):
-    """
-    0以上u未満の整数からなる集合を管理できます。
-    """
 
-    def __init__(self, u: int, a: Iterable[int] = []):
+    def __init__(self, u: int, a: Iterable[int] = []) -> None:
         """構築します。
-
         :math:`O(n\\log{u})` です。
-
-        各操作は :math:`O(\\log{u})` です。
         """
         self.left = array("I", bytes(8))
         self.right = array("I", bytes(8))
         self.par = array("I", bytes(8))
         self.size = array("I", bytes(8))
+        self.valid = array("B", bytes(8))
         self.end = 2
         self.root = 1
         self.bit = (u - 1).bit_length()
         self.lim = 1 << self.bit
         self.xor = 0
-        if not isinstance(a, Sequence):
-            a = list(a)
-        if a:
-            self._build(a)
-
-    def _build(self, a: Sequence[int]) -> None:
-        left, right, par, size = self.left, self.right, self.par, self.size
-
-        def rec(node: int, d: int, l: int, r: int) -> None:
-            k, ng = r, l - 1
-            while k - ng > 1:
-                mid = (k + ng) >> 1
-                if a[mid] >> d & 1:
-                    k = mid
-                else:
-                    ng = mid
-            if l != k:
-                lnode = self._make_node()
-                left[node] = lnode
-                par[lnode] = node
-                size[lnode] = k - l
-                if d:
-                    rec(lnode, d - 1, l, k)
-            if k != r:
-                rnode = self._make_node()
-                right[node] = rnode
-                par[rnode] = node
-                size[rnode] = r - k
-                if d:
-                    rec(rnode, d - 1, k, r)
-
-        # if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-        #   a = sorted(set(a))
-        # assert 0 <= a[0] and a[-1] < self.lim, \
-        #     f'ValueError: BinaryTrieSet._build({a}), lim={self.lim}'
-        # self.reserve(len(a))
-        # rec(self.root, self.bit-1, 0, len(a))
-        # size[self.root] = len(a)
         for e in a:
             self.add(e)
 
@@ -72,21 +29,25 @@ class BinaryTrieSet(OrderedSetInterface):
             self.right.append(0)
             self.par.append(0)
             self.size.append(0)
+            self.valid.append(1)
+        else:
+            self.valid[end] = 1
         self.end += 1
         return end
 
     def _find(self, key: int) -> int:
-        left, right = self.left, self.right
+        left, right, valid = self.left, self.right, self.valid
         key ^= self.xor
         node = self.root
         for i in range(self.bit - 1, -1, -1):
             if key >> i & 1:
-                left, right = right, left
-            if not left[node]:
-                return -1
-            node = left[node]
-            if key >> i & 1:
-                left, right = right, left
+                if (not right[node]) or (not valid[node]):
+                    return -1
+                node = right[node]
+            else:
+                if (not left[node]) or (not valid[node]):
+                    return -1
+                node = left[node]
         return node
 
     def reserve(self, n: int) -> None:
@@ -100,6 +61,7 @@ class BinaryTrieSet(OrderedSetInterface):
         self.right += a
         self.par += a
         self.size += a
+        self.valid += array("B", bytes(n))
 
     def add(self, key: int) -> bool:
         assert (
@@ -110,13 +72,15 @@ class BinaryTrieSet(OrderedSetInterface):
         node = self.root
         for i in range(self.bit - 1, -1, -1):
             if key >> i & 1:
-                left, right = right, left
-            if not left[node]:
-                left[node] = self._make_node()
-                par[left[node]] = node
-            node = left[node]
-            if key >> i & 1:
-                left, right = right, left
+                if not right[node]:
+                    right[node] = self._make_node()
+                    par[right[node]] = node
+                node = right[node]
+            else:
+                if not left[node]:
+                    left[node] = self._make_node()
+                    par[left[node]] = node
+                node = left[node]
         if size[node]:
             return False
         size[node] = 1
@@ -126,17 +90,25 @@ class BinaryTrieSet(OrderedSetInterface):
         return True
 
     def _rmeove(self, node: int) -> None:
-        left, right, par, size = self.left, self.right, self.par, self.size
+        left, right, par, size, valid = (
+            self.left,
+            self.right,
+            self.par,
+            self.size,
+            self.valid,
+        )
         for _ in range(self.bit):
             size[node] -= 1
             if left[par[node]] == node:
                 node = par[node]
-                left[node] = 0
+                # left[node] = 0
+                valid[left[node]] = 0
                 if right[node]:
                     break
             else:
                 node = par[node]
-                right[node] = 0
+                # right[node] = 0
+                valid[right[node]] = 0
                 if left[node]:
                     break
         while node:
@@ -168,25 +140,17 @@ class BinaryTrieSet(OrderedSetInterface):
         node = self.root
         res = 0
         for i in range(self.bit - 1, -1, -1):
-            b = self.xor >> i & 1
-            if b:
+            res <<= 1
+            if self.xor >> i & 1:
                 left, right = right, left
             t = size[left[node]]
-            res <<= 1
-            if not left[node]:
-                node = right[node]
+            if t <= k:
+                k -= t
                 res |= 1
-            elif not right[node]:
-                node = left[node]
+                node = right[node]
             else:
-                t = size[left[node]]
-                if t <= k:
-                    k -= t
-                    res |= 1
-                    node = right[node]
-                else:
-                    node = left[node]
-            if b:
+                node = left[node]
+            if self.xor >> i & 1:
                 left, right = right, left
         self._rmeove(node)
         return res ^ self.xor
@@ -258,7 +222,7 @@ class BinaryTrieSet(OrderedSetInterface):
         assert (
             0 <= key < self.lim
         ), f"ValueError: BinaryTrieSet.index({key}), lim={self.lim}"
-        left, right, size = self.left, self.right, self.size
+        left, right, size, valid = self.left, self.right, self.size, self.valid
         k = 0
         node = self.root
         key ^= self.xor
@@ -268,7 +232,7 @@ class BinaryTrieSet(OrderedSetInterface):
                 node = right[node]
             else:
                 node = left[node]
-            if not node:
+            if (not node) or (not valid[node]):
                 break
         return k
 
@@ -276,7 +240,7 @@ class BinaryTrieSet(OrderedSetInterface):
         assert (
             0 <= key < self.lim
         ), f"ValueError: BinaryTrieSet.index_right({key}), lim={self.lim}"
-        left, right, size = self.left, self.right, self.size
+        left, right, size, valid = self.left, self.right, self.size, self.valid
         k = 0
         node = self.root
         key ^= self.xor
@@ -286,7 +250,7 @@ class BinaryTrieSet(OrderedSetInterface):
                 node = right[node]
             else:
                 node = left[node]
-            if not node:
+            if (not node) or (not valid[node]):
                 break
         else:
             k += 1

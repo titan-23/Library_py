@@ -7,6 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
+   titan_pylib.data_structures.segment_tree.dual_commutative_segment_tree
    titan_pylib.data_structures.segment_tree.dual_segment_tree
    titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative
    titan_pylib.data_structures.segment_tree.dynamic_segment_tree

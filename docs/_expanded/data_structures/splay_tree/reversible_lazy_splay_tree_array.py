@@ -83,7 +83,7 @@ class ReversibleLazySplayTreeArray(Generic[T, F]):
         n = len(a)
         keydata, arr = self.data.keydata, self.data.arr
         end = self.data.end
-        self.data.reserve(n + end - len(keydata) // 2 + 1)
+        self.data.reserve(n + end - len(keydata) // 3 + 1)
         self.data.end += n
         for i, e in enumerate(a):
             keydata[(end + i) * 3 + 0] = e

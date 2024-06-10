@@ -156,6 +156,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.quick_sort.html">quick_sort</a></li>
 </ul>
 </input></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.arithmetic_progression.html">arithmetic_progression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
@@ -290,6 +291,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_commutative_segment_tree.html">dual_commutative_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree.html">dual_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative.html">dual_segment_tree_commutative</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dynamic_segment_tree.html">dynamic_segment_tree</a></li>
@@ -498,51 +500,56 @@
 <h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.data_structures.safe_hash.hash_defaultdict import HashDefaultdict</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">random</span>
-<span class="linenos"> 4</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">Random</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span>
 <span class="linenos"> 5</span>
-<span class="linenos"> 6</span><span class="k">class</span> <span class="nc">HashDefaultdict</span><span class="p">:</span>
-<span class="linenos"> 7</span>
-<span class="linenos"> 8</span>    <span class="n">_xor</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10000000</span><span class="p">,</span> <span class="mi">1000000000</span><span class="p">)</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">missing</span><span class="p">):</span>
-<span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span>
-<span class="linenos">12</span>
-<span class="linenos">13</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">14</span>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="linenos">15</span>            <span class="k">yield</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span>
-<span class="linenos">16</span>
-<span class="linenos">17</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="linenos">18</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span> <span class="o">^</span> <span class="n">HashDefaultdict</span><span class="o">.</span><span class="n">_xor</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-<span class="linenos">19</span>
-<span class="linenos">20</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="linenos">21</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span> <span class="o">^</span> <span class="n">HashDefaultdict</span><span class="o">.</span><span class="n">_xor</span><span class="p">]</span>
-<span class="linenos">22</span>
-<span class="linenos">23</span>    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="linenos">24</span>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span> <span class="o">^</span> <span class="n">HashDefaultdict</span><span class="o">.</span><span class="n">_xor</span><span class="p">]</span>
-<span class="linenos">25</span>
-<span class="linenos">26</span>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-<span class="linenos">27</span>        <span class="k">return</span> <span class="n">item</span> <span class="o">^</span> <span class="n">HashDefaultdict</span><span class="o">.</span><span class="n">_xor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
-<span class="linenos">28</span>
-<span class="linenos">29</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">30</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
-<span class="linenos">31</span>
-<span class="linenos">32</span>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">33</span>        <span class="k">return</span> <span class="p">(</span><span class="n">k</span> <span class="o">^</span> <span class="n">HashDefaultdict</span><span class="o">.</span><span class="n">_xor</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="linenos">34</span>
-<span class="linenos">35</span>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">36</span>        <span class="k">return</span> <span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="linenos">37</span>
-<span class="linenos">38</span>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">39</span>        <span class="k">return</span> <span class="p">((</span><span class="n">k</span> <span class="o">^</span> <span class="n">HashDefaultdict</span><span class="o">.</span><span class="n">_xor</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-<span class="linenos">40</span>
-<span class="linenos">41</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">42</span>        <span class="k">return</span> <span class="p">(</span>
-<span class="linenos">43</span>            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">("</span>
-<span class="linenos">44</span>            <span class="o">+</span> <span class="s2">"{"</span>
-<span class="linenos">45</span>            <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-<span class="linenos">46</span>            <span class="o">+</span> <span class="s2">"})"</span>
-<span class="linenos">47</span>        <span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="k">class</span> <span class="nc">HashDefaultdict</span><span class="p">:</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="n">_r</span> <span class="o">=</span> <span class="n">Random</span><span class="p">()</span>
+<span class="linenos">10</span>    <span class="n">_xor</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">_r</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10000000</span><span class="p">,</span> <span class="mi">1000000000</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">missing</span><span class="p">):</span>
+<span class="linenos">13</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">16</span>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">17</span>            <span class="k">yield</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="linenos">20</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos">23</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">]</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos">26</span>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">]</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="linenos">29</span>        <span class="k">return</span> <span class="n">item</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">32</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">35</span>        <span class="k">return</span> <span class="p">(</span><span class="n">k</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">38</span>        <span class="k">return</span> <span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">41</span>        <span class="k">return</span> <span class="p">((</span><span class="n">k</span> <span class="o">^</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xor</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<span class="linenos">42</span>
+<span class="linenos">43</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">44</span>        <span class="k">return</span> <span class="p">(</span>
+<span class="linenos">45</span>            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">("</span>
+<span class="linenos">46</span>            <span class="o">+</span> <span class="s2">"{"</span>
+<span class="linenos">47</span>            <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<span class="linenos">48</span>            <span class="o">+</span> <span class="s2">"})"</span>
+<span class="linenos">49</span>        <span class="p">)</span>
+<span class="linenos">50</span>
+<span class="linenos">51</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">52</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
 </pre></div>
 </div>
 </section>

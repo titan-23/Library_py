@@ -156,6 +156,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.algorithm.sort.quick_sort.html">quick_sort</a></li>
 </ul>
 </input></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.arithmetic_progression.html">arithmetic_progression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
@@ -290,6 +291,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.html">segment_tree</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.segment_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_commutative_segment_tree.html">dual_commutative_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree.html">dual_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative.html">dual_segment_tree_commutative</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.segment_tree.dynamic_segment_tree.html">dynamic_segment_tree</a></li>
@@ -498,51 +500,63 @@
 <h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># from titan_pylib.graph.perfect_binary_tree import PerfectBinaryTree</span>
 <span class="linenos"> 2</span><span class="k">class</span> <span class="nc">PerfectBinaryTree</span><span class="p">:</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 5</span>        <span class="k">pass</span>
-<span class="linenos"> 6</span>
-<span class="linenos"> 7</span>    <span class="k">def</span> <span class="nf">par</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 8</span>        <span class="k">return</span> <span class="p">(</span><span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span>    <span class="k">def</span> <span class="nf">child_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">11</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
-<span class="linenos">12</span>
-<span class="linenos">13</span>    <span class="k">def</span> <span class="nf">child_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">14</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="sd">"""1-indexedの完全二分木クラス"""</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 6</span>        <span class="k">pass</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">par</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="sd">"""親を返す"""</span>
+<span class="linenos">10</span>        <span class="k">return</span> <span class="p">(</span><span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">u</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span>    <span class="k">def</span> <span class="nf">child_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">13</span><span class="w">        </span><span class="sd">"""左の子を返す"""</span>
+<span class="linenos">14</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
 <span class="linenos">15</span>
-<span class="linenos">16</span>    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">17</span>        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child_left</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_right</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
-<span class="linenos">18</span>
-<span class="linenos">19</span>    <span class="k">def</span> <span class="nf">sibling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">20</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">^</span> <span class="mi">1</span>
-<span class="linenos">21</span>
-<span class="linenos">22</span>    <span class="k">def</span> <span class="nf">dep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">23</span><span class="w">        </span><span class="sd">""":math:`O(1)`"""</span>
-<span class="linenos">24</span>        <span class="k">return</span> <span class="n">u</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
-<span class="linenos">25</span>
-<span class="linenos">26</span>    <span class="k">def</span> <span class="nf">la</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">27</span><span class="w">        </span><span class="sd">"""``k``個上の祖先</span>
-<span class="linenos">28</span><span class="sd">        k == 0 -&gt; u</span>
-<span class="linenos">29</span><span class="sd">        """</span>
-<span class="linenos">30</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">k</span>
+<span class="linenos">16</span>    <span class="k">def</span> <span class="nf">child_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">17</span><span class="w">        </span><span class="sd">"""右の子を返す"""</span>
+<span class="linenos">18</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">21</span><span class="w">        </span><span class="sd">"""左右の子をタプルで返す"""</span>
+<span class="linenos">22</span>        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child_left</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">child_right</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>    <span class="k">def</span> <span class="nf">sibling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">25</span><span class="w">        </span><span class="sd">"""兄弟を返す"""</span>
+<span class="linenos">26</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">^</span> <span class="mi">1</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="k">def</span> <span class="nf">dep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">29</span><span class="w">        </span><span class="sd">"""深さを返す / :math:`O(1)`"""</span>
+<span class="linenos">30</span>        <span class="k">return</span> <span class="n">u</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
 <span class="linenos">31</span>
-<span class="linenos">32</span>    <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">33</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-<span class="linenos">34</span>            <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
-<span class="linenos">35</span>        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">la</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
-<span class="linenos">36</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">u</span> <span class="o">^</span> <span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="linenos">32</span>    <span class="k">def</span> <span class="nf">la</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">33</span><span class="w">        </span><span class="sd">"""``k``個上の祖先を返す</span>
+<span class="linenos">34</span><span class="sd">        k == 0 のとき、u自身を返す</span>
+<span class="linenos">35</span><span class="sd">        """</span>
+<span class="linenos">36</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="n">k</span>
 <span class="linenos">37</span>
-<span class="linenos">38</span>    <span class="k">def</span> <span class="nf">get_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">39</span>        <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="linenos">40</span>            <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="linenos">41</span>            <span class="k">while</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">lca</span><span class="p">:</span>
-<span class="linenos">42</span>                <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">43</span>                <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos">44</span>            <span class="k">return</span> <span class="n">a</span>
-<span class="linenos">45</span>
-<span class="linenos">46</span>        <span class="n">lca</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="linenos">47</span>        <span class="k">return</span> <span class="n">get</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">lca</span><span class="p">]</span> <span class="o">+</span> <span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="linenos">38</span>    <span class="k">def</span> <span class="nf">lca</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">39</span><span class="w">        </span><span class="sd">"""lcaを返す"""</span>
+<span class="linenos">40</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+<span class="linenos">41</span>            <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+<span class="linenos">42</span>        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">la</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+<span class="linenos">43</span>        <span class="k">return</span> <span class="n">u</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">u</span> <span class="o">^</span> <span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="linenos">44</span>    
+<span class="linenos">45</span>    <span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">46</span><span class="w">        </span><span class="sd">"""距離を返す"""</span>
+<span class="linenos">47</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span>    <span class="k">def</span> <span class="nf">get_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">50</span><span class="w">        </span><span class="sd">"""uからvへのパスをリストで返す"""</span>
+<span class="linenos">51</span>        <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="linenos">52</span>            <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">53</span>            <span class="k">while</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">lca</span><span class="p">:</span>
+<span class="linenos">54</span>                <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos">55</span>                <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos">56</span>            <span class="k">return</span> <span class="n">a</span>
+<span class="linenos">57</span>
+<span class="linenos">58</span>        <span class="n">lca</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos">59</span>        <span class="k">return</span> <span class="n">get</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">lca</span><span class="p">]</span> <span class="o">+</span> <span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
@@ -553,45 +567,58 @@
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">PerfectBinaryTree</span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>1-indexedの完全二分木クラス</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.child_left">
 <span class="sig-name descname"><span class="pre">child_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.child_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.child_left" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>左の子を返す</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.child_right">
 <span class="sig-name descname"><span class="pre">child_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.child_right"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.child_right" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>右の子を返す</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.children">
 <span class="sig-name descname"><span class="pre">children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.children" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>左右の子をタプルで返す</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.dep">
 <span class="sig-name descname"><span class="pre">dep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.dep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.dep" title="Link to this definition">¶</a></dt>
-<dd><p><span class="math notranslate nohighlight">\(O(1)\)</span></p>
+<dd><p>深さを返す / <span class="math notranslate nohighlight">\(O(1)\)</span></p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.dist">
+<span class="sig-name descname"><span class="pre">dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.dist" title="Link to this definition">¶</a></dt>
+<dd><p>距離を返す</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.get_path">
 <span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.get_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.get_path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>uからvへのパスをリストで返す</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.la">
 <span class="sig-name descname"><span class="pre">la</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.la"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.la" title="Link to this definition">¶</a></dt>
-<dd><p><a href="#id4"><span class="problematic" id="id5">``</span></a>k``個上の祖先
-k == 0 -&gt; u</p>
+<dd><p><a href="#id4"><span class="problematic" id="id5">``</span></a>k``個上の祖先を返す
+k == 0 のとき、u自身を返す</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.lca">
 <span class="sig-name descname"><span class="pre">lca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.lca"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.lca" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>lcaを返す</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.par">
 <span class="sig-name descname"><span class="pre">par</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.par"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.par" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>親を返す</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.sibling">
 <span class="sig-name descname"><span class="pre">sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/perfect_binary_tree.html#PerfectBinaryTree.sibling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.sibling" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>兄弟を返す</p>
+</dd></dl>
 </dd></dl>
 </section>
 </section>
@@ -653,6 +680,7 @@ k == 0 -&gt; u</p>
 <li><a class="reference internal" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.child_right"><code class="docutils literal notranslate"><span class="pre">PerfectBinaryTree.child_right()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.children"><code class="docutils literal notranslate"><span class="pre">PerfectBinaryTree.children()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.dep"><code class="docutils literal notranslate"><span class="pre">PerfectBinaryTree.dep()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.dist"><code class="docutils literal notranslate"><span class="pre">PerfectBinaryTree.dist()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.get_path"><code class="docutils literal notranslate"><span class="pre">PerfectBinaryTree.get_path()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.la"><code class="docutils literal notranslate"><span class="pre">PerfectBinaryTree.la()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.perfect_binary_tree.PerfectBinaryTree.lca"><code class="docutils literal notranslate"><span class="pre">PerfectBinaryTree.lca()</span></code></a></li>
