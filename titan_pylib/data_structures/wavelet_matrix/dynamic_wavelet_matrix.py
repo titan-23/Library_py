@@ -7,7 +7,7 @@ from array import array
 class DynamicWaveletMatrix(WaveletMatrix):
     """動的ウェーブレット行列です。
 
-    (静的)ウェーブレット行列でできる操作に加えて ``insert / pop / update`` 等ができます。
+    (静的)ウェーブレット行列でできる操作に加えて ``insert / pop / set`` 等ができます。
       - ``BitVector`` を平衡二分木にしています(``AVLTreeBitVector``)。あらゆる操作に平衡二分木の log がつきます。これヤバくね
 
     :math:`O(n\\log{(\\sigma)})` です。
@@ -104,16 +104,16 @@ class DynamicWaveletMatrix(WaveletMatrix):
         self.size -= 1
         return ans
 
-    def update(self, k: int, x: int) -> None:
+    def set(self, k: int, x: int) -> None:
         """位置 ``k`` の要素を ``x`` に更新します。
         :math:`O(\\log{(n)}\\log{(\\sigma)})` です。
         """
         assert (
             0 <= k < self.size
-        ), f"IndexError: {self.__class__.__name__}.update({k}, {x}), n={self.size}"
+        ), f"IndexError: {self.__class__.__name__}.set({k}, {x}), n={self.size}"
         assert (
             0 <= x < 1 << self.log
-        ), f"ValueError: {self.__class__.__name__}.update({k}, {x}), LIM={1<<self.log}"
+        ), f"ValueError: {self.__class__.__name__}.set({k}, {x}), LIM={1<<self.log}"
         self.pop(k)
         self.insert(k, x)
 
@@ -124,7 +124,7 @@ class DynamicWaveletMatrix(WaveletMatrix):
         assert (
             0 <= x < 1 << self.log
         ), f"ValueError: {self.__class__.__name__}[{k}] = {x}, LIM={1<<self.log}"
-        self.update(k, x)
+        self.set(k, x)
 
     def __str__(self):
         return f"{self.__class__.__name__}({[self[i] for i in range(self.size)]})"
