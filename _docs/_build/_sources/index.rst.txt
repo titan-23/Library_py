@@ -17,6 +17,8 @@ Library Overview
 
    ./titan_pylib_docs/titan_pylib.data_structures.rst
 
+   ./titan_pylib_docs/titan_pylib.geometry.rst
+
    ./titan_pylib_docs/titan_pylib.graph.rst
 
    ./titan_pylib_docs/titan_pylib.io.rst

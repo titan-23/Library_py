@@ -10,6 +10,7 @@ Subpackages
    titan_pylib.ahc
    titan_pylib.algorithm
    titan_pylib.data_structures
+   titan_pylib.geometry
    titan_pylib.graph
    titan_pylib.io
    titan_pylib.math
