@@ -143,7 +143,7 @@ class Polygon:
 
     def __init__(self, ps: list[Point]) -> None:
         self.n = len(ps)
-        self.ps = sorted(Geometry.argumant_sort(ps))
+        self.ps = ps
 
     def area(self) -> float:
         """面積を求める / `O(n)`
@@ -174,7 +174,52 @@ class Polygon:
         return True
 
     def contains(self, p: Point) -> int:
-        """点の包含関係を返す
+        raise NotImplementedError
+
+
+class ConvecPolygon(Polygon):
+
+    def __init__(self, ps: list[Point]) -> None:
+        self.n = len(ps)
+        self.ps = Geometry.convex_hull(ps)
+
+    def diameter(self) -> tuple[float, int, int]:
+        ps = self.ps
+        n = len(ps)
+        if n == 0:
+            return -1, -1, -1
+        if n == 1:
+            return 0, ps[0], ps[0]
+        if n == 2:
+            return abs(ps[0] - ps[1]), ps[0], ps[1]
+        u, v = 0, 0
+        up, vp = None, None
+        for i in range(n):
+            if ps[u] > ps[i]:
+                u = i
+                up = ps[i]
+            if ps[v] < ps[i]:
+                v = i
+                vp = ps[i]
+        d = 0
+        su, sv = u, v
+        loop = False
+        while (u != su or v != sv) or (not loop):
+            loop = True
+            if Geometry._lt(d, abs(ps[u] - ps[v])):
+                d = abs(ps[u] - ps[v])
+                up = ps[u]
+                vp = ps[v]
+            if Geometry._lt(
+                Geometry.cross(ps[(u + 1) % n] - ps[u], ps[(v + 1) % n] - ps[v]), 0
+            ):
+                u = (u + 1) % n
+            else:
+                v = (v + 1) % n
+        return d, up, vp
+
+    def contains(self, p: Point) -> int:
+        """点の包含関係を返す / O(n)
 
         Args:
             p (Point): 点
@@ -184,89 +229,29 @@ class Polygon:
                  `1`: `p` が辺上にある
                  `0`: それ以外
         """
-        is_in = False
         ps = self.ps
-        EPS = GEO_EPS
-        for i in range(self.n):
-            a = ps[i] - p
-            b = ps[(i + 1) % self.n] - p
-            if a.y > b.y:
-                a, b = b, a
-            if a.y < EPS and EPS < b.y and Geometry.cross(a, b) < -EPS:
-                is_in = not is_in
-            if Geometry._eq(Geometry.cross(a, b), 0) and Geometry.dot(a, b) < EPS:
+        n = len(ps)
+        b1 = Geometry.cross(ps[1] - ps[0], p - ps[0])
+        b2 = Geometry.cross(ps[-1] - ps[0], p - ps[0])
+        if Geometry._lt(b1, 0) or Geometry._gt(b2, 0):
+            return 0
+        l, r = 1, n - 1
+        while r - l > 1:
+            mid = (l + r) >> 1
+            c = Geometry.cross(p - ps[0], ps[mid] - ps[0])
+            if Geometry._eq(c, 0) or Geometry._gt(c, 0):
+                r = mid
+            else:
+                l = mid
+        b3 = Geometry.cross(ps[l] - p, ps[r] - p)
+        if Geometry._eq(b3, 0):
+            return 1
+        if Geometry._gt(b3, 0):
+            if Geometry._eq(b1, 0) or Geometry._eq(b2, 0):
                 return 1
-        return 2 if is_in else 0
-
-    def convex_hull(self, line_contains: bool = False) -> list[Point]:
-        """凸包を求める / `O(n)`
-
-        Args:
-            line_contains (bool, optional): 一直線上の点を含める場合、 `True` .
-
-        Returns:
-            list[Point]: 凸包
-        """
-        ps = Geometry.sort_by_y(self.ps)
-        if not line_contains:
-            ps = Geometry.unique(ps)
-        if len(ps) <= 1:
-            return ps
-
-        def cross(a, p):
-            if line_contains:
-                return Geometry.cross(a[-1] - a[-2], p - a[-1]) < -GEO_EPS
             else:
-                return Geometry.cross(a[-1] - a[-2], p - a[-1]) < GEO_EPS
-
-        lower = []
-        for p in ps:
-            while len(lower) > 1 and cross(lower, p):
-                lower.pop()
-            lower.append(p)
-
-        upper = []
-        for p in reversed(ps):
-            while len(upper) > 1 and cross(upper, p):
-                upper.pop()
-            upper.append(p)
-
-        return lower[:-1] + upper[:-1]
-
-    def diameter(self) -> Optional[tuple[float, int, int]]:
-        ch = self.convex_hull()
-        n = len(ch)
-        if n == 0:
-            return None
-        if n == 1:
-            return 0, ch[0], ch[0]
-        if n == 2:
-            return abs(ch[0] - ch[1]), ch[0], ch[1]
-        u, v = 0, 0
-        up, vp = None, None
-        for i in range(n):
-            if ch[u] > ch[i]:
-                u = i
-                up = ch[i]
-            if ch[v] < ch[i]:
-                v = i
-                vp = ch[i]
-        d = 0
-        su, sv = u, v
-        loop = False
-        while (u != su or v != sv) or (not loop):
-            loop = True
-            if Geometry._lt(d, abs(ch[u] - ch[v])):
-                d = abs(ch[u] - ch[v])
-                up = ch[u]
-                vp = ch[v]
-            if Geometry._lt(
-                Geometry.cross(ch[(u + 1) % n] - ch[u], ch[(v + 1) % n] - ch[v]), 0
-            ):
-                u = (u + 1) % n
-            else:
-                v = (v + 1) % n
-        return d, up, vp
+                return 2
+        return 0
 
 
 class Circle:
@@ -290,9 +275,10 @@ class Circle:
 
 class Geometry:
     """ref:
-    - https://hcpc-hokudai.github.io/archive/geometry_004.pdf
+    - https://hcpc-hokudai.github.io/arpsive/geometry_004.pdf
     - https://bakamono1357.hatenablog.com/entry/2020/04/29/025320
     - https://tjkendev.github.io/procon-library/python/geometry/circles_associated_with_triangle.html
+    - https://atcoder.jp/contests/abc296/editorial/6109
     """
 
     @classmethod
@@ -609,6 +595,42 @@ class Geometry:
         return ret
 
     @classmethod
+    def convex_hull(cls, ps: list[Point], line_contains: bool = False) -> list[Point]:
+        """凸包を求める / `O(n)`
+
+        Args:
+            line_contains (bool, optional): 一直線上の点を含める場合、 `True` .
+
+        Returns:
+            list[Point]: 凸包
+        """
+        ps = cls.sort_by_y(ps)
+        if not line_contains:
+            ps = cls.unique(ps)
+        if len(ps) <= 1:
+            return ps
+
+        def cross(a, p):
+            if line_contains:
+                return cls.cross(a[-1] - a[-2], p - a[-1]) < -GEO_EPS
+            else:
+                return cls.cross(a[-1] - a[-2], p - a[-1]) < GEO_EPS
+
+        lower = []
+        for p in ps:
+            while len(lower) > 1 and cross(lower, p):
+                lower.pop()
+            lower.append(p)
+
+        upper = []
+        for p in reversed(ps):
+            while len(upper) > 1 and cross(upper, p):
+                upper.pop()
+            upper.append(p)
+
+        return lower[:-1] + upper[:-1]
+
+    @classmethod
     def unique(cls, a: list[Point]) -> list[Point]:
         """同一要素の削除
 
@@ -644,7 +666,7 @@ class Geometry:
         lower = []
         zeros = []
         for p in a:
-            if cls._lt(p.y, 0) or (cls._eq(p.y, 0) and cls._gt(p.x, 0)):
+            if cls._lt(p.y, 0) or (cls._eq(p.y, 0) and cls._lt(p.x, 0)):
                 lower.append(p)
             elif cls._eq(p.x, 0) and cls._eq(p.y, 0):
                 zeros.append(p)
@@ -652,7 +674,7 @@ class Geometry:
                 upper.append(p)
 
         def cmp(s: Point, t: Point) -> bool:
-            return cls._lt(s.y * t.x, s.x * t.y)
+            return cls._lt(s.y * t.x, s.x * t.y) or cls._eq(s.y * t.x, s.x * t.y)
 
         upper = merge_sort(upper, key=cmp)
         lower = merge_sort(lower, key=cmp)
@@ -660,7 +682,7 @@ class Geometry:
 
     @classmethod
     def sort_by_x(cls, a: list[Point]) -> list[Point]:
-        return sorted(a)
+        return merge_sort(a)
 
     @classmethod
     def _cmp_y(cls, u: Point, v: Point):
@@ -677,8 +699,8 @@ class Geometry:
         return merge_sort(a, cls._cmp_y)
 
     @classmethod
-    def furthest_pair(cls, a: list[Point]) -> Optional[tuple[float, int, int]]:
-        p = Polygon(a)
+    def furthest_pair(cls, a: list[Point]) -> tuple[float, int, int]:
+        p = ConvecPolygon(a)
         d, up, vp = p.diameter()
         ui, vi = -1, -1
         for i, point in enumerate(a):
@@ -691,24 +713,23 @@ class Geometry:
         return d, ui, vi
 
     @classmethod
-    def closest_pair(cls, a: list[Point]) -> Optional[tuple[float, int, int]]:
+    def closest_pair(cls, a: list[Point]) -> tuple[float, int, int]:
         """最近点対を求める / O(nlogn)
 
         Args:
             a (list[Point]): 距離配列
 
         Returns:
-            Optional[tuple[float, int, int]]: 距離、最近点対
+            tuple[float, int, int]: 距離、最近点対
         """
 
-        buff = [0] * len(a)
-        d = float("inf")
-        p, q = -1, -1
+        buff = [None] * len(a)
+        d, p, q = float("inf"), -1, -1
 
         def f(l: int, r: int) -> None:
             nonlocal d, p, q
             mid = (l + r) // 2
-            x = a[mid][0].x
+            x = b[mid][0].x
             if mid - l > 1:
                 f(l, mid)
             if r - mid > 1:
@@ -716,62 +737,35 @@ class Geometry:
             i, j = l, mid
             indx = 0
             while i < mid and j < r:
-                if cls._cmp_y(a[i][0], a[j][0]):
-                    buff[indx] = a[i]
+                if cls._cmp_y(b[i][0], b[j][0]):
+                    buff[indx] = b[i]
                     i += 1
                 else:
-                    buff[indx] = a[j]
+                    buff[indx] = b[j]
                     j += 1
                 indx += 1
-            for i in range(i, mid):
-                buff[indx] = a[i]
-                indx += 1
-            for j in range(j, r):
-                buff[indx] = a[j]
-                indx += 1
-            a[l:r] = buff[: r - l]
+            for k in range(i, mid):
+                b[l + indx + k - i] = b[k]
+            for k in range(l, l + indx):
+                b[k] = buff[k - l]
 
             near_line = []
             for i in range(l, r):
-                e_p, e_i = a[i]
+                e_p, e_i = b[i]
                 v = abs(e_p.x - x)
                 if cls._gt(v, d) or cls._eq(v, d):
                     continue
-                for ne_p, ne_i in reversed(near_line):
+                for j in range(len(near_line) - 1, -1, -1):
+                    ne_p, ne_i = near_line[j]
                     dx = e_p.x - ne_p.x
                     dy = e_p.y - ne_p.y
                     if cls._gt(dy, d) or cls._eq(dy, d):
                         break
                     cand = math.sqrt(dx * dx + dy * dy)
                     if cls._lt(cand, d):
-                        d = cand
-                        p, q = ne_i, e_i
-                near_line.append(a[i])
+                        d, p, q = cand, ne_i, e_i
+                near_line.append(b[i])
 
-        if len(a) <= 1:
-            return None
-        a = sorted((e, i) for i, e in enumerate(a))
-        f(0, len(a))
+        b = merge_sort((e, i) for i, e in enumerate(a))
+        f(0, len(b))
         return d, p, q
-
-
-import sys
-
-input = lambda: sys.stdin.readline().rstrip()
-
-#  -----------------------  #
-
-
-def solve():
-    n = int(input())
-    a = []
-    for _ in range(n):
-        x, y = map(int, input().split())
-        a.append(Point(x, y))
-    d, ui, vi = Geometry.furthest_pair(a)
-    print(ui, vi)
-
-
-t = int(input())
-for _ in range(t):
-    solve()
