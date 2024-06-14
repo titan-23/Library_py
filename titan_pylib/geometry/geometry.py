@@ -5,7 +5,7 @@ from titan_pylib.geometry.point import Point
 from titan_pylib.geometry.line import Line
 from titan_pylib.geometry.circle import Circle
 from titan_pylib.geometry.segment import Segment
-from titan_pylib.geometry.convex_polygon import ConvecPolygon
+from titan_pylib.geometry.convex_polygon import ConvexPolygon
 from titan_pylib.geometry.geometry_util import GeometryUtil
 
 
@@ -424,7 +424,7 @@ class Geometry:
 
     @classmethod
     def furthest_pair(cls, a: list[Point]) -> tuple[float, int, int]:
-        p = ConvecPolygon(a)
+        p = ConvexPolygon(a)
         d, up, vp = p.diameter()
         ui, vi = -1, -1
         for i, point in enumerate(a):

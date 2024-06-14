@@ -4,7 +4,7 @@ from titan_pylib.geometry.geometry import Geometry
 from titan_pylib.geometry.geometry_util import GeometryUtil
 
 
-class ConvecPolygon(Polygon):
+class ConvexPolygon(Polygon):
 
     def __init__(self, ps: list[Point]) -> None:
         self.n = len(ps)
