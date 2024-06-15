@@ -17,3 +17,11 @@ class GeometryUtil:
     @classmethod
     def gt(cls, u: float, v: float) -> bool:
         return u > v and u > min(v, v - cls.GEO_EPS)
+
+    @classmethod
+    def le(cls, u: float, v: float) -> bool:
+        return not cls.gt(u, v)
+
+    @classmethod
+    def ge(cls, u: float, v: float) -> bool:
+        return not cls.lt(u, v)
