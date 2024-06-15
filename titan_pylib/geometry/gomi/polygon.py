@@ -38,4 +38,15 @@ class Polygon:
         return True
 
     def contains(self, p: Point) -> int:
-        raise NotImplementedError
+        ps = self.ps
+        cnt = 0
+        for i in range(self.n - 1):
+            if (ps[i].y <= p.y) and (ps[i + 1].y > p.y):
+                vt = (p.y - ps[i].y) / (ps[i + 1].y - ps[i].y)
+                if p.x < (ps[i].x + (vt * (ps[i + 1].x - ps[i].x))):
+                    cnt += 1
+            elif (ps[i].y > p.y) and (ps[i + 1].y <= p.y):
+                vt = (p.y - ps[i].y) / (ps[i + 1].y - ps[i].y)
+                if p.x < (ps[i].x + (vt * (ps[i + 1].x - ps[i].x))):
+                    cnt -= 1
+        return cnt
