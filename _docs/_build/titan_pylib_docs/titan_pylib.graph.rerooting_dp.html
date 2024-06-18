@@ -392,14 +392,7 @@
 </ul>
 </input></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.geometry.html">geometry</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of titan_pylib.geometry</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.circle.html">circle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.convex_polygon.html">convex_polygon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.geometry.html">geometry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.geometry_util.html">geometry_util</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.line.html">line</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.point.html">point</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.polygon.html">polygon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.geometry.segment.html">segment</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="titan_pylib.graph.html">graph</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -447,6 +440,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.affine_map.html">affine_map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.big_int.html">big_int</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.comb.html">comb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.decimal_util.html">decimal_util</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.divisors.html">divisors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.fraction.html">fraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.math.get_quotients.html">get_quotients</a></li>
@@ -523,93 +517,103 @@
 <span class="linenos"> 12</span>    <span class="n">apply_edge</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span>
 <span class="linenos"> 13</span>    <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span>
 <span class="linenos"> 14</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 15</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="linenos"> 15</span><span class="w">    </span><span class="sd">"""全方位木DP</span>
 <span class="linenos"> 16</span>
-<span class="linenos"> 17</span>    <span class="n">dp</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">]</span>
-<span class="linenos"> 18</span>    <span class="n">ans</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-<span class="linenos"> 19</span>
-<span class="linenos"> 20</span>    <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 21</span>    <span class="n">par</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos"> 22</span>    <span class="n">par</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-<span class="linenos"> 23</span>    <span class="n">toposo</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos"> 24</span>
-<span class="linenos"> 25</span>    <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos"> 26</span>    <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
-<span class="linenos"> 27</span>        <span class="n">v</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="linenos"> 28</span>        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos"> 29</span>            <span class="k">if</span> <span class="n">par</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
-<span class="linenos"> 30</span>                <span class="k">continue</span>
-<span class="linenos"> 31</span>            <span class="n">par</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-<span class="linenos"> 32</span>            <span class="n">toposo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos"> 33</span>            <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="linenos"> 34</span>
-<span class="linenos"> 35</span>    <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos"> 36</span>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">toposo</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-<span class="linenos"> 37</span>        <span class="n">dp_v</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-<span class="linenos"> 38</span>        <span class="n">acc</span> <span class="o">=</span> <span class="n">e</span>
-<span class="linenos"> 39</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
-<span class="linenos"> 40</span>            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos"> 41</span>                <span class="k">continue</span>
-<span class="linenos"> 42</span>            <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_edge</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="linenos"> 43</span>            <span class="n">acc</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="linenos"> 44</span>        <span class="n">arr</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_vertex</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="linenos"> 45</span>
-<span class="linenos"> 46</span>    <span class="n">dp_par</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos"> 47</span>    <span class="n">acc_l</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos"> 48</span>    <span class="n">acc_r</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos"> 49</span>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">toposo</span><span class="p">:</span>
-<span class="linenos"> 50</span>        <span class="n">dp_v</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-<span class="linenos"> 51</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+<span class="linenos"> 17</span><span class="sd">    Args:</span>
+<span class="linenos"> 18</span><span class="sd">        G (list[list[tuple[int, int]]]):</span>
+<span class="linenos"> 19</span><span class="sd">        merge (Callable[[T, T], T]):</span>
+<span class="linenos"> 20</span><span class="sd">        apply_vertex (Callable[[T, int], T]):</span>
+<span class="linenos"> 21</span><span class="sd">        apply_edge (Callable[[T, E, int, int], T]):</span>
+<span class="linenos"> 22</span><span class="sd">        e (T):</span>
+<span class="linenos"> 23</span>
+<span class="linenos"> 24</span><span class="sd">    Returns:</span>
+<span class="linenos"> 25</span><span class="sd">        _type_:</span>
+<span class="linenos"> 26</span><span class="sd">    """</span>
+<span class="linenos"> 27</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="linenos"> 28</span>
+<span class="linenos"> 29</span>    <span class="n">dp</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">]</span>
+<span class="linenos"> 30</span>    <span class="n">ans</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span>    <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos"> 33</span>    <span class="n">par</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos"> 34</span>    <span class="n">par</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="linenos"> 35</span>    <span class="n">toposo</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
+<span class="linenos"> 36</span>
+<span class="linenos"> 37</span>    <span class="n">todo</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
+<span class="linenos"> 38</span>    <span class="k">while</span> <span class="n">todo</span><span class="p">:</span>
+<span class="linenos"> 39</span>        <span class="n">v</span> <span class="o">=</span> <span class="n">todo</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="linenos"> 40</span>        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<span class="linenos"> 41</span>            <span class="k">if</span> <span class="n">par</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+<span class="linenos"> 42</span>                <span class="k">continue</span>
+<span class="linenos"> 43</span>            <span class="n">par</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+<span class="linenos"> 44</span>            <span class="n">toposo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 45</span>            <span class="n">todo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 46</span>
+<span class="linenos"> 47</span>    <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos"> 48</span>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">toposo</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<span class="linenos"> 49</span>        <span class="n">dp_v</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+<span class="linenos"> 50</span>        <span class="n">acc</span> <span class="o">=</span> <span class="n">e</span>
+<span class="linenos"> 51</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
 <span class="linenos"> 52</span>            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos"> 53</span>                <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp_par</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
-<span class="linenos"> 54</span>                <span class="k">break</span>
-<span class="linenos"> 55</span>        <span class="n">d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dp_v</span><span class="p">)</span>
-<span class="linenos"> 56</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-<span class="linenos"> 57</span>            <span class="n">acc_l</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">acc_l</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="linenos"> 58</span>            <span class="n">acc_r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">acc_r</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp_v</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
-<span class="linenos"> 59</span>        <span class="n">ans</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_vertex</span><span class="p">(</span><span class="n">acc_l</span><span class="p">[</span><span class="n">d</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
-<span class="linenos"> 60</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
-<span class="linenos"> 61</span>            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos"> 62</span>                <span class="k">continue</span>
-<span class="linenos"> 63</span>            <span class="n">dp_par</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_edge</span><span class="p">(</span>
-<span class="linenos"> 64</span>                <span class="n">apply_vertex</span><span class="p">(</span>
-<span class="linenos"> 65</span>                    <span class="n">merge</span><span class="p">(</span><span class="n">acc_l</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">acc_r</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
-<span class="linenos"> 66</span>                    <span class="n">v</span><span class="p">,</span>
-<span class="linenos"> 67</span>                <span class="p">),</span>
-<span class="linenos"> 68</span>                <span class="n">c</span><span class="p">,</span>
-<span class="linenos"> 69</span>                <span class="n">v</span><span class="p">,</span>
-<span class="linenos"> 70</span>                <span class="n">x</span><span class="p">,</span>
-<span class="linenos"> 71</span>            <span class="p">)</span>
-<span class="linenos"> 72</span>    <span class="k">return</span> <span class="n">ans</span>
-<span class="linenos"> 73</span>
-<span class="linenos"> 74</span>
-<span class="linenos"> 75</span><span class="sd">"""</span>
-<span class="linenos"> 76</span><span class="sd">apply_vertex</span>
-<span class="linenos"> 77</span><span class="sd">       v          } return</span>
-<span class="linenos"> 78</span><span class="sd"> --------------   }</span>
-<span class="linenos"> 79</span><span class="sd">|  /   |   \  |   }</span>
-<span class="linenos"> 80</span><span class="sd">| o    o    o | } dp_x</span>
-<span class="linenos"> 81</span><span class="sd">| △   △   △ |</span>
-<span class="linenos"> 82</span><span class="sd"> --------------</span>
-<span class="linenos"> 83</span>
-<span class="linenos"> 84</span><span class="sd">apply_edge</span>
-<span class="linenos"> 85</span><span class="sd">  v      } return</span>
-<span class="linenos"> 86</span><span class="sd">  | } e</span>
-<span class="linenos"> 87</span><span class="sd">  x | } dp_x</span>
-<span class="linenos"> 88</span><span class="sd">  △|</span>
-<span class="linenos"> 89</span><span class="sd">"""</span>
-<span class="linenos"> 90</span>
-<span class="linenos"> 91</span><span class="c1"># def merge(s: T, t: T) -&gt; T:</span>
-<span class="linenos"> 92</span><span class="c1">#   """``s`` , ``t`` をマージする"""</span>
-<span class="linenos"> 93</span><span class="c1">#   ...</span>
+<span class="linenos"> 53</span>                <span class="k">continue</span>
+<span class="linenos"> 54</span>            <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_edge</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos"> 55</span>            <span class="n">acc</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="linenos"> 56</span>        <span class="n">arr</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_vertex</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos"> 57</span>
+<span class="linenos"> 58</span>    <span class="n">dp_par</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos"> 59</span>    <span class="n">acc_l</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos"> 60</span>    <span class="n">acc_r</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos"> 61</span>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">toposo</span><span class="p">:</span>
+<span class="linenos"> 62</span>        <span class="n">dp_v</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+<span class="linenos"> 63</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+<span class="linenos"> 64</span>            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<span class="linenos"> 65</span>                <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp_par</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+<span class="linenos"> 66</span>                <span class="k">break</span>
+<span class="linenos"> 67</span>        <span class="n">d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dp_v</span><span class="p">)</span>
+<span class="linenos"> 68</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<span class="linenos"> 69</span>            <span class="n">acc_l</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">acc_l</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp_v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="linenos"> 70</span>            <span class="n">acc_r</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">acc_r</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp_v</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+<span class="linenos"> 71</span>        <span class="n">ans</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_vertex</span><span class="p">(</span><span class="n">acc_l</span><span class="p">[</span><span class="n">d</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos"> 72</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">]):</span>
+<span class="linenos"> 73</span>            <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">par</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<span class="linenos"> 74</span>                <span class="k">continue</span>
+<span class="linenos"> 75</span>            <span class="n">dp_par</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">apply_edge</span><span class="p">(</span>
+<span class="linenos"> 76</span>                <span class="n">apply_vertex</span><span class="p">(</span>
+<span class="linenos"> 77</span>                    <span class="n">merge</span><span class="p">(</span><span class="n">acc_l</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">acc_r</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+<span class="linenos"> 78</span>                    <span class="n">v</span><span class="p">,</span>
+<span class="linenos"> 79</span>                <span class="p">),</span>
+<span class="linenos"> 80</span>                <span class="n">c</span><span class="p">,</span>
+<span class="linenos"> 81</span>                <span class="n">v</span><span class="p">,</span>
+<span class="linenos"> 82</span>                <span class="n">x</span><span class="p">,</span>
+<span class="linenos"> 83</span>            <span class="p">)</span>
+<span class="linenos"> 84</span>    <span class="k">return</span> <span class="n">ans</span>
+<span class="linenos"> 85</span>
+<span class="linenos"> 86</span>
+<span class="linenos"> 87</span><span class="c1"># apply_vertex(dp_x: T, v: int) -&gt; T:</span>
+<span class="linenos"> 88</span><span class="c1">#        v          } return</span>
+<span class="linenos"> 89</span><span class="c1">#  --------------   }</span>
+<span class="linenos"> 90</span><span class="c1"># |  /   |   \  |   }</span>
+<span class="linenos"> 91</span><span class="c1"># | o    o    o | } dp_x (mergeしたもの)</span>
+<span class="linenos"> 92</span><span class="c1"># | △   △   △ |</span>
+<span class="linenos"> 93</span><span class="c1">#  --------------</span>
 <span class="linenos"> 94</span>
-<span class="linenos"> 95</span><span class="c1"># def apply_vertex(dp_x: T, v: int) -&gt; T:</span>
-<span class="linenos"> 96</span><span class="c1">#   ...</span>
-<span class="linenos"> 97</span>
-<span class="linenos"> 98</span><span class="c1"># def apply_edge(dp_x: T, e: E, x: int, v: int) -&gt; T:</span>
-<span class="linenos"> 99</span><span class="c1">#   ...</span>
+<span class="linenos"> 95</span><span class="c1"># apply_edge(dp_x: T, e: E, x: int, v: int) -&gt; T:</span>
+<span class="linenos"> 96</span><span class="c1">#   v      } return</span>
+<span class="linenos"> 97</span><span class="c1">#   | } e</span>
+<span class="linenos"> 98</span><span class="c1">#   x | } dp_x</span>
+<span class="linenos"> 99</span><span class="c1">#   △|</span>
 <span class="linenos">100</span>
-<span class="linenos">101</span><span class="c1"># e: T = ...</span>
+<span class="linenos">101</span><span class="c1"># def merge(s: T, t: T) -&gt; T:</span>
+<span class="linenos">102</span><span class="c1">#     """``s`` , ``t`` をマージする"""</span>
+<span class="linenos">103</span><span class="c1">#     ...</span>
+<span class="linenos">104</span>
+<span class="linenos">105</span><span class="c1"># def apply_vertex(dp_x: T, v: int) -&gt; T:</span>
+<span class="linenos">106</span><span class="c1">#     ...</span>
+<span class="linenos">107</span>
+<span class="linenos">108</span><span class="c1"># def apply_edge(dp_x: T, e: E, x: int, v: int) -&gt; T:</span>
+<span class="linenos">109</span><span class="c1">#     ...</span>
+<span class="linenos">110</span>
+<span class="linenos">111</span><span class="c1"># e: T = ...</span>
 </pre></div>
 </div>
 </section>
@@ -619,7 +623,22 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="titan_pylib.graph.rerooting_dp.rerooting_dp">
 <span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">rerooting_dp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_vertex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_edge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">E</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/rerooting_dp.html#rerooting_dp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.rerooting_dp.rerooting_dp" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>全方位木DP</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>list</em><em>[</em><em>list</em><em>[</em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>merge</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>T</em><em>]</em><em>, </em><em>T</em><em>]</em>)</p></li>
+<li><p><strong>apply_vertex</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>int</em><em>]</em><em>, </em><em>T</em><em>]</em>)</p></li>
+<li><p><strong>apply_edge</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>, </em><em>E</em><em>, </em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>T</em><em>]</em>)</p></li>
+<li><p><strong>e</strong> (<em>T</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
 </section>
 </section>
 </article>

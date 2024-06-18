@@ -12,6 +12,18 @@ def rerooting_dp(
     apply_edge: Callable[[T, E, int, int], T],
     e: T,
 ) -> None:
+    """全方位木DP
+
+    Args:
+        G (list[list[tuple[int, int]]]):
+        merge (Callable[[T, T], T]):
+        apply_vertex (Callable[[T, int], T]):
+        apply_edge (Callable[[T, E, int, int], T]):
+        e (T):
+
+    Returns:
+        _type_:
+    """
     n = len(G)
 
     dp: list[list[T]] = [[e] * len(g) for g in G]
@@ -72,30 +84,28 @@ def rerooting_dp(
     return ans
 
 
-"""
-apply_vertex
-       v          } return
- --------------   }
-|  /   |   \  |   }
-| o    o    o | } dp_x
-| △   △   △ |
- --------------
+# apply_vertex(dp_x: T, v: int) -> T:
+#        v          } return
+#  --------------   }
+# |  /   |   \  |   }
+# | o    o    o | } dp_x (mergeしたもの)
+# | △   △   △ |
+#  --------------
 
-apply_edge
-  v      } return
-  | } e
-  x | } dp_x
-  △|
-"""
+# apply_edge(dp_x: T, e: E, x: int, v: int) -> T:
+#   v      } return
+#   | } e
+#   x | } dp_x
+#   △|
 
 # def merge(s: T, t: T) -> T:
-#   """``s`` , ``t`` をマージする"""
-#   ...
+#     """``s`` , ``t`` をマージする"""
+#     ...
 
 # def apply_vertex(dp_x: T, v: int) -> T:
-#   ...
+#     ...
 
 # def apply_edge(dp_x: T, e: E, x: int, v: int) -> T:
-#   ...
+#     ...
 
 # e: T = ...

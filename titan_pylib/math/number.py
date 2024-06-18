@@ -1,8 +1,90 @@
-mod = 1000000007
-mod = 998244353
+def ext_gcd(a: int, b: int) -> tuple[int, int, int]:
+    """gcdと、ax + by = gcd(a, b)なるx,yを返す / O(log(min(|a|, |b|)))
+
+    Args:
+        a (int):
+        b (int):
+
+    Returns:
+        tuple[int, int, int]: (gcd, x, y)
+    """
+    if b == 0:
+        return a, 1, 0
+    d, y, x = ext_gcd(b, a % b)
+    y -= a // b * x
+    return d, x, y
 
 
-def fastpow(a, b):
+def linear_indeterminate_equation(a: int, b: int, c: int) -> tuple[int, int, int]:
+    """`ax + by = c` の整数解を返す"""
+    g, x, y = ext_gcd(a, b)
+    if c % g != 0:
+        return None, None, None
+    c //= g
+    return g, x * c, y * c
+
+
+def crt(B: list[int], M: list[int]) -> tuple[int, int]:
+    """中国剰余定理 / O(nlog(lcm(M)))
+    ```
+    a = B[0] (mod M[0])
+    a = B[1] (mod M[1])
+    ...
+    ```
+
+    となるような、 `a = r (mod lcm(M))` を返す
+
+
+    Returns:
+        tuple[int, int]: `m = -1` のとき解なし。
+    """
+    assert len(B) == len(M)
+    r, lcm = 0, 1
+    for i in range(len(B)):
+        d, x, _ = ext_gcd(lcm, M[i])
+        if (B[i] - r) % d != 0:
+            return (0, -1)
+        tmp = (B[i] - r) // d * x % (M[i] // d)
+        r += lcm * tmp
+        lcm *= M[i] // d
+    return (r, lcm)
+
+
+import math
+
+
+def lcm(a: int, b: int) -> int:
+    return a // math.gcd(a, b) * b
+
+
+def lcm_mul(A: list[int]) -> int:
+    assert len(A) > 0
+    ans = 1
+    for a in A:
+        ans = lcm(ans, a)
+    return ans
+
+
+def totient_function(n: int) -> int:
+    """1からnまでの自然数の中で、nと互いに素なものの個数 / O(√N)"""
+    assert n > 0
+    ans = n
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            ans -= ans // i
+            while n % i == 0:
+                n //= i
+        i += 1
+    if n > 1:
+        ans -= ans // n
+    return ans
+
+
+mod = "998244353"
+
+
+def fastpow(a: int, b: int) -> int:
     res = 1
     while b:
         if b & 1:
@@ -12,7 +94,6 @@ def fastpow(a, b):
     return res
 
 
-# 拡張ユークリッド非再帰
 def modinv(a, mod):
     b = mod
     x, y, u, v = 1, 0, 0, 1

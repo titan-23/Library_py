@@ -7,7 +7,7 @@ titan\_pylib.math.divisors
 
 .. code-block:: python
 
-  from titan_pylib.math.divisors import Divisors
+  from titan_pylib.math.divisors import Osa_k
 
 `view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/math/divisors.py>`_
 

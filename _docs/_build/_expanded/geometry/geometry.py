@@ -1,6 +1,7 @@
 # from titan_pylib.geometry.geometry import Geometry
 import math
-from typing import Optional
+from typing import Optional, Union, Final
+from decimal import Decimal, getcontext
 # from titan_pylib.algorithm.sort.merge_sort import merge_sort
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from typing import Protocol
@@ -55,17 +56,113 @@ def merge_sort(
     buff = [0] * len(a)
     _sort(0, len(a))
     return a
-# from titan_pylib.geometry.point import Point
-import math
-from typing import Union
-# from titan_pylib.geometry.geometry_util import GeometryUtil
-from typing import Final
-from decimal import Decimal
+# from titan_pylib.math.decimal_util import (
+#     decimal_pi,
+#     decimal_sin,
+#     decimal_cos,
+#     decimal_acos,
+# )
+from decimal import Decimal, getcontext
+
+
+def decimal_pi():
+    getcontext().prec += 2
+    three = Decimal(3)
+    lasts, t, s, n, na, d, da = 0, three, 3, 1, 0, 0, 24
+    while s != lasts:
+        lasts = s
+        n, na = n + na, na + 8
+        d, da = d + da, da + 32
+        t = (t * n) / d
+        s += t
+    getcontext().prec -= 2
+    return +s
+
+
+def decimal_exp(x):
+    getcontext().prec += 2
+    i, lasts, s, fact, num = 0, 0, 1, 1, 1
+    while s != lasts:
+        lasts = s
+        i += 1
+        fact *= i
+        num *= x
+        s += num / fact
+    getcontext().prec -= 2
+    return +s
+
+
+def decimal_cos(x):
+    getcontext().prec += 2
+    i, lasts, s, fact, num, sign = 0, 0, 1, 1, 1, 1
+    while s != lasts:
+        lasts = s
+        i += 2
+        fact *= i * (i - 1)
+        num *= x * x
+        sign *= -1
+        s += num / fact * sign
+    getcontext().prec -= 2
+    return +s
+
+
+def decimal_sin(x):
+    getcontext().prec += 2
+    i, lasts, s, fact, num, sign = 1, 0, x, 1, x, 1
+    while s != lasts:
+        lasts = s
+        i += 2
+        fact *= i * (i - 1)
+        num *= x * x
+        sign *= -1
+        s += num / fact * sign
+    getcontext().prec -= 2
+    return +s
+
+
+def decimal_acos(x):
+    if x < -1 or x > 1:
+        raise ValueError("math domain error")
+    if x == 1:
+        return Decimal(0)
+    if x == -1:
+        return decimal_pi()
+    epsilon = Decimal("1e-" + str(getcontext().prec))
+    getcontext().prec += 2
+    sum_acos = Decimal(0)
+    term = x
+    power = x**2
+    n = 0
+    while abs(term) > epsilon:
+        n += 1
+        term *= Decimal((2 * n - 1) * (2 * n)) / (4 * n * n * (2 * n + 1))
+        term *= power
+        sum_acos += term
+        power *= x**2
+    result = decimal_pi() / 2 - sum_acos
+    getcontext().prec -= 2
+    return +result
 
 
 class GeometryUtil:
 
-    GEO_EPS: Final[float] = 1e-8
+    getcontext().prec = 10
+    USE_DECIMAL: Final[bool] = True
+
+    GEO_EPS: Final[Union[Decimal, float]] = (
+        Decimal("1e-" + str(getcontext().prec // 2)) if USE_DECIMAL else 1e-10
+    )
+    GEO_INF: Final[Union[Decimal, float]] = (
+        Decimal("INF") if USE_DECIMAL else float("inf")
+    )
+    sin = decimal_sin if USE_DECIMAL else math.sin
+    cos = decimal_cos if USE_DECIMAL else math.cos
+    acos = decimal_acos if USE_DECIMAL else math.acos
+    pi = decimal_pi() if USE_DECIMAL else math.pi
+
+    @classmethod
+    def sqrt(cls, v: Union[Decimal, float]) -> None:
+        return math.sqrt(v) if not cls.USE_DECIMAL else v.sqrt()
 
     @classmethod
     def eq(cls, a: float, b: float) -> bool:
@@ -78,6 +175,14 @@ class GeometryUtil:
     @classmethod
     def gt(cls, u: float, v: float) -> bool:
         return u > v and u > min(v, v - cls.GEO_EPS)
+
+    @classmethod
+    def le(cls, u: float, v: float) -> bool:
+        return not cls.gt(u, v)
+
+    @classmethod
+    def ge(cls, u: float, v: float) -> bool:
+        return not cls.lt(u, v)
 
 
 class Point:
@@ -154,7 +259,7 @@ class Point:
         return Point(-self.x, -self.y)
 
     def __abs__(self) -> float:
-        return math.sqrt(self.x * self.x + self.y * self.y)
+        return GeometryUtil.sqrt(self.x * self.x + self.y * self.y)
 
     def norm(self) -> float:
         """norm"""
@@ -169,12 +274,9 @@ class Point:
 
     def rotate(self, theta: float) -> "Point":
         return Point(
-            math.cos(theta) * self.x - math.sin(theta) * self.y,
-            math.sin(theta) * self.x + math.cos(theta) * self.y,
+            GeometryUtil.cos(theta) * self.x - GeometryUtil.sin(theta) * self.y,
+            GeometryUtil.sin(theta) * self.x + GeometryUtil.cos(theta) * self.y,
         )
-# from titan_pylib.geometry.line import Line
-import math
-# from titan_pylib.geometry.point import Point
 
 
 class Line:
@@ -206,43 +308,6 @@ class Line:
     @classmethod
     def from_abc(cls, a: int, b: int, c: int) -> "Line":
         raise NotImplementedError
-# from titan_pylib.geometry.circle import Circle
-import math
-# from titan_pylib.geometry.point import Point
-
-
-class Circle:
-
-    __slots__ = "p", "r"
-
-    def __init__(self, p: Point, r: float) -> None:
-        """円
-
-        Args:
-            p (Point): 直径を表す `Point`
-            r (float): 半径
-        """
-        self.p = p
-        self.r = r
-
-    def area(self) -> float:
-        """面積を返す"""
-        return math.pi * self.r * self.r
-# from titan_pylib.geometry.segment import Segment
-# from titan_pylib.geometry.point import Point
-
-
-class Segment:
-
-    def __init__(self, p1: Point, p2: Point) -> None:
-        if p1 > p2:
-            p1, p2 = p2, p1
-        self.p1 = p1
-        self.p2 = p2
-# from titan_pylib.geometry.convex_polygon import ConvexPolygon
-# from titan_pylib.geometry.polygon import Polygon
-# from titan_pylib.geometry.point import Point
-# from titan_pylib.geometry.geometry import Geometry
 
 
 class Polygon:
@@ -258,12 +323,12 @@ class Polygon:
         Returns:
             float: 面積
         """
-        res = 0.0
+        res = 0
         p = self.ps
         for i in range(self.n - 1):
             res += Geometry.cross(p[i], p[i + 1])
         res += Geometry.cross(p[-1], p[0])
-        return res * 0.5
+        return res / 2
 
     def is_convex(self) -> bool:
         """凸多角形かどうか / `O(n)`
@@ -280,18 +345,46 @@ class Polygon:
                 return False
         return True
 
-    def contains(self, p: Point) -> int:
-        raise NotImplementedError
-# from titan_pylib.geometry.point import Point
-# from titan_pylib.geometry.geometry import Geometry
-# from titan_pylib.geometry.geometry_util import GeometryUtil
+    def get_degree(self, radian):
+        return radian * (180 / GeometryUtil.pi)
+
+    def contains(self, p):
+        """点の包含関係を返す / O(n)
+
+        Args:
+            p (Point): 点
+
+        Returns:
+            int: `2`: `p` を含む
+                 `1`: `p` が辺上にある
+                 `0`: それ以外
+        """
+        ps = self.ps
+        deg = 0
+        for i in range(self.n):
+            if ps[i] == ps[(i + 1) % self.n]:
+                continue
+            if GeometryUtil.eq(
+                Geometry.dist_p_to_segmemt(p, Segment(ps[i], ps[(i + 1) % self.n])), 0
+            ):
+                return 1
+            ax = ps[i].x - p.x
+            ay = ps[i].y - p.y
+            bx = ps[(i + 1) % self.n].x - p.x
+            by = ps[(i + 1) % self.n].y - p.y
+            cos = (ax * bx + ay * by) / (
+                GeometryUtil.sqrt((ax * ax + ay * ay) * (bx * bx + by * by))
+            )
+            cos = min(1, max(-1, cos))
+            deg += self.get_degree(GeometryUtil.acos(cos))
+        return 2 if GeometryUtil.eq(deg, 360) else 0
 
 
 class ConvexPolygon(Polygon):
 
-    def __init__(self, ps: list[Point]) -> None:
+    def __init__(self, ps: list[Point], line_contains: bool = True) -> None:
         self.n = len(ps)
-        self.ps = Geometry.convex_hull(ps)
+        self.ps = Geometry.convex_hull(ps, line_contains)
 
     def diameter(self) -> tuple[float, int, int]:
         ps = self.ps
@@ -362,7 +455,35 @@ class ConvexPolygon(Polygon):
             else:
                 return 2
         return 0
-# from titan_pylib.geometry.geometry_util import GeometryUtil
+
+
+class Circle:
+
+    __slots__ = "p", "r"
+
+    def __init__(self, p: Point, r: float) -> None:
+        """円
+
+        Args:
+            p (Point): 直径を表す `Point`
+            r (float): 半径
+        """
+        self.p = p
+        self.r = r
+
+    def area(self) -> float:
+        """面積を返す"""
+        return GeometryUtil.pi * self.r * self.r
+
+
+class Segment:
+
+    def __init__(self, p1: Point, p2: Point) -> None:
+        assert p1 != p2
+        if p1 > p2:
+            p1, p2 = p2, p1
+        self.p1 = p1
+        self.p2 = p2
 
 
 class Geometry:
@@ -446,7 +567,7 @@ class Geometry:
         Returns:
             bool:
         """
-        return cls._eq(cls.dot(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
+        return GeometryUtil.eq(cls.dot(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
 
     @classmethod
     def is_parallel(cls, l1: Line, l2: Line) -> bool:
@@ -459,7 +580,7 @@ class Geometry:
         Returns:
             bool:
         """
-        return cls._eq(cls.cross(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
+        return GeometryUtil.eq(cls.cross(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
 
     @classmethod
     def is_intersect_linesegment(cls, s1: Segment, s2: Segment) -> bool:
@@ -497,9 +618,9 @@ class Geometry:
         if GeometryUtil.gt(d, c1.r + c2.r):
             # if d > c1.r + c2.r + GeometryUtil.GEO_EPS:
             return 4
-        if cls._eq(d, c1.r + c2.r):
+        if GeometryUtil.eq(d, c1.r + c2.r):
             return 3
-        if cls._eq(d, abs(c1.r - c2.r)):
+        if GeometryUtil.eq(d, abs(c1.r - c2.r)):
             return 1
         if GeometryUtil.lt(d, abs(c1.r - c2.r)):
             # if d < abs(c1.r - c2.r) - GeometryUtil.GEO_EPS:
@@ -510,9 +631,9 @@ class Geometry:
     def cross_point_segment(cls, s1: Segment, s2: Segment) -> Optional[Point]:
         d1 = cls.cross(s1.p2 - s1.p1, s2.p2 - s2.p1)
         d2 = cls.cross(s1.p2 - s1.p1, s1.p2 - s2.p1)
-        if cls._eq(abs(d1), 0) and cls._eq(abs(d2), 0):
+        if GeometryUtil.eq(abs(d1), 0) and GeometryUtil.eq(abs(d2), 0):
             return s2.p1
-        if cls._eq(abs(d1), 0):
+        if GeometryUtil.eq(abs(d1), 0):
             return None
         return s2.p1 + (s2.p2 - s2.p1) * (d2 / d1)
 
@@ -533,7 +654,7 @@ class Geometry:
                 return (c2.p + (c1.p - c2.p) * (c2.r / d),)
         # 交点が2つ
         rcos = (c1.r * c1.r + d * d - c2.r * c2.r) / (2 * d)
-        rsin = math.sqrt(c1.r * c1.r - rcos * rcos)
+        rsin = GeometryUtil.sqrt(c1.r * c1.r - rcos * rcos)
         if GeometryUtil.lt(c1.r - abs(rcos), 0):
             # if c1.r - abs(rcos) < GeometryUtil.GEO_EPS:
             rsin = 0
@@ -554,11 +675,11 @@ class Geometry:
         if d > c.r + GeometryUtil.GEO_EPS:
             return res
         h = cls.projection_point(c.p, l)
-        if cls._eq(d, c.r):
+        if GeometryUtil.eq(d, c.r):
             res.append(h)
             return res
         e = (l.p2 - l.p1).unit()
-        ph = math.sqrt(c.r * c.r - d * d)
+        ph = GeometryUtil.sqrt(c.r * c.r - d * d)
         res.append(h - e * ph)
         res.append(h + e * ph)
         res.sort()
@@ -578,9 +699,9 @@ class Geometry:
 
     @classmethod
     def dist_segment_to_segment(cls, s1: Segment, s2: Segment) -> float:
-        if cls.is_intersect(s1, s2):
+        if cls.is_intersect_linesegment(s1, s2):
             return 0.0
-        ans = float("inf")
+        ans = GeometryUtil.GEO_INF
         ans = min(ans, cls.dist_p_to_segmemt(s1.p1, s2))
         ans = min(ans, cls.dist_p_to_segmemt(s1.p2, s2))
         ans = min(ans, cls.dist_p_to_segmemt(s2.p1, s1))
@@ -612,7 +733,7 @@ class Geometry:
             u = -u
         x /= u
         y /= u
-        r = ((x - p1.x) ** 2 + (y - p1.y) ** 2) ** 0.5
+        r = GeometryUtil.sqrt((x - p1.x) ** 2 + (y - p1.y) ** 2)
         return Circle(Point(x, y), r)
 
     @classmethod
@@ -623,9 +744,9 @@ class Geometry:
         dy1 = p2.y - p1.y
         dx2 = p3.x - p1.x
         dy2 = p3.y - p1.y
-        d1 = ((p3.x - p2.x) ** 2 + (p3.y - p2.y) ** 2) ** 0.5
-        d3 = (dx1**2 + dy1**2) ** 0.5
-        d2 = (dx2**2 + dy2**2) ** 0.5
+        d1 = GeometryUtil.sqrt((p3.x - p2.x) ** 2 + (p3.y - p2.y) ** 2)
+        d3 = GeometryUtil.sqrt(dx1**2 + dy1**2)
+        d2 = GeometryUtil.sqrt(dx2**2 + dy2**2)
         S2 = abs(dx1 * dy2 - dx2 * dy1)
         dsum1 = -d1 + d2 + d3
         r1 = S2 / dsum1
@@ -651,20 +772,20 @@ class Geometry:
     @classmethod
     def circle_tangent(cls, p: Point, c: Circle) -> tuple[Point, Point]:
         return cls.cross_point_circle(
-            c, Circle(p, math.sqrt((c.p - p).norm2() - c.r * c.r))
+            c, Circle(p, GeometryUtil.sqrt((c.p - p).norm2() - c.r * c.r))
         )
 
     @classmethod
     def circle_common_tangent(cls, c1: Circle, c2: Circle) -> list[Line]:
         ret = []
         d = abs(c1.p - c2.p)
-        if cls._eq(d, 0):
+        if GeometryUtil.eq(d, 0):
             return ret
         u = (c2.p - c1.p).unit()
-        v = u.rotate(math.pi / 2)
+        v = u.rotate(GeometryUtil.pi / 2)
         for s in [-1, 1]:
             h = (c1.r + c2.r * s) / d
-            if cls._eq(h * h, 1):
+            if GeometryUtil.eq(h * h, 1):
                 ret.append(
                     Line.from_points(
                         c1.p + (u if h > 0 else -u) * c1.r,
@@ -673,7 +794,7 @@ class Geometry:
                 )
             elif 1 - h * h > 0:
                 U = u * h
-                V = v * math.sqrt(1 - h * h)
+                V = v * GeometryUtil.sqrt(1 - h * h)
                 ret.append(
                     Line.from_points(c1.p + (U + V) * c1.r, c2.p - (U + V) * (c2.r * s))
                 )
@@ -746,15 +867,19 @@ class Geometry:
         lower = []
         zeros = []
         for p in a:
-            if cls._lt(p.y, 0) or (cls._eq(p.y, 0) and cls._lt(p.x, 0)):
+            if GeometryUtil.lt(p.y, 0) or (
+                GeometryUtil.eq(p.y, 0) and GeometryUtil.lt(p.x, 0)
+            ):
                 lower.append(p)
-            elif cls._eq(p.x, 0) and cls._eq(p.y, 0):
+            elif GeometryUtil.eq(p.x, 0) and GeometryUtil.eq(p.y, 0):
                 zeros.append(p)
             else:
                 upper.append(p)
 
         def cmp(s: Point, t: Point) -> bool:
-            return cls._lt(s.y * t.x, s.x * t.y) or cls._eq(s.y * t.x, s.x * t.y)
+            return GeometryUtil.lt(s.y * t.x, s.x * t.y) or GeometryUtil.eq(
+                s.y * t.x, s.x * t.y
+            )
 
         upper = merge_sort(upper, key=cmp)
         lower = merge_sort(lower, key=cmp)
@@ -766,13 +891,13 @@ class Geometry:
 
     @classmethod
     def _cmp_y(cls, u: Point, v: Point):
-        if cls._eq(u, v):
+        if GeometryUtil.eq(u, v):
             return True
-        if cls._lt(u.y, v.y):
+        if GeometryUtil.lt(u.y, v.y):
             return True
-        if cls._lt(v.y, u.y):
+        if GeometryUtil.lt(v.y, u.y):
             return False
-        return cls._lt(u.x, v.x)
+        return GeometryUtil.lt(u.x, v.x)
 
     @classmethod
     def sort_by_y(cls, a: list[Point]) -> list[Point]:
@@ -804,7 +929,7 @@ class Geometry:
         """
 
         buff = [None] * len(a)
-        d, p, q = float("inf"), -1, -1
+        d, p, q = GeometryUtil.GEO_INF, -1, -1
 
         def f(l: int, r: int) -> None:
             nonlocal d, p, q
@@ -833,16 +958,16 @@ class Geometry:
             for i in range(l, r):
                 e_p, e_i = b[i]
                 v = abs(e_p.x - x)
-                if cls._gt(v, d) or cls._eq(v, d):
+                if cls._gt(v, d) or GeometryUtil.eq(v, d):
                     continue
                 for j in range(len(near_line) - 1, -1, -1):
                     ne_p, ne_i = near_line[j]
                     dx = e_p.x - ne_p.x
                     dy = e_p.y - ne_p.y
-                    if cls._gt(dy, d) or cls._eq(dy, d):
+                    if cls._gt(dy, d) or GeometryUtil.eq(dy, d):
                         break
-                    cand = math.sqrt(dx * dx + dy * dy)
-                    if cls._lt(cand, d):
+                    cand = GeometryUtil.sqrt(dx * dx + dy * dy)
+                    if GeometryUtil.lt(cand, d):
                         d, p, q = cand, ne_i, e_i
                 near_line.append(b[i])
 

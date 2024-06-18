@@ -7,6 +7,12 @@ titan\_pylib.math.number
 
 .. code-block:: python
 
+  from titan_pylib.math.number import ext_gcd
+  from titan_pylib.math.number import linear_indeterminate_equation
+  from titan_pylib.math.number import crt
+  from titan_pylib.math.number import lcm
+  from titan_pylib.math.number import lcm_mul
+  from titan_pylib.math.number import totient_function
   from titan_pylib.math.number import fastpow
   from titan_pylib.math.number import modinv
   from titan_pylib.math.number import isqrt

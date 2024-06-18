@@ -7,6 +7,13 @@ titan\_pylib.geometry.geometry
 
 .. code-block:: python
 
+  from titan_pylib.geometry.geometry import GeometryUtil
+  from titan_pylib.geometry.geometry import Point
+  from titan_pylib.geometry.geometry import Line
+  from titan_pylib.geometry.geometry import Polygon
+  from titan_pylib.geometry.geometry import ConvexPolygon
+  from titan_pylib.geometry.geometry import Circle
+  from titan_pylib.geometry.geometry import Segment
   from titan_pylib.geometry.geometry import Geometry
 
 `view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/geometry/geometry.py>`_
