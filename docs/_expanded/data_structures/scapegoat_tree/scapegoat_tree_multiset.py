@@ -110,7 +110,6 @@ class OrderedMultisetInterface(ABC, Generic[T]):
 # from titan_pylib.data_structures.bst_base.bst_multiset_node_base import (
 #     BSTMultisetNodeBase,
 # )
-from __pypy__ import newlist_hint
 from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
@@ -153,9 +152,9 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return False
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> list[T]:
+    def tolist(node: Node) -> list[T]:
         stack = []
-        a = newlist_hint(_len)
+        a = []
         while stack or node:
             if node:
                 stack.append(node)
@@ -168,9 +167,9 @@ class BSTMultisetNodeBase(Generic[T, Node]):
         return a
 
     @staticmethod
-    def tolist_items(node: Node, _len: int = 0) -> list[tuple[T, int]]:
-        stack = newlist_hint(_len)
-        a = newlist_hint(_len)
+    def tolist_items(node: Node) -> list[tuple[T, int]]:
+        stack = []
+        a = []
         while stack or node:
             if node:
                 stack.append(node)
@@ -183,7 +182,7 @@ class BSTMultisetNodeBase(Generic[T, Node]):
 
     @staticmethod
     def _rle(a: list[T]) -> tuple[list[T], list[int]]:
-        keys, vals = newlist_hint(len(a)), newlist_hint(len(a))
+        keys, vals = [], []
         keys.append(a[0])
         vals.append(1)
         for i, elm in enumerate(a):
@@ -275,7 +274,6 @@ class BSTMultisetNodeBase(Generic[T, Node]):
                 node = node.right
         return k
 import math
-from __pypy__ import newlist_hint
 from typing import Final, TypeVar, Generic, Iterable, Optional, Iterator
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -350,7 +348,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node.right = None
             return node
 
-        a = newlist_hint(node.size)
+        a = []
         stack = []
         while stack or node:
             if node:
@@ -603,13 +601,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
         return self.root.size if self.root else 0
 
     def tolist(self) -> list[T]:
-        return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist(
-            self.root, len(self)
-        )
+        return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist(self.root)
 
     def tolist_items(self) -> list[tuple[T, int]]:
         return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist_items(
-            self.root, self.len_elm()
+            self.root
         )
 
     def clear(self) -> None:

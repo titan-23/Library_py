@@ -11,6 +11,7 @@ titan\_pylib.math.decimal\_util
   from titan_pylib.math.decimal_util import decimal_exp
   from titan_pylib.math.decimal_util import decimal_cos
   from titan_pylib.math.decimal_util import decimal_sin
+  from titan_pylib.math.decimal_util import decimal_asin
   from titan_pylib.math.decimal_util import decimal_acos
 
 `view on github <https://github.com/titan-23/Library_py/tree/main/titan_pylib/math/decimal_util.py>`_

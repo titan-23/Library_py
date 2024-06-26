@@ -28,14 +28,17 @@ def is_prime64(n: int) -> bool:
     return True
 from collections import Counter
 from math import gcd
+from random import Random
 
 
 class PollardRho:
 
     # 高速素因数分解
+    # 124376107291
 
-    L = [2, 325, 9375, 28178, 450775, 9780504, 1795265022]
-    P200 = [
+    _rand = Random(None)
+    _L = [2, 325, 9375, 28178, 450775, 9780504, 1795265022]
+    _P200 = [
         2,
         3,
         5,
@@ -87,7 +90,7 @@ class PollardRho:
     @classmethod
     def factorization(cls, n: int) -> Counter:
         res = Counter()
-        for p in cls.P200:
+        for p in cls._P200:
             if n % p == 0:
                 cnt = 0
                 while n % p == 0:
@@ -96,61 +99,28 @@ class PollardRho:
                 res[p] = cnt
                 if n == 1:
                     return res
-        todo = [n]
-        while todo:
-            v = todo.pop()
-            if v <= 1:
-                continue
-            f = cls._pollard_rho(v)
-            if is_prime64(f):
-                cnt = 0
-                while v % f == 0:
-                    cnt += 1
-                    v //= f
-                res[f] += cnt
-                todo.append(v)
-            elif is_prime64(v // f):
-                f = v // f
-                cnt = 0
-                while v % f == 0:
-                    cnt += 1
-                    v //= f
-                res[f] += cnt
-                todo.append(v)
-            else:
-                todo.append(f)
-                todo.append(v // f)
+        while n > 1:
+            f = cls._pollard_rho(n)
+            cnt = 0
+            while n % f == 0:
+                cnt += 1
+                n //= f
+            res[f] += cnt
         return res
 
-    @staticmethod
-    def _pollard_rho(n: int) -> int:
-        if n & 1 == 0:
-            return 2
-        if n % 3 == 0:
-            return 3
-        s = ((n - 1) & (1 - n)).bit_length() - 1
-        d = n >> s
-        for a in PollardRho.L:
-            p = pow(a, d, n)
-            if p == 1 or p == n - 1 or a % n == 0:
-                continue
-            for _ in range(s):
-                prev = p
-                p = (p * p) % n
-                if p == 1:
-                    return gcd(prev - 1, n)
-                if p == n - 1:
-                    break
-            else:
-                for i in range(2, n):
-                    x = i
-                    y = (i * i + 1) % n
-                    f = gcd(abs(x - y), n)
-                    while f == 1:
-                        x = (x * x + 1) % n
-                        y = (y * y + 1) % n
-                        y = (y * y + 1) % n
-                        f = gcd(abs(x - y), n)
-                    if f != n:
-                        return f
-        return n
+    @classmethod
+    def _pollard_rho(cls, n: int) -> int:
+        if is_prime64(n):
+            return n
+        while True:
+            x = cls._rand.randrange(n)
+            c = cls._rand.randrange(n)
+            y = (x * x + c) % n
+            d = 1
+            while d == 1:
+                d = gcd(x - y, n)
+                x = (x * x + c) % n
+                y = (y * y + c) % n
+                y = (y * y + c) % n
+            if 1 < d < n:
+                return cls._pollard_rho(d)

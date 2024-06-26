@@ -22,7 +22,7 @@ class PersistentArray(Generic[T]):
 
     def __init__(
         self, a: Iterable[T] = [], _root: Optional["PersistentArray._Node"] = None
-    ):
+    ) -> None:
         self.root = self._build(a) if _root is None else _root
 
     def _build(self, a: Iterable[T]) -> Optional["PersistentArray._Node"]:
@@ -108,7 +108,7 @@ from typing import Optional
 
 class PersistentUnionFind:
 
-    def __init__(self, n: int, _parents: Optional[PersistentArray[int]] = None):
+    def __init__(self, n: int, _parents: Optional[PersistentArray[int]] = None) -> None:
         """``n`` 個の要素からなる ``PersistentUnionFind`` を構築します。
         :math:`O(n)` です。
         """

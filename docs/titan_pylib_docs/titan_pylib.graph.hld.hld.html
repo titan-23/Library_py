@@ -236,6 +236,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">dynamic_fenwick_tree_2D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">fenwick_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D_RAQ.html">fenwick_tree_2D_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">fenwick_tree_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">fenwick_tree_abst</a></li>
 </ul>
@@ -411,12 +412,14 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bfs.html">bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.cartesian_tree.html">cartesian_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
@@ -640,6 +643,13 @@
 <span class="linenos">135</span>            <span class="k">if</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
 <span class="linenos">136</span>                <span class="k">return</span> <span class="n">u</span>
 <span class="linenos">137</span>            <span class="n">v</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span>
+<span class="linenos">138</span>
+<span class="linenos">139</span>    <span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">140</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span>
+<span class="linenos">141</span>
+<span class="linenos">142</span>    <span class="k">def</span> <span class="nf">is_on_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">143</span><span class="w">        </span><span class="sd">"""Return True if (a is on path(u - v)) else False. / O(logN)"""</span>
+<span class="linenos">144</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -668,6 +678,10 @@
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.dist">
+<span class="sig-name descname"><span class="pre">dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.dist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.for_each_vertex_path">
 <span class="sig-name descname"><span class="pre">for_each_vertex_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.for_each_vertex_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.for_each_vertex_path" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">u-v</span></code> パスに対応する区間のインデックスを返します。
@@ -678,6 +692,11 @@
 <span class="sig-name descname"><span class="pre">for_each_vertex_subtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.for_each_vertex_subtree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.for_each_vertex_subtree" title="Link to this definition">¶</a></dt>
 <dd><p>頂点 <code class="docutils literal notranslate"><span class="pre">v</span></code> の部分木に対応する区間のインデックスを返します。
 <span class="math notranslate nohighlight">\(O(1)\)</span> です。</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.is_on_path">
+<span class="sig-name descname"><span class="pre">is_on_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/graph/hld/hld.html#HLD.is_on_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.graph.hld.hld.HLD.is_on_path" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if (a is on path(u - v)) else False. / O(logN)</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.graph.hld.hld.HLD.lca">
@@ -750,8 +769,10 @@
 <li><a class="reference internal" href="#module-titan_pylib.graph.hld.hld">仕様</a><ul>
 <li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD"><code class="docutils literal notranslate"><span class="pre">HLD</span></code></a><ul>
 <li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD.build_list"><code class="docutils literal notranslate"><span class="pre">HLD.build_list()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD.dist"><code class="docutils literal notranslate"><span class="pre">HLD.dist()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD.for_each_vertex_path"><code class="docutils literal notranslate"><span class="pre">HLD.for_each_vertex_path()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD.for_each_vertex_subtree"><code class="docutils literal notranslate"><span class="pre">HLD.for_each_vertex_subtree()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD.is_on_path"><code class="docutils literal notranslate"><span class="pre">HLD.is_on_path()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD.lca"><code class="docutils literal notranslate"><span class="pre">HLD.lca()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.graph.hld.hld.HLD.path_kth_elm"><code class="docutils literal notranslate"><span class="pre">HLD.path_kth_elm()</span></code></a></li>
 </ul>

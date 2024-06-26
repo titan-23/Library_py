@@ -4,7 +4,6 @@ from titan_pylib.data_structures.bst_base.bst_multiset_node_base import (
     BSTMultisetNodeBase,
 )
 import math
-from __pypy__ import newlist_hint
 from typing import Final, TypeVar, Generic, Iterable, Optional, Iterator
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -79,7 +78,7 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
                 node.right = None
             return node
 
-        a = newlist_hint(node.size)
+        a = []
         stack = []
         while stack or node:
             if node:
@@ -332,13 +331,11 @@ class ScapegoatTreeMultiset(OrderedMultisetInterface, Generic[T]):
         return self.root.size if self.root else 0
 
     def tolist(self) -> list[T]:
-        return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist(
-            self.root, len(self)
-        )
+        return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist(self.root)
 
     def tolist_items(self) -> list[tuple[T, int]]:
         return BSTMultisetNodeBase[T, ScapegoatTreeMultiset.Node].tolist_items(
-            self.root, self.len_elm()
+            self.root
         )
 
     def clear(self) -> None:

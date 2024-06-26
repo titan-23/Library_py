@@ -1,5 +1,4 @@
 # from titan_pylib.data_structures.bst_base.bst_set_node_base import BSTSetNodeBase
-from __pypy__ import newlist_hint
 from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
@@ -125,9 +124,9 @@ class BSTSetNodeBase(Generic[T, Node]):
         return k
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> list[T]:
+    def tolist(node: Node) -> list[T]:
         stack = []
-        res = newlist_hint(_len)
+        res = []
         while stack or node:
             if node:
                 stack.append(node)

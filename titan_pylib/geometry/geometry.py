@@ -15,7 +15,7 @@ class GeometryUtil:
     getcontext().prec = 10
     USE_DECIMAL: Final[bool] = True
 
-    GEO_EPS: Final[Union[Decimal, float]] = (
+    EPS: Final[Union[Decimal, float]] = (
         Decimal("1e-" + str(getcontext().prec // 2)) if USE_DECIMAL else 1e-10
     )
     GEO_INF: Final[Union[Decimal, float]] = (
@@ -32,15 +32,15 @@ class GeometryUtil:
 
     @classmethod
     def eq(cls, a: float, b: float) -> bool:
-        return abs(a - b) < cls.GEO_EPS
+        return abs(a - b) < cls.EPS
 
     @classmethod
     def lt(cls, u: float, v: float) -> bool:
-        return u < v and u < max(v, v - cls.GEO_EPS)
+        return u < v and u < max(v, v - cls.EPS)
 
     @classmethod
     def gt(cls, u: float, v: float) -> bool:
-        return u > v and u > min(v, v - cls.GEO_EPS)
+        return u > v and u > min(v, v - cls.EPS)
 
     @classmethod
     def le(cls, u: float, v: float) -> bool:
@@ -117,8 +117,8 @@ class Point:
 
     def __eq__(self, other: "Point") -> bool:
         return (
-            abs(self.x - other.x) < GeometryUtil.GEO_EPS
-            and abs(self.y - other.y) < GeometryUtil.GEO_EPS
+            abs(self.x - other.x) < GeometryUtil.EPS
+            and abs(self.y - other.y) < GeometryUtil.EPS
         )
 
     def __neg__(self) -> "Point":
@@ -322,6 +322,21 @@ class ConvexPolygon(Polygon):
                 return 2
         return 0
 
+    def convex_cut(self, l: Line) -> "ConvexPolygon":
+        q = []
+        for i in range(self.n):
+            p1 = self.ps[i - 1]
+            p2 = self.ps[i]
+            cv0 = l.p1.det3(l.p2, p1)
+            cv1 = l.p1.det3(l.p2, p2)
+            if cv0 * cv1 < GeometryUtil.EPS:
+                v = Geometry.cross_point_segment(Line(p1, p2))
+                if v is not None:
+                    q.append(v.value)
+            if cv1 > -GeometryUtil.EPS:
+                q.append(p1.value)
+        return ConvexPolygon(q)
+
 
 class Circle:
 
@@ -384,14 +399,14 @@ class Geometry:
                  `-2`: a->bに対し、b->cが同一方向に進む
                  ` 0`: cが線分a->b上にある
         """
-        if cls.cross(v - u, p - u) > GeometryUtil.GEO_EPS:
+        if cls.cross(v - u, p - u) > GeometryUtil.EPS:
             return 1
-        if cls.cross(v - u, p - u) < -GeometryUtil.GEO_EPS:
+        if cls.cross(v - u, p - u) < -GeometryUtil.EPS:
             return -1
-        if cls.dot(v - u, p - u) < -GeometryUtil.GEO_EPS:
+        if cls.dot(v - u, p - u) < -GeometryUtil.EPS:
             return 2
         if GeometryUtil.lt(abs(v - u), abs(p - u)):
-            # if abs(v - u) + GeometryUtil.GEO_EPS < abs(p - u):
+            # if abs(v - u) + GeometryUtil.EPS < abs(p - u):
             return -2
         return 0
 
@@ -482,14 +497,14 @@ class Geometry:
         """
         d = abs(c1.p - c2.p)
         if GeometryUtil.gt(d, c1.r + c2.r):
-            # if d > c1.r + c2.r + GeometryUtil.GEO_EPS:
+            # if d > c1.r + c2.r + GeometryUtil.EPS:
             return 4
         if GeometryUtil.eq(d, c1.r + c2.r):
             return 3
         if GeometryUtil.eq(d, abs(c1.r - c2.r)):
             return 1
         if GeometryUtil.lt(d, abs(c1.r - c2.r)):
-            # if d < abs(c1.r - c2.r) - GeometryUtil.GEO_EPS:
+            # if d < abs(c1.r - c2.r) - GeometryUtil.EPS:
             return 0
         return 2
 
@@ -514,7 +529,7 @@ class Geometry:
         d = abs(c1.p - c2.p)
         if r == 1:  # 内接
             if GeometryUtil.lt(c2.r, c1.r):
-                # if c2.r < c1.r - GeometryUtil.GEO_EPS:
+                # if c2.r < c1.r - GeometryUtil.EPS:
                 return (c1.p + (c2.p - c1.p) * (c1.r / d),)
             else:
                 return (c2.p + (c1.p - c2.p) * (c2.r / d),)
@@ -522,7 +537,7 @@ class Geometry:
         rcos = (c1.r * c1.r + d * d - c2.r * c2.r) / (2 * d)
         rsin = GeometryUtil.sqrt(c1.r * c1.r - rcos * rcos)
         if GeometryUtil.lt(c1.r - abs(rcos), 0):
-            # if c1.r - abs(rcos) < GeometryUtil.GEO_EPS:
+            # if c1.r - abs(rcos) < GeometryUtil.EPS:
             rsin = 0
         e12 = (c2.p - c1.p) / abs(c2.p - c1.p)
         return tuple(
@@ -538,7 +553,7 @@ class Geometry:
     def cross_point_circle_line(cls, c: Circle, l: Line) -> list[Point]:
         res = []
         d = cls.dist_p_to_line(c.p, l)
-        if d > c.r + GeometryUtil.GEO_EPS:
+        if d > c.r + GeometryUtil.EPS:
             return res
         h = cls.projection_point(c.p, l)
         if GeometryUtil.eq(d, c.r):
@@ -557,9 +572,9 @@ class Geometry:
 
     @classmethod
     def dist_p_to_segmemt(cls, p: Point, s: Segment) -> float:
-        if cls.dot(s.p2 - s.p1, p - s.p1) < GeometryUtil.GEO_EPS:
+        if cls.dot(s.p2 - s.p1, p - s.p1) < GeometryUtil.EPS:
             return abs(p - s.p1)
-        if cls.dot(s.p1 - s.p2, p - s.p2) < GeometryUtil.GEO_EPS:
+        if cls.dot(s.p1 - s.p2, p - s.p2) < GeometryUtil.EPS:
             return abs(p - s.p2)
         return abs(cls.cross(s.p2 - s.p1, p - s.p1)) / abs(s.p2 - s.p1)
 
@@ -687,9 +702,9 @@ class Geometry:
 
         def cross(a, p):
             if line_contains:
-                return cls.cross(a[-1] - a[-2], p - a[-1]) < -GeometryUtil.GEO_EPS
+                return cls.cross(a[-1] - a[-2], p - a[-1]) < -GeometryUtil.EPS
             else:
-                return cls.cross(a[-1] - a[-2], p - a[-1]) < GeometryUtil.GEO_EPS
+                return cls.cross(a[-1] - a[-2], p - a[-1]) < GeometryUtil.EPS
 
         lower = []
         for p in ps:
@@ -840,3 +855,47 @@ class Geometry:
         b = merge_sort((e, i) for i, e in enumerate(a))
         f(0, len(b))
         return d, p, q
+
+    @classmethod
+    def count_segment_intersection(cls, a: list[Segment]) -> int:
+        """線分の交点の個数"""
+        # from titan_pylib.data_structures.fenwick_tree.fenwick_tree import FenwickTree
+        segs = []
+        events = []
+        Y = []
+        for i, seg in enumerate(a):
+            p1 = seg.p1
+            p2 = seg.p2
+            if p1.x == p2.x:
+                if p1.y > p2.y:
+                    p1, p2 = p2, p1
+                segs.append((p1.y, p2.y))
+                events.append((p1.x, 1, i))
+                Y.append(p1.y)
+                Y.append(p2.y)
+            else:
+                if p1.x > p2.x:
+                    p1, p2 = p2, p1
+                segs.append((p1.y, p2.y))
+                events.append((p1.x, 0, i))
+                events.append((p2.x, 2, i))
+                Y.append(p1.y)
+
+        to_origin = sorted(set(Y))
+        to_zaatsu = {a: i for i, a in enumerate(to_origin)}
+
+        bt = FenwickTree(len(to_origin))
+
+        ans = 0
+        events.sort()
+        for _, q, i in events:
+            if q == 0:
+                y1, y2 = segs[i]
+                bt.add(to_zaatsu[y1], 1)
+            elif q == 1:
+                y1, y2 = segs[i]
+                ans += bt.sum(to_zaatsu[y1], to_zaatsu[y2] + 1)
+            else:
+                y1, y2 = segs[i]
+                bt.add(to_zaatsu[y1], -1)
+        return ans

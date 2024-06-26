@@ -235,6 +235,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">dynamic_fenwick_tree_2D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">fenwick_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D_RAQ.html">fenwick_tree_2D_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">fenwick_tree_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">fenwick_tree_abst</a></li>
 </ul>
@@ -410,12 +411,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.bfs.html">bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.cartesian_tree.html">cartesian_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.euler_tour.html">euler_tour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc.html">get_scc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
@@ -645,6 +648,19 @@
 <span class="linenos">134</span>            <span class="k">if</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
 <span class="linenos">135</span>                <span class="k">return</span> <span class="n">u</span>
 <span class="linenos">136</span>            <span class="n">v</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span></div>
+
+<span class="linenos">137</span>
+<div class="viewcode-block" id="HLD.dist">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.dist">[docs]</a>
+<span class="linenos">138</span>    <span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">139</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span></div>
+
+<span class="linenos">140</span>
+<div class="viewcode-block" id="HLD.is_on_path">
+<a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.graph.hld.hld.html#titan_pylib.graph.hld.hld.HLD.is_on_path">[docs]</a>
+<span class="linenos">141</span>    <span class="k">def</span> <span class="nf">is_on_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">142</span><span class="w">        </span><span class="sd">"""Return True if (a is on path(u - v)) else False. / O(logN)"""</span>
+<span class="linenos">143</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

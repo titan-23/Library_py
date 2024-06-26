@@ -4,7 +4,7 @@ from typing import Optional
 
 class PersistentUnionFind:
 
-    def __init__(self, n: int, _parents: Optional[PersistentArray[int]] = None):
+    def __init__(self, n: int, _parents: Optional[PersistentArray[int]] = None) -> None:
         """``n`` 個の要素からなる ``PersistentUnionFind`` を構築します。
         :math:`O(n)` です。
         """

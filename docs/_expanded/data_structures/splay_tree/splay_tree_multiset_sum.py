@@ -1,6 +1,5 @@
 # from titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum import SplayTreeMultisetSum
 import sys
-from __pypy__ import newlist_hint
 from typing import Iterator, Optional, Generic, Iterable, TypeVar
 
 T = TypeVar("T")
@@ -49,8 +48,8 @@ class SplayTreeMultisetSum(Generic[T]):
         self.node = sort(0, len(key))
 
     def _rle(self, a: list[T]) -> tuple[list[T], list[int]]:
-        x = newlist_hint(len(a))
-        y = newlist_hint(len(a))
+        x = []
+        y = []
         x.append(a[0])
         y.append(1)
         for i, e in enumerate(a):

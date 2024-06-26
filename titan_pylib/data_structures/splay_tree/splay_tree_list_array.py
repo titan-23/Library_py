@@ -1,6 +1,5 @@
 from array import array
 from typing import Generic, TypeVar, Iterable, Union
-from __pypy__ import newlist_hint
 
 T = TypeVar("T")
 
@@ -269,8 +268,8 @@ class SplayTreeListArray(Generic[T]):
     def tolist(self) -> list[T]:
         node = self.root
         arr, keys = self.data.arr, self.data.keys
-        stack = newlist_hint(len(self))
-        res = newlist_hint(len(self))
+        stack = []
+        res = []
         while stack or node:
             if node:
                 stack.append(node)

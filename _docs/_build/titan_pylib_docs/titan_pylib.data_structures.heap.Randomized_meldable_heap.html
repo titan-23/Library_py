@@ -236,6 +236,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">dynamic_fenwick_tree_2D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">fenwick_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D_RAQ.html">fenwick_tree_2D_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">fenwick_tree_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">fenwick_tree_abst</a></li>
 </ul>
@@ -411,12 +412,14 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bfs.html">bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.cartesian_tree.html">cartesian_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
@@ -505,124 +508,166 @@
 <h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="c1"># from titan_pylib.data_structures.heap.Randomized_meldable_heap import RandomizedMeldableHeap</span>
 <span class="linenos">  2</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="linenos">  3</span><span class="kn">from</span> <span class="nn">__pypy__</span> <span class="kn">import</span> <span class="n">newlist_hint</span>
-<span class="linenos">  4</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span>
-<span class="linenos">  5</span>
-<span class="linenos">  6</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
+<span class="linenos">  3</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="linenos">  4</span>
+<span class="linenos">  5</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
+<span class="linenos">  6</span>
 <span class="linenos">  7</span>
-<span class="linenos">  8</span>
-<span class="linenos">  9</span><span class="k">class</span> <span class="nc">RandomizedMeldableHeap</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-<span class="linenos"> 10</span><span class="w">    </span><span class="sd">"""併合可能ヒープです。</span>
-<span class="linenos"> 11</span>
-<span class="linenos"> 12</span><span class="sd">    [Randomized Meldable Heap](https://trap.jp/post/1050/), traP</span>
-<span class="linenos"> 13</span><span class="sd">    """</span>
-<span class="linenos"> 14</span>
-<span class="linenos"> 15</span>    <span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">,</span> <span class="n">_z</span><span class="p">,</span> <span class="n">_w</span> <span class="o">=</span> <span class="mi">123456789</span><span class="p">,</span> <span class="mi">362436069</span><span class="p">,</span> <span class="mi">521288629</span><span class="p">,</span> <span class="mi">88675123</span>
-<span class="linenos"> 16</span>    <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos"> 17</span>    <span class="n">child</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
-<span class="linenos"> 18</span>    <span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos"> 19</span>
-<span class="linenos"> 20</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]):</span>
-<span class="linenos"> 21</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 22</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 23</span>        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
-<span class="linenos"> 24</span>            <span class="bp">self</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="linenos"> 25</span>
-<span class="linenos"> 26</span>    <span class="nd">@classmethod</span>
-<span class="linenos"> 27</span>    <span class="k">def</span> <span class="nf">_randbit</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 28</span>        <span class="n">t</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
-<span class="linenos"> 29</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span>
-<span class="linenos"> 30</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&gt;&gt;</span> <span class="mi">19</span><span class="p">))</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
-<span class="linenos"> 31</span>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&amp;</span> <span class="mi">1</span>
-<span class="linenos"> 32</span>
-<span class="linenos"> 33</span>    <span class="nd">@classmethod</span>
-<span class="linenos"> 34</span>    <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 35</span>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">):</span>
-<span class="linenos"> 36</span>            <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="linenos">  8</span><span class="k">class</span> <span class="nc">RandomizedMeldableHeap</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos">  9</span><span class="w">    </span><span class="sd">"""併合可能ヒープです。</span>
+<span class="linenos"> 10</span>
+<span class="linenos"> 11</span><span class="sd">    [Randomized Meldable Heap](https://trap.jp/post/1050/), traP</span>
+<span class="linenos"> 12</span><span class="sd">    """</span>
+<span class="linenos"> 13</span>
+<span class="linenos"> 14</span>    <span class="n">_x</span><span class="p">,</span> <span class="n">_y</span><span class="p">,</span> <span class="n">_z</span><span class="p">,</span> <span class="n">_w</span> <span class="o">=</span> <span class="mi">123456789</span><span class="p">,</span> <span class="mi">362436069</span><span class="p">,</span> <span class="mi">521288629</span><span class="p">,</span> <span class="mi">88675123</span>
+<span class="linenos"> 15</span>    <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos"> 16</span>    <span class="n">child</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="linenos"> 17</span>    <span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos"> 18</span>
+<span class="linenos"> 19</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]):</span>
+<span class="linenos"> 20</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos"> 21</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos"> 22</span>        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+<span class="linenos"> 23</span>            <span class="bp">self</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="linenos"> 24</span>
+<span class="linenos"> 25</span>    <span class="nd">@classmethod</span>
+<span class="linenos"> 26</span>    <span class="k">def</span> <span class="nf">_randbit</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 27</span>        <span class="n">t</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_x</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+<span class="linenos"> 28</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">_x</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_y</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_z</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span>
+<span class="linenos"> 29</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">^</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&gt;&gt;</span> <span class="mi">19</span><span class="p">))</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">^</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+<span class="linenos"> 30</span>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_w</span> <span class="o">&amp;</span> <span class="mi">1</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span>    <span class="nd">@classmethod</span>
+<span class="linenos"> 33</span>    <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 34</span>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">):</span>
+<span class="linenos"> 35</span>            <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="linenos"> 36</span>            <span class="bp">cls</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="linenos"> 37</span>            <span class="bp">cls</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="linenos"> 38</span>            <span class="bp">cls</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="linenos"> 39</span>        <span class="k">else</span><span class="p">:</span>
-<span class="linenos"> 40</span>            <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
-<span class="linenos"> 41</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos"> 42</span>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span>
-<span class="linenos"> 43</span>
-<span class="linenos"> 44</span>    <span class="nd">@classmethod</span>
-<span class="linenos"> 45</span>    <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 46</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 47</span>            <span class="k">return</span>
-<span class="linenos"> 48</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-<span class="linenos"> 49</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">child</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-<span class="linenos"> 50</span>
-<span class="linenos"> 51</span>    <span class="nd">@classmethod</span>
-<span class="linenos"> 52</span>    <span class="k">def</span> <span class="nf">_meld</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 53</span>        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 54</span>            <span class="k">return</span> <span class="n">y</span>
-<span class="linenos"> 55</span>        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 56</span>            <span class="k">return</span> <span class="n">x</span>
-<span class="linenos"> 57</span>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">y</span><span class="p">]:</span>
-<span class="linenos"> 58</span>            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
-<span class="linenos"> 59</span>        <span class="n">rand</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_randbit</span><span class="p">()</span>
-<span class="linenos"> 60</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">rand</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">rand</span><span class="p">],</span> <span class="n">y</span><span class="p">)</span>
-<span class="linenos"> 61</span>        <span class="k">return</span> <span class="n">x</span>
-<span class="linenos"> 62</span>
-<span class="linenos"> 63</span>    <span class="nd">@classmethod</span>
-<span class="linenos"> 64</span>    <span class="k">def</span> <span class="nf">meld</span><span class="p">(</span>
-<span class="linenos"> 65</span>        <span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">"RandomizedMeldableHeap"</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="s2">"RandomizedMeldableHeap"</span>
-<span class="linenos"> 66</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"RandomizedMeldableHeap"</span><span class="p">:</span>
-<span class="linenos"> 67</span>        <span class="n">new_heap</span> <span class="o">=</span> <span class="n">RandomizedMeldableHeap</span><span class="p">()</span>
-<span class="linenos"> 68</span>        <span class="n">new_heap</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos"> 69</span>        <span class="n">new_heap</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
-<span class="linenos"> 70</span>        <span class="k">return</span> <span class="n">new_heap</span>
-<span class="linenos"> 71</span>
-<span class="linenos"> 72</span>    <span class="k">def</span> <span class="nf">heappush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
-<span class="linenos"> 73</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="linenos"> 74</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
-<span class="linenos"> 75</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos"> 76</span>
-<span class="linenos"> 77</span>    <span class="k">def</span> <span class="nf">heappop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos"> 78</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos"> 79</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span>
-<span class="linenos"> 80</span>            <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">]</span>
-<span class="linenos"> 81</span>        <span class="p">)</span>
-<span class="linenos"> 82</span>        <span class="k">return</span> <span class="n">res</span>
-<span class="linenos"> 83</span>
-<span class="linenos"> 84</span>    <span class="k">def</span> <span class="nf">top</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos"> 85</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos"> 86</span>
-<span class="linenos"> 87</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
-<span class="linenos"> 88</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-<span class="linenos"> 89</span>        <span class="n">stack</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-<span class="linenos"> 90</span>        <span class="n">res</span> <span class="o">=</span> <span class="n">newlist_hint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-<span class="linenos"> 91</span>        <span class="n">child</span> <span class="o">=</span> <span class="n">RandomizedMeldableHeap</span><span class="o">.</span><span class="n">child</span>
-<span class="linenos"> 92</span>        <span class="n">keys</span> <span class="o">=</span> <span class="n">RandomizedMeldableHeap</span><span class="o">.</span><span class="n">keys</span>
-<span class="linenos"> 93</span>        <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">node</span><span class="p">:</span>
-<span class="linenos"> 94</span>            <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
-<span class="linenos"> 95</span>                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="linenos"> 96</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">]</span>
-<span class="linenos"> 97</span>            <span class="k">else</span><span class="p">:</span>
-<span class="linenos"> 98</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="linenos"> 99</span>                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-<span class="linenos">100</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">]</span>
-<span class="linenos">101</span>        <span class="n">res</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="linenos">102</span>        <span class="k">return</span> <span class="n">res</span>
-<span class="linenos">103</span>
-<span class="linenos">104</span>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">105</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span>
-<span class="linenos">106</span>
-<span class="linenos">107</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">108</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-<span class="linenos">109</span>
-<span class="linenos">110</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">111</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-<span class="linenos">112</span>
-<span class="linenos">113</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">114</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"RandomizedMeldableHeap(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
+<span class="linenos"> 38</span>        <span class="k">else</span><span class="p">:</span>
+<span class="linenos"> 39</span>            <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+<span class="linenos"> 40</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos"> 41</span>        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="linenos"> 42</span>
+<span class="linenos"> 43</span>    <span class="nd">@classmethod</span>
+<span class="linenos"> 44</span>    <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 45</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 46</span>            <span class="k">return</span>
+<span class="linenos"> 47</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos"> 48</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">child</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
+<span class="linenos"> 49</span>
+<span class="linenos"> 50</span>    <span class="nd">@classmethod</span>
+<span class="linenos"> 51</span>    <span class="k">def</span> <span class="nf">_meld</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 52</span>        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 53</span>            <span class="k">return</span> <span class="n">y</span>
+<span class="linenos"> 54</span>        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 55</span>            <span class="k">return</span> <span class="n">x</span>
+<span class="linenos"> 56</span>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">cls</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="n">y</span><span class="p">]:</span>
+<span class="linenos"> 57</span>            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+<span class="linenos"> 58</span>        <span class="n">rand</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_randbit</span><span class="p">()</span>
+<span class="linenos"> 59</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">rand</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">rand</span><span class="p">],</span> <span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 60</span>        <span class="k">return</span> <span class="n">x</span>
+<span class="linenos"> 61</span>
+<span class="linenos"> 62</span>    <span class="nd">@classmethod</span>
+<span class="linenos"> 63</span>    <span class="k">def</span> <span class="nf">meld</span><span class="p">(</span>
+<span class="linenos"> 64</span>        <span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="s2">"RandomizedMeldableHeap"</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="s2">"RandomizedMeldableHeap"</span>
+<span class="linenos"> 65</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"RandomizedMeldableHeap"</span><span class="p">:</span>
+<span class="linenos"> 66</span>        <span class="n">new_heap</span> <span class="o">=</span> <span class="n">RandomizedMeldableHeap</span><span class="p">()</span>
+<span class="linenos"> 67</span>        <span class="n">new_heap</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos"> 68</span>        <span class="n">new_heap</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+<span class="linenos"> 69</span>        <span class="k">return</span> <span class="n">new_heap</span>
+<span class="linenos"> 70</span>
+<span class="linenos"> 71</span>    <span class="k">def</span> <span class="nf">heappush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+<span class="linenos"> 72</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="linenos"> 73</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+<span class="linenos"> 74</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos"> 75</span>
+<span class="linenos"> 76</span>    <span class="k">def</span> <span class="nf">heappop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 77</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+<span class="linenos"> 78</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meld</span><span class="p">(</span>
+<span class="linenos"> 79</span>            <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">]</span>
+<span class="linenos"> 80</span>        <span class="p">)</span>
+<span class="linenos"> 81</span>        <span class="k">return</span> <span class="n">res</span>
+<span class="linenos"> 82</span>
+<span class="linenos"> 83</span>    <span class="k">def</span> <span class="nf">top</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 84</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+<span class="linenos"> 85</span>
+<span class="linenos"> 86</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 87</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+<span class="linenos"> 88</span>        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos"> 89</span>        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos"> 90</span>        <span class="n">child</span> <span class="o">=</span> <span class="n">RandomizedMeldableHeap</span><span class="o">.</span><span class="n">child</span>
+<span class="linenos"> 91</span>        <span class="n">keys</span> <span class="o">=</span> <span class="n">RandomizedMeldableHeap</span><span class="o">.</span><span class="n">keys</span>
+<span class="linenos"> 92</span>        <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">node</span><span class="p">:</span>
+<span class="linenos"> 93</span>            <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+<span class="linenos"> 94</span>                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="linenos"> 95</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">]</span>
+<span class="linenos"> 96</span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos"> 97</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="linenos"> 98</span>                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+<span class="linenos"> 99</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">child</span><span class="p">[</span><span class="n">node</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">]</span>
+<span class="linenos">100</span>        <span class="n">res</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="linenos">101</span>        <span class="k">return</span> <span class="n">res</span>
+<span class="linenos">102</span>
+<span class="linenos">103</span>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">104</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="linenos">105</span>
+<span class="linenos">106</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">107</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+<span class="linenos">108</span>
+<span class="linenos">109</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">110</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="linenos">111</span>
+<span class="linenos">112</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">113</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"RandomizedMeldableHeap(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id3">
-<h2>仕様<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="module-titan_pylib.data_structures.heap.Randomized_meldable_heap">
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.heap.Randomized_meldable_heap" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">RandomizedMeldableHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/Randomized_meldable_heap.html#RandomizedMeldableHeap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>併合可能ヒープです。</p>
+<p>[Randomized Meldable Heap](<a class="reference external" href="https://trap.jp/post/1050/">https://trap.jp/post/1050/</a>), traP</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.child">
+<span class="sig-name descname"><span class="pre">child</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">array('I',</span> <span class="pre">[0,</span> <span class="pre">0])</span></em><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.child" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.end">
+<span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.heappop">
+<span class="sig-name descname"><span class="pre">heappop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/Randomized_meldable_heap.html#RandomizedMeldableHeap.heappop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.heappop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.heappush">
+<span class="sig-name descname"><span class="pre">heappush</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/Randomized_meldable_heap.html#RandomizedMeldableHeap.heappush"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.heappush" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[0]</span></em><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.keys" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.meld">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap" title="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap"><span class="pre">RandomizedMeldableHeap</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap" title="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap"><span class="pre">RandomizedMeldableHeap</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap" title="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap"><span class="pre">RandomizedMeldableHeap</span></a></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/Randomized_meldable_heap.html#RandomizedMeldableHeap.meld"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.meld" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.reserve">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reserve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/Randomized_meldable_heap.html#RandomizedMeldableHeap.reserve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.reserve" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.tolist">
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/Randomized_meldable_heap.html#RandomizedMeldableHeap.tolist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.tolist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.top">
+<span class="sig-name descname"><span class="pre">top</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/heap/Randomized_meldable_heap.html#RandomizedMeldableHeap.top"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.top" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
 </section>
 </article>
@@ -677,7 +722,21 @@
 <li><a class="reference internal" href="#id2">展開済みコード</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">仕様</a></li>
+<li><a class="reference internal" href="#module-titan_pylib.data_structures.heap.Randomized_meldable_heap">仕様</a><ul>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap</span></code></a><ul>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.child"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.child</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.end"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.end</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.heappop"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.heappop()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.heappush"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.heappush()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.keys"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.keys</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.meld"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.meld()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.reserve"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.reserve()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.tolist"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.tolist()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.heap.Randomized_meldable_heap.RandomizedMeldableHeap.top"><code class="docutils literal notranslate"><span class="pre">RandomizedMeldableHeap.top()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

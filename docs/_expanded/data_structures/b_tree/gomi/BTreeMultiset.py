@@ -4,7 +4,6 @@
 from collections import deque
 from bisect import bisect_left, bisect_right, insort
 from typing import Generic, TypeVar, Optional, Iterable
-from __pypy__ import newlist_hint
 
 T = TypeVar("T")
 
@@ -286,7 +285,7 @@ class BTreeMultiset(Generic[T]):
         raise ValueError
 
     def tolist(self) -> list[T]:
-        a = newlist_hint(len(self))
+        a = []
 
         def dfs(node):
             if not node.child:

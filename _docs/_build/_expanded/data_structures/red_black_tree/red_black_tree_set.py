@@ -100,7 +100,6 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 # from titan_pylib.data_structures.bst_base.bst_set_node_base import BSTSetNodeBase
-from __pypy__ import newlist_hint
 from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
@@ -226,9 +225,9 @@ class BSTSetNodeBase(Generic[T, Node]):
         return k
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> list[T]:
+    def tolist(node: Node) -> list[T]:
         stack = []
-        res = newlist_hint(_len)
+        res = []
         while stack or node:
             if node:
                 stack.append(node)
@@ -724,7 +723,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
         return None
 
     def tolist(self) -> list[T]:
-        return BSTSetNodeBase[T, RedBlackTreeSet.Node].tolist(self.node, len(self))
+        return BSTSetNodeBase[T, RedBlackTreeSet.Node].tolist(self.node)
 
     def pop_max(self) -> T:
         assert self.node, f"IndexError: pop_max() from empty {self.__class__.__name__}."

@@ -14,7 +14,6 @@ from typing import (
     Union,
     Sequence,
 )
-from __pypy__ import newlist_hint
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -459,8 +458,8 @@ class ReversibleLazySplayTreeArray(Generic[T, F]):
     def tolist(self) -> list[T]:
         node = self.root
         arr, keydata = self.data.arr, self.data.keydata
-        stack = newlist_hint(len(self))
-        res = newlist_hint(len(self))
+        stack = []
+        res = []
         while stack or node:
             if node:
                 self._propagate(node)

@@ -12,7 +12,7 @@ def get_scc_lowlink(G: list[list[int]]) -> list[list[int]]:
     group_cnt = 0
 
     @antirec
-    def dfs(v: int) -> None:
+    def dfs(v: int):
         nonlocal cur_time, ptr
         order[v] = cur_time
         lowlink[v] = cur_time

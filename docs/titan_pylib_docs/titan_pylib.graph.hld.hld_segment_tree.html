@@ -236,6 +236,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">dynamic_fenwick_tree_2D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">fenwick_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D_RAQ.html">fenwick_tree_2D_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">fenwick_tree_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">fenwick_tree_abst</a></li>
 </ul>
@@ -411,12 +412,14 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bfs.html">bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.cartesian_tree.html">cartesian_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
@@ -907,95 +910,102 @@
 <span class="linenos">402</span>            <span class="k">if</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
 <span class="linenos">403</span>                <span class="k">return</span> <span class="n">u</span>
 <span class="linenos">404</span>            <span class="n">v</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span>
-<span class="linenos">405</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
-<span class="linenos">406</span>
-<span class="linenos">407</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
+<span class="linenos">405</span>
+<span class="linenos">406</span>    <span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">407</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span>
 <span class="linenos">408</span>
-<span class="linenos">409</span>
-<span class="linenos">410</span><span class="k">class</span> <span class="nc">HLDSegmentTree</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-<span class="linenos">411</span><span class="w">    </span><span class="sd">"""セグ木搭載HLDです。</span>
-<span class="linenos">412</span>
-<span class="linenos">413</span><span class="sd">    Note:</span>
-<span class="linenos">414</span><span class="sd">      **非可換に対応していません。**</span>
-<span class="linenos">415</span><span class="sd">    """</span>
+<span class="linenos">409</span>    <span class="k">def</span> <span class="nf">is_on_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">410</span><span class="w">        </span><span class="sd">"""Return True if (a is on path(u - v)) else False. / O(logN)"""</span>
+<span class="linenos">411</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos">412</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
+<span class="linenos">413</span>
+<span class="linenos">414</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
+<span class="linenos">415</span>
 <span class="linenos">416</span>
-<span class="linenos">417</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-<span class="linenos">418</span>        <span class="bp">self</span><span class="p">,</span> <span class="n">hld</span><span class="p">:</span> <span class="n">HLD</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span>
-<span class="linenos">419</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">420</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">:</span> <span class="n">HLD</span> <span class="o">=</span> <span class="n">hld</span>
-<span class="linenos">421</span>        <span class="n">n_or_a</span> <span class="o">=</span> <span class="p">(</span>
-<span class="linenos">422</span>            <span class="n">n_or_a</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">build_list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">))</span>
-<span class="linenos">423</span>        <span class="p">)</span>
-<span class="linenos">424</span>        <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">:</span> <span class="n">SegmentTree</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">SegmentTree</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-<span class="linenos">425</span>        <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">op</span>
-<span class="linenos">426</span>        <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">e</span>
-<span class="linenos">427</span>
-<span class="linenos">428</span>    <span class="k">def</span> <span class="nf">path_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">429</span><span class="w">        </span><span class="sd">"""頂点 ``u`` から頂点 ``v`` へのパスの集約値を返します。</span>
-<span class="linenos">430</span><span class="sd">        :math:`O(\\log^2{n})` です。</span>
-<span class="linenos">431</span>
-<span class="linenos">432</span><span class="sd">        Note:</span>
-<span class="linenos">433</span><span class="sd">          **非可換に対応していません。**</span>
+<span class="linenos">417</span><span class="k">class</span> <span class="nc">HLDSegmentTree</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos">418</span><span class="w">    </span><span class="sd">"""セグ木搭載HLDです。</span>
+<span class="linenos">419</span>
+<span class="linenos">420</span><span class="sd">    Note:</span>
+<span class="linenos">421</span><span class="sd">      **非可換に対応していません。**</span>
+<span class="linenos">422</span><span class="sd">    """</span>
+<span class="linenos">423</span>
+<span class="linenos">424</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="linenos">425</span>        <span class="bp">self</span><span class="p">,</span> <span class="n">hld</span><span class="p">:</span> <span class="n">HLD</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span>
+<span class="linenos">426</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">427</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="p">:</span> <span class="n">HLD</span> <span class="o">=</span> <span class="n">hld</span>
+<span class="linenos">428</span>        <span class="n">n_or_a</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos">429</span>            <span class="n">n_or_a</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">build_list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">))</span>
+<span class="linenos">430</span>        <span class="p">)</span>
+<span class="linenos">431</span>        <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">:</span> <span class="n">SegmentTree</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">SegmentTree</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="linenos">432</span>        <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="n">op</span>
+<span class="linenos">433</span>        <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">e</span>
 <span class="linenos">434</span>
-<span class="linenos">435</span><span class="sd">        Args:</span>
-<span class="linenos">436</span><span class="sd">          u (int): パスの端点です。</span>
-<span class="linenos">437</span><span class="sd">          v (int): パスの端点です。</span>
+<span class="linenos">435</span>    <span class="k">def</span> <span class="nf">path_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">436</span><span class="w">        </span><span class="sd">"""頂点 ``u`` から頂点 ``v`` へのパスの集約値を返します。</span>
+<span class="linenos">437</span><span class="sd">        :math:`O(\\log^2{n})` です。</span>
 <span class="linenos">438</span>
-<span class="linenos">439</span><span class="sd">        Returns:</span>
-<span class="linenos">440</span><span class="sd">          T: 求める集約値です。</span>
-<span class="linenos">441</span><span class="sd">        """</span>
-<span class="linenos">442</span>        <span class="n">head</span><span class="p">,</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="p">(</span>
-<span class="linenos">443</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">head</span><span class="p">,</span>
-<span class="linenos">444</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span>
-<span class="linenos">445</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span>
-<span class="linenos">446</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">par</span><span class="p">,</span>
-<span class="linenos">447</span>        <span class="p">)</span>
-<span class="linenos">448</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
-<span class="linenos">449</span>        <span class="k">while</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos">450</span>            <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]:</span>
-<span class="linenos">451</span>                <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
-<span class="linenos">452</span>            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">nodein</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-<span class="linenos">453</span>            <span class="n">u</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span>
-<span class="linenos">454</span>        <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
-<span class="linenos">455</span>            <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
-<span class="linenos">456</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-<span class="linenos">457</span>
-<span class="linenos">458</span>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">459</span><span class="w">        </span><span class="sd">"""頂点の値を返します。</span>
-<span class="linenos">460</span><span class="sd">        :math:`O(\\log{n})` です。</span>
-<span class="linenos">461</span>
-<span class="linenos">462</span><span class="sd">        Args:</span>
-<span class="linenos">463</span><span class="sd">          k (int): 頂点のインデックスです。</span>
+<span class="linenos">439</span><span class="sd">        Note:</span>
+<span class="linenos">440</span><span class="sd">          **非可換に対応していません。**</span>
+<span class="linenos">441</span>
+<span class="linenos">442</span><span class="sd">        Args:</span>
+<span class="linenos">443</span><span class="sd">          u (int): パスの端点です。</span>
+<span class="linenos">444</span><span class="sd">          v (int): パスの端点です。</span>
+<span class="linenos">445</span>
+<span class="linenos">446</span><span class="sd">        Returns:</span>
+<span class="linenos">447</span><span class="sd">          T: 求める集約値です。</span>
+<span class="linenos">448</span><span class="sd">        """</span>
+<span class="linenos">449</span>        <span class="n">head</span><span class="p">,</span> <span class="n">nodein</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">par</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos">450</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">head</span><span class="p">,</span>
+<span class="linenos">451</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">,</span>
+<span class="linenos">452</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span>
+<span class="linenos">453</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">par</span><span class="p">,</span>
+<span class="linenos">454</span>        <span class="p">)</span>
+<span class="linenos">455</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
+<span class="linenos">456</span>        <span class="k">while</span> <span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">!=</span> <span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<span class="linenos">457</span>            <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">v</span><span class="p">]]:</span>
+<span class="linenos">458</span>                <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+<span class="linenos">459</span>            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">nodein</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos">460</span>            <span class="n">u</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="n">head</span><span class="p">[</span><span class="n">u</span><span class="p">]]</span>
+<span class="linenos">461</span>        <span class="k">if</span> <span class="n">dep</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dep</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+<span class="linenos">462</span>            <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span>
+<span class="linenos">463</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">nodein</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 <span class="linenos">464</span>
-<span class="linenos">465</span><span class="sd">        Returns:</span>
-<span class="linenos">466</span><span class="sd">          T: 頂点の値です。</span>
-<span class="linenos">467</span><span class="sd">        """</span>
-<span class="linenos">468</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
-<span class="linenos">469</span>
-<span class="linenos">470</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">471</span><span class="w">        </span><span class="sd">"""頂点の値を更新します。</span>
-<span class="linenos">472</span><span class="sd">        :math:`O(\\log{n})` です。</span>
-<span class="linenos">473</span>
-<span class="linenos">474</span><span class="sd">        Args:</span>
-<span class="linenos">475</span><span class="sd">          k (int): 頂点のインデックスです。</span>
-<span class="linenos">476</span><span class="sd">          v (T): 更新する値です。</span>
-<span class="linenos">477</span><span class="sd">        """</span>
-<span class="linenos">478</span>        <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v</span>
-<span class="linenos">479</span>
-<span class="linenos">480</span>    <span class="fm">__getitem__</span> <span class="o">=</span> <span class="n">get</span>
-<span class="linenos">481</span>    <span class="fm">__setitem__</span> <span class="o">=</span> <span class="nb">set</span>
-<span class="linenos">482</span>
-<span class="linenos">483</span>    <span class="k">def</span> <span class="nf">subtree_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">484</span><span class="w">        </span><span class="sd">"""部分木の集約値を返します。</span>
-<span class="linenos">485</span><span class="sd">        :math:`O(\\log{n})` です。</span>
+<span class="linenos">465</span>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">466</span><span class="w">        </span><span class="sd">"""頂点の値を返します。</span>
+<span class="linenos">467</span><span class="sd">        :math:`O(\\log{n})` です。</span>
+<span class="linenos">468</span>
+<span class="linenos">469</span><span class="sd">        Args:</span>
+<span class="linenos">470</span><span class="sd">          k (int): 頂点のインデックスです。</span>
+<span class="linenos">471</span>
+<span class="linenos">472</span><span class="sd">        Returns:</span>
+<span class="linenos">473</span><span class="sd">          T: 頂点の値です。</span>
+<span class="linenos">474</span><span class="sd">        """</span>
+<span class="linenos">475</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+<span class="linenos">476</span>
+<span class="linenos">477</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">478</span><span class="w">        </span><span class="sd">"""頂点の値を更新します。</span>
+<span class="linenos">479</span><span class="sd">        :math:`O(\\log{n})` です。</span>
+<span class="linenos">480</span>
+<span class="linenos">481</span><span class="sd">        Args:</span>
+<span class="linenos">482</span><span class="sd">          k (int): 頂点のインデックスです。</span>
+<span class="linenos">483</span><span class="sd">          v (T): 更新する値です。</span>
+<span class="linenos">484</span><span class="sd">        """</span>
+<span class="linenos">485</span>        <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v</span>
 <span class="linenos">486</span>
-<span class="linenos">487</span><span class="sd">        Args:</span>
-<span class="linenos">488</span><span class="sd">          v (int): 根とする頂点です。</span>
+<span class="linenos">487</span>    <span class="fm">__getitem__</span> <span class="o">=</span> <span class="n">get</span>
+<span class="linenos">488</span>    <span class="fm">__setitem__</span> <span class="o">=</span> <span class="nb">set</span>
 <span class="linenos">489</span>
-<span class="linenos">490</span><span class="sd">        Returns:</span>
-<span class="linenos">491</span><span class="sd">          T: 求める集約値です。</span>
-<span class="linenos">492</span><span class="sd">        """</span>
-<span class="linenos">493</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodeout</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+<span class="linenos">490</span>    <span class="k">def</span> <span class="nf">subtree_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">491</span><span class="w">        </span><span class="sd">"""部分木の集約値を返します。</span>
+<span class="linenos">492</span><span class="sd">        :math:`O(\\log{n})` です。</span>
+<span class="linenos">493</span>
+<span class="linenos">494</span><span class="sd">        Args:</span>
+<span class="linenos">495</span><span class="sd">          v (int): 根とする頂点です。</span>
+<span class="linenos">496</span>
+<span class="linenos">497</span><span class="sd">        Returns:</span>
+<span class="linenos">498</span><span class="sd">          T: 求める集約値です。</span>
+<span class="linenos">499</span><span class="sd">        """</span>
+<span class="linenos">500</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodein</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">hld</span><span class="o">.</span><span class="n">nodeout</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>

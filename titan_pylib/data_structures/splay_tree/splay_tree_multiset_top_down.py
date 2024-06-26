@@ -2,7 +2,6 @@ from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.my_class.ordered_multiset_interface import OrderedMultisetInterface
 from array import array
 from typing import Optional, Generic, Iterable, Sequence, TypeVar
-from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -23,8 +22,8 @@ class SplayTreeMultisetTopDown(OrderedMultisetInterface, Generic[T]):
             self._build(a)
 
     def _rle(self, a: Sequence[T]) -> tuple[list[T], list[int]]:
-        x = newlist_hint(len(a))
-        y = newlist_hint(len(a))
+        x = []
+        y = []
         x.append(a[0])
         y.append(1)
         for i, e in enumerate(a):

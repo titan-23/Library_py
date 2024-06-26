@@ -236,6 +236,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D.html">dynamic_fenwick_tree_2D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree.html">fenwick_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D.html">fenwick_tree_2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D_RAQ.html">fenwick_tree_2D_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ.html">fenwick_tree_RAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst.html">fenwick_tree_abst</a></li>
 </ul>
@@ -411,12 +412,14 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bfs.html">bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.cartesian_tree.html">cartesian_tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
@@ -531,183 +534,277 @@
 <span class="linenos"> 13</span>        <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
 <span class="linenos"> 14</span>    <span class="n">d</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">ext_gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
 <span class="linenos"> 15</span>    <span class="n">y</span> <span class="o">-=</span> <span class="n">a</span> <span class="o">//</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span>
-<span class="linenos"> 16</span>    <span class="k">return</span> <span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
-<span class="linenos"> 17</span>
-<span class="linenos"> 18</span>
-<span class="linenos"> 19</span><span class="k">def</span> <span class="nf">linear_indeterminate_equation</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-<span class="linenos"> 20</span><span class="w">    </span><span class="sd">"""`ax + by = c` の整数解を返す"""</span>
-<span class="linenos"> 21</span>    <span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ext_gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="linenos"> 22</span>    <span class="k">if</span> <span class="n">c</span> <span class="o">%</span> <span class="n">g</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 23</span>        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-<span class="linenos"> 24</span>    <span class="n">c</span> <span class="o">//=</span> <span class="n">g</span>
-<span class="linenos"> 25</span>    <span class="k">return</span> <span class="n">g</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="n">c</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">c</span>
-<span class="linenos"> 26</span>
-<span class="linenos"> 27</span>
-<span class="linenos"> 28</span><span class="k">def</span> <span class="nf">crt</span><span class="p">(</span><span class="n">B</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">M</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-<span class="linenos"> 29</span><span class="w">    </span><span class="sd">"""中国剰余定理 / O(nlog(lcm(M)))</span>
-<span class="linenos"> 30</span><span class="sd">    ```</span>
-<span class="linenos"> 31</span><span class="sd">    a = B[0] (mod M[0])</span>
-<span class="linenos"> 32</span><span class="sd">    a = B[1] (mod M[1])</span>
-<span class="linenos"> 33</span><span class="sd">    ...</span>
+<span class="linenos"> 16</span>    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 17</span>        <span class="n">x</span> <span class="o">+=</span> <span class="n">b</span> <span class="o">//</span> <span class="n">d</span>
+<span class="linenos"> 18</span>        <span class="n">y</span> <span class="o">-=</span> <span class="n">a</span> <span class="o">//</span> <span class="n">d</span>
+<span class="linenos"> 19</span>    <span class="c1"># assert a * x + b * y == d</span>
+<span class="linenos"> 20</span>    <span class="k">return</span> <span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="linenos"> 21</span>
+<span class="linenos"> 22</span>
+<span class="linenos"> 23</span><span class="k">def</span> <span class="nf">linear_indeterminate_equation</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="linenos"> 24</span><span class="w">    </span><span class="sd">"""`ax + by = c` の整数解を返す"""</span>
+<span class="linenos"> 25</span>    <span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ext_gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="linenos"> 26</span>    <span class="k">if</span> <span class="n">c</span> <span class="o">%</span> <span class="n">g</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 27</span>        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+<span class="linenos"> 28</span>    <span class="n">c</span> <span class="o">//=</span> <span class="n">g</span>
+<span class="linenos"> 29</span>    <span class="k">return</span> <span class="n">g</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="n">c</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="n">c</span>
+<span class="linenos"> 30</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span><span class="k">def</span> <span class="nf">crt</span><span class="p">(</span><span class="n">B</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">M</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="linenos"> 33</span><span class="w">    </span><span class="sd">"""中国剰余定理 / O(nlog(lcm(M)))</span>
 <span class="linenos"> 34</span><span class="sd">    ```</span>
-<span class="linenos"> 35</span>
-<span class="linenos"> 36</span><span class="sd">    となるような、 `a = r (mod lcm(M))` を返す</span>
-<span class="linenos"> 37</span>
-<span class="linenos"> 38</span>
-<span class="linenos"> 39</span><span class="sd">    Returns:</span>
-<span class="linenos"> 40</span><span class="sd">        tuple[int, int]: `m = -1` のとき解なし。</span>
-<span class="linenos"> 41</span><span class="sd">    """</span>
-<span class="linenos"> 42</span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
-<span class="linenos"> 43</span>    <span class="n">r</span><span class="p">,</span> <span class="n">lcm</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
-<span class="linenos"> 44</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)):</span>
-<span class="linenos"> 45</span>        <span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ext_gcd</span><span class="p">(</span><span class="n">lcm</span><span class="p">,</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="linenos"> 46</span>        <span class="k">if</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">%</span> <span class="n">d</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 47</span>            <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos"> 48</span>        <span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">//</span> <span class="n">d</span> <span class="o">*</span> <span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">//</span> <span class="n">d</span><span class="p">)</span>
-<span class="linenos"> 49</span>        <span class="n">r</span> <span class="o">+=</span> <span class="n">lcm</span> <span class="o">*</span> <span class="n">tmp</span>
-<span class="linenos"> 50</span>        <span class="n">lcm</span> <span class="o">*=</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">//</span> <span class="n">d</span>
-<span class="linenos"> 51</span>    <span class="k">return</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">lcm</span><span class="p">)</span>
-<span class="linenos"> 52</span>
-<span class="linenos"> 53</span>
-<span class="linenos"> 54</span><span class="kn">import</span> <span class="nn">math</span>
-<span class="linenos"> 55</span>
+<span class="linenos"> 35</span><span class="sd">    a = B[0] (mod M[0])</span>
+<span class="linenos"> 36</span><span class="sd">    a = B[1] (mod M[1])</span>
+<span class="linenos"> 37</span><span class="sd">    ...</span>
+<span class="linenos"> 38</span><span class="sd">    ```</span>
+<span class="linenos"> 39</span>
+<span class="linenos"> 40</span><span class="sd">    となるような、 `a = r (mod lcm(M))` を返す</span>
+<span class="linenos"> 41</span>
+<span class="linenos"> 42</span>
+<span class="linenos"> 43</span><span class="sd">    Returns:</span>
+<span class="linenos"> 44</span><span class="sd">        tuple[int, int]: `m = -1` のとき解なし。</span>
+<span class="linenos"> 45</span><span class="sd">    """</span>
+<span class="linenos"> 46</span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="linenos"> 47</span>    <span class="n">r</span><span class="p">,</span> <span class="n">lcm</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="linenos"> 48</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)):</span>
+<span class="linenos"> 49</span>        <span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ext_gcd</span><span class="p">(</span><span class="n">lcm</span><span class="p">,</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="linenos"> 50</span>        <span class="k">if</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">%</span> <span class="n">d</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 51</span>            <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos"> 52</span>        <span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">//</span> <span class="n">d</span> <span class="o">*</span> <span class="n">x</span> <span class="o">%</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">//</span> <span class="n">d</span><span class="p">)</span>
+<span class="linenos"> 53</span>        <span class="n">r</span> <span class="o">+=</span> <span class="n">lcm</span> <span class="o">*</span> <span class="n">tmp</span>
+<span class="linenos"> 54</span>        <span class="n">lcm</span> <span class="o">*=</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">//</span> <span class="n">d</span>
+<span class="linenos"> 55</span>    <span class="k">return</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">lcm</span><span class="p">)</span>
 <span class="linenos"> 56</span>
-<span class="linenos"> 57</span><span class="k">def</span> <span class="nf">lcm</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 58</span>    <span class="k">return</span> <span class="n">a</span> <span class="o">//</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span>
+<span class="linenos"> 57</span>
+<span class="linenos"> 58</span><span class="kn">import</span> <span class="nn">math</span>
 <span class="linenos"> 59</span>
 <span class="linenos"> 60</span>
-<span class="linenos"> 61</span><span class="k">def</span> <span class="nf">lcm_mul</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 62</span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
-<span class="linenos"> 63</span>    <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos"> 64</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
-<span class="linenos"> 65</span>        <span class="n">ans</span> <span class="o">=</span> <span class="n">lcm</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-<span class="linenos"> 66</span>    <span class="k">return</span> <span class="n">ans</span>
-<span class="linenos"> 67</span>
-<span class="linenos"> 68</span>
-<span class="linenos"> 69</span><span class="k">def</span> <span class="nf">totient_function</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 70</span><span class="w">    </span><span class="sd">"""1からnまでの自然数の中で、nと互いに素なものの個数 / O(√N)"""</span>
-<span class="linenos"> 71</span>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span>
-<span class="linenos"> 72</span>    <span class="n">ans</span> <span class="o">=</span> <span class="n">n</span>
-<span class="linenos"> 73</span>    <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="linenos"> 74</span>    <span class="k">while</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
-<span class="linenos"> 75</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 76</span>            <span class="n">ans</span> <span class="o">-=</span> <span class="n">ans</span> <span class="o">//</span> <span class="n">i</span>
-<span class="linenos"> 77</span>            <span class="k">while</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos"> 78</span>                <span class="n">n</span> <span class="o">//=</span> <span class="n">i</span>
-<span class="linenos"> 79</span>        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos"> 80</span>    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos"> 81</span>        <span class="n">ans</span> <span class="o">-=</span> <span class="n">ans</span> <span class="o">//</span> <span class="n">n</span>
-<span class="linenos"> 82</span>    <span class="k">return</span> <span class="n">ans</span>
-<span class="linenos"> 83</span>
-<span class="linenos"> 84</span>
-<span class="linenos"> 85</span><span class="n">mod</span> <span class="o">=</span> <span class="s2">"998244353"</span>
-<span class="linenos"> 86</span>
+<span class="linenos"> 61</span><span class="k">def</span> <span class="nf">lcm</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 62</span>    <span class="k">return</span> <span class="n">a</span> <span class="o">//</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span>
+<span class="linenos"> 63</span>
+<span class="linenos"> 64</span>
+<span class="linenos"> 65</span><span class="k">def</span> <span class="nf">lcm_mul</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 66</span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="linenos"> 67</span>    <span class="n">ans</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos"> 68</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+<span class="linenos"> 69</span>        <span class="n">ans</span> <span class="o">=</span> <span class="n">lcm</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="linenos"> 70</span>    <span class="k">return</span> <span class="n">ans</span>
+<span class="linenos"> 71</span>
+<span class="linenos"> 72</span>
+<span class="linenos"> 73</span><span class="k">def</span> <span class="nf">totient_function</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 74</span><span class="w">    </span><span class="sd">"""1からnまでの自然数の中で、nと互いに素なものの個数 / O(√N)"""</span>
+<span class="linenos"> 75</span>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="linenos"> 76</span>    <span class="n">ans</span> <span class="o">=</span> <span class="n">n</span>
+<span class="linenos"> 77</span>    <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="linenos"> 78</span>    <span class="k">while</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
+<span class="linenos"> 79</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 80</span>            <span class="n">ans</span> <span class="o">-=</span> <span class="n">ans</span> <span class="o">//</span> <span class="n">i</span>
+<span class="linenos"> 81</span>            <span class="k">while</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos"> 82</span>                <span class="n">n</span> <span class="o">//=</span> <span class="n">i</span>
+<span class="linenos"> 83</span>        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos"> 84</span>    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos"> 85</span>        <span class="n">ans</span> <span class="o">-=</span> <span class="n">ans</span> <span class="o">//</span> <span class="n">n</span>
+<span class="linenos"> 86</span>    <span class="k">return</span> <span class="n">ans</span>
 <span class="linenos"> 87</span>
-<span class="linenos"> 88</span><span class="k">def</span> <span class="nf">fastpow</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos"> 89</span>    <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos"> 90</span>    <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
-<span class="linenos"> 91</span>        <span class="k">if</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos"> 92</span>            <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">mod</span>
-<span class="linenos"> 93</span>        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">mod</span>
-<span class="linenos"> 94</span>        <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
-<span class="linenos"> 95</span>    <span class="k">return</span> <span class="n">res</span>
-<span class="linenos"> 96</span>
-<span class="linenos"> 97</span>
-<span class="linenos"> 98</span><span class="k">def</span> <span class="nf">modinv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
-<span class="linenos"> 99</span>    <span class="n">b</span> <span class="o">=</span> <span class="n">mod</span>
-<span class="linenos">100</span>    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
-<span class="linenos">101</span>    <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
-<span class="linenos">102</span>        <span class="n">k</span> <span class="o">=</span> <span class="n">a</span> <span class="o">//</span> <span class="n">b</span>
-<span class="linenos">103</span>        <span class="n">x</span> <span class="o">-=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">u</span>
-<span class="linenos">104</span>        <span class="n">y</span> <span class="o">-=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">v</span>
-<span class="linenos">105</span>        <span class="n">x</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span>
-<span class="linenos">106</span>        <span class="n">y</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">y</span>
-<span class="linenos">107</span>        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span>
-<span class="linenos">108</span>    <span class="n">x</span> <span class="o">%=</span> <span class="n">mod</span>
-<span class="linenos">109</span>    <span class="k">return</span> <span class="n">x</span>
-<span class="linenos">110</span>
-<span class="linenos">111</span>
-<span class="linenos">112</span><span class="k">def</span> <span class="nf">isqrt</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">113</span>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span>
-<span class="linenos">114</span>    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">115</span>        <span class="k">return</span> <span class="mi">0</span>
-<span class="linenos">116</span>    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
-<span class="linenos">117</span>    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">n</span> <span class="o">//</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
-<span class="linenos">118</span>    <span class="k">while</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
-<span class="linenos">119</span>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">n</span> <span class="o">//</span> <span class="n">y</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
-<span class="linenos">120</span>    <span class="k">return</span> <span class="n">x</span>
-<span class="linenos">121</span>
-<span class="linenos">122</span>
-<span class="linenos">123</span><span class="s2">"Return LCM % mod"</span>
-<span class="linenos">124</span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
-<span class="linenos">125</span><span class="kn">from</span> <span class="nn">titan_pylib.math.divisors</span> <span class="kn">import</span> <span class="n">Divs</span>
+<span class="linenos"> 88</span>
+<span class="linenos"> 89</span><span class="n">mod</span> <span class="o">=</span> <span class="s2">"998244353"</span>
+<span class="linenos"> 90</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="k">def</span> <span class="nf">fastpow</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 93</span>    <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos"> 94</span>    <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
+<span class="linenos"> 95</span>        <span class="k">if</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos"> 96</span>            <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">mod</span>
+<span class="linenos"> 97</span>        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">%</span> <span class="n">mod</span>
+<span class="linenos"> 98</span>        <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+<span class="linenos"> 99</span>    <span class="k">return</span> <span class="n">res</span>
+<span class="linenos">100</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="k">def</span> <span class="nf">modinv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+<span class="linenos">103</span>    <span class="n">b</span> <span class="o">=</span> <span class="n">mod</span>
+<span class="linenos">104</span>    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="linenos">105</span>    <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
+<span class="linenos">106</span>        <span class="n">k</span> <span class="o">=</span> <span class="n">a</span> <span class="o">//</span> <span class="n">b</span>
+<span class="linenos">107</span>        <span class="n">x</span> <span class="o">-=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">u</span>
+<span class="linenos">108</span>        <span class="n">y</span> <span class="o">-=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">v</span>
+<span class="linenos">109</span>        <span class="n">x</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="n">u</span><span class="p">,</span> <span class="n">x</span>
+<span class="linenos">110</span>        <span class="n">y</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">,</span> <span class="n">y</span>
+<span class="linenos">111</span>        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span>
+<span class="linenos">112</span>    <span class="n">x</span> <span class="o">%=</span> <span class="n">mod</span>
+<span class="linenos">113</span>    <span class="k">return</span> <span class="n">x</span>
+<span class="linenos">114</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span><span class="k">def</span> <span class="nf">isqrt</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">117</span>    <span class="k">assert</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="linenos">118</span>    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">119</span>        <span class="k">return</span> <span class="mi">0</span>
+<span class="linenos">120</span>    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+<span class="linenos">121</span>    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">n</span> <span class="o">//</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+<span class="linenos">122</span>    <span class="k">while</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+<span class="linenos">123</span>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">n</span> <span class="o">//</span> <span class="n">y</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+<span class="linenos">124</span>    <span class="k">return</span> <span class="n">x</span>
+<span class="linenos">125</span>
 <span class="linenos">126</span>
-<span class="linenos">127</span>
-<span class="linenos">128</span><span class="k">def</span> <span class="nf">lcm_mod</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Divs</span><span class="o">.</span><span class="n">Osa_k</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">129</span>    <span class="n">cou</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-<span class="linenos">130</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
-<span class="linenos">131</span>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">p_factorization</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="linenos">132</span>            <span class="n">cou</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cou</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
-<span class="linenos">133</span>    <span class="n">lcm</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos">134</span>    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cou</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="linenos">135</span>        <span class="n">lcm</span> <span class="o">*=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
-<span class="linenos">136</span>        <span class="n">lcm</span> <span class="o">%=</span> <span class="n">mod</span>
-<span class="linenos">137</span>    <span class="k">return</span> <span class="n">lcm</span> <span class="o">%</span> <span class="n">mod</span>
-<span class="linenos">138</span>
-<span class="linenos">139</span>
-<span class="linenos">140</span><span class="c1">#  -----------------------  #</span>
-<span class="linenos">141</span>
-<span class="linenos">142</span><span class="s2">"Return (a // b) % mod"</span>
-<span class="linenos">143</span><span class="s2">"O(1), mod: prime"</span>
-<span class="linenos">144</span>
+<span class="linenos">127</span><span class="s2">"Return LCM % mod"</span>
+<span class="linenos">128</span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="linenos">129</span><span class="kn">from</span> <span class="nn">titan_pylib.math.divisors</span> <span class="kn">import</span> <span class="n">Osa_k</span>
+<span class="linenos">130</span>
+<span class="linenos">131</span>
+<span class="linenos">132</span><span class="k">def</span> <span class="nf">lcm_mod</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="n">Osa_k</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">133</span>    <span class="n">cou</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="linenos">134</span>    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+<span class="linenos">135</span>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">p_factorization</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">136</span>            <span class="n">cou</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cou</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+<span class="linenos">137</span>    <span class="n">lcm</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">138</span>    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cou</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">139</span>        <span class="n">lcm</span> <span class="o">*=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
+<span class="linenos">140</span>        <span class="n">lcm</span> <span class="o">%=</span> <span class="n">mod</span>
+<span class="linenos">141</span>    <span class="k">return</span> <span class="n">lcm</span> <span class="o">%</span> <span class="n">mod</span>
+<span class="linenos">142</span>
+<span class="linenos">143</span>
+<span class="linenos">144</span><span class="c1">#  -----------------------  #</span>
 <span class="linenos">145</span>
-<span class="linenos">146</span><span class="k">def</span> <span class="nf">div_mod</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">147</span>    <span class="s2">"Return (a // b) % mod"</span>
-<span class="linenos">148</span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">%</span> <span class="n">mod</span><span class="p">)</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">mod</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span> <span class="o">%</span> <span class="n">mod</span>
+<span class="linenos">146</span><span class="s2">"Return (a // b) % mod"</span>
+<span class="linenos">147</span><span class="s2">"O(1), mod: prime"</span>
+<span class="linenos">148</span>
 <span class="linenos">149</span>
-<span class="linenos">150</span>
-<span class="linenos">151</span><span class="c1">#  -----------------------  #</span>
-<span class="linenos">152</span>
+<span class="linenos">150</span><span class="k">def</span> <span class="nf">div_mod</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">151</span>    <span class="s2">"Return (a // b) % mod"</span>
+<span class="linenos">152</span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">%</span> <span class="n">mod</span><span class="p">)</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">mod</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span> <span class="o">%</span> <span class="n">mod</span>
 <span class="linenos">153</span>
-<span class="linenos">154</span><span class="k">def</span> <span class="nf">large_pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
-<span class="linenos">155</span>    <span class="s2">"return (a^(b^c)) % mod. p: prime."</span>
-<span class="linenos">156</span>    <span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="n">mod</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">157</span>        <span class="k">return</span> <span class="mi">0</span>
-<span class="linenos">158</span>    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">pow</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">mod</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">mod</span><span class="p">)</span>
-<span class="linenos">159</span>
-<span class="linenos">160</span>
-<span class="linenos">161</span><span class="c1">#  -----------------------  #</span>
-<span class="linenos">162</span>
+<span class="linenos">154</span>
+<span class="linenos">155</span><span class="c1">#  -----------------------  #</span>
+<span class="linenos">156</span>
+<span class="linenos">157</span>
+<span class="linenos">158</span><span class="k">def</span> <span class="nf">large_pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+<span class="linenos">159</span>    <span class="s2">"return (a^(b^c)) % mod. p: prime."</span>
+<span class="linenos">160</span>    <span class="k">if</span> <span class="n">a</span> <span class="o">%</span> <span class="n">mod</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">161</span>        <span class="k">return</span> <span class="mi">0</span>
+<span class="linenos">162</span>    <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">pow</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">mod</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">mod</span><span class="p">)</span>
 <span class="linenos">163</span>
-<span class="linenos">164</span><span class="k">def</span> <span class="nf">mat_mul</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="linenos">165</span>    <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="linenos">166</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="linenos">167</span>    <span class="k">assert</span> <span class="n">m</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
-<span class="linenos">168</span>    <span class="k">return</span> <span class="p">[</span>
-<span class="linenos">169</span>        <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)])</span> <span class="o">%</span> <span class="n">mod</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-<span class="linenos">170</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-<span class="linenos">171</span>    <span class="p">]</span>
-<span class="linenos">172</span>
-<span class="linenos">173</span>
-<span class="linenos">174</span><span class="k">def</span> <span class="nf">mat_powmod</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="linenos">175</span>    <span class="n">res</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))]</span>
-<span class="linenos">176</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span>
-<span class="linenos">177</span>        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="linenos">178</span>    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">179</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">180</span>            <span class="n">res</span> <span class="o">=</span> <span class="n">mat_mul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
-<span class="linenos">181</span>        <span class="n">A</span> <span class="o">=</span> <span class="n">mat_mul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
-<span class="linenos">182</span>        <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
-<span class="linenos">183</span>    <span class="k">return</span> <span class="n">res</span>
-<span class="linenos">184</span>
-<span class="linenos">185</span>
-<span class="linenos">186</span><span class="c1">#  -----------------------  #</span>
+<span class="linenos">164</span>
+<span class="linenos">165</span><span class="c1">#  -----------------------  #</span>
+<span class="linenos">166</span>
+<span class="linenos">167</span>
+<span class="linenos">168</span><span class="k">def</span> <span class="nf">mat_mul</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="linenos">169</span>    <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="linenos">170</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="linenos">171</span>    <span class="k">assert</span> <span class="n">m</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="linenos">172</span>    <span class="k">return</span> <span class="p">[</span>
+<span class="linenos">173</span>        <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)])</span> <span class="o">%</span> <span class="n">mod</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+<span class="linenos">174</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="linenos">175</span>    <span class="p">]</span>
+<span class="linenos">176</span>
+<span class="linenos">177</span>
+<span class="linenos">178</span><span class="k">def</span> <span class="nf">mat_powmod</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="linenos">179</span>    <span class="n">res</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))]</span>
+<span class="linenos">180</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span>
+<span class="linenos">181</span>        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">182</span>    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">183</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">184</span>            <span class="n">res</span> <span class="o">=</span> <span class="n">mat_mul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
+<span class="linenos">185</span>        <span class="n">A</span> <span class="o">=</span> <span class="n">mat_mul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
+<span class="linenos">186</span>        <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+<span class="linenos">187</span>    <span class="k">return</span> <span class="n">res</span>
+<span class="linenos">188</span>
+<span class="linenos">189</span>
+<span class="linenos">190</span><span class="c1">#  -----------------------  #</span>
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id3">
-<h2>仕様<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="module-titan_pylib.math.number">
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.math.number" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.crt">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">crt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#crt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.crt" title="Link to this definition">¶</a></dt>
+<dd><p>中国剰余定理 / O(nlog(lcm(M)))
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">a</span> <span class="pre">=</span> <span class="pre">B[0]</span> <span class="pre">(mod</span> <span class="pre">M[0])</span>
+<span class="pre">a</span> <span class="pre">=</span> <span class="pre">B[1]</span> <span class="pre">(mod</span> <span class="pre">M[1])</span>
+<span class="pre">...</span>
+<span class="pre">`</span></code></p>
+<p>となるような、 <cite>a = r (mod lcm(M))</cite> を返す</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>m = -1</cite> のとき解なし。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.div_mod">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">div_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#div_mod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.div_mod" title="Link to this definition">¶</a></dt>
+<dd><p>Return (a // b) % mod</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.ext_gcd">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">ext_gcd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#ext_gcd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.ext_gcd" title="Link to this definition">¶</a></dt>
+<dd><p>gcdと、ax + by = gcd(a, b)なるx,yを返す / O(log(min(<a href="#id4"><span class="problematic" id="id5">|a|</span></a>, <a href="#id6"><span class="problematic" id="id7">|b|</span></a>)))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>int</em>)</p></li>
+<li><p><strong>b</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(gcd, x, y)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.fastpow">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">fastpow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#fastpow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.fastpow" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.isqrt">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">isqrt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#isqrt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.isqrt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.large_pow">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">large_pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#large_pow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.large_pow" title="Link to this definition">¶</a></dt>
+<dd><p>return (a^(b^c)) % mod. p: prime.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.lcm">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">lcm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#lcm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.lcm" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.lcm_mod">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">lcm_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="titan_pylib.math.divisors.html#titan_pylib.math.divisors.Osa_k" title="titan_pylib.math.divisors.Osa_k"><span class="pre">Osa_k</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#lcm_mod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.lcm_mod" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.lcm_mul">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">lcm_mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#lcm_mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.lcm_mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.linear_indeterminate_equation">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">linear_indeterminate_equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#linear_indeterminate_equation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.linear_indeterminate_equation" title="Link to this definition">¶</a></dt>
+<dd><p><cite>ax + by = c</cite> の整数解を返す</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.mat_mul">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">mat_mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#mat_mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.mat_mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.mat_powmod">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">mat_powmod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#mat_powmod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.mat_powmod" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.modinv">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">modinv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#modinv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.modinv" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="titan_pylib.math.number.totient_function">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">totient_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/number.html#totient_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.number.totient_function" title="Link to this definition">¶</a></dt>
+<dd><p>1からnまでの自然数の中で、nと互いに素なものの個数 / O(√N)</p>
+</dd></dl>
 </section>
 </section>
 </article>
@@ -762,7 +859,23 @@
 <li><a class="reference internal" href="#id2">展開済みコード</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">仕様</a></li>
+<li><a class="reference internal" href="#module-titan_pylib.math.number">仕様</a><ul>
+<li><a class="reference internal" href="#titan_pylib.math.number.crt"><code class="docutils literal notranslate"><span class="pre">crt()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.div_mod"><code class="docutils literal notranslate"><span class="pre">div_mod()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.ext_gcd"><code class="docutils literal notranslate"><span class="pre">ext_gcd()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.fastpow"><code class="docutils literal notranslate"><span class="pre">fastpow()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.isqrt"><code class="docutils literal notranslate"><span class="pre">isqrt()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.large_pow"><code class="docutils literal notranslate"><span class="pre">large_pow()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.lcm"><code class="docutils literal notranslate"><span class="pre">lcm()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.lcm_mod"><code class="docutils literal notranslate"><span class="pre">lcm_mod()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.lcm_mul"><code class="docutils literal notranslate"><span class="pre">lcm_mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.linear_indeterminate_equation"><code class="docutils literal notranslate"><span class="pre">linear_indeterminate_equation()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.mat_mul"><code class="docutils literal notranslate"><span class="pre">mat_mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.mat_powmod"><code class="docutils literal notranslate"><span class="pre">mat_powmod()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.modinv"><code class="docutils literal notranslate"><span class="pre">modinv()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.number.totient_function"><code class="docutils literal notranslate"><span class="pre">totient_function()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -1,7 +1,6 @@
 # from titan_pylib.data_structures.b_tree.b_tree_list import BTreeList
 from collections import deque
 from typing import Generic, TypeVar, Iterable
-from __pypy__ import newlist_hint
 
 T = TypeVar("T")
 
@@ -294,7 +293,7 @@ class BTreeList(Generic[T]):
             s.sum -= key
 
     def tolist(self) -> list[T]:
-        a = newlist_hint(len(self))
+        a = []
 
         def dfs(node):
             if not node.child:

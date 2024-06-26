@@ -1,5 +1,4 @@
 from array import array
-from __pypy__ import newlist_hint
 from typing import TypeVar, Generic, Iterable
 
 T = TypeVar("T")
@@ -85,8 +84,8 @@ class RandomizedMeldableHeap(Generic[T]):
 
     def tolist(self) -> list[T]:
         node = self.root
-        stack = newlist_hint(len(self))
-        res = newlist_hint(len(self))
+        stack = []
+        res = []
         child = RandomizedMeldableHeap.child
         keys = RandomizedMeldableHeap.keys
         while stack or node:

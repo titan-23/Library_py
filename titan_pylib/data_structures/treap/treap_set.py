@@ -229,7 +229,7 @@ class TreapSet(OrderedSetInterface, Generic[T]):
         self.root = None
 
     def tolist(self) -> list[T]:
-        return BSTSetNodeBase[T, TreapSet.Node].tolist(self.root, len(self))
+        return BSTSetNodeBase[T, TreapSet.Node].tolist(self.root)
 
     def __iter__(self):
         self._it = self.get_min()

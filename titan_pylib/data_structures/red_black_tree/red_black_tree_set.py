@@ -473,7 +473,7 @@ class RedBlackTreeSet(OrderedSetInterface, Generic[T]):
         return None
 
     def tolist(self) -> list[T]:
-        return BSTSetNodeBase[T, RedBlackTreeSet.Node].tolist(self.node, len(self))
+        return BSTSetNodeBase[T, RedBlackTreeSet.Node].tolist(self.node)
 
     def pop_max(self) -> T:
         assert self.node, f"IndexError: pop_max() from empty {self.__class__.__name__}."

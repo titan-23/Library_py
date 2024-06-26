@@ -11,6 +11,7 @@ Submodules
    titan_pylib.data_structures.fenwick_tree.dynamic_fenwick_tree_2D
    titan_pylib.data_structures.fenwick_tree.fenwick_tree
    titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D
+   titan_pylib.data_structures.fenwick_tree.fenwick_tree_2D_RAQ
    titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ
    titan_pylib.data_structures.fenwick_tree.fenwick_tree_abst
 

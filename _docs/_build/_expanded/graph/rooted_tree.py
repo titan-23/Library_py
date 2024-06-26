@@ -1,7 +1,4 @@
 # from titan_pylib.graph.rooted_tree import RootedTree
-from __pypy__ import newlist_hint
-
-
 class RootedTree:
 
     def __init__(
@@ -48,7 +45,7 @@ class RootedTree:
         _G, _root = self._G, self._root
         _dist = [-1] * self._n
         _dist[_root] = 0
-        _toposo = newlist_hint(self._n)
+        _toposo = []
         _toposo.append(_root)
         todo = [_root]
         while todo:
@@ -82,27 +79,23 @@ class RootedTree:
         self._child = _child
         self._parents = _parents
 
-    """Return dist from root. / O(N)"""
-
     def get_dists(self) -> list[int]:
+        """Return dist from root. / O(N)"""
         return self._dist
 
-    """Return toposo. / O(N)"""
-
     def get_toposo(self) -> list[int]:
+        """Return toposo. / O(N)"""
         return self._toposo
 
-    """Return height. / O(N)"""
-
     def get_height(self) -> int:
+        """Return height. / O(N)"""
         if self._height > -1:
             return self._height
         self._height = max(self._dist)
         return self._height
 
-    """Return descendant_num. / O(N)"""
-
     def get_descendant_num(self) -> list[int]:
+        """Return descendant_num. / O(N)"""
         if self._descendant_num:
             return self._descendant_num
         _G, _dist = self._G, self._dist
@@ -117,33 +110,29 @@ class RootedTree:
         self._descendant_num = _descendant_num
         return self._descendant_num
 
-    """Return child / O(N)"""
-
     def get_child(self) -> list[list[int]]:
+        """Return child / O(N)"""
         if self._child:
             return self._child
         self._calc_child_parents()
         return self._child
 
-    """Return child_num. / O(N)"""
-
     def get_child_num(self) -> list[int]:
+        """Return child_num. / O(N)"""
         if self._child_num:
             return self._child_num
         self._calc_child_parents()
         return self._child_num
 
-    """Return parents. / O(N)"""
-
     def get_parents(self) -> list[int]:
+        """Return parents. / O(N)"""
         if self._parents:
             return self._parents
         self._calc_child_parents()
         return self._parents
 
-    """Return diameter of tree. (diameter, start, stop) / O(N)"""
-
     def get_diameter(self) -> tuple[int, int, int]:
+        """Return diameter of tree. (diameter, start, stop) / O(N)"""
         if self._diameter[0] > -1:
             return self._diameter
         s = self._dist.index(self.get_height())
@@ -163,9 +152,8 @@ class RootedTree:
         self._diameter = (diameter, s, t)
         return self._diameter
 
-    """Return [1 if root else 0]. / O(N)"""
-
     def get_bipartite_graph(self) -> list[int]:
+        """Return [1 if root else 0]. / O(N)"""
         if self._bipartite_graph:
             return self._bipartite_graph
         self._bipartite_graph = [-1] * self._n
@@ -195,9 +183,8 @@ class RootedTree:
                 else:
                     _doubling[k + 1][v] = _doubling[k][_doubling[k][v]]
 
-    """Return LCA of (u, v). / O(logN)"""
-
     def get_lca(self, u: int, v: int) -> int:
+        """Return LCA of (u, v). / O(logN)"""
         assert (
             self._lca
         ), f"Error: {self.__class__.__name__}.get_lca({u}, {v}), `lca` must be True"
@@ -216,21 +203,18 @@ class RootedTree:
                 v = _doubling[k][v]
         return _doubling[0][u]
 
-    """Return dist(u -> v). / O(logN)"""
-
     def get_dist(self, u: int, v: int, vertex: bool = False) -> int:
+        """Return dist(u -> v). / O(logN)"""
         return (
             self._dist[u] + self._dist[v] - 2 * self._dist[self.get_lca(u, v)] + vertex
         )
 
-    """Return True if (a is on path(u - v)) else False. / O(logN)"""
-
     def is_on_path(self, u: int, v: int, a: int) -> bool:
+        """Return True if (a is on path(u - v)) else False. / O(logN)"""
         return self.get_dist(u, a) + self.get_dist(a, v) == self.get_dist(u, v)
 
-    """Return path (u -> v). / O(logN + |path|)"""
-
     def get_path(self, u: int, v: int) -> list[int]:
+        """Return path (u -> v). / O(logN + |path|)"""
         assert self._lca, f"{self.__class__.__name__}.get_path(), `lca` must be True"
         if u == v:
             return [u]

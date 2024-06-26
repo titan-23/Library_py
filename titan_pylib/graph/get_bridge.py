@@ -12,7 +12,7 @@ def get_bridge(G: list[list[int]]) -> tuple[list[int], list[tuple[int, int]]]:
     cur_time = 0
 
     @antirec
-    def dfs(v: int, p: int = -1) -> None:
+    def dfs(v: int, p: int = -1):
         nonlocal cur_time
         order[v] = cur_time
         lowlink[v] = cur_time

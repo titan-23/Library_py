@@ -100,7 +100,6 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from array import array
-from __pypy__ import newlist_hint
 from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -438,7 +437,7 @@ class SplayTreeSet(OrderedSetInterface, Generic[T]):
     def tolist(self) -> list[T]:
         node = self.node
         child, keys = self.child, self.keys
-        stack, res = newlist_hint(len(self)), newlist_hint(len(self))
+        stack, res = [], []
         while stack or node:
             if node:
                 stack.append(node)

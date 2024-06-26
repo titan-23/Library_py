@@ -21,7 +21,7 @@ class PersistentArray(Generic[T]):
 
     def __init__(
         self, a: Iterable[T] = [], _root: Optional["PersistentArray._Node"] = None
-    ):
+    ) -> None:
         self.root = self._build(a) if _root is None else _root
 
     def _build(self, a: Iterable[T]) -> Optional["PersistentArray._Node"]:

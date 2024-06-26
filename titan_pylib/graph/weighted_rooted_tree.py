@@ -1,6 +1,3 @@
-from __pypy__ import newlist_hint
-
-
 class WeightedRootedTree:
 
     def __init__(
@@ -56,7 +53,7 @@ class WeightedRootedTree:
         _rank = [-1] * self._n
         _dist[_root] = 0
         _rank[_root] = 0
-        _toposo = newlist_hint(self._n)
+        _toposo = []
         _toposo.append(_root)
         todo = [_root]
         while todo:

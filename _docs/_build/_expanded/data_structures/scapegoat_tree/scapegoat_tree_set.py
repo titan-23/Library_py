@@ -100,7 +100,6 @@ class OrderedSetInterface(ABC, Generic[T]):
         raise NotImplementedError
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 # from titan_pylib.data_structures.bst_base.bst_set_node_base import BSTSetNodeBase
-from __pypy__ import newlist_hint
 from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
@@ -226,9 +225,9 @@ class BSTSetNodeBase(Generic[T, Node]):
         return k
 
     @staticmethod
-    def tolist(node: Node, _len: int = 0) -> list[T]:
+    def tolist(node: Node) -> list[T]:
         stack = []
-        res = newlist_hint(_len)
+        res = []
         while stack or node:
             if node:
                 stack.append(node)
@@ -254,7 +253,6 @@ class BSTSetNodeBase(Generic[T, Node]):
                 k -= t + 1
 import math
 from typing import Final, Iterator, TypeVar, Generic, Iterable, Optional
-from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -320,7 +318,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
                 node.right = None
             return node
 
-        a = newlist_hint(node.size)
+        a = []
         stack = []
         while stack or node:
             if node:
@@ -474,7 +472,7 @@ class ScapegoatTreeSet(OrderedSetInterface, Generic[T]):
         self.root = None
 
     def tolist(self) -> list[T]:
-        return BSTSetNodeBase[T, ScapegoatTreeSet.Node].tolist(self.root, len(self))
+        return BSTSetNodeBase[T, ScapegoatTreeSet.Node].tolist(self.root)
 
     def get_min(self) -> T:
         return self[0]

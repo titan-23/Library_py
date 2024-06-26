@@ -1,4 +1,3 @@
-from __pypy__ import newlist_hint
 from typing import TypeVar, Generic, Optional
 
 T = TypeVar("T")
@@ -164,7 +163,7 @@ class BSTMultisetArrayBase(Generic[BST, T]):
     def tolist(bst: BST) -> list[T]:
         left, right, keys, vals = bst.left, bst.right, bst.key, bst.val
         node = bst.root
-        stack, a = [], newlist_hint(len(bst))
+        stack, a = [], []
         while stack or node:
             if node:
                 stack.append(node)

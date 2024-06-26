@@ -353,6 +353,13 @@ class HLD:
             if head[u] == head[v]:
                 return u
             v = par[head[v]]
+
+    def dist(self, u: int, v: int) -> int:
+        return self.dep[u] + self.dep[v] - 2 * self.dep[self.lca(u, v)]
+
+    def is_on_path(self, u: int, v: int, a: int) -> bool:
+        """Return True if (a is on path(u - v)) else False. / O(logN)"""
+        return self.dist(u, a) + self.dist(a, v) == self.dist(u, v)
 from typing import Union, Iterable, Callable, TypeVar, Generic
 
 T = TypeVar("T")

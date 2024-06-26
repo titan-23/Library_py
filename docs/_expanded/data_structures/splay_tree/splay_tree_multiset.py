@@ -7,7 +7,6 @@ class SupportsLessThan(Protocol):
 
     def __lt__(self, other) -> bool: ...
 import sys
-from __pypy__ import newlist_hint
 from typing import Iterator, Optional, Generic, Iterable, TypeVar
 
 T = TypeVar("T", bound=SupportsLessThan)
@@ -54,8 +53,8 @@ class SplayTreeMultiset(Generic[T]):
         self.root = sort(0, len(key))
 
     def _rle(self, a: list[T]) -> tuple[list[T], list[int]]:
-        x = newlist_hint(len(a))
-        y = newlist_hint(len(a))
+        x = []
+        y = []
         x.append(a[0])
         y.append(1)
         for i, e in enumerate(a):

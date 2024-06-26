@@ -1,6 +1,5 @@
 # from titan_pylib.data_structures.splay_tree.splay_tree_list import SplayTreeList
 from typing import Generic, TypeVar, Iterable, Optional
-from __pypy__ import newlist_hint
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -269,7 +268,7 @@ class SplayTreeList(Generic[T, F]):
     def tolist(self) -> list[T]:
         node = self.root
         stack = []
-        a = newlist_hint(len(self))
+        a = []
         while stack or node:
             if node:
                 self._propagate(node)
