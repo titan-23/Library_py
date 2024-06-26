@@ -24,12 +24,8 @@ def topological_sort_min(G: list[list[int]]) -> list[int]:
     return ret
 
 
-from typing import list
-
-"""Return topological_sort. / O(|V|+|E|)"""
-
-
 def topological_sort(G: list[list[int]]) -> list[int]:
+    """Return topological_sort. / O(|V|+|E|)"""
     n = len(G)
     d = [0] * n
     outs = [[] for _ in range(n)]

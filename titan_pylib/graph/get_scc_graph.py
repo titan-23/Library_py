@@ -1,7 +1,10 @@
 from titan_pylib.others.antirec import antirec
 
 
-def get_scc_lowlink(G: list[list[int]]) -> list[list[int]]:
+def get_scc_graph(G: list[list[int]]):
+    """
+    scc, 頂点を縮約した隣接リスト, もとの頂点->新たなグラフの頂点
+    """
     n = len(G)
     stack = [0] * n
     ptr = 0
@@ -43,4 +46,11 @@ def get_scc_lowlink(G: list[list[int]]) -> list[list[int]]:
     groups = [[] for _ in range(group_cnt)]
     for v in range(n):
         groups[group_cnt - 1 - ids[v]].append(v)
-    return groups
+
+    F = [set() for _ in range(max(ids) + 1)]
+    for v in range(n):
+        for x in G[v]:
+            if ids[v] != ids[x]:
+                F[ids[v]].add(ids[x])
+    F = [list(f) for f in F]
+    return groups, F, ids

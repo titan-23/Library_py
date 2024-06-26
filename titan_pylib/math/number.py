@@ -12,6 +12,10 @@ def ext_gcd(a: int, b: int) -> tuple[int, int, int]:
         return a, 1, 0
     d, y, x = ext_gcd(b, a % b)
     y -= a // b * x
+    if x < 0:
+        x += b // d
+        y -= a // d
+    # assert a * x + b * y == d
     return d, x, y
 
 
@@ -121,10 +125,10 @@ def isqrt(n: int) -> int:
 
 "Return LCM % mod"
 from collections import Counter
-from titan_pylib.math.divisors import Divs
+from titan_pylib.math.divisors import Osa_k
 
 
-def lcm_mod(o: Divs.Osa_k, A: list, mod: int) -> int:
+def lcm_mod(o: Osa_k, A: list, mod: int) -> int:
     cou = Counter()
     for a in A:
         for k, v in Counter(o.p_factorization(a)).items():
