@@ -35,7 +35,7 @@ def warshall_floyd(
     return dist
 
 
-from typing import list, tuple, Union
+from typing import Union
 
 """Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)"""
 
@@ -58,7 +58,7 @@ def warshall_floyd(
     return dist
 
 
-# from typing import list, tuple, Union
+# from typing import Union
 # '''Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)'''
 # def warshall_floyd(G: list[list[tuple[int, int]]], INF: Union[int, float]=float('inf')) -> list[list[Union[int, float]]]:
 #   n = len(G)
