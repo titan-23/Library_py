@@ -1,6 +1,5 @@
 from array import array
 from typing import Iterable, Union, Sequence
-from __pypy__ import newlist_hint
 
 
 # uppdatenomi
@@ -290,8 +289,8 @@ class DynamicBitVector_SplayTreeList:
     def tolist(self) -> list[int]:
         node = self.root
         arr, keydata = self.data.arr, self.data.keydata
-        stack = newlist_hint(len(self))
-        res = newlist_hint(len(self))
+        stack = []
+        res = []
         while stack or node:
             if node:
                 stack.append(node)

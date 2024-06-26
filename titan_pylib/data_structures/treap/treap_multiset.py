@@ -49,7 +49,7 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
     def _build(self, a: Iterable[T]) -> None:
         Node = TreapMultiset.Node
 
-        def sort(l: int, r: int) -> Node:
+        def sort(l: int, r: int) -> TreapMultiset.Node:
             mid = (l + r) >> 1
             node = Node(key[mid], val[mid], rand[mid])
             if l != mid:
@@ -210,12 +210,10 @@ class TreapMultiset(OrderedMultisetInterface, Generic[T]):
         )
 
     def tolist(self) -> list[T]:
-        return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist(self.root, len(self))
+        return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist(self.root)
 
     def tolist_items(self) -> list[tuple[T, int]]:
-        return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist_items(
-            self.root, self._len_elm
-        )
+        return BSTMultisetNodeBase[T, TreapMultiset.Node].tolist_items(self.root)
 
     def get_min(self) -> Optional[T]:
         return BSTMultisetNodeBase[T, TreapMultiset.Node][

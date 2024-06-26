@@ -4,7 +4,6 @@ from titan_pylib.data_structures.bst_base.bst_multiset_node_base import (
     BSTMultisetNodeBase,
 )
 from typing import Iterable, Optional, TypeVar, Generic
-from __pypy__ import newlist_hint
 
 T = TypeVar("T", bound=SupportsLessThan)
 
@@ -486,8 +485,8 @@ class RedBlackTreeMultiset(OrderedMultisetInterface, Generic[T]):
 
     def tolist(self) -> list[T]:
         node = self.node
-        stack = newlist_hint(len(self))
-        res = newlist_hint(len(self))
+        stack = []
+        res = []
         while stack or node:
             if node:
                 stack.append(node)

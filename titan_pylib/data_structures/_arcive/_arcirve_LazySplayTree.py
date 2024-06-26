@@ -1,5 +1,4 @@
 from typing import Generic, Union, TypeVar, Callable, Iterable, Optional
-from __pypy__ import newlist_hint
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -51,7 +50,7 @@ class LazySplayTree(Generic[T, F]):
         Node = self.Node
         id = self.id
 
-        def build(l: int, r: int) -> Node:
+        def build(l: int, r: int) -> self.Node:
             mid = (l + r) >> 1
             node = Node(a[mid], id)
             if l != mid:
@@ -346,7 +345,7 @@ class LazySplayTree(Generic[T, F]):
 
     def tolist(self) -> list[T]:
         node = self.root
-        stack, res = [], newlist_hint(len(self))
+        stack, res = [], []
         while stack or node:
             if node:
                 self._propagate(node)

@@ -1,4 +1,3 @@
-from __pypy__ import newlist_hint
 from typing import Generic, Iterable, TypeVar, Optional
 
 T = TypeVar("T")
@@ -25,7 +24,7 @@ class SplayTreeSet(Generic[T]):
     def _build(self, a: list[T]) -> None:
         Node = self.Node
 
-        def build(l: int, r: int) -> Node:
+        def build(l: int, r: int) -> self.Node:
             mid = (l + r) >> 1
             node = Node(a[mid])
             if l != mid:
@@ -317,7 +316,7 @@ class SplayTreeSet(Generic[T]):
 
     def tolist(self) -> list[T]:
         node = self.root
-        res = newlist_hint(len(self))
+        res = []
         stack = []
         while stack or node:
             if node:

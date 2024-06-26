@@ -1,5 +1,4 @@
 from typing import Generic, Union, TypeVar, Callable, Iterable, Optional
-from __pypy__ import newlist_hint
 
 T = TypeVar("T")
 F = TypeVar("F")
@@ -455,7 +454,7 @@ class LazySplayTree(Generic[T, F]):
         """
         node = self.root
         stack = []
-        a = newlist_hint(len(self))
+        a = []
         while stack or node:
             if node:
                 self._propagate(node)
