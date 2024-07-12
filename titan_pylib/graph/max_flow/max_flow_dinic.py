@@ -1,11 +1,14 @@
 from collections import deque
+from titan_pylib.others.antirec import antirec
 
 
 class MaxFlowDinic:
+    """mf.G[v]:= [x, cap, ind, flow]"""
 
     def __init__(self, n: int):
         self.n: int = n
         self.G: list[list[list[int]]] = [[] for _ in range(n)]
+        self.level = [-1] * n
 
     def add_edge(self, u: int, v: int, w: int) -> None:
         assert (
@@ -16,34 +19,42 @@ class MaxFlowDinic:
         ), f"Indexerror: {self.__class__.__name__}.add_edge({u}, {v})"
         G_u = len(self.G[u])
         G_v = len(self.G[v])
-        self.G[u].append([v, w, G_v])
-        self.G[v].append([u, 0, G_u])
+        self.G[u].append([v, w, G_v, 0])
+        self.G[v].append([u, 0, G_u, 0])
 
     def _bfs(self, s: int) -> None:
-        level = [-1] * self.n
+        level = self.level
+        for i in range(len(level)):
+            level[i] = -1
         dq = deque([s])
         level[s] = 0
         while dq:
             v = dq.popleft()
-            for x, w, _ in self.G[v]:
+            for x, w, _, _ in self.G[v]:
                 if w > 0 and level[x] == -1:
                     level[x] = level[v] + 1
                     dq.append(x)
         self.level = level
 
+    @antirec
     def _dfs(self, v: int, g: int, f: int) -> int:
         if v == g:
-            return f
-        for i in range(self.it[v], len(self.G[v])):
-            self.it[v] += 1
-            x, w, rev = self.G[v][i]
-            if w > 0 and self.level[v] < self.level[x]:
-                fv = self._dfs(x, g, min(f, w))
-                if fv > 0:
-                    self.G[v][i][1] -= fv
-                    self.G[x][rev][1] += fv
-                    return fv
-        return 0
+            yield f
+        else:
+            for i in range(self.it[v], len(self.G[v])):
+                self.it[v] += 1
+                x, w, rev, _ = self.G[v][i]
+                if w > 0 and self.level[v] < self.level[x]:
+                    fv = yield self._dfs(x, g, min(f, w))
+                    if fv > 0:
+                        self.G[v][i][3] += f
+                        self.G[x][rev][3] -= f
+                        self.G[v][i][1] -= fv
+                        self.G[x][rev][1] += fv
+                        yield fv
+                        break
+            else:
+                yield 0
 
     def max_flow(self, s: int, g: int, INF: int = 10**18) -> int:
         assert (
