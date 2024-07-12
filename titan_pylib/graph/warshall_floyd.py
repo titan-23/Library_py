@@ -5,7 +5,6 @@ def warshall_floyd(
     G: list[list[tuple[int, int]]], INF: Union[int, float] = float("inf")
 ) -> list[list[Union[int, float]]]:
     """重み付き隣接リスト ``G`` に対し、全点対最短経路を返します。
-
     :math:`O(n^3)` です。
 
     Args:

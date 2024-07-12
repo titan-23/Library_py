@@ -7,12 +7,12 @@ def bfs(
 ) -> list[Union[int, float]]:
     """
     Args:
-      G (list[list[tuple[int, int]]]): 隣接リストです。
-      s (int): 始点です。
-      inf (Union[int, float], optional): 無限大です。
+        G (list[list[tuple[int, int]]]): 隣接リストです。
+        s (int): 始点です。
+        inf (Union[int, float], optional): 無限大です。
 
     Returns:
-      list[Union[int, float]]: 始点 ``s`` からの距離です。
+        list[Union[int, float]]: 始点 ``s`` からの距離です。
     """
     dist = [inf] * len(G)
     dist[s] = 0
@@ -34,13 +34,13 @@ def bfs_path(
 ) -> tuple[list[int], list[Union[int, float]]]:
     """
     Args:
-      G (list[list[tuple[int, int]]]): 隣接リストです。
-      s (int): 始点です。
-      t (int): 終点です。
-      inf (Union[int, float], optional): 無限大です。
+        G (list[list[tuple[int, int]]]): 隣接リストです。
+        s (int): 始点です。
+        t (int): 終点です。
+        inf (Union[int, float], optional): 無限大です。
 
     Returns:
-      tuple[list[int], list[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。
+        tuple[list[int], list[Union[int, float]]]: ``s`` から ``t`` へのパスと、 ``s`` からの距離です。
     """
     prev = [-1] * len(G)
     dist = [inf] * len(G)
