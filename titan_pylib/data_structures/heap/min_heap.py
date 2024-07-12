@@ -69,6 +69,9 @@ class MinHeap(Generic[T]):
         assert k == 0
         return self.a[0]
 
+    def tolist(self) -> list[T]:
+        return sorted(self.a)
+
     def __len__(self):
         return len(self.a)
 

@@ -18,7 +18,7 @@ class RandomGraph:
         typ: RandomGraphType = RandomGraphType.random,
         seed: Optional[int] = None,
     ) -> list[tuple[int, int]]:
-        random.seed(seed)
+        cls.rand = random.Random(seed)
         if typ == RandomGraphType.random:
             return cls._build_random(n, m)
         if typ == RandomGraphType.cycle:
@@ -29,16 +29,16 @@ class RandomGraph:
     def _build_cycle(cls, n: int, m: int) -> list[tuple[int, int]]:
         assert m == n
         cycle = list(range(n))
-        random.shuffle(cycle)
+        cls.rand.shuffle(cycle)
         cycle.append(cycle[-1])
         edges = [None] * n
         for i in range(n):
             u, v = cycle[i], cycle[i + 1]
-            if random.random() < 0.5:
+            if cls.rand.random() < 0.5:
                 edges[i] = (v, u)
             else:
                 edges[i] = (u, v)
-        random.shuffle(edges)
+        cls.rand.shuffle(edges)
         assert len(edges) == m
         return edges
 
@@ -47,18 +47,18 @@ class RandomGraph:
         assert m <= n * (n - 1) // 2
         edges = set()
         while len(edges) < m:
-            u = random.randrange(0, n)
-            v = random.randrange(0, n)
+            u = cls.rand.randrange(0, n)
+            v = cls.rand.randrange(0, n)
             while u == v:
-                v = random.randrange(0, n)
+                v = cls.rand.randrange(0, n)
             if u > v:
                 u, v = v, u
             edges.add((u, v))
         edges = list(edges)
         for i in range(m):
             u, v = edges[i]
-            if random.random() < 0.5:
+            if cls.rand.random() < 0.5:
                 edges[i] = (v, u)
-        random.shuffle(edges)
+        cls.rand.shuffle(edges)
         assert len(edges) == m
         return edges

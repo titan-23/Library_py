@@ -1,5 +1,4 @@
-from array import array
-from typing import TypeVar, Generic, Iterable
+from typing import TypeVar, Generic, Iterable, Optional
 
 T = TypeVar("T")
 
@@ -11,15 +10,31 @@ class RandomizedMeldableHeap(Generic[T]):
     """
 
     _x, _y, _z, _w = 123456789, 362436069, 521288629, 88675123
-    keys: list[T] = [0]
-    child = array("I", bytes(8))
-    end = 1
+
+    class Node:
+
+        def __init__(self, key: T) -> None:
+            self.key = key
+            self.left = None
+            self.right = None
 
     def __init__(self, a: Iterable[T] = []):
-        self.root = 0
+        self.root = None
         self.size = 0
-        for e in a:
-            self.heappush(e)
+        self._build(a)
+
+    def _build(self, a: Iterable[T]) -> None:
+        a = sorted(a)
+        if not a:
+            return
+        n = len(a)
+        pool = [self.Node(e) for e in a]
+        for i in range(len(a)):
+            if i * 2 + 1 < n:
+                pool[i].left = pool[i * 2 + 1]
+            if i * 2 + 2 < n:
+                pool[i].right = pool[i * 2 + 2]
+        self.root = pool[0]
 
     @classmethod
     def _randbit(cls) -> int:
@@ -29,33 +44,17 @@ class RandomizedMeldableHeap(Generic[T]):
         return cls._w & 1
 
     @classmethod
-    def _make_node(cls, key: T) -> int:
-        if cls.end >= len(cls.keys):
-            cls.keys.append(key)
-            cls.child.append(0)
-            cls.child.append(0)
-        else:
-            cls.keys[cls.end] = key
-        cls.end += 1
-        return cls.end - 1
-
-    @classmethod
-    def reserve(cls, n: int) -> None:
-        if n <= 0:
-            return
-        cls.keys += [0] * n
-        cls.child += array("I", bytes(8 * n))
-
-    @classmethod
-    def _meld(cls, x: int, y: int) -> int:
-        if x == 0:
+    def _meld(cls, x: Optional[Node], y: Optional[Node]) -> Optional[Node]:
+        if x is None:
             return y
-        if y == 0:
+        if y is None:
             return x
-        if cls.keys[x] > cls.keys[y]:
+        if x.key > y.key:
             x, y = y, x
-        rand = cls._randbit()
-        cls.child[x << 1 | rand] = cls._meld(cls.child[x << 1 | rand], y)
+        if cls._randbit():
+            x.left = cls._meld(x.left, y)
+        else:
+            x.right = cls._meld(x.right, y)
         return x
 
     @classmethod
@@ -67,40 +66,36 @@ class RandomizedMeldableHeap(Generic[T]):
         new_heap.root = cls._meld(x.root, y.root)
         return new_heap
 
-    def heappush(self, key: T):
-        node = self._make_node(key)
+    def push(self, key: T) -> None:
+        node = RandomizedMeldableHeap.Node(key)
         self.root = self._meld(self.root, node)
         self.size += 1
 
-    def heappop(self) -> T:
-        res = self.keys[self.root]
-        self.root = self._meld(
-            self.child[self.root << 1], self.child[self.root << 1 | 1]
-        )
+    def pop_min(self) -> T:
+        res = self.root.key
+        self.root = self._meld(self.root.left, self.root.right)
         return res
 
-    def top(self) -> T:
-        return self.keys[self.root]
+    def get_min(self) -> T:
+        return self.root.key
 
     def tolist(self) -> list[T]:
         node = self.root
         stack = []
-        res = []
-        child = RandomizedMeldableHeap.child
-        keys = RandomizedMeldableHeap.keys
+        a = []
         while stack or node:
             if node:
                 stack.append(node)
-                node = child[node << 1]
+                node = node.left
             else:
                 node = stack.pop()
-                res.append(keys[node])
-                node = child[node << 1 | 1]
-        res.sort()
-        return res
+                a.append(node.key)
+                node = node.right
+        a.sort()
+        return a
 
     def __bool__(self):
-        return self.root != 0
+        return self.root is not None
 
     def __len__(self):
         return self.size
@@ -109,4 +104,4 @@ class RandomizedMeldableHeap(Generic[T]):
         return str(self.tolist())
 
     def __repr__(self):
-        return f"RandomizedMeldableHeap({self})"
+        return f"{self.__class__.__name__}({self})"
