@@ -6,7 +6,7 @@ def get_suffix_array(s: str, hs: HashString) -> list[int]:
     """suffix_arrayを求めます。
 
     ロリハで大小比較をするため、比較関数に :math:`O(logn)` 、
-    ソートが :math:`O(nlogn*(比較関数の計算慮))` で、
+    ソートが :math:`O(nlogn*(比較関数の計算量))` で、
     全体 :math:`O(nlog^2n)` です。
 
     Args:
