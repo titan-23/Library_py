@@ -144,6 +144,9 @@ class Point:
             GeometryUtil.sin(theta) * self.x + GeometryUtil.cos(theta) * self.y,
         )
 
+    def copy(self) -> "Point":
+        return Point(self.x, self.y)
+
 
 class Line:
     """ax + by + c = 0"""
@@ -184,7 +187,7 @@ class Polygon:
         self.ps = ps
 
     def area(self) -> float:
-        """面積を求める / `O(n)`
+        """面積を求める / :math:`O(n)`
 
         Returns:
             float: 面積
@@ -193,7 +196,8 @@ class Polygon:
         p = self.ps
         for i in range(self.n - 1):
             res += Geometry.cross(p[i], p[i + 1])
-        res += Geometry.cross(p[-1], p[0])
+        if p:
+            res += Geometry.cross(p[-1], p[0])
         return res / 2
 
     def is_convex(self) -> bool:
@@ -248,7 +252,7 @@ class Polygon:
 
 class ConvexPolygon(Polygon):
 
-    def __init__(self, ps: list[Point], line_contains: bool = True) -> None:
+    def __init__(self, ps: list[Point], line_contains: bool = False) -> None:
         self.ps = Geometry.convex_hull(ps, line_contains)
         self.n = len(self.ps)
 
@@ -323,19 +327,25 @@ class ConvexPolygon(Polygon):
         return 0
 
     def convex_cut(self, l: Line) -> "ConvexPolygon":
-        q = []
+        """直線 ``l`` で切断したときの左側の凸多角形を返す
+
+        Args:
+            l (Line): 直線
+
+        Returns:
+            ConvexPolygon:
+        """
+        ret = []
         for i in range(self.n):
-            p1 = self.ps[i - 1]
-            p2 = self.ps[i]
-            cv0 = Geometry.cross(l.p2 - l.p1, p1 - l.p1)
-            cv1 = Geometry.cross(l.p2 - l.p1, p2 - l.p1)
-            if cv0 * cv1 < GeometryUtil.EPS:
-                v = Geometry.cross_point_segment(Segment(p1, p2), Segment(l.p1, l.p2))
-                if v is not None:
-                    q.append(v)
-            if cv1 > -GeometryUtil.EPS:
-                q.append(p1)
-        return ConvexPolygon(q)
+            now = self.ps[i]
+            nxt = self.ps[(i + 1) % self.n]
+            if Geometry.ccw(l.p1, l.p2, now) != -1:
+                ret.append(now.copy())
+            if Geometry.ccw(l.p1, l.p2, now) * Geometry.ccw(l.p1, l.p2, nxt) < 0:
+                p = Geometry.cross_point_line(Line.from_points(now, nxt), l)
+                assert p is not None
+                ret.append(p.copy())
+        return ConvexPolygon(ret)
 
 
 class Circle:
@@ -507,6 +517,16 @@ class Geometry:
             # if d < abs(c1.r - c2.r) - GeometryUtil.EPS:
             return 0
         return 2
+
+    @classmethod
+    def cross_point_line(cls, l1: Line, l2: Line) -> Optional[Point]:
+        d1 = cls.cross(l1.p2 - l1.p1, l2.p2 - l2.p1)
+        d2 = cls.cross(l1.p2 - l1.p1, l1.p2 - l2.p1)
+        if GeometryUtil.eq(abs(d1), 0) and GeometryUtil.eq(abs(d2), 0):
+            return l2.p1
+        if GeometryUtil.eq(abs(d1), 0):
+            return None
+        return l2.p1 + (l2.p2 - l2.p1) * (d2 / d1)
 
     @classmethod
     def cross_point_segment(cls, s1: Segment, s2: Segment) -> Optional[Point]:
