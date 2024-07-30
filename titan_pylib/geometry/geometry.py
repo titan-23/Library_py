@@ -13,7 +13,7 @@ from titan_pylib.math.decimal_util import (
 class GeometryUtil:
 
     getcontext().prec = 10
-    USE_DECIMAL: Final[bool] = True
+    USE_DECIMAL: Final[bool] = False
 
     EPS: Final[Union[Decimal, float]] = (
         Decimal("1e-" + str(getcontext().prec // 2)) if USE_DECIMAL else 1e-10
@@ -197,7 +197,7 @@ class Polygon:
         return res / 2
 
     def is_convex(self) -> bool:
-        """凸多角形かどうか / `O(n)`
+        """凸多角形かどうか / :math:`O(n)`
 
         Returns:
             bool:
@@ -214,7 +214,7 @@ class Polygon:
     def get_degree(self, radian):
         return radian * (180 / GeometryUtil.pi)
 
-    def contains(self, p):
+    def contains(self, p: Point) -> int:
         """点の包含関係を返す / O(n)
 
         Args:
@@ -249,8 +249,8 @@ class Polygon:
 class ConvexPolygon(Polygon):
 
     def __init__(self, ps: list[Point], line_contains: bool = True) -> None:
-        self.n = len(ps)
         self.ps = Geometry.convex_hull(ps, line_contains)
+        self.n = len(self.ps)
 
     def diameter(self) -> tuple[float, int, int]:
         ps = self.ps
@@ -288,7 +288,7 @@ class ConvexPolygon(Polygon):
         return d, up, vp
 
     def contains(self, p: Point) -> int:
-        """点の包含関係を返す / O(n)
+        """点の包含関係を返す / :math:`O(\\log{n})`
 
         Args:
             p (Point): 点
@@ -327,14 +327,14 @@ class ConvexPolygon(Polygon):
         for i in range(self.n):
             p1 = self.ps[i - 1]
             p2 = self.ps[i]
-            cv0 = l.p1.det3(l.p2, p1)
-            cv1 = l.p1.det3(l.p2, p2)
+            cv0 = Geometry.cross(l.p2 - l.p1, p1 - l.p1)
+            cv1 = Geometry.cross(l.p2 - l.p1, p2 - l.p1)
             if cv0 * cv1 < GeometryUtil.EPS:
-                v = Geometry.cross_point_segment(Line(p1, p2))
+                v = Geometry.cross_point_segment(Segment(p1, p2), Segment(l.p1, l.p2))
                 if v is not None:
-                    q.append(v.value)
+                    q.append(v)
             if cv1 > -GeometryUtil.EPS:
-                q.append(p1.value)
+                q.append(p1)
         return ConvexPolygon(q)
 
 
@@ -800,7 +800,7 @@ class Geometry:
 
     @classmethod
     def closest_pair(cls, a: list[Point]) -> tuple[float, int, int]:
-        """最近点対を求める / O(nlogn)
+        """最近点対を求める / `O(nlogn)`
 
         Args:
             a (list[Point]): 距離配列
