@@ -145,11 +145,11 @@ def build_tester(
     """`ParallelTester` を返します
 
     Args:
-      njobs (int, optional): cpu_count です。
-      verbose (bool, optional): ログを表示します。
+        njobs (int, optional): cpu_count です。
+        verbose (bool, optional): ログを表示します。
 
     Returns:
-      ParallelTester: テスターです。
+        ParallelTester: テスターです。
     """
     tester = ParallelTester(
         compile_command=settings.compile_command,
