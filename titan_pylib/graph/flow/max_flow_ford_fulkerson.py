@@ -33,6 +33,7 @@ class MaxFlowFordFulkerson:
         return 0
 
     def max_flow(self, s: int, g: int, INF: int = 10**18) -> int:
+        """:math:`O(F|E|)"""
         assert (
             0 <= s < self.n
         ), f"Indexerror: {self.__class__.__class__}.max_flow(), {s=}"

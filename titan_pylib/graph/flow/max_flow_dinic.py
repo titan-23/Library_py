@@ -1,4 +1,5 @@
 from collections import deque
+from typing import Generator
 from titan_pylib.others.antirec import antirec
 
 
@@ -37,7 +38,7 @@ class MaxFlowDinic:
         self.level = level
 
     @antirec
-    def _dfs(self, v: int, g: int, f: int) -> int:
+    def _dfs(self, v: int, g: int, f: int) -> Generator[int]:
         if v == g:
             yield f
         else:
@@ -57,6 +58,7 @@ class MaxFlowDinic:
                 yield 0
 
     def max_flow(self, s: int, g: int, INF: int = 10**18) -> int:
+        """:math:`O(V^2 E)`"""
         assert (
             0 <= s < self.n
         ), f"Indexerror: {self.__class__.__class__}.max_flow(), {s=}"
