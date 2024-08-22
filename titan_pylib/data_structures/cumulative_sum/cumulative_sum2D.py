@@ -25,13 +25,7 @@ class CumulativeSum2D:
 
     def sum(self, h1: int, w1: int, h2: int, w2: int) -> int:
         """長方形領域 ``[h1, h2) x [w1, w2)`` の総和を返します。
-        :math:`O(hw)` です。
-
-        Args:
-          h1 (int):
-          w1 (int):
-          h2 (int):
-          w2 (int):
+        :math:`O(1)` です。
         """
         assert (
             h1 <= h2
