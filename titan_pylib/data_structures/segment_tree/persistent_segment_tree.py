@@ -63,7 +63,7 @@ class PersistentSegmentTree(Generic[T]):
             node.size += node.right.size
             node.data = self.op(node.data, node.right.data)
 
-    def prod(self, l: int, r) -> T:
+    def prod(self, l: int, r: int) -> T:
         if l >= r or (not self.root):
             return self.e
 

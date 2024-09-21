@@ -187,11 +187,7 @@ class Polygon:
         self.ps = ps
 
     def area(self) -> float:
-        """面積を求める / :math:`O(n)`
-
-        Returns:
-            float: 面積
-        """
+        """面積を求める / :math:`O(n)`"""
         res = 0
         p = self.ps
         for i in range(self.n - 1):
@@ -201,11 +197,7 @@ class Polygon:
         return res / 2
 
     def is_convex(self) -> bool:
-        """凸多角形かどうか / :math:`O(n)`
-
-        Returns:
-            bool:
-        """
+        """凸多角形かどうか / :math:`O(n)`"""
         ps = self.ps
         for i in range(self.n):
             pre = (i - 1 + self.n) % self.n
@@ -220,9 +212,6 @@ class Polygon:
 
     def contains(self, p: Point) -> int:
         """点の包含関係を返す / O(n)
-
-        Args:
-            p (Point): 点
 
         Returns:
             int: `2`: `p` を含む
@@ -294,9 +283,6 @@ class ConvexPolygon(Polygon):
     def contains(self, p: Point) -> int:
         """点の包含関係を返す / :math:`O(\\log{n})`
 
-        Args:
-            p (Point): 点
-
         Returns:
             int: `2`: `p` を含む
                  `1`: `p` が辺上にある
@@ -327,14 +313,7 @@ class ConvexPolygon(Polygon):
         return 0
 
     def convex_cut(self, l: Line) -> "ConvexPolygon":
-        """直線 ``l`` で切断したときの左側の凸多角形を返す
-
-        Args:
-            l (Line): 直線
-
-        Returns:
-            ConvexPolygon:
-        """
+        """直線 ``l`` で切断したときの左側の凸多角形を返す"""
         ret = []
         for i in range(self.n):
             now = self.ps[i]
@@ -397,11 +376,6 @@ class Geometry:
     def ccw(cls, u: Point, v: Point, p: Point) -> int:
         """u->vに対し、v->pの位置関係を求める
 
-        Args:
-            u (Point):
-            v (Point):
-            p (Point):
-
         Returns:
             int: `+1`: a->bに対し、b->cが半時計回りに進む
                  `-1`: a->bに対し、b->cが時計回りに進む
@@ -422,68 +396,28 @@ class Geometry:
 
     @classmethod
     def projection_point(cls, p: Point, l: Line) -> Point:
-        """直線 `l` に、点 `p` からおろした垂線の足の `Point` を返す
-
-        Args:
-            p (Point): 点
-            l (Line): 直線
-
-        Returns:
-            Point:
-        """
+        """直線 `l` に、点 `p` からおろした垂線の足の `Point` を返す"""
         t = cls.dot(p - l.p1, l.p1 - l.p2) / (l.p1 - l.p2).norm2()
         return l.p1 + (l.p1 - l.p2) * t
 
     @classmethod
     def reflection_point(cls, p: Point, l: Line) -> Point:
-        """直線 `l` を対象軸として点 `p` と線対称の点を返す
-
-        Args:
-            p (Point): 点
-            l (Line): 直線
-
-        Returns:
-            Point:
-        """
+        """直線 `l` を対象軸として点 `p` と線対称の点を返す"""
         return p + 2 * (cls.projection_point(p, l) - p)
 
     @classmethod
     def is_orthogonal(cls, l1: Line, l2: Line) -> bool:
-        """直線 `l1, l2` が直行しているかどうか
-
-        Args:
-            l1 (Line): 直線
-            l2 (Line): 直線
-
-        Returns:
-            bool:
-        """
+        """直線 `l1, l2` が直行しているかどうか"""
         return GeometryUtil.eq(cls.dot(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
 
     @classmethod
     def is_parallel(cls, l1: Line, l2: Line) -> bool:
-        """直線 `l1, l2` が平行かどうか
-
-        Args:
-            l1 (Line): 直線
-            l2 (Line): 直線
-
-        Returns:
-            bool:
-        """
+        """直線 `l1, l2` が平行かどうか"""
         return GeometryUtil.eq(cls.cross(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
 
     @classmethod
     def is_intersect_linesegment(cls, s1: Segment, s2: Segment) -> bool:
-        """線分 `s1` と `s2` が交差しているかどうか判定する
-
-        Args:
-            s1 (Segment): 線分
-            s2 (Segment): 線分
-
-        Returns:
-            bool:
-        """
+        """線分 `s1` と `s2` が交差しているかどうか判定する"""
         return (
             cls.ccw(s1.p1, s1.p2, s2.p1) * cls.ccw(s1.p1, s1.p2, s2.p2) <= 0
             and cls.ccw(s2.p1, s2.p2, s1.p1) * cls.ccw(s2.p1, s2.p2, s1.p2) <= 0
@@ -492,10 +426,6 @@ class Geometry:
     @classmethod
     def is_intersect_circle(cls, c1: Circle, c2: Circle) -> int:
         """2円の位置関係
-
-        Args:
-            c1 (Circle): 円
-            c2 (Circle): 円
 
         Returns:
             int: 共通接線の数
@@ -746,12 +676,6 @@ class Geometry:
 
         Note:
             `a` は事前にソートされていなければいけません。
-
-        Args:
-            a (list[Point]):
-
-        Returns:
-            list[Point]:
         """
         if not a:
             return []
