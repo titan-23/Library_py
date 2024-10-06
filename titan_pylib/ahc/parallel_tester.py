@@ -6,6 +6,7 @@ import multiprocessing
 import time
 import os
 from functools import partial
+import datetime
 from ahc_settings import AHCSettings
 
 logger = getLogger(__name__)
@@ -74,7 +75,7 @@ class ParallelTester:
             check=True,
         )
 
-    def _process_file(self, input_file: str) -> float:
+    def _process_file(self, input_file: str) -> tuple[str, float]:
         with open(input_file, "r", encoding="utf-8") as f:
             input_text = "".join(f.read())
         try:
@@ -91,7 +92,7 @@ class ParallelTester:
             score = float(score)
             if self.verbose:
                 logger.info(f"{input_file}: {score=}")
-            return score
+            return input_file, score
         except Exception as e:
             logger.exception(e)
             logger.error(f"Error occured in {input_file}")
@@ -100,11 +101,34 @@ class ParallelTester:
     def run(self) -> list[float]:
         """実行します。"""
         pool = multiprocessing.Pool(processes=self.cpu_count)
-        scores = pool.map(
+        result = pool.map(
             partial(self._process_file), self.input_file_names, chunksize=1
         )
         pool.close()
         pool.join()
+        scores = [s for _, s in result]
+        return scores
+
+    def run_record(self) -> list[tuple[str, float]]:
+        """実行します。"""
+        dt_now = datetime.datetime.now()
+
+        pool = multiprocessing.Pool(processes=self.cpu_count)
+        result = pool.map(
+            partial(self._process_file), self.input_file_names, chunksize=1
+        )
+        pool.close()
+        pool.join()
+
+        output_dir = "./alltests/"
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        d = dt_now.strftime("%Y-%m-%d_%H-%M-%S")
+        with open(f"{output_dir}{d}.txt", "w", encoding="utf-8") as f:
+            result.sort()
+            for filename, score in result:
+                print(f"{filename}, {score}", file=f)
+        scores = [s for _, s in result]
         return scores
 
     @staticmethod
@@ -176,7 +200,7 @@ def main():
     logger.info("start.")
 
     start = time.time()
-    scores = tester.run()
+    scores = tester.run_record()
     score = tester.show_score(scores)
     logger.info(f"{time.time() - start:.4f}sec")
     return score
