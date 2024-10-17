@@ -75,7 +75,7 @@ class ParallelTester:
             check=True,
         )
 
-    def _process_file(self, input_file: str) -> tuple[str, float]:
+    def _process_file(self, input_file: str) -> tuple[str, float, str]:
         with open(input_file, "r", encoding="utf-8") as f:
             input_text = "".join(f.read())
         try:
@@ -87,12 +87,13 @@ class ParallelTester:
                 text=True,
                 check=True,
             )
+            outputs = result.stdout
             score_line = result.stderr.rstrip().split("\n")[-1]
             _, score = score_line.split(" = ")
             score = float(score)
             if self.verbose:
                 logger.info(f"{input_file}: {score=}")
-            return input_file, score
+            return input_file, score, outputs
         except Exception as e:
             logger.exception(e)
             logger.error(f"Error occured in {input_file}")
@@ -106,7 +107,7 @@ class ParallelTester:
         )
         pool.close()
         pool.join()
-        scores = [s for _, s in result]
+        scores = [s for _, s, _ in result]
         return scores
 
     def run_record(self) -> list[tuple[str, float]]:
@@ -126,9 +127,12 @@ class ParallelTester:
         d = dt_now.strftime("%Y-%m-%d_%H-%M-%S")
         with open(f"{output_dir}{d}.txt", "w", encoding="utf-8") as f:
             result.sort()
-            for filename, score in result:
+            for filename, score, outputs in result:
                 print(f"{filename}, {score}", file=f)
-        scores = [s for _, s in result]
+                filename = filename[len("./in/") :]
+                with open(f"out/{filename}", "w", encoding="utf-8") as out_f:
+                    print(outputs, file=out_f)
+        scores = [s for _, s, _ in result]
         return scores
 
     @staticmethod
