@@ -82,7 +82,7 @@ Array = ModArray998244353
 
 # ---------------------- #
 
-from typing import Iterable, Union, list
+from typing import Iterable, Union
 from functools import reduce, lru_cache
 
 
@@ -167,7 +167,7 @@ Array = ModArray1000000007
 
 # ---------------------- #
 
-from typing import Iterable, Union, list
+from typing import Iterable, Union
 from functools import reduce, lru_cache
 
 

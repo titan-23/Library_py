@@ -13,7 +13,7 @@ from titan_pylib.math.decimal_util import (
 class GeometryUtil:
 
     getcontext().prec = 10
-    USE_DECIMAL: Final[bool] = True
+    USE_DECIMAL: Final[bool] = False
 
     EPS: Final[Union[Decimal, float]] = (
         Decimal("1e-" + str(getcontext().prec // 2)) if USE_DECIMAL else 1e-10
@@ -144,6 +144,9 @@ class Point:
             GeometryUtil.sin(theta) * self.x + GeometryUtil.cos(theta) * self.y,
         )
 
+    def copy(self) -> "Point":
+        return Point(self.x, self.y)
+
 
 class Line:
     """ax + by + c = 0"""
@@ -184,24 +187,17 @@ class Polygon:
         self.ps = ps
 
     def area(self) -> float:
-        """面積を求める / `O(n)`
-
-        Returns:
-            float: 面積
-        """
+        """面積を求める / :math:`O(n)`"""
         res = 0
         p = self.ps
         for i in range(self.n - 1):
             res += Geometry.cross(p[i], p[i + 1])
-        res += Geometry.cross(p[-1], p[0])
+        if p:
+            res += Geometry.cross(p[-1], p[0])
         return res / 2
 
     def is_convex(self) -> bool:
-        """凸多角形かどうか / `O(n)`
-
-        Returns:
-            bool:
-        """
+        """凸多角形かどうか / :math:`O(n)`"""
         ps = self.ps
         for i in range(self.n):
             pre = (i - 1 + self.n) % self.n
@@ -214,11 +210,8 @@ class Polygon:
     def get_degree(self, radian):
         return radian * (180 / GeometryUtil.pi)
 
-    def contains(self, p):
+    def contains(self, p: Point) -> int:
         """点の包含関係を返す / O(n)
-
-        Args:
-            p (Point): 点
 
         Returns:
             int: `2`: `p` を含む
@@ -248,9 +241,9 @@ class Polygon:
 
 class ConvexPolygon(Polygon):
 
-    def __init__(self, ps: list[Point], line_contains: bool = True) -> None:
-        self.n = len(ps)
+    def __init__(self, ps: list[Point], line_contains: bool = False) -> None:
         self.ps = Geometry.convex_hull(ps, line_contains)
+        self.n = len(self.ps)
 
     def diameter(self) -> tuple[float, int, int]:
         ps = self.ps
@@ -288,10 +281,7 @@ class ConvexPolygon(Polygon):
         return d, up, vp
 
     def contains(self, p: Point) -> int:
-        """点の包含関係を返す / O(n)
-
-        Args:
-            p (Point): 点
+        """点の包含関係を返す / :math:`O(\\log{n})`
 
         Returns:
             int: `2`: `p` を含む
@@ -323,19 +313,18 @@ class ConvexPolygon(Polygon):
         return 0
 
     def convex_cut(self, l: Line) -> "ConvexPolygon":
-        q = []
+        """直線 ``l`` で切断したときの左側の凸多角形を返す"""
+        ret = []
         for i in range(self.n):
-            p1 = self.ps[i - 1]
-            p2 = self.ps[i]
-            cv0 = l.p1.det3(l.p2, p1)
-            cv1 = l.p1.det3(l.p2, p2)
-            if cv0 * cv1 < GeometryUtil.EPS:
-                v = Geometry.cross_point_segment(Line(p1, p2))
-                if v is not None:
-                    q.append(v.value)
-            if cv1 > -GeometryUtil.EPS:
-                q.append(p1.value)
-        return ConvexPolygon(q)
+            now = self.ps[i]
+            nxt = self.ps[(i + 1) % self.n]
+            if Geometry.ccw(l.p1, l.p2, now) != -1:
+                ret.append(now.copy())
+            if Geometry.ccw(l.p1, l.p2, now) * Geometry.ccw(l.p1, l.p2, nxt) < 0:
+                p = Geometry.cross_point_line(Line.from_points(now, nxt), l)
+                assert p is not None
+                ret.append(p.copy())
+        return ConvexPolygon(ret)
 
 
 class Circle:
@@ -387,11 +376,6 @@ class Geometry:
     def ccw(cls, u: Point, v: Point, p: Point) -> int:
         """u->vに対し、v->pの位置関係を求める
 
-        Args:
-            u (Point):
-            v (Point):
-            p (Point):
-
         Returns:
             int: `+1`: a->bに対し、b->cが半時計回りに進む
                  `-1`: a->bに対し、b->cが時計回りに進む
@@ -412,68 +396,28 @@ class Geometry:
 
     @classmethod
     def projection_point(cls, p: Point, l: Line) -> Point:
-        """直線 `l` に、点 `p` からおろした垂線の足の `Point` を返す
-
-        Args:
-            p (Point): 点
-            l (Line): 直線
-
-        Returns:
-            Point:
-        """
+        """直線 `l` に、点 `p` からおろした垂線の足の `Point` を返す"""
         t = cls.dot(p - l.p1, l.p1 - l.p2) / (l.p1 - l.p2).norm2()
         return l.p1 + (l.p1 - l.p2) * t
 
     @classmethod
     def reflection_point(cls, p: Point, l: Line) -> Point:
-        """直線 `l` を対象軸として点 `p` と線対称の点を返す
-
-        Args:
-            p (Point): 点
-            l (Line): 直線
-
-        Returns:
-            Point:
-        """
+        """直線 `l` を対象軸として点 `p` と線対称の点を返す"""
         return p + 2 * (cls.projection_point(p, l) - p)
 
     @classmethod
     def is_orthogonal(cls, l1: Line, l2: Line) -> bool:
-        """直線 `l1, l2` が直行しているかどうか
-
-        Args:
-            l1 (Line): 直線
-            l2 (Line): 直線
-
-        Returns:
-            bool:
-        """
+        """直線 `l1, l2` が直行しているかどうか"""
         return GeometryUtil.eq(cls.dot(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
 
     @classmethod
     def is_parallel(cls, l1: Line, l2: Line) -> bool:
-        """直線 `l1, l2` が平行かどうか
-
-        Args:
-            l1 (Line): 直線
-            l2 (Line): 直線
-
-        Returns:
-            bool:
-        """
+        """直線 `l1, l2` が平行かどうか"""
         return GeometryUtil.eq(cls.cross(l1.p2 - l1.p1, l2.p2 - l2.p1), 0)
 
     @classmethod
     def is_intersect_linesegment(cls, s1: Segment, s2: Segment) -> bool:
-        """線分 `s1` と `s2` が交差しているかどうか判定する
-
-        Args:
-            s1 (Segment): 線分
-            s2 (Segment): 線分
-
-        Returns:
-            bool:
-        """
+        """線分 `s1` と `s2` が交差しているかどうか判定する"""
         return (
             cls.ccw(s1.p1, s1.p2, s2.p1) * cls.ccw(s1.p1, s1.p2, s2.p2) <= 0
             and cls.ccw(s2.p1, s2.p2, s1.p1) * cls.ccw(s2.p1, s2.p2, s1.p2) <= 0
@@ -482,10 +426,6 @@ class Geometry:
     @classmethod
     def is_intersect_circle(cls, c1: Circle, c2: Circle) -> int:
         """2円の位置関係
-
-        Args:
-            c1 (Circle): 円
-            c2 (Circle): 円
 
         Returns:
             int: 共通接線の数
@@ -507,6 +447,16 @@ class Geometry:
             # if d < abs(c1.r - c2.r) - GeometryUtil.EPS:
             return 0
         return 2
+
+    @classmethod
+    def cross_point_line(cls, l1: Line, l2: Line) -> Optional[Point]:
+        d1 = cls.cross(l1.p2 - l1.p1, l2.p2 - l2.p1)
+        d2 = cls.cross(l1.p2 - l1.p1, l1.p2 - l2.p1)
+        if GeometryUtil.eq(abs(d1), 0) and GeometryUtil.eq(abs(d2), 0):
+            return l2.p1
+        if GeometryUtil.eq(abs(d1), 0):
+            return None
+        return l2.p1 + (l2.p2 - l2.p1) * (d2 / d1)
 
     @classmethod
     def cross_point_segment(cls, s1: Segment, s2: Segment) -> Optional[Point]:
@@ -726,12 +676,6 @@ class Geometry:
 
         Note:
             `a` は事前にソートされていなければいけません。
-
-        Args:
-            a (list[Point]):
-
-        Returns:
-            list[Point]:
         """
         if not a:
             return []
@@ -800,7 +744,7 @@ class Geometry:
 
     @classmethod
     def closest_pair(cls, a: list[Point]) -> tuple[float, int, int]:
-        """最近点対を求める / O(nlogn)
+        """最近点対を求める / `O(nlogn)`
 
         Args:
             a (list[Point]): 距離配列

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # user settings --------------------------------------------------
 # `./titan_pylib` がある絶対パス
 LIB_PATH = (
@@ -28,6 +30,14 @@ def init_clipboard():
             break
 
 
+def to_red(arg):
+    return f"\u001b[31m{arg}\u001b[0m"
+
+
+def to_green(arg):
+    return f"\u001b[32m{arg}\u001b[0m"
+
+
 class Expander:
     """titan_pylib の expander"""
 
@@ -36,6 +46,9 @@ class Expander:
         Args:
             input_path (str): 入力ファイルのパス
         """
+        if not os.path.exists(input_path):
+            logger.critical(to_red(f'input_path : "{input_path}" does not found.'))
+            exit(1)
         self.verbose: bool = verbose
         self.input_path: str = input_path
         self.seen_path: set[str] = set()
@@ -66,7 +79,7 @@ class Expander:
                     path = new_path
                     break
             else:
-                logger.critical(f'File "{path}" not found.')
+                logger.critical(to_red(f'File "{path}" not found.'))
                 exit(1)
         return path
 
@@ -190,8 +203,8 @@ class Expander:
             with open(output_fiepath, "w", encoding="utf-8") as f:
                 f.write(output_code)
         if self.verbose:
-            logger.info("The process completed successfully.")
-            logger.info(f"Output file: {output_fiepath} .")
+            logger.info(to_green("The process completed successfully."))
+            logger.info(to_green(f"Output file: {output_fiepath} ."))
 
 
 if __name__ == "__main__":

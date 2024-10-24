@@ -19,6 +19,7 @@ Submodules
    titan_pylib.algorithm.arithmetic_progression
    titan_pylib.algorithm.cycle_memo
    titan_pylib.algorithm.doubling
+   titan_pylib.algorithm.gray_code
    titan_pylib.algorithm.mo
    titan_pylib.algorithm.parser
    titan_pylib.algorithm.permutation

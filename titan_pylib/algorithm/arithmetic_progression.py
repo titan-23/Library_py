@@ -1,6 +1,11 @@
 class ArithmeticProgression:
 
-    def __init__(self, a: int, d: int) -> int:
+    def __init__(self, a: int, d: int) -> None:
+        """
+        Args:
+            a (int): 初項です。
+            d (int): 公差です。
+        """
         self.a = a
         self.d = d
 
@@ -13,8 +18,9 @@ class ArithmeticProgression:
         """vが先頭から何番目か(0-indexed)"""
         v -= self.a
         assert v % self.d == 0
-        assert v >= 0
-        return v // self.d
+        i = v // self.d
+        assert i >= 0
+        return i
 
     def pref(self, n: int) -> int:
         """先頭n項の和."""

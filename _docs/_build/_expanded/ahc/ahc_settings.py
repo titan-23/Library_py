@@ -16,7 +16,7 @@ class AHCSettings:
     """
 
     # parallel_tester -------------------- #
-    compile_command = "g++ ./main.cpp -O2 -std=c++20"
+    compile_command = "g++ ./main.cpp -O2 -std=c++20 -o a.out"
     execute_command = "./a.out"
     input_file_names = [f"./in/{str(i).zfill(4)}.txt" for i in range(100)]
 

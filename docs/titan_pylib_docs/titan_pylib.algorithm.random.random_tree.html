@@ -139,6 +139,7 @@
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.ahc.html">ahc</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.ahc</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.ahc_settings.html">ahc_settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.calc_ratio.html">calc_ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.optimizer.html">optimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.parallel_tester.html">parallel_tester</a></li>
 </ul>
@@ -159,6 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.arithmetic_progression.html">arithmetic_progression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.gray_code.html">gray_code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.parser.html">parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.permutation.html">permutation</a></li>
@@ -397,16 +399,17 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.graph.html">graph</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.flow.html">flow</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.bipartite_max_matching.html">bipartite_max_matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_dinic.html">max_flow_dinic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld.html">hld</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_lazy_segment_tree.html">hld_lazy_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">hld_noncommutative_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_segment_tree.html">hld_segment_tree</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.max_flow.html">max_flow</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_dinic.html">max_flow_dinic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
@@ -1113,7 +1116,7 @@
 <span class="linenos">604</span><span class="sd">        Returns:</span>
 <span class="linenos">605</span><span class="sd">          list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。</span>
 <span class="linenos">606</span><span class="sd">        """</span>
-<span class="linenos">607</span>        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="linenos">607</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">rand</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 <span class="linenos">608</span>        <span class="n">edges</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">609</span>        <span class="k">if</span> <span class="n">typ</span> <span class="o">==</span> <span class="n">RandomTreeType</span><span class="o">.</span><span class="n">random</span><span class="p">:</span>
 <span class="linenos">610</span>            <span class="n">edges</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_build_random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -1124,17 +1127,17 @@
 <span class="linenos">615</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">616</span>            <span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 <span class="linenos">617</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.build(</span><span class="si">{</span><span class="n">typ</span><span class="si">}</span><span class="s2">), typ is not defined."</span>
-<span class="linenos">618</span>        <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+<span class="linenos">618</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">rand</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
 <span class="linenos">619</span>        <span class="k">return</span> <span class="n">edges</span>
 <span class="linenos">620</span>
 <span class="linenos">621</span>    <span class="nd">@classmethod</span>
 <span class="linenos">622</span>    <span class="k">def</span> <span class="nf">_build_star</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-<span class="linenos">623</span>        <span class="n">center</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">623</span>        <span class="n">center</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">rand</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <span class="linenos">624</span>        <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">625</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
 <span class="linenos">626</span>            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">center</span><span class="p">:</span>
 <span class="linenos">627</span>                <span class="k">continue</span>
-<span class="linenos">628</span>            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+<span class="linenos">628</span>            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
 <span class="linenos">629</span>                <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">center</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
 <span class="linenos">630</span>            <span class="k">else</span><span class="p">:</span>
 <span class="linenos">631</span>                <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">center</span><span class="p">))</span>
@@ -1143,9 +1146,9 @@
 <span class="linenos">634</span>    <span class="nd">@classmethod</span>
 <span class="linenos">635</span>    <span class="k">def</span> <span class="nf">_build_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">636</span>        <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-<span class="linenos">637</span>        <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="linenos">637</span>        <span class="bp">cls</span><span class="o">.</span><span class="n">rand</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="linenos">638</span>        <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
-<span class="linenos">639</span>            <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="linenos">639</span>            <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 <span class="linenos">640</span>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">641</span>        <span class="p">]</span>
 <span class="linenos">642</span>        <span class="k">return</span> <span class="n">edges</span>
@@ -1156,7 +1159,7 @@
 <span class="linenos">647</span>        <span class="n">D</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 <span class="linenos">648</span>        <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
 <span class="linenos">649</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
-<span class="linenos">650</span>            <span class="n">v</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">650</span>            <span class="n">v</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">rand</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <span class="linenos">651</span>            <span class="n">D</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">652</span>            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
 <span class="linenos">653</span>        <span class="n">avl</span><span class="p">:</span> <span class="n">AVLTreeSet2</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">AVLTreeSet2</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>

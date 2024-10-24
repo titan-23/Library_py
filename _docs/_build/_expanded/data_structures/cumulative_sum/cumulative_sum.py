@@ -66,10 +66,10 @@ class CumulativeSum:
         ), f"IndexError: {self.__class__.__name__}[{k}], n={self.n}"
         return self.a[k]
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.a)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.acc)
 
     __repr__ = __str__

@@ -139,6 +139,7 @@
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.ahc.html">ahc</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.ahc</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.ahc_settings.html">ahc_settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.calc_ratio.html">calc_ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.optimizer.html">optimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.parallel_tester.html">parallel_tester</a></li>
 </ul>
@@ -159,6 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.arithmetic_progression.html">arithmetic_progression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.gray_code.html">gray_code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.parser.html">parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.permutation.html">permutation</a></li>
@@ -397,16 +399,17 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.graph.html">graph</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.flow.html">flow</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.bipartite_max_matching.html">bipartite_max_matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_dinic.html">max_flow_dinic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld.html">hld</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_lazy_segment_tree.html">hld_lazy_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">hld_noncommutative_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_segment_tree.html">hld_segment_tree</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.max_flow.html">max_flow</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_dinic.html">max_flow_dinic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
@@ -583,10 +586,10 @@
 <span class="linenos"> 74</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos"> 75</span>
 <span class="linenos"> 76</span><span class="sd">        Args:</span>
-<span class="linenos"> 77</span><span class="sd">          n_or_a (Union[int, Iterable[T]]): ``n: int`` のとき、 ``e`` を初期値として長さ ``n`` の ``SegmentTree`` を構築します。</span>
-<span class="linenos"> 78</span><span class="sd">                                            ``a: Iterable[T]`` のとき、 ``a`` から ``SegmentTree`` を構築します。</span>
-<span class="linenos"> 79</span><span class="sd">          op (Callable[[T, T], T]): 2項演算の関数です。</span>
-<span class="linenos"> 80</span><span class="sd">          e (T): 単位元です。</span>
+<span class="linenos"> 77</span><span class="sd">            n_or_a (Union[int, Iterable[T]]): ``n: int`` のとき、 ``e`` を初期値として長さ ``n`` の ``SegmentTree`` を構築します。</span>
+<span class="linenos"> 78</span><span class="sd">                                              ``a: Iterable[T]`` のとき、 ``a`` から ``SegmentTree`` を構築します。</span>
+<span class="linenos"> 79</span><span class="sd">            op (Callable[[T, T], T]): 2項演算の関数です。</span>
+<span class="linenos"> 80</span><span class="sd">            e (T): 単位元です。</span>
 <span class="linenos"> 81</span><span class="sd">        """</span>
 <span class="linenos"> 82</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_op</span> <span class="o">=</span> <span class="n">op</span>
 <span class="linenos"> 83</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_e</span> <span class="o">=</span> <span class="n">e</span>
@@ -611,11 +614,11 @@
 <span class="linenos">102</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos">103</span>
 <span class="linenos">104</span><span class="sd">        Args:</span>
-<span class="linenos">105</span><span class="sd">          k (int): 更新するインデックスです。</span>
-<span class="linenos">106</span><span class="sd">          v (T): 更新する値です。</span>
+<span class="linenos">105</span><span class="sd">            k (int): 更新するインデックスです。</span>
+<span class="linenos">106</span><span class="sd">            v (T): 更新する値です。</span>
 <span class="linenos">107</span>
 <span class="linenos">108</span><span class="sd">        制約:</span>
-<span class="linenos">109</span><span class="sd">          :math:`-n \\leq n \\leq k &lt; n`</span>
+<span class="linenos">109</span><span class="sd">            :math:`-n \\leq n \\leq k &lt; n`</span>
 <span class="linenos">110</span><span class="sd">        """</span>
 <span class="linenos">111</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">112</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
@@ -633,10 +636,10 @@
 <span class="linenos">124</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos">125</span>
 <span class="linenos">126</span><span class="sd">        Args:</span>
-<span class="linenos">127</span><span class="sd">          k (int): インデックスです。</span>
+<span class="linenos">127</span><span class="sd">            k (int): インデックスです。</span>
 <span class="linenos">128</span>
 <span class="linenos">129</span><span class="sd">        制約:</span>
-<span class="linenos">130</span><span class="sd">          :math:`-n \\leq n \\leq k &lt; n`</span>
+<span class="linenos">130</span><span class="sd">            :math:`-n \\leq n \\leq k &lt; n`</span>
 <span class="linenos">131</span><span class="sd">        """</span>
 <span class="linenos">132</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">133</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
@@ -650,11 +653,11 @@
 <span class="linenos">141</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos">142</span>
 <span class="linenos">143</span><span class="sd">        Args:</span>
-<span class="linenos">144</span><span class="sd">          l (int): インデックスです。</span>
-<span class="linenos">145</span><span class="sd">          r (int): インデックスです。</span>
+<span class="linenos">144</span><span class="sd">            l (int): インデックスです。</span>
+<span class="linenos">145</span><span class="sd">            r (int): インデックスです。</span>
 <span class="linenos">146</span>
 <span class="linenos">147</span><span class="sd">        制約:</span>
-<span class="linenos">148</span><span class="sd">          :math:`0 \\leq l \\leq r \\leq n`</span>
+<span class="linenos">148</span><span class="sd">            :math:`0 \\leq l \\leq r \\leq n`</span>
 <span class="linenos">149</span><span class="sd">        """</span>
 <span class="linenos">150</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">151</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>

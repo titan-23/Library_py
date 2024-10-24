@@ -34,7 +34,7 @@ class Namori:
                     treeid[x] = now
             now += 1
             tree.append(tmp)
-        # tree[i][j]:= cycle[i]を根とする木
+        # tree[i]:= cycle[i]を根とする木
         # tree[i][0]は常に根
         self.cycle = cycle_list
         self.tree = tree

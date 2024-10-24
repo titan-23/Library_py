@@ -77,3 +77,38 @@ class Parser:
 
     def get_char(self) -> str:
         return self.s[self.ptr]
+
+
+# import sys
+# from lark import Lark
+# from lark import Transformer
+# from functools import reduce
+
+
+# class CalcTransformer(Transformer):
+#     def expr(self, tree):
+#         return reduce(lambda x, y: x + y, tree)
+
+#     def term(self, tree):
+#         return reduce(lambda x, y: x * y, tree)
+
+#     def factor(self, tree):
+#         return tree[0]
+
+#     def number(self, tree):
+#         return int(tree[0])
+
+
+# G = """
+# expr  : term [ "+" expr ]
+# term  : factor [ "*" term ]
+# factor : number | "(" expr ")"
+# number : /[0-9]+/
+# """
+
+# text = "(1+5)*3+2"
+# parser = Lark(G, start="expr")
+# tree = parser.parse(text)
+# print(tree)
+# result = CalcTransformer().transform(tree)
+# print(result)

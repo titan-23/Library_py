@@ -139,6 +139,7 @@
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="titan_pylib.ahc.html">ahc</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.ahc</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.ahc_settings.html">ahc_settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.calc_ratio.html">calc_ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.optimizer.html">optimizer</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">parallel_tester</a></li>
 </ul>
@@ -159,6 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.arithmetic_progression.html">arithmetic_progression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.gray_code.html">gray_code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.parser.html">parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.permutation.html">permutation</a></li>
@@ -397,16 +399,17 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.graph.html">graph</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.flow.html">flow</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.bipartite_max_matching.html">bipartite_max_matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_dinic.html">max_flow_dinic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld.html">hld</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_lazy_segment_tree.html">hld_lazy_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">hld_noncommutative_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_segment_tree.html">hld_segment_tree</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.max_flow.html">max_flow</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_dinic.html">max_flow_dinic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
@@ -515,184 +518,212 @@
 <span class="linenos">  7</span><span class="kn">import</span> <span class="nn">time</span>
 <span class="linenos">  8</span><span class="kn">import</span> <span class="nn">os</span>
 <span class="linenos">  9</span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="linenos"> 10</span><span class="kn">from</span> <span class="nn">ahc_settings</span> <span class="kn">import</span> <span class="n">AHCSettings</span>
-<span class="linenos"> 11</span>
-<span class="linenos"> 12</span><span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="linenos"> 13</span><span class="n">basicConfig</span><span class="p">(</span>
-<span class="linenos"> 14</span>    <span class="nb">format</span><span class="o">=</span><span class="s2">"</span><span class="si">%(asctime)s</span><span class="s2"> [</span><span class="si">%(levelname)s</span><span class="s2">] : </span><span class="si">%(message)s</span><span class="s2">"</span><span class="p">,</span>
-<span class="linenos"> 15</span>    <span class="n">datefmt</span><span class="o">=</span><span class="s2">"%H:%M:%S"</span><span class="p">,</span>
-<span class="linenos"> 16</span>    <span class="n">level</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"LOG_LEVEL"</span><span class="p">,</span> <span class="s2">"INFO"</span><span class="p">),</span>
-<span class="linenos"> 17</span><span class="p">)</span>
-<span class="linenos"> 18</span>
+<span class="linenos"> 10</span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="linenos"> 11</span><span class="kn">from</span> <span class="nn">ahc_settings</span> <span class="kn">import</span> <span class="n">AHCSettings</span>
+<span class="linenos"> 12</span>
+<span class="linenos"> 13</span><span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="linenos"> 14</span><span class="n">basicConfig</span><span class="p">(</span>
+<span class="linenos"> 15</span>    <span class="nb">format</span><span class="o">=</span><span class="s2">"</span><span class="si">%(asctime)s</span><span class="s2"> [</span><span class="si">%(levelname)s</span><span class="s2">] : </span><span class="si">%(message)s</span><span class="s2">"</span><span class="p">,</span>
+<span class="linenos"> 16</span>    <span class="n">datefmt</span><span class="o">=</span><span class="s2">"%H:%M:%S"</span><span class="p">,</span>
+<span class="linenos"> 17</span>    <span class="n">level</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"LOG_LEVEL"</span><span class="p">,</span> <span class="s2">"INFO"</span><span class="p">),</span>
+<span class="linenos"> 18</span><span class="p">)</span>
 <span class="linenos"> 19</span>
-<span class="linenos"> 20</span><span class="k">class</span> <span class="nc">ParallelTester</span><span class="p">:</span>
-<span class="linenos"> 21</span><span class="w">    </span><span class="sd">"""テストケース並列回し屋です。</span>
-<span class="linenos"> 22</span>
-<span class="linenos"> 23</span><span class="sd">    - 実行例(127並列)ahc_settings.pyを設定して以下のコマンドを実行</span>
-<span class="linenos"> 24</span>
-<span class="linenos"> 25</span><span class="sd">    ``$ python3 ./parallel_tester.py -c -v -njobs 127``</span>
-<span class="linenos"> 26</span><span class="sd">    """</span>
-<span class="linenos"> 27</span>
-<span class="linenos"> 28</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-<span class="linenos"> 29</span>        <span class="bp">self</span><span class="p">,</span>
-<span class="linenos"> 30</span>        <span class="n">compile_command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="linenos"> 31</span>        <span class="n">execute_command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="linenos"> 32</span>        <span class="n">input_file_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-<span class="linenos"> 33</span>        <span class="n">cpu_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-<span class="linenos"> 34</span>        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-<span class="linenos"> 35</span>        <span class="n">get_score</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">],</span>
-<span class="linenos"> 36</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 37</span><span class="w">        </span><span class="sd">"""</span>
-<span class="linenos"> 38</span><span class="sd">        Args:</span>
-<span class="linenos"> 39</span><span class="sd">          compile_command (str): コンパイルコマンドです。</span>
-<span class="linenos"> 40</span><span class="sd">          execute_command (str): 実行コマンドです。</span>
-<span class="linenos"> 41</span><span class="sd">                                 実行時引数は ``append_execute_command()`` メソッドで指定することも可能です。</span>
-<span class="linenos"> 42</span><span class="sd">          input_file_names (list[str]): 入力ファイル名のリストです。</span>
-<span class="linenos"> 43</span><span class="sd">          cpu_count (int): CPU数です。</span>
-<span class="linenos"> 44</span><span class="sd">          verbose (bool): ログを表示します。</span>
-<span class="linenos"> 45</span><span class="sd">          get_score (Callable[[list[float]], float]): スコアのリストに対して平均などを取って返してください。</span>
-<span class="linenos"> 46</span><span class="sd">        """</span>
-<span class="linenos"> 47</span>        <span class="bp">self</span><span class="o">.</span><span class="n">compile_command</span> <span class="o">=</span> <span class="n">compile_command</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-<span class="linenos"> 48</span>        <span class="bp">self</span><span class="o">.</span><span class="n">execute_command</span> <span class="o">=</span> <span class="n">execute_command</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-<span class="linenos"> 49</span>        <span class="bp">self</span><span class="o">.</span><span class="n">input_file_names</span> <span class="o">=</span> <span class="n">input_file_names</span>
-<span class="linenos"> 50</span>        <span class="bp">self</span><span class="o">.</span><span class="n">cpu_count</span> <span class="o">=</span> <span class="n">cpu_count</span>
-<span class="linenos"> 51</span>        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
-<span class="linenos"> 52</span>        <span class="bp">self</span><span class="o">.</span><span class="n">get_score</span> <span class="o">=</span> <span class="n">get_score</span>
-<span class="linenos"> 53</span>
-<span class="linenos"> 54</span>    <span class="k">def</span> <span class="nf">show_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scores</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="linenos"> 55</span><span class="w">        </span><span class="sd">"""スコアのリストを受け取り、 ``get_score`` 関数で計算します。</span>
-<span class="linenos"> 56</span><span class="sd">        ついでに表示もします。</span>
-<span class="linenos"> 57</span><span class="sd">        """</span>
-<span class="linenos"> 58</span>        <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
-<span class="linenos"> 59</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pred Score= </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="linenos"> 60</span>        <span class="k">return</span> <span class="n">score</span>
-<span class="linenos"> 61</span>
-<span class="linenos"> 62</span>    <span class="k">def</span> <span class="nf">append_execute_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 63</span><span class="w">        </span><span class="sd">"""コマンドライン引数を追加します。"""</span>
-<span class="linenos"> 64</span>        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-<span class="linenos"> 65</span>            <span class="bp">self</span><span class="o">.</span><span class="n">execute_command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
-<span class="linenos"> 66</span>
-<span class="linenos"> 67</span>    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 68</span><span class="w">        </span><span class="sd">"""``compile_command`` よりコンパイルします。"""</span>
-<span class="linenos"> 69</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"compiling..."</span><span class="p">)</span>
-<span class="linenos"> 70</span>        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-<span class="linenos"> 71</span>            <span class="bp">self</span><span class="o">.</span><span class="n">compile_command</span><span class="p">,</span>
-<span class="linenos"> 72</span>            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-<span class="linenos"> 73</span>            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-<span class="linenos"> 74</span>            <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos"> 75</span>            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos"> 76</span>        <span class="p">)</span>
-<span class="linenos"> 77</span>
-<span class="linenos"> 78</span>    <span class="k">def</span> <span class="nf">_process_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="linenos"> 79</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="linenos"> 80</span>            <span class="n">input_text</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-<span class="linenos"> 81</span>        <span class="k">try</span><span class="p">:</span>
-<span class="linenos"> 82</span>            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-<span class="linenos"> 83</span>                <span class="bp">self</span><span class="o">.</span><span class="n">execute_command</span><span class="p">,</span>
-<span class="linenos"> 84</span>                <span class="nb">input</span><span class="o">=</span><span class="n">input_text</span><span class="p">,</span>
-<span class="linenos"> 85</span>                <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-<span class="linenos"> 86</span>                <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-<span class="linenos"> 87</span>                <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos"> 88</span>                <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos"> 89</span>            <span class="p">)</span>
-<span class="linenos"> 90</span>            <span class="n">score_line</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="linenos"> 91</span>            <span class="n">_</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">score_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" = "</span><span class="p">)</span>
-<span class="linenos"> 92</span>            <span class="n">score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-<span class="linenos"> 93</span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-<span class="linenos"> 94</span>                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">input_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">score</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
-<span class="linenos"> 95</span>            <span class="k">return</span> <span class="n">score</span>
-<span class="linenos"> 96</span>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="linenos"> 97</span>            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="linenos"> 98</span>            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error occured in </span><span class="si">{</span><span class="n">input_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="linenos"> 99</span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
-<span class="linenos">100</span>
-<span class="linenos">101</span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-<span class="linenos">102</span><span class="w">        </span><span class="sd">"""実行します。"""</span>
-<span class="linenos">103</span>        <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">)</span>
-<span class="linenos">104</span>        <span class="n">scores</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
-<span class="linenos">105</span>            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_file</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_names</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1</span>
-<span class="linenos">106</span>        <span class="p">)</span>
-<span class="linenos">107</span>        <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="linenos">108</span>        <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-<span class="linenos">109</span>        <span class="k">return</span> <span class="n">scores</span>
-<span class="linenos">110</span>
-<span class="linenos">111</span>    <span class="nd">@staticmethod</span>
-<span class="linenos">112</span>    <span class="k">def</span> <span class="nf">get_args</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
-<span class="linenos">113</span><span class="w">        </span><span class="sd">"""実行時引数を解析します。"""</span>
-<span class="linenos">114</span>        <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-<span class="linenos">115</span>        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-<span class="linenos">116</span>            <span class="s2">"-c"</span><span class="p">,</span>
-<span class="linenos">117</span>            <span class="s2">"--compile"</span><span class="p">,</span>
-<span class="linenos">118</span>            <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="linenos">119</span>            <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
-<span class="linenos">120</span>            <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="linenos">121</span>            <span class="n">help</span><span class="o">=</span><span class="s2">"if compile the file. default is `False`."</span><span class="p">,</span>
-<span class="linenos">122</span>        <span class="p">)</span>
-<span class="linenos">123</span>        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-<span class="linenos">124</span>            <span class="s2">"-v"</span><span class="p">,</span>
-<span class="linenos">125</span>            <span class="s2">"--verbose"</span><span class="p">,</span>
-<span class="linenos">126</span>            <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="linenos">127</span>            <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
-<span class="linenos">128</span>            <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="linenos">129</span>            <span class="n">help</span><span class="o">=</span><span class="s2">"show logs. default is `False`."</span><span class="p">,</span>
-<span class="linenos">130</span>        <span class="p">)</span>
-<span class="linenos">131</span>        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-<span class="linenos">132</span>            <span class="s2">"-njobs"</span><span class="p">,</span>
-<span class="linenos">133</span>            <span class="s2">"--number_of_jobs"</span><span class="p">,</span>
-<span class="linenos">134</span>            <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="linenos">135</span>            <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
-<span class="linenos">136</span>            <span class="n">action</span><span class="o">=</span><span class="s2">"store"</span><span class="p">,</span>
-<span class="linenos">137</span>            <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="linenos">138</span>            <span class="n">help</span><span class="o">=</span><span class="s2">"set the number of cpu_count. default is `1`."</span><span class="p">,</span>
-<span class="linenos">139</span>        <span class="p">)</span>
-<span class="linenos">140</span>        <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-<span class="linenos">141</span>
-<span class="linenos">142</span>
-<span class="linenos">143</span><span class="k">def</span> <span class="nf">build_tester</span><span class="p">(</span>
-<span class="linenos">144</span>    <span class="n">settings</span><span class="p">:</span> <span class="n">AHCSettings</span><span class="p">,</span> <span class="n">njobs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="linenos">145</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParallelTester</span><span class="p">:</span>
-<span class="linenos">146</span><span class="w">    </span><span class="sd">"""`ParallelTester` を返します</span>
-<span class="linenos">147</span>
-<span class="linenos">148</span><span class="sd">    Args:</span>
-<span class="linenos">149</span><span class="sd">      njobs (int, optional): cpu_count です。</span>
-<span class="linenos">150</span><span class="sd">      verbose (bool, optional): ログを表示します。</span>
-<span class="linenos">151</span>
-<span class="linenos">152</span><span class="sd">    Returns:</span>
-<span class="linenos">153</span><span class="sd">      ParallelTester: テスターです。</span>
-<span class="linenos">154</span><span class="sd">    """</span>
-<span class="linenos">155</span>    <span class="n">tester</span> <span class="o">=</span> <span class="n">ParallelTester</span><span class="p">(</span>
-<span class="linenos">156</span>        <span class="n">compile_command</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">compile_command</span><span class="p">,</span>
-<span class="linenos">157</span>        <span class="n">execute_command</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">execute_command</span><span class="p">,</span>
-<span class="linenos">158</span>        <span class="n">input_file_names</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">input_file_names</span><span class="p">,</span>
-<span class="linenos">159</span>        <span class="n">cpu_count</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">njobs</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
-<span class="linenos">160</span>        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-<span class="linenos">161</span>        <span class="n">get_score</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">get_score</span><span class="p">,</span>
-<span class="linenos">162</span>    <span class="p">)</span>
-<span class="linenos">163</span>    <span class="k">return</span> <span class="n">tester</span>
-<span class="linenos">164</span>
-<span class="linenos">165</span>
-<span class="linenos">166</span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="linenos">167</span><span class="w">    </span><span class="sd">"""実行時引数をもとに、 ``tester`` を立ち上げ実行します。"""</span>
-<span class="linenos">168</span>    <span class="n">args</span> <span class="o">=</span> <span class="n">ParallelTester</span><span class="o">.</span><span class="n">get_args</span><span class="p">()</span>
-<span class="linenos">169</span>    <span class="n">njobs</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">number_of_jobs</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">170</span>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">njobs</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
-<span class="linenos">171</span>
-<span class="linenos">172</span>    <span class="n">tester</span> <span class="o">=</span> <span class="n">build_tester</span><span class="p">(</span><span class="n">AHCSettings</span><span class="p">,</span> <span class="n">njobs</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
-<span class="linenos">173</span>
-<span class="linenos">174</span>    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">compile</span><span class="p">:</span>
-<span class="linenos">175</span>        <span class="n">tester</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
-<span class="linenos">176</span>
-<span class="linenos">177</span>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"start."</span><span class="p">)</span>
-<span class="linenos">178</span>
-<span class="linenos">179</span>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="linenos">180</span>    <span class="n">scores</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="linenos">181</span>    <span class="n">score</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">show_score</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
-<span class="linenos">182</span>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">sec"</span><span class="p">)</span>
-<span class="linenos">183</span>    <span class="k">return</span> <span class="n">score</span>
-<span class="linenos">184</span>
-<span class="linenos">185</span>
-<span class="linenos">186</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-<span class="linenos">187</span>    <span class="n">main</span><span class="p">()</span>
+<span class="linenos"> 20</span>
+<span class="linenos"> 21</span><span class="k">class</span> <span class="nc">ParallelTester</span><span class="p">:</span>
+<span class="linenos"> 22</span><span class="w">    </span><span class="sd">"""テストケース並列回し屋です。</span>
+<span class="linenos"> 23</span>
+<span class="linenos"> 24</span><span class="sd">    - 実行例(127並列)ahc_settings.pyを設定して以下のコマンドを実行</span>
+<span class="linenos"> 25</span>
+<span class="linenos"> 26</span><span class="sd">    ``$ python3 ./parallel_tester.py -c -v -njobs 127``</span>
+<span class="linenos"> 27</span><span class="sd">    """</span>
+<span class="linenos"> 28</span>
+<span class="linenos"> 29</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="linenos"> 30</span>        <span class="bp">self</span><span class="p">,</span>
+<span class="linenos"> 31</span>        <span class="n">compile_command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="linenos"> 32</span>        <span class="n">execute_command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="linenos"> 33</span>        <span class="n">input_file_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="linenos"> 34</span>        <span class="n">cpu_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="linenos"> 35</span>        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="linenos"> 36</span>        <span class="n">get_score</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">],</span>
+<span class="linenos"> 37</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 38</span><span class="w">        </span><span class="sd">"""</span>
+<span class="linenos"> 39</span><span class="sd">        Args:</span>
+<span class="linenos"> 40</span><span class="sd">          compile_command (str): コンパイルコマンドです。</span>
+<span class="linenos"> 41</span><span class="sd">          execute_command (str): 実行コマンドです。</span>
+<span class="linenos"> 42</span><span class="sd">                                 実行時引数は ``append_execute_command()`` メソッドで指定することも可能です。</span>
+<span class="linenos"> 43</span><span class="sd">          input_file_names (list[str]): 入力ファイル名のリストです。</span>
+<span class="linenos"> 44</span><span class="sd">          cpu_count (int): CPU数です。</span>
+<span class="linenos"> 45</span><span class="sd">          verbose (bool): ログを表示します。</span>
+<span class="linenos"> 46</span><span class="sd">          get_score (Callable[[list[float]], float]): スコアのリストに対して平均などを取って返してください。</span>
+<span class="linenos"> 47</span><span class="sd">        """</span>
+<span class="linenos"> 48</span>        <span class="bp">self</span><span class="o">.</span><span class="n">compile_command</span> <span class="o">=</span> <span class="n">compile_command</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="linenos"> 49</span>        <span class="bp">self</span><span class="o">.</span><span class="n">execute_command</span> <span class="o">=</span> <span class="n">execute_command</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="linenos"> 50</span>        <span class="bp">self</span><span class="o">.</span><span class="n">input_file_names</span> <span class="o">=</span> <span class="n">input_file_names</span>
+<span class="linenos"> 51</span>        <span class="bp">self</span><span class="o">.</span><span class="n">cpu_count</span> <span class="o">=</span> <span class="n">cpu_count</span>
+<span class="linenos"> 52</span>        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+<span class="linenos"> 53</span>        <span class="bp">self</span><span class="o">.</span><span class="n">get_score</span> <span class="o">=</span> <span class="n">get_score</span>
+<span class="linenos"> 54</span>
+<span class="linenos"> 55</span>    <span class="k">def</span> <span class="nf">show_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scores</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="linenos"> 56</span><span class="w">        </span><span class="sd">"""スコアのリストを受け取り、 ``get_score`` 関数で計算します。</span>
+<span class="linenos"> 57</span><span class="sd">        ついでに表示もします。</span>
+<span class="linenos"> 58</span><span class="sd">        """</span>
+<span class="linenos"> 59</span>        <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+<span class="linenos"> 60</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pred Score= </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos"> 61</span>        <span class="k">return</span> <span class="n">score</span>
+<span class="linenos"> 62</span>
+<span class="linenos"> 63</span>    <span class="k">def</span> <span class="nf">append_execute_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 64</span><span class="w">        </span><span class="sd">"""コマンドライン引数を追加します。"""</span>
+<span class="linenos"> 65</span>        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+<span class="linenos"> 66</span>            <span class="bp">self</span><span class="o">.</span><span class="n">execute_command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span>    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 69</span><span class="w">        </span><span class="sd">"""``compile_command`` よりコンパイルします。"""</span>
+<span class="linenos"> 70</span>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"compiling..."</span><span class="p">)</span>
+<span class="linenos"> 71</span>        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="linenos"> 72</span>            <span class="bp">self</span><span class="o">.</span><span class="n">compile_command</span><span class="p">,</span>
+<span class="linenos"> 73</span>            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+<span class="linenos"> 74</span>            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+<span class="linenos"> 75</span>            <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos"> 76</span>            <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos"> 77</span>        <span class="p">)</span>
+<span class="linenos"> 78</span>
+<span class="linenos"> 79</span>    <span class="k">def</span> <span class="nf">_process_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="linenos"> 80</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="linenos"> 81</span>            <span class="n">input_text</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="linenos"> 82</span>        <span class="k">try</span><span class="p">:</span>
+<span class="linenos"> 83</span>            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="linenos"> 84</span>                <span class="bp">self</span><span class="o">.</span><span class="n">execute_command</span><span class="p">,</span>
+<span class="linenos"> 85</span>                <span class="nb">input</span><span class="o">=</span><span class="n">input_text</span><span class="p">,</span>
+<span class="linenos"> 86</span>                <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+<span class="linenos"> 87</span>                <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+<span class="linenos"> 88</span>                <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos"> 89</span>                <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos"> 90</span>            <span class="p">)</span>
+<span class="linenos"> 91</span>            <span class="n">outputs</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span>
+<span class="linenos"> 92</span>            <span class="n">score_line</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="linenos"> 93</span>            <span class="n">_</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">score_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" = "</span><span class="p">)</span>
+<span class="linenos"> 94</span>            <span class="n">score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="linenos"> 95</span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+<span class="linenos"> 96</span>                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">input_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">score</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos"> 97</span>            <span class="k">return</span> <span class="n">input_file</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">outputs</span>
+<span class="linenos"> 98</span>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="linenos"> 99</span>            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="linenos">100</span>            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error occured in </span><span class="si">{</span><span class="n">input_file</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos">101</span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+<span class="linenos">102</span>
+<span class="linenos">103</span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="linenos">104</span><span class="w">        </span><span class="sd">"""実行します。"""</span>
+<span class="linenos">105</span>        <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">)</span>
+<span class="linenos">106</span>        <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+<span class="linenos">107</span>            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_file</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_names</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1</span>
+<span class="linenos">108</span>        <span class="p">)</span>
+<span class="linenos">109</span>        <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">110</span>        <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="linenos">111</span>        <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+<span class="linenos">112</span>        <span class="k">return</span> <span class="n">scores</span>
+<span class="linenos">113</span>
+<span class="linenos">114</span>    <span class="k">def</span> <span class="nf">run_record</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="linenos">115</span><span class="w">        </span><span class="sd">"""実行します。"""</span>
+<span class="linenos">116</span>        <span class="n">dt_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="linenos">117</span>
+<span class="linenos">118</span>        <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">)</span>
+<span class="linenos">119</span>        <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+<span class="linenos">120</span>            <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_file</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_names</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">1</span>
+<span class="linenos">121</span>        <span class="p">)</span>
+<span class="linenos">122</span>        <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">123</span>        <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="linenos">124</span>
+<span class="linenos">125</span>        <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">"./alltests/"</span>
+<span class="linenos">126</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_dir</span><span class="p">):</span>
+<span class="linenos">127</span>            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+<span class="linenos">128</span>        <span class="n">d</span> <span class="o">=</span> <span class="n">dt_now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">_%H-%M-%S"</span><span class="p">)</span>
+<span class="linenos">129</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">output_dir</span><span class="si">}{</span><span class="n">d</span><span class="si">}</span><span class="s2">.txt"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="linenos">130</span>            <span class="n">result</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="linenos">131</span>            <span class="k">for</span> <span class="n">filename</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">outputs</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+<span class="linenos">132</span>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+<span class="linenos">133</span>                <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">"./in/"</span><span class="p">)</span> <span class="p">:]</span>
+<span class="linenos">134</span>                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"out/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_f</span><span class="p">:</span>
+<span class="linenos">135</span>                    <span class="nb">print</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">out_f</span><span class="p">)</span>
+<span class="linenos">136</span>        <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+<span class="linenos">137</span>        <span class="k">return</span> <span class="n">scores</span>
+<span class="linenos">138</span>
+<span class="linenos">139</span>    <span class="nd">@staticmethod</span>
+<span class="linenos">140</span>    <span class="k">def</span> <span class="nf">get_args</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
+<span class="linenos">141</span><span class="w">        </span><span class="sd">"""実行時引数を解析します。"""</span>
+<span class="linenos">142</span>        <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="linenos">143</span>        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+<span class="linenos">144</span>            <span class="s2">"-c"</span><span class="p">,</span>
+<span class="linenos">145</span>            <span class="s2">"--compile"</span><span class="p">,</span>
+<span class="linenos">146</span>            <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">147</span>            <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+<span class="linenos">148</span>            <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">149</span>            <span class="n">help</span><span class="o">=</span><span class="s2">"if compile the file. default is `False`."</span><span class="p">,</span>
+<span class="linenos">150</span>        <span class="p">)</span>
+<span class="linenos">151</span>        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+<span class="linenos">152</span>            <span class="s2">"-v"</span><span class="p">,</span>
+<span class="linenos">153</span>            <span class="s2">"--verbose"</span><span class="p">,</span>
+<span class="linenos">154</span>            <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">155</span>            <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+<span class="linenos">156</span>            <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">157</span>            <span class="n">help</span><span class="o">=</span><span class="s2">"show logs. default is `False`."</span><span class="p">,</span>
+<span class="linenos">158</span>        <span class="p">)</span>
+<span class="linenos">159</span>        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+<span class="linenos">160</span>            <span class="s2">"-njobs"</span><span class="p">,</span>
+<span class="linenos">161</span>            <span class="s2">"--number_of_jobs"</span><span class="p">,</span>
+<span class="linenos">162</span>            <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos">163</span>            <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+<span class="linenos">164</span>            <span class="n">action</span><span class="o">=</span><span class="s2">"store"</span><span class="p">,</span>
+<span class="linenos">165</span>            <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos">166</span>            <span class="n">help</span><span class="o">=</span><span class="s2">"set the number of cpu_count. default is `1`."</span><span class="p">,</span>
+<span class="linenos">167</span>        <span class="p">)</span>
+<span class="linenos">168</span>        <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+<span class="linenos">169</span>
+<span class="linenos">170</span>
+<span class="linenos">171</span><span class="k">def</span> <span class="nf">build_tester</span><span class="p">(</span>
+<span class="linenos">172</span>    <span class="n">settings</span><span class="p">:</span> <span class="n">AHCSettings</span><span class="p">,</span> <span class="n">njobs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos">173</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParallelTester</span><span class="p">:</span>
+<span class="linenos">174</span><span class="w">    </span><span class="sd">"""`ParallelTester` を返します</span>
+<span class="linenos">175</span>
+<span class="linenos">176</span><span class="sd">    Args:</span>
+<span class="linenos">177</span><span class="sd">        njobs (int, optional): cpu_count です。</span>
+<span class="linenos">178</span><span class="sd">        verbose (bool, optional): ログを表示します。</span>
+<span class="linenos">179</span>
+<span class="linenos">180</span><span class="sd">    Returns:</span>
+<span class="linenos">181</span><span class="sd">        ParallelTester: テスターです。</span>
+<span class="linenos">182</span><span class="sd">    """</span>
+<span class="linenos">183</span>    <span class="n">tester</span> <span class="o">=</span> <span class="n">ParallelTester</span><span class="p">(</span>
+<span class="linenos">184</span>        <span class="n">compile_command</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">compile_command</span><span class="p">,</span>
+<span class="linenos">185</span>        <span class="n">execute_command</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">execute_command</span><span class="p">,</span>
+<span class="linenos">186</span>        <span class="n">input_file_names</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">input_file_names</span><span class="p">,</span>
+<span class="linenos">187</span>        <span class="n">cpu_count</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">njobs</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+<span class="linenos">188</span>        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+<span class="linenos">189</span>        <span class="n">get_score</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">get_score</span><span class="p">,</span>
+<span class="linenos">190</span>    <span class="p">)</span>
+<span class="linenos">191</span>    <span class="k">return</span> <span class="n">tester</span>
+<span class="linenos">192</span>
+<span class="linenos">193</span>
+<span class="linenos">194</span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="linenos">195</span><span class="w">    </span><span class="sd">"""実行時引数をもとに、 ``tester`` を立ち上げ実行します。"""</span>
+<span class="linenos">196</span>    <span class="n">args</span> <span class="o">=</span> <span class="n">ParallelTester</span><span class="o">.</span><span class="n">get_args</span><span class="p">()</span>
+<span class="linenos">197</span>    <span class="n">njobs</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">number_of_jobs</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">198</span>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">njobs</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos">199</span>
+<span class="linenos">200</span>    <span class="n">tester</span> <span class="o">=</span> <span class="n">build_tester</span><span class="p">(</span><span class="n">AHCSettings</span><span class="p">,</span> <span class="n">njobs</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+<span class="linenos">201</span>
+<span class="linenos">202</span>    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">compile</span><span class="p">:</span>
+<span class="linenos">203</span>        <span class="n">tester</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="linenos">204</span>
+<span class="linenos">205</span>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"start."</span><span class="p">)</span>
+<span class="linenos">206</span>
+<span class="linenos">207</span>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="linenos">208</span>    <span class="n">scores</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">run_record</span><span class="p">()</span>
+<span class="linenos">209</span>    <span class="n">score</span> <span class="o">=</span> <span class="n">tester</span><span class="o">.</span><span class="n">show_score</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+<span class="linenos">210</span>    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">sec"</span><span class="p">)</span>
+<span class="linenos">211</span>    <span class="k">return</span> <span class="n">score</span>
+<span class="linenos">212</span>
+<span class="linenos">213</span>
+<span class="linenos">214</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+<span class="linenos">215</span>    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -726,6 +757,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.ahc.parallel_tester.ParallelTester.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/ahc/parallel_tester.html#ParallelTester.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.ahc.parallel_tester.ParallelTester.run" title="Link to this definition">¶</a></dt>
+<dd><p>実行します。</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.ahc.parallel_tester.ParallelTester.run_record">
+<span class="sig-name descname"><span class="pre">run_record</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/titan_pylib/ahc/parallel_tester.html#ParallelTester.run_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.ahc.parallel_tester.ParallelTester.run_record" title="Link to this definition">¶</a></dt>
 <dd><p>実行します。</p>
 </dd></dl>
 <dl class="py method">
@@ -819,6 +855,7 @@
 <li><a class="reference internal" href="#titan_pylib.ahc.parallel_tester.ParallelTester.compile"><code class="docutils literal notranslate"><span class="pre">ParallelTester.compile()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.ahc.parallel_tester.ParallelTester.get_args"><code class="docutils literal notranslate"><span class="pre">ParallelTester.get_args()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.ahc.parallel_tester.ParallelTester.run"><code class="docutils literal notranslate"><span class="pre">ParallelTester.run()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.ahc.parallel_tester.ParallelTester.run_record"><code class="docutils literal notranslate"><span class="pre">ParallelTester.run_record()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.ahc.parallel_tester.ParallelTester.show_score"><code class="docutils literal notranslate"><span class="pre">ParallelTester.show_score()</span></code></a></li>
 </ul>
 </li>

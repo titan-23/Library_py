@@ -139,6 +139,7 @@
 <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.ahc.html">ahc</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.ahc</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.ahc_settings.html">ahc_settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.calc_ratio.html">calc_ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.optimizer.html">optimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.parallel_tester.html">parallel_tester</a></li>
 </ul>
@@ -159,6 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.arithmetic_progression.html">arithmetic_progression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.gray_code.html">gray_code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.parser.html">parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.permutation.html">permutation</a></li>
@@ -397,16 +399,17 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.graph.html">graph</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.flow.html">flow</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.bipartite_max_matching.html">bipartite_max_matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_dinic.html">max_flow_dinic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld.html">hld</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_lazy_segment_tree.html">hld_lazy_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">hld_noncommutative_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_segment_tree.html">hld_segment_tree</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.max_flow.html">max_flow</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_dinic.html">max_flow_dinic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
@@ -592,7 +595,7 @@
 <span class="linenos"> 82</span>
 <span class="linenos"> 83</span><span class="c1"># ---------------------- #</span>
 <span class="linenos"> 84</span>
-<span class="linenos"> 85</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="nb">list</span>
+<span class="linenos"> 85</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
 <span class="linenos"> 86</span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
 <span class="linenos"> 87</span>
 <span class="linenos"> 88</span>
@@ -677,7 +680,7 @@
 <span class="linenos">167</span>
 <span class="linenos">168</span><span class="c1"># ---------------------- #</span>
 <span class="linenos">169</span>
-<span class="linenos">170</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="nb">list</span>
+<span class="linenos">170</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
 <span class="linenos">171</span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
 <span class="linenos">172</span>
 <span class="linenos">173</span>
@@ -763,8 +766,148 @@
 </div>
 </section>
 </section>
-<section id="id3">
-<h2>仕様<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="module-titan_pylib.math.mod_array">
+<span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.math.mod_array" title="Link to this heading">¶</a></h2>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.Array">
+<span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">Array</span></span><a class="headerlink" href="#titan_pylib.math.mod_array.Array" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#titan_pylib.math.mod_array.ModArray" title="titan_pylib.math.mod_array.ModArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModArray</span></code></a></p>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">ModArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.all_mul">
+<span class="sig-name descname"><span class="pre">all_mul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.all_mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.all_mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.all_sum">
+<span class="sig-name descname"><span class="pre">all_sum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.all_sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.all_sum" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.append" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.div">
+<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.div"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.div" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.get_mod">
+<span class="sig-name descname"><span class="pre">get_mod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.get_mod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.get_mod" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.pop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.resize">
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.resize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray.sub">
+<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray.sub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray.sub" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">ModArray1000000007</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.all_mul">
+<span class="sig-name descname"><span class="pre">all_mul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.all_mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.all_mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.all_sum">
+<span class="sig-name descname"><span class="pre">all_sum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.all_sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.all_sum" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.append" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.div">
+<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.div"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.div" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.get_mod">
+<span class="sig-name descname"><span class="pre">get_mod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.get_mod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.get_mod" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.pop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.resize">
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.resize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray1000000007.sub">
+<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray1000000007.sub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray1000000007.sub" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">ModArray998244353</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.all_mul">
+<span class="sig-name descname"><span class="pre">all_mul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.all_mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.all_mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.all_sum">
+<span class="sig-name descname"><span class="pre">all_sum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.all_sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.all_sum" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.append" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.div">
+<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.div"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.div" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.get_mod">
+<span class="sig-name descname"><span class="pre">get_mod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.get_mod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.get_mod" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.mul" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.pop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.resize">
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.resize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.math.mod_array.ModArray998244353.sub">
+<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/titan_pylib/math/mod_array.html#ModArray998244353.sub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.math.mod_array.ModArray998244353.sub" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
 </section>
 </article>
@@ -819,7 +962,49 @@
 <li><a class="reference internal" href="#id2">展開済みコード</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">仕様</a></li>
+<li><a class="reference internal" href="#module-titan_pylib.math.mod_array">仕様</a><ul>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.Array"><code class="docutils literal notranslate"><span class="pre">Array</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray"><code class="docutils literal notranslate"><span class="pre">ModArray</span></code></a><ul>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.add"><code class="docutils literal notranslate"><span class="pre">ModArray.add()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.all_mul"><code class="docutils literal notranslate"><span class="pre">ModArray.all_mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.all_sum"><code class="docutils literal notranslate"><span class="pre">ModArray.all_sum()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.append"><code class="docutils literal notranslate"><span class="pre">ModArray.append()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.div"><code class="docutils literal notranslate"><span class="pre">ModArray.div()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.get_mod"><code class="docutils literal notranslate"><span class="pre">ModArray.get_mod()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.mul"><code class="docutils literal notranslate"><span class="pre">ModArray.mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.pop"><code class="docutils literal notranslate"><span class="pre">ModArray.pop()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.resize"><code class="docutils literal notranslate"><span class="pre">ModArray.resize()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray.sub"><code class="docutils literal notranslate"><span class="pre">ModArray.sub()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007</span></code></a><ul>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.add"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.add()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.all_mul"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.all_mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.all_sum"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.all_sum()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.append"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.append()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.div"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.div()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.get_mod"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.get_mod()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.mul"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.pop"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.pop()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.resize"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.resize()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray1000000007.sub"><code class="docutils literal notranslate"><span class="pre">ModArray1000000007.sub()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353"><code class="docutils literal notranslate"><span class="pre">ModArray998244353</span></code></a><ul>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.add"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.add()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.all_mul"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.all_mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.all_sum"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.all_sum()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.append"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.append()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.div"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.div()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.get_mod"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.get_mod()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.mul"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.mul()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.pop"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.pop()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.resize"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.resize()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.math.mod_array.ModArray998244353.sub"><code class="docutils literal notranslate"><span class="pre">ModArray998244353.sub()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -604,7 +604,7 @@ class RandomTree:
         Returns:
           list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
         """
-        random.seed(seed)
+        cls.rand = random.Random(seed)
         edges = None
         if typ == RandomTreeType.random:
             edges = cls._build_random(n)
@@ -615,17 +615,17 @@ class RandomTree:
         assert (
             edges is not None
         ), f"{cls.__class__.__name__}.build({typ}), typ is not defined."
-        random.shuffle(edges)
+        cls.rand.shuffle(edges)
         return edges
 
     @classmethod
     def _build_star(cls, n: int) -> list[tuple[int, int]]:
-        center = random.randrange(0, n)
+        center = cls.rand.randrange(0, n)
         edges = []
         for i in range(n):
             if i == center:
                 continue
-            if random.random() < 0.5:
+            if cls.rand.random() < 0.5:
                 edges.append((center, i))
             else:
                 edges.append((i, center))
@@ -634,9 +634,9 @@ class RandomTree:
     @classmethod
     def _build_path(cls, n: int) -> list[tuple[int, int]]:
         p = list(range(n))
-        random.shuffle(p)
+        cls.rand.shuffle(p)
         edges = [
-            (p[i], p[i + 1]) if random.random() < 0.5 else (p[i + 1], p[i])
+            (p[i], p[i + 1]) if cls.rand.random() < 0.5 else (p[i + 1], p[i])
             for i in range(n - 1)
         ]
         return edges
@@ -647,7 +647,7 @@ class RandomTree:
         D = [1] * n
         A = [0] * (n - 2)
         for i in range(n - 2):
-            v = random.randrange(0, n)
+            v = cls.rand.randrange(0, n)
             D[v] += 1
             A[i] = v
         avl: AVLTreeSet2[tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(n))

@@ -73,6 +73,9 @@ class MaxHeap(Generic[T]):
         self._down(0)
         return res
 
+    def tolist(self) -> list[T]:
+        return sorted(self.a)
+
     def __getitem__(self, k: int) -> T:
         assert k == 0
         return self.a[0]

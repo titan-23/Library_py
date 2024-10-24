@@ -44,9 +44,8 @@ class PersistentArray(Generic[T]):
 
     def set(self, k: int, v: T) -> "PersistentArray[T]":
         assert 0 <= k < len(self), f"IndexError: {self.__class__.__name__}.set({k})"
+        assert self.root
         node = self.root
-        if node is None:
-            return self._new(None)
         new_node = node.copy()
         res = self._new(new_node)
         k += 1

@@ -75,10 +75,10 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         :math:`O(n)` です。
 
         Args:
-          n_or_a (Union[int, Iterable[T]]): ``n: int`` のとき、 ``e`` を初期値として長さ ``n`` の ``SegmentTree`` を構築します。
-                                            ``a: Iterable[T]`` のとき、 ``a`` から ``SegmentTree`` を構築します。
-          op (Callable[[T, T], T]): 2項演算の関数です。
-          e (T): 単位元です。
+            n_or_a (Union[int, Iterable[T]]): ``n: int`` のとき、 ``e`` を初期値として長さ ``n`` の ``SegmentTree`` を構築します。
+                                              ``a: Iterable[T]`` のとき、 ``a`` から ``SegmentTree`` を構築します。
+            op (Callable[[T, T], T]): 2項演算の関数です。
+            e (T): 単位元です。
         """
         self._op = op
         self._e = e
@@ -103,11 +103,11 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         :math:`O(\\log{n})` です。
 
         Args:
-          k (int): 更新するインデックスです。
-          v (T): 更新する値です。
+            k (int): 更新するインデックスです。
+            v (T): 更新する値です。
 
         制約:
-          :math:`-n \\leq n \\leq k < n`
+            :math:`-n \\leq n \\leq k < n`
         """
         assert (
             -self._n <= k < self._n
@@ -125,10 +125,10 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         :math:`O(1)` です。
 
         Args:
-          k (int): インデックスです。
+            k (int): インデックスです。
 
         制約:
-          :math:`-n \\leq n \\leq k < n`
+            :math:`-n \\leq n \\leq k < n`
         """
         assert (
             -self._n <= k < self._n
@@ -142,11 +142,11 @@ class SegmentTree(SegmentTreeInterface, Generic[T]):
         :math:`O(\\log{n})` です。
 
         Args:
-          l (int): インデックスです。
-          r (int): インデックスです。
+            l (int): インデックスです。
+            r (int): インデックスです。
 
         制約:
-          :math:`0 \\leq l \\leq r \\leq n`
+            :math:`0 \\leq l \\leq r \\leq n`
         """
         assert (
             0 <= l <= r <= self._n
@@ -502,7 +502,7 @@ def get_suffix_array(s: str, hs: HashString) -> list[int]:
     """suffix_arrayを求めます。
 
     ロリハで大小比較をするため、比較関数に :math:`O(logn)` 、
-    ソートが :math:`O(nlogn*(比較関数の計算慮))` で、
+    ソートが :math:`O(nlogn*(比較関数の計算量))` で、
     全体 :math:`O(nlog^2n)` です。
 
     Args:

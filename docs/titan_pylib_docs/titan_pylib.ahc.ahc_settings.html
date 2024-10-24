@@ -4,7 +4,7 @@
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
-<link href="../genindex.html" rel="index" title="Index"/><link href="../search.html" rel="search" title="Search"/><link href="titan_pylib.ahc.optimizer.html" rel="next" title="titan_pylib.ahc.optimizer"/><link href="titan_pylib.ahc.html" rel="prev" title="titan_pylib.ahc"/>
+<link href="../genindex.html" rel="index" title="Index"/><link href="../search.html" rel="search" title="Search"/><link href="titan_pylib.ahc.calc_ratio.html" rel="next" title="titan_pylib.ahc.calc_ratio"/><link href="titan_pylib.ahc.html" rel="prev" title="titan_pylib.ahc"/>
 <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
 <title>ahc_settings - titan_pylib documentation</title>
 <link href="../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
@@ -139,6 +139,7 @@
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="titan_pylib.ahc.html">ahc</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of titan_pylib.ahc</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">ahc_settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.calc_ratio.html">calc_ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.optimizer.html">optimizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.ahc.parallel_tester.html">parallel_tester</a></li>
 </ul>
@@ -159,6 +160,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.arithmetic_progression.html">arithmetic_progression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.cycle_memo.html">cycle_memo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.doubling.html">doubling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.gray_code.html">gray_code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.mo.html">mo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.parser.html">parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.algorithm.permutation.html">permutation</a></li>
@@ -397,16 +399,17 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="titan_pylib.graph.html">graph</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of titan_pylib.graph</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.flow.html">flow</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.bipartite_max_matching.html">bipartite_max_matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_dinic.html">max_flow_dinic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.hld.html">hld</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.hld</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld.html">hld</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_lazy_segment_tree.html">hld_lazy_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_noncommutative_segment_tree.html">hld_noncommutative_segment_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.hld.hld_segment_tree.html">hld_segment_tree</a></li>
-</ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.graph.max_flow.html">max_flow</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of titan_pylib.graph.max_flow</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_dinic.html">max_flow_dinic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="titan_pylib.graph.max_flow.max_flow_ford_fulkerson.html">max_flow_ford_fulkerson</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.bellman_ford.html">bellman_ford</a></li>
@@ -524,7 +527,7 @@
 <span class="linenos">16</span><span class="sd">    """</span>
 <span class="linenos">17</span>
 <span class="linenos">18</span>    <span class="c1"># parallel_tester -------------------- #</span>
-<span class="linenos">19</span>    <span class="n">compile_command</span> <span class="o">=</span> <span class="s2">"g++ ./main.cpp -O2 -std=c++20"</span>
+<span class="linenos">19</span>    <span class="n">compile_command</span> <span class="o">=</span> <span class="s2">"g++ ./main.cpp -O2 -std=c++20 -o a.out"</span>
 <span class="linenos">20</span>    <span class="n">execute_command</span> <span class="o">=</span> <span class="s2">"./a.out"</span>
 <span class="linenos">21</span>    <span class="n">input_file_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"./in/</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">.txt"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
 <span class="linenos">22</span>
@@ -572,7 +575,7 @@
 <p><a class="reference external" href="https://github.com/titan-23/Library_py/tree/main/titan_pylib/ahc/readme.md">https://github.com/titan-23/Library_py/tree/main/titan_pylib/ahc/readme.md</a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="titan_pylib.ahc.ahc_settings.AHCSettings.compile_command">
-<span class="sig-name descname"><span class="pre">compile_command</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'g++</span> <span class="pre">./main.cpp</span> <span class="pre">-O2</span> <span class="pre">-std=c++20'</span></em><a class="headerlink" href="#titan_pylib.ahc.ahc_settings.AHCSettings.compile_command" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">compile_command</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'g++</span> <span class="pre">./main.cpp</span> <span class="pre">-O2</span> <span class="pre">-std=c++20</span> <span class="pre">-o</span> <span class="pre">a.out'</span></em><a class="headerlink" href="#titan_pylib.ahc.ahc_settings.AHCSettings.compile_command" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="titan_pylib.ahc.ahc_settings.AHCSettings.direction">
@@ -617,12 +620,12 @@
 </div>
 <footer>
 <div class="related-pages">
-<a class="next-page" href="titan_pylib.ahc.optimizer.html">
+<a class="next-page" href="titan_pylib.ahc.calc_ratio.html">
 <div class="page-info">
 <div class="context">
 <span>Next</span>
 </div>
-<div class="title">optimizer</div>
+<div class="title">calc_ratio</div>
 </div>
 <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
 </a>

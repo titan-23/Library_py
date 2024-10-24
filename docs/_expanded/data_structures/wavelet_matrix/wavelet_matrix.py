@@ -432,6 +432,7 @@ class WaveletMatrix:
         assert (
             0 <= l <= r <= self.size
         ), f"IndexError: {self.__class__.__name__}.range_freq({l}, {r}, {x}, {y})"
+        assert 0 <= x <= y < self.sigma, f"ValueError"
         return self._range_freq(l, r, y) - self._range_freq(l, r, x)
 
     def prev_value(self, l: int, r: int, x: int) -> int:

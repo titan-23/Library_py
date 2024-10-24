@@ -5,7 +5,6 @@ def warshall_floyd(
     G: list[list[tuple[int, int]]], INF: Union[int, float] = float("inf")
 ) -> list[list[Union[int, float]]]:
     """重み付き隣接リスト ``G`` に対し、全点対最短経路を返します。
-
     :math:`O(n^3)` です。
 
     Args:
@@ -35,7 +34,7 @@ def warshall_floyd(
     return dist
 
 
-from typing import list, tuple, Union
+from typing import Union
 
 """Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)"""
 
@@ -58,7 +57,7 @@ def warshall_floyd(
     return dist
 
 
-# from typing import list, tuple, Union
+# from typing import Union
 # '''Return min dist s.t. dist[a][b] -> a to b. / O(|n|^3)'''
 # def warshall_floyd(G: list[list[tuple[int, int]]], INF: Union[int, float]=float('inf')) -> list[list[Union[int, float]]]:
 #   n = len(G)

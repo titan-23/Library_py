@@ -13,7 +13,7 @@ class CSRArray(Generic[T]):
         """2次元配列 ``a`` を CSR 形式にします。
 
         Args:
-          a (list[list[T]]): 変換する2次元配列です。
+            a (list[list[T]]): 変換する2次元配列です。
         """
         n = len(a)
         start = list(map(len, a))
@@ -27,9 +27,9 @@ class CSRArray(Generic[T]):
         """インデックスを指定して値を更新します。
 
         Args:
-          i (int): 行のインデックスです。
-          j (int): 列のインデックスです。
-          val (T): a[i][j] 要素を更新する値です。
+            i (int): 行のインデックスです。
+            j (int): 列のインデックスです。
+            val (T): a[i][j] 要素を更新する値です。
         """
         self.csr[self.start[i] + j] = val
 
@@ -37,8 +37,8 @@ class CSRArray(Generic[T]):
         """行を指定してイテレートします。
 
         Args:
-          i (int): 行のインデックスです。
-          j (int, optional): 列のインデックスです。デフォルトは ``0`` です。
+            i (int): 行のインデックスです。
+            j (int, optional): 列のインデックスです。デフォルトは ``0`` です。
         """
         csr = self.csr
         for ij in range(self.start[i] + j, self.start[i + 1]):

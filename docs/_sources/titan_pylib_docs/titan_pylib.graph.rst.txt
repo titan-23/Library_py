@@ -7,8 +7,8 @@ Subpackages
 .. toctree::
    :maxdepth: 1
 
+   titan_pylib.graph.flow
    titan_pylib.graph.hld
-   titan_pylib.graph.max_flow
 
 Submodules
 
