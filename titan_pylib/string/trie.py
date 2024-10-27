@@ -38,12 +38,13 @@ class Trie:
     def __contains__(self, s: str) -> bool:
         return self.count(s) > 0
 
-    def print(self) -> None:
+    def print(self, is_sort=False) -> None:
         def dfs(node: Trie.Node, indent: str) -> None:
             if len(node.child) == 0:
                 return
             a = list(node.child.items())
-            # a.sort()
+            if is_sort:
+                a.sort()  # 挿入順にするかどうか
             for c, child in a[:-1]:
                 if child.stop_count > 0:
                     c = "\033[32m" + c + "\033[m"
