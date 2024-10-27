@@ -94,8 +94,8 @@ class HashString:
         n = len(s)
         data = [0] * n
         acc = [0] * (n + 1)
-        if n > hsb.get_cap():
-            hsb.extend(n - hsb.get_cap())
+        if n >= hsb.get_cap():
+            hsb.extend(n - hsb.get_cap() + 1)
         powb = hsb.powb
         for i, c in enumerate(s):
             data[i] = hsb.get_mul(powb[n - i - 1], _titan_pylib_HashString_DIC[c])
@@ -120,6 +120,7 @@ class HashString:
         Returns:
             int: ハッシュ値です。
         """
+        assert 0 <= l <= r <= self.n
         if self.used_seg:
             return self.hsb.get_mul(self.seg.prod(l, r), self.hsb.invb[self.n - r])
         return self.hsb.get_mul(
