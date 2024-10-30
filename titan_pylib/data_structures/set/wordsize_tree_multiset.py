@@ -53,6 +53,17 @@ class WordsizeTreeMultiset:
             self.st.discard(v)
         return True
 
+    def remove(self, v: int) -> None:
+        """整数 ``v`` を削除します。
+        :math:`O(\\log{u})` です。
+
+        Note: ``v`` が存在しないとき、例外を投げます。
+        """
+        assert (
+            0 <= v < self.u
+        ), f"ValueError: {self.__class__.__name__}.remove({v}), u={self.u}"
+        assert self.discard(v), f"ValueError: {v} not in self."
+
     def count(self, v: int) -> int:
         """整数 ``v`` の個数を返します。
         :math:`O(1)` です。
