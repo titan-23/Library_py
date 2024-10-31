@@ -32,7 +32,9 @@ class HLDLazySegmentTree(Generic[T, F]):
         self.seg: LazySegmentTree[T, F] = LazySegmentTree(
             a, op, mapping, composition, e, id
         )
-        self.rseg: LazySegmentTree[T, F] = LazySegmentTree(a[::-1], op, e)
+        self.rseg: LazySegmentTree[T, F] = LazySegmentTree(
+            a[::-1], op, mapping, composition, e, id
+        )
         self.op: Callable[[T, T], T] = op
         self.e: T = e
 
