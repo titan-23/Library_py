@@ -1,3 +1,6 @@
+raise NotImplementedError
+# https://atcoder.jp/contests/abc370/submissions/59284972
+
 from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from array import array
