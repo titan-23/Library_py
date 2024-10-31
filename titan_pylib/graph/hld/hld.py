@@ -26,7 +26,7 @@ class HLD:
     def _dfs(self, root: int) -> None:
         dep, par, size, G = self.dep, self.par, self.size, self.G
         dep[root] = 0
-        stack = [root]
+        stack = [~root, root]
         while stack:
             v = stack.pop()
             if v >= 0:
