@@ -9,7 +9,7 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
     """セグ木搭載HLDです。
 
     Note:
-      **非可換に対応してます。**
+        **非可換に対応してます。**
     """
 
     def __init__(
@@ -31,11 +31,11 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
         :math:`O(\\log^2{n})` です。
 
         Args:
-          u (int): パスの **始点** です。
-          v (int): パスの **終点** です。
+            u (int): パスの **始点** です。
+            v (int): パスの **終点** です。
 
         Returns:
-          T: 求める集約値です。
+            T: 求める集約値です。
         """
         head, nodein, dep, par, n = (
             self.hld.head,
@@ -64,10 +64,10 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
         :math:`O(\\log{n})` です。
 
         Args:
-          k (int): 頂点のインデックスです。
+            k (int): 頂点のインデックスです。
 
         Returns:
-          T: 頂点の値です。
+            T: 頂点の値です。
         """
         return self.seg[self.hld.nodein[k]]
 
@@ -76,8 +76,8 @@ class HLDNoncommutativeSegmentTree(Generic[T]):
         :math:`O(\\log{n})` です。
 
         Args:
-          k (int): 頂点のインデックスです。
-          v (T): 更新する値です。
+            k (int): 頂点のインデックスです。
+            v (T): 更新する値です。
         """
         self.seg[self.hld.nodein[k]] = v
         self.rseg[self.hld.n - self.hld.nodein[k] - 1] = v

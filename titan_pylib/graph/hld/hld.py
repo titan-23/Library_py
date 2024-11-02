@@ -76,10 +76,10 @@ class HLD:
         :math:`O(n)` です。
 
         Args:
-          a (list[Any]): 元の配列です。
+            a (list[Any]): 元の配列です。
 
         Returns:
-          list[Any]: 振りなおし後の配列です。
+            list[Any]: 振りなおし後の配列です。
         """
         return [a[e] for e in self.hld]
 
