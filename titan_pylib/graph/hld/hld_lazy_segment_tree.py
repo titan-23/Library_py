@@ -10,7 +10,7 @@ class HLDLazySegmentTree(Generic[T, F]):
     """遅延セグ木搭載HLDです。
 
     Note:
-      **非可換に対応してます。**
+        **非可換に対応してます。**
     """
 
     def __init__(
@@ -32,7 +32,9 @@ class HLDLazySegmentTree(Generic[T, F]):
         self.seg: LazySegmentTree[T, F] = LazySegmentTree(
             a, op, mapping, composition, e, id
         )
-        self.rseg: LazySegmentTree[T, F] = LazySegmentTree(a[::-1], op, e)
+        self.rseg: LazySegmentTree[T, F] = LazySegmentTree(
+            a[::-1], op, mapping, composition, e, id
+        )
         self.op: Callable[[T, T], T] = op
         self.e: T = e
 
@@ -41,11 +43,11 @@ class HLDLazySegmentTree(Generic[T, F]):
         :math:`O(\\log^2{n})` です。
 
         Args:
-          u (int): パスの **始点** です。
-          v (int): パスの **終点** です。
+            u (int): パスの **始点** です。
+            v (int): パスの **終点** です。
 
         Returns:
-          T: 求める集約値です。
+            T: 求める集約値です。
         """
         head, nodein, dep, par, n = (
             self.hld.head,
@@ -74,9 +76,9 @@ class HLDLazySegmentTree(Generic[T, F]):
         :math:`O(\\log^2{n})` です。
 
         Args:
-          u (int): パスの **始点** です。
-          v (int): パスの **終点** です。
-          f (F): 作用素です。
+            u (int): パスの **始点** です。
+            v (int): パスの **終点** です。
+            f (F): 作用素です。
         """
         head, nodein, dep, par = (
             self.hld.head,
@@ -88,20 +90,28 @@ class HLDLazySegmentTree(Generic[T, F]):
             if dep[head[u]] < dep[head[v]]:
                 u, v = v, u
             self.seg.apply(nodein[head[u]], nodein[u] + 1, f)
+            self.rseg.apply(
+                self.hld.n - (nodein[u] + 1 - 1) - 1,
+                self.hld.n - nodein[head[u]] - 1 + 1,
+                f,
+            )
             u = par[head[u]]
         if dep[u] < dep[v]:
             u, v = v, u
         self.seg.apply(nodein[v], nodein[u] + 1, f)
+        self.rseg.apply(
+            self.hld.n - (nodein[u] + 1 - 1) - 1, self.hld.n - nodein[v] - 1 + 1, f
+        )
 
     def get(self, k: int) -> T:
         """頂点の値を返します。
         :math:`O(\\log{n})` です。
 
         Args:
-          k (int): 頂点のインデックスです。
+            k (int): 頂点のインデックスです。
 
         Returns:
-          T: 頂点の値です。
+            T: 頂点の値です。
         """
         return self.seg[self.hld.nodein[k]]
 
@@ -110,8 +120,8 @@ class HLDLazySegmentTree(Generic[T, F]):
         :math:`O(\\log{n})` です。
 
         Args:
-          k (int): 頂点のインデックスです。
-          v (T): 更新する値です。
+            k (int): 頂点のインデックスです。
+            v (T): 更新する値です。
         """
         self.seg[self.hld.nodein[k]] = v
         self.rseg[self.hld.n - self.hld.nodein[k] - 1] = v
@@ -124,10 +134,10 @@ class HLDLazySegmentTree(Generic[T, F]):
         :math:`O(\\log{n})` です。
 
         Args:
-          v (int): 根とする頂点です。
+            v (int): 根とする頂点です。
 
         Returns:
-          T: 求める集約値です。
+            T: 求める集約値です。
         """
         return self.seg.prod(self.hld.nodein[v], self.hld.nodeout[v])
 
@@ -136,7 +146,12 @@ class HLDLazySegmentTree(Generic[T, F]):
         :math:`O(\\log{n})` です。
 
         Args:
-          v (int): 根とする頂点です。
-          f (F): 作用素です。
+            v (int): 根とする頂点です。
+            f (F): 作用素です。
         """
         self.seg.apply(self.hld.nodein[v], self.hld.nodeout[v], f)
+        self.rseg.apply(
+            self.hld.n - self.hld.nodeout[v] - 1 - 1,
+            self.hld.n - self.hld.nodein[v] - 1 + 1,
+            f,
+        )

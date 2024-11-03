@@ -9,7 +9,7 @@ class HLDSegmentTree(Generic[T]):
     """セグ木搭載HLDです。
 
     Note:
-      **非可換に対応していません。**
+        **非可換に対応していません。**
     """
 
     def __init__(
@@ -28,14 +28,14 @@ class HLDSegmentTree(Generic[T]):
         :math:`O(\\log^2{n})` です。
 
         Note:
-          **非可換に対応していません。**
+            **非可換に対応していません。**
 
         Args:
-          u (int): パスの端点です。
-          v (int): パスの端点です。
+            u (int): パスの端点です。
+            v (int): パスの端点です。
 
         Returns:
-          T: 求める集約値です。
+            T: 求める集約値です。
         """
         head, nodein, dep, par = (
             self.hld.head,
@@ -58,10 +58,10 @@ class HLDSegmentTree(Generic[T]):
         :math:`O(\\log{n})` です。
 
         Args:
-          k (int): 頂点のインデックスです。
+            k (int): 頂点のインデックスです。
 
         Returns:
-          T: 頂点の値です。
+            T: 頂点の値です。
         """
         return self.seg[self.hld.nodein[k]]
 
@@ -70,8 +70,8 @@ class HLDSegmentTree(Generic[T]):
         :math:`O(\\log{n})` です。
 
         Args:
-          k (int): 頂点のインデックスです。
-          v (T): 更新する値です。
+            k (int): 頂点のインデックスです。
+            v (T): 更新する値です。
         """
         self.seg[self.hld.nodein[k]] = v
 
@@ -83,9 +83,9 @@ class HLDSegmentTree(Generic[T]):
         :math:`O(\\log{n})` です。
 
         Args:
-          v (int): 根とする頂点です。
+            v (int): 根とする頂点です。
 
         Returns:
-          T: 求める集約値です。
+            T: 求める集約値です。
         """
         return self.seg.prod(self.hld.nodein[v], self.hld.nodeout[v])

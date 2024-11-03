@@ -491,6 +491,31 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
                 node = right[node]
         return a
 
+    def _get_height(self) -> int:
+        """作業用デバック関数
+        size,key,balanceをチェックして、正しければ高さを表示する
+        """
+        if self.root == 0:
+            return 0
+
+        # _size, height
+        def dfs(node) -> tuple[int, int]:
+            h = 0
+            s = 1
+            if self.left[node]:
+                ls, lh = dfs(self.left[node])
+                s += ls
+                h = max(h, lh)
+            if self.right[node]:
+                rs, rh = dfs(self.right[node])
+                s += rs
+                h = max(h, rh)
+            assert self.size[node] == s
+            return s, h + 1
+
+        _, h = dfs(self.root)
+        return h
+
     def __contains__(self, key: T) -> bool:
         keys, left, right = self.key, self.left, self.right
         node = self.root
