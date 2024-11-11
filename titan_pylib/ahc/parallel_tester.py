@@ -105,6 +105,10 @@ class ParallelTester:
             # logger.exception(e)
             logger.error(f"Error occured in {input_file}")
             return input_file, math.nan, e.stderr, e.stdout
+        except Exception:
+            logger.exception(e)
+            logger.error(f"!!! Error occured in {input_file}")
+            return input_file, math.nan, "", ""
 
     def run(self) -> list[float]:
         """実行します。"""
@@ -171,7 +175,7 @@ class ParallelTester:
             elif os.path.isdir(src_path):
                 shutil.copytree(src_path, dest_path)
 
-        scores = [s for _, s, _, _ in result]
+        scores = [(filename, s) for filename, s, _, _ in result]
         return scores
 
     @staticmethod
@@ -244,7 +248,19 @@ def main():
 
     start = time.time()
     scores = tester.run_record()
-    score = tester.show_score(scores)
+
+    nan_case = []
+    for filename, s in scores:
+        if math.isnan(s):
+            nan_case.append(filename)
+    if nan_case:
+        logger.info("=====================")
+        logger.error(f"ErrorCount: {len(nan_case)}.")
+        for f in nan_case:
+            logger.error(f"  ErrorCase: {f}")
+        logger.info("=====================")
+
+    score = tester.show_score([s for _, s in scores])
     logger.info(f"Finished in {time.time() - start:.4f} sec.")
     return score
 
