@@ -1,9 +1,10 @@
 import optuna
 
 """example
-python3 ./parallel_tester.py -c -v -njobs 127
+python3 ./parallel_tester.py -c -v -njobs 7
 
 python3 ./oprimizer.py
+g++ ./main.cpp -O2 -std=c++20 -o a.out -I./../../../Library_cpp
 """
 
 
@@ -15,7 +16,7 @@ class AHCSettings:
     """
 
     # parallel_tester -------------------- #
-    compile_command = "g++ ./main.cpp -O2 -std=c++20 -o a.out"
+    compile_command = "g++ ./main.cpp -O2 -std=c++20 -o a.out -I./../../../Library_cpp"
     execute_command = "./a.out"
     input_file_names = [f"./in/{str(i).zfill(4)}.txt" for i in range(100)]
 
