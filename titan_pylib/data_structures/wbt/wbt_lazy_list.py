@@ -1,4 +1,4 @@
-from titan_pylib.data_structures.wbt._wbt_list_node import _WBTListNode
+from titan_pylib.data_structures.wbt._wbt_lazy_list_node import _WBTLazyListNode
 from typing import Generic, TypeVar, Optional, Iterable, Callable
 
 T = TypeVar("T")
@@ -6,7 +6,6 @@ F = TypeVar("F")
 
 
 class WBTLazyList(Generic[T, F]):
-    # insert / pop / pop_max
 
     def __init__(
         self,
@@ -26,11 +25,13 @@ class WBTLazyList(Generic[T, F]):
         self.__build(a)
 
     def __build(self, a: Iterable[T]) -> None:
-        def build(l: int, r: int, pnode: Optional[_WBTListNode] = None) -> _WBTListNode:
+        def build(
+            l: int, r: int, pnode: Optional[_WBTLazyListNode] = None
+        ) -> _WBTLazyListNode:
             if l == r:
                 return None
             mid = (l + r) // 2
-            node = _WBTListNode(self, a[mid], self._id)
+            node = _WBTLazyListNode(self, a[mid], self._id)
             node._left = build(l, mid, node)
             node._right = build(mid + 1, r, node)
             node._par = pnode
@@ -44,31 +45,31 @@ class WBTLazyList(Generic[T, F]):
         self._root = build(0, len(a))
 
     @classmethod
-    def _weight(self, node: Optional[_WBTListNode]) -> int:
+    def _weight(self, node: Optional[_WBTLazyListNode]) -> int:
         return node._size + 1 if node else 1
 
     def _merge_with_root(
         self,
-        l: Optional[_WBTListNode],
-        root: _WBTListNode,
-        r: Optional[_WBTListNode],
-    ) -> _WBTListNode:
-        if self._weight(l) * _WBTListNode.DELTA < self._weight(r):
+        l: Optional[_WBTLazyListNode],
+        root: _WBTLazyListNode,
+        r: Optional[_WBTLazyListNode],
+    ) -> _WBTLazyListNode:
+        if self._weight(l) * _WBTLazyListNode.DELTA < self._weight(r):
             r._propagate()
             r._left = self._merge_with_root(l, root, r._left)
             r._left._par = r
             r._par = None
             r._update()
-            if self._weight(r._right) * _WBTListNode.DELTA < self._weight(r._left):
+            if self._weight(r._right) * _WBTLazyListNode.DELTA < self._weight(r._left):
                 return r._balance_right()
             return r
-        elif self._weight(r) * _WBTListNode.DELTA < self._weight(l):
+        elif self._weight(r) * _WBTLazyListNode.DELTA < self._weight(l):
             l._propagate()
             l._right = self._merge_with_root(l._right, root, r)
             l._right._par = l
             l._par = None
             l._update()
-            if self._weight(l._left) * _WBTListNode.DELTA < self._weight(l._right):
+            if self._weight(l._left) * _WBTLazyListNode.DELTA < self._weight(l._right):
                 return l._balance_left()
             return l
         else:
@@ -82,8 +83,8 @@ class WBTLazyList(Generic[T, F]):
             return root
 
     def _split_node(
-        self, node: _WBTListNode, k: int
-    ) -> tuple[Optional[_WBTListNode], Optional[_WBTListNode]]:
+        self, node: _WBTLazyListNode, k: int
+    ) -> tuple[Optional[_WBTLazyListNode], Optional[_WBTLazyListNode]]:
         if not node:
             return None, None
         node._propagate()
@@ -130,11 +131,13 @@ class WBTLazyList(Generic[T, F]):
         r._root = rnode
         return l, r
 
-    def _pop_max(self, node: _WBTListNode) -> tuple[_WBTListNode, _WBTListNode]:
+    def _pop_max(
+        self, node: _WBTLazyListNode
+    ) -> tuple[_WBTLazyListNode, _WBTLazyListNode]:
         l, tmp = self._split_node(node, node._size - 1)
         return l, tmp
 
-    def _merge_node(self, l: _WBTListNode, r: _WBTListNode) -> _WBTListNode:
+    def _merge_node(self, l: _WBTLazyListNode, r: _WBTLazyListNode) -> _WBTLazyListNode:
         if l is None:
             return r
         if r is None:
@@ -147,7 +150,7 @@ class WBTLazyList(Generic[T, F]):
 
     def insert(self, k: int, key) -> None:
         s, t = self._split_node(self._root, k)
-        self._root = self._merge_with_root(s, _WBTListNode(self, key, self._id), t)
+        self._root = self._merge_with_root(s, _WBTLazyListNode(self, key, self._id), t)
 
     def pop(self, k: int):
         s, t = self._split_node(self._root, k + 1)
@@ -165,7 +168,7 @@ class WBTLazyList(Generic[T, F]):
             return
 
         # _size, height
-        def dfs(node: _WBTListNode) -> tuple[int, int]:
+        def dfs(node: _WBTLazyListNode) -> tuple[int, int]:
             h = 0
             s = 1
             if node._left:
@@ -188,7 +191,7 @@ class WBTLazyList(Generic[T, F]):
             print(f"ok. {h}")
 
     def prod(self, l: int, r: int) -> T:
-        def dfs(node: _WBTListNode[T, F], left: int, right: int) -> T:
+        def dfs(node: _WBTLazyListNode[T, F], left: int, right: int) -> T:
             if right <= l or r <= left:
                 return self._e
             node._propagate()
@@ -223,7 +226,7 @@ class WBTLazyList(Generic[T, F]):
 
     def __iter__(self):
         node = self._root
-        stack: list[_WBTListNode] = []
+        stack: list[_WBTLazyListNode] = []
         while stack or node:
             if node:
                 node._propagate()

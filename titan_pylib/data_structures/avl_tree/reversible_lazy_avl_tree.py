@@ -49,7 +49,7 @@ class ReversibleLazyAVLTree(Generic[T, F]):
         Node = ReversibleLazyAVLTree.Node
         id = self.id
 
-        def sort(l: int, r: int) -> Node:
+        def sort(l: int, r: int) -> ReversibleLazyAVLTree.Node:
             mid = (l + r) >> 1
             node = Node(a[mid], id)
             if l != mid:
