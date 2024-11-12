@@ -20,6 +20,14 @@ basicConfig(
 )
 
 
+def to_red(arg):
+    return f"\u001b[31m{arg}\u001b[0m"
+
+
+def to_green(arg):
+    return f"\u001b[32m{arg}\u001b[0m"
+
+
 class ParallelTester:
     """テストケース並列回し屋です。
 
@@ -78,11 +86,11 @@ class ParallelTester:
             check=True,
         )
 
-    def _process_file(self, input_file: str) -> tuple[str, float, str, str]:
+    def _process_file(self, input_file: str) -> tuple[str, float]:
         """入力`input_file`を処理します。
 
         Returns:
-            tuple[str, float, str, str]: ファイル名、スコア、標準エラー出力、標準出力
+            tuple[str, float]: ファイル名、スコア
         """
         with open(input_file, "r", encoding="utf-8") as f:
             input_text = "".join(f.read())
@@ -100,15 +108,30 @@ class ParallelTester:
             score = float(score)
             if self.verbose:
                 logger.info(f"{input_file}: {score=}")
-            return input_file, score, result.stderr, result.stdout
+
+            # stderr
+            filename = input_file[len("./in/") :]
+            with open(
+                f"{self.output_dir}/err/{filename}", "w", encoding="utf-8"
+            ) as out_f:
+                out_f.write(result.stderr)
+
+            # stdout
+            filename = input_file[len("./in/") :]
+            with open(
+                f"{self.output_dir}/out/{filename}", "w", encoding="utf-8"
+            ) as out_f:
+                out_f.write(result.stdout)
+
+            return input_file, score
         except subprocess.CalledProcessError as e:
             # logger.exception(e)
-            logger.error(f"Error occured in {input_file}")
-            return input_file, math.nan, e.stderr, e.stdout
-        except Exception:
+            logger.error(to_red(f"Error occured in {input_file}"))
+            return input_file, math.nan
+        except Exception as e:
             logger.exception(e)
-            logger.error(f"!!! Error occured in {input_file}")
-            return input_file, math.nan, "", ""
+            logger.error(to_red(f"!!! Error occured in {input_file}"))
+            return input_file, math.nan
 
     def run(self) -> list[float]:
         """実行します。"""
@@ -118,12 +141,23 @@ class ParallelTester:
         )
         pool.close()
         pool.join()
-        scores = [s for _, s, _, _ in result]
+        scores = [s for _, s in result]
         return scores
 
     def run_record(self) -> list[tuple[str, float]]:
         """実行します。"""
         dt_now = datetime.datetime.now()
+
+        self.output_dir = "./alltests/"
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
+        self.output_dir += dt_now.strftime("%Y-%m-%d_%H-%M-%S")
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
+        if not os.path.exists(f"{self.output_dir}/err/"):
+            os.makedirs(f"{self.output_dir}/err/")
+        if not os.path.exists(f"{self.output_dir}/out/"):
+            os.makedirs(f"{self.output_dir}/out/")
 
         pool = multiprocessing.Pool(processes=self.cpu_count)
         result = pool.map(
@@ -132,51 +166,28 @@ class ParallelTester:
         pool.close()
         pool.join()
 
-        result.sort()
-
-        output_dir = "./alltests/"
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-        output_dir += dt_now.strftime("%Y-%m-%d_%H-%M-%S")
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-
         # score
-        with open(f"{output_dir}/result.csv", "w", encoding="utf-8", newline="") as f:
+        result.sort()
+        with open(
+            f"{self.output_dir}/result.csv", "w", encoding="utf-8", newline=""
+        ) as f:
             writer = csv.writer(f)
             writer.writerow(["filename", "score"])
-            for filename, score, _, _ in result:
+            for filename, score in result:
                 writer.writerow([filename, score])
-
-        # stderr
-        if not os.path.exists(f"{output_dir}/err/"):
-            os.makedirs(f"{output_dir}/err/")
-        for filename, score, stderr, _ in result:
-            filename = filename[len("./in/") :]
-            with open(f"{output_dir}/err/{filename}", "w", encoding="utf-8") as out_f:
-                out_f.write(stderr)
-
-        # stdout
-        if not os.path.exists(f"{output_dir}/out/"):
-            os.makedirs(f"{output_dir}/out/")
-        for filename, score, _, stdout in result:
-            filename = filename[len("./in/") :]
-            with open(f"{output_dir}/out/{filename}", "w", encoding="utf-8") as out_f:
-                out_f.write(stdout)
 
         # 出力を`./out/`へも書き出す
         if not os.path.exists("./out/"):
             os.makedirs("./out/")
-        for item in os.listdir(f"{output_dir}/out/"):
-            src_path = os.path.join(f"{output_dir}/out/", item)
+        for item in os.listdir(f"{self.output_dir}/out/"):
+            src_path = os.path.join(f"{self.output_dir}/out/", item)
             dest_path = os.path.join("./out/", item)
             if os.path.isfile(src_path):
                 shutil.copy2(src_path, dest_path)
             elif os.path.isdir(src_path):
                 shutil.copytree(src_path, dest_path)
 
-        scores = [(filename, s) for filename, s, _, _ in result]
-        return scores
+        return result
 
     @staticmethod
     def get_args() -> argparse.Namespace:
@@ -255,10 +266,12 @@ def main():
             nan_case.append(filename)
     if nan_case:
         logger.info("=====================")
-        logger.error(f"ErrorCount: {len(nan_case)}.")
+        logger.error(to_red(f"ErrorCount: {len(nan_case)}."))
         for f in nan_case:
-            logger.error(f"  ErrorCase: {f}")
+            logger.error(to_red(f"  ErrorCase: {f}"))
         logger.info("=====================")
+    else:
+        logger.info(to_green("Finished correctly."))
 
     score = tester.show_score([s for _, s in scores])
     logger.info(f"Finished in {time.time() - start:.4f} sec.")
