@@ -1,17 +1,13 @@
-from titan_pylib.my_class.supports_less_than import SupportsLessThan
-from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface
 from array import array
-from typing import Generic, Iterable, TypeVar, Optional
+from typing import Generic, Iterable, TypeVar, Optional, Final
 
-T = TypeVar("T", bound=SupportsLessThan)
+T = TypeVar("T")
+
+DELTA: Final[int] = 3
+GAMMA: Final[int] = 2
 
 
-class AVLTreeSet(OrderedSetInterface, Generic[T]):
-    """AVLTreeSet
-    集合としての AVL 木です。
-    配列を用いてノードを表現しています。
-    size を持ちます。
-    """
+class WBTSet(Generic[T]):
 
     def __init__(self, a: Iterable[T] = []) -> None:
         self.root = 0
@@ -19,7 +15,6 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
         self.size = array("I", bytes(4))
         self.left = array("I", bytes(4))
         self.right = array("I", bytes(4))
-        self.balance = array("b", bytes(1))
         self.end = 1
         if not isinstance(a, list):
             a = list(a)
@@ -27,28 +22,27 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
             self._build(a)
 
     def reserve(self, n: int) -> None:
+        if n <= 0:
+            return
         self.key += [0] * n
         a = array("I", bytes(4 * n))
         self.left += a
         self.right += a
         self.size += array("I", [1] * n)
-        self.balance += array("b", bytes(n))
 
     def _build(self, a: list[T]) -> None:
-        left, right, size, balance = self.left, self.right, self.size, self.balance
+        left, right, size = self.left, self.right, self.size
 
-        def sort(l: int, r: int) -> tuple[int, int]:
+        def sort(l: int, r: int) -> int:
             mid = (l + r) >> 1
             node = mid
-            hl, hr = 0, 0
             if l != mid:
-                left[node], hl = sort(l, mid)
+                left[node] = sort(l, mid)
                 size[node] += size[left[node]]
             if mid + 1 != r:
-                right[node], hr = sort(mid + 1, r)
+                right[node] = sort(mid + 1, r)
                 size[node] += size[right[node]]
-            balance[node] = hl - hr
-            return node, max(hl, hr) + 1
+            return node
 
         n = len(a)
         if n == 0:
@@ -64,78 +58,25 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
         self.end += n
         self.reserve(n)
         self.key[end : end + n] = a
-        self.root = sort(end, n + end)[0]
+        self.root = sort(end, n + end)
 
-    def _rotate_L(self, node: int) -> int:
-        left, right, size, balance = self.left, self.right, self.size, self.balance
-        u = left[node]
-        size[u] = size[node]
-        size[node] -= size[left[u]] + 1
-        left[node] = right[u]
-        right[u] = node
-        if balance[u] == 1:
-            balance[u] = 0
-            balance[node] = 0
-        else:
-            balance[u] = -1
-            balance[node] = 1
-        return u
-
-    def _rotate_R(self, node: int) -> int:
-        left, right, size, balance = self.left, self.right, self.size, self.balance
+    def _rotate_left(self, node: int) -> int:
+        left, right, size = self.left, self.right, self.size
         u = right[node]
         size[u] = size[node]
         size[node] -= size[right[u]] + 1
         right[node] = left[u]
         left[u] = node
-        if balance[u] == -1:
-            balance[u] = 0
-            balance[node] = 0
-        else:
-            balance[u] = 1
-            balance[node] = -1
         return u
 
-    def _update_balance(self, node: int) -> None:
-        balance = self.balance
-        if balance[node] == 1:
-            balance[self.right[node]] = -1
-            balance[self.left[node]] = 0
-        elif balance[node] == -1:
-            balance[self.right[node]] = 0
-            balance[self.left[node]] = 1
-        else:
-            balance[self.right[node]] = 0
-            balance[self.left[node]] = 0
-        balance[node] = 0
-
-    def _rotate_LR(self, node: int) -> int:
+    def _rotate_right(self, node: int) -> int:
         left, right, size = self.left, self.right, self.size
-        B = left[node]
-        E = right[B]
-        size[E] = size[node]
-        size[node] -= size[B] - size[right[E]]
-        size[B] -= size[right[E]] + 1
-        right[B] = left[E]
-        left[E] = B
-        left[node] = right[E]
-        right[E] = node
-        self._update_balance(E)
-        return E
-
-    def _rotate_RL(self, node: int) -> int:
-        left, right, size = self.left, self.right, self.size
-        C = right[node]
-        D = left[C]
-        size[D] = size[node]
-        size[node] -= size[C] - size[left[D]]
-        size[C] -= size[left[D]] + 1
-        left[C] = right[D]
-        right[D] = C
-        right[node] = left[D]
-        left[D] = node
-        self._update_balance(D)
-        return D
+        u = left[node]
+        size[u] = size[node]
+        size[node] -= size[left[u]] + 1
+        left[node] = right[u]
+        right[u] = node
+        return u
 
     def _make_node(self, key: T) -> int:
         end = self.end
@@ -144,74 +85,110 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
             self.size.append(1)
             self.left.append(0)
             self.right.append(0)
-            self.balance.append(0)
         else:
             self.key[end] = key
         self.end += 1
         return end
 
+    def _weight_left(self, node: int) -> int:
+        return self.size[self.left[node]] + 1
+
+    def _weight_right(self, node: int) -> int:
+        return self.size[self.right[node]] + 1
+
+    def ave_height(self):
+        if not self.root:
+            return 0
+        left, right, size, keys = self.left, self.right, self.size, self.key
+        ans = 0
+
+        def dfs(node, dep):
+            nonlocal ans
+            ans += dep
+            if left[node]:
+                dfs(left[node], dep + 1)
+            if right[node]:
+                dfs(right[node], dep + 1)
+
+        dfs(self.root, 1)
+        ans /= len(self)
+        return ans
+
+    def debug(self, root):
+        left, right, size, keys = self.left, self.right, self.size, self.key
+
+        def dfs(node, indent):
+            if not node:
+                return
+            s = " " * indent
+            print(f"{s}key={keys[node]}, idx={node}")
+            if left[node]:
+                print(f"{s}left: {keys[left[node]]}, idx={left[node]}")
+                dfs(left[node], indent + 2)
+            if right[node]:
+                print(f"{s}righ: {keys[right[node]]}, idx={right[node]}")
+                dfs(right[node], indent + 2)
+
+        dfs(root, 0)
+
     def add(self, key: T) -> bool:
         if self.root == 0:
             self.root = self._make_node(key)
             return True
-        left, right, size, balance, keys = (
-            self.left,
-            self.right,
-            self.size,
-            self.balance,
-            self.key,
-        )
+        left, right, size, keys = self.left, self.right, self.size, self.key
         node = self.root
         path = []
         di = 0
         while node:
             if key == keys[node]:
                 return False
-            di <<= 1
             path.append(node)
+            di <<= 1
             if key < keys[node]:
                 di |= 1
                 node = left[node]
             else:
                 node = right[node]
+        # self.debug(self.root)
         if di & 1:
             left[path[-1]] = self._make_node(key)
         else:
             right[path[-1]] = self._make_node(key)
-        new_node = 0
         while path:
             node = path.pop()
             size[node] += 1
-            balance[node] += 1 if di & 1 else -1
             di >>= 1
-            if balance[node] == 0:
-                break
-            if balance[node] == 2:
-                new_node = (
-                    self._rotate_LR(node)
-                    if balance[left[node]] == -1
-                    else self._rotate_L(node)
-                )
-                break
-            elif balance[node] == -2:
-                new_node = (
-                    self._rotate_RL(node)
-                    if balance[right[node]] == 1
-                    else self._rotate_R(node)
-                )
-                break
-        if new_node:
+            wl = self._weight_left(node)
+            wr = self._weight_right(node)
+            if wl * DELTA < wr:
+                # print("wl * DELTA < wr")
+                # self.debug(node)
+                if (
+                    self._weight_left(right[node])
+                    >= self._weight_right(right[node]) * GAMMA
+                ):
+                    right[node] = self._rotate_right(right[node])
+                node = self._rotate_left(node)
+                # self.debug(node)
+                # assert node
+            elif wr * DELTA < wl:
+                # print("wr * DELTA < wl")
+                if (
+                    self._weight_right(left[node])
+                    >= self._weight_left(left[node]) * GAMMA
+                ):
+                    # print("left")
+                    left[node] = self._rotate_left(left[node])
+                # print("right")
+                node = self._rotate_right(node)
+                # assert node
             if path:
-                node = path.pop()
-                size[node] += 1
                 if di & 1:
-                    left[node] = new_node
+                    left[path[-1]] = node
                 else:
-                    right[node] = new_node
+                    right[path[-1]] = node
             else:
-                self.root = new_node
-        for p in path:
-            size[p] += 1
+                self.root = node
         return True
 
     def remove(self, key: T) -> bool:
@@ -220,13 +197,7 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
         raise KeyError(key)
 
     def discard(self, key: T) -> bool:
-        left, right, size, balance, keys = (
-            self.left,
-            self.right,
-            self.size,
-            self.balance,
-            self.key,
-        )
+        left, right, size, keys = self.left, self.right, self.size, self.key
         di = 0
         path = []
         node = self.root
@@ -263,37 +234,32 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
             self.root = cnode
             return True
         while path:
-            new_node = 0
             node = path.pop()
-            balance[node] -= 1 if di & 1 else -1
-            di >>= 1
             size[node] -= 1
-            if balance[node] == 2:
-                new_node = (
-                    self._rotate_LR(node)
-                    if balance[left[node]] == -1
-                    else self._rotate_L(node)
-                )
-            elif balance[node] == -2:
-                new_node = (
-                    self._rotate_RL(node)
-                    if balance[right[node]] == 1
-                    else self._rotate_R(node)
-                )
-            elif balance[node]:
-                break
-            if new_node:
-                if not path:
-                    self.root = new_node
-                    return True
+            di >>= 1
+            wl = self._weight_left(node)
+            wr = self._weight_right(node)
+            if wl * DELTA < wr:
+                if (
+                    self._weight_left(right[node])
+                    >= self._weight_right(right[node]) * GAMMA
+                ):
+                    right[node] = self._rotate_right(right[node])
+                node = self._rotate_left(node)
+            elif wr * DELTA < wl:
+                if (
+                    self._weight_right(left[node])
+                    >= self._weight_left(left[node]) * GAMMA
+                ):
+                    left[node] = self._rotate_left(left[node])
+                node = self._rotate_right(node)
+            if path:
                 if di & 1:
-                    left[path[-1]] = new_node
+                    left[path[-1]] = node
                 else:
-                    right[path[-1]] = new_node
-                if balance[new_node]:
-                    break
-        for p in path:
-            size[p] -= 1
+                    right[path[-1]] = node
+            else:
+                self.root = node
         return True
 
     def le(self, key: T) -> Optional[T]:
@@ -388,13 +354,7 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
         return self[0]
 
     def pop(self, k: int = -1) -> T:
-        left, right, size, key, balance = (
-            self.left,
-            self.right,
-            self.size,
-            self.key,
-            self.balance,
-        )
+        left, right, size, key = self.left, self.right, self.size, self.key
         if k < 0:
             k += size[self.root]
         assert 0 <= k and k < size[self.root], "IndexError"
@@ -435,37 +395,32 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
             self.root = cnode
             return res
         while path:
-            new_node = 0
             node = path.pop()
-            balance[node] -= 1 if di & 1 else -1
-            di >>= 1
             size[node] -= 1
-            if balance[node] == 2:
-                new_node = (
-                    self._rotate_LR(node)
-                    if balance[left[node]] == -1
-                    else self._rotate_L(node)
-                )
-            elif balance[node] == -2:
-                new_node = (
-                    self._rotate_RL(node)
-                    if balance[right[node]] == 1
-                    else self._rotate_R(node)
-                )
-            elif balance[node]:
-                break
-            if new_node:
-                if not path:
-                    self.root = new_node
-                    return res
+            di >>= 1
+            wl = self._weight_left(node)
+            wr = self._weight_right(node)
+            if wl * DELTA < wr:
+                if (
+                    self._weight_left(right[node])
+                    >= self._weight_right(right[node]) * GAMMA
+                ):
+                    right[node] = self._rotate_right(right[node])
+                node = self._rotate_left(node)
+            elif wr * DELTA < wl:
+                if (
+                    self._weight_right(left[node])
+                    >= self._weight_left(left[node]) * GAMMA
+                ):
+                    left[node] = self._rotate_left(left[node])
+                node = self._rotate_right(node)
+            if path:
                 if di & 1:
-                    left[path[-1]] = new_node
+                    left[path[-1]] = node
                 else:
-                    right[path[-1]] = new_node
-                if balance[new_node]:
-                    break
-        for p in path:
-            size[p] -= 1
+                    right[path[-1]] = node
+            else:
+                self.root = node
         return res
 
     def pop_max(self) -> T:
@@ -491,40 +446,35 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
                 node = right[node]
         return a
 
-    def ave_height(self):
-        if not self.root:
-            return 0
-        left, right, size, keys = self.left, self.right, self.size, self.key
-        ans = 0
-
-        def dfs(node, dep):
-            nonlocal ans
-            ans += dep
-            if left[node]:
-                dfs(left[node], dep + 1)
-            if right[node]:
-                dfs(right[node], dep + 1)
-
-        dfs(self.root, 1)
-        ans /= len(self)
-        return ans
-
-    def _get_height(self) -> int:
-        """作業用デバック関数
-        size,key,balanceをチェックして、正しければ高さを表示する
-        """
+    def check(self) -> int:
+        """作業用デバック関数"""
         if self.root == 0:
             return 0
 
+        def _balance_check(node: int) -> None:
+            if node == 0:
+                return
+            if not self._weight_left(node) * DELTA >= self._weight_right(node):
+                print(self._weight_left(node), self._weight_right(node), flush=True)
+                assert False, f"self._weight_left() * DELTA >= self._weight_right()"
+            if not self._weight_right(node) * DELTA >= self._weight_left(node):
+                print(self._weight_left(node), self._weight_right(node), flush=True)
+                assert False, f"self._weight_right() * DELTA >= self._weight_left()"
+
+        keys = self.key
+
         # _size, height
         def dfs(node) -> tuple[int, int]:
+            _balance_check(node)
             h = 0
             s = 1
             if self.left[node]:
+                assert keys[self.left[node]] < keys[node]
                 ls, lh = dfs(self.left[node])
                 s += ls
                 h = max(h, lh)
             if self.right[node]:
+                assert keys[node] < keys[self.right[node]]
                 rs, rh = dfs(self.right[node])
                 s += rs
                 h = max(h, rh)
@@ -549,7 +499,7 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
             k += size[self.root]
         assert (
             0 <= k and k < size[self.root]
-        ), f"IndexError: AVLTreeSet[{k}], len={len(self)}"
+        ), f"IndexError: WBTSet[{k}], len={len(self)}"
         node = self.root
         while True:
             t = size[left[node]]
@@ -586,4 +536,4 @@ class AVLTreeSet(OrderedSetInterface, Generic[T]):
         return "{" + ", ".join(map(str, self.tolist())) + "}"
 
     def __repr__(self):
-        return f"AVLTreeSet({self})"
+        return f"WBTSet({self})"
