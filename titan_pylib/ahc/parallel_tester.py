@@ -47,13 +47,13 @@ class ParallelTester:
     ) -> None:
         """
         Args:
-          compile_command (str): コンパイルコマンドです。
-          execute_command (str): 実行コマンドです。
-                                 実行時引数は ``append_execute_command()`` メソッドで指定することも可能です。
-          input_file_names (list[str]): 入力ファイル名のリストです。
-          cpu_count (int): CPU数です。
-          verbose (bool): ログを表示します。
-          get_score (Callable[[list[float]], float]): スコアのリストに対して平均などを取って返してください。
+            compile_command (str): コンパイルコマンドです。
+            execute_command (str): 実行コマンドです。
+                                    実行時引数は ``append_execute_command()`` メソッドで指定することも可能です。
+            input_file_names (list[str]): 入力ファイル名のリストです。
+            cpu_count (int): CPU数です。
+            verbose (bool): ログを表示します。
+            get_score (Callable[[list[float]], float]): スコアのリストに対して平均などを取って返してください。
         """
         self.compile_command = compile_command.split()
         self.execute_command = execute_command.split()
