@@ -1,7 +1,7 @@
 import optuna
 
 """example
-python3 ./parallel_tester.py -c -v -njobs 7
+python3 ./parallel_tester.py -c -v -njobs 127
 
 python3 ./oprimizer.py
 g++ ./main.cpp -O2 -std=c++20 -o a.out -I./../../../Library_cpp
@@ -19,10 +19,10 @@ class AHCSettings:
     compile_command = "g++ ./main.cpp -O2 -std=c++20 -o a.out -I./../../../Library_cpp"
     execute_command = "./a.out"
     input_file_names = [f"./in/{str(i).zfill(4)}.txt" for i in range(100)]
+    timeout = float("INF")
 
     def get_score(scores: list[float]) -> float:
-        average_score = sum(scores) / len(scores) * 100
-        return average_score
+        return sum(scores) / len(scores) * 100
 
     # ------------------------------------ #
 
@@ -31,7 +31,7 @@ class AHCSettings:
     study_name = "test"
 
     # direction: minimize / maximize
-    direction = "maximize"
+    direction = "minimize"
 
     # parallel_tester の cpu_count
     n_jobs_parallel_tester = 127
@@ -44,7 +44,7 @@ class AHCSettings:
 
     def objective(trial: optuna.trial.Trial) -> tuple:
         # 返り値のタプルはコマンドライン引数として渡す順番にする
-        start_temp = trial.suggest_float("start_temp", 0.001, 10, log=True)
+        start_temp = trial.suggest_float("start_temp", 1, 100, log=True)
         k = trial.suggest_float("k", 0.0001, 1, log=True)
         end_temp = start_temp * k
         return (start_temp, end_temp)

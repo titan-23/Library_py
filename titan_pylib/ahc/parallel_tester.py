@@ -1,3 +1,4 @@
+import multiprocessing.managers
 from typing import Iterable, Callable
 import argparse
 from logging import getLogger, basicConfig
@@ -28,6 +29,14 @@ def to_green(arg):
     return f"\u001b[32m{arg}\u001b[0m"
 
 
+def to_bold(arg):
+    return f"\u001b[1m{arg}\u001b[0m"
+
+
+KETA_SCORE = 10
+KETA_TIME = 11
+
+
 class ParallelTester:
     """テストケース並列回し屋です。
 
@@ -44,6 +53,7 @@ class ParallelTester:
         cpu_count: int,
         verbose: bool,
         get_score: Callable[[list[float]], float],
+        timeout: float,
     ) -> None:
         """
         Args:
@@ -54,6 +64,7 @@ class ParallelTester:
             cpu_count (int): CPU数です。
             verbose (bool): ログを表示します。
             get_score (Callable[[list[float]], float]): スコアのリストに対して平均などを取って返してください。
+            timeout (float): [ms]
         """
         self.compile_command = compile_command.split()
         self.execute_command = execute_command.split()
@@ -61,6 +72,8 @@ class ParallelTester:
         self.cpu_count = cpu_count
         self.verbose = verbose
         self.get_score = get_score
+        self.timeout = timeout / 1000 if timeout >= 0 else None
+        self.counter: multiprocessing.managers.ValueProxy
 
     def show_score(self, scores: list[float]) -> float:
         """スコアのリストを受け取り、 ``get_score`` 関数で計算します。
@@ -77,7 +90,7 @@ class ParallelTester:
 
     def compile(self) -> None:
         """``compile_command`` よりコンパイルします。"""
-        logger.info("compiling...")
+        logger.info("Compiling ...")
         subprocess.run(
             self.compile_command,
             stderr=subprocess.PIPE,
@@ -86,18 +99,20 @@ class ParallelTester:
             check=True,
         )
 
-    def _process_file(self, input_file: str) -> tuple[str, float]:
+    def _process_file_light(self, input_file: str) -> float:
         """入力`input_file`を処理します。
 
         Returns:
-            tuple[str, float]: ファイル名、スコア
+            float: スコア
         """
         with open(input_file, "r", encoding="utf-8") as f:
             input_text = "".join(f.read())
+
         try:
             result = subprocess.run(
                 self.execute_command,
                 input=input_text,
+                timeout=self.timeout,
                 stderr=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 text=True,
@@ -106,43 +121,129 @@ class ParallelTester:
             score_line = result.stderr.rstrip().split("\n")[-1]
             _, score = score_line.split(" = ")
             score = float(score)
+            return score
+        except subprocess.TimeoutExpired as e:
+            logger.error(to_red(f"TLE occured in {input_file}"))
+            return math.nan
+        except subprocess.CalledProcessError as e:
+            logger.error(to_red(f"Error occured in {input_file}"))
+            return math.nan, "ERROR", "-1"
+        except Exception as e:
+            logger.exception(e)
+            logger.error(to_red(f"!!! Error occured in {input_file}"))
+            return math.nan, "INNER_ERROR", "-1"
+
+    def run(self) -> list[float]:
+        """実行します。"""
+        pool = multiprocessing.Pool(processes=self.cpu_count)
+        result = pool.map(
+            partial(self._process_file_light), self.input_file_names, chunksize=1
+        )
+        pool.close()
+        pool.join()
+        return result
+
+    def _process_file(self, args) -> tuple[str, float, str, str]:
+        """入力`input_file`を処理します。
+
+        Returns:
+            tuple[str, float]: ファイル名、スコア、state, time
+        """
+        input_file, lock = args
+        with open(input_file, "r", encoding="utf-8") as f:
+            input_text = "".join(f.read())
+
+        filename = input_file
+        if filename.startswith("./"):
+            filename = filename[len("./") :]
+        filename = filename.split("/", 1)[1]
+
+        try:
+            start_time = time.time()
+            result = subprocess.run(
+                self.execute_command,
+                input=input_text,
+                timeout=self.timeout,
+                stderr=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                text=True,
+                check=True,
+            )
+            end_time = time.time()
+            score_line = result.stderr.rstrip().split("\n")[-1]
+            _, score = score_line.split(" = ")
+            score = float(score)
             if self.verbose:
-                logger.info(f"{input_file}: {score=}")
+                with lock:
+                    self.counter.value += 1
+                    cnt = self.counter.value
+                cnt = " " * (
+                    len(str(len(self.input_file_names))) - len(str(cnt))
+                ) + str(cnt)
+                s = str(score)
+                s = " " * (KETA_SCORE - len(s)) + s
+                t = f"{(end_time-start_time):.3f} sec"
+                t = " " * (KETA_TIME - len(t)) + t
+                logger.info(
+                    f"| {cnt} / {len(self.input_file_names)} | {input_file} | {s} | {t} |"
+                )
 
             # stderr
-            filename = input_file[len("./in/") :]
             with open(
                 f"{self.output_dir}/err/{filename}", "w", encoding="utf-8"
             ) as out_f:
                 out_f.write(result.stderr)
 
             # stdout
-            filename = input_file[len("./in/") :]
             with open(
                 f"{self.output_dir}/out/{filename}", "w", encoding="utf-8"
             ) as out_f:
                 out_f.write(result.stdout)
 
-            return input_file, score
+            return input_file, score, "AC", f"{(end_time-start_time):.3f}"
+        except subprocess.TimeoutExpired as e:
+            if self.verbose:
+                with lock:
+                    self.counter.value += 1
+                    cnt = self.counter.value
+                cnt = " " * (
+                    len(str(len(self.input_file_names))) - len(str(cnt))
+                ) + str(cnt)
+                s = "-" * KETA_SCORE
+                t = f">{self.timeout:.3f} sec"
+                t = " " * (KETA_TIME - len(t)) + t
+                logger.info(
+                    f"| {cnt} / {len(self.input_file_names)} | {input_file} | {s} | {to_red(t)} |"
+                )
+
+            # stderr
+            with open(
+                f"{self.output_dir}/err/{filename}", "w", encoding="utf-8"
+            ) as out_f:
+                if e.stderr is not None:
+                    out_f.write(e.stderr.decode("utf-8"))
+
+            # stdout
+            with open(
+                f"{self.output_dir}/out/{filename}", "w", encoding="utf-8"
+            ) as out_f:
+                if e.stdout is not None:
+                    out_f.write(e.stdout.decode("utf-8"))
+
+            return input_file, math.nan, "TLE", f"{self.timeout:.3f}"
         except subprocess.CalledProcessError as e:
+            with lock:
+                self.counter.value += 1
             # logger.exception(e)
             logger.error(to_red(f"Error occured in {input_file}"))
-            return input_file, math.nan
+            return input_file, math.nan, "ERROR", "-1"
         except Exception as e:
+            with lock:
+                self.counter.value += 1
             logger.exception(e)
             logger.error(to_red(f"!!! Error occured in {input_file}"))
-            return input_file, math.nan
-
-    def run(self) -> list[float]:
-        """実行します。"""
-        pool = multiprocessing.Pool(processes=self.cpu_count)
-        result = pool.map(
-            partial(self._process_file), self.input_file_names, chunksize=1
-        )
-        pool.close()
-        pool.join()
-        scores = [s for _, s in result]
-        return scores
+            self.counter
+            return input_file, math.nan, "INNER_ERROR", "-1"
 
     def run_record(self) -> list[tuple[str, float]]:
         """実行します。"""
@@ -159,22 +260,27 @@ class ParallelTester:
         if not os.path.exists(f"{self.output_dir}/out/"):
             os.makedirs(f"{self.output_dir}/out/")
 
-        pool = multiprocessing.Pool(processes=self.cpu_count)
-        result = pool.map(
-            partial(self._process_file), self.input_file_names, chunksize=1
-        )
-        pool.close()
-        pool.join()
+        with multiprocessing.Manager() as manager:
+            lock = manager.Lock()
+            self.counter = manager.Value("i", 0)
+            pool = multiprocessing.Pool(processes=self.cpu_count)
+            result = pool.map(
+                self._process_file,
+                [(file, lock) for file in self.input_file_names],
+                chunksize=1,
+            )
+            pool.close()
+            pool.join()
 
-        # score
+        # csv
         result.sort()
         with open(
             f"{self.output_dir}/result.csv", "w", encoding="utf-8", newline=""
         ) as f:
             writer = csv.writer(f)
-            writer.writerow(["filename", "score"])
-            for filename, score in result:
-                writer.writerow([filename, score])
+            writer.writerow(["filename", "score", "state", "time"])
+            for filename, score, state, t in result:
+                writer.writerow([filename, score, state, t])
 
         # 出力を`./out/`へも書き出す
         if not os.path.exists("./out/"):
@@ -240,6 +346,7 @@ def build_tester(
         cpu_count=min(njobs, multiprocessing.cpu_count() - 1),
         verbose=verbose,
         get_score=settings.get_score,
+        timeout=settings.timeout,
     )
     return tester
 
@@ -261,20 +368,41 @@ def main():
     scores = tester.run_record()
 
     nan_case = []
-    for filename, s in scores:
+    for filename, s, state, _ in scores:
         if math.isnan(s):
-            nan_case.append(filename)
+            nan_case.append((filename, state))
     if nan_case:
-        logger.info("=====================")
-        logger.error(to_red(f"ErrorCount: {len(nan_case)}."))
-        for f in nan_case:
-            logger.error(to_red(f"  ErrorCase: {f}"))
-        logger.info("=====================")
-    else:
-        logger.info(to_green("Finished correctly."))
+        delta = max(13, max([len(filename) for filename, _ in nan_case])) + 2
 
-    score = tester.show_score([s for _, s in scores])
-    logger.info(f"Finished in {time.time() - start:.4f} sec.")
+        logger.error("=" * (delta + 2))
+        logger.error(to_red(f"ErrorCount: {len(nan_case)}."))
+
+        logger.error("-" * (delta + 2))
+        logger.error("| TLE " + " " * (delta - len(" TLE ")) + "|")
+        for f, state in nan_case:
+            if state == "TLE":
+                logger.error("|" + to_red(f" {f} ") + "|")
+
+        logger.error("-" * (delta + 2))
+
+        logger.error("| ERROR " + " " * (delta - len(" ERROR ")) + "|")
+        for f, state in nan_case:
+            if state == "ERROR":
+                logger.error("|" + to_red(f" {f} ") + "|")
+
+        logger.error("-" * (delta + 2))
+
+        logger.error("| INNER_ERROR " + " " * (delta - len(" INNER_ERROR ")) + "|")
+        for f, state in nan_case:
+            if state == "INNER_ERROR":
+                logger.error("|" + to_red(f" {f} ") + "|")
+
+        logger.error("-" * (delta + 2))
+
+        logger.error("=" * (delta + 2))
+
+    score = tester.show_score([s for _, s, _, _ in scores])
+    logger.info(to_green(f"Finished in {time.time() - start:.4f} sec."))
     return score
 
 
