@@ -72,7 +72,9 @@ class ParallelTester:
         self.cpu_count = cpu_count
         self.verbose = verbose
         self.get_score = get_score
-        self.timeout = timeout / 1000 if timeout >= 0 else None
+        self.timeout = (
+            timeout / 1000 if (timeout is not None) and (timeout >= 0) else None
+        )
         self.counter: multiprocessing.managers.ValueProxy
 
     def show_score(self, scores: list[float]) -> float:
