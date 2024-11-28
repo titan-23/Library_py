@@ -374,6 +374,10 @@ def main():
         if math.isnan(s):
             nan_case.append((filename, state))
     if nan_case:
+        tle_cnt = 0
+        other_cnt = 0
+        inner_cnt = 0
+
         delta = max(13, max([len(filename) for filename, _ in nan_case])) + 2
 
         logger.error("=" * (delta + 2))
@@ -383,6 +387,7 @@ def main():
         logger.error("| TLE " + " " * (delta - len(" TLE ")) + "|")
         for f, state in nan_case:
             if state == "TLE":
+                tle_cnt += 1
                 logger.error("|" + to_red(f" {f} ") + "|")
 
         logger.error("-" * (delta + 2))
@@ -390,6 +395,7 @@ def main():
         logger.error("| ERROR " + " " * (delta - len(" ERROR ")) + "|")
         for f, state in nan_case:
             if state == "ERROR":
+                other_cnt += 1
                 logger.error("|" + to_red(f" {f} ") + "|")
 
         logger.error("-" * (delta + 2))
@@ -397,11 +403,15 @@ def main():
         logger.error("| INNER_ERROR " + " " * (delta - len(" INNER_ERROR ")) + "|")
         for f, state in nan_case:
             if state == "INNER_ERROR":
+                inner_cnt += 1
                 logger.error("|" + to_red(f" {f} ") + "|")
 
         logger.error("-" * (delta + 2))
-
         logger.error("=" * (delta + 2))
+
+        logger.error(to_red(f" TLE   : {tle_cnt} "))
+        logger.error(to_red(f" Other : {other_cnt} "))
+        logger.error(to_red(f" Inner : {inner_cnt} "))
 
     score = tester.show_score([s for _, s, _, _ in scores])
     logger.info(to_green(f"Finished in {time.time() - start:.4f} sec."))
