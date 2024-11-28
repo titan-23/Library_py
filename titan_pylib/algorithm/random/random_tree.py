@@ -25,12 +25,12 @@ class RandomTree:
         :math:`O(n \\log{n})` です。
 
         Args:
-          n (int): 頂点の数です。
-          typ (RandomTreeType, optional): 木の形です。 Defaults to RandomTreeType.random。
-          seed (Optional[int], optional): seed値です。 Defaults to None。
+            n (int): 頂点の数です。
+            typ (RandomTreeType, optional): 木の形です。 Defaults to RandomTreeType.random。
+            seed (Optional[int], optional): seed値です。 Defaults to None。
 
         Returns:
-          list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
+            list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
         """
         cls.rand = random.Random(seed)
         edges = None
