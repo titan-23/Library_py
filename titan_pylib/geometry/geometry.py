@@ -578,12 +578,21 @@ class Geometry:
         return abs(cls.cross(l.p2 - l.p1, p - l.p1)) / abs(l.p2 - l.p1)
 
     @classmethod
+    def dist_p_to_p(cls, p1: Point, p2: Point) -> float:
+        return ((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2) ** 0.5
+
+    @classmethod
     def dist_p_to_segmemt(cls, p: Point, s: Segment) -> float:
         if cls.dot(s.p2 - s.p1, p - s.p1) < GeometryUtil.EPS:
             return abs(p - s.p1)
         if cls.dot(s.p1 - s.p2, p - s.p2) < GeometryUtil.EPS:
             return abs(p - s.p2)
-        return abs(cls.cross(s.p2 - s.p1, p - s.p1)) / abs(s.p2 - s.p1)
+        q = cls.projection_point(p, Line.from_points(s.p1, s.p2))
+        if (min(s.p1.x, s.p2.x) <= q.x <= max(s.p1.x, s.p2.x)) or (
+            min(s.p1.y, s.p2.y) <= q.y <= max(s.p1.y, s.p2.y)
+        ):
+            return abs(cls.cross(s.p2 - s.p1, p - s.p1)) / abs(s.p2 - s.p1)
+        return min(cls.dist_p_to_p(p, s.p1), cls.dist_p_to_p(p, s.p2))
 
     @classmethod
     def dist_segment_to_segment(cls, s1: Segment, s2: Segment) -> float:
