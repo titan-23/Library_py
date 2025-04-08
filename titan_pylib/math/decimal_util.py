@@ -1,5 +1,4 @@
 from decimal import Decimal, getcontext
-import math
 
 
 def decimal_pi() -> Decimal:
@@ -17,69 +16,75 @@ def decimal_pi() -> Decimal:
 
 
 def decimal_exp(x: Decimal) -> Decimal:
-    getcontext().prec += 2
-    i, lasts, s, fact, num = 0, 0, 1, 1, 1
-    while s != lasts:
-        lasts = s
-        i += 1
-        fact *= i
-        num *= x
-        s += num / fact
-    getcontext().prec -= 2
-    return +s
+    getcontext().prec += 5
+    eps = Decimal("1e-" + str(getcontext().prec))
+    term = Decimal(1)
+    sum_exp = term
+    n = 1
+    while abs(term) > eps:
+        term *= x / n
+        sum_exp += term
+        n += 1
+    getcontext().prec -= 5
+    return +sum_exp
 
 
 def decimal_cos(x: Decimal) -> Decimal:
-    getcontext().prec += 2
-    i, lasts, s, fact, num, sign = 0, 0, 1, 1, 1, 1
-    while s != lasts:
-        lasts = s
-        i += 2
-        fact *= i * (i - 1)
-        num *= x * x
-        sign *= -1
-        s += num / fact * sign
-    getcontext().prec -= 2
-    return +s
+    getcontext().prec += 5
+    eps = Decimal("1e-" + str(getcontext().prec))
+    term = Decimal(1)
+    sum_cos = term
+    x2 = x * x
+    n = 1
+    while abs(term) > eps:
+        term *= -x2 / (2 * n * (2 * n - 1))
+        sum_cos += term
+        n += 1
+    getcontext().prec -= 5
+    return +sum_cos
 
 
 def decimal_sin(x: Decimal) -> Decimal:
-    getcontext().prec += 2
-    i, lasts, s, fact, num, sign = 1, 0, x, 1, x, 1
-    while s != lasts:
-        lasts = s
-        i += 2
-        fact *= i * (i - 1)
-        num *= x * x
-        sign *= -1
-        s += num / fact * sign
-    getcontext().prec -= 2
-    return +s
+    getcontext().prec += 5
+    eps = Decimal("1e-" + str(getcontext().prec))
+    term = x
+    sum_sin = term
+    x2 = x * x
+    n = 1
+    while abs(term) > eps:
+        term *= -x2 / (2 * n * (2 * n + 1))
+        sum_sin += term
+        n += 1
+    getcontext().prec -= 5
+    return +sum_sin
 
 
 def decimal_asin(x: Decimal) -> Decimal:
     assert isinstance(x, Decimal)
-    if x < -1 or x > 1:
-        raise ValueError("math domain error")
-    if x == 1:
-        return decimal_pi() / 2
-    if x == -1:
-        return -decimal_pi() / 2
-    getcontext().prec += 2
+    getcontext().prec += 5
     eps = Decimal("1e-" + str(getcontext().prec))
-    sum_acos = x
-    term = Decimal(1)
-    power = x
-    n = 0
-    while abs(term * power) > eps:
-        n += 1
-        term *= (2 * n - 1) * (2 * n) * (2 * (n - 1) + 1)
-        term /= 4 * n * n * (2 * n + 1)
-        power *= x * x
-        sum_acos += term * power
-    result = sum_acos
-    getcontext().prec -= 2
-    return +result
+    if x < -1 or x > 1:
+        getcontext().prec -= 5
+        raise ValueError("math domain error")
+    if x > Decimal(1) - eps:
+        getcontext().prec -= 5
+        return decimal_pi() / 2
+    if x < Decimal(-1) + eps:
+        getcontext().prec -= 5
+        return -decimal_pi() / 2
+    if abs(x) < Decimal("0.5"):
+        y = x + x**3 / 6
+    else:
+        y = Decimal("0.5") * (decimal_pi() / 2 - x)
+    while True:  # ニュートン法で収束を高速化
+        y_new = y - (decimal_sin(y) - x) / (
+            Decimal(1) - decimal_sin(y + eps) + decimal_sin(y)
+        )
+        if abs(y_new - y) < eps:
+            break
+        y = y_new
+    getcontext().prec -= 5
+    return +y
 
 
 def decimal_acos(x: Decimal) -> Decimal:
@@ -105,3 +110,7 @@ def decimal_acos(x: Decimal) -> Decimal:
     result = decimal_pi() / 2 - sum_acos
     getcontext().prec -= 2
     return +result
+
+
+def decimal_atan(x: Decimal) -> Decimal:
+    return decimal_asin(x / (1 + x * x).sqrt())
