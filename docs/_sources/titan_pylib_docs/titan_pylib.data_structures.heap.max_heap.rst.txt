@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.heap.max\_heap
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.heap.max_heap
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

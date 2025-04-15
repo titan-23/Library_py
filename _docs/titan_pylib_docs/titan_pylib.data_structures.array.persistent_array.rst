@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.array.persistent\_array
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.array.persistent_array
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

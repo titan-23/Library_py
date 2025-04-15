@@ -22,6 +22,6 @@ titan\_pylib.math.comb
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.comb
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

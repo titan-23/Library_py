@@ -344,14 +344,14 @@ class FenwickTree:
         if compress:
             a_ = sorted(set(a))
             z = {e: i for i, e in enumerate(a_)}
-            fw = FenwickTree(len(a_))
+            fw = FenwickTree(len(a_) + 1)
             for i, e in enumerate(a):
-                inv += i - fw.pref(z[e])
+                inv += i - fw.pref(z[e] + 1)
                 fw.add(z[e], 1)
         else:
-            fw = FenwickTree(len(a))
+            fw = FenwickTree(len(a) + 1)
             for i, e in enumerate(a):
-                inv += i - fw.pref(e)
+                inv += i - fw.pref(e + 1)
                 fw.add(e, 1)
         return inv
 

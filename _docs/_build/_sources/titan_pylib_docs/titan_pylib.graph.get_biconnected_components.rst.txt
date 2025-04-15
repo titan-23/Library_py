@@ -22,6 +22,6 @@ titan\_pylib.graph.get\_biconnected\_components
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.get_biconnected_components
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

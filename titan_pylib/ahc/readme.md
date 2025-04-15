@@ -16,7 +16,10 @@
 - 入力ファイル(リスト)
     - `input_file_names = [f'./in/{str(i).zfill(4)}.txt' for i in range(100)]` など
     - `optimizer` 用の時は、テストケースを減らすとよいかも
-- 評価関数 `get_score`
+- 制限時間
+    - `timeout=2000` など
+    - 指定しないときは `None` とするとよい
+- 表示するだけの関数 `get_score`
 
 ### `optimizer` 用
 - `study_name`

@@ -22,6 +22,6 @@ titan\_pylib.math.is\_prime64
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.is_prime64
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

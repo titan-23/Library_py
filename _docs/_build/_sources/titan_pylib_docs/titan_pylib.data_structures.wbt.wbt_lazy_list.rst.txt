@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.wbt.wbt\_lazy\_list
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.wbt.wbt_lazy_list
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

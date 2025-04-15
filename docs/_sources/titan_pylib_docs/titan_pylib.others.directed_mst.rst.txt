@@ -22,6 +22,6 @@ titan\_pylib.others.directed\_mst
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.others.directed_mst
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

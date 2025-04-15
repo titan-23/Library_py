@@ -22,6 +22,6 @@ titan\_pylib.algorithm.gray\_code
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.gray_code
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

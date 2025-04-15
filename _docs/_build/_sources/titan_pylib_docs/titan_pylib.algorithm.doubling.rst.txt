@@ -22,6 +22,6 @@ titan\_pylib.algorithm.doubling
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.doubling
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

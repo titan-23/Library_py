@@ -21,6 +21,6 @@ Submodules
 
 .. automodule:: titan_pylib.data_structures.heap
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

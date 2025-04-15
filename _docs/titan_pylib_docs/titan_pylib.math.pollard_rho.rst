@@ -22,6 +22,6 @@ titan\_pylib.math.pollard\_rho
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.pollard_rho
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -27,6 +27,6 @@ titan\_pylib.math.decimal\_util
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.decimal_util
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

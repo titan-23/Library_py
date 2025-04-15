@@ -30,9 +30,9 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
         self._rdata: T = key
         self._lazy: F = lazy
         self._rev: int = 0
-        self._left: "_WBTListNode[T, F]"
-        self._right: "_WBTListNode[T, F]"
-        self._par: "_WBTListNode[T, F]"
+        self._left: "_WBTLazyListNode[T, F]"
+        self._right: "_WBTLazyListNode[T, F]"
+        self._par: "_WBTLazyListNode[T, F]"
 
     def __str__(self) -> str:
         if self._left is None and self._right is None:
@@ -40,7 +40,7 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
         return f"key:{self._key, self._size},\n _left:{self._left},\n _right:{self._right}\n"
 
     def _check(self):
-        def dfs(node: "_WBTListNode"):
+        def dfs(node: "_WBTLazyListNode"):
             s = 1
             if node._left:
                 assert node._left._par is node
@@ -57,7 +57,7 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
 
     def propagate_above(self) -> None:
         """これの上について、lazy, revをすべて伝播する"""
-        stack: list["_WBTListNode[T, F]"] = []
+        stack: list["_WBTLazyListNode[T, F]"] = []
         node = self
         while node:
             stack.append(node)
@@ -115,7 +115,7 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
                 self._right._apply_lazy(self._lazy)
             self._lazy = self._tree._id
 
-    def _rotate_right(self) -> "_WBTListNode[T, F]":
+    def _rotate_right(self) -> "_WBTLazyListNode[T, F]":
         u = self._left
         u._propagate()
         u._par = self._par
@@ -133,7 +133,7 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
         u._update()
         return u
 
-    def _rotate_left(self) -> "_WBTListNode[T, F]":
+    def _rotate_left(self) -> "_WBTLazyListNode[T, F]":
         u = self._right
         u._propagate()
         u._par = self._par
@@ -151,19 +151,19 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
         u._update()
         return u
 
-    def _balance_left(self) -> "_WBTListNode[T, F]":
+    def _balance_left(self) -> "_WBTLazyListNode[T, F]":
         self._right._propagate()
         if self._right._weight_left() >= self._right._weight_right() * self.GAMMA:
             self._right = self._right._rotate_right()
         return self._rotate_left()
 
-    def _balance_right(self) -> "_WBTListNode[T, F]":
+    def _balance_right(self) -> "_WBTLazyListNode[T, F]":
         self._left._propagate()
         if self._left._weight_right() >= self._left._weight_left() * self.GAMMA:
             self._left = self._left._rotate_left()
         return self._rotate_right()
 
-    def _min(self) -> "_WBTListNode[T, F]":
+    def _min(self) -> "_WBTLazyListNode[T, F]":
         self.propagate_above()
         assert self._rev == 0
         node = self
@@ -172,7 +172,7 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
             node._propagate()
         return node
 
-    def _max(self) -> "_WBTListNode[T, F]":
+    def _max(self) -> "_WBTLazyListNode[T, F]":
         self.propagate_above()
         assert self._rev == 0
         node = self
@@ -181,7 +181,7 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
             node._propagate()
         return node
 
-    def _next(self) -> Optional["_WBTListNode[T, F]"]:
+    def _next(self) -> Optional["_WBTLazyListNode[T, F]"]:
         self.propagate_above()
         if self._right:
             return self._right._min()
@@ -190,7 +190,7 @@ class _WBTLazyListNode(_WBTNodeBase, Generic[T, F]):
             now, pre = now._par, now
         return now
 
-    def _prev(self) -> Optional["_WBTListNode[T, F]"]:
+    def _prev(self) -> Optional["_WBTLazyListNode[T, F]"]:
         self.propagate_above()
         if self._left:
             return self._left._max()

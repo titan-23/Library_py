@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.safe\_hash.hash\_defaultdict
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.safe_hash.hash_defaultdict
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

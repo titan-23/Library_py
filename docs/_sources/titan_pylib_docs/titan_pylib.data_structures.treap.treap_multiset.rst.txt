@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.treap.treap\_multiset
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.treap.treap_multiset
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

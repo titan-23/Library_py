@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.set.mex\_multiset
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.set.mex_multiset
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

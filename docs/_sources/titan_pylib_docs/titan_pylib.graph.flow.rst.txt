@@ -16,6 +16,6 @@ Submodules
 
 .. automodule:: titan_pylib.graph.flow
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

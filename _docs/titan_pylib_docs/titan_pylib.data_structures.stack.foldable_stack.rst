@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.stack.foldable\_stack
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.stack.foldable_stack
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

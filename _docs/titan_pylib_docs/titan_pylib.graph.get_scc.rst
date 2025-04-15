@@ -22,6 +22,6 @@ titan\_pylib.graph.get\_scc
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.get_scc
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

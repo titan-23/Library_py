@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.stack.stack
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.stack.stack
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

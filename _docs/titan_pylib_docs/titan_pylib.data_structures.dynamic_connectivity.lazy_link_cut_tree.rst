@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.dynamic\_connectivity.lazy\_link\_cut\_tree
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.dynamic_connectivity.lazy_link_cut_tree
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

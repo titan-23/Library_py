@@ -22,6 +22,6 @@ titan\_pylib.algorithm.sort.quick\_sort
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.sort.quick_sort
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

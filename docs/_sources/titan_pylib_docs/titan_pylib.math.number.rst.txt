@@ -35,6 +35,6 @@ titan\_pylib.math.number
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.number
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

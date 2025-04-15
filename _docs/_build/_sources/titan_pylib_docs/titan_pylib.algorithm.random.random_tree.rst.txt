@@ -23,6 +23,6 @@ titan\_pylib.algorithm.random.random\_tree
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.random.random_tree
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -21,6 +21,6 @@ titan\_pylib.ahc.calc\_ratio
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.ahc.calc_ratio
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

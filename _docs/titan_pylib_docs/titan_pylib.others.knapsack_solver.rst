@@ -22,6 +22,6 @@ titan\_pylib.others.knapsack\_solver
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.others.knapsack_solver
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

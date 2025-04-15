@@ -22,6 +22,6 @@ titan\_pylib.ahc.parallel\_tester
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.ahc.parallel_tester
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

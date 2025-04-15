@@ -29,6 +29,6 @@ titan\_pylib.geometry.geometry
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.geometry.geometry
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -1,5 +1,4 @@
 from collections import deque
-from typing import Generator
 from titan_pylib.others.antirec import antirec
 
 
@@ -38,7 +37,7 @@ class MaxFlowDinic:
         self.level = level
 
     @antirec
-    def _dfs(self, v: int, g: int, f: int) -> Generator[int]:
+    def _dfs(self, v: int, g: int, f: int):
         if v == g:
             yield f
         else:

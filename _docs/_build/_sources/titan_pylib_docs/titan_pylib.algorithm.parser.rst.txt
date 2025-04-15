@@ -22,6 +22,6 @@ titan\_pylib.algorithm.parser
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.parser
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

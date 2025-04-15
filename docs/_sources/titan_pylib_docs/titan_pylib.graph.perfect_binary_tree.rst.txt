@@ -22,6 +22,6 @@ titan\_pylib.graph.perfect\_binary\_tree
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.perfect_binary_tree
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

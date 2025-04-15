@@ -5,12 +5,12 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
 <link href="../genindex.html" rel="index" title="Index"/><link href="../search.html" rel="search" title="Search"/><link href="titan_pylib.data_structures.segment_tree.persistent_segment_tree.html" rel="next" title="titan_pylib.data_structures.segment_tree.persistent_segment_tree"/><link href="titan_pylib.data_structures.segment_tree.lazy_segment_tree.html" rel="prev" title="titan_pylib.data_structures.segment_tree.lazy_segment_tree"/>
-<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
 <title>lazy_segment_tree_range - titan_pylib documentation</title>
-<link href="../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo.css?v=354aac6f" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo-extensions.css?v=302659d7" rel="stylesheet" type="text/css"/>
 <link href="../_static/_static/style.css" rel="stylesheet" type="text/css"/>
 <style>
   body {
@@ -60,7 +60,7 @@
 </symbol>
 <symbol id="svg-sun" viewbox="0 0 24 24">
 <title>Light mode</title>
-<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="5"></circle>
 <line x1="12" x2="12" y1="1" y2="3"></line>
 <line x1="12" x2="12" y1="21" y2="23"></line>
@@ -74,21 +74,56 @@
 </symbol>
 <symbol id="svg-moon" viewbox="0 0 24 24">
 <title>Dark mode</title>
-<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
 </svg>
 </symbol>
-<symbol id="svg-sun-half" viewbox="0 0 24 24">
-<title>Auto light/dark mode</title>
-<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
-<circle cx="12" cy="12" r="9"></circle>
-<path d="M13 12h5"></path>
-<path d="M13 15h4"></path>
-<path d="M13 18h1"></path>
-<path d="M13 9h4"></path>
-<path d="M13 6h1"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
 </svg>
 </symbol>
 </svg>
@@ -100,6 +135,7 @@
 <label class="overlay toc-overlay" for="__toc">
 <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 <div class="page">
 <header class="mobile-header">
 <div class="header-left">
@@ -115,7 +151,8 @@
 <div class="theme-toggle-container theme-toggle-header">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -186,6 +223,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.wbt_set.html">wbt_set</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -418,13 +456,13 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.functional_graph.html">functional_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.lca.html">lca</a></li>
@@ -467,6 +505,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.hash_string.html">hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.string_count.html">string_count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.trie.html">trie</a></li>
 </ul>
 </li>
 </ul>
@@ -485,10 +524,17 @@
 <span>Back to top</span>
 </a>
 <div class="content-icon-container">
+<div class="view-this-page">
+<a class="muted-link" href="../_sources/titan_pylib_docs/titan_pylib.data_structures.segment_tree.lazy_segment_tree_range.rst.txt" title="View this page">
+<svg><use href="#svg-eye"></use></svg>
+<span class="visually-hidden">View this page</span>
+</a>
+</div>
 <div class="theme-toggle-container theme-toggle-content">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -498,28 +544,28 @@
 <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
 </label>
 </div>
-<article role="main">
+<article id="furo-main-content" role="main">
 <section id="titan-pylib-data-structures-segment-tree-lazy-segment-tree-range">
 <h1>lazy_segment_tree_range<a class="headerlink" href="#titan-pylib-data-structures-segment-tree-lazy-segment-tree-range" title="Link to this heading">¶</a></h1>
 <section id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">titan_pylib.data_structures.segment_tree.lazy_segment_tree_range</span> <span class="kn">import</span> <span class="n">LazySegmentTreeRange</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">titan_pylib.data_structures.segment_tree.lazy_segment_tree_range</span><span class="w"> </span><span class="kn">import</span> <span class="n">LazySegmentTreeRange</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://github.com/titan-23/Library_py/tree/main/titan_pylib/data_structures/segment_tree/lazy_segment_tree_range.py">view on github</a></p>
 <section id="id2">
 <h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="c1"># from titan_pylib.data_structures.segment_tree.lazy_segment_tree_range import LazySegmentTreeRange</span>
-<span class="linenos">  2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="linenos">  2</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span>
 <span class="linenos">  3</span>
 <span class="linenos">  4</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos">  5</span><span class="n">F</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"F"</span><span class="p">)</span>
 <span class="linenos">  6</span>
 <span class="linenos">  7</span>
-<span class="linenos">  8</span><span class="k">class</span> <span class="nc">LazySegmentTreeRange</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">F</span><span class="p">]):</span>
+<span class="linenos">  8</span><span class="k">class</span><span class="w"> </span><span class="nc">LazySegmentTreeRange</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">F</span><span class="p">]):</span>
 <span class="linenos">  9</span><span class="w">    </span><span class="sd">"""遅延セグ木です。"""</span>
 <span class="linenos"> 10</span>
-<span class="linenos"> 11</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="linenos"> 11</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 <span class="linenos"> 12</span>        <span class="bp">self</span><span class="p">,</span>
 <span class="linenos"> 13</span>        <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span>
 <span class="linenos"> 14</span>        <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span>
@@ -557,23 +603,23 @@
 <span class="linenos"> 46</span>            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
 <span class="linenos"> 47</span>        <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos"> 48</span>
-<span class="linenos"> 49</span>    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 49</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 50</span>        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span>
 <span class="linenos"> 51</span>            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 <span class="linenos"> 52</span>        <span class="p">)</span>
 <span class="linenos"> 53</span>
-<span class="linenos"> 54</span>    <span class="k">def</span> <span class="nf">_all_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 54</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_all_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 55</span>        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_data</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
 <span class="linenos"> 56</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
 <span class="linenos"> 57</span>            <span class="k">return</span>
 <span class="linenos"> 58</span>        <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">composition</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_data</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
 <span class="linenos"> 59</span>
-<span class="linenos"> 60</span>    <span class="k">def</span> <span class="nf">_propagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 60</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_propagate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 61</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_all_apply</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
 <span class="linenos"> 62</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_all_apply</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
 <span class="linenos"> 63</span>        <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
 <span class="linenos"> 64</span>
-<span class="linenos"> 65</span>    <span class="k">def</span> <span class="nf">apply_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 65</span>    <span class="k">def</span><span class="w"> </span><span class="nf">apply_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 66</span>        <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos"> 67</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
 <span class="linenos"> 68</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span>
@@ -581,7 +627,7 @@
 <span class="linenos"> 70</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
 <span class="linenos"> 71</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span>
 <span class="linenos"> 72</span>
-<span class="linenos"> 73</span>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 73</span>    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 74</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos"> 75</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos"> 76</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.apply(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span>
@@ -615,10 +661,10 @@
 <span class="linenos">104</span>            <span class="k">if</span> <span class="n">r2</span> <span class="o">&gt;&gt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">r2</span><span class="p">:</span>
 <span class="linenos">105</span>                <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">rr</span><span class="p">)</span>
 <span class="linenos">106</span>
-<span class="linenos">107</span>    <span class="k">def</span> <span class="nf">all_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">107</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">108</span>        <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">composition</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="linenos">109</span>
-<span class="linenos">110</span>    <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">110</span>    <span class="k">def</span><span class="w"> </span><span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">111</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">112</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos">113</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.prod(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span>
@@ -649,18 +695,18 @@
 <span class="linenos">138</span>            <span class="n">r</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos">139</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">lres</span><span class="p">,</span> <span class="n">rres</span><span class="p">,</span> <span class="n">lsize</span> <span class="o">+</span> <span class="n">rsize</span><span class="p">)</span>
 <span class="linenos">140</span>
-<span class="linenos">141</span>    <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">141</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">142</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="linenos">143</span>
-<span class="linenos">144</span>    <span class="k">def</span> <span class="nf">all_propagate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">144</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_propagate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">145</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
 <span class="linenos">146</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="linenos">147</span>
-<span class="linenos">148</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">148</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">149</span>        <span class="bp">self</span><span class="o">.</span><span class="n">all_propagate</span><span class="p">()</span>
 <span class="linenos">150</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
 <span class="linenos">151</span>
-<span class="linenos">152</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">152</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">153</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">154</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos">155</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">], n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span>
@@ -671,7 +717,7 @@
 <span class="linenos">160</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_propagate</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span>
 <span class="linenos">161</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 <span class="linenos">162</span>
-<span class="linenos">163</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+<span class="linenos">163</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
 <span class="linenos">164</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">165</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
 <span class="linenos">166</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">] = </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">, n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span>
@@ -684,10 +730,10 @@
 <span class="linenos">173</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
 <span class="linenos">174</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span>
 <span class="linenos">175</span>
-<span class="linenos">176</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">176</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">177</span>        <span class="k">return</span> <span class="s2">"["</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))))</span> <span class="o">+</span> <span class="s2">"]"</span>
 <span class="linenos">178</span>
-<span class="linenos">179</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">179</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">180</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
 </pre></div>
 </div>
@@ -697,7 +743,7 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.segment_tree.lazy_segment_tree_range" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.segment_tree.lazy_segment_tree_range.LazySegmentTreeRange">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">LazySegmentTreeRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/lazy_segment_tree_range.html#LazySegmentTreeRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.lazy_segment_tree_range.LazySegmentTreeRange" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">LazySegmentTreeRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_or_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">composition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/segment_tree/lazy_segment_tree_range.html#LazySegmentTreeRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.segment_tree.lazy_segment_tree_range.LazySegmentTreeRange" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">F</span></code>]</p>
 <p>遅延セグ木です。</p>
 <dl class="py method">
@@ -805,9 +851,9 @@
 </aside>
 </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../_static/doctools.js?v=9a2dae69"></script>
+<script src="../_static/doctools.js?v=9bcbadda"></script>
 <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-<script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../_static/scripts/furo.js?v=5fa4622c"></script>
 <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../_static/copybutton.js?v=4ea706d9"></script>
 <script src="../_static/_static/script.js"></script>

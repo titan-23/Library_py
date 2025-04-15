@@ -22,6 +22,6 @@ titan\_pylib.math.fraction
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.fraction
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

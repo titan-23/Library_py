@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.heap.deletable\_min\_heap
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.heap.deletable_min_heap
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

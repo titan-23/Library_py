@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.deque.deque
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.deque.deque
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

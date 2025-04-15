@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.segment\_quadratic\_division.quadratic\_division\_
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.segment_quadratic_division.quadratic_division_list
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

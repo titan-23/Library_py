@@ -22,6 +22,6 @@ titan\_pylib.io.fast\_o
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.io.fast_o
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

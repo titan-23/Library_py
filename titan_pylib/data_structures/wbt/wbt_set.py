@@ -488,13 +488,13 @@ class WBTSet(Generic[T]):
         self.remove_iter(self._max)
         return key
 
-    def _check(self) -> None:
+    def _check(self) -> int:
         """作業用デバック関数
         size,key,balanceをチェックして、正しければ高さを表示する
         """
         if self._root is None:
             # print("ok. 0 (empty)")
-            return
+            return 0
 
         # _size, height
         def dfs(node: _WBTSetNode[T]) -> tuple[int, int]:
@@ -516,6 +516,7 @@ class WBTSet(Generic[T]):
 
         _, h = dfs(self._root)
         # print(f"ok. {h}")
+        return h
 
     def __contains__(self, key: T) -> bool:
         """``key`` が存在すれば ``True`` 、そうでなければ ``False`` を返します。

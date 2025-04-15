@@ -18,12 +18,13 @@ Submodules
    titan_pylib.data_structures.avl_tree.persistent_avl_tree_list
    titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree
    titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree
+   titan_pylib.data_structures.avl_tree.wbt_set
 
 
 
 
 .. automodule:: titan_pylib.data_structures.avl_tree
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

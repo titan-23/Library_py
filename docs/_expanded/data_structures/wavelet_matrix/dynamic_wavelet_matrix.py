@@ -1029,8 +1029,8 @@ class WaveletMatrix:
         :math:`O(n\\log{\\sigma})` です。
 
         Args:
-          sigma (int): 扱う整数の上限です。
-          a (Sequence[int], optional): 構築する配列です。
+            sigma (int): 扱う整数の上限です。
+            a (Sequence[int], optional): 構築する配列です。
         """
         self.sigma: int = sigma
         self.log: int = (sigma - 1).bit_length()
@@ -1060,7 +1060,7 @@ class WaveletMatrix:
         :math:`O(\\log{\\sigma})` です。
 
         Args:
-          k (int): インデックスです。
+            k (int): インデックスです。
         """
         assert (
             -self.size <= k < self.size
@@ -1181,10 +1181,10 @@ class WaveletMatrix:
         :math:`O(\\min(r-l, \\sigam) \\log(\\sigam))` です。
 
         Note:
-          :math:`\\sigma` が大きい場合、計算量に注意です。
+            :math:`\\sigma` が大きい場合、計算量に注意です。
 
         Returns:
-          list[tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。
+            list[tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。
         """
         assert (
             0 <= l <= r <= self.size

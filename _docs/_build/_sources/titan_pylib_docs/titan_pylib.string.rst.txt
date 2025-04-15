@@ -12,12 +12,13 @@ Submodules
    titan_pylib.string.hash_string
    titan_pylib.string.multi_hash_string
    titan_pylib.string.string_count
+   titan_pylib.string.trie
 
 
 
 
 .. automodule:: titan_pylib.string
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

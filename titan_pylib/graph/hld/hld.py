@@ -26,7 +26,7 @@ class HLD:
     def _dfs(self, root: int) -> None:
         dep, par, size, G = self.dep, self.par, self.size, self.G
         dep[root] = 0
-        stack = [root]
+        stack = [~root, root]
         while stack:
             v = stack.pop()
             if v >= 0:
@@ -76,10 +76,10 @@ class HLD:
         :math:`O(n)` です。
 
         Args:
-          a (list[Any]): 元の配列です。
+            a (list[Any]): 元の配列です。
 
         Returns:
-          list[Any]: 振りなおし後の配列です。
+            list[Any]: 振りなおし後の配列です。
         """
         return [a[e] for e in self.hld]
 

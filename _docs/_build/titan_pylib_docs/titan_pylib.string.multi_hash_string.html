@@ -5,12 +5,12 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
 <link href="../genindex.html" rel="index" title="Index"/><link href="../search.html" rel="search" title="Search"/><link href="titan_pylib.string.string_count.html" rel="next" title="titan_pylib.string.string_count"/><link href="titan_pylib.string.hash_string.html" rel="prev" title="titan_pylib.string.hash_string"/>
-<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
 <title>multi_hash_string - titan_pylib documentation</title>
-<link href="../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo.css?v=354aac6f" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo-extensions.css?v=302659d7" rel="stylesheet" type="text/css"/>
 <link href="../_static/_static/style.css" rel="stylesheet" type="text/css"/>
 <style>
   body {
@@ -60,7 +60,7 @@
 </symbol>
 <symbol id="svg-sun" viewbox="0 0 24 24">
 <title>Light mode</title>
-<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="5"></circle>
 <line x1="12" x2="12" y1="1" y2="3"></line>
 <line x1="12" x2="12" y1="21" y2="23"></line>
@@ -74,21 +74,56 @@
 </symbol>
 <symbol id="svg-moon" viewbox="0 0 24 24">
 <title>Dark mode</title>
-<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
 </svg>
 </symbol>
-<symbol id="svg-sun-half" viewbox="0 0 24 24">
-<title>Auto light/dark mode</title>
-<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
-<circle cx="12" cy="12" r="9"></circle>
-<path d="M13 12h5"></path>
-<path d="M13 15h4"></path>
-<path d="M13 18h1"></path>
-<path d="M13 9h4"></path>
-<path d="M13 6h1"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
 </svg>
 </symbol>
 </svg>
@@ -100,6 +135,7 @@
 <label class="overlay toc-overlay" for="__toc">
 <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 <div class="page">
 <header class="mobile-header">
 <div class="header-left">
@@ -115,7 +151,8 @@
 <div class="theme-toggle-container theme-toggle-header">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -186,6 +223,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.wbt_set.html">wbt_set</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -418,13 +456,13 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.functional_graph.html">functional_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.lca.html">lca</a></li>
@@ -467,6 +505,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.hash_string.html">hash_string</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">multi_hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.string_count.html">string_count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.trie.html">trie</a></li>
 </ul>
 </li>
 </ul>
@@ -485,10 +524,17 @@
 <span>Back to top</span>
 </a>
 <div class="content-icon-container">
+<div class="view-this-page">
+<a class="muted-link" href="../_sources/titan_pylib_docs/titan_pylib.string.multi_hash_string.rst.txt" title="View this page">
+<svg><use href="#svg-eye"></use></svg>
+<span class="visually-hidden">View this page</span>
+</a>
+</div>
 <div class="theme-toggle-container theme-toggle-content">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -498,13 +544,13 @@
 <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
 </label>
 </div>
-<article role="main">
+<article id="furo-main-content" role="main">
 <section id="titan-pylib-string-multi-hash-string">
 <h1>multi_hash_string<a class="headerlink" href="#titan-pylib-string-multi-hash-string" title="Link to this heading">¶</a></h1>
 <section id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">titan_pylib.string.multi_hash_string</span> <span class="kn">import</span> <span class="n">MultiHashStringBase</span>
-<span class="kn">from</span> <span class="nn">titan_pylib.string.multi_hash_string</span> <span class="kn">import</span> <span class="n">MultiHashString</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">titan_pylib.string.multi_hash_string</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiHashStringBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">titan_pylib.string.multi_hash_string</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiHashString</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://github.com/titan-23/Library_py/tree/main/titan_pylib/string/multi_hash_string.py">view on github</a></p>
@@ -517,70 +563,70 @@
 <span class="linenos">  5</span><span class="c1"># from titan_pylib.data_structures.segment_tree.segment_tree_interface import (</span>
 <span class="linenos">  6</span><span class="c1">#     SegmentTreeInterface,</span>
 <span class="linenos">  7</span><span class="c1"># )</span>
-<span class="linenos">  8</span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="linenos">  9</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="linenos">  8</span><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="linenos">  9</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="linenos"> 10</span>
 <span class="linenos"> 11</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos"> 12</span>
 <span class="linenos"> 13</span>
-<span class="linenos"> 14</span><span class="k">class</span> <span class="nc">SegmentTreeInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos"> 14</span><span class="k">class</span><span class="w"> </span><span class="nc">SegmentTreeInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos"> 15</span>
 <span class="linenos"> 16</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 17</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+<span class="linenos"> 17</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
 <span class="linenos"> 18</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 19</span>
 <span class="linenos"> 20</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 21</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 21</span>    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 22</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 23</span>
 <span class="linenos"> 24</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 25</span>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 25</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos"> 26</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 27</span>
 <span class="linenos"> 28</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 29</span>    <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 29</span>    <span class="k">def</span><span class="w"> </span><span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos"> 30</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 31</span>
 <span class="linenos"> 32</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 33</span>    <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 33</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos"> 34</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 35</span>
 <span class="linenos"> 36</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 37</span>    <span class="k">def</span> <span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 37</span>    <span class="k">def</span><span class="w"> </span><span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 38</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 39</span>
 <span class="linenos"> 40</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 41</span>    <span class="k">def</span> <span class="nf">min_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 41</span>    <span class="k">def</span><span class="w"> </span><span class="nf">min_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 42</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 43</span>
 <span class="linenos"> 44</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 45</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 45</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 46</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 47</span>
 <span class="linenos"> 48</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 49</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 49</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos"> 50</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 51</span>
 <span class="linenos"> 52</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 53</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 53</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 54</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 55</span>
 <span class="linenos"> 56</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 57</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 57</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 58</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 59</span>
 <span class="linenos"> 60</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 61</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 61</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 62</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos"> 63</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="linenos"> 63</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
 <span class="linenos"> 64</span>
 <span class="linenos"> 65</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos"> 66</span>
 <span class="linenos"> 67</span>
-<span class="linenos"> 68</span><span class="k">class</span> <span class="nc">SegmentTree</span><span class="p">(</span><span class="n">SegmentTreeInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos"> 68</span><span class="k">class</span><span class="w"> </span><span class="nc">SegmentTree</span><span class="p">(</span><span class="n">SegmentTreeInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos"> 69</span><span class="w">    </span><span class="sd">"""セグ木です。非再帰です。"""</span>
 <span class="linenos"> 70</span>
-<span class="linenos"> 71</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="linenos"> 71</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 <span class="linenos"> 72</span>        <span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">op</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">],</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span>
 <span class="linenos"> 73</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 74</span><span class="w">        </span><span class="sd">"""``SegmentTree`` を構築します。</span>
@@ -610,7 +656,7 @@
 <span class="linenos"> 98</span>                <span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">op</span><span class="p">(</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">],</span> <span class="n">_data</span><span class="p">[</span><span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">])</span>
 <span class="linenos"> 99</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">_data</span>
 <span class="linenos">100</span>
-<span class="linenos">101</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">101</span>    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">102</span><span class="w">        </span><span class="sd">"""一点更新です。</span>
 <span class="linenos">103</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos">104</span>
@@ -632,7 +678,7 @@
 <span class="linenos">120</span>            <span class="n">k</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos">121</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">1</span><span class="p">])</span>
 <span class="linenos">122</span>
-<span class="linenos">123</span>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">123</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">124</span><span class="w">        </span><span class="sd">"""一点取得です。</span>
 <span class="linenos">125</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos">126</span>
@@ -649,7 +695,7 @@
 <span class="linenos">137</span>            <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">138</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">]</span>
 <span class="linenos">139</span>
-<span class="linenos">140</span>    <span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">140</span>    <span class="k">def</span><span class="w"> </span><span class="nf">prod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">141</span><span class="w">        </span><span class="sd">"""区間 ``[l, r)`` の総積を返します。</span>
 <span class="linenos">142</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos">143</span>
@@ -677,13 +723,13 @@
 <span class="linenos">165</span>            <span class="n">r</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos">166</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span><span class="p">(</span><span class="n">lres</span><span class="p">,</span> <span class="n">rres</span><span class="p">)</span>
 <span class="linenos">167</span>
-<span class="linenos">168</span>    <span class="k">def</span> <span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">168</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_prod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">169</span><span class="w">        </span><span class="sd">"""区間 ``[0, n)`` の総積を返します。</span>
 <span class="linenos">170</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos">171</span><span class="sd">        """</span>
 <span class="linenos">172</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="linenos">173</span>
-<span class="linenos">174</span>    <span class="k">def</span> <span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">174</span>    <span class="k">def</span><span class="w"> </span><span class="nf">max_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">175</span><span class="w">        </span><span class="sd">"""Find the largest index R s.t. f([l, R)) == True. / O(\\log{n})"""</span>
 <span class="linenos">176</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">177</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
@@ -710,7 +756,7 @@
 <span class="linenos">198</span>                <span class="k">break</span>
 <span class="linenos">199</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">200</span>
-<span class="linenos">201</span>    <span class="k">def</span> <span class="nf">min_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">201</span>    <span class="k">def</span><span class="w"> </span><span class="nf">min_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">202</span><span class="w">        </span><span class="sd">"""Find the smallest index L s.t. f([L, r)) == True. / O(\\log{n})"""</span>
 <span class="linenos">203</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">204</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
@@ -737,13 +783,13 @@
 <span class="linenos">225</span>                <span class="k">break</span>
 <span class="linenos">226</span>        <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">227</span>
-<span class="linenos">228</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">228</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">229</span><span class="w">        </span><span class="sd">"""リストにして返します。</span>
 <span class="linenos">230</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">231</span><span class="sd">        """</span>
 <span class="linenos">232</span>        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)]</span>
 <span class="linenos">233</span>
-<span class="linenos">234</span>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">234</span>    <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">235</span><span class="w">        </span><span class="sd">"""デバッグ用のメソッドです。"""</span>
 <span class="linenos">236</span>        <span class="nb">print</span><span class="p">(</span>
 <span class="linenos">237</span>            <span class="sa">f</span><span class="s2">"&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&gt; [</span><span class="se">\n</span><span class="s2">"</span>
@@ -759,29 +805,29 @@
 <span class="linenos">247</span>            <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">]"</span>
 <span class="linenos">248</span>        <span class="p">)</span>
 <span class="linenos">249</span>
-<span class="linenos">250</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">250</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">251</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">252</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">253</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.__getitem__(</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2">"</span>
 <span class="linenos">254</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">255</span>
-<span class="linenos">256</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+<span class="linenos">256</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
 <span class="linenos">257</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">258</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">259</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.__setitem__</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">), n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2">"</span>
 <span class="linenos">260</span>        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 <span class="linenos">261</span>
-<span class="linenos">262</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">262</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">263</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span>
 <span class="linenos">264</span>
-<span class="linenos">265</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">265</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">266</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 <span class="linenos">267</span>
-<span class="linenos">268</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">268</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">269</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
-<span class="linenos">270</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Final</span>
-<span class="linenos">271</span><span class="kn">import</span> <span class="nn">random</span>
-<span class="linenos">272</span><span class="kn">import</span> <span class="nn">string</span>
+<span class="linenos">270</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Final</span>
+<span class="linenos">271</span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="linenos">272</span><span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
 <span class="linenos">273</span>
 <span class="linenos">274</span><span class="n">_titan_pylib_HashString_MOD</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">61</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 <span class="linenos">275</span><span class="n">_titan_pylib_HashString_DIC</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
@@ -792,10 +838,10 @@
 <span class="linenos">280</span><span class="n">_titan_pylib_HashString_MASK61</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">_titan_pylib_HashString_MOD</span>
 <span class="linenos">281</span>
 <span class="linenos">282</span>
-<span class="linenos">283</span><span class="k">class</span> <span class="nc">HashStringBase</span><span class="p">:</span>
+<span class="linenos">283</span><span class="k">class</span><span class="w"> </span><span class="nc">HashStringBase</span><span class="p">:</span>
 <span class="linenos">284</span><span class="w">    </span><span class="sd">"""HashStringのベースクラスです。"""</span>
 <span class="linenos">285</span>
-<span class="linenos">286</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">286</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">287</span><span class="w">        </span><span class="sd">"""</span>
 <span class="linenos">288</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">289</span>
@@ -819,7 +865,7 @@
 <span class="linenos">307</span>        <span class="bp">self</span><span class="o">.</span><span class="n">invb</span> <span class="o">=</span> <span class="n">invb</span>
 <span class="linenos">308</span>
 <span class="linenos">309</span>    <span class="nd">@staticmethod</span>
-<span class="linenos">310</span>    <span class="k">def</span> <span class="nf">get_mul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">310</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_mul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">311</span>        <span class="n">au</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span>
 <span class="linenos">312</span>        <span class="n">ad</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">_titan_pylib_HashString_MASK31</span>
 <span class="linenos">313</span>        <span class="n">bu</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span>
@@ -830,7 +876,7 @@
 <span class="linenos">318</span>        <span class="k">return</span> <span class="n">HashStringBase</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="n">au</span> <span class="o">*</span> <span class="n">bu</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">midu</span> <span class="o">+</span> <span class="p">(</span><span class="n">midd</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">+</span> <span class="n">ad</span> <span class="o">*</span> <span class="n">bd</span><span class="p">)</span>
 <span class="linenos">319</span>
 <span class="linenos">320</span>    <span class="nd">@staticmethod</span>
-<span class="linenos">321</span>    <span class="k">def</span> <span class="nf">get_mod</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">321</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_mod</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">322</span>        <span class="n">xu</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">61</span>
 <span class="linenos">323</span>        <span class="n">xd</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">_titan_pylib_HashString_MASK61</span>
 <span class="linenos">324</span>        <span class="n">res</span> <span class="o">=</span> <span class="n">xu</span> <span class="o">+</span> <span class="n">xd</span>
@@ -838,7 +884,7 @@
 <span class="linenos">326</span>            <span class="n">res</span> <span class="o">-=</span> <span class="n">_titan_pylib_HashString_MOD</span>
 <span class="linenos">327</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">328</span>
-<span class="linenos">329</span>    <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cap</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">329</span>    <span class="k">def</span><span class="w"> </span><span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cap</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">330</span>        <span class="n">pre_cap</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">powb</span><span class="p">)</span>
 <span class="linenos">331</span>        <span class="n">powb</span><span class="p">,</span> <span class="n">invb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">powb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">invb</span>
 <span class="linenos">332</span>        <span class="n">powb</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">cap</span>
@@ -848,10 +894,10 @@
 <span class="linenos">336</span>            <span class="n">powb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">HashStringBase</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">powb</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="p">)</span>
 <span class="linenos">337</span>            <span class="n">invb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">HashStringBase</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">invb</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">invbpow</span><span class="p">)</span>
 <span class="linenos">338</span>
-<span class="linenos">339</span>    <span class="k">def</span> <span class="nf">get_cap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">339</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">340</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">powb</span><span class="p">)</span>
 <span class="linenos">341</span>
-<span class="linenos">342</span>    <span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">342</span>    <span class="k">def</span><span class="w"> </span><span class="nf">unite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">343</span>        <span class="c1"># len(h2) == k</span>
 <span class="linenos">344</span>        <span class="c1"># h1 &lt;- h2</span>
 <span class="linenos">345</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cap</span><span class="p">():</span>
@@ -859,9 +905,9 @@
 <span class="linenos">347</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">powb</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">+</span> <span class="n">h2</span><span class="p">)</span>
 <span class="linenos">348</span>
 <span class="linenos">349</span>
-<span class="linenos">350</span><span class="k">class</span> <span class="nc">HashString</span><span class="p">:</span>
+<span class="linenos">350</span><span class="k">class</span><span class="w"> </span><span class="nc">HashString</span><span class="p">:</span>
 <span class="linenos">351</span>
-<span class="linenos">352</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hsb</span><span class="p">:</span> <span class="n">HashStringBase</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">352</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hsb</span><span class="p">:</span> <span class="n">HashStringBase</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">353</span><span class="w">        </span><span class="sd">"""ロリハを構築します。</span>
 <span class="linenos">354</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">355</span>
@@ -873,8 +919,8 @@
 <span class="linenos">361</span>        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="linenos">362</span>        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 <span class="linenos">363</span>        <span class="n">acc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">364</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">hsb</span><span class="o">.</span><span class="n">get_cap</span><span class="p">():</span>
-<span class="linenos">365</span>            <span class="n">hsb</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">hsb</span><span class="o">.</span><span class="n">get_cap</span><span class="p">())</span>
+<span class="linenos">364</span>        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">hsb</span><span class="o">.</span><span class="n">get_cap</span><span class="p">():</span>
+<span class="linenos">365</span>            <span class="n">hsb</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">hsb</span><span class="o">.</span><span class="n">get_cap</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">366</span>        <span class="n">powb</span> <span class="o">=</span> <span class="n">hsb</span><span class="o">.</span><span class="n">powb</span>
 <span class="linenos">367</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
 <span class="linenos">368</span>            <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">hsb</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="n">powb</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">_titan_pylib_HashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
@@ -888,7 +934,7 @@
 <span class="linenos">376</span>                <span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">t</span><span class="p">)</span> <span class="o">%</span> <span class="n">_titan_pylib_HashString_MOD</span><span class="p">,</span> <span class="mi">0</span>
 <span class="linenos">377</span>            <span class="p">)</span>
 <span class="linenos">378</span>
-<span class="linenos">379</span>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">379</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">380</span><span class="w">        </span><span class="sd">"""``s[l, r)`` のハッシュ値を返します。</span>
 <span class="linenos">381</span><span class="sd">        1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。</span>
 <span class="linenos">382</span>
@@ -899,106 +945,107 @@
 <span class="linenos">387</span><span class="sd">        Returns:</span>
 <span class="linenos">388</span><span class="sd">            int: ハッシュ値です。</span>
 <span class="linenos">389</span><span class="sd">        """</span>
-<span class="linenos">390</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">used_seg</span><span class="p">:</span>
-<span class="linenos">391</span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">invb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">r</span><span class="p">])</span>
-<span class="linenos">392</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span>
-<span class="linenos">393</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">l</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">invb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">r</span><span class="p">]</span>
-<span class="linenos">394</span>        <span class="p">)</span>
-<span class="linenos">395</span>
-<span class="linenos">396</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="linenos">397</span><span class="w">        </span><span class="sd">"""``s[k]`` のハッシュ値を返します。</span>
-<span class="linenos">398</span><span class="sd">        1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。</span>
-<span class="linenos">399</span>
-<span class="linenos">400</span><span class="sd">        Args:</span>
-<span class="linenos">401</span><span class="sd">            k (int): インデックスです。</span>
-<span class="linenos">402</span>
-<span class="linenos">403</span><span class="sd">        Returns:</span>
-<span class="linenos">404</span><span class="sd">            int: ハッシュ値です。</span>
-<span class="linenos">405</span><span class="sd">        """</span>
-<span class="linenos">406</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">407</span>
-<span class="linenos">408</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">409</span><span class="w">        </span><span class="sd">"""`k` 番目の文字を `c` に更新します。</span>
-<span class="linenos">410</span><span class="sd">        :math:`O(\\log{n})` です。また、今後の ``get()`` が :math:`O(\\log{n})` になります。</span>
-<span class="linenos">411</span>
-<span class="linenos">412</span><span class="sd">        Args:</span>
-<span class="linenos">413</span><span class="sd">            k (int): インデックスです。</span>
-<span class="linenos">414</span><span class="sd">            c (str): 更新する文字です。</span>
-<span class="linenos">415</span><span class="sd">        """</span>
-<span class="linenos">416</span>        <span class="bp">self</span><span class="o">.</span><span class="n">used_seg</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="linenos">417</span>        <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span>
-<span class="linenos">418</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">powb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">_titan_pylib_HashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
-<span class="linenos">419</span>        <span class="p">)</span>
-<span class="linenos">420</span>
-<span class="linenos">421</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">422</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-<span class="linenos">423</span>
-<span class="linenos">424</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">425</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
-<span class="linenos">426</span>
-<span class="linenos">427</span>    <span class="k">def</span> <span class="nf">get_lcp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">428</span><span class="w">        </span><span class="sd">"""lcp配列を返します。</span>
-<span class="linenos">429</span><span class="sd">        :math:`O(n\\log{n})` です。</span>
-<span class="linenos">430</span><span class="sd">        """</span>
-<span class="linenos">431</span>        <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
-<span class="linenos">432</span>        <span class="n">memo</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">433</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
-<span class="linenos">434</span>            <span class="n">ok</span><span class="p">,</span> <span class="n">ng</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">435</span>            <span class="k">while</span> <span class="n">ng</span> <span class="o">-</span> <span class="n">ok</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos">436</span>                <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">ok</span> <span class="o">+</span> <span class="n">ng</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
-<span class="linenos">437</span>                <span class="k">if</span> <span class="n">memo</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-<span class="linenos">438</span>                    <span class="n">memo</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
-<span class="linenos">439</span>                <span class="k">if</span> <span class="n">memo</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">mid</span><span class="p">):</span>
-<span class="linenos">440</span>                    <span class="n">ok</span> <span class="o">=</span> <span class="n">mid</span>
-<span class="linenos">441</span>                <span class="k">else</span><span class="p">:</span>
-<span class="linenos">442</span>                    <span class="n">ng</span> <span class="o">=</span> <span class="n">mid</span>
-<span class="linenos">443</span>            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ok</span>
-<span class="linenos">444</span>        <span class="k">return</span> <span class="n">a</span>
-<span class="linenos">445</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-<span class="linenos">446</span><span class="kn">import</span> <span class="nn">random</span>
-<span class="linenos">447</span>
+<span class="linenos">390</span>        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+<span class="linenos">391</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">used_seg</span><span class="p">:</span>
+<span class="linenos">392</span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">invb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">r</span><span class="p">])</span>
+<span class="linenos">393</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span>
+<span class="linenos">394</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">[</span><span class="n">l</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">invb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">r</span><span class="p">]</span>
+<span class="linenos">395</span>        <span class="p">)</span>
+<span class="linenos">396</span>
+<span class="linenos">397</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">398</span><span class="w">        </span><span class="sd">"""``s[k]`` のハッシュ値を返します。</span>
+<span class="linenos">399</span><span class="sd">        1点更新処理後は :math:`O(\\log{n})` 、そうでなければ :math:`O(1)` です。</span>
+<span class="linenos">400</span>
+<span class="linenos">401</span><span class="sd">        Args:</span>
+<span class="linenos">402</span><span class="sd">            k (int): インデックスです。</span>
+<span class="linenos">403</span>
+<span class="linenos">404</span><span class="sd">        Returns:</span>
+<span class="linenos">405</span><span class="sd">            int: ハッシュ値です。</span>
+<span class="linenos">406</span><span class="sd">        """</span>
+<span class="linenos">407</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">408</span>
+<span class="linenos">409</span>    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">410</span><span class="w">        </span><span class="sd">"""`k` 番目の文字を `c` に更新します。</span>
+<span class="linenos">411</span><span class="sd">        :math:`O(\\log{n})` です。また、今後の ``get()`` が :math:`O(\\log{n})` になります。</span>
+<span class="linenos">412</span>
+<span class="linenos">413</span><span class="sd">        Args:</span>
+<span class="linenos">414</span><span class="sd">            k (int): インデックスです。</span>
+<span class="linenos">415</span><span class="sd">            c (str): 更新する文字です。</span>
+<span class="linenos">416</span><span class="sd">        """</span>
+<span class="linenos">417</span>        <span class="bp">self</span><span class="o">.</span><span class="n">used_seg</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">418</span>        <span class="bp">self</span><span class="o">.</span><span class="n">seg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">get_mul</span><span class="p">(</span>
+<span class="linenos">419</span>            <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">powb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">_titan_pylib_HashString_DIC</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+<span class="linenos">420</span>        <span class="p">)</span>
+<span class="linenos">421</span>
+<span class="linenos">422</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">423</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="linenos">424</span>
+<span class="linenos">425</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">426</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+<span class="linenos">427</span>
+<span class="linenos">428</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_lcp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">429</span><span class="w">        </span><span class="sd">"""lcp配列を返します。</span>
+<span class="linenos">430</span><span class="sd">        :math:`O(n\\log{n})` です。</span>
+<span class="linenos">431</span><span class="sd">        """</span>
+<span class="linenos">432</span>        <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+<span class="linenos">433</span>        <span class="n">memo</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">434</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+<span class="linenos">435</span>            <span class="n">ok</span><span class="p">,</span> <span class="n">ng</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">436</span>            <span class="k">while</span> <span class="n">ng</span> <span class="o">-</span> <span class="n">ok</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos">437</span>                <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">ok</span> <span class="o">+</span> <span class="n">ng</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+<span class="linenos">438</span>                <span class="k">if</span> <span class="n">memo</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+<span class="linenos">439</span>                    <span class="n">memo</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+<span class="linenos">440</span>                <span class="k">if</span> <span class="n">memo</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">mid</span><span class="p">):</span>
+<span class="linenos">441</span>                    <span class="n">ok</span> <span class="o">=</span> <span class="n">mid</span>
+<span class="linenos">442</span>                <span class="k">else</span><span class="p">:</span>
+<span class="linenos">443</span>                    <span class="n">ng</span> <span class="o">=</span> <span class="n">mid</span>
+<span class="linenos">444</span>            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ok</span>
+<span class="linenos">445</span>        <span class="k">return</span> <span class="n">a</span>
+<span class="linenos">446</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="linenos">447</span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 <span class="linenos">448</span>
-<span class="linenos">449</span><span class="k">class</span> <span class="nc">MultiHashStringBase</span><span class="p">:</span>
-<span class="linenos">450</span>
-<span class="linenos">451</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-<span class="linenos">452</span>        <span class="bp">self</span><span class="p">,</span>
-<span class="linenos">453</span>        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-<span class="linenos">454</span>        <span class="n">base_cnt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="linenos">455</span>        <span class="n">base_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
-<span class="linenos">456</span>        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos">457</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">458</span>        <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">459</span>            <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span>
-<span class="linenos">460</span>        <span class="k">assert</span> <span class="p">(</span>
-<span class="linenos">461</span>            <span class="n">base_cnt</span> <span class="o">&gt;</span> <span class="mi">0</span>
-<span class="linenos">462</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"ValueError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> base_cnt must be &gt; 0"</span>
-<span class="linenos">463</span>        <span class="n">base_list</span> <span class="o">=</span> <span class="p">(</span>
-<span class="linenos">464</span>            <span class="n">base_list</span>
-<span class="linenos">465</span>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">base_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">base_cnt</span>
-<span class="linenos">466</span>            <span class="k">else</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">base_cnt</span><span class="p">)]</span>
-<span class="linenos">467</span>        <span class="p">)</span>
-<span class="linenos">468</span>        <span class="n">hsb</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">HashStringBase</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">base_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">base_cnt</span><span class="p">))</span>
-<span class="linenos">469</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span> <span class="o">=</span> <span class="n">hsb</span>
-<span class="linenos">470</span>
+<span class="linenos">449</span>
+<span class="linenos">450</span><span class="k">class</span><span class="w"> </span><span class="nc">MultiHashStringBase</span><span class="p">:</span>
+<span class="linenos">451</span>
+<span class="linenos">452</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="linenos">453</span>        <span class="bp">self</span><span class="p">,</span>
+<span class="linenos">454</span>        <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="linenos">455</span>        <span class="n">base_cnt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos">456</span>        <span class="n">base_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+<span class="linenos">457</span>        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos">458</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">459</span>        <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">460</span>            <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span>
+<span class="linenos">461</span>        <span class="k">assert</span> <span class="p">(</span>
+<span class="linenos">462</span>            <span class="n">base_cnt</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="linenos">463</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"ValueError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> base_cnt must be &gt; 0"</span>
+<span class="linenos">464</span>        <span class="n">base_list</span> <span class="o">=</span> <span class="p">(</span>
+<span class="linenos">465</span>            <span class="n">base_list</span>
+<span class="linenos">466</span>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">base_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">base_cnt</span>
+<span class="linenos">467</span>            <span class="k">else</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">base_cnt</span><span class="p">)]</span>
+<span class="linenos">468</span>        <span class="p">)</span>
+<span class="linenos">469</span>        <span class="n">hsb</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">HashStringBase</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">base_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">base_cnt</span><span class="p">))</span>
+<span class="linenos">470</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span> <span class="o">=</span> <span class="n">hsb</span>
 <span class="linenos">471</span>
-<span class="linenos">472</span><span class="k">class</span> <span class="nc">MultiHashString</span><span class="p">:</span>
-<span class="linenos">473</span>
-<span class="linenos">474</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hsb</span><span class="p">:</span> <span class="n">MultiHashStringBase</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">475</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span> <span class="o">=</span> <span class="n">hsb</span>
-<span class="linenos">476</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">HashString</span><span class="p">(</span><span class="n">hsb</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">update</span><span class="p">)</span> <span class="k">for</span> <span class="n">hsb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">hsb</span><span class="p">)</span>
-<span class="linenos">477</span>
-<span class="linenos">478</span>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">479</span>        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">hs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">hs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span><span class="p">)</span>
-<span class="linenos">480</span>
-<span class="linenos">481</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="linenos">482</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">483</span>
-<span class="linenos">484</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">485</span>        <span class="k">for</span> <span class="n">hs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span><span class="p">:</span>
-<span class="linenos">486</span>            <span class="n">hs</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-<span class="linenos">487</span>
-<span class="linenos">488</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">489</span>        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="linenos">472</span>
+<span class="linenos">473</span><span class="k">class</span><span class="w"> </span><span class="nc">MultiHashString</span><span class="p">:</span>
+<span class="linenos">474</span>
+<span class="linenos">475</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hsb</span><span class="p">:</span> <span class="n">MultiHashStringBase</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">476</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span> <span class="o">=</span> <span class="n">hsb</span>
+<span class="linenos">477</span>        <span class="bp">self</span><span class="o">.</span><span class="n">hs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">HashString</span><span class="p">(</span><span class="n">hsb</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">update</span><span class="p">)</span> <span class="k">for</span> <span class="n">hsb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsb</span><span class="o">.</span><span class="n">hsb</span><span class="p">)</span>
+<span class="linenos">478</span>
+<span class="linenos">479</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">480</span>        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">hs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">hs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span><span class="p">)</span>
+<span class="linenos">481</span>
+<span class="linenos">482</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">483</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">484</span>
+<span class="linenos">485</span>    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">486</span>        <span class="k">for</span> <span class="n">hs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hs</span><span class="p">:</span>
+<span class="linenos">487</span>            <span class="n">hs</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="linenos">488</span>
+<span class="linenos">489</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">490</span>        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -1007,7 +1054,7 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.string.multi_hash_string" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.string.multi_hash_string.MultiHashString">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">MultiHashString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hsb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#titan_pylib.string.multi_hash_string.MultiHashStringBase" title="titan_pylib.string.multi_hash_string.MultiHashStringBase"><span class="pre">MultiHashStringBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/string/multi_hash_string.html#MultiHashString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.string.multi_hash_string.MultiHashString" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">MultiHashString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hsb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#titan_pylib.string.multi_hash_string.MultiHashStringBase" title="titan_pylib.string.multi_hash_string.MultiHashStringBase"><span class="pre">MultiHashStringBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/string/multi_hash_string.html#MultiHashString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.string.multi_hash_string.MultiHashString" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.string.multi_hash_string.MultiHashString.get">
@@ -1020,7 +1067,7 @@
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.string.multi_hash_string.MultiHashStringBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">MultiHashStringBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_cnt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/string/multi_hash_string.html#MultiHashStringBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.string.multi_hash_string.MultiHashStringBase" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">MultiHashStringBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_cnt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/string/multi_hash_string.html#MultiHashStringBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.string.multi_hash_string.MultiHashStringBase" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 </section>
@@ -1095,9 +1142,9 @@
 </aside>
 </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../_static/doctools.js?v=9a2dae69"></script>
+<script src="../_static/doctools.js?v=9bcbadda"></script>
 <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-<script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../_static/scripts/furo.js?v=5fa4622c"></script>
 <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../_static/copybutton.js?v=4ea706d9"></script>
 <script src="../_static/_static/script.js"></script>

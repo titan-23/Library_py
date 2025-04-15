@@ -22,6 +22,6 @@ titan\_pylib.graph.namori
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.namori
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

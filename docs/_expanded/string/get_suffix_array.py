@@ -361,8 +361,8 @@ class HashString:
         n = len(s)
         data = [0] * n
         acc = [0] * (n + 1)
-        if n > hsb.get_cap():
-            hsb.extend(n - hsb.get_cap())
+        if n >= hsb.get_cap():
+            hsb.extend(n - hsb.get_cap() + 1)
         powb = hsb.powb
         for i, c in enumerate(s):
             data[i] = hsb.get_mul(powb[n - i - 1], _titan_pylib_HashString_DIC[c])
@@ -387,6 +387,7 @@ class HashString:
         Returns:
             int: ハッシュ値です。
         """
+        assert 0 <= l <= r <= self.n
         if self.used_seg:
             return self.hsb.get_mul(self.seg.prod(l, r), self.hsb.invb[self.n - r])
         return self.hsb.get_mul(
@@ -462,9 +463,9 @@ def merge_sort(
     最悪 :math:`O(n\\log{n})` 時間です。
 
     Args:
-      a (Iterable[T]): ソートする列です。
-      key (Callable[[T, T], bool], optional): 比較関数 `key` にしたがって比較演算をします。
-                                              (第1引数)<=(第2引数) のとき、 ``True`` を返すようにしてください。
+        a (Iterable[T]): ソートする列です。
+        key (Callable[[T, T], bool], optional): 比較関数 `key` にしたがって比較演算をします。
+                                                (第1引数)<=(第2引数) のとき、 ``True`` を返すようにしてください。
     """
 
     def _sort(l: int, r: int) -> None:

@@ -22,6 +22,6 @@ titan\_pylib.graph.dijkstra
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.dijkstra
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

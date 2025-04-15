@@ -22,6 +22,6 @@ titan\_pylib.algorithm.random.random
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.random.random
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

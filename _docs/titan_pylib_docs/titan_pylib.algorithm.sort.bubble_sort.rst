@@ -22,6 +22,6 @@ titan\_pylib.algorithm.sort.bubble\_sort
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.sort.bubble_sort
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

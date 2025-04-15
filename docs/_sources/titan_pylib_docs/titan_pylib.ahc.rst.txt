@@ -17,6 +17,6 @@ Submodules
 
 .. automodule:: titan_pylib.ahc
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

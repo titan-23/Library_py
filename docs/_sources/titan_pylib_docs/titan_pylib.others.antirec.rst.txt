@@ -23,6 +23,6 @@ titan\_pylib.others.antirec
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.others.antirec
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

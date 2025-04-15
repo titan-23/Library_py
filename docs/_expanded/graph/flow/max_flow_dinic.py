@@ -1,6 +1,5 @@
 # from titan_pylib.graph.flow.max_flow_dinic import MaxFlowDinic
 from collections import deque
-from typing import Generator
 # from titan_pylib.others.antirec import antirec
 from types import GeneratorType
 
@@ -95,7 +94,7 @@ class MaxFlowDinic:
         self.level = level
 
     @antirec
-    def _dfs(self, v: int, g: int, f: int) -> Generator[int]:
+    def _dfs(self, v: int, g: int, f: int):
         if v == g:
             yield f
         else:

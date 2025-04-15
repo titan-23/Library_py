@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.array.array\_2D
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.array.array_2D
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

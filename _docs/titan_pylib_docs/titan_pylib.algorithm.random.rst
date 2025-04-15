@@ -16,6 +16,6 @@ Submodules
 
 .. automodule:: titan_pylib.algorithm.random
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

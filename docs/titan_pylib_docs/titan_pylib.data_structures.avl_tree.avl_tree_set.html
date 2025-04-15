@@ -5,12 +5,12 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
 <link href="../genindex.html" rel="index" title="Index"/><link href="../search.html" rel="search" title="Search"/><link href="titan_pylib.data_structures.avl_tree.avl_tree_set2.html" rel="next" title="titan_pylib.data_structures.avl_tree.avl_tree_set2"/><link href="titan_pylib.data_structures.avl_tree.avl_tree_multiset3.html" rel="prev" title="titan_pylib.data_structures.avl_tree.avl_tree_multiset3"/>
-<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
 <title>avl_tree_set - titan_pylib documentation</title>
-<link href="../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo.css?v=354aac6f" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo-extensions.css?v=302659d7" rel="stylesheet" type="text/css"/>
 <link href="../_static/_static/style.css" rel="stylesheet" type="text/css"/>
 <style>
   body {
@@ -60,7 +60,7 @@
 </symbol>
 <symbol id="svg-sun" viewbox="0 0 24 24">
 <title>Light mode</title>
-<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="5"></circle>
 <line x1="12" x2="12" y1="1" y2="3"></line>
 <line x1="12" x2="12" y1="21" y2="23"></line>
@@ -74,21 +74,56 @@
 </symbol>
 <symbol id="svg-moon" viewbox="0 0 24 24">
 <title>Dark mode</title>
-<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
 </svg>
 </symbol>
-<symbol id="svg-sun-half" viewbox="0 0 24 24">
-<title>Auto light/dark mode</title>
-<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
-<circle cx="12" cy="12" r="9"></circle>
-<path d="M13 12h5"></path>
-<path d="M13 15h4"></path>
-<path d="M13 18h1"></path>
-<path d="M13 9h4"></path>
-<path d="M13 6h1"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
 </svg>
 </symbol>
 </svg>
@@ -100,6 +135,7 @@
 <label class="overlay toc-overlay" for="__toc">
 <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 <div class="page">
 <header class="mobile-header">
 <div class="header-left">
@@ -115,7 +151,8 @@
 <div class="theme-toggle-container theme-toggle-header">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -186,6 +223,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.wbt_set.html">wbt_set</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -418,13 +456,13 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.functional_graph.html">functional_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.lca.html">lca</a></li>
@@ -467,6 +505,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.hash_string.html">hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.string_count.html">string_count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.trie.html">trie</a></li>
 </ul>
 </li>
 </ul>
@@ -485,10 +524,17 @@
 <span>Back to top</span>
 </a>
 <div class="content-icon-container">
+<div class="view-this-page">
+<a class="muted-link" href="../_sources/titan_pylib_docs/titan_pylib.data_structures.avl_tree.avl_tree_set.rst.txt" title="View this page">
+<svg><use href="#svg-eye"></use></svg>
+<span class="visually-hidden">View this page</span>
+</a>
+</div>
 <div class="theme-toggle-container theme-toggle-content">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -498,12 +544,12 @@
 <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
 </label>
 </div>
-<article role="main">
+<article id="furo-main-content" role="main">
 <section id="titan-pylib-data-structures-avl-tree-avl-tree-set">
 <h1>avl_tree_set<a class="headerlink" href="#titan-pylib-data-structures-avl-tree-avl-tree-set" title="Link to this heading">¶</a></h1>
 <section id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">titan_pylib.data_structures.avl_tree.avl_tree_set</span> <span class="kn">import</span> <span class="n">AVLTreeSet</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">titan_pylib.data_structures.avl_tree.avl_tree_set</span><span class="w"> </span><span class="kn">import</span> <span class="n">AVLTreeSet</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://github.com/titan-23/Library_py/tree/main/titan_pylib/data_structures/avl_tree/avl_tree_set.py">view on github</a></p>
@@ -511,119 +557,119 @@
 <h3>展開済みコード<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="c1"># from titan_pylib.data_structures.avl_tree.avl_tree_set import AVLTreeSet</span>
 <span class="linenos">  2</span><span class="c1"># from titan_pylib.my_class.supports_less_than import SupportsLessThan</span>
-<span class="linenos">  3</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<span class="linenos">  3</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 <span class="linenos">  4</span>
 <span class="linenos">  5</span>
-<span class="linenos">  6</span><span class="k">class</span> <span class="nc">SupportsLessThan</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="linenos">  6</span><span class="k">class</span><span class="w"> </span><span class="nc">SupportsLessThan</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
 <span class="linenos">  7</span>
-<span class="linenos">  8</span>    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="o">...</span>
+<span class="linenos">  8</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="o">...</span>
 <span class="linenos">  9</span><span class="c1"># from titan_pylib.my_class.ordered_set_interface import OrderedSetInterface</span>
 <span class="linenos"> 10</span><span class="c1"># from titan_pylib.my_class.supports_less_than import SupportsLessThan</span>
-<span class="linenos"> 11</span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="linenos"> 12</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
+<span class="linenos"> 11</span><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="linenos"> 12</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
 <span class="linenos"> 13</span>
 <span class="linenos"> 14</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos"> 15</span>
 <span class="linenos"> 16</span>
-<span class="linenos"> 17</span><span class="k">class</span> <span class="nc">OrderedSetInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos"> 17</span><span class="k">class</span><span class="w"> </span><span class="nc">OrderedSetInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos"> 18</span>
 <span class="linenos"> 19</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 20</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 20</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 21</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 22</span>
 <span class="linenos"> 23</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 24</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos"> 24</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 25</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 26</span>
 <span class="linenos"> 27</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 28</span>    <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos"> 28</span>    <span class="k">def</span><span class="w"> </span><span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 29</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 30</span>
 <span class="linenos"> 31</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 32</span>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 32</span>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 33</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 34</span>
 <span class="linenos"> 35</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 36</span>    <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 36</span>    <span class="k">def</span><span class="w"> </span><span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 37</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 38</span>
 <span class="linenos"> 39</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 40</span>    <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 40</span>    <span class="k">def</span><span class="w"> </span><span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 41</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 42</span>
 <span class="linenos"> 43</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 44</span>    <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 44</span>    <span class="k">def</span><span class="w"> </span><span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 45</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 46</span>
 <span class="linenos"> 47</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 48</span>    <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 48</span>    <span class="k">def</span><span class="w"> </span><span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 49</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 50</span>
 <span class="linenos"> 51</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 52</span>    <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 52</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 53</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 54</span>
 <span class="linenos"> 55</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 56</span>    <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 56</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 57</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 58</span>
 <span class="linenos"> 59</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 60</span>    <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 60</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos"> 61</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 62</span>
 <span class="linenos"> 63</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 64</span>    <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 64</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos"> 65</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 66</span>
 <span class="linenos"> 67</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 68</span>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 68</span>    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 69</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 70</span>
 <span class="linenos"> 71</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 72</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos"> 72</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos"> 73</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 74</span>
 <span class="linenos"> 75</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 76</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
+<span class="linenos"> 76</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">:</span>
 <span class="linenos"> 77</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 78</span>
 <span class="linenos"> 79</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 80</span>    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos"> 80</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos"> 81</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 82</span>
 <span class="linenos"> 83</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 84</span>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos"> 84</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 85</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 86</span>
 <span class="linenos"> 87</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 88</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 88</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 89</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 90</span>
 <span class="linenos"> 91</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 92</span>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos"> 92</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos"> 93</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 94</span>
 <span class="linenos"> 95</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos"> 96</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos"> 96</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos"> 97</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos"> 98</span>
 <span class="linenos"> 99</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">100</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">100</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">101</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">102</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="linenos">103</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="linenos">102</span><span class="kn">from</span><span class="w"> </span><span class="nn">array</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
+<span class="linenos">103</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="linenos">104</span>
 <span class="linenos">105</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SupportsLessThan</span><span class="p">)</span>
 <span class="linenos">106</span>
 <span class="linenos">107</span>
-<span class="linenos">108</span><span class="k">class</span> <span class="nc">AVLTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos">108</span><span class="k">class</span><span class="w"> </span><span class="nc">AVLTreeSet</span><span class="p">(</span><span class="n">OrderedSetInterface</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos">109</span><span class="w">    </span><span class="sd">"""AVLTreeSet</span>
 <span class="linenos">110</span><span class="sd">    集合としての AVL 木です。</span>
 <span class="linenos">111</span><span class="sd">    配列を用いてノードを表現しています。</span>
 <span class="linenos">112</span><span class="sd">    size を持ちます。</span>
 <span class="linenos">113</span><span class="sd">    """</span>
 <span class="linenos">114</span>
-<span class="linenos">115</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">115</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">116</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">117</span>        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="linenos">118</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
@@ -636,7 +682,7 @@
 <span class="linenos">125</span>        <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
 <span class="linenos">126</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">127</span>
-<span class="linenos">128</span>    <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">128</span>    <span class="k">def</span><span class="w"> </span><span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">129</span>        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 <span class="linenos">130</span>        <span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
 <span class="linenos">131</span>        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">+=</span> <span class="n">a</span>
@@ -644,10 +690,10 @@
 <span class="linenos">133</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
 <span class="linenos">134</span>        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
 <span class="linenos">135</span>
-<span class="linenos">136</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">136</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">137</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
 <span class="linenos">138</span>
-<span class="linenos">139</span>        <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">139</span>        <span class="k">def</span><span class="w"> </span><span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">140</span>            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
 <span class="linenos">141</span>            <span class="n">node</span> <span class="o">=</span> <span class="n">mid</span>
 <span class="linenos">142</span>            <span class="n">hl</span><span class="p">,</span> <span class="n">hr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
@@ -676,7 +722,7 @@
 <span class="linenos">165</span>        <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">[</span><span class="n">end</span> <span class="p">:</span> <span class="n">end</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
 <span class="linenos">166</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="n">end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="linenos">167</span>
-<span class="linenos">168</span>    <span class="k">def</span> <span class="nf">_rotate_L</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">168</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_L</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">169</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
 <span class="linenos">170</span>        <span class="n">u</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">171</span>        <span class="n">size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -691,7 +737,7 @@
 <span class="linenos">180</span>            <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos">181</span>        <span class="k">return</span> <span class="n">u</span>
 <span class="linenos">182</span>
-<span class="linenos">183</span>    <span class="k">def</span> <span class="nf">_rotate_R</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">183</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_R</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">184</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
 <span class="linenos">185</span>        <span class="n">u</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">186</span>        <span class="n">size</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -706,7 +752,7 @@
 <span class="linenos">195</span>            <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="linenos">196</span>        <span class="k">return</span> <span class="n">u</span>
 <span class="linenos">197</span>
-<span class="linenos">198</span>    <span class="k">def</span> <span class="nf">_update_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">198</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_update_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">199</span>        <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
 <span class="linenos">200</span>        <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
 <span class="linenos">201</span>            <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -719,7 +765,7 @@
 <span class="linenos">208</span>            <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">209</span>        <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">210</span>
-<span class="linenos">211</span>    <span class="k">def</span> <span class="nf">_rotate_LR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">211</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_LR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">212</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">213</span>        <span class="n">B</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">214</span>        <span class="n">E</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
@@ -733,7 +779,7 @@
 <span class="linenos">222</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_update_balance</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
 <span class="linenos">223</span>        <span class="k">return</span> <span class="n">E</span>
 <span class="linenos">224</span>
-<span class="linenos">225</span>    <span class="k">def</span> <span class="nf">_rotate_RL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">225</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_RL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">226</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">227</span>        <span class="n">C</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">228</span>        <span class="n">D</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">C</span><span class="p">]</span>
@@ -747,7 +793,7 @@
 <span class="linenos">236</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_update_balance</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
 <span class="linenos">237</span>        <span class="k">return</span> <span class="n">D</span>
 <span class="linenos">238</span>
-<span class="linenos">239</span>    <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">239</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">240</span>        <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
 <span class="linenos">241</span>        <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
 <span class="linenos">242</span>            <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -760,7 +806,7 @@
 <span class="linenos">249</span>        <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">250</span>        <span class="k">return</span> <span class="n">end</span>
 <span class="linenos">251</span>
-<span class="linenos">252</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">252</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">253</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">254</span>            <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos">255</span>            <span class="k">return</span> <span class="kc">True</span>
@@ -824,12 +870,12 @@
 <span class="linenos">313</span>            <span class="n">size</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">314</span>        <span class="k">return</span> <span class="kc">True</span>
 <span class="linenos">315</span>
-<span class="linenos">316</span>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">316</span>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">317</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
 <span class="linenos">318</span>            <span class="k">return</span> <span class="kc">True</span>
 <span class="linenos">319</span>        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos">320</span>
-<span class="linenos">321</span>    <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">321</span>    <span class="k">def</span><span class="w"> </span><span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">322</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos">323</span>            <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
 <span class="linenos">324</span>            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
@@ -906,7 +952,7 @@
 <span class="linenos">395</span>            <span class="n">size</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
 <span class="linenos">396</span>        <span class="k">return</span> <span class="kc">True</span>
 <span class="linenos">397</span>
-<span class="linenos">398</span>    <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">398</span>    <span class="k">def</span><span class="w"> </span><span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">399</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">400</span>        <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">401</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -920,7 +966,7 @@
 <span class="linenos">409</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">410</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">411</span>
-<span class="linenos">412</span>    <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">412</span>    <span class="k">def</span><span class="w"> </span><span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">413</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">414</span>        <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">415</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -932,7 +978,7 @@
 <span class="linenos">421</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">422</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">423</span>
-<span class="linenos">424</span>    <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">424</span>    <span class="k">def</span><span class="w"> </span><span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">425</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">426</span>        <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">427</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -946,7 +992,7 @@
 <span class="linenos">435</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">436</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">437</span>
-<span class="linenos">438</span>    <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">438</span>    <span class="k">def</span><span class="w"> </span><span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">439</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">440</span>        <span class="n">res</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">441</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -958,7 +1004,7 @@
 <span class="linenos">447</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">448</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">449</span>
-<span class="linenos">450</span>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">450</span>    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">451</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">452</span>        <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">453</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -973,7 +1019,7 @@
 <span class="linenos">462</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">463</span>        <span class="k">return</span> <span class="n">k</span>
 <span class="linenos">464</span>
-<span class="linenos">465</span>    <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">465</span>    <span class="k">def</span><span class="w"> </span><span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">466</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">467</span>        <span class="n">k</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos">468</span>        <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
@@ -987,17 +1033,17 @@
 <span class="linenos">476</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">477</span>        <span class="k">return</span> <span class="n">k</span>
 <span class="linenos">478</span>
-<span class="linenos">479</span>    <span class="k">def</span> <span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">479</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">480</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
 <span class="linenos">481</span>            <span class="k">return</span>
 <span class="linenos">482</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
 <span class="linenos">483</span>
-<span class="linenos">484</span>    <span class="k">def</span> <span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">484</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">485</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
 <span class="linenos">486</span>            <span class="k">return</span>
 <span class="linenos">487</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="linenos">488</span>
-<span class="linenos">489</span>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">489</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">490</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos">491</span>            <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
 <span class="linenos">492</span>            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
@@ -1078,16 +1124,16 @@
 <span class="linenos">567</span>            <span class="n">size</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
 <span class="linenos">568</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">569</span>
-<span class="linenos">570</span>    <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">570</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">571</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 <span class="linenos">572</span>
-<span class="linenos">573</span>    <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">573</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">574</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="linenos">575</span>
-<span class="linenos">576</span>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">576</span>    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">577</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">578</span>
-<span class="linenos">579</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">579</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">580</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">581</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
 <span class="linenos">582</span>        <span class="n">stack</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -1101,59 +1147,102 @@
 <span class="linenos">590</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos">591</span>        <span class="k">return</span> <span class="n">a</span>
 <span class="linenos">592</span>
-<span class="linenos">593</span>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos">594</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
-<span class="linenos">595</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-<span class="linenos">596</span>        <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
-<span class="linenos">597</span>            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-<span class="linenos">598</span>                <span class="k">return</span> <span class="kc">True</span>
-<span class="linenos">599</span>            <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">else</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
-<span class="linenos">600</span>        <span class="k">return</span> <span class="kc">False</span>
-<span class="linenos">601</span>
-<span class="linenos">602</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-<span class="linenos">603</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
-<span class="linenos">604</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">605</span>            <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos">606</span>        <span class="k">assert</span> <span class="p">(</span>
-<span class="linenos">607</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos">608</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: AVLTreeSet[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">], len=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<span class="linenos">609</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-<span class="linenos">610</span>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="linenos">611</span>            <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
-<span class="linenos">612</span>            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">613</span>                <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
-<span class="linenos">614</span>            <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
-<span class="linenos">615</span>                <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="linenos">616</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
-<span class="linenos">617</span>            <span class="k">else</span><span class="p">:</span>
-<span class="linenos">618</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
-<span class="linenos">619</span>
-<span class="linenos">620</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">621</span>        <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">622</span>        <span class="k">return</span> <span class="bp">self</span>
-<span class="linenos">623</span>
-<span class="linenos">624</span>    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">625</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
-<span class="linenos">626</span>            <span class="k">raise</span> <span class="ne">StopIteration</span>
-<span class="linenos">627</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__iter</span><span class="p">]</span>
-<span class="linenos">628</span>        <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">629</span>        <span class="k">return</span> <span class="n">res</span>
-<span class="linenos">630</span>
-<span class="linenos">631</span>    <span class="k">def</span> <span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">632</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()):</span>
-<span class="linenos">633</span>            <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-<span class="linenos">634</span>
-<span class="linenos">635</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">636</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
-<span class="linenos">637</span>
-<span class="linenos">638</span>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">639</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span>
-<span class="linenos">640</span>
-<span class="linenos">641</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">642</span>        <span class="k">return</span> <span class="s2">"{"</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">"}"</span>
-<span class="linenos">643</span>
-<span class="linenos">644</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">645</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"AVLTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
+<span class="linenos">593</span>    <span class="k">def</span><span class="w"> </span><span class="nf">ave_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">594</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span>
+<span class="linenos">595</span>            <span class="k">return</span> <span class="mi">0</span>
+<span class="linenos">596</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+<span class="linenos">597</span>        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">598</span>
+<span class="linenos">599</span>        <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">dep</span><span class="p">):</span>
+<span class="linenos">600</span>            <span class="k">nonlocal</span> <span class="n">ans</span>
+<span class="linenos">601</span>            <span class="n">ans</span> <span class="o">+=</span> <span class="n">dep</span>
+<span class="linenos">602</span>            <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+<span class="linenos">603</span>                <span class="n">dfs</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">dep</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">604</span>            <span class="k">if</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+<span class="linenos">605</span>                <span class="n">dfs</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">dep</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">606</span>
+<span class="linenos">607</span>        <span class="n">dfs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">608</span>        <span class="n">ans</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="linenos">609</span>        <span class="k">return</span> <span class="n">ans</span>
+<span class="linenos">610</span>
+<span class="linenos">611</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">612</span><span class="w">        </span><span class="sd">"""作業用デバック関数</span>
+<span class="linenos">613</span><span class="sd">        size,key,balanceをチェックして、正しければ高さを表示する</span>
+<span class="linenos">614</span><span class="sd">        """</span>
+<span class="linenos">615</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">616</span>            <span class="k">return</span> <span class="mi">0</span>
+<span class="linenos">617</span>
+<span class="linenos">618</span>        <span class="c1"># _size, height</span>
+<span class="linenos">619</span>        <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">620</span>            <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">621</span>            <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">622</span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+<span class="linenos">623</span>                <span class="n">ls</span><span class="p">,</span> <span class="n">lh</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+<span class="linenos">624</span>                <span class="n">s</span> <span class="o">+=</span> <span class="n">ls</span>
+<span class="linenos">625</span>                <span class="n">h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">lh</span><span class="p">)</span>
+<span class="linenos">626</span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+<span class="linenos">627</span>                <span class="n">rs</span><span class="p">,</span> <span class="n">rh</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+<span class="linenos">628</span>                <span class="n">s</span> <span class="o">+=</span> <span class="n">rs</span>
+<span class="linenos">629</span>                <span class="n">h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">rh</span><span class="p">)</span>
+<span class="linenos">630</span>            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span>
+<span class="linenos">631</span>            <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">632</span>
+<span class="linenos">633</span>        <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+<span class="linenos">634</span>        <span class="k">return</span> <span class="n">h</span>
+<span class="linenos">635</span>
+<span class="linenos">636</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">637</span>        <span class="n">keys</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
+<span class="linenos">638</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+<span class="linenos">639</span>        <span class="k">while</span> <span class="n">node</span><span class="p">:</span>
+<span class="linenos">640</span>            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+<span class="linenos">641</span>                <span class="k">return</span> <span class="kc">True</span>
+<span class="linenos">642</span>            <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="n">keys</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="k">else</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+<span class="linenos">643</span>        <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos">644</span>
+<span class="linenos">645</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">646</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
+<span class="linenos">647</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">648</span>            <span class="n">k</span> <span class="o">+=</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+<span class="linenos">649</span>        <span class="k">assert</span> <span class="p">(</span>
+<span class="linenos">650</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+<span class="linenos">651</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: AVLTreeSet[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">], len=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+<span class="linenos">652</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+<span class="linenos">653</span>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="linenos">654</span>            <span class="n">t</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
+<span class="linenos">655</span>            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">656</span>                <span class="k">return</span> <span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+<span class="linenos">657</span>            <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+<span class="linenos">658</span>                <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">659</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+<span class="linenos">660</span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos">661</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+<span class="linenos">662</span>
+<span class="linenos">663</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">664</span>        <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">665</span>        <span class="k">return</span> <span class="bp">self</span>
+<span class="linenos">666</span>
+<span class="linenos">667</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">668</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
+<span class="linenos">669</span>            <span class="k">raise</span> <span class="ne">StopIteration</span>
+<span class="linenos">670</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__iter</span><span class="p">]</span>
+<span class="linenos">671</span>        <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">672</span>        <span class="k">return</span> <span class="n">res</span>
+<span class="linenos">673</span>
+<span class="linenos">674</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">675</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()):</span>
+<span class="linenos">676</span>            <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="linenos">677</span>
+<span class="linenos">678</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">679</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
+<span class="linenos">680</span>
+<span class="linenos">681</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">682</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="linenos">683</span>
+<span class="linenos">684</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">685</span>        <span class="k">return</span> <span class="s2">"{"</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">"}"</span>
+<span class="linenos">686</span>
+<span class="linenos">687</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">688</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"AVLTreeSet(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
 </pre></div>
 </div>
 </section>
@@ -1162,7 +1251,7 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.avl_tree.avl_tree_set" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">AVLTreeSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/avl_tree/avl_tree_set.html#AVLTreeSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">AVLTreeSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/avl_tree/avl_tree_set.html#AVLTreeSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="titan_pylib.my_class.ordered_set_interface.html#titan_pylib.my_class.ordered_set_interface.OrderedSetInterface" title="titan_pylib.my_class.ordered_set_interface.OrderedSetInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrderedSetInterface</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>集合としての AVL 木です。
 配列を用いてノードを表現しています。
@@ -1170,6 +1259,10 @@ size を持ちます。</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/titan_pylib/data_structures/avl_tree/avl_tree_set.html#AVLTreeSet.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.ave_height">
+<span class="sig-name descname"><span class="pre">ave_height</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/avl_tree/avl_tree_set.html#AVLTreeSet.ave_height"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.ave_height" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.clear">
@@ -1293,6 +1386,7 @@ size を持ちます。</p>
 <li><a class="reference internal" href="#module-titan_pylib.data_structures.avl_tree.avl_tree_set">仕様</a><ul>
 <li><a class="reference internal" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet"><code class="docutils literal notranslate"><span class="pre">AVLTreeSet</span></code></a><ul>
 <li><a class="reference internal" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.add"><code class="docutils literal notranslate"><span class="pre">AVLTreeSet.add()</span></code></a></li>
+<li><a class="reference internal" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.ave_height"><code class="docutils literal notranslate"><span class="pre">AVLTreeSet.ave_height()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.clear"><code class="docutils literal notranslate"><span class="pre">AVLTreeSet.clear()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.discard"><code class="docutils literal notranslate"><span class="pre">AVLTreeSet.discard()</span></code></a></li>
 <li><a class="reference internal" href="#titan_pylib.data_structures.avl_tree.avl_tree_set.AVLTreeSet.ge"><code class="docutils literal notranslate"><span class="pre">AVLTreeSet.ge()</span></code></a></li>
@@ -1322,9 +1416,9 @@ size を持ちます。</p>
 </aside>
 </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../_static/doctools.js?v=9a2dae69"></script>
+<script src="../_static/doctools.js?v=9bcbadda"></script>
 <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-<script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../_static/scripts/furo.js?v=5fa4622c"></script>
 <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../_static/copybutton.js?v=4ea706d9"></script>
 <script src="../_static/_static/script.js"></script>

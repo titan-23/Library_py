@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.array.csr\_array
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.array.csr_array
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

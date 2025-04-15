@@ -23,6 +23,6 @@ titan\_pylib.graph.topological\_sort
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.topological_sort
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

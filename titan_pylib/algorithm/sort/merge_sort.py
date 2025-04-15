@@ -11,9 +11,9 @@ def merge_sort(
     最悪 :math:`O(n\\log{n})` 時間です。
 
     Args:
-      a (Iterable[T]): ソートする列です。
-      key (Callable[[T, T], bool], optional): 比較関数 `key` にしたがって比較演算をします。
-                                              (第1引数)<=(第2引数) のとき、 ``True`` を返すようにしてください。
+        a (Iterable[T]): ソートする列です。
+        key (Callable[[T, T], bool], optional): 比較関数 `key` にしたがって比較演算をします。
+                                                (第1引数)<=(第2引数) のとき、 ``True`` を返すようにしてください。
     """
 
     def _sort(l: int, r: int) -> None:

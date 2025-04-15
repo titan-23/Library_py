@@ -1,6 +1,6 @@
 # 展開に失敗しました
-pre = "./alltests/2024-10-06_14-03-10.txt"
-now = "./alltests/2024-10-06_14-03-36.txt"
+pre = "./alltests/2024-10-06_14-03-10/result.csv"
+now = "./alltests/2024-10-06_14-03-36/result.csv"
 
 predata = {}
 nowdata = {}

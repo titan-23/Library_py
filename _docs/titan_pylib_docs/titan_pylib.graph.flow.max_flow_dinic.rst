@@ -22,6 +22,6 @@ titan\_pylib.graph.flow.max\_flow\_dinic
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.flow.max_flow_dinic
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

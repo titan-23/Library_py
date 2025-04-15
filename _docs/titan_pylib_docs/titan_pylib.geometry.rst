@@ -14,6 +14,6 @@ Submodules
 
 .. automodule:: titan_pylib.geometry
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

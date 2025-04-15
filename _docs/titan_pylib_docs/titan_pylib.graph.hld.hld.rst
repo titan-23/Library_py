@@ -22,6 +22,6 @@ titan\_pylib.graph.hld.hld
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.hld.hld
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

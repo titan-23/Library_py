@@ -22,6 +22,6 @@ titan\_pylib.graph.lca
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.lca
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

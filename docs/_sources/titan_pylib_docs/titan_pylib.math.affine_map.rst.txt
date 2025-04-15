@@ -22,6 +22,6 @@ titan\_pylib.math.affine\_map
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.affine_map
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

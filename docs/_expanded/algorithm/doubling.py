@@ -7,10 +7,10 @@ class Doubling:
     :math:`O(n\\log{lim})` です。
 
     Args:
-      n (int): テーブルサイズです。
-               すべての ``i`` に対して :math:`0 \leq ``move_to(i)`` < n` である必要があります。
-      lim (int): クエリの最大数です。
-      move_to (Callable[[int], int]): 遷移関数です。 ``u`` から ``v`` へ遷移します。
+        n (int): テーブルサイズです。
+                すべての ``i`` に対して :math:`0 \leq ``move_to(i)`` < n` である必要があります。
+        lim (int): クエリの最大数です。
+        move_to (Callable[[int], int]): 遷移関数です。 ``u`` から ``v`` へ遷移します。
     """
 
     def __init__(self, n: int, lim: int, move_to: Callable[[int], int]) -> None:
@@ -29,8 +29,8 @@ class Doubling:
         :math:`O(\\log{k})` です。
 
         Args:
-          start (int): スタートの状態です。
-          k (int): 遷移関数を適用する回数です。
+            start (int): スタートの状態です。
+            k (int): 遷移関数を適用する回数です。
         """
         db = self.db
         now = start

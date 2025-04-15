@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.set.fenwick\_tree\_set\_fast
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.set.fenwick_tree_set_fast
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

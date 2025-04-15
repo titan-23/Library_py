@@ -23,6 +23,6 @@ titan\_pylib.algorithm.random.random\_graph
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.random.random_graph
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

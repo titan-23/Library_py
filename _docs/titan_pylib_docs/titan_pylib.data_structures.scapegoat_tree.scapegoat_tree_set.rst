@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.scapegoat\_tree.scapegoat\_tree\_set
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.scapegoat_tree.scapegoat_tree_set
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

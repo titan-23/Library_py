@@ -22,6 +22,6 @@ titan\_pylib.algorithm.mo
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.mo
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

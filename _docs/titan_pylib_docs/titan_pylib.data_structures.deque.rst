@@ -15,6 +15,6 @@ Submodules
 
 .. automodule:: titan_pylib.data_structures.deque
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

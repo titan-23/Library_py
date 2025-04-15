@@ -22,6 +22,6 @@ titan\_pylib.graph.rerooting\_dp
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.rerooting_dp
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

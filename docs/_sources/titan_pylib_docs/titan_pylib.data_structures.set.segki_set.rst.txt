@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.set.segki\_set
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.set.segki_set
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -23,6 +23,6 @@ titan\_pylib.others.SA
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.others.SA
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

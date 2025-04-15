@@ -22,6 +22,6 @@ titan\_pylib.graph.flow.max\_flow\_ford\_fulkerson
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.flow.max_flow_ford_fulkerson
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

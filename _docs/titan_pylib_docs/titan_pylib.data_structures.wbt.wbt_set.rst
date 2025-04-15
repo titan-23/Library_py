@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.wbt.wbt\_set
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.wbt.wbt_set
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

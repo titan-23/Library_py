@@ -22,6 +22,6 @@ titan\_pylib.algorithm.arithmetic\_progression
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.arithmetic_progression
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

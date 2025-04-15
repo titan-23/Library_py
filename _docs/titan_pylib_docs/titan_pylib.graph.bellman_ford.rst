@@ -22,6 +22,6 @@ titan\_pylib.graph.bellman\_ford
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.bellman_ford
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

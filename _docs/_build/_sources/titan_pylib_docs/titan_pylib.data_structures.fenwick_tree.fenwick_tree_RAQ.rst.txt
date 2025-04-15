@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.fenwick\_tree.fenwick\_tree\_RAQ
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.fenwick_tree.fenwick_tree_RAQ
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

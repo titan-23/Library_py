@@ -22,9 +22,9 @@ def merge_sort(
     最悪 :math:`O(n\\log{n})` 時間です。
 
     Args:
-      a (Iterable[T]): ソートする列です。
-      key (Callable[[T, T], bool], optional): 比較関数 `key` にしたがって比較演算をします。
-                                              (第1引数)<=(第2引数) のとき、 ``True`` を返すようにしてください。
+        a (Iterable[T]): ソートする列です。
+        key (Callable[[T, T], bool], optional): 比較関数 `key` にしたがって比較演算をします。
+                                                (第1引数)<=(第2引数) のとき、 ``True`` を返すようにしてください。
     """
 
     def _sort(l: int, r: int) -> None:
@@ -205,11 +205,11 @@ class GeometryUtil:
 
     @classmethod
     def le(cls, u: float, v: float) -> bool:
-        return not cls.gt(u, v)
+        return cls.eq(u, v) or cls.lt(u, v)
 
     @classmethod
     def ge(cls, u: float, v: float) -> bool:
-        return not cls.lt(u, v)
+        return cls.eq(u, v) or cls.gt(u, v)
 
 
 class Point:
@@ -338,6 +338,12 @@ class Line:
     @classmethod
     def from_abc(cls, a: int, b: int, c: int) -> "Line":
         raise NotImplementedError
+
+    def get_y(self, x: float) -> Optional[float]:
+        return None if GeometryUtil.eq(self.b, 0) else -(self.c + self.a * x) / self.b
+
+    def get_x(self, y: float) -> Optional[float]:
+        return None if GeometryUtil.eq(self.a, 0) else -(self.c + self.b * y) / self.a
 
 
 class Polygon:
@@ -510,7 +516,7 @@ class Circle:
 class Segment:
 
     def __init__(self, p1: Point, p2: Point) -> None:
-        assert p1 != p2
+        assert p1 != p2, f"{p1=}, {p2=}"
         if p1 > p2:
             p1, p2 = p2, p1
         self.p1 = p1
@@ -611,6 +617,8 @@ class Geometry:
 
     @classmethod
     def cross_point_line(cls, l1: Line, l2: Line) -> Optional[Point]:
+        assert isinstance(l1, Line)
+        assert isinstance(l2, Line)
         d1 = cls.cross(l1.p2 - l1.p1, l2.p2 - l2.p1)
         d2 = cls.cross(l1.p2 - l1.p1, l1.p2 - l2.p1)
         if GeometryUtil.eq(abs(d1), 0) and GeometryUtil.eq(abs(d2), 0):
@@ -620,14 +628,63 @@ class Geometry:
         return l2.p1 + (l2.p2 - l2.p1) * (d2 / d1)
 
     @classmethod
+    def cross_point_line_segment(cls, l: Line, s: Segment) -> Optional[Point]:
+        raise NotImplementedError
+        assert isinstance(l, Line)
+        assert isinstance(s, Segment)
+        assert s.p1.x <= s.p2.x
+        if (
+            (not GeometryUtil.eq(s.p1.x, s.p2.x))
+            and l.get_y(s.p1.x) is not None
+            and l.get_y(s.p2.x) is not None
+        ):
+            sl = Segment(
+                Point(s.p1.x, l.get_y(s.p1.x)),
+                Point(s.p2.x, l.get_y(s.p2.x)),
+            )
+            return cls.cross_point_segment(sl, s)
+        p1, p2 = s.p1, s.p2
+        if p1.y > p2.y:
+            p1, p2 = p2, p1
+        if (
+            (not GeometryUtil.eq(p1.y, p2.y))
+            and l.get_x(p1.y) is not None
+            and l.get_x(p2.y) is not None
+        ):
+            sl = Segment(
+                Point(l.get_x(p1.y), p1.y),
+                Point(l.get_x(p2.y), p2.y),
+            )
+            return cls.cross_point_segment(sl, s)
+        return False
+
+    @classmethod
     def cross_point_segment(cls, s1: Segment, s2: Segment) -> Optional[Point]:
+        assert isinstance(s1, Segment)
+        assert isinstance(s2, Segment)
         d1 = cls.cross(s1.p2 - s1.p1, s2.p2 - s2.p1)
         d2 = cls.cross(s1.p2 - s1.p1, s1.p2 - s2.p1)
         if GeometryUtil.eq(abs(d1), 0) and GeometryUtil.eq(abs(d2), 0):
             return s2.p1
         if GeometryUtil.eq(abs(d1), 0):
             return None
-        return s2.p1 + (s2.p2 - s2.p1) * (d2 / d1)
+        res = s2.p1 + (s2.p2 - s2.p1) * (d2 / d1)
+        mn_x = max(s1.p1.x, s2.p1.x)
+        mx_x = min(s1.p2.x, s2.p2.x)
+        if not (GeometryUtil.le(mn_x, res.x) and GeometryUtil.le(res.x, mx_x)):
+            return None
+            return None
+        s1_p1, s1_p2 = s1.p1, s1.p2
+        if s1_p1.y > s1_p2.y:
+            s1_p1, s1_p2 = s1_p2, s1_p1
+        s2_p1, s2_p2 = s2.p1, s2.p2
+        if s2_p1.y > s2_p2.y:
+            s2_p1, s2_p2 = s2_p2, s2_p1
+        mn_y = max(s1_p1.y, s2_p1.y)
+        mx_y = min(s1_p2.y, s2_p2.y)
+        if not (GeometryUtil.le(mn_y, res.y) and GeometryUtil.le(res.y, mx_y)):
+            return None
+        return res
 
     @classmethod
     def cross_point_circle(cls, c1: Circle, c2: Circle) -> tuple[Point, ...]:
@@ -682,12 +739,21 @@ class Geometry:
         return abs(cls.cross(l.p2 - l.p1, p - l.p1)) / abs(l.p2 - l.p1)
 
     @classmethod
+    def dist_p_to_p(cls, p1: Point, p2: Point) -> float:
+        return ((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2) ** 0.5
+
+    @classmethod
     def dist_p_to_segmemt(cls, p: Point, s: Segment) -> float:
         if cls.dot(s.p2 - s.p1, p - s.p1) < GeometryUtil.EPS:
             return abs(p - s.p1)
         if cls.dot(s.p1 - s.p2, p - s.p2) < GeometryUtil.EPS:
             return abs(p - s.p2)
-        return abs(cls.cross(s.p2 - s.p1, p - s.p1)) / abs(s.p2 - s.p1)
+        q = cls.projection_point(p, Line.from_points(s.p1, s.p2))
+        if (min(s.p1.x, s.p2.x) <= q.x <= max(s.p1.x, s.p2.x)) or (
+            min(s.p1.y, s.p2.y) <= q.y <= max(s.p1.y, s.p2.y)
+        ):
+            return abs(cls.cross(s.p2 - s.p1, p - s.p1)) / abs(s.p2 - s.p1)
+        return min(cls.dist_p_to_p(p, s.p1), cls.dist_p_to_p(p, s.p2))
 
     @classmethod
     def dist_segment_to_segment(cls, s1: Segment, s2: Segment) -> float:

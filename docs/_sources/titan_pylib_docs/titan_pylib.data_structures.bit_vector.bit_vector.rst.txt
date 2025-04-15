@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.bit\_vector.bit\_vector
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.bit_vector.bit_vector
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -22,6 +22,6 @@ titan\_pylib.math.mod\_matrix
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.mod_matrix
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

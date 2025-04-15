@@ -22,6 +22,6 @@ titan\_pylib.string.get\_suffix\_array
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.string.get_suffix_array
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

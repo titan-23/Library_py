@@ -23,6 +23,6 @@ titan\_pylib.graph.bfs
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.bfs
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -1,4 +1,4 @@
-from titan_pylib.data_structures.avl_tree.avl_tree_set2 import AVLTreeSet2
+from titan_pylib.data_structures.heap.deletable_min_heap import DeletableMinHeap
 import enum
 from typing import Optional
 import random
@@ -25,12 +25,12 @@ class RandomTree:
         :math:`O(n \\log{n})` です。
 
         Args:
-          n (int): 頂点の数です。
-          typ (RandomTreeType, optional): 木の形です。 Defaults to RandomTreeType.random。
-          seed (Optional[int], optional): seed値です。 Defaults to None。
+            n (int): 頂点の数です。
+            typ (RandomTreeType, optional): 木の形です。 Defaults to RandomTreeType.random。
+            seed (Optional[int], optional): seed値です。 Defaults to None。
 
         Returns:
-          list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
+            list[tuple[int, int]]: 辺のリストです。辺のインデックスは 0-indexed です。
         """
         cls.rand = random.Random(seed)
         edges = None
@@ -78,7 +78,9 @@ class RandomTree:
             v = cls.rand.randrange(0, n)
             D[v] += 1
             A[i] = v
-        avl: AVLTreeSet2[tuple[int, int]] = AVLTreeSet2((D[i], i) for i in range(n))
+        avl: DeletableMinHeap[tuple[int, int]] = DeletableMinHeap(
+            (D[i], i) for i in range(n)
+        )
         for a in A:
             d, v = avl.pop_min()
             assert d == 1
@@ -87,7 +89,7 @@ class RandomTree:
             avl.remove((D[a], a))
             D[a] -= 1
             if D[a] >= 1:
-                avl.add((D[a], a))
+                avl.push((D[a], a))
         u = D.index(1)
         D[u] -= 1
         v = D.index(1)

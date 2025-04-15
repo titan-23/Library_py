@@ -22,6 +22,6 @@ titan\_pylib.others.Int
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.others.Int
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

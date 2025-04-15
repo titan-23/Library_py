@@ -1,4 +1,7 @@
 # from titan_pylib.data_structures.splay_tree.splay_tree_set_top_down import SplayTreeSetTopDown
+raise NotImplementedError
+# https://atcoder.jp/contests/abc370/submissions/59284972
+
 # from titan_pylib.my_class.supports_less_than import SupportsLessThan
 from typing import Protocol
 

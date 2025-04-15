@@ -4,12 +4,12 @@
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/><link href="../../../genindex.html" rel="index" title="Index"/><link href="../../../search.html" rel="search" title="Search"/>
-<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
 <title>mod_array - titan_pylib documentation</title>
-<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/styles/furo.css?v=354aac6f" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/styles/furo-extensions.css?v=302659d7" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/_static/style.css" rel="stylesheet" type="text/css"/>
 <style>
   body {
@@ -59,7 +59,7 @@
 </symbol>
 <symbol id="svg-sun" viewbox="0 0 24 24">
 <title>Light mode</title>
-<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="5"></circle>
 <line x1="12" x2="12" y1="1" y2="3"></line>
 <line x1="12" x2="12" y1="21" y2="23"></line>
@@ -73,21 +73,56 @@
 </symbol>
 <symbol id="svg-moon" viewbox="0 0 24 24">
 <title>Dark mode</title>
-<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
 </svg>
 </symbol>
-<symbol id="svg-sun-half" viewbox="0 0 24 24">
-<title>Auto light/dark mode</title>
-<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
-<circle cx="12" cy="12" r="9"></circle>
-<path d="M13 12h5"></path>
-<path d="M13 15h4"></path>
-<path d="M13 18h1"></path>
-<path d="M13 9h4"></path>
-<path d="M13 6h1"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
 </svg>
 </symbol>
 </svg>
@@ -99,6 +134,7 @@
 <label class="overlay toc-overlay" for="__toc">
 <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 <div class="page">
 <header class="mobile-header">
 <div class="header-left">
@@ -114,7 +150,8 @@
 <div class="theme-toggle-container theme-toggle-header">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -185,6 +222,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.wbt_set.html">wbt_set</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -417,13 +455,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.functional_graph.html">functional_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.get_scc.html">get_scc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.graph.lca.html">lca</a></li>
@@ -466,6 +504,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.string.hash_string.html">hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.string.string_count.html">string_count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../titan_pylib_docs/titan_pylib.string.trie.html">trie</a></li>
 </ul>
 </li>
 </ul>
@@ -487,7 +526,8 @@
 <div class="theme-toggle-container theme-toggle-content">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -497,19 +537,19 @@
 <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
 </label>
 </div>
-<article role="main">
+<article id="furo-main-content" role="main">
 <h1>Source code for titan_pylib.math.mod_array</h1><div class="highlight"><pre>
-<span></span><span class="linenos">  1</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
-<span class="linenos">  2</span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
+<span></span><span class="linenos">  1</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="linenos">  2</span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
 <span class="linenos">  3</span>
 <span class="linenos">  4</span>
 <div class="viewcode-block" id="ModArray998244353">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353">[docs]</a>
-<span class="linenos">  5</span><span class="k">class</span> <span class="nc">ModArray998244353</span><span class="p">:</span>
+<span class="linenos">  5</span><span class="k">class</span><span class="w"> </span><span class="nc">ModArray998244353</span><span class="p">:</span>
 <span class="linenos">  6</span>
 <span class="linenos">  7</span>    <span class="nd">@staticmethod</span>
 <span class="linenos">  8</span>    <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="linenos">  9</span>    <span class="k">def</span> <span class="nf">_inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  9</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 10</span>        <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos"> 11</span>        <span class="n">b</span> <span class="o">=</span> <span class="mi">998244351</span>
 <span class="linenos"> 12</span>        <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
@@ -519,7 +559,7 @@
 <span class="linenos"> 16</span>            <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos"> 17</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos"> 18</span>
-<span class="linenos"> 19</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos"> 19</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="linenos"> 20</span>        <span class="n">e</span> <span class="o">%=</span> <span class="mi">998244353</span>
 <span class="linenos"> 21</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos"> 22</span>            <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_or_a</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_or_a</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">e</span> <span class="o">%</span> <span class="mi">998244353</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">n_or_a</span><span class="p">]</span>
@@ -527,86 +567,86 @@
 <span class="linenos"> 24</span>
 <div class="viewcode-block" id="ModArray998244353.resize">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.resize">[docs]</a>
-<span class="linenos"> 25</span>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos"> 25</span>    <span class="k">def</span><span class="w"> </span><span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="linenos"> 26</span>        <span class="n">e</span> <span class="o">%=</span> <span class="mi">998244353</span>
 <span class="linenos"> 27</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">size</span></div>
 
 <span class="linenos"> 28</span>
 <div class="viewcode-block" id="ModArray998244353.append">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.append">[docs]</a>
-<span class="linenos"> 29</span>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 29</span>    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 30</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span> <span class="o">%</span> <span class="mi">998244353</span><span class="p">)</span></div>
 
 <span class="linenos"> 31</span>
 <div class="viewcode-block" id="ModArray998244353.pop">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.pop">[docs]</a>
-<span class="linenos"> 32</span>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 32</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 33</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div>
 
 <span class="linenos"> 34</span>
 <div class="viewcode-block" id="ModArray998244353.all_sum">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.all_sum">[docs]</a>
-<span class="linenos"> 35</span>    <span class="k">def</span> <span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 35</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 36</span>        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span> <span class="o">%</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 37</span>
 <div class="viewcode-block" id="ModArray998244353.all_mul">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.all_mul">[docs]</a>
-<span class="linenos"> 38</span>    <span class="k">def</span> <span class="nf">all_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 38</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 39</span>        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">%</span> <span class="mi">998244353</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
 
 <span class="linenos"> 40</span>
 <div class="viewcode-block" id="ModArray998244353.add">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.add">[docs]</a>
-<span class="linenos"> 41</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 41</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 42</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 43</span>
 <div class="viewcode-block" id="ModArray998244353.sub">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.sub">[docs]</a>
-<span class="linenos"> 44</span>    <span class="k">def</span> <span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 44</span>    <span class="k">def</span><span class="w"> </span><span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 45</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 46</span>
 <div class="viewcode-block" id="ModArray998244353.mul">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.mul">[docs]</a>
-<span class="linenos"> 47</span>    <span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 47</span>    <span class="k">def</span><span class="w"> </span><span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 48</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 49</span>
 <div class="viewcode-block" id="ModArray998244353.div">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.div">[docs]</a>
-<span class="linenos"> 50</span>    <span class="k">def</span> <span class="nf">div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 50</span>    <span class="k">def</span><span class="w"> </span><span class="nf">div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 51</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">%</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 52</span>
 <div class="viewcode-block" id="ModArray998244353.get_mod">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray998244353.get_mod">[docs]</a>
-<span class="linenos"> 53</span>    <span class="k">def</span> <span class="nf">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 53</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 54</span>        <span class="k">return</span> <span class="mi">998244353</span></div>
 
 <span class="linenos"> 55</span>
-<span class="linenos"> 56</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 56</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 57</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos"> 58</span>        <span class="k">return</span> <span class="bp">self</span>
 <span class="linenos"> 59</span>
-<span class="linenos"> 60</span>    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 60</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 61</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">):</span>
 <span class="linenos"> 62</span>            <span class="k">raise</span> <span class="ne">StopIteration</span>
 <span class="linenos"> 63</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos"> 64</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
 <span class="linenos"> 65</span>
-<span class="linenos"> 66</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">"ModArray998244353"</span><span class="p">]:</span>
+<span class="linenos"> 66</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">"ModArray998244353"</span><span class="p">]:</span>
 <span class="linenos"> 67</span>        <span class="k">return</span> <span class="n">ModArray998244353</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 <span class="linenos"> 68</span>
-<span class="linenos"> 69</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 69</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 70</span>        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
 <span class="linenos"> 71</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">%</span> <span class="mi">998244353</span>
 <span class="linenos"> 72</span>
-<span class="linenos"> 73</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 73</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 74</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 75</span>
-<span class="linenos"> 76</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 76</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 77</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
 
 <span class="linenos"> 78</span>
@@ -615,17 +655,17 @@
 <span class="linenos"> 81</span>
 <span class="linenos"> 82</span><span class="c1"># ---------------------- #</span>
 <span class="linenos"> 83</span>
-<span class="linenos"> 84</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
-<span class="linenos"> 85</span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
+<span class="linenos"> 84</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="linenos"> 85</span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
 <span class="linenos"> 86</span>
 <span class="linenos"> 87</span>
 <div class="viewcode-block" id="ModArray1000000007">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007">[docs]</a>
-<span class="linenos"> 88</span><span class="k">class</span> <span class="nc">ModArray1000000007</span><span class="p">:</span>
+<span class="linenos"> 88</span><span class="k">class</span><span class="w"> </span><span class="nc">ModArray1000000007</span><span class="p">:</span>
 <span class="linenos"> 89</span>
 <span class="linenos"> 90</span>    <span class="nd">@staticmethod</span>
 <span class="linenos"> 91</span>    <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="linenos"> 92</span>    <span class="k">def</span> <span class="nf">_inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 92</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 93</span>        <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos"> 94</span>        <span class="n">b</span> <span class="o">=</span> <span class="mi">1000000005</span>
 <span class="linenos"> 95</span>        <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
@@ -635,7 +675,7 @@
 <span class="linenos"> 99</span>            <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos">100</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">101</span>
-<span class="linenos">102</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos">102</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="linenos">103</span>        <span class="n">e</span> <span class="o">%=</span> <span class="mi">1000000007</span>
 <span class="linenos">104</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos">105</span>            <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_or_a</span>
@@ -645,86 +685,86 @@
 <span class="linenos">109</span>
 <div class="viewcode-block" id="ModArray1000000007.resize">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.resize">[docs]</a>
-<span class="linenos">110</span>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos">110</span>    <span class="k">def</span><span class="w"> </span><span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="linenos">111</span>        <span class="n">e</span> <span class="o">%=</span> <span class="mi">1000000007</span>
 <span class="linenos">112</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">size</span></div>
 
 <span class="linenos">113</span>
 <div class="viewcode-block" id="ModArray1000000007.append">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.append">[docs]</a>
-<span class="linenos">114</span>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">114</span>    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">115</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span> <span class="o">%</span> <span class="mi">1000000007</span><span class="p">)</span></div>
 
 <span class="linenos">116</span>
 <div class="viewcode-block" id="ModArray1000000007.pop">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.pop">[docs]</a>
-<span class="linenos">117</span>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">117</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">118</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div>
 
 <span class="linenos">119</span>
 <div class="viewcode-block" id="ModArray1000000007.all_sum">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.all_sum">[docs]</a>
-<span class="linenos">120</span>    <span class="k">def</span> <span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">120</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">121</span>        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">122</span>
 <div class="viewcode-block" id="ModArray1000000007.all_mul">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.all_mul">[docs]</a>
-<span class="linenos">123</span>    <span class="k">def</span> <span class="nf">all_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">123</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">124</span>        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">%</span> <span class="mi">1000000007</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
 
 <span class="linenos">125</span>
 <div class="viewcode-block" id="ModArray1000000007.add">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.add">[docs]</a>
-<span class="linenos">126</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">126</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">127</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">128</span>
 <div class="viewcode-block" id="ModArray1000000007.sub">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.sub">[docs]</a>
-<span class="linenos">129</span>    <span class="k">def</span> <span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">129</span>    <span class="k">def</span><span class="w"> </span><span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">130</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">131</span>
 <div class="viewcode-block" id="ModArray1000000007.mul">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.mul">[docs]</a>
-<span class="linenos">132</span>    <span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">132</span>    <span class="k">def</span><span class="w"> </span><span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">133</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">134</span>
 <div class="viewcode-block" id="ModArray1000000007.div">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.div">[docs]</a>
-<span class="linenos">135</span>    <span class="k">def</span> <span class="nf">div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">135</span>    <span class="k">def</span><span class="w"> </span><span class="nf">div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">136</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">%</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">137</span>
 <div class="viewcode-block" id="ModArray1000000007.get_mod">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray1000000007.get_mod">[docs]</a>
-<span class="linenos">138</span>    <span class="k">def</span> <span class="nf">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">138</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">139</span>        <span class="k">return</span> <span class="mi">1000000007</span></div>
 
 <span class="linenos">140</span>
-<span class="linenos">141</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">141</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">142</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">143</span>        <span class="k">return</span> <span class="bp">self</span>
 <span class="linenos">144</span>
-<span class="linenos">145</span>    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">145</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">146</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">):</span>
 <span class="linenos">147</span>            <span class="k">raise</span> <span class="ne">StopIteration</span>
 <span class="linenos">148</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">149</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
 <span class="linenos">150</span>
-<span class="linenos">151</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">"ModArray1000000007"</span><span class="p">]:</span>
+<span class="linenos">151</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">"ModArray1000000007"</span><span class="p">]:</span>
 <span class="linenos">152</span>        <span class="k">return</span> <span class="n">ModArray1000000007</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 <span class="linenos">153</span>
-<span class="linenos">154</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">154</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">155</span>        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
 <span class="linenos">156</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">%</span> <span class="mi">1000000007</span>
 <span class="linenos">157</span>
-<span class="linenos">158</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">158</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">159</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">160</span>
-<span class="linenos">161</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">161</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">162</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
 
 <span class="linenos">163</span>
@@ -733,16 +773,16 @@
 <span class="linenos">166</span>
 <span class="linenos">167</span><span class="c1"># ---------------------- #</span>
 <span class="linenos">168</span>
-<span class="linenos">169</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
-<span class="linenos">170</span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
+<span class="linenos">169</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="linenos">170</span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span><span class="p">,</span> <span class="n">lru_cache</span>
 <span class="linenos">171</span>
 <span class="linenos">172</span>
 <div class="viewcode-block" id="ModArray">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray">[docs]</a>
-<span class="linenos">173</span><span class="k">class</span> <span class="nc">ModArray</span><span class="p">:</span>
+<span class="linenos">173</span><span class="k">class</span><span class="w"> </span><span class="nc">ModArray</span><span class="p">:</span>
 <span class="linenos">174</span>
 <span class="linenos">175</span>    <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="linenos">176</span>    <span class="k">def</span> <span class="nf">_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">176</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">177</span>        <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos">178</span>        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span> <span class="o">-</span> <span class="mi">2</span>
 <span class="linenos">179</span>        <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
@@ -752,7 +792,7 @@
 <span class="linenos">183</span>            <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos">184</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">185</span>
-<span class="linenos">186</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos">186</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mod</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_or_a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="linenos">187</span>        <span class="bp">self</span><span class="o">.</span><span class="n">mod</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">mod</span>
 <span class="linenos">188</span>        <span class="n">e</span> <span class="o">%=</span> <span class="n">mod</span>
 <span class="linenos">189</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -761,86 +801,86 @@
 <span class="linenos">192</span>
 <div class="viewcode-block" id="ModArray.resize">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.resize">[docs]</a>
-<span class="linenos">193</span>    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="linenos">193</span>    <span class="k">def</span><span class="w"> </span><span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
 <span class="linenos">194</span>        <span class="n">e</span> <span class="o">%=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span>
 <span class="linenos">195</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">size</span></div>
 
 <span class="linenos">196</span>
 <div class="viewcode-block" id="ModArray.append">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.append">[docs]</a>
-<span class="linenos">197</span>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">197</span>    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">198</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span><span class="p">)</span></div>
 
 <span class="linenos">199</span>
 <div class="viewcode-block" id="ModArray.pop">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.pop">[docs]</a>
-<span class="linenos">200</span>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">200</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">201</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div>
 
 <span class="linenos">202</span>
 <div class="viewcode-block" id="ModArray.all_sum">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.all_sum">[docs]</a>
-<span class="linenos">203</span>    <span class="k">def</span> <span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">203</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">204</span>        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span></div>
 
 <span class="linenos">205</span>
 <div class="viewcode-block" id="ModArray.all_mul">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.all_mul">[docs]</a>
-<span class="linenos">206</span>    <span class="k">def</span> <span class="nf">all_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">206</span>    <span class="k">def</span><span class="w"> </span><span class="nf">all_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">207</span>        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
 
 <span class="linenos">208</span>
 <div class="viewcode-block" id="ModArray.add">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.add">[docs]</a>
-<span class="linenos">209</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">209</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">210</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span></div>
 
 <span class="linenos">211</span>
 <div class="viewcode-block" id="ModArray.sub">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.sub">[docs]</a>
-<span class="linenos">212</span>    <span class="k">def</span> <span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">212</span>    <span class="k">def</span><span class="w"> </span><span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">213</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span></div>
 
 <span class="linenos">214</span>
 <div class="viewcode-block" id="ModArray.mul">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.mul">[docs]</a>
-<span class="linenos">215</span>    <span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">215</span>    <span class="k">def</span><span class="w"> </span><span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">216</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span></div>
 
 <span class="linenos">217</span>
 <div class="viewcode-block" id="ModArray.div">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.div">[docs]</a>
-<span class="linenos">218</span>    <span class="k">def</span> <span class="nf">div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">218</span>    <span class="k">def</span><span class="w"> </span><span class="nf">div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">219</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span></div>
 
 <span class="linenos">220</span>
 <div class="viewcode-block" id="ModArray.get_mod">
 <a class="viewcode-back" href="../../../titan_pylib_docs/titan_pylib.math.mod_array.html#titan_pylib.math.mod_array.ModArray.get_mod">[docs]</a>
-<span class="linenos">221</span>    <span class="k">def</span> <span class="nf">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">221</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">222</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span></div>
 
 <span class="linenos">223</span>
-<span class="linenos">224</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">224</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">225</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">226</span>        <span class="k">return</span> <span class="bp">self</span>
 <span class="linenos">227</span>
-<span class="linenos">228</span>    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">228</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">229</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">):</span>
 <span class="linenos">230</span>            <span class="k">raise</span> <span class="ne">StopIteration</span>
 <span class="linenos">231</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">232</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
 <span class="linenos">233</span>
-<span class="linenos">234</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">"ModArray"</span><span class="p">]:</span>
+<span class="linenos">234</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="s2">"ModArray"</span><span class="p">]:</span>
 <span class="linenos">235</span>        <span class="k">return</span> <span class="n">ModArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 <span class="linenos">236</span>
-<span class="linenos">237</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">237</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">238</span>        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
 <span class="linenos">239</span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod</span>
 <span class="linenos">240</span>
-<span class="linenos">241</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">241</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">242</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">243</span>
-<span class="linenos">244</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">244</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">245</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
 
 <span class="linenos">246</span>
@@ -872,9 +912,9 @@
 </aside>
 </div>
 </div><script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../../../_static/doctools.js?v=9a2dae69"></script>
+<script src="../../../_static/doctools.js?v=9bcbadda"></script>
 <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-<script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
 <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../_static/copybutton.js?v=4ea706d9"></script>
 <script src="../../../_static/_static/script.js"></script>

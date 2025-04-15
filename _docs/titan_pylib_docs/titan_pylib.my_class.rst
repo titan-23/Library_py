@@ -17,6 +17,6 @@ Submodules
 
 .. automodule:: titan_pylib.my_class
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

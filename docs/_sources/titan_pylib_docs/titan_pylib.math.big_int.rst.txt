@@ -22,6 +22,6 @@ titan\_pylib.math.big\_int
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.big_int
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

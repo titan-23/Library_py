@@ -22,6 +22,6 @@ titan\_pylib.ahc.optimizer
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.ahc.optimizer
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

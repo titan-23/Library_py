@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.heap.radix\_heap
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.heap.radix_heap
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

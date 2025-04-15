@@ -5,12 +5,12 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
 <link href="../genindex.html" rel="index" title="Index"/><link href="../search.html" rel="search" title="Search"/><link href="titan_pylib.data_structures.wavelet_matrix.fenwick_tree_wavelet_matrix.html" rel="next" title="titan_pylib.data_structures.wavelet_matrix.fenwick_tree_wavelet_matrix"/><link href="titan_pylib.data_structures.wavelet_matrix.cumulative_sum_wavelet_matrix.html" rel="prev" title="titan_pylib.data_structures.wavelet_matrix.cumulative_sum_wavelet_matrix"/>
-<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
 <title>dynamic_wavelet_matrix - titan_pylib documentation</title>
-<link href="../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo.css?v=354aac6f" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
-<link href="../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/furo-extensions.css?v=302659d7" rel="stylesheet" type="text/css"/>
 <link href="../_static/_static/style.css" rel="stylesheet" type="text/css"/>
 <style>
   body {
@@ -60,7 +60,7 @@
 </symbol>
 <symbol id="svg-sun" viewbox="0 0 24 24">
 <title>Light mode</title>
-<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="5"></circle>
 <line x1="12" x2="12" y1="1" y2="3"></line>
 <line x1="12" x2="12" y1="21" y2="23"></line>
@@ -74,21 +74,56 @@
 </symbol>
 <symbol id="svg-moon" viewbox="0 0 24 24">
 <title>Dark mode</title>
-<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
 </svg>
 </symbol>
-<symbol id="svg-sun-half" viewbox="0 0 24 24">
-<title>Auto light/dark mode</title>
-<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
-<circle cx="12" cy="12" r="9"></circle>
-<path d="M13 12h5"></path>
-<path d="M13 15h4"></path>
-<path d="M13 18h1"></path>
-<path d="M13 9h4"></path>
-<path d="M13 6h1"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
 </svg>
 </symbol>
 </svg>
@@ -100,6 +135,7 @@
 <label class="overlay toc-overlay" for="__toc">
 <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 <div class="page">
 <header class="mobile-header">
 <div class="header-left">
@@ -115,7 +151,8 @@
 <div class="theme-toggle-container theme-toggle-header">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -186,6 +223,7 @@
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="titan_pylib.data_structures.avl_tree.wbt_set.html">wbt_set</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -418,13 +456,13 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.functional_graph.html">functional_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc.html">get_scc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.graph.lca.html">lca</a></li>
@@ -467,6 +505,7 @@
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.hash_string.html">hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.string_count.html">string_count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="titan_pylib.string.trie.html">trie</a></li>
 </ul>
 </li>
 </ul>
@@ -485,10 +524,17 @@
 <span>Back to top</span>
 </a>
 <div class="content-icon-container">
+<div class="view-this-page">
+<a class="muted-link" href="../_sources/titan_pylib_docs/titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.rst.txt" title="View this page">
+<svg><use href="#svg-eye"></use></svg>
+<span class="visually-hidden">View this page</span>
+</a>
+</div>
 <div class="theme-toggle-container theme-toggle-content">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -498,12 +544,12 @@
 <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
 </label>
 </div>
-<article role="main">
+<article id="furo-main-content" role="main">
 <section id="titan-pylib-data-structures-wavelet-matrix-dynamic-wavelet-matrix">
 <h1>dynamic_wavelet_matrix<a class="headerlink" href="#titan-pylib-data-structures-wavelet-matrix-dynamic-wavelet-matrix" title="Link to this heading">¶</a></h1>
 <section id="id1">
 <h2>ソースコード<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix</span> <span class="kn">import</span> <span class="n">DynamicWaveletMatrix</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix</span><span class="w"> </span><span class="kn">import</span> <span class="n">DynamicWaveletMatrix</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://github.com/titan-23/Library_py/tree/main/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.py">view on github</a></p>
@@ -514,61 +560,61 @@
 <span class="linenos">   3</span><span class="c1"># from titan_pylib.data_structures.bit_vector.bit_vector_interface import (</span>
 <span class="linenos">   4</span><span class="c1">#     BitVectorInterface,</span>
 <span class="linenos">   5</span><span class="c1"># )</span>
-<span class="linenos">   6</span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="linenos">   6</span><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="linenos">   7</span>
 <span class="linenos">   8</span>
-<span class="linenos">   9</span><span class="k">class</span> <span class="nc">BitVectorInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="linenos">   9</span><span class="k">class</span><span class="w"> </span><span class="nc">BitVectorInterface</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="linenos">  10</span>
 <span class="linenos">  11</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  12</span>    <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  12</span>    <span class="k">def</span><span class="w"> </span><span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  13</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  14</span>
 <span class="linenos">  15</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  16</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  16</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  17</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  18</span>
 <span class="linenos">  19</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  20</span>    <span class="k">def</span> <span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  20</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  21</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  22</span>
 <span class="linenos">  23</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  24</span>    <span class="k">def</span> <span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  24</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  25</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  26</span>
 <span class="linenos">  27</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  28</span>    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  28</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  29</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  30</span>
 <span class="linenos">  31</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  32</span>    <span class="k">def</span> <span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  32</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  33</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  34</span>
 <span class="linenos">  35</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  36</span>    <span class="k">def</span> <span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  36</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  37</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  38</span>
 <span class="linenos">  39</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  40</span>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  40</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  41</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  42</span>
 <span class="linenos">  43</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  44</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  44</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  45</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  46</span>
 <span class="linenos">  47</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  48</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">  48</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">  49</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 <span class="linenos">  50</span>
 <span class="linenos">  51</span>    <span class="nd">@abstractmethod</span>
-<span class="linenos">  52</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">  52</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">  53</span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-<span class="linenos">  54</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
-<span class="linenos">  55</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="linenos">  54</span><span class="kn">from</span><span class="w"> </span><span class="nn">array</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
+<span class="linenos">  55</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="linenos">  56</span>
 <span class="linenos">  57</span><span class="n">titan_pylib_AVLTreeBitVector_W</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">31</span>
 <span class="linenos">  58</span>
 <span class="linenos">  59</span>
-<span class="linenos">  60</span><span class="k">class</span> <span class="nc">AVLTreeBitVector</span><span class="p">(</span><span class="n">BitVectorInterface</span><span class="p">):</span>
+<span class="linenos">  60</span><span class="k">class</span><span class="w"> </span><span class="nc">AVLTreeBitVector</span><span class="p">(</span><span class="n">BitVectorInterface</span><span class="p">):</span>
 <span class="linenos">  61</span><span class="w">    </span><span class="sd">"""AVL木で書かれたビットベクトルです。簡潔でもなんでもありません。</span>
 <span class="linenos">  62</span>
 <span class="linenos">  63</span><span class="sd">    bit列を管理するわけですが、各節点は 1~32 bit を持つようにしています。</span>
@@ -576,7 +622,7 @@
 <span class="linenos">  65</span><span class="sd">    """</span>
 <span class="linenos">  66</span>
 <span class="linenos">  67</span>    <span class="nd">@staticmethod</span>
-<span class="linenos">  68</span>    <span class="k">def</span> <span class="nf">_popcount</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">  68</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_popcount</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">  69</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x55555555</span><span class="p">)</span>
 <span class="linenos">  70</span>        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span><span class="p">)</span>
 <span class="linenos">  71</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F0F0F0F</span>
@@ -584,7 +630,7 @@
 <span class="linenos">  73</span>        <span class="n">x</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span>
 <span class="linenos">  74</span>        <span class="k">return</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="mh">0x0000007F</span>
 <span class="linenos">  75</span>
-<span class="linenos">  76</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]):</span>
+<span class="linenos">  76</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]):</span>
 <span class="linenos">  77</span><span class="w">        </span><span class="sd">"""</span>
 <span class="linenos">  78</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">  79</span>
@@ -603,7 +649,7 @@
 <span class="linenos">  92</span>        <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
 <span class="linenos">  93</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">  94</span>
-<span class="linenos">  95</span>    <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">  95</span>    <span class="k">def</span><span class="w"> </span><span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">  96</span><span class="w">        </span><span class="sd">"""``n`` 要素分のメモリを確保します。</span>
 <span class="linenos">  97</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">  98</span><span class="sd">        """</span>
@@ -617,7 +663,7 @@
 <span class="linenos"> 106</span>        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">+=</span> <span class="n">a</span>
 <span class="linenos"> 107</span>        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
 <span class="linenos"> 108</span>
-<span class="linenos"> 109</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 109</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 110</span>        <span class="n">key</span><span class="p">,</span> <span class="n">bit_len</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos"> 111</span>            <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
 <span class="linenos"> 112</span>            <span class="bp">self</span><span class="o">.</span><span class="n">bit_len</span><span class="p">,</span>
@@ -629,7 +675,7 @@
 <span class="linenos"> 118</span>        <span class="p">)</span>
 <span class="linenos"> 119</span>        <span class="n">_popcount</span> <span class="o">=</span> <span class="n">AVLTreeBitVector</span><span class="o">.</span><span class="n">_popcount</span>
 <span class="linenos"> 120</span>
-<span class="linenos"> 121</span>        <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">lr</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 121</span>        <span class="k">def</span><span class="w"> </span><span class="nf">rec</span><span class="p">(</span><span class="n">lr</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 122</span>            <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">lr</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span><span class="p">,</span> <span class="n">lr</span> <span class="o">&amp;</span> <span class="n">msk</span>
 <span class="linenos"> 123</span>            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
 <span class="linenos"> 124</span>            <span class="n">hl</span><span class="p">,</span> <span class="n">hr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
@@ -670,7 +716,7 @@
 <span class="linenos"> 159</span>        <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">indx</span>
 <span class="linenos"> 160</span>        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">rec</span><span class="p">(</span><span class="n">end</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">bit</span>
 <span class="linenos"> 161</span>
-<span class="linenos"> 162</span>    <span class="k">def</span> <span class="nf">_rotate_L</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 162</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_L</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 163</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos"> 164</span>            <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
 <span class="linenos"> 165</span>            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
@@ -693,7 +739,7 @@
 <span class="linenos"> 182</span>            <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="linenos"> 183</span>        <span class="k">return</span> <span class="n">u</span>
 <span class="linenos"> 184</span>
-<span class="linenos"> 185</span>    <span class="k">def</span> <span class="nf">_rotate_R</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 185</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_R</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 186</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos"> 187</span>            <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
 <span class="linenos"> 188</span>            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
@@ -716,7 +762,7 @@
 <span class="linenos"> 205</span>            <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="linenos"> 206</span>        <span class="k">return</span> <span class="n">u</span>
 <span class="linenos"> 207</span>
-<span class="linenos"> 208</span>    <span class="k">def</span> <span class="nf">_update_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 208</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_update_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 209</span>        <span class="n">balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
 <span class="linenos"> 210</span>        <span class="k">if</span> <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
 <span class="linenos"> 211</span>            <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -729,7 +775,7 @@
 <span class="linenos"> 218</span>            <span class="n">balance</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos"> 219</span>        <span class="n">balance</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos"> 220</span>
-<span class="linenos"> 221</span>    <span class="k">def</span> <span class="nf">_rotate_LR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 221</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_LR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 222</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span>
 <span class="linenos"> 223</span>        <span class="n">B</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos"> 224</span>        <span class="n">E</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
@@ -746,7 +792,7 @@
 <span class="linenos"> 235</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_update_balance</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
 <span class="linenos"> 236</span>        <span class="k">return</span> <span class="n">E</span>
 <span class="linenos"> 237</span>
-<span class="linenos"> 238</span>    <span class="k">def</span> <span class="nf">_rotate_RL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 238</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rotate_RL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 239</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span>
 <span class="linenos"> 240</span>        <span class="n">C</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos"> 241</span>        <span class="n">D</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">C</span><span class="p">]</span>
@@ -763,7 +809,7 @@
 <span class="linenos"> 252</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_update_balance</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
 <span class="linenos"> 253</span>        <span class="k">return</span> <span class="n">D</span>
 <span class="linenos"> 254</span>
-<span class="linenos"> 255</span>    <span class="k">def</span> <span class="nf">_pref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 255</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_pref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 256</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">bit_len</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos"> 257</span>            <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
 <span class="linenos"> 258</span>            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
@@ -790,7 +836,7 @@
 <span class="linenos"> 279</span>                <span class="n">r</span> <span class="o">-=</span> <span class="n">t</span>
 <span class="linenos"> 280</span>        <span class="k">return</span> <span class="n">s</span>
 <span class="linenos"> 281</span>
-<span class="linenos"> 282</span>    <span class="k">def</span> <span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bit_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 282</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_make_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bit_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 283</span>        <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span>
 <span class="linenos"> 284</span>        <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">):</span>
 <span class="linenos"> 285</span>            <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -808,7 +854,7 @@
 <span class="linenos"> 297</span>        <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos"> 298</span>        <span class="k">return</span> <span class="n">end</span>
 <span class="linenos"> 299</span>
-<span class="linenos"> 300</span>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 300</span>    <span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 301</span><span class="w">        </span><span class="sd">"""``k`` 番目に ``v`` を挿入します。</span>
 <span class="linenos"> 302</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 303</span>
@@ -919,7 +965,7 @@
 <span class="linenos"> 408</span>            <span class="k">else</span><span class="p">:</span>
 <span class="linenos"> 409</span>                <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
 <span class="linenos"> 410</span>
-<span class="linenos"> 411</span>    <span class="k">def</span> <span class="nf">_pop_under</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">res</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 411</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_pop_under</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">res</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 412</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">bit_len</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="p">(</span>
 <span class="linenos"> 413</span>            <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
 <span class="linenos"> 414</span>            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
@@ -993,7 +1039,7 @@
 <span class="linenos"> 482</span>            <span class="n">total</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lmax_total</span> <span class="k">if</span> <span class="n">fd</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">res</span>
 <span class="linenos"> 483</span>            <span class="n">fd</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
 <span class="linenos"> 484</span>
-<span class="linenos"> 485</span>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 485</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 486</span><span class="w">        </span><span class="sd">"""``k`` 番目の要素を削除し、その値を返します。</span>
 <span class="linenos"> 487</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 488</span>
@@ -1034,7 +1080,7 @@
 <span class="linenos"> 523</span>            <span class="n">total</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-=</span> <span class="n">res</span>
 <span class="linenos"> 524</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos"> 525</span>
-<span class="linenos"> 526</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 526</span>    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 527</span><span class="w">        </span><span class="sd">"""``k`` 番目の値を ``v`` に更新します。</span>
 <span class="linenos"> 528</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 529</span>
@@ -1044,7 +1090,7 @@
 <span class="linenos"> 533</span><span class="sd">        """</span>
 <span class="linenos"> 534</span>        <span class="bp">self</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 <span class="linenos"> 535</span>
-<span class="linenos"> 536</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos"> 536</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos"> 537</span><span class="w">        </span><span class="sd">"""リストにして返します。</span>
 <span class="linenos"> 538</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos"> 539</span><span class="sd">        """</span>
@@ -1053,7 +1099,7 @@
 <span class="linenos"> 542</span>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span>
 <span class="linenos"> 543</span>            <span class="k">return</span> <span class="n">a</span>
 <span class="linenos"> 544</span>
-<span class="linenos"> 545</span>        <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="linenos"> 545</span>        <span class="k">def</span><span class="w"> </span><span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="linenos"> 546</span>            <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
 <span class="linenos"> 547</span>                <span class="n">rec</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
 <span class="linenos"> 548</span>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bit_len</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
@@ -1064,14 +1110,14 @@
 <span class="linenos"> 553</span>        <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
 <span class="linenos"> 554</span>        <span class="k">return</span> <span class="n">a</span>
 <span class="linenos"> 555</span>
-<span class="linenos"> 556</span>    <span class="k">def</span> <span class="nf">_debug_acc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 556</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_debug_acc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 557</span><span class="w">        </span><span class="sd">"""デバッグ用のメソッドです。</span>
 <span class="linenos"> 558</span><span class="sd">        key,totalをチェックします。</span>
 <span class="linenos"> 559</span><span class="sd">        """</span>
 <span class="linenos"> 560</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos"> 561</span>        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos"> 562</span>
-<span class="linenos"> 563</span>        <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="linenos"> 563</span>        <span class="k">def</span><span class="w"> </span><span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="linenos"> 564</span>            <span class="n">acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_popcount</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
 <span class="linenos"> 565</span>            <span class="k">if</span> <span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
 <span class="linenos"> 566</span>                <span class="n">acc</span> <span class="o">+=</span> <span class="n">rec</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
@@ -1085,7 +1131,7 @@
 <span class="linenos"> 574</span>        <span class="n">rec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
 <span class="linenos"> 575</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">"debug_acc ok."</span><span class="p">)</span>
 <span class="linenos"> 576</span>
-<span class="linenos"> 577</span>    <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 577</span>    <span class="k">def</span><span class="w"> </span><span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 578</span><span class="w">        </span><span class="sd">"""``k`` 番目の値を返します。</span>
 <span class="linenos"> 579</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 580</span>
@@ -1094,25 +1140,25 @@
 <span class="linenos"> 583</span><span class="sd">        """</span>
 <span class="linenos"> 584</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos"> 585</span>
-<span class="linenos"> 586</span>    <span class="k">def</span> <span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 586</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 587</span><span class="w">        </span><span class="sd">"""``a[0, r)`` に含まれる ``0`` の個数を返します。</span>
 <span class="linenos"> 588</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 589</span><span class="sd">        """</span>
 <span class="linenos"> 590</span>        <span class="k">return</span> <span class="n">r</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pref</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 <span class="linenos"> 591</span>
-<span class="linenos"> 592</span>    <span class="k">def</span> <span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 592</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 593</span><span class="w">        </span><span class="sd">"""``a[0, r)`` に含まれる ``1`` の個数を返します。</span>
 <span class="linenos"> 594</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 595</span><span class="sd">        """</span>
 <span class="linenos"> 596</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pref</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 <span class="linenos"> 597</span>
-<span class="linenos"> 598</span>    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 598</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 599</span><span class="w">        </span><span class="sd">"""``a[0, r)`` に含まれる ``v`` の個数を返します。</span>
 <span class="linenos"> 600</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 601</span><span class="sd">        """</span>
 <span class="linenos"> 602</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 <span class="linenos"> 603</span>
-<span class="linenos"> 604</span>    <span class="k">def</span> <span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 604</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 605</span><span class="w">        </span><span class="sd">"""``k`` 番目の ``0`` のインデックスを返します。</span>
 <span class="linenos"> 606</span><span class="sd">        :math:`O(\\log{n}^2)` です。</span>
 <span class="linenos"> 607</span><span class="sd">        """</span>
@@ -1127,7 +1173,7 @@
 <span class="linenos"> 616</span>                <span class="n">l</span> <span class="o">=</span> <span class="n">m</span>
 <span class="linenos"> 617</span>        <span class="k">return</span> <span class="n">l</span>
 <span class="linenos"> 618</span>
-<span class="linenos"> 619</span>    <span class="k">def</span> <span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 619</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 620</span><span class="w">        </span><span class="sd">"""``k`` 番目の ``1`` のインデックスを返します。</span>
 <span class="linenos"> 621</span><span class="sd">        :math:`O(\\log{n}^2)` です。</span>
 <span class="linenos"> 622</span><span class="sd">        """</span>
@@ -1142,13 +1188,13 @@
 <span class="linenos"> 631</span>                <span class="n">l</span> <span class="o">=</span> <span class="n">m</span>
 <span class="linenos"> 632</span>        <span class="k">return</span> <span class="n">l</span>
 <span class="linenos"> 633</span>
-<span class="linenos"> 634</span>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 634</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 635</span><span class="w">        </span><span class="sd">"""``k`` 番目の ``v`` のインデックスを返します。</span>
 <span class="linenos"> 636</span><span class="sd">        :math:`O(\\log{n}^2)` です。</span>
 <span class="linenos"> 637</span><span class="sd">        """</span>
 <span class="linenos"> 638</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select1</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">select0</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos"> 639</span>
-<span class="linenos"> 640</span>    <span class="k">def</span> <span class="nf">_insert_and_rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 640</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_insert_and_rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 641</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos"> 642</span>            <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos"> 643</span>            <span class="k">return</span> <span class="mi">0</span>
@@ -1259,7 +1305,7 @@
 <span class="linenos"> 748</span>                <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">new_node</span>
 <span class="linenos"> 749</span>        <span class="k">return</span> <span class="n">s</span>
 <span class="linenos"> 750</span>
-<span class="linenos"> 751</span>    <span class="k">def</span> <span class="nf">_access_pop_and_rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 751</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_access_pop_and_rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 752</span>        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 <span class="linenos"> 753</span>        <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos"> 754</span>        <span class="n">bit_len</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bit_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span>
@@ -1300,7 +1346,7 @@
 <span class="linenos"> 789</span>            <span class="n">total</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-=</span> <span class="n">res</span>
 <span class="linenos"> 790</span>        <span class="k">return</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">res</span>
 <span class="linenos"> 791</span>
-<span class="linenos"> 792</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 792</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 793</span><span class="w">        </span><span class="sd">"""``k`` 番目の要素を返します。</span>
 <span class="linenos"> 794</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 795</span><span class="sd">        """</span>
@@ -1324,7 +1370,7 @@
 <span class="linenos"> 813</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
 <span class="linenos"> 814</span>                <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span>
 <span class="linenos"> 815</span>
-<span class="linenos"> 816</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 816</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 817</span><span class="w">        </span><span class="sd">"""``k`` 番目の要素を ``v`` に更新します。</span>
 <span class="linenos"> 818</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 819</span><span class="sd">        """</span>
@@ -1362,26 +1408,26 @@
 <span class="linenos"> 851</span>                <span class="o">+</span> <span class="n">total</span><span class="p">[</span><span class="n">right</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
 <span class="linenos"> 852</span>            <span class="p">)</span>
 <span class="linenos"> 853</span>
-<span class="linenos"> 854</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 854</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 855</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 <span class="linenos"> 856</span>
-<span class="linenos"> 857</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 857</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 858</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">]</span>
 <span class="linenos"> 859</span>
-<span class="linenos"> 860</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 860</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos"> 861</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
 <span class="linenos"> 862</span><span class="c1"># from titan_pylib.data_structures.wavelet_matrix.wavelet_matrix import WaveletMatrix</span>
 <span class="linenos"> 863</span><span class="c1"># from titan_pylib.data_structures.bit_vector.bit_vector import BitVector</span>
 <span class="linenos"> 864</span><span class="c1"># from titan_pylib.data_structures.bit_vector.bit_vector_interface import (</span>
 <span class="linenos"> 865</span><span class="c1">#     BitVectorInterface,</span>
 <span class="linenos"> 866</span><span class="c1"># )</span>
-<span class="linenos"> 867</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="linenos"> 867</span><span class="kn">from</span><span class="w"> </span><span class="nn">array</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
 <span class="linenos"> 868</span>
 <span class="linenos"> 869</span>
-<span class="linenos"> 870</span><span class="k">class</span> <span class="nc">BitVector</span><span class="p">(</span><span class="n">BitVectorInterface</span><span class="p">):</span>
+<span class="linenos"> 870</span><span class="k">class</span><span class="w"> </span><span class="nc">BitVector</span><span class="p">(</span><span class="n">BitVectorInterface</span><span class="p">):</span>
 <span class="linenos"> 871</span><span class="w">    </span><span class="sd">"""コンパクトな bit vector です。"""</span>
 <span class="linenos"> 872</span>
-<span class="linenos"> 873</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos"> 873</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="linenos"> 874</span><span class="w">        </span><span class="sd">"""長さ ``n`` の ``BitVector`` です。</span>
 <span class="linenos"> 875</span>
 <span class="linenos"> 876</span><span class="sd">        bit を保持するのに ``array[I]`` を使用します。</span>
@@ -1398,7 +1444,7 @@
 <span class="linenos"> 887</span>        <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"I"</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="linenos"> 888</span>
 <span class="linenos"> 889</span>    <span class="nd">@staticmethod</span>
-<span class="linenos"> 890</span>    <span class="k">def</span> <span class="nf">_popcount</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 890</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_popcount</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 891</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x55555555</span><span class="p">)</span>
 <span class="linenos"> 892</span>        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span><span class="p">)</span>
 <span class="linenos"> 893</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F0F0F0F</span>
@@ -1406,7 +1452,7 @@
 <span class="linenos"> 895</span>        <span class="n">x</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span>
 <span class="linenos"> 896</span>        <span class="k">return</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="mh">0x0000007F</span>
 <span class="linenos"> 897</span>
-<span class="linenos"> 898</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 898</span>    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 899</span><span class="w">        </span><span class="sd">"""``k`` 番目の bit を ``1`` にします。</span>
 <span class="linenos"> 900</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos"> 901</span>
@@ -1415,7 +1461,7 @@
 <span class="linenos"> 904</span><span class="sd">        """</span>
 <span class="linenos"> 905</span>        <span class="bp">self</span><span class="o">.</span><span class="n">bit</span><span class="p">[</span><span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">]</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">k</span> <span class="o">&amp;</span> <span class="mi">31</span><span class="p">)</span>
 <span class="linenos"> 906</span>
-<span class="linenos"> 907</span>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 907</span>    <span class="k">def</span><span class="w"> </span><span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 908</span><span class="w">        </span><span class="sd">"""構築します。</span>
 <span class="linenos"> 909</span><span class="sd">        **これ以降 ``set`` メソッドを使用してはいけません。**</span>
 <span class="linenos"> 910</span><span class="sd">        :math:`O(n)` です。</span>
@@ -1424,16 +1470,16 @@
 <span class="linenos"> 913</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">block_size</span><span class="p">):</span>
 <span class="linenos"> 914</span>            <span class="n">acc</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">BitVector</span><span class="o">.</span><span class="n">_popcount</span><span class="p">(</span><span class="n">bit</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 <span class="linenos"> 915</span>
-<span class="linenos"> 916</span>    <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 916</span>    <span class="k">def</span><span class="w"> </span><span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 917</span><span class="w">        </span><span class="sd">"""``k`` 番目の bit を返します。</span>
 <span class="linenos"> 918</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos"> 919</span><span class="sd">        """</span>
 <span class="linenos"> 920</span>        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bit</span><span class="p">[</span><span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">k</span> <span class="o">&amp;</span> <span class="mi">31</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mi">1</span>
 <span class="linenos"> 921</span>
-<span class="linenos"> 922</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 922</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 923</span>        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bit</span><span class="p">[</span><span class="n">k</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">k</span> <span class="o">&amp;</span> <span class="mi">31</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mi">1</span>
 <span class="linenos"> 924</span>
-<span class="linenos"> 925</span>    <span class="k">def</span> <span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 925</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 926</span><span class="w">        </span><span class="sd">"""``a[0, r)`` に含まれる ``0`` の個数を返します。</span>
 <span class="linenos"> 927</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos"> 928</span><span class="sd">        """</span>
@@ -1442,7 +1488,7 @@
 <span class="linenos"> 931</span>            <span class="o">+</span> <span class="n">BitVector</span><span class="o">.</span><span class="n">_popcount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bit</span><span class="p">[</span><span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">r</span> <span class="o">&amp;</span> <span class="mi">31</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
 <span class="linenos"> 932</span>        <span class="p">)</span>
 <span class="linenos"> 933</span>
-<span class="linenos"> 934</span>    <span class="k">def</span> <span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 934</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 935</span><span class="w">        </span><span class="sd">"""``a[0, r)`` に含まれる ``1`` の個数を返します。</span>
 <span class="linenos"> 936</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos"> 937</span><span class="sd">        """</span>
@@ -1450,13 +1496,13 @@
 <span class="linenos"> 939</span>            <span class="bp">self</span><span class="o">.</span><span class="n">bit</span><span class="p">[</span><span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">r</span> <span class="o">&amp;</span> <span class="mi">31</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos"> 940</span>        <span class="p">)</span>
 <span class="linenos"> 941</span>
-<span class="linenos"> 942</span>    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 942</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 943</span><span class="w">        </span><span class="sd">"""``a[0, r)`` に含まれる ``v`` の個数を返します。</span>
 <span class="linenos"> 944</span><span class="sd">        :math:`O(1)` です。</span>
 <span class="linenos"> 945</span><span class="sd">        """</span>
 <span class="linenos"> 946</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank1</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 <span class="linenos"> 947</span>
-<span class="linenos"> 948</span>    <span class="k">def</span> <span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 948</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 949</span><span class="w">        </span><span class="sd">"""``k`` 番目の ``0`` のインデックスを返します。</span>
 <span class="linenos"> 950</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 951</span><span class="sd">        """</span>
@@ -1480,7 +1526,7 @@
 <span class="linenos"> 969</span>                <span class="n">l</span> <span class="o">=</span> <span class="n">m</span>
 <span class="linenos"> 970</span>        <span class="k">return</span> <span class="n">l</span>
 <span class="linenos"> 971</span>
-<span class="linenos"> 972</span>    <span class="k">def</span> <span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 972</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 973</span><span class="w">        </span><span class="sd">"""``k`` 番目の ``1`` のインデックスを返します。</span>
 <span class="linenos"> 974</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 975</span><span class="sd">        """</span>
@@ -1504,26 +1550,26 @@
 <span class="linenos"> 993</span>                <span class="n">l</span> <span class="o">=</span> <span class="n">m</span>
 <span class="linenos"> 994</span>        <span class="k">return</span> <span class="n">l</span>
 <span class="linenos"> 995</span>
-<span class="linenos"> 996</span>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos"> 996</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos"> 997</span><span class="w">        </span><span class="sd">"""``k`` 番目の ``v`` のインデックスを返します。</span>
 <span class="linenos"> 998</span><span class="sd">        :math:`O(\\log{n})` です。</span>
 <span class="linenos"> 999</span><span class="sd">        """</span>
 <span class="linenos">1000</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select1</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">select0</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">1001</span>
-<span class="linenos">1002</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">1002</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">1003</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
 <span class="linenos">1004</span>
-<span class="linenos">1005</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">1005</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">1006</span>        <span class="k">return</span> <span class="nb">str</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)])</span>
 <span class="linenos">1007</span>
-<span class="linenos">1008</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">1008</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">1009</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">)"</span>
-<span class="linenos">1010</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
-<span class="linenos">1011</span><span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappop</span>
-<span class="linenos">1012</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="linenos">1010</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="linenos">1011</span><span class="kn">from</span><span class="w"> </span><span class="nn">heapq</span><span class="w"> </span><span class="kn">import</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappop</span>
+<span class="linenos">1012</span><span class="kn">from</span><span class="w"> </span><span class="nn">array</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
 <span class="linenos">1013</span>
 <span class="linenos">1014</span>
-<span class="linenos">1015</span><span class="k">class</span> <span class="nc">WaveletMatrix</span><span class="p">:</span>
+<span class="linenos">1015</span><span class="k">class</span><span class="w"> </span><span class="nc">WaveletMatrix</span><span class="p">:</span>
 <span class="linenos">1016</span><span class="w">    </span><span class="sd">"""``WaveletMatrix`` です。</span>
 <span class="linenos">1017</span><span class="sd">    静的であることに注意してください。</span>
 <span class="linenos">1018</span>
@@ -1535,13 +1581,13 @@
 <span class="linenos">1024</span><span class="sd">      `デwiki &lt;https://scrapbox.io/data-structures/Wavelet_Matrix&gt;`_</span>
 <span class="linenos">1025</span><span class="sd">    """</span>
 <span class="linenos">1026</span>
-<span class="linenos">1027</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">1027</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">1028</span><span class="w">        </span><span class="sd">"""``[0, sigma)`` の整数列を管理する ``WaveletMatrix`` を構築します。</span>
 <span class="linenos">1029</span><span class="sd">        :math:`O(n\\log{\\sigma})` です。</span>
 <span class="linenos">1030</span>
 <span class="linenos">1031</span><span class="sd">        Args:</span>
-<span class="linenos">1032</span><span class="sd">          sigma (int): 扱う整数の上限です。</span>
-<span class="linenos">1033</span><span class="sd">          a (Sequence[int], optional): 構築する配列です。</span>
+<span class="linenos">1032</span><span class="sd">            sigma (int): 扱う整数の上限です。</span>
+<span class="linenos">1033</span><span class="sd">            a (Sequence[int], optional): 構築する配列です。</span>
 <span class="linenos">1034</span><span class="sd">        """</span>
 <span class="linenos">1035</span>        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sigma</span>
 <span class="linenos">1036</span>        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
@@ -1550,7 +1596,7 @@
 <span class="linenos">1039</span>        <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BitVector</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">BitVector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">)]</span>
 <span class="linenos">1040</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">1041</span>
-<span class="linenos">1042</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">1042</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">1043</span>        <span class="c1"># 列 a から wm を構築する</span>
 <span class="linenos">1044</span>        <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
 <span class="linenos">1045</span>            <span class="c1"># bit目の0/1に応じてvを構築 + aを安定ソート</span>
@@ -1566,12 +1612,12 @@
 <span class="linenos">1055</span>            <span class="bp">self</span><span class="o">.</span><span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zero</span><span class="p">)</span>  <span class="c1"># 境界をmid[bit]に保持</span>
 <span class="linenos">1056</span>            <span class="n">a</span> <span class="o">=</span> <span class="n">zero</span> <span class="o">+</span> <span class="n">one</span>
 <span class="linenos">1057</span>
-<span class="linenos">1058</span>    <span class="k">def</span> <span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1058</span>    <span class="k">def</span><span class="w"> </span><span class="nf">access</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1059</span><span class="w">        </span><span class="sd">"""``k`` 番目の値を返します。</span>
 <span class="linenos">1060</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1061</span>
 <span class="linenos">1062</span><span class="sd">        Args:</span>
-<span class="linenos">1063</span><span class="sd">          k (int): インデックスです。</span>
+<span class="linenos">1063</span><span class="sd">            k (int): インデックスです。</span>
 <span class="linenos">1064</span><span class="sd">        """</span>
 <span class="linenos">1065</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">1066</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
@@ -1590,13 +1636,13 @@
 <span class="linenos">1079</span>                <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">1080</span>        <span class="k">return</span> <span class="n">s</span>
 <span class="linenos">1081</span>
-<span class="linenos">1082</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1082</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1083</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">1084</span>            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">1085</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">], size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span>
 <span class="linenos">1086</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">1087</span>
-<span class="linenos">1088</span>    <span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1088</span>    <span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1089</span><span class="w">        </span><span class="sd">"""``a[0, r)`` に含まれる ``x`` の個数を返します。</span>
 <span class="linenos">1090</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1091</span><span class="sd">        """</span>
@@ -1621,7 +1667,7 @@
 <span class="linenos">1110</span>                <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">rank0</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 <span class="linenos">1111</span>        <span class="k">return</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span>
 <span class="linenos">1112</span>
-<span class="linenos">1113</span>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1113</span>    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1114</span><span class="w">        </span><span class="sd">"""``k`` 番目の ``v`` のインデックスを返します。</span>
 <span class="linenos">1115</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1116</span><span class="sd">        """</span>
@@ -1646,7 +1692,7 @@
 <span class="linenos">1135</span>                <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">.</span><span class="n">select0</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="linenos">1136</span>        <span class="k">return</span> <span class="n">s</span>
 <span class="linenos">1137</span>
-<span class="linenos">1138</span>    <span class="k">def</span> <span class="nf">kth_smallest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1138</span>    <span class="k">def</span><span class="w"> </span><span class="nf">kth_smallest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1139</span><span class="w">        </span><span class="sd">"""``a[l, r)`` の中で ``k`` 番目に **小さい** 値を返します。</span>
 <span class="linenos">1140</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1141</span><span class="sd">        """</span>
@@ -1675,7 +1721,7 @@
 <span class="linenos">1164</span>
 <span class="linenos">1165</span>    <span class="n">quantile</span> <span class="o">=</span> <span class="n">kth_smallest</span>
 <span class="linenos">1166</span>
-<span class="linenos">1167</span>    <span class="k">def</span> <span class="nf">kth_largest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1167</span>    <span class="k">def</span><span class="w"> </span><span class="nf">kth_largest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1168</span><span class="w">        </span><span class="sd">"""``a[l, r)`` の中で ``k`` 番目に **大きい値** を返します。</span>
 <span class="linenos">1169</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1170</span><span class="sd">        """</span>
@@ -1687,15 +1733,15 @@
 <span class="linenos">1176</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.kth_largest(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">), wrong k"</span>
 <span class="linenos">1177</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kth_smallest</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">1178</span>
-<span class="linenos">1179</span>    <span class="k">def</span> <span class="nf">topk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">1179</span>    <span class="k">def</span><span class="w"> </span><span class="nf">topk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">1180</span><span class="w">        </span><span class="sd">"""``a[l, r)`` の中で、要素を出現回数が多い順にその頻度とともに ``k`` 個返します。</span>
 <span class="linenos">1181</span><span class="sd">        :math:`O(\\min(r-l, \\sigam) \\log(\\sigam))` です。</span>
 <span class="linenos">1182</span>
 <span class="linenos">1183</span><span class="sd">        Note:</span>
-<span class="linenos">1184</span><span class="sd">          :math:`\\sigma` が大きい場合、計算量に注意です。</span>
+<span class="linenos">1184</span><span class="sd">            :math:`\\sigma` が大きい場合、計算量に注意です。</span>
 <span class="linenos">1185</span>
 <span class="linenos">1186</span><span class="sd">        Returns:</span>
-<span class="linenos">1187</span><span class="sd">          list[tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。</span>
+<span class="linenos">1187</span><span class="sd">            list[tuple[int, int]]: ``(要素, 頻度)`` を要素とする配列です。</span>
 <span class="linenos">1188</span><span class="sd">        """</span>
 <span class="linenos">1189</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">1190</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
@@ -1726,14 +1772,14 @@
 <span class="linenos">1215</span>                    <span class="n">heappush</span><span class="p">(</span><span class="n">hq</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">l1</span><span class="p">),</span> <span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span><span class="p">),</span> <span class="n">l1</span><span class="p">,</span> <span class="n">bit</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
 <span class="linenos">1216</span>        <span class="k">return</span> <span class="n">ans</span>
 <span class="linenos">1217</span>
-<span class="linenos">1218</span>    <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1218</span>    <span class="k">def</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1219</span><span class="w">        </span><span class="sd">"""``topk`` メソッドを用いて ``a[l, r)`` の総和を返します。</span>
 <span class="linenos">1220</span><span class="sd">        計算量に注意です。</span>
 <span class="linenos">1221</span><span class="sd">        """</span>
 <span class="linenos">1222</span>        <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"Yabai Keisanryo Error"</span>
 <span class="linenos">1223</span>        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">))</span>
 <span class="linenos">1224</span>
-<span class="linenos">1225</span>    <span class="k">def</span> <span class="nf">_range_freq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1225</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_range_freq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1226</span><span class="w">        </span><span class="sd">"""a[l, r) で x 未満の要素の数を返す"""</span>
 <span class="linenos">1227</span>        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">1228</span>        <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
@@ -1749,7 +1795,7 @@
 <span class="linenos">1238</span>                <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">l0</span><span class="p">,</span> <span class="n">r0</span>
 <span class="linenos">1239</span>        <span class="k">return</span> <span class="n">ans</span>
 <span class="linenos">1240</span>
-<span class="linenos">1241</span>    <span class="k">def</span> <span class="nf">range_freq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1241</span>    <span class="k">def</span><span class="w"> </span><span class="nf">range_freq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1242</span><span class="w">        </span><span class="sd">"""``a[l, r)`` に含まれる、 ``x`` 以上 ``y`` 未満である要素の個数を返します。</span>
 <span class="linenos">1243</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1244</span><span class="sd">        """</span>
@@ -1759,7 +1805,7 @@
 <span class="linenos">1248</span>        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"ValueError"</span>
 <span class="linenos">1249</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="linenos">1250</span>
-<span class="linenos">1251</span>    <span class="k">def</span> <span class="nf">prev_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1251</span>    <span class="k">def</span><span class="w"> </span><span class="nf">prev_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1252</span><span class="w">        </span><span class="sd">"""``a[l, r)`` で、``x`` 以上 ``y`` 未満であるような要素のうち最大の要素を返します。</span>
 <span class="linenos">1253</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1254</span><span class="sd">        """</span>
@@ -1768,7 +1814,7 @@
 <span class="linenos">1257</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.prev_value(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">)"</span>
 <span class="linenos">1258</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kth_smallest</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">1259</span>
-<span class="linenos">1260</span>    <span class="k">def</span> <span class="nf">next_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1260</span>    <span class="k">def</span><span class="w"> </span><span class="nf">next_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1261</span><span class="w">        </span><span class="sd">"""``a[l, r)`` で、``x`` 以上 ``y`` 未満であるような要素のうち最小の要素を返します。</span>
 <span class="linenos">1262</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
 <span class="linenos">1263</span><span class="sd">        """</span>
@@ -1777,7 +1823,7 @@
 <span class="linenos">1266</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.next_value(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">)"</span>
 <span class="linenos">1267</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kth_smallest</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range_freq</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
 <span class="linenos">1268</span>
-<span class="linenos">1269</span>    <span class="k">def</span> <span class="nf">range_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1269</span>    <span class="k">def</span><span class="w"> </span><span class="nf">range_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1270</span><span class="w">        </span><span class="sd">"""``a[l, r)`` に含まれる ``x`` の個数を返します。</span>
 <span class="linenos">1271</span><span class="sd">        ``wm.rank(r, x) - wm.rank(l, x)`` と等価です。</span>
 <span class="linenos">1272</span><span class="sd">        :math:`O(\\log{\\sigma})` です。</span>
@@ -1787,20 +1833,20 @@
 <span class="linenos">1276</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.range_count(</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">)"</span>
 <span class="linenos">1277</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="linenos">1278</span>
-<span class="linenos">1279</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1279</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1280</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">1281</span>
-<span class="linenos">1282</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos">1282</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos">1283</span>        <span class="k">return</span> <span class="p">(</span>
 <span class="linenos">1284</span>            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span><span class="si">}</span><span class="s2">)"</span>
 <span class="linenos">1285</span>        <span class="p">)</span>
 <span class="linenos">1286</span>
 <span class="linenos">1287</span>    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
-<span class="linenos">1288</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
-<span class="linenos">1289</span><span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="linenos">1288</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="linenos">1289</span><span class="kn">from</span><span class="w"> </span><span class="nn">array</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
 <span class="linenos">1290</span>
 <span class="linenos">1291</span>
-<span class="linenos">1292</span><span class="k">class</span> <span class="nc">DynamicWaveletMatrix</span><span class="p">(</span><span class="n">WaveletMatrix</span><span class="p">):</span>
+<span class="linenos">1292</span><span class="k">class</span><span class="w"> </span><span class="nc">DynamicWaveletMatrix</span><span class="p">(</span><span class="n">WaveletMatrix</span><span class="p">):</span>
 <span class="linenos">1293</span><span class="w">    </span><span class="sd">"""動的ウェーブレット行列です。</span>
 <span class="linenos">1294</span>
 <span class="linenos">1295</span><span class="sd">    (静的)ウェーブレット行列でできる操作に加えて ``insert / pop / set`` 等ができます。</span>
@@ -1809,7 +1855,7 @@
 <span class="linenos">1298</span><span class="sd">    :math:`O(n\\log{(\\sigma)})` です。</span>
 <span class="linenos">1299</span><span class="sd">    """</span>
 <span class="linenos">1300</span>
-<span class="linenos">1301</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">1301</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">1302</span>        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sigma</span>
 <span class="linenos">1303</span>        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
 <span class="linenos">1304</span>        <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">AVLTreeBitVector</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">AVLTreeBitVector</span><span class="p">()]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span>
@@ -1817,7 +1863,7 @@
 <span class="linenos">1306</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">1307</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos">1308</span>
-<span class="linenos">1309</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">1309</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">1310</span>        <span class="n">v</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s2">"B"</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
 <span class="linenos">1311</span>        <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
 <span class="linenos">1312</span>            <span class="c1"># bit目の0/1に応じてvを構築 + aを安定ソート</span>
@@ -1833,7 +1879,7 @@
 <span class="linenos">1322</span>            <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span> <span class="o">=</span> <span class="n">AVLTreeBitVector</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 <span class="linenos">1323</span>            <span class="n">a</span> <span class="o">=</span> <span class="n">zero</span> <span class="o">+</span> <span class="n">one</span>
 <span class="linenos">1324</span>
-<span class="linenos">1325</span>    <span class="k">def</span> <span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">1325</span>    <span class="k">def</span><span class="w"> </span><span class="nf">reserve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">1326</span><span class="w">        </span><span class="sd">"""``n`` 要素分のメモリを確保します。</span>
 <span class="linenos">1327</span><span class="sd">        :math:`O(n)` です。</span>
 <span class="linenos">1328</span><span class="sd">        """</span>
@@ -1841,7 +1887,7 @@
 <span class="linenos">1330</span>        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">:</span>
 <span class="linenos">1331</span>            <span class="n">v</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="linenos">1332</span>
-<span class="linenos">1333</span>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">1333</span>    <span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">1334</span><span class="w">        </span><span class="sd">"""位置 ``k`` に ``x`` を挿入します。</span>
 <span class="linenos">1335</span><span class="sd">        :math:`O(\\log{(n)}\\log{(\\sigma)})` です。</span>
 <span class="linenos">1336</span><span class="sd">        """</span>
@@ -1870,7 +1916,7 @@
 <span class="linenos">1359</span>                <span class="n">mid</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">1360</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">1361</span>
-<span class="linenos">1362</span>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">1362</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">1363</span><span class="w">        </span><span class="sd">"""位置 ``k`` の要素を削除し、その値を返します。</span>
 <span class="linenos">1364</span><span class="sd">        :math:`O(\\log{(n)}\\log{(\\sigma)})` です。</span>
 <span class="linenos">1365</span><span class="sd">        """</span>
@@ -1900,7 +1946,7 @@
 <span class="linenos">1389</span>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
 <span class="linenos">1390</span>        <span class="k">return</span> <span class="n">ans</span>
 <span class="linenos">1391</span>
-<span class="linenos">1392</span>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">1392</span>    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">1393</span><span class="w">        </span><span class="sd">"""位置 ``k`` の要素を ``x`` に更新します。</span>
 <span class="linenos">1394</span><span class="sd">        :math:`O(\\log{(n)}\\log{(\\sigma)})` です。</span>
 <span class="linenos">1395</span><span class="sd">        """</span>
@@ -1913,7 +1959,7 @@
 <span class="linenos">1402</span>        <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">1403</span>        <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="linenos">1404</span>
-<span class="linenos">1405</span>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos">1405</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="linenos">1406</span>        <span class="k">assert</span> <span class="p">(</span>
 <span class="linenos">1407</span>            <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
 <span class="linenos">1408</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"IndexError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">] = </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span>
@@ -1922,7 +1968,7 @@
 <span class="linenos">1411</span>        <span class="p">),</span> <span class="sa">f</span><span class="s2">"ValueError: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">] = </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, LIM=</span><span class="si">{</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="si">}</span><span class="s2">"</span>
 <span class="linenos">1412</span>        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="linenos">1413</span>
-<span class="linenos">1414</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">1414</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">1415</span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span><span class="si">}</span><span class="s2">)"</span>
 </pre></div>
 </div>
@@ -1932,7 +1978,7 @@
 <span id="id3"></span><h2>仕様<a class="headerlink" href="#module-titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">DynamicWaveletMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.html#DynamicWaveletMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre"></span></span><span class="sig-name descname"><span class="pre">DynamicWaveletMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/titan_pylib/data_structures/wavelet_matrix/dynamic_wavelet_matrix.html#DynamicWaveletMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#titan_pylib.data_structures.wavelet_matrix.dynamic_wavelet_matrix.DynamicWaveletMatrix" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.html#titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix" title="titan_pylib.data_structures.wavelet_matrix.wavelet_matrix.WaveletMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">WaveletMatrix</span></code></a></p>
 <p>動的ウェーブレット行列です。</p>
 <dl class="simple">
@@ -2040,9 +2086,9 @@
 </aside>
 </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../_static/doctools.js?v=9a2dae69"></script>
+<script src="../_static/doctools.js?v=9bcbadda"></script>
 <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-<script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../_static/scripts/furo.js?v=5fa4622c"></script>
 <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../_static/copybutton.js?v=4ea706d9"></script>
 <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>

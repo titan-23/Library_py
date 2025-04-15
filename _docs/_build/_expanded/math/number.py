@@ -32,16 +32,16 @@ def linear_indeterminate_equation(a: int, b: int, c: int) -> tuple[int, int, int
 def crt(B: list[int], M: list[int]) -> tuple[int, int]:
     """中国剰余定理 / O(nlog(lcm(M)))
     ```
-    a = B[0] (mod M[0])
-    a = B[1] (mod M[1])
+    a == B[0] (mod M[0])
+    a == B[1] (mod M[1])
     ...
     ```
 
-    となるような、 `a = r (mod lcm(M))` を返す
+    となるような、 `a == r (mod lcm(M))` を返す
 
 
     Returns:
-        tuple[int, int]: `m = -1` のとき解なし。
+        tuple[int, int]: `m == -1` のとき解なし。
     """
     assert len(B) == len(M)
     r, lcm = 0, 1

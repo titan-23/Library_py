@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.set.sorted\_multiset
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.set.sorted_multiset
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

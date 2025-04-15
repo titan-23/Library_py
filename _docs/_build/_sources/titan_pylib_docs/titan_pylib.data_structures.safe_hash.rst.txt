@@ -17,6 +17,6 @@ Submodules
 
 .. automodule:: titan_pylib.data_structures.safe_hash
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

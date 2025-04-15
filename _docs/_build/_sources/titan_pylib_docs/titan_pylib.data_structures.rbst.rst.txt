@@ -14,6 +14,6 @@ Submodules
 
 .. automodule:: titan_pylib.data_structures.rbst
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

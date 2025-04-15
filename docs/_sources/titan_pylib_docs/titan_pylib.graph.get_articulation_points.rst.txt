@@ -22,6 +22,6 @@ titan\_pylib.graph.get\_articulation\_points
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.get_articulation_points
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

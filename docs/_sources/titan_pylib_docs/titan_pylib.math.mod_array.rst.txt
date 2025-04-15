@@ -24,6 +24,6 @@ titan\_pylib.math.mod\_array
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.mod_array
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -22,6 +22,6 @@ titan\_pylib.math.get\_quotients
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.get_quotients
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -23,6 +23,6 @@ Subpackages
 
 .. automodule:: titan_pylib
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

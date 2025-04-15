@@ -22,6 +22,6 @@ titan\_pylib.graph.euler\_tour
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.euler_tour
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

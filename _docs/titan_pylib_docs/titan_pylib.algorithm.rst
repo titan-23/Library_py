@@ -29,6 +29,6 @@ Submodules
 
 .. automodule:: titan_pylib.algorithm
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

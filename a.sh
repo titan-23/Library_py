@@ -15,12 +15,12 @@ rm ./_docs/_build/ -r
 echo "removing ./_docs/titan_pylib_docs/"
 rm ./_docs/titan_pylib_docs/ -r
 
-pypy3 ./all_expander.py
+python3 ./all_expander.py
 sphinx-apidoc -f -e -d 1 -o ./_docs/titan_pylib_docs ./titan_pylib/
-pypy3 ./edit_rst.py
+python3 ./edit_rst.py
 sphinx-build -b html ./_docs ./_docs/_build
-pypy3 ./edit_rst_after_build.py
-pypy3 ./edit_html.py
+python3 ./edit_rst_after_build.py
+python3 ./edit_html.py
 
 # copy to docs
 echo "copying"

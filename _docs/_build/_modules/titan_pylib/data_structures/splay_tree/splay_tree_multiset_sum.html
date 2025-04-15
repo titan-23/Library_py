@@ -4,12 +4,12 @@
 <head><meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/><link href="../../../../genindex.html" rel="index" title="Index"/><link href="../../../../search.html" rel="search" title="Search"/>
-<!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+<!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
 <title>splay_tree_multiset_sum - titan_pylib documentation</title>
-<link href="../../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../../../../_static/styles/furo.css?v=135e06be" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/styles/furo.css?v=354aac6f" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
-<link href="../../../../_static/styles/furo-extensions.css?v=36a5483c" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/styles/furo-extensions.css?v=302659d7" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/_static/style.css" rel="stylesheet" type="text/css"/>
 <style>
   body {
@@ -59,7 +59,7 @@
 </symbol>
 <symbol id="svg-sun" viewbox="0 0 24 24">
 <title>Light mode</title>
-<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="5"></circle>
 <line x1="12" x2="12" y1="1" y2="3"></line>
 <line x1="12" x2="12" y1="21" y2="23"></line>
@@ -73,21 +73,56 @@
 </symbol>
 <symbol id="svg-moon" viewbox="0 0 24 24">
 <title>Dark mode</title>
-<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
 </svg>
 </symbol>
-<symbol id="svg-sun-half" viewbox="0 0 24 24">
-<title>Auto light/dark mode</title>
-<svg class="icon-tabler-shadow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
-<circle cx="12" cy="12" r="9"></circle>
-<path d="M13 12h5"></path>
-<path d="M13 15h4"></path>
-<path d="M13 18h1"></path>
-<path d="M13 9h4"></path>
-<path d="M13 6h1"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
 </svg>
 </symbol>
 </svg>
@@ -99,6 +134,7 @@
 <label class="overlay toc-overlay" for="__toc">
 <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 <div class="page">
 <header class="mobile-header">
 <div class="header-left">
@@ -114,7 +150,8 @@
 <div class="theme-toggle-container theme-toggle-header">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -185,6 +222,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.persistent_avl_tree_list.html">persistent_avl_tree_list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.persistent_lazy_avl_tree.html">persistent_lazy_avl_tree</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.reversible_lazy_avl_tree.html">reversible_lazy_avl_tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.avl_tree.wbt_set.html">wbt_set</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.data_structures.b_tree.html">b_tree</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of titan_pylib.data_structures.b_tree</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -417,13 +455,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.dfs_tree.html">dfs_tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.dijkstra.html">dijkstra</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.euler_tour.html">euler_tour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.functional_graph.html">functional_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_articulation_points.html">get_articulation_points</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_biconnected_components.html">get_biconnected_components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_bridge.html">get_bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc.html">get_scc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc_graph.html">get_scc_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.get_scc_lowlink.html">get_scc_lowlink</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.graph.html">graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.grid_bfs.html">grid_bfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.is_bipartite_graph.html">is_bipartite_graph</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.graph.lca.html">lca</a></li>
@@ -466,6 +504,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.hash_string.html">hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.multi_hash_string.html">multi_hash_string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.string_count.html">string_count</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../titan_pylib_docs/titan_pylib.string.trie.html">trie</a></li>
 </ul>
 </li>
 </ul>
@@ -487,7 +526,8 @@
 <div class="theme-toggle-container theme-toggle-content">
 <button class="theme-toggle">
 <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-<svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
 <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
 <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
 </button>
@@ -497,23 +537,23 @@
 <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
 </label>
 </div>
-<article role="main">
+<article id="furo-main-content" role="main">
 <h1>Source code for titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum</h1><div class="highlight"><pre>
-<span></span><span class="linenos">  1</span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="linenos">  2</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span></span><span class="linenos">  1</span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="linenos">  2</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TypeVar</span>
 <span class="linenos">  3</span>
 <span class="linenos">  4</span><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
 <span class="linenos">  5</span>
 <span class="linenos">  6</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum">[docs]</a>
-<span class="linenos">  7</span><span class="k">class</span> <span class="nc">SplayTreeMultisetSum</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="linenos">  7</span><span class="k">class</span><span class="w"> </span><span class="nc">SplayTreeMultisetSum</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="linenos">  8</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.Node">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.Node">[docs]</a>
-<span class="linenos">  9</span>    <span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+<span class="linenos">  9</span>    <span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">:</span>
 <span class="linenos"> 10</span>
-<span class="linenos"> 11</span>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 11</span>        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 12</span>            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">key</span> <span class="o">*</span> <span class="n">cnt</span>
 <span class="linenos"> 13</span>            <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
 <span class="linenos"> 14</span>            <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
@@ -522,7 +562,7 @@
 <span class="linenos"> 17</span>            <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos"> 18</span>            <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos"> 19</span>
-<span class="linenos"> 20</span>        <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos"> 20</span>        <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos"> 21</span>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 22</span>                <span class="k">return</span> <span class="sa">f</span><span class="s2">"key:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cntsize</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
 <span class="linenos"> 23</span>            <span class="k">return</span> <span class="sa">f</span><span class="s2">"key:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cntsize</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2"> left:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2"> right:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
@@ -530,16 +570,16 @@
 <span class="linenos"> 25</span>        <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span></div>
 
 <span class="linenos"> 26</span>
-<span class="linenos"> 27</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">_node</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 27</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">_node</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 28</span>        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">_node</span>
 <span class="linenos"> 29</span>        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
 <span class="linenos"> 30</span>        <span class="k">if</span> <span class="n">a</span><span class="p">:</span>
 <span class="linenos"> 31</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="linenos"> 32</span>
-<span class="linenos"> 33</span>    <span class="k">def</span> <span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 33</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 34</span>        <span class="n">Node</span> <span class="o">=</span> <span class="n">SplayTreeMultisetSum</span><span class="o">.</span><span class="n">Node</span>
 <span class="linenos"> 35</span>
-<span class="linenos"> 36</span>        <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplayTreeMultisetSum</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
+<span class="linenos"> 36</span>        <span class="k">def</span><span class="w"> </span><span class="nf">sort</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplayTreeMultisetSum</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
 <span class="linenos"> 37</span>            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
 <span class="linenos"> 38</span>            <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">mid</span><span class="p">],</span> <span class="n">cnt</span><span class="p">[</span><span class="n">mid</span><span class="p">])</span>
 <span class="linenos"> 39</span>            <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">mid</span><span class="p">:</span>
@@ -552,7 +592,7 @@
 <span class="linenos"> 46</span>        <span class="n">key</span><span class="p">,</span> <span class="n">cnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rle</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
 <span class="linenos"> 47</span>        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 <span class="linenos"> 48</span>
-<span class="linenos"> 49</span>    <span class="k">def</span> <span class="nf">_rle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos"> 49</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_rle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos"> 50</span>        <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos"> 51</span>        <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos"> 52</span>        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -567,7 +607,7 @@
 <span class="linenos"> 61</span>            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="linenos"> 62</span>        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 <span class="linenos"> 63</span>
-<span class="linenos"> 64</span>    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 64</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 65</span>        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 66</span>            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos"> 67</span>                <span class="n">node</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
@@ -587,7 +627,7 @@
 <span class="linenos"> 81</span>                <span class="n">node</span><span class="o">.</span><span class="n">cntsize</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">cnt</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">cntsize</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">cntsize</span>
 <span class="linenos"> 82</span>                <span class="n">node</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">*</span> <span class="n">node</span><span class="o">.</span><span class="n">cnt</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">data</span>
 <span class="linenos"> 83</span>
-<span class="linenos"> 84</span>    <span class="k">def</span> <span class="nf">_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+<span class="linenos"> 84</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
 <span class="linenos"> 85</span>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">):</span>
 <span class="linenos"> 86</span>            <span class="n">node</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 <span class="linenos"> 87</span>            <span class="n">pnode</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
@@ -640,7 +680,7 @@
 <span class="linenos">134</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 <span class="linenos">135</span>        <span class="k">return</span> <span class="n">node</span>
 <span class="linenos">136</span>
-<span class="linenos">137</span>    <span class="k">def</span> <span class="nf">_set_search_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">137</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_set_search_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">138</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
 <span class="linenos">139</span>        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
 <span class="linenos">140</span>            <span class="k">return</span>
@@ -665,7 +705,7 @@
 <span class="linenos">159</span>        <span class="k">if</span> <span class="n">path</span><span class="p">:</span>
 <span class="linenos">160</span>            <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 <span class="linenos">161</span>
-<span class="linenos">162</span>    <span class="k">def</span> <span class="nf">_set_kth_elm_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">162</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_set_kth_elm_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">163</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">164</span>            <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
 <span class="linenos">165</span>        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
@@ -688,7 +728,7 @@
 <span class="linenos">182</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">183</span>                <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span>
 <span class="linenos">184</span>
-<span class="linenos">185</span>    <span class="k">def</span> <span class="nf">_set_kth_elm_tree_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">185</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_set_kth_elm_tree_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">186</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">187</span>            <span class="n">k</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span>
 <span class="linenos">188</span>        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span>
@@ -712,7 +752,7 @@
 <span class="linenos">206</span>                <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
 <span class="linenos">207</span>                <span class="n">k</span> <span class="o">-=</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="linenos">208</span>
-<span class="linenos">209</span>    <span class="k">def</span> <span class="nf">_get_min_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+<span class="linenos">209</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_get_min_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
 <span class="linenos">210</span>        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">211</span>            <span class="k">return</span> <span class="n">node</span>
 <span class="linenos">212</span>        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
@@ -721,7 +761,7 @@
 <span class="linenos">215</span>            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span>
 <span class="linenos">216</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splay</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">217</span>
-<span class="linenos">218</span>    <span class="k">def</span> <span class="nf">_get_max_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+<span class="linenos">218</span>    <span class="k">def</span><span class="w"> </span><span class="nf">_get_max_splay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
 <span class="linenos">219</span>        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">220</span>            <span class="k">return</span> <span class="n">node</span>
 <span class="linenos">221</span>        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
@@ -732,7 +772,7 @@
 <span class="linenos">226</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.add">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.add">[docs]</a>
-<span class="linenos">227</span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">227</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">228</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">229</span>            <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">SplayTreeMultisetSum</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
 <span class="linenos">230</span>            <span class="k">return</span>
@@ -759,7 +799,7 @@
 <span class="linenos">250</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.discard">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.discard">[docs]</a>
-<span class="linenos">251</span>    <span class="k">def</span> <span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">251</span>    <span class="k">def</span><span class="w"> </span><span class="nf">discard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">cnt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">252</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">253</span>            <span class="k">return</span> <span class="kc">False</span>
 <span class="linenos">254</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -783,13 +823,13 @@
 <span class="linenos">271</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.discard_all">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.discard_all">[docs]</a>
-<span class="linenos">272</span>    <span class="k">def</span> <span class="nf">discard_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">272</span>    <span class="k">def</span><span class="w"> </span><span class="nf">discard_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">273</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
 
 <span class="linenos">274</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.count">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.count">[docs]</a>
-<span class="linenos">275</span>    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">275</span>    <span class="k">def</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">276</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">277</span>            <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">278</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -798,7 +838,7 @@
 <span class="linenos">280</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.le">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.le">[docs]</a>
-<span class="linenos">281</span>    <span class="k">def</span> <span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">281</span>    <span class="k">def</span><span class="w"> </span><span class="nf">le</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">282</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
 <span class="linenos">283</span>        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">284</span>            <span class="k">return</span> <span class="kc">None</span>
@@ -830,7 +870,7 @@
 <span class="linenos">309</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.lt">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.lt">[docs]</a>
-<span class="linenos">310</span>    <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">310</span>    <span class="k">def</span><span class="w"> </span><span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">311</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
 <span class="linenos">312</span>        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">313</span>        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
@@ -857,7 +897,7 @@
 <span class="linenos">333</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.ge">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.ge">[docs]</a>
-<span class="linenos">334</span>    <span class="k">def</span> <span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">334</span>    <span class="k">def</span><span class="w"> </span><span class="nf">ge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">335</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
 <span class="linenos">336</span>        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">337</span>            <span class="k">return</span> <span class="kc">None</span>
@@ -889,7 +929,7 @@
 <span class="linenos">362</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.gt">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.gt">[docs]</a>
-<span class="linenos">363</span>    <span class="k">def</span> <span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">363</span>    <span class="k">def</span><span class="w"> </span><span class="nf">gt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">364</span>        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span>
 <span class="linenos">365</span>        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">366</span>        <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
@@ -916,7 +956,7 @@
 <span class="linenos">386</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.index">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.index">[docs]</a>
-<span class="linenos">387</span>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">387</span>    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">388</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">389</span>            <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">390</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -928,7 +968,7 @@
 <span class="linenos">395</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.index_right">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.index_right">[docs]</a>
-<span class="linenos">396</span>    <span class="k">def</span> <span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">396</span>    <span class="k">def</span><span class="w"> </span><span class="nf">index_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">397</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">398</span>            <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">399</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -940,7 +980,7 @@
 <span class="linenos">404</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.index_keys">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.index_keys">[docs]</a>
-<span class="linenos">405</span>    <span class="k">def</span> <span class="nf">index_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">405</span>    <span class="k">def</span><span class="w"> </span><span class="nf">index_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">406</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">407</span>            <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">408</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -952,7 +992,7 @@
 <span class="linenos">413</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.index_right_keys">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.index_right_keys">[docs]</a>
-<span class="linenos">414</span>    <span class="k">def</span> <span class="nf">index_right_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">414</span>    <span class="k">def</span><span class="w"> </span><span class="nf">index_right_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">415</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">416</span>            <span class="k">return</span> <span class="mi">0</span>
 <span class="linenos">417</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -964,7 +1004,7 @@
 <span class="linenos">422</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.pop">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.pop">[docs]</a>
-<span class="linenos">423</span>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">423</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">424</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_splay</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">425</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">426</span>        <span class="bp">self</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
@@ -973,26 +1013,26 @@
 <span class="linenos">428</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.pop_max">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.pop_max">[docs]</a>
-<span class="linenos">429</span>    <span class="k">def</span> <span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">429</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop_max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">430</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 <span class="linenos">431</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.pop_min">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.pop_min">[docs]</a>
-<span class="linenos">432</span>    <span class="k">def</span> <span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">432</span>    <span class="k">def</span><span class="w"> </span><span class="nf">pop_min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">433</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 <span class="linenos">434</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.tolist">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.tolist">[docs]</a>
-<span class="linenos">435</span>    <span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">435</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">436</span>        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">437</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">438</span>            <span class="k">return</span> <span class="n">a</span>
 <span class="linenos">439</span>        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">getrecursionlimit</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">():</span>
 <span class="linenos">440</span>            <span class="n">sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">441</span>
-<span class="linenos">442</span>        <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="linenos">442</span>        <span class="k">def</span><span class="w"> </span><span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="linenos">443</span>            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">444</span>                <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
 <span class="linenos">445</span>            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">cnt</span><span class="p">):</span>
@@ -1006,14 +1046,14 @@
 <span class="linenos">452</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.tolist_items">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.tolist_items">[docs]</a>
-<span class="linenos">453</span>    <span class="k">def</span> <span class="nf">tolist_items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">453</span>    <span class="k">def</span><span class="w"> </span><span class="nf">tolist_items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">454</span>        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">455</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">456</span>            <span class="k">return</span> <span class="n">a</span>
 <span class="linenos">457</span>        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">getrecursionlimit</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">():</span>
 <span class="linenos">458</span>            <span class="n">sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">459</span>
-<span class="linenos">460</span>        <span class="k">def</span> <span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="linenos">460</span>        <span class="k">def</span><span class="w"> </span><span class="nf">rec</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
 <span class="linenos">461</span>            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">462</span>                <span class="n">rec</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
 <span class="linenos">463</span>            <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">cnt</span><span class="p">))</span>
@@ -1026,7 +1066,7 @@
 <span class="linenos">469</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.get_elm">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.get_elm">[docs]</a>
-<span class="linenos">470</span>    <span class="k">def</span> <span class="nf">get_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">470</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">471</span>        <span class="k">assert</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()</span>
 <span class="linenos">472</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_tree_splay</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">473</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">key</span></div>
@@ -1034,7 +1074,7 @@
 <span class="linenos">474</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.items">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.items">[docs]</a>
-<span class="linenos">475</span>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="linenos">475</span>    <span class="k">def</span><span class="w"> </span><span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="linenos">476</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
 <span class="linenos">477</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_tree_splay</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="linenos">478</span>            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">cnt</span></div>
@@ -1042,7 +1082,7 @@
 <span class="linenos">479</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.keys">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.keys">[docs]</a>
-<span class="linenos">480</span>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="linenos">480</span>    <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
 <span class="linenos">481</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
 <span class="linenos">482</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_tree_splay</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="linenos">483</span>            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">key</span></div>
@@ -1050,7 +1090,7 @@
 <span class="linenos">484</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.cntues">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.cntues">[docs]</a>
-<span class="linenos">485</span>    <span class="k">def</span> <span class="nf">cntues</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="linenos">485</span>    <span class="k">def</span><span class="w"> </span><span class="nf">cntues</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="linenos">486</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_elm</span><span class="p">()):</span>
 <span class="linenos">487</span>            <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_tree_splay</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="linenos">488</span>            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">cnt</span></div>
@@ -1058,13 +1098,13 @@
 <span class="linenos">489</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.len_elm">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.len_elm">[docs]</a>
-<span class="linenos">490</span>    <span class="k">def</span> <span class="nf">len_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="linenos">490</span>    <span class="k">def</span><span class="w"> </span><span class="nf">len_elm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="linenos">491</span>        <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">size</span></div>
 
 <span class="linenos">492</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.show">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.show">[docs]</a>
-<span class="linenos">493</span>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">493</span>    <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">494</span>        <span class="nb">print</span><span class="p">(</span>
 <span class="linenos">495</span>            <span class="s2">"{"</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist_items</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">"}"</span>
 <span class="linenos">496</span>        <span class="p">)</span></div>
@@ -1072,13 +1112,13 @@
 <span class="linenos">497</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.clear">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.clear">[docs]</a>
-<span class="linenos">498</span>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">498</span>    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">499</span>        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <span class="linenos">500</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.get_sum">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.get_sum">[docs]</a>
-<span class="linenos">501</span>    <span class="k">def</span> <span class="nf">get_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">501</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">502</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">503</span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
 <span class="linenos">504</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">data</span></div>
@@ -1086,7 +1126,7 @@
 <span class="linenos">505</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.merge">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.merge">[docs]</a>
-<span class="linenos">506</span>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">"SplayTreeMultisetSum"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">506</span>    <span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">"SplayTreeMultisetSum"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">507</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">508</span>            <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">node</span>
 <span class="linenos">509</span>            <span class="k">return</span>
@@ -1105,7 +1145,7 @@
 <span class="linenos">521</span>
 <div class="viewcode-block" id="SplayTreeMultisetSum.split">
 <a class="viewcode-back" href="../../../../titan_pylib_docs/titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.html#titan_pylib.data_structures.splay_tree.splay_tree_multiset_sum.SplayTreeMultisetSum.split">[docs]</a>
-<span class="linenos">522</span>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="s2">"SplayTreeMultisetSum"</span><span class="p">,</span> <span class="s2">"SplayTreeMultisetSum"</span><span class="p">]:</span>
+<span class="linenos">522</span>    <span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="s2">"SplayTreeMultisetSum"</span><span class="p">,</span> <span class="s2">"SplayTreeMultisetSum"</span><span class="p">]:</span>
 <span class="linenos">523</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos">524</span>            <span class="k">return</span> <span class="n">SplayTreeMultisetSum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">),</span> <span class="bp">self</span>
 <span class="linenos">525</span>        <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1129,39 +1169,39 @@
 <span class="linenos">543</span>        <span class="k">return</span> <span class="n">left</span><span class="p">,</span> <span class="bp">self</span></div>
 
 <span class="linenos">544</span>
-<span class="linenos">545</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">545</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">546</span>        <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">547</span>        <span class="k">return</span> <span class="bp">self</span>
 <span class="linenos">548</span>
-<span class="linenos">549</span>    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">549</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">550</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">():</span>
 <span class="linenos">551</span>            <span class="k">raise</span> <span class="ne">StopIteration</span>
 <span class="linenos">552</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__iter</span><span class="p">)</span>
 <span class="linenos">553</span>        <span class="bp">self</span><span class="o">.</span><span class="n">__iter</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="linenos">554</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">555</span>
-<span class="linenos">556</span>    <span class="k">def</span> <span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">556</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">557</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()):</span>
 <span class="linenos">558</span>            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="o">-</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">559</span>
-<span class="linenos">560</span>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos">560</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos">561</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_search_splay</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="linenos">562</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span>
 <span class="linenos">563</span>
-<span class="linenos">564</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="linenos">564</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="linenos">565</span>        <span class="bp">self</span><span class="o">.</span><span class="n">_set_kth_elm_splay</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="linenos">566</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">key</span>
 <span class="linenos">567</span>
-<span class="linenos">568</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">568</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">569</span>        <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">cntsize</span>
 <span class="linenos">570</span>
-<span class="linenos">571</span>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">571</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">572</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 <span class="linenos">573</span>
-<span class="linenos">574</span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">574</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">575</span>        <span class="k">return</span> <span class="s2">"{"</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span> <span class="o">+</span> <span class="s2">"}"</span>
 <span class="linenos">576</span>
-<span class="linenos">577</span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">577</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">578</span>        <span class="k">return</span> <span class="s2">"SplayTreeMultisetSum("</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="s2">")"</span></div>
 
 </pre></div>
@@ -1188,9 +1228,9 @@
 </aside>
 </div>
 </div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+<script src="../../../../_static/doctools.js?v=9bcbadda"></script>
 <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-<script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
+<script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
 <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../../_static/copybutton.js?v=4ea706d9"></script>
 <script src="../../../../_static/_static/script.js"></script>

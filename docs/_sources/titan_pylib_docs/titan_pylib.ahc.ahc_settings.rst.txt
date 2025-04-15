@@ -22,6 +22,6 @@ titan\_pylib.ahc.ahc\_settings
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.ahc.ahc_settings
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

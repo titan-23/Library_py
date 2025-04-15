@@ -22,6 +22,6 @@ titan\_pylib.graph.get\_bridge
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.get_bridge
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

@@ -22,6 +22,6 @@ titan\_pylib.graph.rooted\_tree
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.rooted_tree
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

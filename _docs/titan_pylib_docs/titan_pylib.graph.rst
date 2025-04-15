@@ -22,13 +22,13 @@ Submodules
    titan_pylib.graph.dfs_tree
    titan_pylib.graph.dijkstra
    titan_pylib.graph.euler_tour
+   titan_pylib.graph.functional_graph
    titan_pylib.graph.get_articulation_points
    titan_pylib.graph.get_biconnected_components
    titan_pylib.graph.get_bridge
    titan_pylib.graph.get_scc
    titan_pylib.graph.get_scc_graph
    titan_pylib.graph.get_scc_lowlink
-   titan_pylib.graph.graph
    titan_pylib.graph.grid_bfs
    titan_pylib.graph.is_bipartite_graph
    titan_pylib.graph.lca
@@ -46,6 +46,6 @@ Submodules
 
 .. automodule:: titan_pylib.graph
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

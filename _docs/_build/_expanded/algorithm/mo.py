@@ -9,11 +9,11 @@ class Mo:
     :math:`O(\\frac{n}{\\sqrt{q}})` です。
 
     Args:
-      n (int): 列の長さです。
-      q (int): クエリの数です。
+        n (int): 列の長さです。
+        q (int): クエリの数です。
 
     制約:
-      :math:`0 \\leq n, 0 \\leq q`
+        :math:`0 \\leq n, 0 \\leq q`
     """
 
     def __init__(self, n: int, q: int) -> None:
@@ -33,7 +33,7 @@ class Mo:
         :math:`O(1)` です。
 
         制約:
-          :math:`0 \\leq l \\leq r \\leq n`
+            :math:`0 \\leq l \\leq r \\leq n`
         """
         assert (
             0 <= l <= r <= self.n
@@ -53,12 +53,12 @@ class Mo:
         :math:`O(q\\sqrt{n})` です。
 
         Args:
-          add (Callable[[int], None]): 引数のインデックスに対応する要素を追加します。
-          delete (Callable[[int], None]): 引数のインデックスに対応する要素を削除します。
-          out (Callable[[int], None]): クエリ番号に対する答えを処理します。
+            add (Callable[[int], None]): 引数のインデックスに対応する要素を追加します。
+            delete (Callable[[int], None]): 引数のインデックスに対応する要素を削除します。
+            out (Callable[[int], None]): クエリ番号に対する答えを処理します。
 
         制約:
-          ``q`` 回のクエリを ``add_query`` メソッドで追加する必要があります。
+            ``q`` 回のクエリを ``add_query`` メソッドで追加する必要があります。
         """
         assert (
             self.cnt == self.q
@@ -96,14 +96,14 @@ class Mo:
         :math:`O(q\\sqrt{n})` です。
 
         Args:
-          add_left (Callable[[int], None]): 引数のインデックスに対応する要素を左から追加します。
-          add_right (Callable[[int], None]): 引数のインデックスに対応する要素を右から追加します。
-          delete_left (Callable[[int], None]): 引数のインデックスに対応する要素を左から削除します。
-          delete_right (Callable[[int], None]): 引数のインデックスに対応する要素を右から削除します。
-          out (Callable[[int], None]): クエリ番号に対する答えを処理します。
+            add_left (Callable[[int], None]): 引数のインデックスに対応する要素を左から追加します。
+            add_right (Callable[[int], None]): 引数のインデックスに対応する要素を右から追加します。
+            delete_left (Callable[[int], None]): 引数のインデックスに対応する要素を左から削除します。
+            delete_right (Callable[[int], None]): 引数のインデックスに対応する要素を右から削除します。
+            out (Callable[[int], None]): クエリ番号に対する答えを処理します。
 
         制約:
-          ``q`` 回のクエリを ``add_query`` メソッドで追加する必要があります。
+            ``q`` 回のクエリを ``add_query`` メソッドで追加する必要があります。
         """
         assert (
             self.cnt == self.q

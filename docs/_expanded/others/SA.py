@@ -38,7 +38,7 @@ class Random:
         :math:`O(1)` です。
 
         制約:
-          :math:`begin \\leq end`
+            :math:`begin \\leq end`
         """
         assert begin <= end
         return begin + self._xor() % (end - begin + 1)
@@ -48,7 +48,7 @@ class Random:
         :math:`O(1)` です。
 
         制約:
-          :math:`begin < end`
+            :math:`begin < end`
         """
         assert begin < end
         return begin + self._xor() % (end - begin)
@@ -58,7 +58,7 @@ class Random:
         :math:`O(n)` です。
 
         Args:
-          a (list[Any]): ``a`` をシャッフルします。
+            a (list[Any]): ``a`` をシャッフルします。
         """
         n = len(a)
         for i in range(n - 1):

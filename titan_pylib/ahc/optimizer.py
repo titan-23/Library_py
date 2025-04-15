@@ -14,10 +14,32 @@ basicConfig(
 )
 
 
+def to_red(arg):
+    return f"\u001b[31m{arg}\u001b[0m"
+
+
+def to_blue(arg):
+    return f"\u001b[94m{arg}\u001b[0m"
+
+
+def to_green(arg):
+    return f"\u001b[32m{arg}\u001b[0m"
+
+
+def to_bold(arg):
+    return f"\u001b[1m{arg}\u001b[0m"
+
+
 class Optimizer:
 
     def __init__(self, settings: AHCSettings) -> None:
         self.settings: AHCSettings = settings
+        logger.info(f"------------------------------------------")
+        logger.info(to_blue(f"Optimizer settings:"))
+        logger.info(f"- study_name : {to_bold(settings.study_name)}")
+        logger.info(f"- direction  : {to_bold(settings.direction)}")
+        logger.info(f"- n_trials   : {to_bold(settings.n_trials)}")
+        logger.info(f"------------------------------------------")
         self.path = f"./optimizer_results/{self.settings.study_name}"
 
     def optimize(self) -> None:

@@ -17,6 +17,6 @@ Submodules
 
 .. automodule:: titan_pylib.data_structures.wbt
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

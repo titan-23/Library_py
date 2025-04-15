@@ -22,6 +22,6 @@ titan\_pylib.string.string\_count
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.string.string_count
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

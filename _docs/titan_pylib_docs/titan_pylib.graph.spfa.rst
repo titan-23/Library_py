@@ -22,6 +22,6 @@ titan\_pylib.graph.spfa
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.spfa
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

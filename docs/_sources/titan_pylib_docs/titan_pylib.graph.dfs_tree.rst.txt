@@ -22,6 +22,6 @@ titan\_pylib.graph.dfs\_tree
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.dfs_tree
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

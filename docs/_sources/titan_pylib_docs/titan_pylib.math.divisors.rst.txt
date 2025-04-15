@@ -22,6 +22,6 @@ titan\_pylib.math.divisors
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.math.divisors
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

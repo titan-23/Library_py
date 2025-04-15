@@ -22,6 +22,6 @@ titan\_pylib.data\_structures.segment\_tree.dual\_segment\_tree\_commutative
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.data_structures.segment_tree.dual_segment_tree_commutative
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

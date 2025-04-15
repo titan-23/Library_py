@@ -16,6 +16,6 @@ Submodules
 
 .. automodule:: titan_pylib.data_structures.cumulative_sum
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

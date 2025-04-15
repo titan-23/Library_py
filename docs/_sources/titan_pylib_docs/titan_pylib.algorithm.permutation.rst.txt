@@ -22,6 +22,6 @@ titan\_pylib.algorithm.permutation
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.algorithm.permutation
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 

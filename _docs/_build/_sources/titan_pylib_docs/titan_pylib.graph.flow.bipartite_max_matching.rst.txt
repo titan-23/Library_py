@@ -22,6 +22,6 @@ titan\_pylib.graph.flow.bipartite\_max\_matching
 ^^^^^^^^^^^^^^^^
 .. automodule:: titan_pylib.graph.flow.bipartite_max_matching
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
