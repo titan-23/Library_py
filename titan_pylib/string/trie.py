@@ -52,17 +52,16 @@ class Trie:
         if node.count - remove_cnt == 0:  # 全部消える
             self.root = Trie.Node()
             return remove_cnt
+        par = None
         for c in pref:
             node.count -= remove_cnt
-            assert node.count > 0
-            assert c in node.child
-            if node.child[c].count - remove_cnt == 0:
+            if (node.child[c].count + node.child[c].stop_count) - remove_cnt == 0:
                 del node.child[c]
                 return remove_cnt
+            par = node
             node = node.child[c]
-        node.count = 0
-        node.stop_count = 0
-        node.child.clear()
+        if par is not None:
+            del par.child[node.c]
         return remove_cnt
 
     def contains_prefix(self, pref: str) -> bool:
@@ -90,11 +89,33 @@ class Trie:
     def count(self, s: str) -> int:
         """sがいくつ含まれているか"""
         node = self.root
-        for dep, c in enumerate(s):
+        for c in enumerate(s):
             if c not in node.child:
                 return 0
             node = node.child[c]
         return node.stop_count
+
+    def tolist(self) -> list[str]:
+        res = []
+        s = []
+
+        def dfs(node: Trie.Node):
+            if not node:
+                return
+            if node.stop_count > 0:
+                t = "".join(s)
+                for _ in range(node.stop_count):
+                    res.append(t)
+            for k, v in node.child.items():
+                s.append(k)
+                dfs(v)
+                s.pop()
+
+        dfs(self.root)
+        return res
+
+    def __len__(self) -> int:
+        return self.root.count
 
     def __contains__(self, s: str) -> bool:
         return self.count(s) > 0
