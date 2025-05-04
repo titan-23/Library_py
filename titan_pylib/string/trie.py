@@ -2,9 +2,10 @@ class Trie:
 
     class Node:
 
+        __slots__ = "child", "count", "stop_count"
+
         def __init__(self):
-            self.c = None
-            self.child = {}
+            self.child: dict[str, Trie.Node] = {}
             self.count = 0
             self.stop_count = 0
 
@@ -13,12 +14,13 @@ class Trie:
 
     def add(self, s: str) -> None:
         node = self.root
-        for dep, c in enumerate(s):
+        for c in s:
             node.count += 1
-            if c not in node.child:
-                node.child[c] = Trie.Node()
-            node = node.child[c]
-            node.c = c
+            ch = node.child.get(c)
+            if ch is None:
+                ch = Trie.Node()
+                node.child[c] = ch
+            node = ch
         node.stop_count += 1
 
     def s_prefix(self, pref) -> int:
@@ -39,6 +41,13 @@ class Trie:
             node.count -= 1
             node = node.child[c]
         node.stop_count -= 1
+
+        node = self.root
+        for c in s:
+            if node.child[c].count + node.child[c].stop_count == 0:
+                del node.child[c]
+                break
+            node = node.child[c]
 
     def erase_prefix(self, pref) -> int:
         """prefを接頭辞に持つすべての文字列を削除し、削除した文字列の個数を返す / O(|pref|)"""
@@ -86,10 +95,23 @@ class Trie:
                 return True
         return False
 
+    def count_prefix(self, s: str) -> list[int]:
+        """sを接頭辞に持つ文字列がいくつあるか a[i]:=s[:i]スタートの文字列がいくつあるか"""
+        node = self.root
+        n = len(s)
+        ans = [0] * (n + 1)
+        for dep, c in enumerate(s):
+            ans[dep] = node.count + node.stop_count
+            node = node.child.get(c)
+            if node is None:
+                return ans
+        ans[n] = node.count + node.stop_count
+        return ans
+
     def count(self, s: str) -> int:
         """sがいくつ含まれているか"""
         node = self.root
-        for c in enumerate(s):
+        for c in s:
             if c not in node.child:
                 return 0
             node = node.child[c]
