@@ -73,6 +73,13 @@ class HashStringBase:
         return len(self.powb)
 
     def unite(self, h1: int, h2: int, k: int) -> int:
+        """二つのハッシュ値 h1, h2 を連結して得られるハッシュ値を返します。:math:`O(1)`です。
+
+        Args:
+            h1 (int): 先頭のハッシュ値です。
+            h2 (int): 後ろのハッシュ値です。
+            k (int): 後ろの文字列の長さです。
+        """
         # len(h2) == k
         # h1 <- h2
         if k >= self.get_cap():
