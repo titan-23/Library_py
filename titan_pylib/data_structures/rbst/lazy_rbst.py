@@ -119,7 +119,7 @@ class LazyRBST(Generic[T, F]):
         root = None
         r_root = None
         d = -1
-        rand = LazyRBST.Random.random32
+        rand = LazyRBST.Random.random32()
         while l and r:
             nd = rand() % (l.size + r.size) < l.size
             node = l if nd else r
