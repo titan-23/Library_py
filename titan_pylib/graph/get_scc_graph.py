@@ -1,9 +1,11 @@
 from titan_pylib.others.antirec import antirec
 
 
-def get_scc_graph(G: list[list[int]]):
+def get_scc_graph(
+    G: list[list[int]],
+) -> tuple[list[list[int]], list[list[int]], list[int], list[list[int]]]:
     """
-    scc, 頂点を縮約した隣接リスト, もとの頂点->新たなグラフの頂点
+    scc, 頂点を縮約した隣接リスト, もとの頂点->新たなグラフの頂点, 新たなグラフの頂点->もとの頂点
     """
     n = len(G)
     stack = [0] * n
@@ -53,4 +55,7 @@ def get_scc_graph(G: list[list[int]]):
             if ids[v] != ids[x]:
                 F[ids[v]].add(ids[x])
     F = [list(f) for f in F]
-    return groups, F, ids
+    ids_inv = [[] for _ in range(len(F))]
+    for i, v in enumerate(ids):
+        ids_inv[v].append(i)
+    return groups, F, ids, ids_inv
