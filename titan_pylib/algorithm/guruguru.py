@@ -10,7 +10,7 @@ def guruguru(n):
     val = 1
     while val < m:
         for k in range(4):
-            for t in range(l):
+            for _ in range(l):
                 i += dy[k]
                 j += dx[k]
                 if 0 <= i < n and 0 <= j < n:
