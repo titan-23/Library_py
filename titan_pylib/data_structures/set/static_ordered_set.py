@@ -34,6 +34,15 @@ class StaticOrderedSet(Generic[T]):
     def index_right(self, x: T) -> int:
         return bisect_right(self.l, x)
 
+    def neighbor(self, x: T) -> Optional[int]:
+        le = self.le(x)
+        ge = self.ge(x)
+        if le is None:
+            return ge
+        if ge is None:
+            return le
+        return le if x - le < ge - x else ge
+
     def __getitem__(self, k: int) -> T:
         return self.l[k]
 
