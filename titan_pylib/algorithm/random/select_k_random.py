@@ -14,9 +14,9 @@ def select_k_random(n: int, k: int) -> list[int]:
                 result.add(j)
         return sorted(result)
     else:
-        result = list(range(1, k + 1))
+        result = list(range(0, k))
         for i in range(k, n):
             r = random.randint(0, i)
             if r < k:
-                result[r] = i + 1
+                result[r] = i
         return sorted(result)
