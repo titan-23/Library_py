@@ -22,6 +22,8 @@ def bubble_sort(
     for i in range(n):
         flag = True
         for j in range(n - 1, i - 1, -1):
+            if j-1 < 0:
+                continue
             if not key(a[j - 1], a[j]):
                 a[j], a[j - 1] = a[j - 1], a[j]
                 flag = False
